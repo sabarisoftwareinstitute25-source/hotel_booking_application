@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../home_screen/hotel_search_screen.dart';
 import '../signup_screen/signup_screen.dart';
 import 'forget_password.dart';
 import 'otp_screen.dart';
@@ -85,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen>
           behavior: SnackBarBehavior.floating,
         ),
       );
-      return; // Stop execution
+      return;
     }
 
     setState(() {
@@ -97,10 +98,10 @@ class _LoginScreenState extends State<LoginScreen>
         _isLoading = false;
       });
 
-      // ✅ Check if email & password match registered ones
+
       if (_emailController.text.trim() == widget.registeredEmail &&
           _passwordController.text.trim() == widget.registeredPassword) {
-        // ✅ Show success snackbar
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Row(
@@ -116,15 +117,15 @@ class _LoginScreenState extends State<LoginScreen>
           ),
         );
 
-        // Navigate after snackbar is visible
+
         Future.delayed(const Duration(seconds: 2), () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const OtpScreen()),
+            MaterialPageRoute(builder: (context) => HotelSearchScreen()),
           );
         });
       } else {
-        // Show error snackbar
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Row(
@@ -168,10 +169,10 @@ class _LoginScreenState extends State<LoginScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: h * 0.08),
+                SizedBox(height: h * 0.09),
 
                 Padding(
-                  padding: EdgeInsets.only(left: w * 0.05),
+                  padding: EdgeInsets.only(left: w * 0.04),
                   child: IconButton(
                     icon: Icon(Icons.arrow_back, color: Colors.white),
                     onPressed: () {
@@ -184,6 +185,8 @@ class _LoginScreenState extends State<LoginScreen>
                 ),
 
                 SizedBox(height: h * 0.02),
+                SizedBox(height: h * 0.09),
+
 
                 AnimatedBuilder(
                   animation: _controller,
@@ -194,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen>
                         opacity: _fadeAnimation.value,
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.only(left: w * 0.08),
+                            padding: EdgeInsets.only(left: w * 0.04),
                             child: Text(
                               "Welcome Back",
                               style: TextStyle(
@@ -228,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen>
                         opacity: _fadeAnimation.value,
                         child: Center(
                           child: Padding(
-                            padding: EdgeInsets.only(left: w * 0.08),
+                            padding: EdgeInsets.only(left: w * 0.04),
                             child: Text(
                               "Login to continue your journey with us",
                               style: TextStyle(

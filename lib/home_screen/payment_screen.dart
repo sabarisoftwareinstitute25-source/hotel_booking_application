@@ -145,20 +145,20 @@ class _PaymentScreenState extends State<PaymentScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Hotel Summary Card with Glass Effect
+
               _buildHotelSummary(),
               const SizedBox(height: 24),
 
-              // Payment Methods
+
               _buildPaymentMethods(),
               const SizedBox(height: 24),
 
-              // Payment Form (shown only for credit card)
+
               if (_selectedPaymentMethod == 0) _buildPaymentForm(),
 
               const SizedBox(height: 30),
 
-              // Total Amount & Pay Button
+
               _buildTotalAndPayButton(),
             ],
           ),
@@ -187,7 +187,7 @@ class _PaymentScreenState extends State<PaymentScreen>
       ),
       child: Row(
         children: [
-          // Hotel Image with Decoration
+
           Container(
             width: 80,
             height: 80,
@@ -433,11 +433,11 @@ class _PaymentScreenState extends State<PaymentScreen>
           ),
           const SizedBox(height: 20),
 
-          // Card Preview
+
           _buildCardPreview(),
           const SizedBox(height: 20),
 
-          // Form Fields
+
           _buildFormField(
             controller: _cardNumberController,
             label: "Card Number",
@@ -475,7 +475,7 @@ class _PaymentScreenState extends State<PaymentScreen>
           ),
           const SizedBox(height: 16),
 
-          // Save Card Option
+
           Row(
             children: [
               Container(
@@ -789,7 +789,7 @@ class _PaymentScreenState extends State<PaymentScreen>
       _isProcessing = true;
     });
 
-    // Simulate payment processing
+
     await Future.delayed(const Duration(seconds: 2));
 
     setState(() {
@@ -985,7 +985,6 @@ class _PaymentScreenState extends State<PaymentScreen>
                     ),
                     const SizedBox(height: 20),
 
-                    // ✅ Sections
                     _section("🏨 Hotel Information", _buildHotelInfo()),
                     _section("📑 Receipt Details", _buildReceiptDetails()),
                     _section("👤 Guest Details", _buildGuestDetails()),
@@ -995,12 +994,12 @@ class _PaymentScreenState extends State<PaymentScreen>
 
                     const SizedBox(height: 20),
 
-                    // ✅ Footer with Thank you
+
                     _buildReceiptFooter(),
 
                     const SizedBox(height: 20),
 
-                    // ✅ Actions
+
                     Row(
                       children: [
                         Expanded(
@@ -1043,7 +1042,7 @@ class _PaymentScreenState extends State<PaymentScreen>
     );
   }
 
-  /// ✅ Helper to make clean titled sections
+
   Widget _section(String title, Widget child) {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -1313,10 +1312,10 @@ class _PaymentScreenState extends State<PaymentScreen>
         children: [
 
           const SizedBox(height: 10),
-          // Simple column layout instead of table for better mobile display
+
           Column(
             children: [
-              // Header Row
+
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                 decoration: BoxDecoration(
@@ -1370,7 +1369,7 @@ class _PaymentScreenState extends State<PaymentScreen>
                 ),
               ),
               const SizedBox(height: 8),
-              // Data Row
+
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                 child: Row(
@@ -1423,19 +1422,8 @@ class _PaymentScreenState extends State<PaymentScreen>
             ],
           ),
 
-          // Alternative: Simple vertical layout (uncomment if above doesn't work well)
-          /*
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildRoomDetailRow("Room Type", "Deluxe Room (King)"),
-            _buildRoomDetailRow("Room Number", "205"),
-            _buildRoomDetailRow("Rate per Night", "₹6,000"),
-            _buildRoomDetailRow("Number of Nights", "4"),
-            _buildRoomDetailRow("Total Amount", "₹24,000", isBold: true),
-          ],
-        ),
-        */
+
+
         ],
       ),
     );

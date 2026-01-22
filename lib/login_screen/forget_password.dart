@@ -123,7 +123,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Gradient + background painter like LoginScreen
+
           Container(
             width: w,
             height: h,
@@ -196,7 +196,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ElevatedButton(
                           onPressed: () {
                             if (!_emailVerified) {
-                              // Verify email
+
                               if (_emailController.text.trim() == widget.registeredEmail) {
                                 setState(() => _emailVerified = true);
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -208,7 +208,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                 );
                               }
                             } else {
-                              // Update password
+
                               if (_newPasswordController.text.trim().isNotEmpty) {
                                 Navigator.pushReplacement(
                                   context,
@@ -273,7 +273,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 }
 
-// Same background painter as LoginScreen
+
 class _BackgroundPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

@@ -1,979 +1,18 @@
-//
-// import 'package:flutter/material.dart';
-// import 'package:flutter/scheduler.dart' show timeDilation;
-//
-// class HotelDetailsScreen extends StatefulWidget {
-//   final Map<String, dynamic> hotel;
-//
-//   const HotelDetailsScreen({super.key, required this.hotel});
-//
-//   @override
-//   State<HotelDetailsScreen> createState() => _HotelDetailsScreenState();
-// }
-//
-// class _HotelDetailsScreenState extends State<HotelDetailsScreen>
-//     with SingleTickerProviderStateMixin {
-//   late AnimationController _controller;
-//   late Animation<double> _fadeAnimation;
-//   late Animation<double> _slideAnimation;
-//   late Animation<Color?> _colorAnimation;
-//
-//   final ScrollController _scrollController = ScrollController();
-//   double _scrollOffset = 0.0;
-//   bool _showTitle = false;
-//
-//   // Food court variables
-//   int _selectedCategory = 0; // 0: All, 1: Veg, 2: Non-veg
-//   final List<String> _categories = ["All", "Veg", "Non veg"];
-//
-//
-//   final List<Map<String, dynamic>> _foodItems = [
-//     {
-//       "name": "Chicken Biryani",
-//       "rating": 3.5,
-//       "reviews": 2001,
-//       "description": "neque, amet blandit tincidunt vulputate",
-//       "price": 10.0,
-//       "discount": 25.0,
-//       "isVeg": false,
-//       "image": "assets/images/chicken-biryani.jpg", // 👈 Add image
-//     },
-//     {
-//       "name": "Crispy mozza burger",
-//       "rating": 3.9,
-//       "reviews": 2001,
-//       "description": "neque, amet blandit tincidunt vulputate",
-//       "price": 8.0,
-//       "discount": 25.0,
-//       "isVeg": false,
-//       "image": "assets/images/burger.jpeg",
-//     },
-//     {
-//       "name": "Sandwich",
-//       "rating": 3.9,
-//       "reviews": 2001,
-//       "description": "neque, amet blandit tincidunt vulputate",
-//       "price": 5.0,
-//       "discount": 25.0,
-//       "isVeg": true,
-//       "image": "assets/images/paneer-sandwich.jpg",
-//     },
-//     {
-//       "name": "Meals",
-//       "rating": 3.9,
-//       "reviews": 2001,
-//       "description": "neque, amet blandit tincidunt vulputate",
-//       "price": 5.0,
-//       "discount": 25.0,
-//       "isVeg": true,
-//       "image": "assets/images/meals.jpg",
-//     },
-//     {
-//       "name": "Mutton Briyani",
-//       "rating": 3.9,
-//       "reviews": 2001,
-//       "description": "neque, amet blandit tincidunt vulputate",
-//       "price": 5.0,
-//       "discount": 25.0,
-//       "isVeg": false,
-//       "image": "assets/images/mutton-biryani.jpg",
-//     },
-//     {
-//       "name": "Chappathi",
-//       "rating": 3.9,
-//       "reviews": 2001,
-//       "description": "neque, amet blandit tincidunt vulputate",
-//       "price": 5.0,
-//       "discount": 25.0,
-//       "isVeg": true,
-//       "image": "assets/images/chapathi.webp",
-//     },
-//   ];
-//
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//
-//     _controller = AnimationController(
-//       vsync: this,
-//       duration: const Duration(milliseconds: 1000),
-//     );
-//
-//     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-//       CurvedAnimation(
-//         parent: _controller,
-//         curve: const Interval(0.3, 1.0, curve: Curves.easeOut),
-//       ),
-//     );
-//
-//     _slideAnimation = Tween<double>(begin: 30.0, end: 0.0).animate(
-//       CurvedAnimation(
-//         parent: _controller,
-//         curve: const Interval(0.5, 1.0, curve: Curves.easeOut),
-//       ),
-//     );
-//
-//     _colorAnimation = ColorTween(
-//       begin: Colors.transparent,
-//       end: Colors.white,
-//     ).animate(
-//       CurvedAnimation(
-//         parent: _controller,
-//         curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
-//       ),
-//     );
-//
-//     _controller.forward();
-//
-//     _scrollController.addListener(() {
-//       setState(() {
-//         _scrollOffset = _scrollController.offset;
-//         _showTitle = _scrollOffset > 180;
-//       });
-//     });
-//   }
-//
-//   @override
-//   void dispose() {
-//     _controller.dispose();
-//     _scrollController.dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.grey[50],
-//       body: CustomScrollView(
-//         controller: _scrollController,
-//         slivers: [
-//           SliverAppBar(
-//             expandedHeight: 300,
-//             pinned: true,
-//             backgroundColor: Colors.white,
-//             elevation: 2,
-//             title: AnimatedOpacity(
-//               opacity: _showTitle ? 1.0 : 0.0,
-//               duration: const Duration(milliseconds: 200),
-//               child: Align(
-//                 alignment: Alignment.topCenter,
-//                 child: Text(
-//                   widget.hotel["name"] ?? "",
-//                   style: const TextStyle(
-//                     color: Colors.black,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             iconTheme: const IconThemeData(color: Colors.white),
-//             flexibleSpace: FlexibleSpaceBar(
-//               collapseMode: CollapseMode.parallax,
-//               title: AnimatedOpacity(
-//                 opacity: _showTitle ? 0.0 : 1.0,
-//                 duration: const Duration(milliseconds: 200),
-//                 child: Align(
-//                   alignment: Alignment.centerLeft,
-//                   child: Padding(
-//                     padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
-//                     child: Text(
-//                       widget.hotel["name"] ?? "",
-//                       style: const TextStyle(
-//                         color: Colors.white,
-//                         fontWeight: FontWeight.bold,
-//                         fontSize: 16,
-//                         shadows: [
-//                           Shadow(
-//                             color: Colors.black54,
-//                             offset: Offset(1, 1),
-//                             blurRadius: 10,
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               background: Stack(
-//                 children: [
-//                   Hero(
-//                     tag: widget.hotel["image"],
-//                     child: Image.asset(
-//                       widget.hotel["image"],
-//                       fit: BoxFit.cover,
-//                       height: double.infinity,
-//                       width: double.infinity,
-//                     ),
-//                   ),
-//                   Container(
-//                     decoration: BoxDecoration(
-//                       gradient: LinearGradient(
-//                         begin: Alignment.topCenter,
-//                         end: Alignment.bottomCenter,
-//                         colors: [
-//                           Colors.transparent,
-//                           Colors.black.withOpacity(0.4),
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//
-//
-//           SliverToBoxAdapter(
-//             child: AnimatedBuilder(
-//               animation: _controller,
-//               builder: (context, child) {
-//                 return Transform.translate(
-//                   offset: Offset(0, _slideAnimation.value),
-//                   child: Opacity(
-//                     opacity: _fadeAnimation.value,
-//                     child: child,
-//                   ),
-//                 );
-//               },
-//               child: Padding(
-//                 padding: const EdgeInsets.all(16),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     // Rating + Location
-//                     Container(
-//                       padding: const EdgeInsets.all(16),
-//                       decoration: BoxDecoration(
-//                         color: Colors.white,
-//                         borderRadius: BorderRadius.circular(16),
-//                         boxShadow: [
-//                           BoxShadow(
-//                             color: Colors.grey.withOpacity(0.1),
-//                             blurRadius: 10,
-//                             offset: const Offset(0, 5),
-//                           ),
-//                         ],
-//                       ),
-//                       child: Row(
-//                         children: [
-//                           Container(
-//                             padding: const EdgeInsets.symmetric(
-//                               horizontal: 8,
-//                               vertical: 4,
-//                             ),
-//                             decoration: BoxDecoration(
-//                               color: Colors.orange[50],
-//                               borderRadius: BorderRadius.circular(8),
-//                             ),
-//                             child: Row(
-//                               children: [
-//                                 const Icon(Icons.star,
-//                                     color: Colors.orange, size: 18),
-//                                 const SizedBox(width: 4),
-//                                 Text(
-//                                   "${widget.hotel["rating"]}",
-//                                   style: const TextStyle(
-//                                     fontSize: 14,
-//                                     fontWeight: FontWeight.bold,
-//                                   ),
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                           const SizedBox(width: 10),
-//                           const Text(
-//                             "Very Good",
-//                             style: TextStyle(
-//                               fontSize: 14,
-//                               color: Colors.grey,
-//                             ),
-//                           ),
-//                           const Spacer(),
-//                           Icon(Icons.location_on,
-//                               color: Colors.grey[400], size: 18),
-//                           const SizedBox(width: 4),
-//                           Text(
-//                             widget.hotel["location"],
-//                             style: TextStyle(
-//                               color: Colors.grey[600],
-//                               fontSize: 14,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     const SizedBox(height: 20),
-//                     // Travel Date & Guest
-//                     Row(
-//                       children: [
-//                         Expanded(
-//                           child: _infoButton(Icons.calendar_today, "Check-In",
-//                               "12 Oct 2023"),
-//                         ),
-//                         const SizedBox(width: 10),
-//                         Expanded(
-//                           child: _infoButton(Icons.people, "Guest", "2 Adults"),
-//                         ),
-//                       ],
-//                     ),
-//                     const SizedBox(height: 20),
-//                     // Welcome Offer
-//                     _sectionCard(
-//                       "Welcome Offer",
-//                       "Get 20% off on your first stay. Use code WELCOME20 at checkout.",
-//                       Icons.local_offer_outlined,
-//                     ),
-//                     const SizedBox(height: 15),
-//                     // About this property
-//                     _sectionCard(
-//                       "About this property",
-//                       "Luxury beachfront resort with stunning ocean views, premium amenities, and exceptional service for an unforgettable stay.",
-//                       Icons.info_outline,
-//                     ),
-//                     const SizedBox(height: 15),
-//                     // Amenities
-//                     Text("Amenities for Families with Kids",
-//                         style: sectionTitleStyle),
-//                     const SizedBox(height: 10),
-//                     GridView.count(
-//                       crossAxisCount: 3,
-//                       shrinkWrap: true,
-//                       physics: const NeverScrollableScrollPhysics(),
-//                       childAspectRatio: 2.5,
-//                       crossAxisSpacing: 10,
-//                       mainAxisSpacing: 10,
-//                       children: [
-//                         _amenityChip("Swimming Pool", Icons.pool),
-//                         _amenityChip("Restaurant", Icons.restaurant),
-//                         _amenityChip("Indoor Games", Icons.sports_esports),
-//                         _amenityChip("Kids Club", Icons.child_care),
-//                         _amenityChip("Playground", Icons.park),
-//                         _amenityChip("Free WiFi", Icons.wifi),
-//                       ],
-//                     ),
-//
-//                     // FOOD COURT SECTION - ADDED HERE
-//                     const SizedBox(height: 30),
-//                     _buildFoodCourtSection(),
-//                     const SizedBox(height: 20),
-//
-//                     // Reviews & Rating
-//                     _reviewsSection(),
-//                     const SizedBox(height: 30),
-//                     // Book Now Button
-//                     SizedBox(
-//                       width: double.infinity,
-//                       child: ElevatedButton(
-//                         onPressed: () {
-//                           _showBookingDialog(context);
-//                         },
-//                         style: ElevatedButton.styleFrom(
-//                           padding: const EdgeInsets.symmetric(
-//                               horizontal: 50, vertical: 16),
-//                           backgroundColor: Colors.deepOrange,
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(12),
-//                           ),
-//                           elevation: 2,
-//                         ),
-//                         child: const Text("Book Now",
-//                             style: TextStyle(
-//                                 fontSize: 18,
-//                                 fontWeight: FontWeight.bold,
-//                                 color: Colors.white)),
-//                       ),
-//                     ),
-//                     const SizedBox(height: 30),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   // Food Court Section
-//   Widget _buildFoodCourtSection() {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         // Section title
-//         const Text(
-//           "Food Court",
-//           style: TextStyle(
-//             fontSize: 20,
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-//         const SizedBox(height: 16),
-//
-//         // Category filter
-//         SizedBox(
-//           height: 40,
-//           child: ListView.builder(
-//             scrollDirection: Axis.horizontal,
-//             itemCount: _categories.length,
-//             itemBuilder: (context, index) {
-//               return Padding(
-//                 padding: const EdgeInsets.only(right: 12),
-//                 child: FilterChip(
-//                   label: Text(_categories[index]),
-//                   selected: _selectedCategory == index,
-//                   onSelected: (selected) {
-//                     setState(() {
-//                       _selectedCategory = index;
-//                     });
-//                   },
-//                   selectedColor: Colors.deepOrange.withOpacity(0.2),
-//                   labelStyle: TextStyle(
-//                     color: _selectedCategory == index
-//                         ? Colors.deepOrange
-//                         : Colors.grey[700],
-//                     fontWeight: _selectedCategory == index
-//                         ? FontWeight.bold
-//                         : FontWeight.normal,
-//                   ),
-//                   backgroundColor: Colors.grey[100],
-//                   shape: StadiumBorder(
-//                     side: BorderSide(
-//                       color: _selectedCategory == index
-//                           ? Colors.deepOrange
-//                           : Colors.grey[300]!,
-//                     ),
-//                   ),
-//                 ),
-//               );
-//             },
-//           ),
-//         ),
-//         const SizedBox(height: 20),
-//
-//         // Food items list
-//         ListView.separated(
-//           shrinkWrap: true,
-//           physics: const NeverScrollableScrollPhysics(),
-//           itemCount: _foodItems.length,
-//           separatorBuilder: (context, index) => const SizedBox(height: 16),
-//           itemBuilder: (context, index) {
-//             final foodItem = _foodItems[index];
-//
-//             // Apply category filter
-//             if (_selectedCategory == 1 && !foodItem["isVeg"]) {
-//               return const SizedBox.shrink();
-//             }
-//             if (_selectedCategory == 2 && foodItem["isVeg"]) {
-//               return const SizedBox.shrink();
-//             }
-//
-//             return _buildFoodItemCard(foodItem);
-//           },
-//         ),
-//
-//         // Total price section
-//         const SizedBox(height: 24),
-//         Container(
-//           padding: const EdgeInsets.all(16),
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             borderRadius: BorderRadius.circular(16),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.grey.withOpacity(0.1),
-//                 blurRadius: 10,
-//                 offset: const Offset(0, 5),
-//               ),
-//             ],
-//           ),
-//           child: const Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text(
-//                 "Total price",
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//               Text(
-//                 "\$15",
-//                 style: TextStyle(
-//                   fontSize: 18,
-//                   fontWeight: FontWeight.bold,
-//                   color: Colors.deepOrange,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//
-//
-//
-//   Widget _buildFoodItemCard(Map<String, dynamic> item) {
-//     final discountedPrice = item["price"] * (1 - item["discount"]/100);
-//
-//     return Container(
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.grey.withOpacity(0.1),
-//             blurRadius: 10,
-//             offset: const Offset(0, 5),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           // Food Image 👇
-//           ClipRRect(
-//             borderRadius: BorderRadius.circular(12),
-//             child: Image.asset(
-//               item["image"],
-//               height: 150,
-//               width: double.infinity,
-//               fit: BoxFit.cover,
-//             ),
-//           ),
-//           const SizedBox(height: 12),
-//
-//           // Food name and veg/non-veg indicator
-//           Row(
-//             children: [
-//               Container(
-//                 width: 16,
-//                 height: 16,
-//                 decoration: BoxDecoration(
-//                   shape: BoxShape.circle,
-//                   color: item["isVeg"] ? Colors.green : Colors.red,
-//                   border: Border.all(
-//                     color: item["isVeg"] ? Colors.green : Colors.red,
-//                     width: 2,
-//                   ),
-//                 ),
-//                 child: Center(
-//                   child: Container(
-//                     width: 6,
-//                     height: 6,
-//                     decoration: const BoxDecoration(
-//                       shape: BoxShape.circle,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               const SizedBox(width: 8),
-//               Expanded(
-//                 child: Text(
-//                   item["name"],
-//                   style: const TextStyle(
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                   maxLines: 1,
-//                   overflow: TextOverflow.ellipsis,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 8),
-//
-//           // Rating and reviews
-//           Row(
-//             children: [
-//               const Icon(Icons.star, color: Colors.orange, size: 16),
-//               const SizedBox(width: 4),
-//               Text(
-//                 "${item["rating"]}",
-//                 style: const TextStyle(
-//                   fontSize: 14,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//               const SizedBox(width: 4),
-//               Text(
-//                 "Reviews (${item["reviews"]})",
-//                 style: TextStyle(
-//                   fontSize: 12,
-//                   color: Colors.grey[600],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 8),
-//
-//           // Description
-//           Text(
-//             item["description"],
-//             style: TextStyle(
-//               fontSize: 14,
-//               color: Colors.grey[600],
-//             ),
-//           ),
-//           const SizedBox(height: 12),
-//
-//           // Price and add button
-//           Row(
-//             children: [
-//               // Discount badge
-//               Container(
-//                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-//                 decoration: BoxDecoration(
-//                   color: Colors.deepOrange.withOpacity(0.2),
-//                   borderRadius: BorderRadius.circular(6),
-//                 ),
-//                 child: Text(
-//                   "${item["discount"].toInt()}% OFF",
-//                   style: const TextStyle(
-//                     fontSize: 12,
-//                     fontWeight: FontWeight.bold,
-//                     color: Colors.deepOrange,
-//                   ),
-//                 ),
-//               ),
-//               const SizedBox(width: 8),
-//
-//               // Price
-//               Text(
-//                 "\$${discountedPrice.toStringAsFixed(2)}",
-//                 style: const TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//               const SizedBox(width: 4),
-//
-//               // Original price (strikethrough)
-//               Text(
-//                 "\$${item["price"].toStringAsFixed(2)}",
-//                 style: TextStyle(
-//                   fontSize: 14,
-//                   color: Colors.grey[500],
-//                   decoration: TextDecoration.lineThrough,
-//                 ),
-//               ),
-//               const Spacer(),
-//
-//               // Add button
-//               Container(
-//                 width: 80,
-//                 height: 36,
-//                 decoration: BoxDecoration(
-//                   color: Colors.deepOrange,
-//                   borderRadius: BorderRadius.circular(18),
-//                 ),
-//                 child: const Center(
-//                   child: Text(
-//                     "Add",
-//                     style: TextStyle(
-//                       color: Colors.white,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//
-//   Widget _infoButton(IconData icon, String label, String value) {
-//     return Container(
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         border: Border.all(color: Colors.grey[200]!),
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.grey.withOpacity(0.1),
-//             blurRadius: 10,
-//             offset: const Offset(0, 5),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         children: [
-//           Icon(icon, size: 20, color: Colors.deepOrange),
-//           const SizedBox(height: 8),
-//           Text(
-//             label,
-//             style: const TextStyle(
-//               fontSize: 12,
-//               color: Colors.grey,
-//             ),
-//           ),
-//           const SizedBox(height: 4),
-//           Text(
-//             value,
-//             style: const TextStyle(
-//               fontWeight: FontWeight.w600,
-//               fontSize: 14,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _sectionCard(String title, String description, IconData icon) {
-//     return Container(
-//       width: double.infinity,
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         border: Border.all(color: Colors.grey[200]!),
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.grey.withOpacity(0.1),
-//             blurRadius: 10,
-//             offset: const Offset(0, 5),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             children: [
-//               Icon(icon, color: Colors.deepOrange, size: 20),
-//               const SizedBox(width: 8),
-//               Text(
-//                 title,
-//                 style: const TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 8),
-//           Text(
-//             description,
-//             style: TextStyle(
-//               fontSize: 14,
-//               color: Colors.grey[600],
-//               height: 1.4,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _amenityChip(String label, IconData icon) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(10),
-//         border: Border.all(color: Colors.grey[200]!),
-//       ),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Icon(icon, size: 16, color: Colors.deepOrange),
-//           const SizedBox(width: 4),
-//           Text(
-//             label,
-//             style: const TextStyle(fontSize: 12),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _reviewsSection() {
-//     return Container(
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         border: Border.all(color: Colors.grey[200]!),
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.grey.withOpacity(0.1),
-//             blurRadius: 10,
-//             offset: const Offset(0, 5),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           const Text("Reviews & Rating",
-//               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-//           const SizedBox(height: 15),
-//           Row(
-//             children: [
-//               Container(
-//                 padding: const EdgeInsets.all(10),
-//                 decoration: BoxDecoration(
-//                   color: Colors.orange[50],
-//                   shape: BoxShape.circle,
-//                 ),
-//                 child: Text("4.1",
-//                     style: TextStyle(
-//                         color: Colors.orange[800],
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.bold)),
-//               ),
-//               const SizedBox(width: 12),
-//               const Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text("Very Good",
-//                       style:
-//                       TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-//                   SizedBox(height: 4),
-//                   Text("Based on 124 reviews",
-//                       style: TextStyle(color: Colors.grey, fontSize: 12)),
-//                 ],
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 15),
-//           const TextField(
-//             maxLines: 3,
-//             decoration: InputDecoration(
-//               hintText: "Add detailed review...",
-//               border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.all(Radius.circular(12)),
-//               ),
-//               contentPadding: EdgeInsets.all(16),
-//             ),
-//           ),
-//           const SizedBox(height: 15),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: List.generate(
-//               5,
-//                   (index) => const Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: 4.0),
-//                 child: Icon(Icons.star, color: Colors.orange, size: 32),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(height: 10),
-//           const Text(
-//             "Tap to rate",
-//             textAlign: TextAlign.center,
-//             style: TextStyle(color: Colors.grey, fontSize: 12),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   void _showBookingDialog(BuildContext context) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return Dialog(
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(20),
-//           ),
-//           child: Container(
-//             padding: const EdgeInsets.all(24),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.circular(20),
-//             ),
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 const Icon(
-//                   Icons.check_circle,
-//                   color: Colors.green,
-//                   size: 64,
-//                 ),
-//                 const SizedBox(height: 16),
-//                 const Text(
-//                   "Booking Successful!",
-//                   style: TextStyle(
-//                     fontSize: 20,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 16),
-//                 Text(
-//                   "Your stay at ${widget.hotel["name"]} has been confirmed.",
-//                   textAlign: TextAlign.center,
-//                   style: const TextStyle(
-//                     fontSize: 16,
-//                     color: Colors.grey,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 24),
-//                 SizedBox(
-//                   width: double.infinity,
-//                   child: ElevatedButton(
-//                     onPressed: () {
-//                       Navigator.of(context).pop();
-//                     },
-//                     style: ElevatedButton.styleFrom(
-//                       padding: const EdgeInsets.symmetric(vertical: 16),
-//                       backgroundColor: Colors.deepOrange,
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(12),
-//                       ),
-//                     ),
-//                     child: const Text(
-//                       "Done",
-//                       style: TextStyle(
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.bold,
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-//
-//   TextStyle get sectionTitleStyle => const TextStyle(
-//     fontWeight: FontWeight.bold,
-//     fontSize: 16,
-//   );
-// }
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////
-
-
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:hotel_booking_mobile_application/home_screen/payment_screen.dart';
-
 import 'food_details_screen.dart';
 
 class HotelDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> hotel;
+  final int starRating;
 
-  const HotelDetailsScreen({super.key, required this.hotel});
+  const HotelDetailsScreen({
+    super.key,
+    required this.hotel,
+    required this.starRating,
+  });
 
   @override
   State<HotelDetailsScreen> createState() => _HotelDetailsScreenState();
@@ -1060,9 +99,118 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
     },
   ];
 
+
+  List<String> _getAmenitiesBasedOnStars(int stars) {
+    print("Getting amenities for $stars star hotel");
+
+    switch (stars) {
+      case 7:
+        return [
+          "⭐ Private Butler Service (24/7)",
+          "⭐ Smart Room Automation System",
+          "⭐ Panoramic Ocean/City Views",
+          "⭐ Gold-Plated Bathroom Fixtures",
+          "⭐ Private Jacuzzi in Every Room",
+          "⭐ Michelin-Star Restaurants (3+)",
+          "⭐ Personal Chef Available",
+          "⭐ Helicopter Transfers Airport",
+          "⭐ Infinity Pool with Butler Service",
+          "⭐ Luxury Spa with Global Treatments",
+          "⭐ Private Cinema Room",
+          "⭐ Biometric Security System",
+          "⭐ 24/7 Concierge & Personal Assistant",
+          "⭐ Private Beach Access",
+          "⭐ Fine Dining Restaurants (5+)",
+          "⭐ Champagne on Arrival",
+          "⭐ Personal Shopping Assistant",
+          "⭐ Limousine Service",
+          "⭐ Yacht Access (Complementary)",
+          "⭐ Diamond Tier Rewards Program",
+        ];
+      case 5:
+        return [
+          "✓ Luxury King Size Beds",
+          "✓ High-Speed Wi-Fi (Premium)",
+          "✓ Smart TV with Netflix",
+          "✓ Mini Bar (Stocked Daily)",
+          "✓ Nespresso Coffee Machine",
+          "✓ Marble Bathroom with Heated Floors",
+          "✓ Rain Shower & Deep Soaking Bathtub",
+          "✓ Premium Toiletries (L'Occitane)",
+          "✓ 24-Hour Room Dining",
+          "✓ Multiple Restaurants (International)",
+          "✓ Swimming Pool (Temperature Controlled)",
+          "✓ Spa & Wellness Center",
+          "✓ Fitness Center (24/7 Access)",
+          "✓ Concierge Service",
+          "✓ Valet Parking",
+          "✓ Business Center",
+          "✓ Meeting Rooms Available",
+          "✓ Kids Club",
+          "✓ Tennis Court",
+          "✓ Airport Shuttle Service",
+        ];
+      case 3:
+      default:
+        return [
+          "✓ Air Conditioning",
+          "✓ Free Wi-Fi",
+          "✓ TV with Cable Channels",
+          "✓ Comfortable Queen/King Bed",
+          "✓ Attached Bathroom",
+          "✓ Hot & Cold Water 24/7",
+          "✓ Basic Toiletries",
+          "✓ Restaurant (Breakfast Included)",
+          "✓ Complimentary Breakfast",
+          "✓ 24-Hour Front Desk",
+          "✓ Daily Housekeeping",
+          "✓ Parking (Free/Paid)",
+          "✓ Laundry Service",
+          "✓ CCTV Security",
+          "✓ Elevator/Lift",
+          "✓ Power Backup",
+          "✓ Luggage Storage",
+          "✓ Travel Desk",
+          "✓ Room Service (Limited Hours)",
+          "✓ Iron & Ironing Board (On Request)",
+        ];
+    }
+  }
+
+
+  String _getStarRatingText(int stars) {
+    switch (stars) {
+      case 7:
+        return "7-Star Luxury Hotel";
+      case 5:
+        return "5-Star Premium Hotel";
+      case 3:
+      default:
+        return "3-Star Comfort Hotel";
+    }
+  }
+
+
+  Color _getStarRatingColor(int stars) {
+    switch (stars) {
+      case 7:
+        return Color(0xFF9C27B0);
+      case 5:
+        return Color(0xFFFF9800);
+      case 3:
+      default:
+        return Color(0xFFFF5722);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
+
+    print("Hotel Details Screen initialized with star rating: ${widget.starRating}");
+    print("Hotel name: ${widget.hotel["name"]}");
+    print("Hotel star text: ${widget.hotel["star"]}");
 
     _controller = AnimationController(
       vsync: this,
@@ -1085,11 +233,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
 
     _colorAnimation = ColorTween(begin: Colors.transparent, end: Colors.white)
         .animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
-          ),
-        );
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
+      ),
+    );
 
     _controller.forward();
 
@@ -1109,7 +257,485 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
   }
 
   @override
+  // Widget build(BuildContext context) {
+  //
+  //   final int hotelStars = widget.starRating;
+  //   final amenities = _getAmenitiesBasedOnStars(hotelStars);
+  //   final starRatingText = _getStarRatingText(hotelStars);
+  //   final starRatingColor = _getStarRatingColor(hotelStars);
+  //
+  //
+  //   print("Building HotelDetailsScreen with $hotelStars stars");
+  //   print("Amenities count: ${amenities.length}");
+  //
+  //   return Scaffold(
+  //     backgroundColor: Colors.grey[50],
+  //     body: CustomScrollView(
+  //       controller: _scrollController,
+  //       slivers: [
+  //         SliverAppBar(
+  //           expandedHeight: 300,
+  //           pinned: true,
+  //           backgroundColor: Colors.white,
+  //           elevation: 2,
+  //           title: AnimatedOpacity(
+  //             opacity: _showTitle ? 1.0 : 0.0,
+  //             duration: const Duration(milliseconds: 200),
+  //             child: Align(
+  //               alignment: Alignment.topCenter,
+  //               child: Text(
+  //                 widget.hotel["name"] ?? "",
+  //                 style: const TextStyle(
+  //                   color: Colors.black,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //           iconTheme: const IconThemeData(color: Colors.white),
+  //           flexibleSpace: FlexibleSpaceBar(
+  //             collapseMode: CollapseMode.parallax,
+  //             title: AnimatedOpacity(
+  //               opacity: _showTitle ? 0.0 : 1.0,
+  //               duration: const Duration(milliseconds: 200),
+  //               child: Align(
+  //                 alignment: Alignment.centerLeft,
+  //                 child: Padding(
+  //                   padding: const EdgeInsets.only(left: 16.0, bottom: 4.0),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     mainAxisSize: MainAxisSize.min,
+  //                     children: [
+  //                       Text(
+  //                         widget.hotel["name"] ?? "",
+  //                         style: const TextStyle(
+  //                           color: Colors.white,
+  //                           fontWeight: FontWeight.bold,
+  //                           fontSize: 16,
+  //                           shadows: [
+  //                             Shadow(
+  //                               color: Colors.black54,
+  //                               offset: Offset(1, 1),
+  //                               blurRadius: 10,
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                       SizedBox(height: 4),
+  //                       Container(
+  //                         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+  //                         decoration: BoxDecoration(
+  //                           color: starRatingColor.withOpacity(0.8),
+  //                           borderRadius: BorderRadius.circular(4),
+  //                         ),
+  //                         child: Text(
+  //                           starRatingText,
+  //                           style: TextStyle(
+  //                             color: Colors.white,
+  //                             fontSize: 10,
+  //                             fontWeight: FontWeight.bold,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ),
+  //             background: Stack(
+  //               children: [
+  //                 Hero(
+  //                   tag: widget.hotel["image"],
+  //                   child: Image.asset(
+  //                     widget.hotel["image"],
+  //                     fit: BoxFit.cover,
+  //                     height: double.infinity,
+  //                     width: double.infinity,
+  //                   ),
+  //                 ),
+  //                 Container(
+  //                   decoration: BoxDecoration(
+  //                     gradient: LinearGradient(
+  //                       begin: Alignment.topCenter,
+  //                       end: Alignment.bottomCenter,
+  //                       colors: [
+  //                         Colors.transparent,
+  //                         Colors.black.withOpacity(0.4),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //
+  //         SliverToBoxAdapter(
+  //           child: AnimatedBuilder(
+  //             animation: _controller,
+  //             builder: (context, child) {
+  //               return Transform.translate(
+  //                 offset: Offset(0, _slideAnimation.value),
+  //                 child: Opacity(opacity: _fadeAnimation.value, child: child),
+  //               );
+  //             },
+  //             child: Padding(
+  //               padding: const EdgeInsets.all(16),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   // Star Rating Banner
+  //                   Container(
+  //                     padding: const EdgeInsets.all(16),
+  //                     decoration: BoxDecoration(
+  //                       color: starRatingColor.withOpacity(0.1),
+  //                       borderRadius: BorderRadius.circular(16),
+  //                       border: Border.all(color: starRatingColor.withOpacity(0.3)),
+  //                     ),
+  //                     child: Row(
+  //                       children: [
+  //                         Container(
+  //                           padding: EdgeInsets.all(8),
+  //                           decoration: BoxDecoration(
+  //                             color: starRatingColor,
+  //                             shape: BoxShape.circle,
+  //                           ),
+  //                           child: Icon(
+  //                             Icons.star,
+  //                             color: Colors.white,
+  //                             size: 24,
+  //                           ),
+  //                         ),
+  //                         SizedBox(width: 12),
+  //                         Expanded(
+  //                           child: Column(
+  //                             crossAxisAlignment: CrossAxisAlignment.start,
+  //                             children: [
+  //                               Text(
+  //                                 starRatingText,
+  //                                 style: TextStyle(
+  //                                   fontSize: 18,
+  //                                   fontWeight: FontWeight.bold,
+  //                                   color: starRatingColor,
+  //                                 ),
+  //                               ),
+  //                               SizedBox(height: 4),
+  //                               Text(
+  //                                 "Enjoy exclusive ${hotelStars}-star luxury amenities and premium services",
+  //                                 style: TextStyle(
+  //                                   fontSize: 12,
+  //                                   color: Colors.grey[700],
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: 20),
+  //
+  //                   Container(
+  //                     padding: const EdgeInsets.all(16),
+  //                     decoration: BoxDecoration(
+  //                       color: Colors.white,
+  //                       borderRadius: BorderRadius.circular(16),
+  //                       boxShadow: [
+  //                         BoxShadow(
+  //                           color: Colors.grey.withOpacity(0.1),
+  //                           blurRadius: 10,
+  //                           offset: const Offset(0, 5),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     child: Row(
+  //                       children: [
+  //                         Container(
+  //                           padding: const EdgeInsets.symmetric(
+  //                             horizontal: 8,
+  //                             vertical: 4,
+  //                           ),
+  //                           decoration: BoxDecoration(
+  //                             color: Colors.orange[50],
+  //                             borderRadius: BorderRadius.circular(8),
+  //                           ),
+  //                           child: Row(
+  //                             children: [
+  //                               const Icon(
+  //                                 Icons.star,
+  //                                 color: Colors.orange,
+  //                                 size: 18,
+  //                               ),
+  //                               const SizedBox(width: 4),
+  //                               Text(
+  //                                 "${widget.hotel["rating"]}",
+  //                                 style: const TextStyle(
+  //                                   fontSize: 14,
+  //                                   fontWeight: FontWeight.bold,
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                         const SizedBox(width: 10),
+  //                         const Text(
+  //                           "Very Good",
+  //                           style: TextStyle(fontSize: 14, color: Colors.grey),
+  //                         ),
+  //                         const Spacer(),
+  //                         Icon(
+  //                           Icons.location_on,
+  //                           color: Colors.grey[400],
+  //                           size: 18,
+  //                         ),
+  //                         const SizedBox(width: 4),
+  //                         Text(
+  //                           widget.hotel["location"],
+  //                           style: TextStyle(
+  //                             color: Colors.grey[600],
+  //                             fontSize: 14,
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   const SizedBox(height: 20),
+  //
+  //                   // Hotel Features based on star rating
+  //                   Container(
+  //                     padding: const EdgeInsets.all(16),
+  //                     decoration: BoxDecoration(
+  //                       color: Colors.white,
+  //                       borderRadius: BorderRadius.circular(16),
+  //                       boxShadow: [
+  //                         BoxShadow(
+  //                           color: Colors.grey.withOpacity(0.1),
+  //                           blurRadius: 10,
+  //                           offset: const Offset(0, 5),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     child: Column(
+  //                       crossAxisAlignment: CrossAxisAlignment.start,
+  //                       children: [
+  //                         Row(
+  //                           children: [
+  //                             Icon(
+  //                               Icons.emoji_events,
+  //                               color: starRatingColor,
+  //                             ),
+  //                             SizedBox(width: 8),
+  //                             Text(
+  //                               "Premium Features",
+  //                               style: TextStyle(
+  //                                 fontSize: 18,
+  //                                 fontWeight: FontWeight.bold,
+  //                                 color: Colors.grey[800],
+  //                               ),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                         SizedBox(height: 12),
+  //                         Text(
+  //                           "As a ${hotelStars}-star hotel, you'll enjoy:",
+  //                           style: TextStyle(
+  //                             fontSize: 14,
+  //                             color: Colors.grey[600],
+  //                           ),
+  //                         ),
+  //                         SizedBox(height: 12),
+  //                         ...amenities.take(3).map((amenity) {
+  //                           return Padding(
+  //                             padding: const EdgeInsets.symmetric(vertical: 4),
+  //                             child: Row(
+  //                               crossAxisAlignment: CrossAxisAlignment.start,
+  //                               children: [
+  //                                 Icon(
+  //                                   Icons.check_circle,
+  //                                   color: starRatingColor,
+  //                                   size: 16,
+  //                                 ),
+  //                                 SizedBox(width: 8),
+  //                                 Expanded(
+  //                                   child: Text(
+  //                                     amenity,
+  //                                     style: TextStyle(
+  //                                       fontSize: 14,
+  //                                       color: Colors.grey[700],
+  //                                     ),
+  //                                   ),
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                           );
+  //                         }).toList(),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: 20),
+  //
+  //                   Row(
+  //                     children: [
+  //                       Expanded(
+  //                         child: _infoButton(
+  //                           Icons.calendar_today,
+  //                           "Check-In",
+  //                           "12 Oct 2023",
+  //                         ),
+  //                       ),
+  //                       const SizedBox(width: 10),
+  //                       Expanded(
+  //                         child: _infoButton(Icons.people, "Guest", "2 Adults"),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                   SizedBox(height: 20),
+  //
+  //                   _sectionCard(
+  //                     "Welcome Offer",
+  //                     "Get 20% off on your first stay. Use code WELCOME20 at checkout.",
+  //                     Icons.local_offer_outlined,
+  //                   ),
+  //                   SizedBox(height: 15),
+  //
+  //                   _sectionCard(
+  //                     "About this property",
+  //                     widget.hotel["description"] ?? "Premium hotel with excellent amenities and services.",
+  //                     Icons.info_outline,
+  //                   ),
+  //                   SizedBox(height: 15),
+  //
+  //
+  //                   Container(
+  //                     padding: const EdgeInsets.all(16),
+  //                     decoration: BoxDecoration(
+  //                       color: Colors.white,
+  //                       borderRadius: BorderRadius.circular(16),
+  //                       boxShadow: [
+  //                         BoxShadow(
+  //                           color: Colors.grey.withOpacity(0.1),
+  //                           blurRadius: 10,
+  //                           offset: const Offset(0, 5),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     child: Column(
+  //                       crossAxisAlignment: CrossAxisAlignment.start,
+  //                       children: [
+  //                         Text(
+  //                           "All ${hotelStars}-Star Amenities",
+  //                           style: TextStyle(
+  //                             fontSize: 18,
+  //                             fontWeight: FontWeight.bold,
+  //                             color: Colors.grey[800],
+  //                           ),
+  //                         ),
+  //                         SizedBox(height: 12),
+  //                         Text(
+  //                           "Complete list of amenities for your ${hotelStars}-star experience:",
+  //                           style: TextStyle(
+  //                             fontSize: 14,
+  //                             color: Colors.grey[600],
+  //                           ),
+  //                         ),
+  //                         SizedBox(height: 16),
+  //                         Column(
+  //                           children: amenities.map((amenity) {
+  //                             return Padding(
+  //                               padding: const EdgeInsets.symmetric(vertical: 8),
+  //                               child: Row(
+  //                                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                                 children: [
+  //                                   Container(
+  //                                     width: 24,
+  //                                     height: 24,
+  //                                     decoration: BoxDecoration(
+  //                                       color: starRatingColor.withOpacity(0.1),
+  //                                       shape: BoxShape.circle,
+  //                                     ),
+  //                                     child: Center(
+  //                                       child: Icon(
+  //                                         _getAmenityIcon(amenity),
+  //                                         size: 12,
+  //                                         color: starRatingColor,
+  //                                       ),
+  //                                     ),
+  //                                   ),
+  //                                   SizedBox(width: 12),
+  //                                   Expanded(
+  //                                     child: Text(
+  //                                       amenity,
+  //                                       style: TextStyle(
+  //                                         fontSize: 14,
+  //                                         color: Colors.grey[700],
+  //                                       ),
+  //                                     ),
+  //                                   ),
+  //                                 ],
+  //                               ),
+  //                             );
+  //                           }).toList(),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //
+  //                   const SizedBox(height: 30),
+  //                   _buildFoodCourtSection(),
+  //                   const SizedBox(height: 20),
+  //
+  //                   _reviewsSection(),
+  //                   const SizedBox(height: 30),
+  //
+  //                   SizedBox(
+  //                     width: double.infinity,
+  //                     child: ElevatedButton(
+  //                       onPressed: () {
+  //                         _showBookingDialog(context);
+  //                       },
+  //                       style: ElevatedButton.styleFrom(
+  //                         padding: const EdgeInsets.symmetric(
+  //                           horizontal: 50,
+  //                           vertical: 16,
+  //                         ),
+  //                         backgroundColor: Colors.deepOrange,
+  //                         shape: RoundedRectangleBorder(
+  //                           borderRadius: BorderRadius.circular(12),
+  //                         ),
+  //                         elevation: 2,
+  //                       ),
+  //                       child: const Text(
+  //                         "Book Now",
+  //                         style: TextStyle(
+  //                           fontSize: 18,
+  //                           fontWeight: FontWeight.bold,
+  //                           color: Colors.white,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   const SizedBox(height: 30),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+  @override
   Widget build(BuildContext context) {
+
+    final int hotelStars = widget.starRating;
+    final amenities = _getAmenitiesBasedOnStars(hotelStars);
+    final starRatingText = _getStarRatingText(hotelStars);
+    final starRatingColor = _getStarRatingColor(hotelStars);
+
+
+    print("Building HotelDetailsScreen with $hotelStars stars");
+    print("Amenities count: ${amenities.length}");
+
     return Scaffold(
       backgroundColor: Colors.grey[50],
       body: CustomScrollView(
@@ -1143,21 +769,43 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
-                    child: Text(
-                      widget.hotel["name"] ?? "",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black54,
-                            offset: Offset(1, 1),
-                            blurRadius: 10,
+                    padding: const EdgeInsets.only(left: 16.0, bottom: 4.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          widget.hotel["name"] ?? "",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black54,
+                                offset: Offset(1, 1),
+                                blurRadius: 10,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 4),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: starRatingColor.withOpacity(0.8),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            starRatingText,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -1204,7 +852,157 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Rating + Location
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.calendar_today,
+                                      color: Colors.deepOrange,
+                                      size: 18,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Check-in",
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "12 Oct 2023",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.people,
+                                      color: Colors.deepOrange,
+                                      size: 18,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Guest",
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 8),
+                                Text(
+                                  "2 Adults",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+
+
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: starRatingColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: starRatingColor.withOpacity(0.3)),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: starRatingColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.star,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  starRatingText,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: starRatingColor,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  "Enjoy exclusive ${hotelStars}-star luxury amenities and premium services",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey[700],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
@@ -1271,57 +1069,168 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                     ),
                     const SizedBox(height: 20),
 
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _infoButton(
-                            Icons.calendar_today,
-                            "Check-In",
-                            "12 Oct 2023",
+
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: _infoButton(Icons.people, "Guest", "2 Adults"),
-                        ),
-                      ],
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.emoji_events,
+                                color: starRatingColor,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                "Premium Features",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 12),
+                          Text(
+                            "As a ${hotelStars}-star hotel, you'll enjoy:",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          SizedBox(height: 12),
+                          ...amenities.take(3).map((amenity) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.check_circle,
+                                    color: starRatingColor,
+                                    size: 16,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      amenity,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey[700],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
+
+
 
                     _sectionCard(
                       "Welcome Offer",
                       "Get 20% off on your first stay. Use code WELCOME20 at checkout.",
                       Icons.local_offer_outlined,
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: 15),
 
                     _sectionCard(
                       "About this property",
-                      "Luxury beachfront resort with stunning ocean views, premium amenities, and exceptional service for an unforgettable stay.",
+                      widget.hotel["description"] ?? "Premium hotel with excellent amenities and services.",
                       Icons.info_outline,
                     ),
-                    const SizedBox(height: 15),
+                    SizedBox(height: 15),
 
-                    Text(
-                      "Amenities for Families with Kids",
-                      style: sectionTitleStyle,
-                    ),
-                    const SizedBox(height: 10),
-                    GridView.count(
-                      crossAxisCount: 3,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      childAspectRatio: 2.5,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      children: [
-                        _amenityChip("Swimming Pool", Icons.pool),
-                        _amenityChip("Restaurant", Icons.restaurant),
-                        _amenityChip("Indoor Games", Icons.sports_esports),
-                        _amenityChip("Kids Club", Icons.child_care),
-                        _amenityChip("Playground", Icons.park),
-                        _amenityChip("Free WiFi", Icons.wifi),
-                      ],
+
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            blurRadius: 10,
+                            offset: const Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "All ${hotelStars}-Star Amenities",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                          SizedBox(height: 12),
+                          Text(
+                            "Complete list of amenities for your ${hotelStars}-star experience:",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Column(
+                            children: amenities.map((amenity) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 24,
+                                      height: 24,
+                                      decoration: BoxDecoration(
+                                        color: starRatingColor.withOpacity(0.1),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          _getAmenityIcon(amenity),
+                                          size: 12,
+                                          color: starRatingColor,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(width: 12),
+                                    Expanded(
+                                      child: Text(
+                                        amenity,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[700],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
                     ),
 
                     const SizedBox(height: 30),
@@ -1336,10 +1245,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
                       child: ElevatedButton(
                         onPressed: () {
                           _showBookingDialog(context);
-                          // Navigator.push(
-                          //           context,
-                          //           MaterialPageRoute(builder: (_) => PaymentScreen(totalAmount: 0, hotel: {},)),
-                          //         );
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
@@ -1371,6 +1276,28 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
         ],
       ),
     );
+  }
+  IconData _getAmenityIcon(String amenity) {
+    final amenityLower = amenity.toLowerCase();
+    if (amenityLower.contains('butler') || amenityLower.contains('concierge')) return Icons.person;
+    if (amenityLower.contains('wi-fi') || amenityLower.contains('wifi')) return Icons.wifi;
+    if (amenityLower.contains('pool')) return Icons.pool;
+    if (amenityLower.contains('spa')) return Icons.spa;
+    if (amenityLower.contains('gym') || amenityLower.contains('fitness')) return Icons.fitness_center;
+    if (amenityLower.contains('restaurant') || amenityLower.contains('dining')) return Icons.restaurant;
+    if (amenityLower.contains('parking')) return Icons.local_parking;
+    if (amenityLower.contains('breakfast')) return Icons.free_breakfast;
+    if (amenityLower.contains('security')) return Icons.security;
+    if (amenityLower.contains('tv')) return Icons.tv;
+    if (amenityLower.contains('bed')) return Icons.bed;
+    if (amenityLower.contains('bath')) return Icons.bathtub;
+    if (amenityLower.contains('coffee')) return Icons.coffee;
+    if (amenityLower.contains('airport') || amenityLower.contains('shuttle')) return Icons.airport_shuttle;
+    if (amenityLower.contains('service')) return Icons.room_service;
+    if (amenityLower.contains('view')) return Icons.remove_red_eye;
+    if (amenityLower.contains('smart')) return Icons.smartphone;
+    if (amenityLower.contains('private')) return Icons.vpn_key;
+    return Icons.check_circle;
   }
 
   Widget _buildFoodCourtSection() {
@@ -1487,9 +1414,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
   }
 
   Widget _buildFoodItemCard(
-    BuildContext context,
-    Map<String, dynamic> foodItem,
-  ) {
+      BuildContext context,
+      Map<String, dynamic> foodItem,
+      ) {
     final discountedPrice =
         foodItem["price"] * (1 - foodItem["discount"] / 100);
 
@@ -1522,7 +1449,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 🍔 Food image
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset(
@@ -1661,8 +1587,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
     );
   }
 
-
-
   Widget _reviewsSection() {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -1733,12 +1657,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
           ),
           const SizedBox(height: 15),
 
-          // ⭐ Now stars are clickable
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(
               5,
-              (index) => GestureDetector(
+                  (index) => GestureDetector(
                 onTap: () {
                   setState(() {
                     _selectedRating = index + 1;
@@ -1833,59 +1756,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
     );
   }
 
-  Widget _amenityChip(String label, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      decoration: BoxDecoration(
-        color: Colors.deepOrange.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.deepOrange.withOpacity(0.2)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 14, color: Colors.deepOrange),
-          const SizedBox(width: 6),
-          Flexible(
-            child: Text(
-              label,
-              style: const TextStyle(fontSize: 13, color: Colors.deepOrange),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-
-
-  // void _showBookingDialog(BuildContext context) {
-  //   // Calculate total price for food items
-  //   double totalPrice = 0.0;
-  //   _cart.forEach((itemName, qty) {
-  //     final foodItem = _foodItems.firstWhere((f) => f["name"] == itemName);
-  //     final discountedPrice = foodItem["price"] * (1 - foodItem["discount"] / 100);
-  //     totalPrice += discountedPrice * qty;
-  //   });
-  //
-  //   // Add hotel base price (you can modify this as needed)
-  //   double hotelPrice = 99.0; // Base hotel price
-  //   double finalTotal = hotelPrice + totalPrice;
-  //
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => PaymentScreen(
-  //         hotel: widget.hotel,
-  //         totalAmount: finalTotal,
-  //       ),
-  //     ),
-  //   );
-  // }
-
   void _showBookingDialog(BuildContext context) {
-    // Calculate total price for food items
     double totalPrice = 0.0;
     _cart.forEach((itemName, qty) {
       final foodItem = _foodItems.firstWhere((f) => f["name"] == itemName);
@@ -1893,7 +1764,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen>
       totalPrice += discountedPrice * qty;
     });
 
-    // Add hotel base price
     double hotelPrice = 99.0;
     double finalTotal = hotelPrice + totalPrice;
 

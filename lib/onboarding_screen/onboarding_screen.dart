@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../signup_screen/signup_screen.dart';
+import 'choose_role_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -162,11 +163,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
+
                   onPressed: () {
                     if (currentIndex == onboardingData.length - 1) {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (_) => const SignUpScreen()),
+                        MaterialPageRoute(
+                          builder: (_) => const ChooseRoleScreen(),
+                        ),
                       );
                     } else {
                       _controller.nextPage(

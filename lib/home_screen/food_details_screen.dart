@@ -110,7 +110,7 @@ class _FoodDetailsScreenState extends State<FoodDetailsScreen> {
                   ),
                   const SizedBox(height: 12),
 
-                  // Description
+
                   Text(
                     widget.foodItem["description"],
                     style: TextStyle(fontSize: 14, color: Colors.grey[700]),
