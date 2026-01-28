@@ -1841,21 +1841,11 @@
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/animation.dart';
 import 'hotel_details_screen.dart';
-
 
 class HotelSearchScreen extends StatefulWidget {
   const HotelSearchScreen({super.key});
@@ -1875,20 +1865,24 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
   Map<String, bool> _selectedFilters = {};
   bool _showResults = false;
   String? _expandedFilter;
-
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
 
-  final List<String> _purposeOptions = ['Work', 'Special Occasion', 'Transit', 'Holiday'];
+  final List<String> _purposeOptions = [
+    'Work',
+    'Special Occasion',
+    'Transit',
+    'Holiday',
+  ];
 
   final List<String> _singleSelectSections = [
     "PRICE PER NIGHT",
     "STAR RATING",
     "CANCELLATION POLICY",
     "PROPERTY TYPE",
-    "EXCLUSIVE DEALS",
-    "ROOM VIEWS"
+    "CUSTOMER DEALS",
+    "ROOM VIEWS",
   ];
 
   final List<Map<String, dynamic>> _hotels = [
@@ -1905,8 +1899,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       "reviews": 1247,
       "distance": "2.3 km from center",
       "tags": ["Free WiFi", "Pool", "Spa", "Breakfast Included"],
-      "description": "Luxury 5-star hotel with premium amenities and excellent service in the heart of Chennai.",
-      "images": ["assets/images/img5.jpg", "assets/images/img6.jpg", "assets/images/img7.jpg"]
+      "description":
+          "Luxury 5-star hotel with premium amenities and excellent service in the heart of Chennai.",
+      "images": [
+        "assets/images/img5.jpg",
+        "assets/images/img6.jpg",
+        "assets/images/img7.jpg",
+      ],
     },
     {
       "image": "assets/images/img6.jpg",
@@ -1921,8 +1920,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       "reviews": 892,
       "distance": "1.8 km from center",
       "tags": ["Free Parking", "Gym", "Restaurant"],
-      "description": "Comfortable 3-star stay with modern amenities in Chennai's prime shopping district.",
-      "images": ["assets/images/img6.jpg", "assets/images/img5.jpg", "assets/images/img7.jpg"]
+      "description":
+          "Comfortable 3-star stay with modern amenities in Chennai's prime shopping district.",
+      "images": [
+        "assets/images/img6.jpg",
+        "assets/images/img5.jpg",
+        "assets/images/img7.jpg",
+      ],
     },
     {
       "image": "assets/images/img7.jpg",
@@ -1937,8 +1941,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       "reviews": 1563,
       "distance": "0.5 km from beach",
       "tags": ["Beach Front", "Luxury", "All Inclusive"],
-      "description": "Beachfront luxury 7-star resort offering breathtaking views and premium services.",
-      "images": ["assets/images/img7.jpg", "assets/images/img5.jpg", "assets/images/img6.jpg"]
+      "description":
+          "Beachfront luxury 7-star resort offering breathtaking views and premium services.",
+      "images": [
+        "assets/images/img7.jpg",
+        "assets/images/img5.jpg",
+        "assets/images/img6.jpg",
+      ],
     },
     {
       "image": "assets/images/img5.jpg",
@@ -1953,8 +1962,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       "reviews": 1050,
       "distance": "3.1 km from center",
       "tags": ["Luxury Spa", "Fine Dining", "Rooftop Pool"],
-      "description": "Opulent 5-star hotel with royal treatment and world-class amenities.",
-      "images": ["assets/images/img5.jpg", "assets/images/img6.jpg", "assets/images/img7.jpg"]
+      "description":
+          "Opulent 5-star hotel with royal treatment and world-class amenities.",
+      "images": [
+        "assets/images/img5.jpg",
+        "assets/images/img6.jpg",
+        "assets/images/img7.jpg",
+      ],
     },
     {
       "image": "assets/images/img6.jpg",
@@ -1969,8 +1983,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       "reviews": 650,
       "distance": "4.5 km from center",
       "tags": ["Budget Friendly", "Free Breakfast", "Airport Shuttle"],
-      "description": "Affordable 3-star hotel with essential amenities for comfortable stay.",
-      "images": ["assets/images/img6.jpg", "assets/images/img5.jpg", "assets/images/img7.jpg"]
+      "description":
+          "Affordable 3-star hotel with essential amenities for comfortable stay.",
+      "images": [
+        "assets/images/img6.jpg",
+        "assets/images/img5.jpg",
+        "assets/images/img7.jpg",
+      ],
     },
   ];
 
@@ -1983,13 +2002,13 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut)
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
 
-    _slideAnimation = Tween<Offset>(
-      begin: Offset(0.0, 0.3),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOut));
+    _slideAnimation = Tween<Offset>(begin: Offset(0.0, 0.3), end: Offset.zero)
+        .animate(
+          CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
+        );
 
     _animationController.forward();
   }
@@ -2005,7 +2024,8 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       context: context,
       initialDate: isCheckIn
           ? (_checkInDate ?? DateTime.now())
-          : (_checkOutDate ?? (_checkInDate ?? DateTime.now()).add(const Duration(days: 1))),
+          : (_checkOutDate ??
+                (_checkInDate ?? DateTime.now()).add(const Duration(days: 1))),
       firstDate: DateTime.now(),
       lastDate: DateTime(DateTime.now().year + 1),
     );
@@ -2024,7 +2044,14 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     }
   }
 
-  Widget _buildCounter(String label, int value, int min, int max, Function onMinus, Function onPlus) {
+  Widget _buildCounter(
+    String label,
+    int value,
+    int min,
+    int max,
+    Function onMinus,
+    Function onPlus,
+  ) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -2104,13 +2131,11 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
   }
 
   List<String> _getCurrentRoomAmenities() {
-
     final bool is3StarSelected = _selectedFilters["3 star hotel"] ?? false;
     final bool is5StarSelected = _selectedFilters["5 star hotel"] ?? false;
     final bool is7StarSelected = _selectedFilters["7 star hotel"] ?? false;
 
     if (is7StarSelected) {
-
       return [
         "Private Butler Service",
         "Smart Room Automation",
@@ -2123,10 +2148,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         "Infinity Pool",
         "Luxury Spa",
         "Private Cinema",
-        "Biometric Security"
+        "Biometric Security",
       ];
     } else if (is5StarSelected) {
-
       return [
         "Luxury King Beds",
         "High-Speed Wi-Fi",
@@ -2143,10 +2167,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         "Fitness Center",
         "Concierge Service",
         "Valet Parking",
-        "Business Center"
+        "Business Center",
       ];
     } else if (is3StarSelected) {
-
       return [
         "Air Conditioning",
         "Free Wi-Fi",
@@ -2163,10 +2186,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         "Laundry Service",
         "CCTV Security",
         "Elevator",
-        "Power Backup"
+        "Power Backup",
       ];
     } else {
-
       return [
         "Air Conditioning",
         "Free Wi-Fi",
@@ -2183,7 +2205,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       ];
     }
   }
-
 
   void _openAllFiltersSheet(BuildContext context) {
     showModalBottomSheet(
@@ -2264,67 +2285,79 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Column(
                             children: [
-
-                              _buildFilterSection("PRICE PER NIGHT",
-                                  ["0 - 1500", "1500 - 5000", "5000 - 10000", "10000+ above"], setStateSB),
+                              _buildFilterSection("PRICE PER NIGHT", [
+                                "0 - 1500",
+                                "1500 - 5000",
+                                "5000 - 10000",
+                                "10000+ above",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
-
-                              _buildMealsFilterSection("MEALS OPTION",
-                                  [
-                                    "All meals with Tea/Coffee & Snacks included",
-                                    "Breakfast Included",
-                                    "Lunch Included",
-                                    "Dinner Included",
-                                    "Tea/Coffee & Snacks Included"
-                                  ],
-                                  setStateSB),
+                              _buildMealsFilterSection("MEALS OPTION", [
+                                "All meals with Tea/Coffee & Snacks included",
+                                "Breakfast Included",
+                                "Lunch Included",
+                                "Dinner Included",
+                                "Tea/Coffee & Snacks Included",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
-
-                              _buildPropertyTypeSection("PROPERTY TYPE",
-                                  ["Hotel", "Service Apartment", "Villa", "Homestay", "Resort"],
-                                  setStateSB),
+                              _buildPropertyTypeSection("PROPERTY TYPE", [
+                                "Hotel",
+                                "Service Apartment",
+                                "Villa",
+                                "Homestay",
+                                "Resort",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
-
-                              _buildFilterSection("STAR RATING",
-                                  ["1 star hotel", "2 star hotel", "3 star hotel", "4 star hotel", "5 star hotel", "6 star hotel", "7 star hotel", "8 star hotel", "9 star hotel", "10 star hotel"],
-                                  setStateSB),
+                              _buildFilterSection("OTHER POPULAR AMENITIES", [
+                                "AC",
+                                "Non AC",
+                                "Wi-Fi",
+                                "Swimming pool",
+                                "Restaurant",
+                                "Parking",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
-
-                              _buildDynamicRoomAmenitiesSection(roomAmenities, selectedStarRating, setStateSB),
+                              _buildFilterSection("ROOM VIEWS", [
+                                "Garden view",
+                                "City view",
+                                "Beach view",
+                                "Farming view",
+                                "Forest view",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
-
-                              _buildFilterSection("OTHER POPULAR AMENITIES",
-                                  ["Wi-Fi", "Swimming pool", "Spa", "Cafe", "Restaurant", "Gym", "Parking", "Airport Shuttle"], setStateSB),
+                              _buildFilterSection("CUSTOMER DEALS", [
+                                "Normal deals",
+                                "Last minute deals",
+                                "Rush deals",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
-
-                              _buildFilterSection("ROOM VIEWS",
-                                  ["Garden view", "City view", "Beach view", "Farming view", "Forest view"],
-                                  setStateSB),
+                              _buildFilterSection("CANCELLATION POLICY", [
+                                "Free Cancellation",
+                                "Cancellation With Penalty",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
-
-                              _buildFilterSection("EXCLUSIVE DEALS",
-                                  ["Normal deals", "Last minute deals", "Rush deals"], setStateSB),
+                              _buildHotelRulesSection(
+                                "HOTEL RULES",
+                                setStateSB,
+                              ),
                               SizedBox(height: 12),
 
-
-                              _buildFilterSection("CANCELLATION POLICY",
-                                  ["Free Cancellation", "Cancellation With Penalty"], setStateSB),
-                              SizedBox(height: 12),
-
-
-                              _buildHotelRulesSection("HOTEL RULES", setStateSB),
-                              SizedBox(height: 12),
-
-
-                              _buildFilterSection("PREVIOUSLY USED",
-                                  ["Beach", "Breakfast+Lunch/Dinner included", "5 star hotel"], setStateSB),
+                              _buildFilterSection("FREQUENTLY USED", [
+                                "Hotel",
+                                "Service Apartment",
+                                "Villa",
+                                "Homestay",
+                                "Resort",
+                                "Beach",
+                                "5 star hotel",
+                              ], setStateSB),
                               SizedBox(height: 12),
 
                               SizedBox(height: 30),
@@ -2373,6 +2406,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       },
     );
   }
+
   String? _getSelectedStarRatingText() {
     if (_selectedFilters["3 star hotel"] ?? false) return "3 star hotel";
     if (_selectedFilters["5 star hotel"] ?? false) return "5 star hotel";
@@ -2380,15 +2414,78 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     return null;
   }
 
-  Widget _buildDynamicRoomAmenitiesSection(List<String> amenities, String? selectedStarRating, StateSetter setStateSB) {
-    final isExpanded = _expandedFilter == "ROOM AMENITIES";
+  Widget _buildPropertyTypeSection(
+    String title,
+    List<String> options,
+    StateSetter setStateSB,
+  ) {
+    final isExpanded = _expandedFilter == title;
+
+
+    final List<String> allPropertyOptions = [
+      "Hotel",
+      "Service Apartment",
+      "Villa",
+      "Homestay",
+      "Resort",
+    ];
+
+
+    final List<String> hotelStarOptions = [
+      "Normal hotel",
+      "2 star hotel",
+      "3 star hotel",
+      "4 star hotel",
+      "5 star hotel",
+      "6 star hotel",
+      "7 star hotel",
+    ];
+
+
+    final List<String> resortTypeOptions = [
+      "Beach Resort",
+      "Farming Resort",
+      "Forest Resort",
+    ];
+
+
+    String? _getSelectedPropertyType() {
+      for (var option in allPropertyOptions) {
+        if (_selectedFilters[option] == true) {
+          return option;
+        }
+      }
+      return null;
+    }
+
+
+    String? _getSelectedHotelStar() {
+      for (var starOption in hotelStarOptions) {
+        if (_selectedFilters[starOption] == true) {
+          return starOption;
+        }
+      }
+      return null;
+    }
+
+
+    String? _getSelectedResortType() {
+      for (var resortType in resortTypeOptions) {
+        if (_selectedFilters[resortType] == true) {
+          return resortType;
+        }
+      }
+      return null;
+    }
 
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isExpanded ? Color(0xFFFF7043).withOpacity(0.3) : Colors.grey[200]!,
+          color: isExpanded
+              ? Color(0xFFFF7043).withOpacity(0.3)
+              : Colors.grey[200]!,
           width: 1.5,
         ),
       ),
@@ -2398,45 +2495,34 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
           GestureDetector(
             onTap: () {
               setStateSB(() {
-                if (_expandedFilter == "ROOM AMENITIES") {
+                if (_expandedFilter == title) {
                   _expandedFilter = null;
                 } else {
-                  _expandedFilter = "ROOM AMENITIES";
+                  _expandedFilter = title;
                 }
               });
             },
             child: Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: isExpanded ? Color(0xFFFF7043).withOpacity(0.05) : Colors.white,
+                color: isExpanded
+                    ? Color(0xFFFF7043).withOpacity(0.05)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "ROOM AMENITIES",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: isExpanded ? Color(0xFFFF7043) : Colors.grey[800],
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          selectedStarRating != null
-                              ? "Showing ${selectedStarRating} amenities"
-                              : "Default amenities",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: selectedStarRating != null ? Color(0xFFFF7043) : Colors.grey[600],
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: isExpanded
+                            ? Color(0xFFFF7043)
+                            : Colors.grey[800],
+                      ),
                     ),
                   ),
                   Icon(
@@ -2456,34 +2542,251 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                 border: Border(top: BorderSide(color: Colors.grey[100]!)),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ...amenities.map((option) {
+
+                  ...allPropertyOptions.map((propertyType) {
+                    final bool isSelected =
+                        _selectedFilters[propertyType] == true;
+
                     return Container(
                       margin: EdgeInsets.symmetric(vertical: 6),
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Checkbox(
-                            value: _selectedFilters[option] ?? false,
-                            onChanged: (val) {
-                              setStateSB(() {
-                                _selectedFilters[option] = val ?? false;
-                              });
-                            },
-                            activeColor: Color(0xFFFF7043),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
+
+                          Row(
+                            children: [
+                              Radio<String>(
+                                value: propertyType,
+                                groupValue: _getSelectedPropertyType(),
+                                onChanged: (value) {
+                                  setStateSB(() {
+
+                                    for (var option in allPropertyOptions) {
+                                      _selectedFilters[option] = false;
+                                    }
+
+                                    if (value != "Hotel") {
+                                      for (var starOption in hotelStarOptions) {
+                                        _selectedFilters[starOption] = false;
+                                      }
+                                    }
+
+                                    if (value != "Resort") {
+                                      for (var resortType
+                                          in resortTypeOptions) {
+                                        _selectedFilters[resortType] = false;
+                                      }
+                                    }
+
+                                    _selectedFilters[value!] = true;
+                                  });
+                                },
+                                activeColor: Color(0xFFFF7043),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  propertyType,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey[700],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Expanded(
-                            child: Text(
-                              option,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.grey[700],
+
+
+                          if (isSelected && propertyType == "Hotel")
+                            Padding(
+                              padding: EdgeInsets.only(left: 32, top: 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Select Star Rating (Optional):",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Column(
+                                    children: hotelStarOptions.map((
+                                      starOption,
+                                    ) {
+                                      return Container(
+                                        margin: EdgeInsets.symmetric(
+                                          vertical: 4,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Radio<String>(
+                                              value: starOption,
+                                              groupValue:
+                                                  _getSelectedHotelStar(),
+                                              onChanged: (value) {
+                                                setStateSB(() {
+
+                                                  for (var opt
+                                                      in hotelStarOptions) {
+                                                    _selectedFilters[opt] =
+                                                        false;
+                                                  }
+
+                                                  _selectedFilters[value
+                                                          as String] =
+                                                      true;
+                                                });
+                                              },
+                                              activeColor: Color(0xFFFF7043),
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                starOption,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey[700],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
+
+
+                          if (isSelected && propertyType == "Resort")
+                            Padding(
+                              padding: EdgeInsets.only(left: 32, top: 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Select Resort Type (Optional):",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                  SizedBox(height: 8),
+
+
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 4),
+                                    child: Row(
+                                      children: [
+                                        Radio<String>(
+                                          value: "Beach Resort",
+                                          groupValue: _getSelectedResortType(),
+                                          onChanged: (value) {
+                                            setStateSB(() {
+
+                                              for (var opt
+                                                  in resortTypeOptions) {
+                                                _selectedFilters[opt] = false;
+                                              }
+
+                                              _selectedFilters[value
+                                                      as String] =
+                                                  true;
+                                            });
+                                          },
+                                          activeColor: Color(0xFFFF7043),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            "Beach Resort",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 4),
+                                    child: Row(
+                                      children: [
+                                        Radio<String>(
+                                          value: "Farming Resort",
+                                          groupValue: _getSelectedResortType(),
+                                          onChanged: (value) {
+                                            setStateSB(() {
+
+                                              for (var opt
+                                                  in resortTypeOptions) {
+                                                _selectedFilters[opt] = false;
+                                              }
+
+                                              _selectedFilters[value
+                                                      as String] =
+                                                  true;
+                                            });
+                                          },
+                                          activeColor: Color(0xFFFF7043),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            "Farming Resort",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 4),
+                                    child: Row(
+                                      children: [
+                                        Radio<String>(
+                                          value: "Forest Resort",
+                                          groupValue: _getSelectedResortType(),
+                                          onChanged: (value) {
+                                            setStateSB(() {
+
+                                              for (var opt
+                                                  in resortTypeOptions) {
+                                                _selectedFilters[opt] = false;
+                                              }
+
+                                              _selectedFilters[value
+                                                      as String] =
+                                                  true;
+                                            });
+                                          },
+                                          activeColor: Color(0xFFFF7043),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            "Forest Resort",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey[600],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                         ],
                       ),
                     );
@@ -2496,369 +2799,463 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     );
   }
 
-  Widget _buildPropertyTypeSection(String title, List<String> options, StateSetter setStateSB) {
-    final isExpanded = _expandedFilter == title;
+  // Widget _buildPropertyTypeSection(String title, List<String> options, StateSetter setStateSB) {
+  //   final isExpanded = _expandedFilter == title;
+  //
+  //   final List<String> allPropertyOptions = [
+  //     "Hotel", "Service Apartment", "Villa", "Homestay", "Resort",
+  //     "Beach Resort", "Farming Resort", "Forest Resort"
+  //   ];
+  //
+  //   final List<String> hotelStarOptions = [
+  //     "Normal hotel", "2 star hotel", "3 star hotel", "4 star hotel",
+  //     "5 star hotel", "6 star hotel", "7 star hotel"
+  //   ];
+  //
+  //   final List<String> resortTypeOptions = [
+  //     "Beach Resort", "Farming Resort", "Forest Resort"
+  //   ];
+  //
+  //   // Get selected hotel star rating (only one can be selected)
+  //   String? _getSelectedHotelStar() {
+  //     for (var starOption in hotelStarOptions) {
+  //       if (_selectedFilters[starOption] == true) {
+  //         return starOption;
+  //       }
+  //     }
+  //     return null;
+  //   }
+  //
+  //   // Get selected resort type (only one can be selected)
+  //   String? _getSelectedResortType() {
+  //     for (var resortType in resortTypeOptions) {
+  //       if (_selectedFilters[resortType] == true) {
+  //         return resortType;
+  //       }
+  //     }
+  //     return null;
+  //   }
+  //
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(14),
+  //       border: Border.all(
+  //         color: isExpanded ? Color(0xFFFF7043).withOpacity(0.3) : Colors.grey[200]!,
+  //         width: 1.5,
+  //       ),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         GestureDetector(
+  //           onTap: () {
+  //             setStateSB(() {
+  //               if (_expandedFilter == title) {
+  //                 _expandedFilter = null;
+  //               } else {
+  //                 _expandedFilter = title;
+  //               }
+  //             });
+  //           },
+  //           child: Container(
+  //             padding: EdgeInsets.all(16),
+  //             decoration: BoxDecoration(
+  //               color: isExpanded ? Color(0xFFFF7043).withOpacity(0.05) : Colors.white,
+  //               borderRadius: BorderRadius.circular(14),
+  //             ),
+  //             child: Row(
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: [
+  //                 Expanded(
+  //                   child: Text(
+  //                     title,
+  //                     style: TextStyle(
+  //                       fontSize: 16,
+  //                       fontWeight: FontWeight.w600,
+  //                       color: isExpanded ? Color(0xFFFF7043) : Colors.grey[800],
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 Icon(
+  //                   isExpanded ? Icons.expand_less : Icons.expand_more,
+  //                   color: isExpanded ? Color(0xFFFF7043) : Colors.grey[500],
+  //                   size: 22,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //
+  //         if (isExpanded)
+  //           Container(
+  //             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  //             decoration: BoxDecoration(
+  //               border: Border(top: BorderSide(color: Colors.grey[100]!)),
+  //             ),
+  //             child: Column(
+  //               children: [
+  //                 // HOTEL - With single selection star rating
+  //                 Container(
+  //                   margin: EdgeInsets.symmetric(vertical: 6),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       // Hotel checkbox
+  //                       Row(
+  //                         children: [
+  //                           Checkbox(
+  //                             value: _selectedFilters["Hotel"] ?? false,
+  //                             onChanged: (value) {
+  //                               setStateSB(() {
+  //                                 _selectedFilters["Hotel"] = value ?? false;
+  //                                 // If unchecking Hotel, also clear star ratings
+  //                                 if (!(value ?? false)) {
+  //                                   for (var starOption in hotelStarOptions) {
+  //                                     _selectedFilters[starOption] = false;
+  //                                   }
+  //                                 }
+  //                               });
+  //                             },
+  //                             activeColor: Color(0xFFFF7043),
+  //                             shape: RoundedRectangleBorder(
+  //                               borderRadius: BorderRadius.circular(4),
+  //                             ),
+  //                           ),
+  //                           Expanded(
+  //                             child: Text(
+  //                               "Hotel",
+  //                               style: TextStyle(
+  //                                 fontSize: 15,
+  //                                 color: Colors.grey[700],
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //
+  //                       // Show star rating options only when Hotel is selected - SINGLE SELECTION (Radio)
+  //                       if ((_selectedFilters["Hotel"] ?? false))
+  //                         Padding(
+  //                           padding: EdgeInsets.only(left: 32, top: 8),
+  //                           child: Column(
+  //                             crossAxisAlignment: CrossAxisAlignment.start,
+  //                             children: [
+  //                               Text(
+  //                                 "Select Star Rating (Choose One):",
+  //                                 style: TextStyle(
+  //                                   fontSize: 13,
+  //                                   fontWeight: FontWeight.w600,
+  //                                   color: Colors.grey[600],
+  //                                 ),
+  //                               ),
+  //                               SizedBox(height: 8),
+  //                               Column(
+  //                                 children: hotelStarOptions.map((starOption) {
+  //                                   bool isSelected = _selectedFilters[starOption] ?? false;
+  //                                   return Container(
+  //                                     margin: EdgeInsets.symmetric(vertical: 4),
+  //                                     child: Row(
+  //                                       children: [
+  //                                         Radio(
+  //                                           value: starOption,
+  //                                           groupValue: _getSelectedHotelStar(),
+  //                                           onChanged: (value) {
+  //                                             setStateSB(() {
+  //                                               // Clear all other star ratings first
+  //                                               for (var opt in hotelStarOptions) {
+  //                                                 _selectedFilters[opt] = false;
+  //                                               }
+  //                                               // Select the new one
+  //                                               _selectedFilters[value as String] = true;
+  //                                             });
+  //                                           },
+  //                                           activeColor: Color(0xFFFF7043),
+  //                                         ),
+  //                                         Expanded(
+  //                                           child: Text(
+  //                                             starOption,
+  //                                             style: TextStyle(
+  //                                               fontSize: 14,
+  //                                               color: Colors.grey[700],
+  //                                             ),
+  //                                           ),
+  //                                         ),
+  //                                       ],
+  //                                     ),
+  //                                   );
+  //                                 }).toList(),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //
+  //                 // SERVICE APARTMENT - Checkbox
+  //                 Container(
+  //                   margin: EdgeInsets.symmetric(vertical: 6),
+  //                   child: Row(
+  //                     children: [
+  //                       Checkbox(
+  //                         value: _selectedFilters["Service Apartment"] ?? false,
+  //                         onChanged: (value) {
+  //                           setStateSB(() {
+  //                             _selectedFilters["Service Apartment"] = value ?? false;
+  //                           });
+  //                         },
+  //                         activeColor: Color(0xFFFF7043),
+  //                         shape: RoundedRectangleBorder(
+  //                           borderRadius: BorderRadius.circular(4),
+  //                         ),
+  //                       ),
+  //                       Expanded(
+  //                         child: Text(
+  //                           "Service Apartment",
+  //                           style: TextStyle(
+  //                             fontSize: 15,
+  //                             color: Colors.grey[700],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //
+  //                 // VILLA - Checkbox
+  //                 Container(
+  //                   margin: EdgeInsets.symmetric(vertical: 6),
+  //                   child: Row(
+  //                     children: [
+  //                       Checkbox(
+  //                         value: _selectedFilters["Villa"] ?? false,
+  //                         onChanged: (value) {
+  //                           setStateSB(() {
+  //                             _selectedFilters["Villa"] = value ?? false;
+  //                           });
+  //                         },
+  //                         activeColor: Color(0xFFFF7043),
+  //                         shape: RoundedRectangleBorder(
+  //                           borderRadius: BorderRadius.circular(4),
+  //                         ),
+  //                       ),
+  //                       Expanded(
+  //                         child: Text(
+  //                           "Villa",
+  //                           style: TextStyle(
+  //                             fontSize: 15,
+  //                             color: Colors.grey[700],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //
+  //                 // HOMESTAY - Checkbox
+  //                 Container(
+  //                   margin: EdgeInsets.symmetric(vertical: 6),
+  //                   child: Row(
+  //                     children: [
+  //                       Checkbox(
+  //                         value: _selectedFilters["Homestay"] ?? false,
+  //                         onChanged: (value) {
+  //                           setStateSB(() {
+  //                             _selectedFilters["Homestay"] = value ?? false;
+  //                           });
+  //                         },
+  //                         activeColor: Color(0xFFFF7043),
+  //                         shape: RoundedRectangleBorder(
+  //                           borderRadius: BorderRadius.circular(4),
+  //                         ),
+  //                       ),
+  //                       Expanded(
+  //                         child: Text(
+  //                           "Homestay",
+  //                           style: TextStyle(
+  //                             fontSize: 15,
+  //                             color: Colors.grey[700],
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //
+  //                 // RESORT - With single selection resort type
+  //                 Container(
+  //                   margin: EdgeInsets.symmetric(vertical: 6),
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       // Resort checkbox
+  //                       Row(
+  //                         children: [
+  //                           Checkbox(
+  //                             value: _selectedFilters["Resort"] ?? false,
+  //                             onChanged: (value) {
+  //                               setStateSB(() {
+  //                                 _selectedFilters["Resort"] = value ?? false;
+  //                                 // If unchecking Resort, also clear resort types
+  //                                 if (!(value ?? false)) {
+  //                                   for (var resortType in resortTypeOptions) {
+  //                                     _selectedFilters[resortType] = false;
+  //                                   }
+  //                                 }
+  //                               });
+  //                             },
+  //                             activeColor: Color(0xFFFF7043),
+  //                             shape: RoundedRectangleBorder(
+  //                               borderRadius: BorderRadius.circular(4),
+  //                             ),
+  //                           ),
+  //                           Expanded(
+  //                             child: Text(
+  //                               "Resort",
+  //                               style: TextStyle(
+  //                                 fontSize: 15,
+  //                                 color: Colors.grey[700],
+  //                               ),
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //
+  //                       // Show resort type options only when Resort is selected - SINGLE SELECTION (Radio)
+  //                       if ((_selectedFilters["Resort"] ?? false))
+  //                         Padding(
+  //                           padding: EdgeInsets.only(left: 32, top: 8),
+  //                           child: Column(
+  //                             crossAxisAlignment: CrossAxisAlignment.start,
+  //                             children: [
+  //                               Text(
+  //                                 "Select Resort Type (Choose One):",
+  //                                 style: TextStyle(
+  //                                   fontSize: 13,
+  //                                   fontWeight: FontWeight.w600,
+  //                                   color: Colors.grey[600],
+  //                                 ),
+  //                               ),
+  //                               SizedBox(height: 8),
+  //
+  //                               // Beach Resort - Radio
+  //                               Container(
+  //                                 margin: EdgeInsets.symmetric(vertical: 4),
+  //                                 child: Row(
+  //                                   children: [
+  //                                     Radio(
+  //                                       value: "Beach Resort",
+  //                                       groupValue: _getSelectedResortType(),
+  //                                       onChanged: (value) {
+  //                                         setStateSB(() {
+  //                                           // Clear all other resort types first
+  //                                           for (var opt in resortTypeOptions) {
+  //                                             _selectedFilters[opt] = false;
+  //                                           }
+  //                                           // Select the new one
+  //                                           _selectedFilters[value as String] = true;
+  //                                         });
+  //                                       },
+  //                                       activeColor: Color(0xFFFF7043),
+  //                                     ),
+  //                                     Expanded(
+  //                                       child: Text(
+  //                                         "Beach Resort",
+  //                                         style: TextStyle(
+  //                                           fontSize: 14,
+  //                                           color: Colors.grey[600],
+  //                                         ),
+  //                                       ),
+  //                                     ),
+  //                                   ],
+  //                                 ),
+  //                               ),
+  //
+  //                               // Farming Resort - Radio
+  //                               Container(
+  //                                 margin: EdgeInsets.symmetric(vertical: 4),
+  //                                 child: Row(
+  //                                   children: [
+  //                                     Radio(
+  //                                       value: "Farming Resort",
+  //                                       groupValue: _getSelectedResortType(),
+  //                                       onChanged: (value) {
+  //                                         setStateSB(() {
+  //                                           // Clear all other resort types first
+  //                                           for (var opt in resortTypeOptions) {
+  //                                             _selectedFilters[opt] = false;
+  //                                           }
+  //                                           // Select the new one
+  //                                           _selectedFilters[value as String] = true;
+  //                                         });
+  //                                       },
+  //                                       activeColor: Color(0xFFFF7043),
+  //                                     ),
+  //                                     Expanded(
+  //                                       child: Text(
+  //                                         "Farming Resort",
+  //                                         style: TextStyle(
+  //                                           fontSize: 14,
+  //                                           color: Colors.grey[600],
+  //                                         ),
+  //                                       ),
+  //                                     ),
+  //                                   ],
+  //                                 ),
+  //                               ),
+  //
+  //                               // Forest Resort - Radio
+  //                               Container(
+  //                                 margin: EdgeInsets.symmetric(vertical: 4),
+  //                                 child: Row(
+  //                                   children: [
+  //                                     Radio(
+  //                                       value: "Forest Resort",
+  //                                       groupValue: _getSelectedResortType(),
+  //                                       onChanged: (value) {
+  //                                         setStateSB(() {
+  //                                           // Clear all other resort types first
+  //                                           for (var opt in resortTypeOptions) {
+  //                                             _selectedFilters[opt] = false;
+  //                                           }
+  //                                           // Select the new one
+  //                                           _selectedFilters[value as String] = true;
+  //                                         });
+  //                                       },
+  //                                       activeColor: Color(0xFFFF7043),
+  //                                     ),
+  //                                     Expanded(
+  //                                       child: Text(
+  //                                         "Forest Resort",
+  //                                         style: TextStyle(
+  //                                           fontSize: 14,
+  //                                           color: Colors.grey[600],
+  //                                         ),
+  //                                       ),
+  //                                     ),
+  //                                   ],
+  //                                 ),
+  //                               ),
+  //                             ],
+  //                           ),
+  //                         ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-    final List<String> allPropertyOptions = [
-      "Hotel", "Service Apartment", "Villa", "Homestay", "Resort",
-      "Beach Resort", "Farming Resort", "Forest Resort"
-    ];
-
-
-    String? selectedOption;
-    for (var option in allPropertyOptions) {
-      if (_selectedFilters[option] == true) {
-        selectedOption = option;
-        break;
-      }
-    }
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: isExpanded ? Color(0xFFFF7043).withOpacity(0.3) : Colors.grey[200]!,
-          width: 1.5,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () {
-              setStateSB(() {
-                if (_expandedFilter == title) {
-                  _expandedFilter = null;
-                } else {
-                  _expandedFilter = title;
-                }
-              });
-            },
-            child: Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: isExpanded ? Color(0xFFFF7043).withOpacity(0.05) : Colors.white,
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: isExpanded ? Color(0xFFFF7043) : Colors.grey[800],
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    isExpanded ? Icons.expand_less : Icons.expand_more,
-                    color: isExpanded ? Color(0xFFFF7043) : Colors.grey[500],
-                    size: 22,
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          if (isExpanded)
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                border: Border(top: BorderSide(color: Colors.grey[100]!)),
-              ),
-              child: Column(
-                children: [
-
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      children: [
-                        Radio<String>(
-                          value: "Hotel",
-                          groupValue: selectedOption,
-                          onChanged: (value) {
-                            setStateSB(() {
-
-                              for (var opt in allPropertyOptions) {
-                                _selectedFilters[opt] = false;
-                              }
-
-                              _selectedFilters[value!] = true;
-                            });
-                          },
-                          activeColor: Color(0xFFFF7043),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Hotel",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      children: [
-                        Radio<String>(
-                          value: "Service Apartment",
-                          groupValue: selectedOption,
-                          onChanged: (value) {
-                            setStateSB(() {
-
-                              for (var opt in allPropertyOptions) {
-                                _selectedFilters[opt] = false;
-                              }
-
-                              _selectedFilters[value!] = true;
-                            });
-                          },
-                          activeColor: Color(0xFFFF7043),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Service Apartment",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      children: [
-                        Radio<String>(
-                          value: "Villa",
-                          groupValue: selectedOption,
-                          onChanged: (value) {
-                            setStateSB(() {
-
-                              for (var opt in allPropertyOptions) {
-                                _selectedFilters[opt] = false;
-                              }
-
-                              _selectedFilters[value!] = true;
-                            });
-                          },
-                          activeColor: Color(0xFFFF7043),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Villa",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      children: [
-                        Radio<String>(
-                          value: "Homestay",
-                          groupValue: selectedOption,
-                          onChanged: (value) {
-                            setStateSB(() {
-
-                              for (var opt in allPropertyOptions) {
-                                _selectedFilters[opt] = false;
-                              }
-
-                              _selectedFilters[value!] = true;
-                            });
-                          },
-                          activeColor: Color(0xFFFF7043),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Homestay",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 6),
-                    child: Row(
-                      children: [
-                        Radio<String>(
-                          value: "Resort",
-                          groupValue: selectedOption,
-                          onChanged: (value) {
-                            setStateSB(() {
-
-                              for (var opt in allPropertyOptions) {
-                                _selectedFilters[opt] = false;
-                              }
-
-                              _selectedFilters[value!] = true;
-                            });
-                          },
-                          activeColor: Color(0xFFFF7043),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "Resort",
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-
-                  if (selectedOption == "Resort" ||
-                      selectedOption == "Beach Resort" ||
-                      selectedOption == "Farming Resort" ||
-                      selectedOption == "Forest Resort")
-                    Padding(
-                      padding: EdgeInsets.only(left: 32),
-                      child: Column(
-                        children: [
-
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              children: [
-                                Radio<String>(
-                                  value: "Beach Resort",
-                                  groupValue: selectedOption,
-                                  onChanged: (value) {
-                                    setStateSB(() {
-
-                                      for (var opt in allPropertyOptions) {
-                                        _selectedFilters[opt] = false;
-                                      }
-
-                                      _selectedFilters[value!] = true;
-                                    });
-                                  },
-                                  activeColor: Color(0xFFFF7043),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Beach Resort",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              children: [
-                                Radio<String>(
-                                  value: "Farming Resort",
-                                  groupValue: selectedOption,
-                                  onChanged: (value) {
-                                    setStateSB(() {
-
-                                      for (var opt in allPropertyOptions) {
-                                        _selectedFilters[opt] = false;
-                                      }
-
-                                      _selectedFilters[value!] = true;
-                                    });
-                                  },
-                                  activeColor: Color(0xFFFF7043),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Farming Resort",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: 4),
-                            child: Row(
-                              children: [
-                                Radio<String>(
-                                  value: "Forest Resort",
-                                  groupValue: selectedOption,
-                                  onChanged: (value) {
-                                    setStateSB(() {
-
-                                      for (var opt in allPropertyOptions) {
-                                        _selectedFilters[opt] = false;
-                                      }
-
-                                      _selectedFilters[value!] = true;
-                                    });
-                                  },
-                                  activeColor: Color(0xFFFF7043),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    "Forest Resort",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey[600],
-                                      fontStyle: FontStyle.italic,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFilterSection(String title, List<String> options, StateSetter setStateSB) {
+  Widget _buildFilterSection(
+    String title,
+    List<String> options,
+    StateSetter setStateSB,
+  ) {
     final isExpanded = _expandedFilter == title;
     final bool isSingleSelect = _singleSelectSections.contains(title);
 
@@ -2867,7 +3264,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isExpanded ? Color(0xFFFF7043).withOpacity(0.3) : Colors.grey[200]!,
+          color: isExpanded
+              ? Color(0xFFFF7043).withOpacity(0.3)
+              : Colors.grey[200]!,
           width: 1.5,
         ),
       ),
@@ -2887,7 +3286,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
             child: Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: isExpanded ? Color(0xFFFF7043).withOpacity(0.05) : Colors.white,
+                color: isExpanded
+                    ? Color(0xFFFF7043).withOpacity(0.05)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Row(
@@ -2899,7 +3300,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: isExpanded ? Color(0xFFFF7043) : Colors.grey[800],
+                        color: isExpanded
+                            ? Color(0xFFFF7043)
+                            : Colors.grey[800],
                       ),
                     ),
                   ),
@@ -2925,25 +3328,25 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                     margin: EdgeInsets.symmetric(vertical: 6),
                     child: Row(
                       children: [
-
                         if (isSingleSelect)
                           Radio(
                             value: option,
-                            groupValue: _getSelectedOptionForSingleSelect(title),
+                            groupValue: _getSelectedOptionForSingleSelect(
+                              title,
+                            ),
                             onChanged: (selectedValue) {
                               setStateSB(() {
-
                                 for (var opt in options) {
                                   _selectedFilters[opt] = false;
                                 }
 
-                                _selectedFilters[selectedValue as String] = true;
+                                _selectedFilters[selectedValue as String] =
+                                    true;
                               });
                             },
                             activeColor: Color(0xFFFF7043),
                           )
                         else
-
                           Checkbox(
                             value: _selectedFilters[option] ?? false,
                             onChanged: (val) {
@@ -2976,50 +3379,80 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     );
   }
 
-
-
   String? _getSelectedOptionForSingleSelect(String title) {
-
     if (title == "PRICE PER NIGHT") {
-      final List<String> priceOptions = ["0 - 1500", "1500 - 5000", "5000 - 10000", "10000+ above"];
+      final List<String> priceOptions = [
+        "0 - 1500",
+        "1500 - 5000",
+        "5000 - 10000",
+        "10000+ above",
+      ];
       for (var option in priceOptions) {
         if (_selectedFilters[option] == true) return option;
       }
     } else if (title == "STAR RATING") {
-      final List<String> starOptions = ["1 star hotel", "2 star hotel", "3 star hotel", "4 star hotel", "5 star hotel", "6 star hotel", "7 star hotel", "8 star hotel", "9 star hotel", "10 star hotel"];
+      final List<String> starOptions = [
+        "Normal hotel",
+        "2 star hotel",
+        "3 star hotel",
+        "4 star hotel",
+        "5 star hotel",
+        "6 star hotel",
+        "7 star hotel",
+      ];
       for (var option in starOptions) {
         if (_selectedFilters[option] == true) return option;
       }
     } else if (title == "CANCELLATION POLICY") {
-      final List<String> cancelOptions = ["Free Cancellation", "Cancellation With Penalty"];
+      final List<String> cancelOptions = [
+        "Free Cancellation",
+        "Cancellation With Penalty",
+      ];
       for (var option in cancelOptions) {
         if (_selectedFilters[option] == true) return option;
       }
     } else if (title == "PROPERTY TYPE") {
-
       final List<String> propertyOptions = [
-        "Hotel", "Service Apartment", "Villa", "Homestay", "Resort",
-        "Beach Resort", "Farming Resort", "Forest Resort"
+        "Hotel",
+        "Service Apartment",
+        "Villa",
+        "Homestay",
+        "Resort",
+        "Beach Resort",
+        "Farming Resort",
+        "Forest Resort",
       ];
       for (var option in propertyOptions) {
         if (_selectedFilters[option] == true) return option;
       }
-    } else if (title == "EXCLUSIVE DEALS") {
-      final List<String> dealOptions = ["Normal deals", "Last minute deals", "Rush deals"];
+    } else if (title == "CUSTOMER DEALS") {
+      final List<String> dealOptions = [
+        "Normal deals",
+        "Last minute deals",
+        "Rush deals",
+      ];
       for (var option in dealOptions) {
         if (_selectedFilters[option] == true) return option;
       }
     } else if (title == "ROOM VIEWS") {
-      final List<String> viewOptions = ["Garden view", "City view", "Beach view", "Farming view", "Forest view"];
+      final List<String> viewOptions = [
+        "Garden view",
+        "City view",
+        "Beach view",
+        "Farming view",
+        "Forest view",
+      ];
       for (var option in viewOptions) {
         if (_selectedFilters[option] == true) return option;
       }
     } else if (title == "HOTEL RULES") {
-      // Check rule options (only one per rule type should be selected)
       final List<String> ruleOptions = [
-        "Pets allowed", "Pets not allowed",
-        "Smoking allowed", "Smoking not allowed",
-        "Outside food allowed", "No outside food"
+        "Pets allowed",
+        "Pets not allowed",
+        "Smoking allowed",
+        "Smoking not allowed",
+        "Outside food allowed",
+        "No outside food",
       ];
       for (var option in ruleOptions) {
         if (_selectedFilters[option] == true) return option;
@@ -3028,7 +3461,11 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     return null;
   }
 
-  void _openSingleCategory(BuildContext context, String title, List<String> options) {
+  void _openSingleCategory(
+    BuildContext context,
+    String title,
+    List<String> options,
+  ) {
     final bool isSingleSelect = _singleSelectSections.contains(title);
 
     showModalBottomSheet(
@@ -3069,42 +3506,45 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                   ),
                   const SizedBox(height: 16),
 
-                  ...options.map((opt) => Container(
-                    margin: EdgeInsets.symmetric(vertical: 4),
-                    child: Row(
-                      children: [
-                        if (isSingleSelect)
-                          Radio(
-                            value: opt,
-                            groupValue: selectedOption,
-                            onChanged: (value) {
-                              setStateSB(() {
-                                selectedOption = value as String;
-                              });
-                            },
-                            activeColor: Color(0xFFFF7043),
-                          )
-                        else
-                          Checkbox(
-                            value: _selectedFilters[opt] ?? false,
-                            onChanged: (val) {
-                              setStateSB(() {
-                                _selectedFilters[opt] = val ?? false;
-                              });
-                            },
-                            activeColor: Color(0xFFFF7043),
+                  ...options
+                      .map(
+                        (opt) => Container(
+                          margin: EdgeInsets.symmetric(vertical: 4),
+                          child: Row(
+                            children: [
+                              if (isSingleSelect)
+                                Radio(
+                                  value: opt,
+                                  groupValue: selectedOption,
+                                  onChanged: (value) {
+                                    setStateSB(() {
+                                      selectedOption = value as String;
+                                    });
+                                  },
+                                  activeColor: Color(0xFFFF7043),
+                                )
+                              else
+                                Checkbox(
+                                  value: _selectedFilters[opt] ?? false,
+                                  onChanged: (val) {
+                                    setStateSB(() {
+                                      _selectedFilters[opt] = val ?? false;
+                                    });
+                                  },
+                                  activeColor: Color(0xFFFF7043),
+                                ),
+                              Expanded(child: Text(opt)),
+                            ],
                           ),
-                        Expanded(child: Text(opt)),
-                      ],
-                    ),
-                  )).toList(),
+                        ),
+                      )
+                      .toList(),
 
                   const SizedBox(height: 20),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
                         if (isSingleSelect && selectedOption != null) {
-
                           for (var opt in options) {
                             _selectedFilters[opt] = false;
                           }
@@ -3114,12 +3554,18 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFFF7043),
-                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 14,
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      child: const Text("APPLY", style: TextStyle(color: Colors.white)),
+                      child: const Text(
+                        "APPLY",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).padding.bottom),
@@ -3134,11 +3580,58 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
 
   Widget _buildFilterChips() {
     List<Map<String, dynamic>> filters = [
-      {"label": "All Filters", "icon": Icons.filter_list, "onTap": () => _openAllFiltersSheet(context)},
-      {"label": "Price", "icon": Icons.attach_money, "onTap": () => _openSingleCategory(context, "PRICE PER NIGHT", ["0 - 1500", "1500 - 5000", "5000 - 10000", "10000+ above"])},
-      {"label": "Rating", "icon": Icons.star, "onTap": () => _openSingleCategory(context, "STAR RATING", ["1 star hotel", "2 star hotel", "3 star hotel", "4 star hotel", "5 star hotel", "6 star hotel", "7 star hotel", "8 star hotel", "9 star hotel", "10 star hotel"])},
-      {"label": "Amenities", "icon": Icons.wifi, "onTap": () => _openSingleCategory(context, "OTHER POPULAR AMENITIES", ["Wi-Fi", "Swimming pool", "Spa", "Cafe", "Restaurant", "Gym", "Parking", "Airport Shuttle"])},
-      {"label": "Distance", "icon": Icons.location_on, "onTap": () => _openSingleCategory(context, "DISTANCE", ["0-2 km", "2-5 km", "5-10 km", "10+ km"])},
+      {
+        "label": "All Filters",
+        "icon": Icons.filter_list,
+        "onTap": () => _openAllFiltersSheet(context),
+      },
+      {
+        "label": "Price",
+        "icon": Icons.attach_money,
+        "onTap": () => _openSingleCategory(context, "PRICE PER NIGHT", [
+          "0 - 1500",
+          "1500 - 5000",
+          "5000 - 10000",
+          "10000+ above",
+        ]),
+      },
+      {
+        "label": "Rating",
+        "icon": Icons.star,
+        "onTap": () => _openSingleCategory(context, "STAR RATING", [
+          "Normal hotel",
+          "2 star hotel",
+          "3 star hotel",
+          "4 star hotel",
+          "5 star hotel",
+          "6 star hotel",
+          "7 star hotel",
+        ]),
+      },
+      {
+        "label": "Amenities",
+        "icon": Icons.wifi,
+        "onTap": () => _openSingleCategory(context, "OTHER POPULAR AMENITIES", [
+          "Wi-Fi",
+          "Swimming pool",
+          "Spa",
+          "Cafe",
+          "Restaurant",
+          "Gym",
+          "Parking",
+          "Airport Shuttle",
+        ]),
+      },
+      {
+        "label": "Distance",
+        "icon": Icons.location_on,
+        "onTap": () => _openSingleCategory(context, "DISTANCE", [
+          "0-2 km",
+          "2-5 km",
+          "5-10 km",
+          "10+ km",
+        ]),
+      },
     ];
 
     return SingleChildScrollView(
@@ -3161,10 +3654,15 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     );
   }
 
-  Widget _buildMealsFilterSection(String title, List<String> options, StateSetter setStateSB) {
+  Widget _buildMealsFilterSection(
+    String title,
+    List<String> options,
+    StateSetter setStateSB,
+  ) {
     final isExpanded = _expandedFilter == title;
-    final isAllMealsSelected = _selectedFilters["All meals with Tea/Coffee & Snacks included"] ?? false;
-
+    final isAllMealsSelected =
+        _selectedFilters["All meals with Tea/Coffee & Snacks included"] ??
+        false;
 
     final bool isMealsOption = title == "MEALS OPTION";
 
@@ -3172,7 +3670,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
       "Breakfast Included",
       "Lunch Included",
       "Dinner Included",
-      "Tea/Coffee & Snacks Included"
+      "Tea/Coffee & Snacks Included",
     ];
 
     return Container(
@@ -3180,7 +3678,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isExpanded ? Color(0xFFFF7043).withOpacity(0.3) : Colors.grey[200]!,
+          color: isExpanded
+              ? Color(0xFFFF7043).withOpacity(0.3)
+              : Colors.grey[200]!,
           width: 1.5,
         ),
       ),
@@ -3200,7 +3700,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
             child: Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: isExpanded ? Color(0xFFFF7043).withOpacity(0.05) : Colors.white,
+                color: isExpanded
+                    ? Color(0xFFFF7043).withOpacity(0.05)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Row(
@@ -3212,7 +3714,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: isExpanded ? Color(0xFFFF7043) : Colors.grey[800],
+                        color: isExpanded
+                            ? Color(0xFFFF7043)
+                            : Colors.grey[800],
                       ),
                     ),
                   ),
@@ -3234,11 +3738,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
               ),
               child: Column(
                 children: options.map((option) {
-
                   bool isDisabled = false;
                   if (isMealsOption && isAllMealsSelected) {
-
-                    if (option != "All meals with Tea/Coffee & Snacks included") {
+                    if (option !=
+                        "All meals with Tea/Coffee & Snacks included") {
                       isDisabled = true;
                     }
                   }
@@ -3248,20 +3751,23 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                     child: Row(
                       children: [
                         Checkbox(
-                          value: isDisabled ? false : (_selectedFilters[option] ?? false), // When disabled, always show as unchecked
-                          onChanged: isDisabled ? null : (val) {
-                            setStateSB(() {
-                              if (isMealsOption && option == "All meals with Tea/Coffee & Snacks  included") {
-
-                                _selectedFilters[option] = val ?? false;
-
-
-                              } else {
-
-                                _selectedFilters[option] = val ?? false;
-                              }
-                            });
-                          },
+                          value: isDisabled
+                              ? false
+                              : (_selectedFilters[option] ??
+                                    false),
+                          onChanged: isDisabled
+                              ? null
+                              : (val) {
+                                  setStateSB(() {
+                                    if (isMealsOption &&
+                                        option ==
+                                            "All meals with Tea/Coffee & Snacks  included") {
+                                      _selectedFilters[option] = val ?? false;
+                                    } else {
+                                      _selectedFilters[option] = val ?? false;
+                                    }
+                                  });
+                                },
                           activeColor: Color(0xFFFF7043),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(4),
@@ -3272,7 +3778,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                             option,
                             style: TextStyle(
                               fontSize: 15,
-                              color: isDisabled ? Colors.grey[400] : Colors.grey[700],
+                              color: isDisabled
+                                  ? Colors.grey[400]
+                                  : Colors.grey[700],
                             ),
                           ),
                         ),
@@ -3290,7 +3798,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
   Widget _buildHotelRulesSection(String title, StateSetter setStateSB) {
     final isExpanded = _expandedFilter == title;
 
-
     final String? selectedPets = _getSelectedRuleOption("pets");
     final String? selectedSmoking = _getSelectedRuleOption("smoking");
     final String? selectedOutsideFood = _getSelectedRuleOption("outside_food");
@@ -3300,7 +3807,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: isExpanded ? Color(0xFFFF7043).withOpacity(0.3) : Colors.grey[200]!,
+          color: isExpanded
+              ? Color(0xFFFF7043).withOpacity(0.3)
+              : Colors.grey[200]!,
           width: 1.5,
         ),
       ),
@@ -3320,7 +3829,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
             child: Container(
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: isExpanded ? Color(0xFFFF7043).withOpacity(0.05) : Colors.white,
+                color: isExpanded
+                    ? Color(0xFFFF7043).withOpacity(0.05)
+                    : Colors.white,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Row(
@@ -3332,7 +3843,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: isExpanded ? Color(0xFFFF7043) : Colors.grey[800],
+                        color: isExpanded
+                            ? Color(0xFFFF7043)
+                            : Colors.grey[800],
                       ),
                     ),
                   ),
@@ -3355,7 +3868,7 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Pets Rule
+
                   Text(
                     "Pets",
                     style: TextStyle(
@@ -3374,10 +3887,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                           groupValue: selectedPets,
                           onChanged: (value) {
                             setStateSB(() {
-                              // Clear all pet options
                               _selectedFilters["Pets allowed"] = false;
                               _selectedFilters["Pets not allowed"] = false;
-                              // Set selected option
+
                               _selectedFilters[value!] = true;
                             });
                           },
@@ -3393,7 +3905,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                           groupValue: selectedPets,
                           onChanged: (value) {
                             setStateSB(() {
-
                               _selectedFilters["Pets allowed"] = false;
                               _selectedFilters["Pets not allowed"] = false;
 
@@ -3409,7 +3920,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                   ),
 
                   Divider(height: 20, color: Colors.grey[200]),
-
 
                   Text(
                     "Smoking",
@@ -3429,7 +3939,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                           groupValue: selectedSmoking,
                           onChanged: (value) {
                             setStateSB(() {
-
                               _selectedFilters["Smoking allowed"] = false;
                               _selectedFilters["Smoking not allowed"] = false;
 
@@ -3448,7 +3957,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                           groupValue: selectedSmoking,
                           onChanged: (value) {
                             setStateSB(() {
-
                               _selectedFilters["Smoking allowed"] = false;
                               _selectedFilters["Smoking not allowed"] = false;
 
@@ -3464,7 +3972,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                   ),
 
                   Divider(height: 20, color: Colors.grey[200]),
-
 
                   Text(
                     "Outside Food",
@@ -3484,7 +3991,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                           groupValue: selectedOutsideFood,
                           onChanged: (value) {
                             setStateSB(() {
-
                               _selectedFilters["Outside food allowed"] = false;
                               _selectedFilters["No outside food"] = false;
 
@@ -3503,7 +4009,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                           groupValue: selectedOutsideFood,
                           onChanged: (value) {
                             setStateSB(() {
-
                               _selectedFilters["Outside food allowed"] = false;
                               _selectedFilters["No outside food"] = false;
 
@@ -3525,25 +4030,30 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
     );
   }
 
-
   String? _getSelectedRuleOption(String ruleType) {
     switch (ruleType) {
       case "pets":
         if (_selectedFilters["Pets allowed"] == true) return "Pets allowed";
-        if (_selectedFilters["Pets not allowed"] == true) return "Pets not allowed";
+        if (_selectedFilters["Pets not allowed"] == true)
+          return "Pets not allowed";
         return null;
       case "smoking":
-        if (_selectedFilters["Smoking allowed"] == true) return "Smoking allowed";
-        if (_selectedFilters["Smoking not allowed"] == true) return "Smoking not allowed";
+        if (_selectedFilters["Smoking allowed"] == true)
+          return "Smoking allowed";
+        if (_selectedFilters["Smoking not allowed"] == true)
+          return "Smoking not allowed";
         return null;
       case "outside_food":
-        if (_selectedFilters["Outside food allowed"] == true) return "Outside food allowed";
-        if (_selectedFilters["No outside food"] == true) return "No outside food";
+        if (_selectedFilters["Outside food allowed"] == true)
+          return "Outside food allowed";
+        if (_selectedFilters["No outside food"] == true)
+          return "No outside food";
         return null;
       default:
         return null;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -3556,9 +4066,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
               duration: Duration(milliseconds: 500),
               child: _showResults
                   ? Align(
-                alignment: Alignment.topCenter,
-                child: _buildHotelResults(),
-              )
+                      alignment: Alignment.topCenter,
+                      child: _buildHotelResults(),
+                    )
                   : _buildSearchForm(),
             ),
           ),
@@ -3615,7 +4125,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
           SizedBox(height: 8),
           Text(
             "Discover your perfect stay with exclusive deals ✨",
-            style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.9)),
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white.withOpacity(0.9),
+            ),
           ),
         ],
       ),
@@ -3690,19 +4203,19 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         "title": "Weekend Getaway",
         "subtitle": "Up to 40% off on luxury stays",
         "color": Colors.orange,
-        "icon": Icons.weekend
+        "icon": Icons.weekend,
       },
       {
         "title": "Long Stay Discount",
         "subtitle": "Special rates for 7+ nights",
         "color": Colors.purple,
-        "icon": Icons.calendar_today
+        "icon": Icons.calendar_today,
       },
       {
         "title": "Early Bird Special",
         "subtitle": "Book 30 days in advance & save",
         "color": Colors.blue,
-        "icon": Icons.alarm
+        "icon": Icons.alarm,
       },
     ];
 
@@ -3779,29 +4292,29 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
 
   Widget _buildSearchField() {
     return Container(
-        decoration: BoxDecoration(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-    boxShadow: [
-    BoxShadow(
-    color: Colors.black.withOpacity(0.05),
-    blurRadius: 10,
-    offset: Offset(0, 5),
-    ),
-    ],
-    ),
-    child: TextField(
-    decoration: InputDecoration(
-    hintText: "Where do you want to stay?",
-    filled: true,
-    fillColor: Colors.white,
-    border: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(15),
-    borderSide: BorderSide.none,
-    ),
-    prefixIcon: Icon(Icons.search, color: Color(0xFFFF7043)),
-    contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-    ),
-    ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: Offset(0, 5),
+          ),
+        ],
+      ),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: "Where do you want to stay?",
+          filled: true,
+          fillColor: Colors.white,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none,
+          ),
+          prefixIcon: Icon(Icons.search, color: Color(0xFFFF7043)),
+          contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        ),
+      ),
     );
   }
 
@@ -3846,7 +4359,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
             ),
             SizedBox(height: 8),
             Text(
-              date != null ? DateFormat('MMM dd, yyyy').format(date) : "Select date",
+              date != null
+                  ? DateFormat('MMM dd, yyyy').format(date)
+                  : "Select date",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -3862,12 +4377,30 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
   Widget _buildCounters() {
     return Column(
       children: [
-        _buildCounter("Rooms", _roomCount, 1, 5,
-                () => setState(() => _roomCount--), () => setState(() => _roomCount++)),
-        _buildCounter("Adults", _adultCount, 1, 10,
-                () => setState(() => _adultCount--), () => setState(() => _adultCount++)),
-        _buildCounter("Children", _childCount, 0, 5,
-                () => setState(() => _childCount--), () => setState(() => _childCount++)),
+        _buildCounter(
+          "Rooms",
+          _roomCount,
+          1,
+          5,
+          () => setState(() => _roomCount--),
+          () => setState(() => _roomCount++),
+        ),
+        _buildCounter(
+          "Adults",
+          _adultCount,
+          1,
+          10,
+          () => setState(() => _adultCount--),
+          () => setState(() => _adultCount++),
+        ),
+        _buildCounter(
+          "Children",
+          _childCount,
+          0,
+          5,
+          () => setState(() => _childCount--),
+          () => setState(() => _childCount++),
+        ),
       ],
     );
   }
@@ -3985,15 +4518,15 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                   children: [
                     Text(
                       "🏨 Popular in Chennai",
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Spacer(),
                     Text(
                       "${_hotels.length} properties",
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 13,
-                      ),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 13),
                     ),
                   ],
                 ),
@@ -4023,7 +4556,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
   }
 
   Widget _hotelCard(Map<String, dynamic> hotel, int index) {
-
     int starRating = hotel["starRating"] ?? 3;
 
     return GestureDetector(
@@ -4031,10 +4563,8 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => HotelDetailsScreen(
-              hotel: hotel,
-              starRating: starRating,
-            ),
+            builder: (_) =>
+                HotelDetailsScreen(hotel: hotel, starRating: starRating),
           ),
         );
       },
@@ -4051,7 +4581,9 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
               Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(20),
+                    ),
                     child: Image.asset(
                       hotel["image"],
                       height: 180,
@@ -4070,7 +4602,11 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                       ),
                       child: Text(
                         hotel["discount"],
-                        style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -4079,14 +4615,21 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                     right: 12,
                     child: CircleAvatar(
                       backgroundColor: Colors.white.withOpacity(0.9),
-                      child: Icon(Icons.favorite_border, color: Colors.red, size: 20),
+                      child: Icon(
+                        Icons.favorite_border,
+                        color: Colors.red,
+                        size: 20,
+                      ),
                     ),
                   ),
                   Positioned(
                     bottom: 12,
                     left: 12,
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: _getStarColor(starRating).withOpacity(0.9),
                         borderRadius: BorderRadius.circular(8),
@@ -4120,7 +4663,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                         Expanded(
                           child: Text(
                             hotel["name"],
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         Row(
@@ -4155,17 +4701,28 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
-                      children: (hotel["tags"] as List<String>).take(3).map((tag) => Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Colors.blue[50],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          tag,
-                          style: TextStyle(color: Colors.blue[700], fontSize: 12),
-                        ),
-                      )).toList(),
+                      children: (hotel["tags"] as List<String>)
+                          .take(3)
+                          .map(
+                            (tag) => Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.blue[50],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                tag,
+                                style: TextStyle(
+                                  color: Colors.blue[700],
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
                     ),
                     SizedBox(height: 12),
                     Row(
@@ -4180,7 +4737,10 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
                         ),
                         Text("/night", style: TextStyle(color: Colors.grey)),
                         Spacer(),
-                        Text("${hotel["reviews"]} reviews", style: TextStyle(color: Colors.grey)),
+                        Text(
+                          "${hotel["reviews"]} reviews",
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ],
                     ),
                   ],
@@ -4208,7 +4768,6 @@ class _HotelSearchScreenState extends State<HotelSearchScreen>
 
 class FoodCourtScreen extends StatelessWidget {
   const FoodCourtScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -4216,9 +4775,7 @@ class FoodCourtScreen extends StatelessWidget {
         title: Text("Food Court"),
         backgroundColor: Color(0xFFFF7043),
       ),
-      body: Center(
-        child: Text("Food Court Content"),
-      ),
+      body: Center(child: Text("Food Court Content")),
     );
   }
 }

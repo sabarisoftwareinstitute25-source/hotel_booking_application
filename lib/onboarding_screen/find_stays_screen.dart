@@ -522,6 +522,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'choose_role_screen.dart';
 import 'otp_verification_screen.dart';
 
 class FindStaysScreen extends StatefulWidget {
@@ -639,7 +640,14 @@ class _FindStaysScreenState extends State<FindStaysScreen>
                   padding: EdgeInsets.only(left: w * 0.04),
                   child: IconButton(
                     icon: Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChooseRoleScreen(),
+                        ),
+                      );
+                    }
                   ),
                 ),
 
