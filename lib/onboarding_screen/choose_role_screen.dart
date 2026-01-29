@@ -305,6 +305,386 @@ class ChooseRoleScreen extends StatelessWidget {
   }
 }
 
+// class PropertyAuthScreen extends StatefulWidget {
+//   const PropertyAuthScreen({super.key});
+//
+//   @override
+//   State<PropertyAuthScreen> createState() => _PropertyAuthScreenState();
+// }
+//
+// class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTickerProviderStateMixin {
+//   late TabController _tabController;
+//   final TextEditingController _emailController = TextEditingController();
+//   final TextEditingController _passwordController = TextEditingController();
+//   final TextEditingController _confirmPasswordController = TextEditingController();
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _tabController = TabController(length: 2, vsync: this);
+//   }
+//
+//   @override
+//   void dispose() {
+//     _tabController.dispose();
+//     _emailController.dispose();
+//     _passwordController.dispose();
+//     _confirmPasswordController.dispose();
+//     super.dispose();
+//   }
+//
+//   void _handleLogin() {
+//     // For demo, just navigate to PropertyTypeScreen
+//     Navigator.pushReplacement(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => HotelOwnerDashboard(hotelName: '', ownerName: '', mobileNumber: '', email: '', addressLine1: '', addressLine2: '', city: '', district: '', state: '', pinCode: '', gstNumber: '', fssaiLicense: '', tradeLicense: '', panNumber: '', aadharNumber: '', accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', branch: '', accountType: '', personPhotoInfo: {}, totalRooms: 35),
+//       ),
+//     );
+//   }
+//
+//   void _handleRegister() {
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => PropertyTypeScreen(),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         decoration: const BoxDecoration(
+//           gradient: LinearGradient(
+//             begin: Alignment.topCenter,
+//             end: Alignment.bottomCenter,
+//             colors: [
+//               Color(0xFFF8FAFF),
+//               Color(0xFFF0F4FF),
+//             ],
+//           ),
+//         ),
+//         child: SafeArea(
+//           child: Column(
+//             children: [
+//               // Back Button
+//               Align(
+//                 alignment: Alignment.centerLeft,
+//                 child: IconButton(
+//                   icon: Icon(Icons.arrow_back, color: Color(0xFF6B7280)),
+//                   onPressed: () => Navigator.pop(context),
+//                 ),
+//               ),
+//
+//               // Logo
+//               Container(
+//                 width: 80,
+//                 height: 80,
+//                 decoration: BoxDecoration(
+//                   gradient: LinearGradient(
+//                     colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+//                     begin: Alignment.topLeft,
+//                     end: Alignment.bottomRight,
+//                   ),
+//                   borderRadius: BorderRadius.circular(20),
+//                 ),
+//                 child: Center(
+//                   child: Icon(
+//                     Icons.business,
+//                     size: 40,
+//                     color: Colors.white,
+//                   ),
+//                 ),
+//               ),
+//
+//               const SizedBox(height: 20),
+//
+//               Text(
+//                 "Property Partner",
+//                 style: TextStyle(
+//                   fontSize: 28,
+//                   fontWeight: FontWeight.w800,
+//                   color: Color(0xFF1F2937),
+//                 ),
+//               ),
+//
+//               Text(
+//                 "Manage your hospitality business",
+//                 style: TextStyle(
+//                   color: Color(0xFF6B7280),
+//                 ),
+//               ),
+//
+//               const SizedBox(height: 20),
+//
+//               // Tab Bar
+//               Container(
+//                 margin: EdgeInsets.symmetric(horizontal: 24),
+//                 decoration: BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.circular(12),
+//                   boxShadow: [
+//                     BoxShadow(
+//                       color: Colors.black.withOpacity(0.05),
+//                       blurRadius: 10,
+//                     ),
+//                   ],
+//                 ),
+//                 child: TabBar(
+//                   controller: _tabController,
+//                   labelColor: Colors.white,
+//                   unselectedLabelColor: Color(0xFF6B7280),
+//                   indicator: BoxDecoration(
+//                     gradient: LinearGradient(
+//                       colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+//                     ),
+//                     borderRadius: BorderRadius.circular(10),
+//                   ),
+//                   tabs: [
+//                     Tab(text: 'Login to your account'),
+//                     Tab(text: 'New User Registration'),
+//                   ],
+//                 ),
+//               ),
+//
+//               const SizedBox(height: 20),
+//
+//
+//               Expanded(
+//                 child: TabBarView(
+//                   controller: _tabController,
+//                   children: [
+//                     // Login Tab
+//                     _buildLoginTab(),
+//
+//                     // Register Tab
+//                     _buildRegisterTab(),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildLoginTab() {
+//     return SingleChildScrollView(
+//       padding: EdgeInsets.all(24),
+//       child: Column(
+//         children: [
+//           // Email Field
+//           _buildTextField(
+//             label: "Email Address",
+//             hint: "Enter your email",
+//             icon: Icons.email,
+//             controller: _emailController,
+//           ),
+//
+//           const SizedBox(height: 16),
+//
+//           // Password Field
+//           _buildTextField(
+//             label: "Password",
+//             hint: "Enter your password",
+//             icon: Icons.lock,
+//             controller: _passwordController,
+//             isPassword: true,
+//           ),
+//
+//           const SizedBox(height: 4),
+//
+//           // Forgot Password
+//           Align(
+//             alignment: Alignment.centerRight,
+//             child: TextButton(
+//               onPressed: () {},
+//               child: Text(
+//                 "Forgot Password?",
+//                 style: TextStyle(color: Color(0xFFFF5F6D)),
+//               ),
+//             ),
+//           ),
+//
+//           const SizedBox(height: 14),
+//
+//           // Login Button
+//           SizedBox(
+//             width: double.infinity,
+//             height: 50,
+//             child: ElevatedButton(
+//               onPressed: _handleLogin,
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: Color(0xFFFF5F6D),
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(12),
+//                 ),
+//               ),
+//               child: Text(
+//                 "Login",
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w600,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//           ),
+//
+//           const SizedBox(height: 20),
+//
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildRegisterTab() {
+//     return SingleChildScrollView(
+//       padding: EdgeInsets.all(24),
+//       child: Column(
+//         children: [
+//           Text(
+//             "New Property Registration",
+//             style: TextStyle(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w700,
+//               color: Color(0xFF1F2937),
+//             ),
+//           ),
+//
+//           const SizedBox(height: 16),
+//
+//           Text(
+//             "Register your hotel, villa, or guest house to start earning with us",
+//             style: TextStyle(
+//               color: Color(0xFF6B7280),
+//               // textAlign: TextAlign.center,
+//             ),
+//           ),
+//
+//           const SizedBox(height: 30),
+//
+//           // Benefits List
+//           _buildBenefitItem(Icons.verified, "Verified Partner Badge"),
+//           _buildBenefitItem(Icons.group, "Reach millions of travelers"),
+//           _buildBenefitItem(Icons.attach_money, "Competitive commission rates"),
+//           _buildBenefitItem(Icons.support_agent, "24/7 partner support"),
+//
+//           const SizedBox(height: 30),
+//
+//           // Register Button
+//           SizedBox(
+//             width: double.infinity,
+//             height: 50,
+//             child: ElevatedButton(
+//               onPressed: _handleRegister,
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: Color(0xFFFF5F6D),
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(12),
+//                 ),
+//               ),
+//               child: Text(
+//                 "Create an account",
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w600,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//           ),
+//
+//           const SizedBox(height: 16),
+//
+//           // Terms
+//           Text(
+//             "By registering, you agree to our Terms & Conditions",
+//             style: TextStyle(
+//               fontSize: 12,
+//               color: Color(0xFF6B7280),
+//             ),
+//             textAlign: TextAlign.center,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildTextField({
+//     required String label,
+//     required String hint,
+//     required IconData icon,
+//     required TextEditingController controller,
+//     bool isPassword = false,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontWeight: FontWeight.w500,
+//             color: Color(0xFF374151),
+//           ),
+//         ),
+//         const SizedBox(height: 8),
+//         Container(
+//           decoration: BoxDecoration(
+//             color: Colors.white,
+//             borderRadius: BorderRadius.circular(12),
+//             boxShadow: [
+//               BoxShadow(
+//                 color: Colors.black.withOpacity(0.05),
+//                 blurRadius: 10,
+//               ),
+//             ],
+//           ),
+//           child: TextField(
+//             controller: controller,
+//             obscureText: isPassword,
+//             decoration: InputDecoration(
+//               hintText: hint,
+//               prefixIcon: Icon(icon, color: Color(0xFF6B7280)),
+//               border: InputBorder.none,
+//               contentPadding: EdgeInsets.all(16),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildBenefitItem(IconData icon, String text) {
+//     return Padding(
+//       padding: EdgeInsets.only(bottom: 12),
+//       child: Row(
+//         children: [
+//           Container(
+//             width: 36,
+//             height: 36,
+//             decoration: BoxDecoration(
+//               color: Colors.red.withOpacity(0.1),
+//               borderRadius: BorderRadius.circular(8),
+//             ),
+//             child: Icon(icon, size: 20, color: Colors.red),
+//           ),
+//           const SizedBox(width: 12),
+//           Text(
+//             text,
+//             style: TextStyle(fontWeight: FontWeight.w500),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
+
 class PropertyAuthScreen extends StatefulWidget {
   const PropertyAuthScreen({super.key});
 
@@ -312,10 +692,17 @@ class PropertyAuthScreen extends StatefulWidget {
   State<PropertyAuthScreen> createState() => _PropertyAuthScreenState();
 }
 
+
 class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  // Register form controllers
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _businessNameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _registerPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
@@ -329,6 +716,10 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
     _tabController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _nameController.dispose();
+    _businessNameController.dispose();
+    _phoneController.dispose();
+    _registerPasswordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
   }
@@ -338,16 +729,68 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HotelOwnerDashboard(hotelName: '', ownerName: '', mobileNumber: '', email: '', addressLine1: '', addressLine2: '', city: '', district: '', state: '', pinCode: '', gstNumber: '', fssaiLicense: '', tradeLicense: '', panNumber: '', aadharNumber: '', accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', branch: '', accountType: '', personPhotoInfo: '', totalRooms: 35),
+        builder: (context) => HotelOwnerDashboard(
+            hotelName: '',
+            ownerName: '',
+            mobileNumber: '',
+            email: '',
+            addressLine1: '',
+            addressLine2: '',
+            city: '',
+            district: '',
+            state: '',
+            pinCode: '',
+            gstNumber: '',
+            fssaiLicense: '',
+            tradeLicense: '',
+            panNumber: '',
+            aadharNumber: '',
+            accountHolderName: '',
+            bankName: '',
+            accountNumber: '',
+            ifscCode: '',
+            branch: '',
+            accountType: '',
+            personPhotoInfo: {},
+            totalRooms: 35
+        ),
       ),
     );
   }
 
   void _handleRegister() {
+    // Validate form
+    if (_nameController.text.isEmpty ||
+        _businessNameController.text.isEmpty ||
+        _phoneController.text.isEmpty ||
+        _registerPasswordController.text.isEmpty ||
+        _confirmPasswordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill all fields'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (_registerPasswordController.text != _confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Passwords do not match'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // Navigate to Welcome/Info Screen
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PropertyTypeScreen(),
+        builder: (context) => WelcomeScreen(
+
+        ),
       ),
     );
   }
@@ -444,13 +887,12 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
                   ),
                   tabs: [
                     Tab(text: 'Login to your account'),
-                    Tab(text: 'New User Registration'),
+                    Tab(text: 'New User Registeration'),
                   ],
                 ),
               ),
 
               const SizedBox(height: 20),
-
 
               Expanded(
                 child: TabBarView(
@@ -535,7 +977,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
           ),
 
           const SizedBox(height: 20),
-
         ],
       ),
     );
@@ -543,74 +984,322 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 
   Widget _buildRegisterTab() {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.all(20),
       child: Column(
         children: [
-          Text(
-            "New Property Registration",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF1F2937),
+
+
+
+
+          // Form Container
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 20,
+                  offset: Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                // Form Header
+                Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF9FAFB),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.how_to_reg_rounded,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Account Details",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFF1F2937),
+                              ),
+                            ),
+                            Text(
+                              "Fill in your information",
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFF6B7280),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Form Fields
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      // Name Field
+                      _buildModernTextField(
+                        label: "Full Name",
+                        hint: "Enter your full name",
+                        icon: Icons.person_outline_rounded,
+                        controller: _nameController,
+                        isRequired: true,
+                      ),
+
+                      SizedBox(height: 16),
+
+                      // Business Name Field
+                      _buildModernTextField(
+                        label: "Business Name",
+                        hint: "Hotel/Guest House/Business name",
+                        icon: Icons.business_outlined,
+                        controller: _businessNameController,
+                        isRequired: true,
+                      ),
+
+                      SizedBox(height: 16),
+
+                      // Combined Phone or Email Field
+                      _buildModernTextField(
+                        label: "Phone or Email",
+                        hint: "Phone number or email address",
+                        icon: Icons.contact_phone_outlined,
+                        controller: _phoneController,
+                        keyboardType: TextInputType.emailAddress,
+                        isRequired: true,
+                      ),
+
+                      SizedBox(height: 16),
+
+                      // Password Field
+                      _buildModernTextField(
+                        label: "Password",
+                        hint: "Create a strong password",
+                        icon: Icons.lock_outline_rounded,
+                        controller: _registerPasswordController,
+                        isPassword: true,
+                        isRequired: true,
+                      ),
+
+                      SizedBox(height: 16),
+
+                      // Confirm Password Field
+                      _buildModernTextField(
+                        label: "Confirm Password",
+                        hint: "Re-enter your password",
+                        icon: Icons.lock_clock_outlined,
+                        controller: _confirmPasswordController,
+                        isPassword: true,
+                        isRequired: true,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
 
-          const SizedBox(height: 16),
-
-          Text(
-            "Register your hotel, villa, or guest house to start earning with us",
-            style: TextStyle(
-              color: Color(0xFF6B7280),
-              // textAlign: TextAlign.center,
-            ),
-          ),
-
-          const SizedBox(height: 30),
-
-          // Benefits List
-          _buildBenefitItem(Icons.verified, "Verified Partner Badge"),
-          _buildBenefitItem(Icons.group, "Reach millions of travelers"),
-          _buildBenefitItem(Icons.attach_money, "Competitive commission rates"),
-          _buildBenefitItem(Icons.support_agent, "24/7 partner support"),
-
-          const SizedBox(height: 30),
+          SizedBox(height: 24),
 
           // Register Button
-          SizedBox(
+          Container(
+            height: 56,
             width: double.infinity,
-            height: 50,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFFFF5F6D), Color(0xFFFF8A7A)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(14),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xFFFF5F6D).withOpacity(0.3),
+                  blurRadius: 15,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
             child: ElevatedButton(
               onPressed: _handleRegister,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFFF5F6D),
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(14),
                 ),
+                padding: EdgeInsets.zero,
               ),
-              child: Text(
-                "Create an account",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.rocket_launch_rounded,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    "Create Account",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
-          const SizedBox(height: 16),
 
-          // Terms
-          Text(
-            "By registering, you agree to our Terms & Conditions",
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF6B7280),
-            ),
-            textAlign: TextAlign.center,
-          ),
+
+          SizedBox(height: 20),
         ],
       ),
+    );
+  }
+
+  Widget _buildModernTextField({
+    required String label,
+    required String hint,
+    required IconData icon,
+    required TextEditingController controller,
+    bool isPassword = false,
+    bool isRequired = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF374151),
+                fontSize: 14,
+              ),
+            ),
+            if (isRequired)
+              Padding(
+                padding: EdgeInsets.only(left: 4),
+                child: Text(
+                  "*",
+                  style: TextStyle(
+                    color: Color(0xFFFF5F6D),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+          ],
+        ),
+        SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Color(0xFFE5E7EB)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.02),
+                blurRadius: 5,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF9FAFB),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                  ),
+                  border: Border(
+                    right: BorderSide(color: Color(0xFFE5E7EB)),
+                  ),
+                ),
+                child: Center(
+                  child: Icon(
+                    icon,
+                    size: 20,
+                    color: Color(0xFF6B7280),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  obscureText: isPassword,
+                  keyboardType: keyboardType,
+                  decoration: InputDecoration(
+                    hintText: hint,
+                    hintStyle: TextStyle(
+                      color: Color(0xFF9CA3AF),
+                      fontSize: 14,
+                    ),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                    suffixIcon: isPassword
+                        ? IconButton(
+                      icon: Icon(
+                        Icons.visibility_outlined,
+                        size: 20,
+                        color: Color(0xFF6B7280),
+                      ),
+                      onPressed: () {
+                        // Toggle password visibility
+                      },
+                    )
+                        : null,
+                  ),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF1F2937),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -620,6 +1309,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
     required IconData icon,
     required TextEditingController controller,
     bool isPassword = false,
+    TextInputType keyboardType = TextInputType.text,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -646,21 +1336,292 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
           child: TextField(
             controller: controller,
             obscureText: isPassword,
+            keyboardType: keyboardType,
             decoration: InputDecoration(
               hintText: hint,
               prefixIcon: Icon(icon, color: Color(0xFF6B7280)),
               border: InputBorder.none,
               contentPadding: EdgeInsets.all(16),
+              suffixIcon: isPassword
+                  ? IconButton(
+                icon: Icon(
+                  Icons.visibility,
+                  color: Color(0xFF6B7280),
+                ),
+                onPressed: () {
+                  // Toggle password visibility if needed
+                },
+              )
+                  : null,
             ),
           ),
         ),
       ],
     );
   }
+}
+
+
+
+
+
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          // gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     Color(0xFFF8FAFF),
+          //     Color(0xFFF0F4FF),
+          //   ],
+          // ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Back Button
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Color(0xFF6B7280)),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+
+                // Logo
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Center(
+                    child: Icon(Icons.business, size: 40, color: Colors.white),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                const Text(
+                  "Property Partner",
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF1F2937),
+                  ),
+                ),
+
+                const Text(
+                  "Manage your hospitality business",
+                  style: TextStyle(color: Color(0xFF6B7280)),
+                ),
+
+                const SizedBox(height: 40),
+
+                /// 🏨 REGISTER SECTION (ONLY)
+                _buildRegisterTab(),
+
+                const SizedBox(height: 30),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // // ---------------- REGISTER ----------------
+  // Widget _buildRegisterTab() {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 24),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: [
+  //         const Text(
+  //           "New Property Registration",
+  //           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+  //         ),
+  //
+  //         const SizedBox(height: 12),
+  //
+  //         Center(
+  //           child: const Text(
+  //             "Register your hotel, villa, or guest house to start earning with us",
+  //             style: TextStyle(color: Color(0xFF6B7280)),
+  //           ),
+  //         ),
+  //
+  //         const SizedBox(height: 24),
+  //
+  //         _buildBenefitItem(Icons.verified, "Verified Partner Badge"),
+  //         _buildBenefitItem(Icons.group, "Reach millions of travelers"),
+  //         _buildBenefitItem(Icons.attach_money, "Competitive commission rates"),
+  //         _buildBenefitItem(Icons.support_agent, "24/7 partner support"),
+  //
+  //         const SizedBox(height: 24),
+  //
+  //         SizedBox(
+  //           width: double.infinity,
+  //           height: 50,
+  //           child: ElevatedButton(
+  //             onPressed: () {},
+  //             style: ElevatedButton.styleFrom(
+  //               backgroundColor: const Color(0xFFFF5F6D),
+  //               shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(12),
+  //               ),
+  //             ),
+  //             child: const Text(
+  //               "Start Registration",
+  //               style: TextStyle(color: Colors.white, fontSize: 16),
+  //             ),
+  //           ),
+  //         ),
+  //
+  //         const SizedBox(height: 12),
+  //
+  //         const Text(
+  //           "By registering, you agree to our Terms & Conditions",
+  //           style: TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
+  //           textAlign: TextAlign.center,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Widget _buildRegisterTab() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 18,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Title
+            const Text(
+              "New Property Registration",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                color: Color(0xFF1F2937),
+              ),
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: 10),
+
+            // Subtitle
+            const Text(
+              "Register your hotel, villa, or guest house and start earning with us",
+              style: TextStyle(
+                fontSize: 14,
+                color: Color(0xFF6B7280),
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
+            ),
+
+            const SizedBox(height: 28),
+
+            // Benefits
+            _buildBenefitItem(Icons.verified_rounded, "Verified Partner Badge"),
+            _buildBenefitItem(Icons.public_rounded, "Reach millions of travelers"),
+            _buildBenefitItem(Icons.trending_up_rounded, "Competitive commission rates"),
+            _buildBenefitItem(Icons.support_agent_rounded, "24/7 dedicated partner support"),
+
+            const SizedBox(height: 30),
+
+            // CTA Button
+            SizedBox(
+              width: double.infinity,
+              height: 54,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PropertyTypeScreen(ownerName: '', businessName: '', email: '', phone: '')
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: const Color(0xFFFF5F6D),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+                child: const Text(
+                  "Start Registration",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Terms
+            const Text(
+              "By registering, you agree to our Terms & Conditions",
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFF9CA3AF),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildBenefitItem(IconData icon, String text) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
           Container(
@@ -673,10 +1634,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
             child: Icon(icon, size: 20, color: Colors.red),
           ),
           const SizedBox(width: 12),
-          Text(
-            text,
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
+          Text(text, style: const TextStyle(fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -684,482 +1642,19 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 }
 
 
+
+
+
+
+
+
+
 class PropertyTypeScreen extends StatefulWidget {
-  const PropertyTypeScreen({super.key});
+  const PropertyTypeScreen({super.key, required String ownerName, required String businessName, required String email, required String phone});
 
   @override
   State<PropertyTypeScreen> createState() => _PropertyTypeScreenState();
 }
-
-// class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
-//   int _selectedIndex = -1;
-//
-//   final List<PropertyType> _propertyTypes = [
-//     PropertyType(
-//       icon: '🏨',
-//       title: 'Hotel',
-//       description: 'Hotels, Lodges & Guest Houses',
-//       color: Color(0xFFFFC371),
-//       isPopular: true,
-//     ),
-//     PropertyType(
-//       icon: '🏡',
-//       title: 'Villa',
-//       description: 'Private Villas & Bungalows',
-//       color: Color(0xFFFFC371),
-//       isPopular: false,
-//     ),
-//     PropertyType(
-//       icon: '🏢',
-//       title: 'Apartment',
-//       description: 'Serviced Apartments',
-//       color: Color(0xFFFFC371),
-//       isPopular: true,
-//     ),
-//     PropertyType(
-//       icon: '🌴',
-//       title: 'Resort',
-//       description: 'Beach & Hill Resorts',
-//       color: Color(0xFFFFC371),
-//       isPopular: false,
-//     ),
-//   ];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: SafeArea(
-//         child: Column(
-//           children: [
-//
-//             Container(
-//               padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 boxShadow: [
-//                   BoxShadow(
-//                     color: Color(0x14000000),
-//                     blurRadius: 10,
-//                     offset: Offset(0, 1),
-//                   ),
-//                 ],
-//               ),
-//               child: Row(
-//                 children: [
-//                   GestureDetector(
-//                     onTap: () => Navigator.pop(context),
-//                     child: Container(
-//                       width: 40,
-//                       height: 40,
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(12),
-//                         color: Color(0xFFF5F5F7),
-//                       ),
-//                       child: Icon(
-//                         Icons.arrow_back_ios_new_rounded,
-//                         size: 18,
-//                         color: Color(0xFF3C3C43),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(width: 12),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           'PROPERTY TYPE',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             color: Color(0xFF8E8E93),
-//                             fontWeight: FontWeight.w500,
-//                             letterSpacing: 0.5,
-//                           ),
-//                         ),
-//                         SizedBox(height: 2),
-//                         Text(
-//                           'Choose Category',
-//                           style: TextStyle(
-//                             fontSize: 20,
-//                             color: Color(0xFF1C1C1E),
-//                             fontWeight: FontWeight.w700,
-//                             height: 1.2,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//
-//             // Main Content
-//             Expanded(
-//               child: SingleChildScrollView(
-//                 child: Padding(
-//                   padding: EdgeInsets.all(20),
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       // Progress Indicator
-//                       SizedBox(height: 4),
-//                       Row(
-//                         children: [
-//                           Container(
-//                             width: 100,
-//                             height: 4,
-//                             decoration: BoxDecoration(
-//                               borderRadius: BorderRadius.circular(2),
-//                               gradient: LinearGradient(
-//                                 colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(width: 4),
-//                           Expanded(
-//                             child: Container(
-//                               height: 4,
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(2),
-//                                 color: Color(0xFFF2F2F7),
-//                               ),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(height: 32),
-//
-//                       // Title Section
-//                       Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Text(
-//                             'What type of property\ndo you want to list?',
-//                             style: TextStyle(
-//                               fontSize: 28,
-//                               fontWeight: FontWeight.w800,
-//                               color: Color(0xFF1C1C1E),
-//                               height: 1.2,
-//                             ),
-//                           ),
-//                           SizedBox(height: 8),
-//                           Text(
-//                             'Select the category that best describes your property',
-//                             style: TextStyle(
-//                               fontSize: 16,
-//                               color: Color(0xFF8E8E93),
-//                               height: 1.4,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(height: 32),
-//
-//                       // Property Grid
-//                       GridView.builder(
-//                         shrinkWrap: true,
-//                         physics: NeverScrollableScrollPhysics(),
-//                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                           crossAxisCount: 2,
-//                           crossAxisSpacing: 12,
-//                           mainAxisSpacing: 12,
-//                           childAspectRatio: 0.9,
-//                         ),
-//                         itemCount: _propertyTypes.length,
-//                         itemBuilder: (context, index) {
-//                           final property = _propertyTypes[index];
-//                           return GestureDetector(
-//                             onTap: () {
-//                               // When any card is tapped, navigate to HotelCategoryScreen
-//                               Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                   builder: (context) => HotelCategoryScreen(),
-//                                 ),
-//                               );
-//                             },
-//                             child: _PropertyCard(
-//                               property: property,
-//                               isSelected: _selectedIndex == index,
-//                             ),
-//                           );
-//                         },
-//                       ),
-//                       SizedBox(height: 40),
-//
-//                       // Selected Info Section (Removed since we navigate immediately)
-//                       Container(
-//                         padding: EdgeInsets.symmetric(
-//                             vertical: 20, horizontal: 16),
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(12),
-//                           color: Color(0xFFF5F5F7),
-//                           border: Border.all(
-//                             color: Color(0xFFE5E5EA),
-//                             width: 1,
-//                           ),
-//                         ),
-//                         child: Row(
-//                           children: [
-//                             Icon(
-//                               Icons.info_outline_rounded,
-//                               size: 20,
-//                               color: Color(0xFF8E8E93),
-//                             ),
-//                             SizedBox(width: 12),
-//                             Expanded(
-//                               child: Text(
-//                                 'Select a property type to continue',
-//                                 style: TextStyle(
-//                                   fontSize: 14,
-//                                   color: Color(0xFF8E8E93),
-//                                 ),
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       SizedBox(height: 20),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-//
-// class PropertyType {
-//   final String icon;
-//   final String title;
-//   final String description;
-//   final Color color;
-//   final bool isPopular;
-//
-//   PropertyType({
-//     required this.icon,
-//     required this.title,
-//     required this.description,
-//     required this.color,
-//     required this.isPopular,
-//   });
-// }
-//
-// class _PropertyCard extends StatelessWidget {
-//   final PropertyType property;
-//   final bool isSelected;
-//
-//   const _PropertyCard({
-//     required this.property,
-//     required this.isSelected,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return AnimatedContainer(
-//       duration: Duration(milliseconds: 200),
-//       curve: Curves.easeInOut,
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         border: Border.all(
-//           color: isSelected ? property.color : Color(0xFFF2F2F7),
-//           width: isSelected ? 2 : 1,
-//         ),
-//         boxShadow: isSelected
-//             ? [
-//           BoxShadow(
-//             color: property.color.withOpacity(0.15),
-//             blurRadius: 20,
-//             offset: Offset(0, 8),
-//             spreadRadius: 0,
-//           ),
-//           BoxShadow(
-//             color: Color(0x0A000000),
-//             blurRadius: 4,
-//             offset: Offset(0, 2),
-//           ),
-//         ]
-//             : [
-//           BoxShadow(
-//             color: Color(0x0A000000),
-//             blurRadius: 4,
-//             offset: Offset(0, 2),
-//           ),
-//         ],
-//       ),
-//       child: Stack(
-//         children: [
-//           // Main Content
-//           Padding(
-//             padding: EdgeInsets.all(16),
-//             child: SizedBox(
-//               height: 160,
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   // Popular Badge
-//                   if (property.isPopular)
-//                     Align(
-//                       alignment: Alignment.topRight,
-//                       child: Container(
-//                         padding: EdgeInsets.symmetric(
-//                           horizontal: 10,
-//                           vertical: 2,
-//                         ),
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(12),
-//                           gradient: LinearGradient(
-//                             colors: [
-//                               Color(0xFFFF5F6D),
-//                               Color(0xFFFFC371),
-//                             ],
-//                           ),
-//                         ),
-//                         child: Text(
-//                           'POPULAR',
-//                           style: TextStyle(
-//                             fontSize: 10,
-//                             fontWeight: FontWeight.w700,
-//                             color: Colors.white,
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   SizedBox(height: property.isPopular ? 4 : 0),
-//
-//                   // Icon Container with Highlight
-//                   Container(
-//                     width: 48,
-//                     height: 48,
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(12),
-//                       gradient: LinearGradient(
-//                         colors: [
-//                           property.color.withOpacity(isSelected ? 0.2 : 0.1),
-//                           property.color.withOpacity(isSelected ? 0.1 : 0.05),
-//                         ],
-//                         begin: Alignment.topLeft,
-//                         end: Alignment.bottomRight,
-//                       ),
-//                     ),
-//                     child: Center(
-//                       child: Text(
-//                         property.icon,
-//                         style: TextStyle(fontSize: 28),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(height: 16),
-//
-//                   // Title
-//                   Text(
-//                     property.title,
-//                     style: TextStyle(
-//                       fontSize: 17,
-//                       fontWeight: FontWeight.w700,
-//                       color: Color(0xFF1C1C1E),
-//                       height: 1.2,
-//                     ),
-//                   ),
-//                   SizedBox(height: 4),
-//
-//                   // Description
-//                   Expanded(
-//                     child: Text(
-//                       property.description,
-//                       style: TextStyle(
-//                         fontSize: 13,
-//                         color: Color(0xFF8E8E93),
-//                         height: 1.4,
-//                       ),
-//                       maxLines: 2,
-//                       overflow: TextOverflow.ellipsis,
-//                     ),
-//                   ),
-//
-//                   // Arrow Indicator
-//                   Align(
-//                     alignment: Alignment.bottomRight,
-//                     child: AnimatedContainer(
-//                       duration: Duration(milliseconds: 200),
-//                       width: 28,
-//                       height: 28,
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(8),
-//                         color: isSelected
-//                             ? property.color.withOpacity(0.2)
-//                             : Color(0xFFF5F5F7),
-//                         border: isSelected
-//                             ? Border.all(
-//                           color: property.color.withOpacity(0.4),
-//                           width: 1,
-//                         )
-//                             : null,
-//                       ),
-//                       child: Center(
-//                         child: Icon(
-//                           Icons.arrow_forward_rounded,
-//                           size: 16,
-//                           color: isSelected ? property.color : Color(0xFFC7C7CC),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//
-//           // Selection Checkmark (Shows when selected)
-//           if (isSelected)
-//             Positioned(
-//               top: 12,
-//               right: 12,
-//               child: Container(
-//                 width: 24,
-//                 height: 24,
-//                 decoration: BoxDecoration(
-//                   shape: BoxShape.circle,
-//                   color: property.color,
-//                   boxShadow: [
-//                     BoxShadow(
-//                       color: property.color.withOpacity(0.4),
-//                       blurRadius: 6,
-//                       spreadRadius: 1,
-//                       offset: Offset(0, 2),
-//                     ),
-//                   ],
-//                 ),
-//                 child: Center(
-//                   child: Icon(
-//                     Icons.check_rounded,
-//                     size: 14,
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//
-//           // Selection Overlay (Subtle color overlay when selected)
-//           if (isSelected)
-//             Positioned.fill(
-//               child: Container(
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(16),
-//                   color: property.color.withOpacity(0.03),
-//                 ),
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 
 class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
   int _selectedIndex = -1;
@@ -2183,8 +2678,6 @@ class _HotelCategoryCard extends StatelessWidget {
     );
   }
 }
-
-
 
 
 

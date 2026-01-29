@@ -52,6 +52,7 @@ dev_dependencies:
   open_file:
   file_picker:
   iconsax:
+  url_launcher:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
