@@ -684,7 +684,6 @@ class ChooseRoleScreen extends StatelessWidget {
 // }
 
 
-
 class PropertyAuthScreen extends StatefulWidget {
   const PropertyAuthScreen({super.key});
 
@@ -1093,13 +1092,26 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 
                       // Combined Phone or Email Field
                       _buildModernTextField(
-                        label: "Phone or Email",
-                        hint: "Phone number or email address",
+                        label: "Email address",
+                        hint: "Email address",
                         icon: Icons.contact_phone_outlined,
                         controller: _phoneController,
                         keyboardType: TextInputType.emailAddress,
                         isRequired: true,
                       ),
+
+                      SizedBox(height: 16),
+
+                      // Combined Phone or Email Field
+                      _buildModernTextField(
+                        label: "Phone number",
+                        hint: "Phone number",
+                        icon: Icons.phone,
+                        controller: _phoneController,
+                        keyboardType: TextInputType.emailAddress,
+                        isRequired: true,
+                      ),
+
 
                       SizedBox(height: 16),
 
@@ -1640,13 +1652,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 }
-
-
-
-
-
-
-
 
 
 class PropertyTypeScreen extends StatefulWidget {

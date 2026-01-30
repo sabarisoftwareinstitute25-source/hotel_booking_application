@@ -3144,917 +3144,6 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   }
 }
 
-// class RegistrationSummaryScreen extends StatelessWidget {
-//   final Map<String, dynamic>? formData;
-//   final bool declarationAccepted;
-//   final String hotelName;
-//   final String? hotelType;
-//   final String yearOfEstablishment;
-//   final String totalRooms;
-//   final String ownerName;
-//   final String mobileNumber;
-//   final String alternateContact;
-//   final List<String> landlineNumbers;
-//   final String email;
-//   final String website;
-//   final String addressLine1;
-//   final String addressLine2;
-//   final String city;
-//   final String district;
-//   final String state;
-//   final String pinCode;
-//   final String landmark;
-//   final Map<String, bool> selectedRoomTypes;
-//   final Map<String, Map<String, dynamic>> roomDetails;
-//   final String minTariff;
-//   final String maxTariff;
-//   final bool extraBedAvailable;
-//   final Map<String, bool> basicAmenities;
-//   final Map<String, bool> hotelFacilities;
-//   final Map<String, bool> foodServices;
-//   final Map<String, bool> additionalAmenities;
-//   final List<String> customAmenities;
-//   final String gstNumber;
-//   final String fssaiLicense;
-//   final String tradeLicense;
-//   final String panNumber;
-//   final String aadharNumber;
-//   final String accountHolderName;
-//   final String bankName;
-//   final String accountNumber;
-//   final String ifscCode;
-//   final String branch;
-//   final String accountType;
-//   final Map<String, Map<String, dynamic>> uploadedFiles;
-//   final String signatureName;
-//   final String declarationName;
-//   final DateTime? declarationDate;
-//   final Map<String, dynamic> personPhotoInfo;
-//
-//   const RegistrationSummaryScreen({
-//     super.key,
-//     this.formData,
-//     required this.hotelName,
-//     this.hotelType,
-//     required this.yearOfEstablishment,
-//     required this.totalRooms,
-//     required this.ownerName,
-//     required this.mobileNumber,
-//     required this.alternateContact,
-//     required this.landlineNumbers,
-//     required this.email,
-//     required this.website,
-//     required this.addressLine1,
-//     required this.addressLine2,
-//     required this.city,
-//     required this.district,
-//     required this.state,
-//     required this.pinCode,
-//     required this.landmark,
-//     required this.selectedRoomTypes,
-//     required this.roomDetails,
-//     required this.minTariff,
-//     required this.maxTariff,
-//     required this.extraBedAvailable,
-//     required this.basicAmenities,
-//     required this.hotelFacilities,
-//     required this.foodServices,
-//     required this.additionalAmenities,
-//     required this.customAmenities,
-//     required this.gstNumber,
-//     required this.fssaiLicense,
-//     required this.tradeLicense,
-//     required this.panNumber,
-//     required this.aadharNumber,
-//     required this.accountHolderName,
-//     required this.bankName,
-//     required this.accountNumber,
-//     required this.ifscCode,
-//     required this.branch,
-//     required this.accountType,
-//     required this.uploadedFiles,
-//     required this.signatureName,
-//     required this.declarationName,
-//     this.declarationDate,
-//     required this.personPhotoInfo,
-//     required this.declarationAccepted,
-//   });
-//
-//   static const Color primary = Color(0xFFFF5F6D);
-//   static const Color bg = Color(0xFFF9FAFB);
-//   static const Color textDark = Color(0xFF111827);
-//   static const Color textLight = Color(0xFF6B7280);
-//   static const Color border = Color(0xFFE5E7EB);
-//   static const Color green = Color(0xFF10B981);
-//   static const Color greenLight = Color(0xFFD1FAE5);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: bg,
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 1,
-//         title: const Text(
-//           'Registration Summary',
-//           style: TextStyle(fontWeight: FontWeight.w600, color: textDark),
-//         ),
-//         centerTitle: true,
-//         iconTheme: const IconThemeData(color: textDark),
-//       ),
-//       bottomNavigationBar: SafeArea(
-//         child: Padding(
-//           padding: const EdgeInsets.all(16),
-//           child: // In RegistrationSummaryScreen's bottomNavigationBar button:
-//           ElevatedButton(
-//             style: ElevatedButton.styleFrom(
-//               backgroundColor: primary,
-//               padding: const EdgeInsets.symmetric(vertical: 16),
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(12),
-//               ),
-//             ),
-//             onPressed: () {
-//               // Create a map with all registration data
-//               Map<String, dynamic> registrationData = {
-//                 'hotelName': hotelName,
-//                 'ownerName': ownerName,
-//                 'mobileNumber': mobileNumber,
-//                 'email': email,
-//                 'addressLine1': addressLine1,
-//                 'addressLine2': addressLine2,
-//                 'city': city,
-//                 'district': district,
-//                 'state': state,
-//                 'pinCode': pinCode,
-//                 'landmark': landmark,
-//                 'hotelType': hotelType,
-//                 'yearOfEstablishment': yearOfEstablishment,
-//                 'totalRooms': totalRooms,
-//                 'alternateContact': alternateContact,
-//                 'landlineNumbers': landlineNumbers,
-//                 'website': website,
-//                 'selectedRoomTypes': selectedRoomTypes,
-//                 'roomDetails': roomDetails,
-//                 'minTariff': minTariff,
-//                 'maxTariff': maxTariff,
-//                 'extraBedAvailable': extraBedAvailable,
-//                 'basicAmenities': basicAmenities,
-//                 'hotelFacilities': hotelFacilities,
-//                 'foodServices': foodServices,
-//                 'additionalAmenities': additionalAmenities,
-//                 'customAmenities': customAmenities,
-//                 'gstNumber': gstNumber,
-//                 'fssaiLicense': fssaiLicense,
-//                 'tradeLicense': tradeLicense,
-//                 'aadharNumber': aadharNumber,
-//                 'accountHolderName': accountHolderName,
-//                 'bankName': bankName,
-//                 'accountNumber': accountNumber,
-//                 'ifscCode': ifscCode,
-//                 'branch': branch,
-//                 'accountType': accountType,
-//                 'uploadedFiles': uploadedFiles,
-//                 'signatureName': signatureName,
-//                 'declarationName': declarationName,
-//                 'declarationDate': declarationDate,
-//                 'declarationAccepted': declarationAccepted,
-//                 'personPhotoInfo': personPhotoInfo,
-//               };
-//
-//               Navigator.pushAndRemoveUntil(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => LoginPage(
-//                     registeredEmail: email,
-//                     registeredPassword: "12345",
-//                     registrationData: registrationData, // Pass all data
-//                   ),
-//                 ),
-//                 (route) => false,
-//               );
-//             },
-//             child: const Text(
-//               'Finish',
-//               style: TextStyle(
-//                 color: Colors.white,
-//                 fontSize: 16,
-//                 fontWeight: FontWeight.w600,
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//       body: SingleChildScrollView(
-//         padding: const EdgeInsets.all(16),
-//         child: Column(
-//           children: [
-//             _successCard(),
-//
-//             _section('Hotel Information', [
-//               _info('Hotel Name', hotelName),
-//               _info('Hotel Type', hotelType ?? 'Not selected'),
-//               _info('Year of Establishment', yearOfEstablishment),
-//               _info('Total Rooms', totalRooms),
-//             ]),
-//
-//             _section('Contact Information', [
-//               _info('Owner Name', ownerName),
-//               if (personPhotoInfo['uploaded'] == true)
-//                 _fileInfo('Profile Photo', personPhotoInfo['name'] ?? 'Photo'),
-//               _info('Mobile', mobileNumber),
-//               if (alternateContact.isNotEmpty)
-//                 _info('Alternate Contact', alternateContact),
-//               ...landlineNumbers
-//                   .where((e) => e.isNotEmpty)
-//                   .map((e) => _info('Landline', e)),
-//               if (email.isNotEmpty) _info('Email', email),
-//               if (website.isNotEmpty) _info('Website', website),
-//             ]),
-//
-//             _section('Hotel Address', [
-//               _info('Address Line 1', addressLine1),
-//               if (addressLine2.isNotEmpty)
-//                 _info('Address Line 2', addressLine2),
-//               _info('City', city),
-//               _info('District', district),
-//               _info('State', state),
-//               _info('PIN Code', pinCode),
-//               if (landmark.isNotEmpty) _info('Landmark', landmark),
-//             ]),
-//
-//             if (selectedRoomTypes.entries.any((entry) => entry.value))
-//               _section('Room Configuration', [
-//                 Padding(
-//                   padding: const EdgeInsets.only(bottom: 12),
-//                   child: Text(
-//                     'Selected Room Types:',
-//                     style: TextStyle(
-//                       fontWeight: FontWeight.w600,
-//                       fontSize: 14,
-//                       color: textDark,
-//                     ),
-//                   ),
-//                 ),
-//                 Wrap(
-//                   spacing: 8,
-//                   runSpacing: 8,
-//                   children: selectedRoomTypes.entries
-//                       .where((entry) => entry.value)
-//                       .map(
-//                         (entry) => Container(
-//                           padding: const EdgeInsets.symmetric(
-//                             horizontal: 12,
-//                             vertical: 6,
-//                           ),
-//                           decoration: BoxDecoration(
-//                             color: primary.withOpacity(0.1),
-//                             borderRadius: BorderRadius.circular(20),
-//                             border: Border.all(color: primary.withOpacity(0.3)),
-//                           ),
-//                           child: Text(
-//                             entry.key,
-//                             style: TextStyle(
-//                               fontSize: 12,
-//                               fontWeight: FontWeight.w500,
-//                               color: primary,
-//                             ),
-//                           ),
-//                         ),
-//                       )
-//                       .toList(),
-//                 ),
-//                 const SizedBox(height: 16),
-//
-//                 ...selectedRoomTypes.entries.where((entry) => entry.value).map((
-//                   entry,
-//                 ) {
-//                   String roomType = entry.key;
-//                   var details = roomDetails[roomType]!;
-//                   return Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Padding(
-//                         padding: const EdgeInsets.only(bottom: 8),
-//                         child: Text(
-//                           roomType,
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w600,
-//                             fontSize: 14,
-//                             color: textDark,
-//                           ),
-//                         ),
-//                       ),
-//                       Container(
-//                         padding: const EdgeInsets.all(12),
-//                         margin: const EdgeInsets.only(bottom: 12),
-//                         decoration: BoxDecoration(
-//                           color: bg,
-//                           borderRadius: BorderRadius.circular(8),
-//                           border: Border.all(color: border),
-//                         ),
-//                         child: Column(
-//                           children: [
-//                             if (details['rooms'] != null &&
-//                                 details['rooms'].toString().isNotEmpty)
-//                               _row(
-//                                 'Number of Rooms',
-//                                 details['rooms'].toString(),
-//                               ),
-//                             if (details['occupancy'] != null &&
-//                                 details['occupancy'].toString().isNotEmpty)
-//                               _row(
-//                                 'Max Occupancy',
-//                                 '${details['occupancy']} Persons',
-//                               ),
-//                             if (details['price'] != null &&
-//                                 details['price'].toString().isNotEmpty)
-//                               _row('Price per Night', '₹${details['price']}'),
-//                             _row(
-//                               'AC/Non-AC',
-//                               details['ac'] == true ? 'AC' : 'Non-AC',
-//                             ),
-//                             _row(
-//                               'Extra Bed Available',
-//                               details['extraBed'] == true ? 'Yes' : 'No',
-//                             ),
-//                             if (details['extraBed'] == true &&
-//                                 details['extraBedPrice'] != null &&
-//                                 details['extraBedPrice'].toString().isNotEmpty)
-//                               _row(
-//                                 'Extra Bed Price',
-//                                 '₹${details['extraBedPrice']}',
-//                               ),
-//                           ],
-//                         ),
-//                       ),
-//                     ],
-//                   );
-//                 }).toList(),
-//
-//                 if (minTariff.isNotEmpty || maxTariff.isNotEmpty)
-//                   Container(
-//                     padding: const EdgeInsets.all(12),
-//                     decoration: BoxDecoration(
-//                       color: greenLight,
-//                       borderRadius: BorderRadius.circular(8),
-//                       border: Border.all(color: green.withOpacity(0.3)),
-//                     ),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Text(
-//                               'Room Tariff Range',
-//                               style: TextStyle(fontSize: 13, color: textLight),
-//                             ),
-//                             Text(
-//                               '₹$minTariff - ₹$maxTariff',
-//                               style: TextStyle(
-//                                 fontSize: 16,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: green,
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                         Container(
-//                           padding: const EdgeInsets.symmetric(
-//                             horizontal: 12,
-//                             vertical: 6,
-//                           ),
-//                           decoration: BoxDecoration(
-//                             color: Colors.white,
-//                             borderRadius: BorderRadius.circular(20),
-//                             border: Border.all(color: green),
-//                           ),
-//                           child: Text(
-//                             extraBedAvailable
-//                                 ? 'Extra Bed: Yes'
-//                                 : 'Extra Bed: No',
-//                             style: TextStyle(
-//                               fontSize: 12,
-//                               fontWeight: FontWeight.w600,
-//                               color: green,
-//                             ),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//               ]),
-//
-//             _section('Amenities & Facilities', [
-//               if (basicAmenities.entries.any((entry) => entry.value))
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     _amenityCategory('Basic Amenities', basicAmenities),
-//                     const SizedBox(height: 12),
-//                   ],
-//                 ),
-//
-//               if (hotelFacilities.entries.any((entry) => entry.value))
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     _amenityCategory('Hotel Facilities', hotelFacilities),
-//                     const SizedBox(height: 12),
-//                   ],
-//                 ),
-//
-//               if (foodServices.entries.any((entry) => entry.value))
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     _amenityCategory('Food & Services', foodServices),
-//                     const SizedBox(height: 12),
-//                   ],
-//                 ),
-//
-//               if (additionalAmenities.entries.any((entry) => entry.value))
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     _amenityCategory(
-//                       'Additional Amenities',
-//                       additionalAmenities,
-//                     ),
-//                     const SizedBox(height: 12),
-//                   ],
-//                 ),
-//
-//               if (customAmenities.isNotEmpty)
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Padding(
-//                       padding: const EdgeInsets.only(bottom: 8),
-//                       child: Text(
-//                         'Custom Amenities',
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.w600,
-//                           fontSize: 14,
-//                           color: textDark,
-//                         ),
-//                       ),
-//                     ),
-//                     Wrap(
-//                       spacing: 8,
-//                       runSpacing: 8,
-//                       children: customAmenities
-//                           .map(
-//                             (amenity) => Container(
-//                               padding: const EdgeInsets.symmetric(
-//                                 horizontal: 12,
-//                                 vertical: 6,
-//                               ),
-//                               decoration: BoxDecoration(
-//                                 color: primary.withOpacity(0.1),
-//                                 borderRadius: BorderRadius.circular(20),
-//                                 border: Border.all(
-//                                   color: primary.withOpacity(0.3),
-//                                 ),
-//                               ),
-//                               child: Text(
-//                                 amenity,
-//                                 style: TextStyle(
-//                                   fontSize: 12,
-//                                   fontWeight: FontWeight.w500,
-//                                   color: primary,
-//                                 ),
-//                               ),
-//                             ),
-//                           )
-//                           .toList(),
-//                     ),
-//                   ],
-//                 ),
-//             ]),
-//
-//             _section('Legal Details', [
-//               if (gstNumber.isNotEmpty) _info('GST Number', gstNumber),
-//               if (fssaiLicense.isNotEmpty) _info('FSSAI License', fssaiLicense),
-//               if (tradeLicense.isNotEmpty) _info('Trade License', tradeLicense),
-//
-//               if (aadharNumber.isNotEmpty) _info('Aadhar Number', aadharNumber),
-//             ]),
-//
-//             _section('Bank Details', [
-//               _info('Account Holder', accountHolderName),
-//               _info('Bank Name', bankName),
-//               _info('Account Number', accountNumber),
-//               _info('IFSC Code', ifscCode),
-//               if (branch.isNotEmpty) _info('Branch', branch),
-//               if (accountType.isNotEmpty) _info('Account Type', accountType),
-//             ]),
-//
-//             if (uploadedFiles.entries.any(
-//               (entry) => entry.value['uploaded'] == true,
-//             ))
-//               _section('Uploaded Documents', [
-//                 ...uploadedFiles.entries
-//                     .where((entry) => entry.value['uploaded'] == true)
-//                     .map((entry) => _documentFile(entry.key, entry.value)),
-//               ]),
-//
-//             // _section('Declaration', [
-//             //   _info('Authorized Signatory', signatureName),
-//             //   _info('Name', declarationName),
-//             //   if (declarationDate != null)
-//             //     _info(
-//             //       'Date',
-//             //       '${declarationDate!.day}/${declarationDate!.month}/${declarationDate!.year}',
-//             //     ),
-//             // ]),
-//
-//             // In RegistrationSummaryScreen build method, keep the original declaration section:
-//             _section('Declaration', [
-//               _info('Authorized Signatory', signatureName),
-//               _info('Name', declarationName),
-//               if (declarationDate != null)
-//                 _info(
-//                   'Date',
-//                   '${declarationDate!.day}/${declarationDate!.month}/${declarationDate!.year}',
-//                 ),
-//               // Add declaration status
-//               Container(
-//                 padding: EdgeInsets.all(12),
-//                 margin: EdgeInsets.only(top: 8),
-//                 decoration: BoxDecoration(
-//                   color: declarationAccepted
-//                       ? Color(0xFFD1FAE5)
-//                       : Color(0xFFFEE2E2),
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Icon(
-//                       declarationAccepted ? Icons.check_circle : Icons.error,
-//                       color: declarationAccepted
-//                           ? Color(0xFF059669)
-//                           : Color(0xFFDC2626),
-//                     ),
-//                     SizedBox(width: 8),
-//                     Text(
-//                       declarationAccepted
-//                           ? 'Declaration accepted'
-//                           : 'Declaration not accepted',
-//                       style: TextStyle(
-//                         color: declarationAccepted
-//                             ? Color(0xFF059669)
-//                             : Color(0xFFDC2626),
-//                         fontWeight: FontWeight.w600,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ]),
-//
-//             const SizedBox(height: 20),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _successCard() {
-//     return Container(
-//       width: double.infinity,
-//       margin: const EdgeInsets.only(bottom: 20),
-//       padding: const EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         gradient: const LinearGradient(colors: [primary, Color(0xFFFF8A7A)]),
-//         borderRadius: BorderRadius.circular(16),
-//       ),
-//       child: Row(
-//         children: const [
-//           Icon(Icons.verified, color: Colors.white, size: 36),
-//           SizedBox(width: 14),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Registration Submitted Successfully',
-//                   style: TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.w600,
-//                   ),
-//                 ),
-//                 SizedBox(height: 4),
-//                 Text(
-//                   'Your application has been submitted for review',
-//                   style: TextStyle(color: Colors.white70, fontSize: 12),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _section(String title, List<Widget> children) {
-//     return Container(
-//       width: double.infinity,
-//       margin: const EdgeInsets.only(bottom: 16),
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(14),
-//         border: Border.all(color: border),
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             title,
-//             style: const TextStyle(
-//               fontSize: 16,
-//               fontWeight: FontWeight.w700,
-//               color: textDark,
-//             ),
-//           ),
-//           const Divider(height: 24),
-//           ...children,
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _info(String label, String value) {
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 14),
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Expanded(
-//             flex: 4,
-//             child: Text(
-//               label,
-//               style: const TextStyle(fontSize: 13, color: textLight),
-//             ),
-//           ),
-//           Expanded(
-//             flex: 6,
-//             child: Text(
-//               value,
-//               style: const TextStyle(
-//                 fontSize: 14,
-//                 fontWeight: FontWeight.w600,
-//                 color: textDark,
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _row(String label, String value) {
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 8),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         children: [
-//           Text(label, style: const TextStyle(fontSize: 13, color: textLight)),
-//           Text(
-//             value,
-//             style: const TextStyle(
-//               fontSize: 13,
-//               fontWeight: FontWeight.w600,
-//               color: textDark,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _amenityCategory(String title, Map<String, bool> amenities) {
-//     final selectedAmenities = amenities.entries
-//         .where((entry) => entry.value)
-//         .map((entry) => entry.key)
-//         .toList();
-//
-//     if (selectedAmenities.isEmpty) return const SizedBox();
-//
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Padding(
-//           padding: const EdgeInsets.only(bottom: 8),
-//           child: Text(
-//             title,
-//             style: TextStyle(
-//               fontWeight: FontWeight.w600,
-//               fontSize: 14,
-//               color: textDark,
-//             ),
-//           ),
-//         ),
-//         Wrap(
-//           spacing: 8,
-//           runSpacing: 8,
-//           children: selectedAmenities
-//               .map(
-//                 (amenity) => Container(
-//                   padding: const EdgeInsets.symmetric(
-//                     horizontal: 12,
-//                     vertical: 6,
-//                   ),
-//                   decoration: BoxDecoration(
-//                     color: bg,
-//                     borderRadius: BorderRadius.circular(20),
-//                     border: Border.all(color: border),
-//                   ),
-//                   child: Text(
-//                     amenity,
-//                     style: const TextStyle(
-//                       fontSize: 12,
-//                       fontWeight: FontWeight.w500,
-//                       color: textLight,
-//                     ),
-//                   ),
-//                 ),
-//               )
-//               .toList(),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _fileInfo(String label, String fileName) {
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 14),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(label, style: const TextStyle(fontSize: 13, color: textLight)),
-//           const SizedBox(height: 4),
-//           Container(
-//             padding: const EdgeInsets.all(12),
-//             decoration: BoxDecoration(
-//               color: bg,
-//               borderRadius: BorderRadius.circular(8),
-//               border: Border.all(color: border),
-//             ),
-//             child: Row(
-//               children: [
-//                 Container(
-//                   width: 36,
-//                   height: 36,
-//                   decoration: BoxDecoration(
-//                     color: primary.withOpacity(0.1),
-//                     borderRadius: BorderRadius.circular(8),
-//                   ),
-//                   child: Center(
-//                     child: Icon(Icons.photo, size: 18, color: primary),
-//                   ),
-//                 ),
-//                 const SizedBox(width: 12),
-//                 Expanded(
-//                   child: Text(
-//                     fileName,
-//                     style: const TextStyle(
-//                       fontSize: 14,
-//                       fontWeight: FontWeight.w600,
-//                       color: textDark,
-//                     ),
-//                     maxLines: 1,
-//                     overflow: TextOverflow.ellipsis,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _documentFile(String label, Map<String, dynamic> fileInfo) {
-//     IconData getFileIcon() {
-//       final fileName = fileInfo['name']?.toString().toLowerCase() ?? '';
-//       if (fileName.endsWith('.pdf')) return Icons.picture_as_pdf;
-//       if (fileName.endsWith('.jpg') ||
-//           fileName.endsWith('.jpeg') ||
-//           fileName.endsWith('.png'))
-//         return Icons.image;
-//       if (fileName.endsWith('.doc') || fileName.endsWith('.docx'))
-//         return Icons.description;
-//       if (label.contains('Signature')) return Icons.draw;
-//       if (label.contains('FSSAI')) return Icons.restaurant;
-//       return Icons.insert_drive_file;
-//     }
-//
-//     Color getFileColor() {
-//       if (label.contains('Signature')) return Colors.purple;
-//       if (label.contains('FSSAI')) return Colors.green;
-//       final fileName = fileInfo['name']?.toString().toLowerCase() ?? '';
-//       if (fileName.endsWith('.pdf')) return Colors.red;
-//       if (fileName.endsWith('.jpg') ||
-//           fileName.endsWith('.jpeg') ||
-//           fileName.endsWith('.png'))
-//         return Colors.green;
-//       if (fileName.endsWith('.doc') || fileName.endsWith('.docx'))
-//         return Colors.blue;
-//       return textLight;
-//     }
-//
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 12),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(label, style: const TextStyle(fontSize: 13, color: textLight)),
-//           const SizedBox(height: 4),
-//           Container(
-//             padding: const EdgeInsets.all(12),
-//             decoration: BoxDecoration(
-//               color: bg,
-//               borderRadius: BorderRadius.circular(8),
-//               border: Border.all(color: border),
-//             ),
-//             child: Row(
-//               children: [
-//                 Container(
-//                   width: 40,
-//                   height: 40,
-//                   decoration: BoxDecoration(
-//                     color: getFileColor().withOpacity(0.1),
-//                     borderRadius: BorderRadius.circular(8),
-//                   ),
-//                   child: Center(
-//                     child: Icon(getFileIcon(), size: 20, color: getFileColor()),
-//                   ),
-//                 ),
-//                 const SizedBox(width: 12),
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         fileInfo['name'] ?? 'Document',
-//                         style: const TextStyle(
-//                           fontSize: 14,
-//                           fontWeight: FontWeight.w600,
-//                           color: textDark,
-//                         ),
-//                         maxLines: 1,
-//                         overflow: TextOverflow.ellipsis,
-//                       ),
-//                       const SizedBox(height: 2),
-//                       Row(
-//                         children: [
-//                           Text(
-//                             '${(fileInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
-//                             style: const TextStyle(
-//                               fontSize: 11,
-//                               color: textLight,
-//                             ),
-//                           ),
-//                           const SizedBox(width: 8),
-//                           Container(
-//                             width: 4,
-//                             height: 4,
-//                             decoration: const BoxDecoration(
-//                               color: textLight,
-//                               shape: BoxShape.circle,
-//                             ),
-//                           ),
-//                           const SizedBox(width: 8),
-//                           Text(
-//                             (fileInfo['name']
-//                                     ?.toString()
-//                                     .split('.')
-//                                     .last
-//                                     .toUpperCase() ??
-//                                 'FILE'),
-//                             style: const TextStyle(
-//                               fontSize: 11,
-//                               color: textLight,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 Icon(Icons.check_circle, size: 18, color: green),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 class RegistrationSummaryScreen extends StatelessWidget {
   final Map<String, dynamic>? formData;
   final bool declarationAccepted;
@@ -5605,1458 +4694,6 @@ class HotelOwnerDashboard extends StatefulWidget {
   State<HotelOwnerDashboard> createState() => _HotelOwnerDashboardState();
 }
 
-// class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
-//   int _selectedIndex = 0;
-//   final Color _primaryColor = Color(0xFFFF5F6D);
-//   final Color _bgColor = Color(0xFFF9FAFB);
-//   final Color _textDark = Color(0xFF111827);
-//   final Color _textLight = Color(0xFF6B7280);
-//   final Color _borderColor = Color(0xFFE5E7EB);
-//
-//   List<Map<String, dynamic>> _todayBookings = [
-//     {
-//       'room': '101',
-//       'guest': 'John Doe',
-//       'checkIn': '14:00',
-//       'checkOut': '12:00',
-//       'status': 'Checked In',
-//     },
-//     {
-//       'room': '203',
-//       'guest': 'Jane Smith',
-//       'checkIn': '15:30',
-//       'checkOut': '11:00',
-//       'status': 'Pending',
-//     },
-//     {
-//       'room': '305',
-//       'guest': 'Robert Brown',
-//       'checkIn': '12:00',
-//       'checkOut': '10:00',
-//       'status': 'Checked Out',
-//     },
-//   ];
-//
-//   List<Map<String, dynamic>> _recentReviews = [
-//     {
-//       'guest': 'Alice Johnson',
-//       'rating': 4.5,
-//       'comment': 'Great service!',
-//       'date': '2024-01-20',
-//     },
-//     {
-//       'guest': 'Mark Wilson',
-//       'rating': 3.8,
-//       'comment': 'Clean rooms',
-//       'date': '2024-01-19',
-//     },
-//     {
-//       'guest': 'Sarah Lee',
-//       'rating': 5.0,
-//       'comment': 'Excellent experience',
-//       'date': '2024-01-18',
-//     },
-//   ];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     double w = MediaQuery.of(context).size.width;
-//     double h = MediaQuery.of(context).size.height;
-//
-//     return Scaffold(
-//       backgroundColor: _bgColor,
-//       appBar: _buildAppBar(w),
-//       drawer: _buildDrawer(w),
-//       body: _buildBody(w, h),
-//       bottomNavigationBar: _buildBottomNavigationBar(),
-//       floatingActionButton: _selectedIndex == 1
-//           ? FloatingActionButton(
-//               backgroundColor: _primaryColor,
-//               onPressed: () {},
-//               child: Icon(Icons.add, color: Colors.white),
-//             )
-//           : null,
-//     );
-//   }
-//
-//   AppBar _buildAppBar(double w) {
-//     return AppBar(
-//       backgroundColor: Colors.white,
-//       elevation: 1,
-//       leading: Builder(
-//         builder: (context) => IconButton(
-//           icon: Icon(Icons.menu, color: _textDark),
-//           onPressed: () => Scaffold.of(context).openDrawer(),
-//         ),
-//       ),
-//       title: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             'Welcome back ${widget.ownerName}!',
-//             style: TextStyle(
-//               color: Colors.black,
-//               fontSize: 20,
-//               fontWeight: FontWeight.w600,
-//             ),
-//           ),
-//           Text(
-//             DateFormat('EEEE, MMMM d').format(DateTime.now()),
-//             style: TextStyle(fontSize: 12, color: _textLight),
-//           ),
-//         ],
-//       ),
-//       actions: [
-//         IconButton(
-//           icon: Icon(Icons.person_outline, color: _textDark),
-//           onPressed: () => _showProfile(),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Drawer _buildDrawer(double w) {
-//     return Drawer(
-//       child: ListView(
-//         padding: EdgeInsets.zero,
-//         children: [
-//           DrawerHeader(
-//             decoration: BoxDecoration(
-//               gradient: LinearGradient(
-//                 colors: [_primaryColor, Color(0xFFFF8A7A)],
-//               ),
-//             ),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 CircleAvatar(
-//                   radius: 30,
-//                   backgroundColor: Colors.white,
-//                   child: Icon(Icons.hotel, size: 32, color: _primaryColor),
-//                 ),
-//                 SizedBox(height: 10),
-//                 Text(
-//                   widget.hotelName,
-//                   style: TextStyle(
-//                     color: Colors.white,
-//                     fontSize: 18,
-//                     fontWeight: FontWeight.w600,
-//                   ),
-//                 ),
-//                 Text(
-//                   'Owner: ${widget.ownerName}',
-//                   style: TextStyle(color: Colors.white70, fontSize: 12),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           _buildDrawerItem(Icons.dashboard, 'Dashboard', 0),
-//           _buildDrawerItem(Icons.bed, 'Room Management', 1),
-//           _buildDrawerItem(Icons.calendar_today, 'Bookings', 2),
-//           _buildDrawerItem(Icons.attach_money, 'Revenue', 3),
-//           _buildDrawerItem(Icons.star, 'Reviews & Ratings', 4),
-//           _buildDrawerItem(Icons.people, 'Staff Management', 5),
-//           Divider(),
-//           _buildDrawerItem(Icons.settings, 'Hotel Settings', 6),
-//           _buildDrawerItem(Icons.help_outline, 'Help & Support', 7),
-//           _buildDrawerItem(Icons.logout, 'Logout', 8),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   ListTile _buildDrawerItem(IconData icon, String title, int index) {
-//     return ListTile(
-//       leading: Icon(icon, color: _textDark),
-//       title: Text(title, style: TextStyle(color: _textDark)),
-//       selected: _selectedIndex == index,
-//       selectedTileColor: _primaryColor.withOpacity(0.1),
-//       onTap: () {
-//         setState(() {
-//           _selectedIndex = index;
-//         });
-//         Navigator.pop(context);
-//       },
-//     );
-//   }
-//
-//   Widget _buildBody(double w, double h) {
-//     switch (_selectedIndex) {
-//       case 0:
-//         return _buildDashboard(w, h);
-//       case 1:
-//         return _buildRoomManagement();
-//       case 2:
-//         return _buildBookings();
-//       case 3:
-//         return _buildRevenue();
-//       case 4:
-//         return _buildReviews();
-//       default:
-//         return _buildDashboard(w, h);
-//     }
-//   }
-//
-//   // Widget _buildDashboard(double w, double h) {
-//   //   return SingleChildScrollView(
-//   //     padding: EdgeInsets.all(26),
-//   //     child: Column(
-//   //       children: [
-//   //         Container(
-//   //           padding: EdgeInsets.all(20),
-//   //           margin: EdgeInsets.only(bottom: 20),
-//   //           decoration: BoxDecoration(
-//   //             gradient: LinearGradient(
-//   //               colors: [_primaryColor, Color(0xFFFF8A7A)],
-//   //               begin: Alignment.topLeft,
-//   //               end: Alignment.bottomRight,
-//   //             ),
-//   //             borderRadius: BorderRadius.circular(16),
-//   //             boxShadow: [
-//   //               BoxShadow(
-//   //                 color: _primaryColor.withOpacity(0.3),
-//   //                 blurRadius: 10,
-//   //                 offset: Offset(0, 5),
-//   //               ),
-//   //             ],
-//   //           ),
-//   //           child: Row(
-//   //             children: [
-//   //               Expanded(
-//   //                 child: Column(
-//   //                   crossAxisAlignment: CrossAxisAlignment.start,
-//   //                   children: [
-//   //                     // Text(
-//   //                     //   'Welcome back, ${widget.ownerName}!',
-//   //                     //   style: TextStyle(
-//   //                     //     color: Colors.white,
-//   //                     //     fontSize: 20,
-//   //                     //     fontWeight: FontWeight.w600,
-//   //                     //   ),
-//   //                     // ),
-//   //                     SizedBox(height: 8),
-//   //                     Text(
-//   //                       'Manage your hotel efficiently with real-time updates',
-//   //                       style: TextStyle(
-//   //                         color: Colors.white.withOpacity(0.9),
-//   //                         fontSize: 14,
-//   //                       ),
-//   //                     ),
-//   //                   ],
-//   //                 ),
-//   //               ),
-//   //               SizedBox(width: 20),
-//   //               Container(
-//   //                 width: 60,
-//   //                 height: 60,
-//   //                 decoration: BoxDecoration(
-//   //                   color: Colors.white.withOpacity(0.2),
-//   //                   shape: BoxShape.circle,
-//   //                 ),
-//   //                 child: Center(
-//   //                   child: Icon(Icons.hotel, size: 30, color: Colors.white),
-//   //                 ),
-//   //               ),
-//   //             ],
-//   //           ),
-//   //         ),
-//   //
-//   //         SizedBox(height: 20),
-//   //         GridView.count(
-//   //           shrinkWrap: true,
-//   //           physics: NeverScrollableScrollPhysics(),
-//   //           crossAxisCount: 2,
-//   //           crossAxisSpacing: 12,
-//   //           mainAxisSpacing: 12,
-//   //           children: [
-//   //             _statCard(
-//   //               icon: Icons.bed,
-//   //               title: 'Total Rooms',
-//   //               value: widget.totalRooms.toString(),
-//   //               color: Colors.blue,
-//   //             ),
-//   //             _statCard(
-//   //               icon: Icons.people,
-//   //               title: 'Occupied Today',
-//   //               value: '8',
-//   //               color: Colors.green,
-//   //             ),
-//   //             _statCard(
-//   //               icon: Icons.attach_money,
-//   //               title: 'Today\'s Revenue',
-//   //               value: '₹25,400',
-//   //               color: Colors.orange,
-//   //             ),
-//   //             _statCard(
-//   //               icon: Icons.star,
-//   //               title: 'Avg Rating',
-//   //               value: '4.2',
-//   //               color: Colors.purple,
-//   //             ),
-//   //           ],
-//   //         ),
-//   //
-//   //         SizedBox(height: 24),
-//   //
-//   //         Row(
-//   //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//   //           children: [
-//   //             Text(
-//   //               "Today's Bookings",
-//   //               style: TextStyle(
-//   //                 fontSize: 18,
-//   //                 fontWeight: FontWeight.w700,
-//   //                 color: _textDark,
-//   //               ),
-//   //             ),
-//   //             TextButton(
-//   //               onPressed: () {},
-//   //               child: Text('View All', style: TextStyle(color: _primaryColor)),
-//   //             ),
-//   //           ],
-//   //         ),
-//   //         SizedBox(height: 12),
-//   //         _buildBookingsList(),
-//   //
-//   //         SizedBox(height: 24),
-//   //
-//   //         Row(
-//   //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//   //           children: [
-//   //             Text(
-//   //               "Recent Reviews",
-//   //               style: TextStyle(
-//   //                 fontSize: 18,
-//   //                 fontWeight: FontWeight.w700,
-//   //                 color: _textDark,
-//   //               ),
-//   //             ),
-//   //             TextButton(
-//   //               onPressed: () {},
-//   //               child: Text('See All', style: TextStyle(color: _primaryColor)),
-//   //             ),
-//   //           ],
-//   //         ),
-//   //         SizedBox(height: 12),
-//   //         _buildReviewsList(),
-//   //
-//   //         SizedBox(height: 40),
-//   //       ],
-//   //     ),
-//   //   );
-//   // }
-//
-//   Widget _buildDashboard(double w, double h) {
-//     // Calculate statistics from room details
-//     int totalConfiguredRooms = 0;
-//     int acRooms = 0;
-//     int nonAcRooms = 0;
-//     int availableRooms = 0;
-//     int bookedRooms = 0;
-//
-//     // Calculate room type breakdown
-//     Map<String, int> roomTypeCounts = {};
-//
-//     widget.registrationData?['roomDetails']?.forEach((roomType, details) {
-//       final rooms = int.tryParse(details['rooms']?.toString() ?? '0') ?? 0;
-//       final isAC = details['ac'] ?? true;
-//
-//       totalConfiguredRooms += rooms;
-//       if (isAC) {
-//         acRooms += rooms;
-//       } else {
-//         nonAcRooms += rooms;
-//       }
-//
-//       // For demo, assuming 30% of rooms are booked
-//       bookedRooms += (rooms * 0.3).round();
-//       availableRooms += rooms - (rooms * 0.3).round();
-//
-//       // Track room types
-//       roomTypeCounts[roomType] = rooms;
-//     });
-//
-//     // Monthly booking data (dummy data for demo)
-//     List<Map<String, dynamic>> monthlyBookings = [
-//       {'month': 'Jan', 'bookings': 45, 'revenue': 125000},
-//       {'month': 'Feb', 'bookings': 52, 'revenue': 142000},
-//       {'month': 'Mar', 'bookings': 48, 'revenue': 138000},
-//       {'month': 'Apr', 'bookings': 60, 'revenue': 165000},
-//       {'month': 'May', 'bookings': 55, 'revenue': 152000},
-//       {'month': 'Jun', 'bookings': 65, 'revenue': 178000},
-//     ];
-//
-//     return SingleChildScrollView(
-//       padding: EdgeInsets.all(16),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           // Welcome Card
-//           Container(
-//             padding: EdgeInsets.all(20),
-//             margin: EdgeInsets.only(bottom: 20),
-//             decoration: BoxDecoration(
-//               gradient: LinearGradient(
-//                 colors: [_primaryColor, Color(0xFFFF8A7A)],
-//                 begin: Alignment.topLeft,
-//                 end: Alignment.bottomRight,
-//               ),
-//               borderRadius: BorderRadius.circular(16),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: _primaryColor.withOpacity(0.3),
-//                   blurRadius: 10,
-//                   offset: Offset(0, 5),
-//                 ),
-//               ],
-//             ),
-//             child: Row(
-//               children: [
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         widget.hotelName,
-//                         style: TextStyle(
-//                           color: Colors.white,
-//                           fontSize: 22,
-//                           fontWeight: FontWeight.w700,
-//                         ),
-//                       ),
-//                       SizedBox(height: 8),
-//                       Text(
-//                         '${widget.registrationData?['hotelType'] ?? 'Hotel'} • ${widget.registrationData?['yearOfEstablishment'] ?? 'Established'}',
-//                         style: TextStyle(
-//                           color: Colors.white.withOpacity(0.9),
-//                           fontSize: 14,
-//                         ),
-//                       ),
-//                       SizedBox(height: 8),
-//                       Text(
-//                         '${widget.addressLine1}, ${widget.city}',
-//                         style: TextStyle(
-//                           color: Colors.white.withOpacity(0.9),
-//                           fontSize: 12,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 SizedBox(width: 20),
-//                 Container(
-//                   width: 60,
-//                   height: 60,
-//                   decoration: BoxDecoration(
-//                     color: Colors.white.withOpacity(0.2),
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Center(
-//                     child: Icon(Icons.hotel, size: 30, color: Colors.white),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//
-//           // Room Statistics Grid
-//           Text(
-//             'Room Statistics',
-//             style: TextStyle(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//               color: _textDark,
-//             ),
-//           ),
-//           SizedBox(height: 12),
-//           GridView.count(
-//             shrinkWrap: true,
-//             physics: NeverScrollableScrollPhysics(),
-//             crossAxisCount: 2,
-//             crossAxisSpacing: 12,
-//             mainAxisSpacing: 12,
-//             children: [
-//               _statCard(
-//                 icon: Icons.meeting_room,
-//                 title: 'Total Rooms',
-//                 value: widget.totalRooms.toString(),
-//                 color: Colors.blue,
-//                 subtitle: 'Configured: $totalConfiguredRooms',
-//               ),
-//               _statCard(
-//                 icon: Icons.bed,
-//                 title: 'Available Rooms',
-//                 value: availableRooms.toString(),
-//                 color: Colors.green,
-//                 subtitle: 'Ready for booking',
-//               ),
-//               _statCard(
-//                 icon: Icons.people,
-//                 title: 'Occupied Rooms',
-//                 value: bookedRooms.toString(),
-//                 color: Colors.orange,
-//                 subtitle: 'Currently booked',
-//               ),
-//               _statCard(
-//                 icon: Icons.bedroom_parent,
-//                 title: 'Vacant Rooms',
-//                 value: (widget.totalRooms - totalConfiguredRooms).toString(),
-//                 color: Colors.purple,
-//                 subtitle: 'Not configured',
-//               ),
-//             ],
-//           ),
-//
-//           SizedBox(height: 20),
-//
-//           // AC/Non-AC Breakdown
-//           Container(
-//             padding: EdgeInsets.all(16),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.circular(16),
-//               border: Border.all(color: _borderColor),
-//             ),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'AC/Non-AC Distribution',
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.w600,
-//                     color: _textDark,
-//                   ),
-//                 ),
-//                 SizedBox(height: 12),
-//                 Row(
-//                   children: [
-//                     Expanded(
-//                       child: _buildRoomTypeCard(
-//                         icon: Icons.ac_unit,
-//                         title: 'AC Rooms',
-//                         count: acRooms,
-//                         percentage: totalConfiguredRooms > 0
-//                             ? ((acRooms / totalConfiguredRooms) * 100).round()
-//                             : 0,
-//                         color: Colors.blue,
-//                       ),
-//                     ),
-//                     SizedBox(width: 12),
-//                     Expanded(
-//                       child: _buildRoomTypeCard(
-//                         icon: Icons.air,
-//                         title: 'Non-AC Rooms',
-//                         count: nonAcRooms,
-//                         percentage: totalConfiguredRooms > 0
-//                             ? ((nonAcRooms / totalConfiguredRooms) * 100).round()
-//                             : 0,
-//                         color: Colors.green,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//
-//           SizedBox(height: 20),
-//
-//           // Room Type Breakdown
-//           Container(
-//             padding: EdgeInsets.all(16),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.circular(16),
-//               border: Border.all(color: _borderColor),
-//             ),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Text(
-//                       'Room Type Distribution',
-//                       style: TextStyle(
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.w600,
-//                         color: _textDark,
-//                       ),
-//                     ),
-//                     Text(
-//                       'Total: $totalConfiguredRooms rooms',
-//                       style: TextStyle(
-//                         fontSize: 12,
-//                         color: _textLight,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 SizedBox(height: 12),
-//                 ...roomTypeCounts.entries.map((entry) {
-//                   String roomType = entry.key;
-//                   int count = entry.value;
-//                   double percentage = totalConfiguredRooms > 0
-//                       ? (count / totalConfiguredRooms) * 100
-//                       : 0;
-//
-//                   return Padding(
-//                     padding: EdgeInsets.only(bottom: 12),
-//                     child: Column(
-//                       children: [
-//                         Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                           children: [
-//                             Row(
-//                               children: [
-//                                 Container(
-//                                   width: 36,
-//                                   height: 36,
-//                                   decoration: BoxDecoration(
-//                                     color: Colors.blue.withOpacity(0.1),
-//                                     borderRadius: BorderRadius.circular(8),
-//                                   ),
-//                                   child: Center(
-//                                     child: Icon(
-//                                       Icons.king_bed,
-//                                       size: 18,
-//                                       color: Colors.blue,
-//                                     ),
-//                                   ),
-//                                 ),
-//                                 SizedBox(width: 12),
-//                                 Column(
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   children: [
-//                                     Text(
-//                                       roomType,
-//                                       style: TextStyle(
-//                                         fontWeight: FontWeight.w600,
-//                                         color: _textDark,
-//                                       ),
-//                                     ),
-//                                     Text(
-//                                       '$count rooms • ${percentage.toStringAsFixed(1)}%',
-//                                       style: TextStyle(
-//                                         fontSize: 12,
-//                                         color: _textLight,
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ],
-//                             ),
-//                             Container(
-//                               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                               decoration: BoxDecoration(
-//                                 color: Colors.blue.withOpacity(0.1),
-//                                 borderRadius: BorderRadius.circular(20),
-//                               ),
-//                               child: Row(
-//                                 children: [
-//                                   Icon(Icons.bed, size: 12, color: Colors.blue),
-//                                   SizedBox(width: 4),
-//                                   Text(
-//                                     '${(count * 0.7).round()} available',
-//                                     style: TextStyle(
-//                                       fontSize: 11,
-//                                       color: Colors.blue,
-//                                       fontWeight: FontWeight.w600,
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                         SizedBox(height: 8),
-//                         LinearProgressIndicator(
-//                           value: count / widget.totalRooms,
-//                           backgroundColor: Colors.grey[200],
-//                           color: Colors.blue,
-//                           minHeight: 4,
-//                         ),
-//                       ],
-//                     ),
-//                   );
-//                 }).toList(),
-//               ],
-//             ),
-//           ),
-//
-//           SizedBox(height: 20),
-//
-//           // Monthly Booking Insights
-//           Container(
-//             padding: EdgeInsets.all(16),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.circular(16),
-//               border: Border.all(color: _borderColor),
-//             ),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Text(
-//                       'Monthly Booking Insights',
-//                       style: TextStyle(
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.w600,
-//                         color: _textDark,
-//                       ),
-//                     ),
-//                     Container(
-//                       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-//                       decoration: BoxDecoration(
-//                         color: Colors.grey[100],
-//                         borderRadius: BorderRadius.circular(20),
-//                       ),
-//                       child: Text(
-//                         'Last 6 months',
-//                         style: TextStyle(
-//                           fontSize: 12,
-//                           color: _textLight,
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 SizedBox(height: 12),
-//
-//                 // Month selector
-//                 SizedBox(
-//                   height: 40,
-//                   child: ListView(
-//                     scrollDirection: Axis.horizontal,
-//                     children: monthlyBookings.map((monthData) {
-//                       return Container(
-//                         margin: EdgeInsets.only(right: 8),
-//                         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-//                         decoration: BoxDecoration(
-//                           color: monthData['month'] == 'Jun'
-//                               ? _primaryColor
-//                               : Colors.transparent,
-//                           borderRadius: BorderRadius.circular(20),
-//                           border: Border.all(
-//                             color: monthData['month'] == 'Jun'
-//                                 ? _primaryColor
-//                                 : _borderColor,
-//                           ),
-//                         ),
-//                         child: Text(
-//                           monthData['month'],
-//                           style: TextStyle(
-//                             color: monthData['month'] == 'Jun'
-//                                 ? Colors.white
-//                                 : _textDark,
-//                             fontWeight: monthData['month'] == 'Jun'
-//                                 ? FontWeight.w600
-//                                 : FontWeight.normal,
-//                           ),
-//                         ),
-//                       );
-//                     }).toList(),
-//                   ),
-//                 ),
-//
-//                 SizedBox(height: 20),
-//
-//                 // Bar chart
-//                 Container(
-//                   height: 200,
-//                   child: Row(
-//                     crossAxisAlignment: CrossAxisAlignment.end,
-//                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                     children: monthlyBookings.map((monthData) {
-//                       double heightPercentage = (monthData['bookings'] / 100) * 0.8;
-//                       return Column(
-//                         mainAxisAlignment: MainAxisAlignment.end,
-//                         children: [
-//                           Container(
-//                             width: 25,
-//                             height: 180 * heightPercentage,
-//                             decoration: BoxDecoration(
-//                               gradient: LinearGradient(
-//                                 colors: [
-//                                   _primaryColor.withOpacity(0.8),
-//                                   _primaryColor,
-//                                 ],
-//                                 begin: Alignment.topCenter,
-//                                 end: Alignment.bottomCenter,
-//                               ),
-//                               borderRadius: BorderRadius.circular(8),
-//                             ),
-//                             child: Center(
-//                               child: Text(
-//                                 monthData['bookings'].toString(),
-//                                 style: TextStyle(
-//                                   color: Colors.white,
-//                                   fontSize: 10,
-//                                   fontWeight: FontWeight.w600,
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(height: 8),
-//                           Text(
-//                             monthData['month'],
-//                             style: TextStyle(
-//                               fontSize: 11,
-//                               color: _textLight,
-//                             ),
-//                           ),
-//                           Text(
-//                             '₹${(monthData['revenue'] / 1000).toStringAsFixed(0)}K',
-//                             style: TextStyle(
-//                               fontSize: 10,
-//                               color: _textDark,
-//                               fontWeight: FontWeight.w600,
-//                             ),
-//                           ),
-//                         ],
-//                       );
-//                     }).toList(),
-//                   ),
-//                 ),
-//
-//                 SizedBox(height: 16),
-//                 Divider(),
-//                 SizedBox(height: 8),
-//
-//                 // Statistics
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                   children: [
-//                     Column(
-//                       children: [
-//                         Text(
-//                           'Total Bookings',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             color: _textLight,
-//                           ),
-//                         ),
-//                         Text(
-//                           monthlyBookings.fold<int>(0, (sum, item) => sum + (item['bookings'] as int)).toString(),
-//                           style: TextStyle(
-//                             fontSize: 18,
-//                             fontWeight: FontWeight.w700,
-//                             color: _textDark,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     Column(
-//                       children: [
-//                         Text(
-//                           'Avg Monthly',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             color: _textLight,
-//                           ),
-//                         ),
-//                         Text(
-//                           '${(monthlyBookings.fold<int>(0, (sum, item) => sum + (item['bookings'] as int)) / monthlyBookings.length).toStringAsFixed(0)} bookings',
-//                           style: TextStyle(
-//                             fontSize: 18,
-//                             fontWeight: FontWeight.w700,
-//                             color: _textDark,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     Column(
-//                       children: [
-//                         Text(
-//                           'Total Revenue',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             color: _textLight,
-//                           ),
-//                         ),
-//                         Text(
-//                           '₹${(monthlyBookings.fold<int>(0, (sum, item) => sum + (item['revenue'] as int)) / 100000).toStringAsFixed(1)}L',
-//                           style: TextStyle(
-//                             fontSize: 18,
-//                             fontWeight: FontWeight.w700,
-//                             color: _textDark,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//
-//           SizedBox(height: 20),
-//
-//           // Booking Status Overview
-//           Container(
-//             padding: EdgeInsets.all(16),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.circular(16),
-//               border: Border.all(color: _borderColor),
-//             ),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Booking Status Distribution',
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.w600,
-//                     color: _textDark,
-//                   ),
-//                 ),
-//                 SizedBox(height: 12),
-//                 Row(
-//                   children: [
-//                     _buildBookingStatusCard(
-//                       title: 'Confirmed',
-//                       count: 42,
-//                       color: Colors.green,
-//                       percentage: 60,
-//                     ),
-//                     SizedBox(width: 12),
-//                     _buildBookingStatusCard(
-//                       title: 'Pending',
-//                       count: 18,
-//                       color: Colors.orange,
-//                       percentage: 25,
-//                     ),
-//                     SizedBox(width: 12),
-//                     _buildBookingStatusCard(
-//                       title: 'Cancelled',
-//                       count: 10,
-//                       color: Colors.red,
-//                       percentage: 15,
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//
-//           SizedBox(height: 40),
-//         ],
-//       ),
-//     );
-//   }
-//
-// // Helper method for room type card
-//   Widget _buildRoomTypeCard({
-//     required IconData icon,
-//     required String title,
-//     required int count,
-//     required int percentage,
-//     required Color color,
-//   }) {
-//     return Container(
-//       padding: EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: color.withOpacity(0.05),
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: color.withOpacity(0.2)),
-//       ),
-//       child: Column(
-//         children: [
-//           Row(
-//             children: [
-//               Container(
-//                 width: 36,
-//                 height: 36,
-//                 decoration: BoxDecoration(
-//                   color: color.withOpacity(0.1),
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//                 child: Center(
-//                   child: Icon(icon, size: 18, color: color),
-//                 ),
-//               ),
-//               SizedBox(width: 8),
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       title,
-//                       style: TextStyle(
-//                         fontSize: 14,
-//                         fontWeight: FontWeight.w600,
-//                         color: _textDark,
-//                       ),
-//                     ),
-//                     Text(
-//                       '$count rooms',
-//                       style: TextStyle(
-//                         fontSize: 12,
-//                         color: _textLight,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 8),
-//           LinearProgressIndicator(
-//             value: percentage / 100,
-//             backgroundColor: color.withOpacity(0.2),
-//             color: color,
-//             minHeight: 6,
-//           ),
-//           SizedBox(height: 4),
-//           Text(
-//             '$percentage% of total',
-//             style: TextStyle(
-//               fontSize: 10,
-//               color: _textLight,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-// // Helper method for booking status card
-//   Widget _buildBookingStatusCard({
-//     required String title,
-//     required int count,
-//     required Color color,
-//     required int percentage,
-//   }) {
-//     return Expanded(
-//       child: Container(
-//         padding: EdgeInsets.all(12),
-//         decoration: BoxDecoration(
-//           color: color.withOpacity(0.05),
-//           borderRadius: BorderRadius.circular(12),
-//           border: Border.all(color: color.withOpacity(0.2)),
-//         ),
-//         child: Column(
-//           children: [
-//             Container(
-//               width: 32,
-//               height: 32,
-//               decoration: BoxDecoration(
-//                 color: color.withOpacity(0.1),
-//                 shape: BoxShape.circle,
-//               ),
-//               child: Center(
-//                 child: Text(
-//                   '$percentage%',
-//                   style: TextStyle(
-//                     fontSize: 10,
-//                     color: color,
-//                     fontWeight: FontWeight.w600,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             SizedBox(height: 8),
-//             Text(
-//               title,
-//               style: TextStyle(
-//                 fontSize: 12,
-//                 fontWeight: FontWeight.w600,
-//                 color: _textDark,
-//               ),
-//             ),
-//             Text(
-//               '$count bookings',
-//               style: TextStyle(
-//                 fontSize: 11,
-//                 color: _textLight,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-// // Update existing statCard method to include subtitle
-//   Widget _statCard({
-//     required IconData icon,
-//     required String title,
-//     required String value,
-//     required Color color,
-//     String subtitle = '',
-//   }) {
-//     return Container(
-//       padding: EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: _borderColor),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.05),
-//             blurRadius: 8,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Container(
-//             width: 40,
-//             height: 40,
-//             decoration: BoxDecoration(
-//               color: color.withOpacity(0.1),
-//               borderRadius: BorderRadius.circular(8),
-//             ),
-//             child: Center(child: Icon(icon, size: 20, color: color)),
-//           ),
-//           SizedBox(height: 12),
-//           Text(
-//             value,
-//             style: TextStyle(
-//               fontSize: 22,
-//               fontWeight: FontWeight.w700,
-//               color: _textDark,
-//             ),
-//           ),
-//           SizedBox(height: 4),
-//           Text(title, style: TextStyle(fontSize: 13, color: _textLight)),
-//           if (subtitle.isNotEmpty) ...[
-//             SizedBox(height: 2),
-//             Text(
-//               subtitle,
-//               style: TextStyle(fontSize: 11, color: _textLight.withOpacity(0.7)),
-//             ),
-//           ],
-//         ],
-//       ),
-//     );
-//   }
-//
-//
-//
-//   Widget _buildBookingsList() {
-//     return Container(
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: _borderColor),
-//       ),
-//       child: Column(
-//         children: _todayBookings.map((booking) {
-//           Color statusColor = Colors.grey;
-//           if (booking['status'] == 'Checked In') statusColor = Colors.green;
-//           if (booking['status'] == 'Pending') statusColor = Colors.orange;
-//           if (booking['status'] == 'Checked Out') statusColor = Colors.blue;
-//
-//           return Container(
-//             padding: EdgeInsets.all(16),
-//             decoration: BoxDecoration(
-//               border: Border(
-//                 bottom:
-//                     _todayBookings.indexOf(booking) < _todayBookings.length - 1
-//                     ? BorderSide(color: _borderColor)
-//                     : BorderSide.none,
-//               ),
-//             ),
-//             child: Row(
-//               children: [
-//                 Container(
-//                   width: 40,
-//                   height: 40,
-//                   decoration: BoxDecoration(
-//                     color: _primaryColor.withOpacity(0.1),
-//                     borderRadius: BorderRadius.circular(8),
-//                   ),
-//                   child: Center(
-//                     child: Text(
-//                       booking['room'],
-//                       style: TextStyle(
-//                         fontWeight: FontWeight.w700,
-//                         color: _primaryColor,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(width: 12),
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         booking['guest'],
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.w600,
-//                           color: _textDark,
-//                         ),
-//                       ),
-//                       SizedBox(height: 4),
-//                       Text(
-//                         'Check-in: ${booking['checkIn']} | Check-out: ${booking['checkOut']}',
-//                         style: TextStyle(fontSize: 12, color: _textLight),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 Container(
-//                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                   decoration: BoxDecoration(
-//                     color: statusColor.withOpacity(0.1),
-//                     borderRadius: BorderRadius.circular(20),
-//                     border: Border.all(color: statusColor),
-//                   ),
-//                   child: Text(
-//                     booking['status'],
-//                     style: TextStyle(
-//                       fontSize: 12,
-//                       fontWeight: FontWeight.w600,
-//                       color: statusColor,
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           );
-//         }).toList(),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildReviewsList() {
-//     return Container(
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: _borderColor),
-//       ),
-//       child: Column(
-//         children: _recentReviews.map((review) {
-//           return Container(
-//             padding: EdgeInsets.all(16),
-//             decoration: BoxDecoration(
-//               border: Border(
-//                 bottom:
-//                     _recentReviews.indexOf(review) < _recentReviews.length - 1
-//                     ? BorderSide(color: _borderColor)
-//                     : BorderSide.none,
-//               ),
-//             ),
-//             child: Row(
-//               children: [
-//                 Container(
-//                   width: 40,
-//                   height: 40,
-//                   decoration: BoxDecoration(
-//                     color: Colors.amber.withOpacity(0.1),
-//                     shape: BoxShape.circle,
-//                   ),
-//                   child: Center(child: Icon(Icons.person, color: Colors.amber)),
-//                 ),
-//                 SizedBox(width: 12),
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Row(
-//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                         children: [
-//                           Text(
-//                             review['guest'],
-//                             style: TextStyle(
-//                               fontWeight: FontWeight.w600,
-//                               color: _textDark,
-//                             ),
-//                           ),
-//                           Row(
-//                             children: [
-//                               Icon(Icons.star, size: 16, color: Colors.amber),
-//                               SizedBox(width: 4),
-//                               Text(
-//                                 review['rating'].toString(),
-//                                 style: TextStyle(
-//                                   fontWeight: FontWeight.w600,
-//                                   color: _textDark,
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(height: 4),
-//                       Text(
-//                         review['comment'],
-//                         style: TextStyle(color: _textLight),
-//                       ),
-//                       SizedBox(height: 4),
-//                       Text(
-//                         review['date'],
-//                         style: TextStyle(fontSize: 11, color: _textLight),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           );
-//         }).toList(),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildRoomManagement() {
-//     return Center(child: Text('Room Management - Coming Soon'));
-//   }
-//
-//   Widget _buildBookings() {
-//     return Center(child: Text('Bookings - Coming Soon'));
-//   }
-//
-//   Widget _buildRevenue() {
-//     return Center(child: Text('Revenue - Coming Soon'));
-//   }
-//
-//   Widget _buildReviews() {
-//     return Center(child: Text('Reviews - Coming Soon'));
-//   }
-//
-//   BottomNavigationBar _buildBottomNavigationBar() {
-//     return BottomNavigationBar(
-//       type: BottomNavigationBarType.fixed,
-//       currentIndex: _selectedIndex,
-//       selectedItemColor: _primaryColor,
-//       unselectedItemColor: _textLight,
-//       showUnselectedLabels: true,
-//       onTap: (index) {
-//         setState(() {
-//           _selectedIndex = index;
-//         });
-//       },
-//       items: [
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.dashboard),
-//           label: 'Dashboard',
-//         ),
-//         BottomNavigationBarItem(icon: Icon(Icons.bed), label: 'Rooms'),
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.calendar_today),
-//           label: 'Bookings',
-//         ),
-//         BottomNavigationBarItem(
-//           icon: Icon(Icons.attach_money),
-//           label: 'Revenue',
-//         ),
-//         BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Reviews'),
-//       ],
-//     );
-//   }
-//
-//   // void _showProfile() {
-//   //   Navigator.push(
-//   //     context,
-//   //     MaterialPageRoute(
-//   //       builder: (context) => HotelOwnerProfilePage(
-//   //         hotelName: widget.hotelName,
-//   //         ownerName: widget.ownerName,
-//   //         mobileNumber: widget.mobileNumber,
-//   //         email: widget.email,
-//   //         addressLine1: widget.addressLine1,
-//   //         addressLine2: widget.addressLine2,
-//   //         city: widget.city,
-//   //         district: widget.district,
-//   //         state: widget.state,
-//   //         pinCode: widget.pinCode,
-//   //         gstNumber: widget.gstNumber,
-//   //         fssaiLicense: widget.fssaiLicense,
-//   //         tradeLicense: widget.tradeLicense,
-//   //         panNumber: widget.panNumber,
-//   //         aadharNumber: widget.aadharNumber,
-//   //         accountHolderName: widget.accountHolderName,
-//   //         bankName: widget.bankName,
-//   //         accountNumber: widget.accountNumber,
-//   //         ifscCode: widget.ifscCode,
-//   //         branch: widget.branch,
-//   //         accountType: widget.accountType,
-//   //         totalRooms: widget.totalRooms, // Convert int to String
-//   //         personPhotoInfo: {
-//   //           'url': widget.personPhotoInfo,
-//   //           'fileName': 'profile_photo.jpg',
-//   //           'uploadDate': DateTime.now().toIso8601String(),
-//   //           'fileSize': 0,
-//   //           'description': 'Profile photo',
-//   //         }, selectedRoomTypes: {}, roomDetails: {}, basicAmenities: {}, hotelFacilities: {}, foodServices: {}, additionalAmenities: {}, customAmenities: [],
-//   //        // Changed to bool
-//   //       ),
-//   //     ),
-//   //   );
-//   // }
-//   void _showProfile() {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => HotelOwnerProfilePage(
-//           hotelName: widget.hotelName,
-//           ownerName: widget.ownerName,
-//           mobileNumber: widget.mobileNumber,
-//           email: widget.email,
-//           addressLine1: widget.addressLine1,
-//           addressLine2: widget.addressLine2,
-//           city: widget.city,
-//           district: widget.district,
-//           state: widget.state,
-//           pinCode: widget.pinCode,
-//           gstNumber: widget.gstNumber,
-//           fssaiLicense: widget.fssaiLicense,
-//           tradeLicense: widget.tradeLicense,
-//           panNumber: widget.panNumber,
-//           aadharNumber: widget.aadharNumber,
-//           accountHolderName: widget.accountHolderName,
-//           bankName: widget.bankName,
-//           accountNumber: widget.accountNumber,
-//           ifscCode: widget.ifscCode,
-//           branch: widget.branch,
-//           accountType: widget.accountType,
-//           totalRooms: widget.totalRooms,
-//           personPhotoInfo: widget.personPhotoInfo,
-//           // Add all the additional fields from registration
-//           hotelType: widget.registrationData?['hotelType'] ?? '',
-//           yearOfEstablishment: widget.registrationData?['yearOfEstablishment'] ?? '',
-//           website: widget.registrationData?['website'] ?? '',
-//           landmark: widget.registrationData?['landmark'] ?? '',
-//           selectedRoomTypes: widget.registrationData?['selectedRoomTypes'] ?? {},
-//           roomDetails: widget.registrationData?['roomDetails'] ?? {},
-//           minTariff: widget.registrationData?['minTariff'] ?? '',
-//           maxTariff: widget.registrationData?['maxTariff'] ?? '',
-//           extraBedAvailable: widget.registrationData?['extraBedAvailable'] ?? false,
-//           basicAmenities: widget.registrationData?['basicAmenities'] ?? {},
-//           hotelFacilities: widget.registrationData?['hotelFacilities'] ?? {},
-//           foodServices: widget.registrationData?['foodServices'] ?? {},
-//           additionalAmenities: widget.registrationData?['additionalAmenities'] ?? {},
-//           customAmenities: widget.registrationData?['customAmenities'] ?? [],
-//           alternateContact: widget.registrationData?['alternateContact'] ?? '',
-//           landlineNumbers: widget.registrationData?['landlineNumbers'] ?? [],
-//           uploadedFiles: widget.registrationData?['uploadedFiles'] ?? {},
-//           signatureName: widget.registrationData?['signatureName'] ?? '',
-//           declarationName: widget.registrationData?['declarationName'] ?? '',
-//           declarationDate: widget.registrationData?['declarationDate'],
-//           declarationAccepted: widget.registrationData?['declarationAccepted'] ?? false,
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
-
-
-
-
-
 class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
   int _selectedIndex = 0;
   final Color _primaryColor = Color(0xFFFF5F6D);
@@ -7074,9 +4711,65 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
 
   // State variables
   String _selectedMonth = 'January';
+  String _selectedRoomType = 'All';
+  String _selectedGraphFilter = 'Daily';
   List<String> _months = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
   List<String> _bookingStatuses = ['Confirmed', 'Pending', 'Cancelled', 'Completed'];
+  List<Map<String, dynamic>> _roomTypeData = [];
+  DateTime _selectedStartDate = DateTime.now().subtract(const Duration(days: 7));
+  DateTime _selectedEndDate = DateTime.now();
+
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeRoomData();
+  }
+
+  void _initializeRoomData() {
+    final roomDetails = widget.registrationData?['roomDetails'] ?? {};
+    _roomTypeData.clear();
+
+    roomDetails.forEach((type, details) {
+      int totalRooms = int.tryParse(details['rooms']?.toString() ?? '0') ?? 0;
+      double price = double.tryParse(details['price']?.toString() ?? '0') ?? 0;
+      bool isAC = details['ac'] ?? false;
+
+      // Calculate detailed room status
+      int acRooms = isAC ? totalRooms : 0;
+      int nonAcRooms = !isAC ? totalRooms : 0;
+
+      // Generate detailed breakdown (for demo purposes)
+      int availableAC = isAC ? (totalRooms * 0.35).round() : 0;
+      int bookedAC = isAC ? (totalRooms * 0.55).round() : 0;
+      int maintenanceAC = isAC ? (totalRooms * 0.10).round() : 0;
+
+      int availableNonAC = !isAC ? (totalRooms * 0.35).round() : 0;
+      int bookedNonAC = !isAC ? (totalRooms * 0.55).round() : 0;
+      int maintenanceNonAC = !isAC ? (totalRooms * 0.10).round() : 0;
+
+      _roomTypeData.add({
+        'type': type,
+        'total': totalRooms,
+        'price': price,
+        'isAC': isAC,
+        'acRooms': acRooms,
+        'nonAcRooms': nonAcRooms,
+        'availableAC': availableAC,
+        'bookedAC': bookedAC,
+        'maintenanceAC': maintenanceAC,
+        'availableNonAC': availableNonAC,
+        'bookedNonAC': bookedNonAC,
+        'maintenanceNonAC': maintenanceNonAC,
+        'totalAvailable': availableAC + availableNonAC,
+        'totalBooked': bookedAC + bookedNonAC,
+        'totalMaintenance': maintenanceAC + maintenanceNonAC,
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -7103,7 +4796,7 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     );
   }
 
-  // Step 1: Redesigned AppBar
+  // AppBar (unchanged)
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: _cardBg,
@@ -7120,13 +4813,11 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
       ),
       title: Row(
         children: [
-
           SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                // widget.hotelName,
                 'Welcome Back!',
                 style: TextStyle(
                   color: _textDark,
@@ -7153,7 +4844,6 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
           onPressed: () => _showNotifications(),
         ),
         SizedBox(width: 8),
-        // Profile Icon in right corner
         Container(
           margin: EdgeInsets.only(right: 16),
           child: GestureDetector(
@@ -7173,7 +4863,9 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     return RefreshIndicator(
       onRefresh: () async {
         await Future.delayed(Duration(seconds: 1));
-        setState(() {});
+        setState(() {
+          _initializeRoomData();
+        });
       },
       child: SingleChildScrollView(
         padding: EdgeInsets.all(16),
@@ -7185,17 +4877,12 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
 
             SizedBox(height: 24),
 
-            // Step 3: Hotel Description
-            _buildHotelDescription(),
+            // Step 3: Detailed Room Types Table (Replacing Description)
+            _buildRoomTypesTable(),
 
             SizedBox(height: 24),
 
-            // Step 4: Detailed Room Breakdown
-            _buildDetailedRoomBreakdown(),
-
-            SizedBox(height: 24),
-
-            // Step 5: Booking Insights with Graph
+            // Step 5: Booking Insights with Wave Line Graph
             _buildBookingInsightsGraph(),
 
             SizedBox(height: 24),
@@ -7204,25 +4891,27 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
             _buildMonthlyBookingStats(),
 
             SizedBox(height: 40),
+
+            _buildPaymentOverview(),
+
+            SizedBox(height: 24),
+
           ],
         ),
       ),
     );
   }
 
-  // Step 2: Summary Section
+  // Step 2: Summary Section (unchanged)
   Widget _buildSummarySection() {
     final roomDetails = widget.registrationData?['roomDetails'] ?? {};
     int totalConfiguredRooms = 0;
     int totalAvailableRooms = 0;
     int totalOccupiedRooms = 0;
 
-    // Calculate room statistics
     roomDetails.forEach((type, details) {
       int rooms = int.tryParse(details['rooms']?.toString() ?? '0') ?? 0;
       totalConfiguredRooms += rooms;
-
-      // For demo: Assume 35% available, 55% occupied
       totalAvailableRooms += (rooms * 0.35).round();
       totalOccupiedRooms += (rooms * 0.55).round();
     });
@@ -7395,137 +5084,8 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     );
   }
 
-  // Step 3: Hotel Description
-  Widget _buildHotelDescription() {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: _cardBg,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
 
-
-            ],
-          ),
-
-
-          SizedBox(height: 16),
-
-          // Description
-          Text(
-            'Description',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: _textDark,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            '${widget.hotelName} is a premium ${widget.registrationData?['hotelType']?.toLowerCase() ?? 'hotel'} located in the heart of ${widget.city}. '
-                'Offering exceptional hospitality services with state-of-the-art amenities.',
-            style: TextStyle(
-              fontSize: 14,
-              color: _textLight,
-              height: 1.5,
-            ),
-            textAlign: TextAlign.justify,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHotelInfoItem({
-    required IconData icon,
-    required String title,
-    required String value,
-  }) {
-    return Row(
-      children: [
-        Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            color: _primaryColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: Icon(icon, size: 18, color: _primaryColor),
-          ),
-        ),
-        SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _textLight,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: 2),
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: 13,
-                  color: _textDark,
-                  fontWeight: FontWeight.w600,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  // Step 4: Detailed Room Breakdown
-  Widget _buildDetailedRoomBreakdown() {
-    final roomDetails = widget.registrationData?['roomDetails'] ?? {};
-    List<Map<String, dynamic>> roomTypeData = [];
-
-    // Process room details
-    roomDetails.forEach((type, details) {
-      int totalRooms = int.tryParse(details['rooms']?.toString() ?? '0') ?? 0;
-      double price = double.tryParse(details['price']?.toString() ?? '0') ?? 0;
-      bool isAC = details['ac'] ?? false;
-
-      // Calculate room distribution
-      int acRooms = isAC ? totalRooms : 0;
-      int nonAcRooms = !isAC ? totalRooms : 0;
-
-      // Simulate availability (35% available, 55% booked, 10% maintenance)
-      int availableRooms = (totalRooms * 0.35).round();
-      int bookedRooms = (totalRooms * 0.55).round();
-      int maintenanceRooms = (totalRooms * 0.10).round();
-
-      roomTypeData.add({
-        'type': type,
-        'total': totalRooms,
-        'acRooms': acRooms,
-        'nonAcRooms': nonAcRooms,
-        'available': availableRooms,
-        'booked': bookedRooms,
-        'maintenance': maintenanceRooms,
-        'price': price,
-        'isAC': isAC,
-      });
-    });
-
+  Widget _buildRoomTypesTable() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(20),
@@ -7541,138 +5101,1209 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Room Details Breakdown',
+                'Detailed Room Types',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
                   color: _textDark,
                 ),
               ),
-              // Container(
-              //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              //   decoration: BoxDecoration(
-              //     color: _primaryColor.withOpacity(0.1),
-              //     borderRadius: BorderRadius.circular(20),
-              //   ),
-              //   child: Row(
-              //     children: [
-              //       Icon(Icons.bed_rounded, size: 14, color: _primaryColor),
-              //       SizedBox(width: 6),
-              //       Text(
-              //         '${roomTypeData.length} Room Types',
-              //         style: TextStyle(
-              //           fontSize: 12,
-              //           fontWeight: FontWeight.w700,
-              //           color: _primaryColor,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                decoration: BoxDecoration(
+                  color: _primaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.table_chart_rounded, size: 14, color: _primaryColor),
+                    SizedBox(width: 6),
+                    Text(
+                      'Room Status',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           SizedBox(height: 16),
 
-          // AC vs Non-AC Summary
+          // Table Header
           Container(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.symmetric(horizontal: 5 , vertical: 12),
             decoration: BoxDecoration(
               color: _bgColor,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: _borderColor),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildACSummaryCard(
-                  title: 'AC Rooms',
-                  count: roomTypeData.fold<int>(0, (sum, room) => sum + (room['acRooms'] as int)),
-                  icon: Icons.ac_unit_rounded,
-                  color: Colors.blue,
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'Room Type',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                  ),
                 ),
-                _buildACSummaryCard(
-                  title: 'Non-AC Rooms',
-                  count: roomTypeData.fold<int>(0, (sum, room) => sum + (room['nonAcRooms'] as int)),
-                  icon: Icons.air_rounded,
-                  color: Colors.green,
+                Expanded(
+                  child: Text(
+                    'AC',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Non-AC',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Available',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Booked',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ],
             ),
           ),
 
-          SizedBox(height: 20),
-
-          // Detailed Room Type List
-          Text(
-            'Room Type Details',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: _textDark,
-            ),
-          ),
           SizedBox(height: 12),
 
-          ...roomTypeData.map((room) {
-            return _buildRoomTypeDetailCard(room);
-          }).toList(),
 
-          if (roomTypeData.isEmpty) ...[
-            Container(
-              padding: EdgeInsets.all(40),
-              child: Column(
+          ..._generateStaticRoomData().map((room) {
+            return Container(
+              margin: EdgeInsets.only(bottom: 8),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: _bgColor,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _borderColor),
+              ),
+              child: Row(
                 children: [
-                  Icon(Icons.meeting_room_rounded, size: 60, color: _textLight.withOpacity(0.3)),
-                  SizedBox(height: 16),
-                  Text(
-                    'No room types configured',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: _textLight,
-                      fontWeight: FontWeight.w600,
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      children: [
+                        // Container(
+                        //   width: 36,
+                        //   height: 36,
+                        //   decoration: BoxDecoration(
+                        //     // color: room['isAC'] ? Colors.blue.withOpacity(0.1) : Colors.green.withOpacity(0.1),
+                        //     borderRadius: BorderRadius.circular(8),
+                        //   ),
+                        //   // child: Center(
+                        //   //   child: Icon(
+                        //   //     room['isAC'] ? Icons.ac_unit_rounded : Icons.air_rounded,
+                        //   //     size: 18,
+                        //   //     color: room['isAC'] ? Colors.blue : Colors.green,
+                        //   //   ),
+                        //   // ),
+                        // ),
+                        SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              room['type'],
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: _textDark,
+                              ),
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              '₹${room['price']}/night',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: _textLight,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Configure room types in settings',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: _textLight,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          '${room['acRooms']}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          'Rooms',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _textLight,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          '${room['nonAcRooms']}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.green,
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          'Rooms',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _textLight,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: _successColor.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${room['available']}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w800,
+                                color: _successColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          'Available',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _successColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: _primaryColor.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${room['booked']}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w800,
+                                color: _primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          'Booked',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: _primaryColor,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
+            );
+          }).toList(),
+
+          SizedBox(height: 16),
+
+          // Summary Row
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: _primaryColor.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: _primaryColor.withOpacity(0.2)),
             ),
-          ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Total Summary:',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: _textDark,
+                  ),
+                ),
+                Row(
+                  children: [
+                    _buildSummaryItem('AC:', '58', Colors.blue),
+                    SizedBox(width: 16),
+                    _buildSummaryItem('Non-AC:', '0', Colors.green),
+                    SizedBox(width: 16),
+                    _buildSummaryItem('Available:', '19', _successColor),
+                    SizedBox(width: 16),
+                    _buildSummaryItem('Booked:', '39', _primaryColor),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(height: 16),
+
+
+          // GestureDetector(
+          //   onTap: () {
+          //
+          //     _showDetailedRoomBreakdown();
+          //   },
+          //   child: Container(
+          //     padding: EdgeInsets.all(12),
+          //     decoration: BoxDecoration(
+          //       color: _primaryColor.withOpacity(0.05),
+          //       borderRadius: BorderRadius.circular(12),
+          //       border: Border.all(color: _primaryColor.withOpacity(0.2)),
+          //     ),
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Icon(Icons.visibility_rounded, size: 16, color: _primaryColor),
+          //         SizedBox(width: 8),
+          //         Text(
+          //           'View Detailed Breakdown',
+          //           style: TextStyle(
+          //             fontSize: 12,
+          //             fontWeight: FontWeight.w700,
+          //             color: _primaryColor,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
   }
 
-  Widget _buildACSummaryCard({
+// Helper method to generate static room data
+  List<Map<String, dynamic>> _generateStaticRoomData() {
+    return [
+      {
+        'type': 'Standard',
+        'price': '2,500',
+        'isAC': true,
+        'acRooms': 20,
+        'nonAcRooms': 0,
+        'available': 7,
+        'booked': 13,
+        'total': 20,
+      },
+      {
+        'type': 'Deluxe',
+        'price': '3,500',
+        'isAC': true,
+        'acRooms': 15,
+        'nonAcRooms': 0,
+        'available': 5,
+        'booked': 10,
+        'total': 15,
+      },
+      {
+        'type': 'Suite',
+        'price': '5,000',
+        'isAC': true,
+        'acRooms': 10,
+        'nonAcRooms': 0,
+        'available': 3,
+        'booked': 7,
+        'total': 10,
+      },
+
+      {
+        'type': 'Family',
+        'price': '4,200',
+        'isAC': true,
+        'acRooms': 8,
+        'nonAcRooms': 0,
+        'available': 3,
+        'booked': 5,
+        'total': 8,
+      },
+      {
+        'type': 'Executive',
+        'price': '6,000',
+        'isAC': true,
+        'acRooms': 5,
+        'nonAcRooms': 0,
+        'available': 1,
+        'booked': 4,
+        'total': 5,
+      },
+    ];
+  }
+
+// Helper method for summary items
+  Widget _buildSummaryItem(String label, String value, Color color) {
+    return Column(
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            color: _textLight,
+          ),
+        ),
+        SizedBox(height: 2),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w800,
+            color: color,
+          ),
+        ),
+      ],
+    );
+  }
+
+
+  List<Widget> _getRoomTypeLabels(List<String> roomTypesList) {
+    // When "All" is selected, show all room types
+    if (_selectedRoomType == 'All') {
+      return roomTypesList.asMap().entries.map((entry) {
+        int index = entry.key;
+        String roomType = entry.value;
+
+        return Container(
+          height: 44, // 220 height / 5 room types = 44 each
+          alignment: Alignment.centerLeft,
+          child: Text(
+            roomType,
+            style: TextStyle(
+              fontSize: 10,
+              color: _textLight,
+              fontWeight: FontWeight.w600,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        );
+      }).toList();
+    }
+    // When specific room type is selected, show only that
+    else {
+      return [
+        Container(
+          height: 220,
+          alignment: Alignment.centerLeft,
+          child: RotatedBox(
+            quarterTurns: 3, // Rotate text vertically
+            child: Text(
+              _selectedRoomType,
+              style: TextStyle(
+                fontSize: 10,
+                color: _textLight,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ];
+    }
+  }
+
+
+
+  Widget _buildBookingInsightsGraph() {
+    // List of room types for dropdown
+    List<String> roomTypesList = ['Standard', 'Deluxe', 'Suite', 'Family', 'Executive'];
+
+    // Generate sample data for wave line graph
+    Map<String, List<double>> _generateWaveData(String roomType) {
+      Map<String, List<double>> data = {};
+
+      // Generate data for each room type
+      for (String type in roomTypesList) {
+        if (roomType == 'All' || roomType == type) {
+          List<double> wavePoints = [];
+          int days = 30; // 30 days of data
+
+          for (int i = 0; i < days; i++) {
+            // Different base values for different room types
+            double baseValue = 0;
+            switch (type) {
+              case 'Standard':
+                baseValue = 15;
+                break;
+              case 'Deluxe':
+                baseValue = 12;
+                break;
+              case 'Suite':
+                baseValue = 8;
+                break;
+              case 'Family':
+                baseValue = 10;
+                break;
+              case 'Executive':
+                baseValue = 6;
+                break;
+            }
+
+            // Add wave pattern
+            double variation = sin(i * 0.3) * 5 + cos(i * 0.5) * 3;
+            double trend = i * 0.1; // Slight upward trend
+            double noise = (Random().nextDouble() * 3) - 1.5; // Small random noise
+
+            wavePoints.add(baseValue + variation + trend + noise);
+          }
+          data[type] = wavePoints;
+        }
+      }
+
+      // If "All" is selected, create combined data
+      if (roomType == 'All') {
+        List<double> combinedData = [];
+        int days = 30;
+
+        for (int i = 0; i < days; i++) {
+          double combinedValue = 0;
+          data.forEach((type, wavePoints) {
+            combinedValue += wavePoints[i];
+          });
+          combinedData.add(combinedValue);
+        }
+        data['All'] = combinedData;
+      }
+
+      return data;
+    }
+
+    Map<String, List<double>> waveData = _generateWaveData(_selectedRoomType);
+    List<double> currentWaveData = waveData[_selectedRoomType] ?? waveData['All'] ?? [];
+
+    double maxValue = currentWaveData.reduce((a, b) => a > b ? a : b);
+    double minValue = currentWaveData.reduce((a, b) => a < b ? a : b);
+
+    // Calculate statistics
+    double average = currentWaveData.isNotEmpty
+        ? currentWaveData.reduce((a, b) => a + b) / currentWaveData.length
+        : 0;
+    double currentValue = currentWaveData.isNotEmpty ? currentWaveData.last : 0;
+
+    return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: _cardBg,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: _borderColor),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Booking Trends Analysis',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: _textDark,
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 16),
+
+            // Filters
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _bgColor,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: _borderColor),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Room Type',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: _textLight,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 12),
+                              decoration: BoxDecoration(
+                                color: _cardBg,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: _borderColor),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: _selectedRoomType,
+                                  isExpanded: true,
+                                  icon: Icon(Icons.arrow_drop_down_rounded, color: _primaryColor),
+                                  items: [
+                                    DropdownMenuItem<String>(
+                                      value: 'All',
+                                      child: Text('All Rooms'),
+                                    ),
+                                    ...roomTypesList.map<DropdownMenuItem<String>>((String type) {
+                                      return DropdownMenuItem<String>(
+                                        value: type,
+                                        child: Text(type),
+                                      );
+                                    }).toList(),
+                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedRoomType = value!;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Date Range',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: _textLight,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: _cardBg,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: _borderColor),
+                              ),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // Start Date
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () => _showStartDatePicker(),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 4),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(Icons.calendar_month_rounded, size: 12, color: _primaryColor),
+                                              SizedBox(width: 4),
+                                              Text(
+                                                '${_selectedStartDate.day}/${_selectedStartDate.month}',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: _textDark,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+                                    // Separator
+                                    Container(
+                                      width: 1,
+                                      color: _borderColor,
+                                      margin: EdgeInsets.symmetric(horizontal: 8),
+                                    ),
+
+                                    // End Date
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: () => _showEndDatePicker(),
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 4),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                '${_selectedEndDate.day}/${_selectedEndDate.month}',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: _textDark,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                              SizedBox(width: 4),
+                                              Icon(Icons.calendar_month_rounded, size: 12, color: _primaryColor),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Expanded(
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     children: [
+                      //       Text(
+                      //         'Date Range',
+                      //         style: TextStyle(
+                      //           fontSize: 12,
+                      //           color: _textLight,
+                      //         ),
+                      //       ),
+                      //       SizedBox(height: 4),
+                      //       Container(
+                      //         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      //         decoration: BoxDecoration(
+                      //           color: _cardBg,
+                      //           borderRadius: BorderRadius.circular(8),
+                      //           border: Border.all(color: _borderColor),
+                      //         ),
+                      //         child: Row(
+                      //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //           children: [
+                      //             Expanded(
+                      //               child: GestureDetector(
+                      //                 onTap: () => _showStartDatePicker(),
+                      //                 child: Row(
+                      //                   children: [
+                      //                     Icon(Icons.calendar_month_rounded, size: 16, color: _primaryColor),
+                      //                     SizedBox(width: 8),
+                      //                     Text(
+                      //                       '${_selectedStartDate.day}/${_selectedStartDate.month}/${_selectedStartDate.year}',
+                      //                       style: TextStyle(
+                      //                         fontSize: 12,
+                      //                         color: _textDark,
+                      //                       ),
+                      //                     ),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //             Container(
+                      //               padding: EdgeInsets.symmetric(horizontal: 8),
+                      //               child: Icon(Icons.arrow_forward_rounded, size: 16, color: _textLight),
+                      //             ),
+                      //             Expanded(
+                      //               child: GestureDetector(
+                      //                 onTap: () => _showEndDatePicker(),
+                      //                 child: Row(
+                      //                   mainAxisAlignment: MainAxisAlignment.end,
+                      //                   children: [
+                      //                     Text(
+                      //                       '${_selectedEndDate.day}/${_selectedEndDate.month}/${_selectedEndDate.year}',
+                      //                       style: TextStyle(
+                      //                         fontSize: 12,
+                      //                         color: _textDark,
+                      //                       ),
+                      //                     ),
+                      //                     SizedBox(width: 8),
+                      //                     Icon(Icons.calendar_month_rounded, size: 16, color: _primaryColor),
+                      //                   ],
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                  SizedBox(height: 12),
+
+
+                ],
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+
+
+
+
+
+
+            Container(
+              height: 280,
+              child: Column(
+                children: [
+                  // Y-axis labels (Room Types) and Graph Area
+                  Container(
+                    height: 220,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Y-axis label (Room Types)
+                        Container(
+                          width: 40,
+                          padding: EdgeInsets.only(right: 8),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: _getRoomTypeLabels(roomTypesList),
+                          ),
+                        ),
+
+                        // Graph Area
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                left: BorderSide(color: _borderColor, width: 1),
+                                right: BorderSide(color: _borderColor, width: 1),
+                                bottom: BorderSide(color: _borderColor, width: 1),
+                              ),
+                            ),
+                            child: Stack(
+                              children: [
+                                // Grid lines
+                                for (int i = 0; i <= 4; i++)
+                                  Positioned(
+                                    top: (220 * i / 4),
+                                    left: 0,
+                                    right: 0,
+                                    child: Container(
+                                      height: 1,
+                                      color: _borderColor.withOpacity(0.3),
+                                    ),
+                                  ),
+
+                                // Wave graph
+                                CustomPaint(
+                                  size: Size(double.infinity, 220),
+                                  painter: _BookingTrendGraphPainter(
+                                    data: currentWaveData,
+                                    maxValue: maxValue,
+                                    minValue: minValue,
+                                    primaryColor: _primaryColor,
+                                    secondaryColor: _secondaryColor,
+                                    showRoomTypes: _selectedRoomType == 'All',
+                                    roomTypes: _selectedRoomType == 'All' ? roomTypesList : [_selectedRoomType],
+                                    roomTypeColors: {
+                                      'Standard': Colors.blue,
+                                      'Deluxe': Colors.purple,
+                                      'Suite': Colors.orange,
+                                      'Family': Colors.pink,
+                                      'Executive': Colors.red,
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // X-axis labels and title
+                  Container(
+                    height: 60,
+                    padding: EdgeInsets.only(left: 40), // Match Y-axis width
+                    child: Column(
+                      children: [
+                        // X-axis line with markers
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              // Horizontal line for X-axis
+                              Positioned(
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  height: 1,
+                                  color: _borderColor,
+                                ),
+                              ),
+
+                              // X-axis markers (0, 15, 30, 45)
+                              Positioned.fill(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // Day 0
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 1,
+                                          height: 8,
+                                          color: _borderColor,
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          '0 day',
+                                          style: TextStyle(
+                                            fontSize: 9,
+                                            color: _textLight,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    // Day 15
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 1,
+                                          height: 8,
+                                          color: _borderColor,
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          '15 day',
+                                          style: TextStyle(
+                                            fontSize: 9,
+                                            color: _textLight,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    // Day 30
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 1,
+                                          height: 8,
+                                          color: _borderColor,
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          '30 day',
+                                          style: TextStyle(
+                                            fontSize: 9,
+                                            color: _textLight,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    // Day 45
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 1,
+                                          height: 8,
+                                          color: _borderColor,
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          '45',
+                                          style: TextStyle(
+                                            fontSize: 9,
+                                            color: _textLight,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // X-axis title
+                        Padding(
+                          padding: EdgeInsets.only(top: 4),
+                          child: Text(
+                            'Days',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: _textLight,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 20),
+
+
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _bgColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  // Statistics
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _buildGraphStatItem(
+                        title: 'Current',
+                        value: currentValue.toStringAsFixed(1),
+                        color: _primaryColor,
+                      ),
+                      _buildGraphStatItem(
+                        title: 'Average',
+                        value: average.toStringAsFixed(1),
+                        color: _secondaryColor,
+                      ),
+                      _buildGraphStatItem(
+                        title: 'Maximum',
+                        value: maxValue.toStringAsFixed(1),
+                        color: _successColor,
+                      ),
+                      _buildGraphStatItem(
+                        title: 'Minimum',
+                        value: minValue.toStringAsFixed(1),
+                        color: _warningColor,
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 12),
+
+                  // Legend (only shown when "All" is selected)
+                  if (_selectedRoomType == 'All')
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: _borderColor),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Room Type Legend:',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
+                              color: _textDark,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Wrap(
+                            spacing: 12,
+                            runSpacing: 6,
+                            children: roomTypesList.map((type) {
+                              Color color = {
+                                'Standard': Colors.blue,
+                                'Deluxe': Colors.purple,
+                                'Suite': Colors.orange,
+                                'Family': Colors.pink,
+                                'Executive': Colors.red,
+                              }[type] ?? _primaryColor;
+
+                              return Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    width: 10,
+                                    height: 10,
+                                    decoration: BoxDecoration(
+                                      color: color,
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    type,
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: _textLight,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 8),
+
+
+          ],
+
+        ),
+    );
+
+
+  }
+  Future<void> _showStartDatePicker() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedStartDate,
+      firstDate: DateTime(2001),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: _primaryColor,
+              onPrimary: Colors.white,
+              onSurface: _textDark,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _selectedStartDate = picked;
+
+        // Auto-fix end date if needed
+        if (_selectedEndDate.isBefore(picked)) {
+          _selectedEndDate = picked;
+        }
+      });
+    }
+  }
+  Future<void> _showEndDatePicker() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedEndDate,
+      firstDate: _selectedStartDate,
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: _primaryColor,
+              onPrimary: Colors.white,
+              onSurface: _textDark,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        _selectedEndDate = picked;
+      });
+    }
+  }
+
+
+
+
+  Widget _buildGraphStatItem({
     required String title,
-    required int count,
-    required IconData icon,
+    required String value,
     required Color color,
   }) {
     return Column(
       children: [
         Container(
-          width: 60,
-          height: 60,
+          width: 8,
+          height: 8,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: Center(
-            child: Icon(icon, size: 28, color: color),
+            color: color,
+            shape: BoxShape.circle,
           ),
         ),
-        SizedBox(height: 8),
+        SizedBox(height: 4),
         Text(
-          count.toString(),
+          value,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w800,
             color: _textDark,
           ),
@@ -7680,698 +6311,14 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
         Text(
           title,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 10,
             color: _textLight,
           ),
         ),
       ],
     );
   }
-
-  Widget _buildRoomTypeDetailCard(Map<String, dynamic> room) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: _bgColor,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    width: 44,
-                    height: 44,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: room['isAC']
-                            ? [Colors.blue.shade100, Colors.blue.shade50]
-                            : [Colors.green.shade100, Colors.green.shade50],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        room['isAC'] ? Icons.ac_unit_rounded : Icons.air_rounded,
-                        size: 22,
-                        color: room['isAC'] ? Colors.blue : Colors.green,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        room['type'],
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                          color: _textDark,
-                        ),
-                      ),
-                      SizedBox(height: 2),
-                      Row(
-                        children: [
-                          Icon(Icons.currency_rupee_rounded, size: 12, color: _textLight),
-                          SizedBox(width: 2),
-                          Text(
-                            '${room['price']} per night',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: _textLight,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Container(
-                            width: 4,
-                            height: 4,
-                            decoration: BoxDecoration(
-                              color: _textLight,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            room['isAC'] ? 'AC Room' : 'Non-AC Room',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: room['isAC'] ? Colors.blue : Colors.green,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: _primaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  '${room['total']} Rooms',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w800,
-                    color: _primaryColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          SizedBox(height: 16),
-
-          // Room Status Breakdown
-          GridView.count(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 3,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
-            childAspectRatio: 1.5,
-            children: [
-              _buildRoomStatusItem(
-                title: 'Available',
-                count: room['available'],
-                color: _successColor,
-              ),
-              _buildRoomStatusItem(
-                title: 'Booked',
-                count: room['booked'],
-                color: _primaryColor,
-              ),
-              _buildRoomStatusItem(
-                title: 'Maintenance',
-                count: room['maintenance'],
-                color: _warningColor,
-              ),
-            ],
-          ),
-
-          SizedBox(height: 12),
-
-          // Progress Bar
-          LinearProgressIndicator(
-            value: (room['booked'] + room['maintenance']) / room['total'],
-            backgroundColor: _borderColor,
-            color: _primaryColor,
-            minHeight: 6,
-            borderRadius: BorderRadius.circular(3),
-          ),
-
-          SizedBox(height: 8),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Occupancy: ${(((room['booked'] + room['maintenance']) / room['total']) * 100).toStringAsFixed(1)}%',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _textLight,
-                ),
-              ),
-              Text(
-                'Available: ${room['available']} rooms',
-                style: TextStyle(
-                  fontSize: 11,
-                  color: _successColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildRoomStatusItem({
-    required String title,
-    required int count,
-    required Color color,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: color.withOpacity(0.1)),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            count.toString(),
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-              color: color,
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 10,
-              color: _textLight,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Step 5: Booking Insights Graph
-  Widget _buildBookingInsightsGraph() {
-    // Sample monthly data
-    Map<String, Map<String, int>> monthlyData = {
-      'January': {'Confirmed': 45, 'Pending': 12, 'Cancelled': 8, 'Completed': 38},
-      'February': {'Confirmed': 52, 'Pending': 15, 'Cancelled': 10, 'Completed': 45},
-      'March': {'Confirmed': 48, 'Pending': 10, 'Cancelled': 7, 'Completed': 42},
-      'April': {'Confirmed': 60, 'Pending': 18, 'Cancelled': 12, 'Completed': 55},
-      'May': {'Confirmed': 55, 'Pending': 14, 'Cancelled': 9, 'Completed': 50},
-      'June': {'Confirmed': 65, 'Pending': 20, 'Cancelled': 15, 'Completed': 60},
-    };
-
-    Map<String, int> selectedMonthData = monthlyData[_selectedMonth] ?? {'Confirmed': 0, 'Pending': 0, 'Cancelled': 0, 'Completed': 0};
-    int maxValue = selectedMonthData.values.reduce((a, b) => a > b ? a : b);
-
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: _cardBg,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Booking Insights (Graph)',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                  color: _textDark,
-                ),
-              ),
-              // Container(
-              //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              //   decoration: BoxDecoration(
-              //     color: _primaryColor.withOpacity(0.1),
-              //     borderRadius: BorderRadius.circular(20),
-              //   ),
-              //   child: Row(
-              //     children: [
-              //       Icon(Icons.insights_rounded, size: 14, color: _primaryColor),
-              //       SizedBox(width: 6),
-              //       Text(
-              //         'Monthly Analysis',
-              //         style: TextStyle(
-              //           fontSize: 12,
-              //           fontWeight: FontWeight.w700,
-              //           color: _primaryColor,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-            ],
-          ),
-
-          SizedBox(height: 16),
-
-          // Month Selector
-          SizedBox(
-            height: 40,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: _months.map((month) {
-                bool isSelected = _selectedMonth == month;
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedMonth = month;
-                    });
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(right: 8),
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                    decoration: BoxDecoration(
-                      color: isSelected ? _primaryColor : Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: isSelected ? _primaryColor : _borderColor,
-                      ),
-                    ),
-                    child: Text(
-                      month.substring(0, 3),
-                      style: TextStyle(
-                        color: isSelected ? Colors.white : _textDark,
-                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-
-          SizedBox(height: 24),
-
-          // Bar Chart
-          Container(
-            height: 200,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: _bookingStatuses.map((status) {
-                int value = selectedMonthData[status] ?? 0;
-                double heightPercentage = maxValue > 0 ? (value / maxValue) * 0.8 : 0;
-                Color statusColor = _getStatusColor(status);
-
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      width: 30,
-                      height: 150 * heightPercentage,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            statusColor.withOpacity(0.8),
-                            statusColor,
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          value.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      width: 30,
-                      child: Text(
-                        status.substring(0, 3),
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: _textLight,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                      ),
-                    ),
-                  ],
-                );
-              }).toList(),
-            ),
-          ),
-
-          SizedBox(height: 20),
-
-          // Legend
-          Wrap(
-            spacing: 12,
-            runSpacing: 8,
-            children: _bookingStatuses.map((status) {
-              Color statusColor = _getStatusColor(status);
-              return Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: statusColor,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  SizedBox(width: 6),
-                  Text(
-                    status,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: _textLight,
-                    ),
-                  ),
-                ],
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Color _getStatusColor(String status) {
-    switch (status) {
-      case 'Confirmed':
-        return _successColor;
-      case 'Pending':
-        return _warningColor;
-      case 'Cancelled':
-        return _dangerColor;
-      case 'Completed':
-        return _secondaryColor;
-      default:
-        return _primaryColor;
-    }
-  }
-
-  // Step 6: Monthly Booking Statistics
-
-  // Widget _buildBookingInsightsGraph() {
-  //   DateTime? _selectedDate;
-  //
-  //   // Function to get booking data based on selected month
-  //   Map<String, int> _getBookingDataForMonth(DateTime date) {
-  //     // This would normally come from your database/API
-  //     // For demo, generating random data
-  //     final month = DateFormat('MMMM yyyy').format(date);
-  //
-  //     // Generate different data for different months for demo
-  //     int monthIndex = date.month;
-  //     int baseValue = 30 + (monthIndex * 5);
-  //
-  //     return {
-  //       'Confirmed': baseValue + Random().nextInt(20),
-  //       'Pending': (baseValue * 0.3).round() + Random().nextInt(10),
-  //       'Cancelled': (baseValue * 0.15).round() + Random().nextInt(5),
-  //       'Completed': baseValue + Random().nextInt(15),
-  //     };
-  //   }
-  //
-  //   // Get selected month data
-  //   Map<String, int> selectedMonthData = _selectedDate != null
-  //       ? _getBookingDataForMonth(_selectedDate!)
-  //       : _getBookingDataForMonth(DateTime.now());
-  //
-  //   // Get max value for scaling
-  //   int maxValue = selectedMonthData.values.reduce((a, b) => a > b ? a : b);
-  //   maxValue = maxValue == 0 ? 1 : maxValue;
-  //
-  //   return Container(
-  //     padding: EdgeInsets.all(20),
-  //     decoration: BoxDecoration(
-  //       color: _cardBg,
-  //       borderRadius: BorderRadius.circular(16),
-  //       boxShadow: [
-  //         BoxShadow(
-  //           color: Colors.black.withOpacity(0.05),
-  //           blurRadius: 10,
-  //           offset: Offset(0, 4),
-  //         ),
-  //       ],
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Text(
-  //               'Booking Insights',
-  //               style: TextStyle(
-  //                 fontSize: 18,
-  //                 fontWeight: FontWeight.w700,
-  //                 color: _textDark,
-  //               ),
-  //             ),
-  //             Container(
-  //               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-  //               decoration: BoxDecoration(
-  //                 color: _primaryColor.withOpacity(0.1),
-  //                 borderRadius: BorderRadius.circular(20),
-  //               ),
-  //               child: Row(
-  //                 children: [
-  //                   Icon(Icons.insights_rounded, size: 14, color: _primaryColor),
-  //                   SizedBox(width: 6),
-  //                   Text(
-  //                     'Monthly Analysis',
-  //                     style: TextStyle(
-  //                       fontSize: 12,
-  //                       fontWeight: FontWeight.w700,
-  //                       color: _primaryColor,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 16),
-  //
-  //         // Date Picker
-  //         Container(
-  //           padding: EdgeInsets.all(12),
-  //           decoration: BoxDecoration(
-  //             color: _bgColor,
-  //             borderRadius: BorderRadius.circular(12),
-  //             border: Border.all(color: _borderColor),
-  //           ),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     'Selected Month',
-  //                     style: TextStyle(
-  //                       fontSize: 12,
-  //                       color: _textLight,
-  //                     ),
-  //                   ),
-  //                   SizedBox(height: 4),
-  //                   Text(
-  //                     _selectedDate != null
-  //                         ? DateFormat('MMMM yyyy').format(_selectedDate!)
-  //                         : DateFormat('MMMM yyyy').format(DateTime.now()),
-  //                     style: TextStyle(
-  //                       fontSize: 16,
-  //                       fontWeight: FontWeight.w700,
-  //                       color: _textDark,
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //               ElevatedButton.icon(
-  //                 onPressed: () async {
-  //                   final DateTime? picked = await showDatePicker(
-  //                     context: context,
-  //                     initialDate: _selectedDate ?? DateTime.now(),
-  //                     firstDate: DateTime(2020),
-  //                     lastDate: DateTime(2030),
-  //                     initialDatePickerMode: DatePickerMode.year,
-  //                     helpText: 'SELECT MONTH',
-  //                     cancelText: 'CANCEL',
-  //                     confirmText: 'SELECT',
-  //                     fieldLabelText: 'Month',
-  //                     fieldHintText: 'Month/Year',
-  //                     builder: (context, child) {
-  //                       return Theme(
-  //                         data: ThemeData.light().copyWith(
-  //                           primaryColor: _primaryColor,
-  //                           colorScheme: ColorScheme.light(
-  //                             primary: _primaryColor,
-  //                             secondary: _primaryLight,
-  //                           ),
-  //                           buttonTheme: ButtonThemeData(
-  //                             textTheme: ButtonTextTheme.primary,
-  //                           ),
-  //                         ),
-  //                         child: child!,
-  //                       );
-  //                     },
-  //                   );
-  //
-  //                   if (picked != null) {
-  //                     setState(() {
-  //                       _selectedDate = DateTime(picked.year, picked.month);
-  //                     });
-  //                   }
-  //                 },
-  //                 icon: Icon(Icons.calendar_month_rounded, size: 16),
-  //                 label: Text('Pick Month'),
-  //                 style: ElevatedButton.styleFrom(
-  //                   backgroundColor: _primaryColor,
-  //                   foregroundColor: Colors.white,
-  //                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-  //                   shape: RoundedRectangleBorder(
-  //                     borderRadius: BorderRadius.circular(12),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //
-  //         SizedBox(height: 20),
-  //
-  //         // Booking Statistics Summary
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //           children: [
-  //             _buildBookingStatCard(
-  //               title: 'Total Bookings',
-  //               value: selectedMonthData.values.fold(0, (sum, value) => sum + value).toString(),
-  //               color: _primaryColor,
-  //               icon: Icons.bookmark_added_rounded,
-  //             ),
-  //             _buildBookingStatCard(
-  //               title: 'Success Rate',
-  //               value: '${((selectedMonthData['Completed']! / (selectedMonthData['Confirmed']! + selectedMonthData['Pending']!)) * 100).toStringAsFixed(1)}%',
-  //               color: _successColor,
-  //               icon: Icons.trending_up_rounded,
-  //             ),
-  //             _buildBookingStatCard(
-  //               title: 'Cancellation',
-  //               value: '${((selectedMonthData['Cancelled']! / (selectedMonthData['Confirmed']! + selectedMonthData['Pending']!)) * 100).toStringAsFixed(1)}%',
-  //               color: _dangerColor,
-  //               icon: Icons.cancel_rounded,
-  //             ),
-  //           ],
-  //         ),
-  //
-  //         SizedBox(height: 20),
-  //
-  //         // Step 5: Graphical Bar Chart
-  //         Text(
-  //           'Booking Status Distribution',
-  //           style: TextStyle(
-  //             fontSize: 14,
-  //             fontWeight: FontWeight.w600,
-  //             color: _textDark,
-  //           ),
-  //         ),
-  //         SizedBox(height: 12),
-  //         Container(
-  //           height: 180,
-  //           padding: EdgeInsets.symmetric(vertical: 16),
-  //           child: Row(
-  //             crossAxisAlignment: CrossAxisAlignment.end,
-  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //             children: [
-  //               _buildStatusBar(
-  //                 status: 'Confirmed',
-  //                 value: selectedMonthData['Confirmed']!,
-  //                 maxValue: maxValue,
-  //                 color: _secondaryColor,
-  //               ),
-  //               _buildStatusBar(
-  //                 status: 'Pending',
-  //                 value: selectedMonthData['Pending']!,
-  //                 maxValue: maxValue,
-  //                 color: _warningColor,
-  //               ),
-  //               _buildStatusBar(
-  //                 status: 'Cancelled',
-  //                 value: selectedMonthData['Cancelled']!,
-  //                 maxValue: maxValue,
-  //                 color: _dangerColor,
-  //               ),
-  //               _buildStatusBar(
-  //                 status: 'Completed',
-  //                 value: selectedMonthData['Completed']!,
-  //                 maxValue: maxValue,
-  //                 color: _successColor,
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //
-  //         SizedBox(height: 20),
-  //
-  //         // Step 6: Detailed Booking Data Table
-  //         Text(
-  //           'Booking Details',
-  //           style: TextStyle(
-  //             fontSize: 14,
-  //             fontWeight: FontWeight.w600,
-  //             color: _textDark,
-  //           ),
-  //         ),
-  //         SizedBox(height: 12),
-  //         _buildBookingDataTable(selectedMonthData),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-
   Widget _buildMonthlyBookingStats() {
-    // Sample monthly statistics
     Map<String, Map<String, dynamic>> monthlyStats = {
       'January': {
         'totalBookings': 103,
@@ -8427,40 +6374,19 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Monthly  ($_selectedMonth)',
+                'Monthly Statistics ($_selectedMonth)',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w800,
                   color: _textDark,
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: _primaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.analytics_rounded, size: 14, color: _primaryColor),
-                    SizedBox(width: 6),
-                    Text(
-                      'Detailed View',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: _primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
             ],
           ),
 
           SizedBox(height: 20),
 
-          // Key Statistics
           GridView.count(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -8502,7 +6428,6 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
 
           SizedBox(height: 20),
 
-          // Status Breakdown
           Text(
             'Booking Status Breakdown',
             style: TextStyle(
@@ -8655,7 +6580,22 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     );
   }
 
-  // Drawer and Navigation Methods
+  Color _getStatusColor(String status) {
+    switch (status) {
+      case 'Confirmed':
+        return _successColor;
+      case 'Pending':
+        return _warningColor;
+      case 'Cancelled':
+        return _dangerColor;
+      case 'Completed':
+        return _secondaryColor;
+      default:
+        return _primaryColor;
+    }
+  }
+
+
   Drawer _buildDrawer(double w) {
     return Drawer(
       width: w * 0.8,
@@ -8874,7 +6814,6 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     );
   }
 
-  // Action Methods
   void _addNewRoom() {
     showDialog(
       context: context,
@@ -8891,38 +6830,7 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     );
   }
 
-  void _configureRooms() {
-    // Navigate to room configuration
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Configure Rooms'),
-        content: Text('Redirect to room configuration page'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
 
-  void _handleInsightAction(Map<String, dynamic> insight) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(insight['title']),
-        content: Text(insight['message']),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
 
   void _showNotifications() {
     showDialog(
@@ -8971,53 +6879,7 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     );
   }
 
-  void _generateQrCode() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Generate QR Code'),
-        content: Text('QR Code generation feature coming soon!'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
 
-  void _printReport() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Print Report'),
-        content: Text('Printing report for current dashboard data...'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _exportData() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Export Data'),
-        content: Text('Exporting dashboard data to CSV format...'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
 
   void _showProfile() {
     Navigator.push(
@@ -9072,7 +6934,577 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
       ),
     );
   }
+
+// Step 7: Payment Overview Section
+  Widget _buildPaymentOverview() {
+    // Sample payment data with explicit types
+    List<Map<String, dynamic>> paymentData = [
+      {
+        'roomType': 'Standard',
+        'bookedCount': 13,
+        'pricePerNight': 2500,
+        'totalNights': 15,
+        'totalAmount': 37500,
+        'paymentStatus': 'Paid',
+        'paymentDate': '2024-01-15',
+      },
+      {
+        'roomType': 'Deluxe',
+        'bookedCount': 10,
+        'pricePerNight': 3500,
+        'totalNights': 10,
+        'totalAmount': 10500,
+        'paymentStatus': 'Pending',
+        'paymentDate': '2024-01-16',
+      },
+      {
+        'roomType': 'Suite',
+        'bookedCount': 7,
+        'pricePerNight': 5000,
+        'totalNights': 7,
+        'totalAmount': 70000,
+        'paymentStatus': 'Paid',
+        'paymentDate': '2024-01-14',
+      },
+      {
+        'roomType': 'Family',
+        'bookedCount': 5,
+        'pricePerNight': 4200,
+        'totalNights': 5,
+        'totalAmount': 21000,
+        'paymentStatus': 'Paid',
+        'paymentDate': '2024-01-13',
+      },
+      {
+        'roomType': 'Executive',
+        'bookedCount': 4,
+        'pricePerNight': 6000,
+        'totalNights': 3,
+        'totalAmount': 18000,
+        'paymentStatus': 'Pending',
+        'paymentDate': '2024-01-17',
+      },
+    ];
+
+    // Calculate totals with explicit type casting
+    double totalProfit = paymentData.fold(0.0, (double sum, item) => sum + (item['totalAmount'] as int).toDouble());
+    int totalBookedRooms = paymentData.fold(0, (int sum, item) => sum + (item['bookedCount'] as int));
+    int totalNights = paymentData.fold(0, (int sum, item) => sum + (item['totalNights'] as int));
+    int paidCount = paymentData.where((item) => item['paymentStatus'] == 'Paid').length;
+    int pendingCount = paymentData.where((item) => item['paymentStatus'] == 'Pending').length;
+
+    // Calculate paid and pending amounts
+    double paidAmount = paymentData
+        .where((item) => item['paymentStatus'] == 'Paid')
+        .fold(0.0, (double sum, item) => sum + (item['totalAmount'] as int).toDouble());
+
+    double pendingAmount = paymentData
+        .where((item) => item['paymentStatus'] == 'Pending')
+        .fold(0.0, (double sum, item) => sum + (item['totalAmount'] as int).toDouble());
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: _cardBg,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _borderColor),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Payment Overview',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: _textDark,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: _primaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.payment_rounded, size: 14, color: _primaryColor),
+                    SizedBox(width: 6),
+                    Text(
+                      'Revenue Details',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+          SizedBox(height: 16),
+
+
+
+          SizedBox(height: 20),
+
+          // Payment Details Table
+
+          SizedBox(height: 12),
+
+          // Table Header
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+            decoration: BoxDecoration(
+              color: _bgColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              border: Border.all(color: _borderColor),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: Text(
+                    'Room Type',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Booked',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Price',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    'Total',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+
+          // Table Rows
+          ...paymentData.map((payment) {
+            return Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+              decoration: BoxDecoration(
+                color: _cardBg,
+                border: Border(
+                  bottom: BorderSide(color: _borderColor),
+                  left: BorderSide(color: _borderColor),
+                  right: BorderSide(color: _borderColor),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      payment['roomType'] as String,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: _textDark,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text(
+                          '${payment['bookedCount'] as int}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: _primaryColor,
+                          ),
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.currency_rupee_rounded, size: 12, color: _textLight),
+                            Text(
+                              '${payment['pricePerNight'] as int}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: _textDark,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.currency_rupee_rounded, size: 14, color: _successColor),
+                            Text(
+                              '${payment['totalAmount'] as int}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w800,
+                                color: _successColor,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+            );
+          }).toList(),
+
+          // Total Row
+          // Container(
+          //   padding: EdgeInsets.all(16),
+          //   decoration: BoxDecoration(
+          //     color: _primaryColor.withOpacity(0.05),
+          //     borderRadius: BorderRadius.only(
+          //       bottomLeft: Radius.circular(12),
+          //       bottomRight: Radius.circular(12),
+          //     ),
+          //     border: Border.all(color: _primaryColor.withOpacity(0.2)),
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       Text(
+          //         'TOTAL PROFIT:',
+          //         style: TextStyle(
+          //           fontSize: 14,
+          //           fontWeight: FontWeight.w700,
+          //           color: _textDark,
+          //         ),
+          //       ),
+          //       Row(
+          //         children: [
+          //           Icon(Icons.currency_rupee_rounded, size: 20, color: _successColor),
+          //           Text(
+          //             '${totalProfit.toStringAsFixed(0)}',
+          //             style: TextStyle(
+          //               fontSize: 20,
+          //               fontWeight: FontWeight.w800,
+          //               color: _successColor,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
+
+          // Total Row - Modified with filter option
+          Container(
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: _primaryColor.withOpacity(0.05),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
+              border: Border.all(color: _primaryColor.withOpacity(0.2)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Left side: "Overall" text
+                Text(
+                  'Overall',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: _textDark,
+                  ),
+                ),
+
+                // Middle: Date/Month filter with total profit
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: _bgColor,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: _borderColor),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.calendar_month_rounded, size: 14, color: _textLight),
+                      SizedBox(width: 6),
+                      Text(
+                        'Jan 2024',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: _textDark,
+                        ),
+                      ),
+                      SizedBox(width: 4),
+                      Icon(Icons.expand_more_rounded, size: 16, color: _textLight),
+                      SizedBox(width: 8),
+                      Container(
+                        height: 16,
+                        width: 1,
+                        color: _borderColor,
+                      ),
+                      SizedBox(width: 8),
+                      Row(
+                        children: [
+                          Text(
+                            'Total Profit - ',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: _textLight,
+                            ),
+                          ),
+                          Icon(Icons.currency_rupee_rounded, size: 12, color: _successColor),
+                          Text(
+                            '${totalProfit.toStringAsFixed(0)}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: _successColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+
+              ],
+            ),
+          ),
+
+          SizedBox(height: 16),
+
+
+        ],
+      ),
+    );
+  }
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+class _BookingTrendGraphPainter extends CustomPainter {
+  final List<double> data;
+  final double maxValue;
+  final double minValue;
+  final Color primaryColor;
+  final Color secondaryColor;
+  final bool showRoomTypes;
+  final List<String> roomTypes;
+  final Map<String, Color> roomTypeColors;
+
+  _BookingTrendGraphPainter({
+    required this.data,
+    required this.maxValue,
+    required this.minValue,
+    required this.primaryColor,
+    required this.secondaryColor,
+    required this.showRoomTypes,
+    required this.roomTypes,
+    required this.roomTypeColors,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (data.isEmpty) return;
+
+    double range = maxValue - minValue;
+    if (range == 0) range = 1;
+
+    // Draw multiple wave lines if showing all room types
+    if (showRoomTypes && roomTypes.length > 1) {
+      for (int typeIndex = 0; typeIndex < roomTypes.length; typeIndex++) {
+        String roomType = roomTypes[typeIndex];
+        Color lineColor = roomTypeColors[roomType] ?? primaryColor;
+
+        // Generate offset data for each room type
+        List<double> offsetData = [];
+        for (int i = 0; i < data.length; i++) {
+          // Create offset pattern for each room type
+          double baseValue = data[i] * (0.3 + (typeIndex * 0.15));
+          double variation = sin(i * 0.3 + typeIndex) * 2;
+          offsetData.add(baseValue + variation);
+        }
+
+        _drawWaveLine(canvas, size, offsetData, lineColor.withOpacity(0.7));
+      }
+    } else {
+      // Draw single wave line
+      _drawWaveLine(canvas, size, data, primaryColor);
+    }
+
+    // Draw data points
+    final pointPaint = Paint()
+      ..color = primaryColor
+      ..style = PaintingStyle.fill;
+
+    for (int i = 0; i < data.length; i += 3) { // Draw points every 3 data points
+      double x = size.width * (i / (data.length - 1));
+      double y = size.height - ((data[i] - minValue) / range) * size.height;
+
+      // Draw point
+      canvas.drawCircle(Offset(x, y), 3, pointPaint);
+
+      // Draw glow effect
+      final glowPaint = Paint()
+        ..color = primaryColor.withOpacity(0.2)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
+      canvas.drawCircle(Offset(x, y), 5, glowPaint);
+    }
+  }
+
+  void _drawWaveLine(Canvas canvas, Size size, List<double> lineData, Color color) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.0
+      ..strokeCap = StrokeCap.round;
+
+    final fillPaint = Paint()
+      ..shader = LinearGradient(
+        colors: [
+          color.withOpacity(0.3),
+          color.withOpacity(0.1),
+          Colors.transparent,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ).createShader(Rect.fromLTRB(0, 0, size.width, size.height))
+      ..style = PaintingStyle.fill;
+
+    double range = maxValue - minValue;
+    if (range == 0) range = 1;
+
+    final path = Path();
+    final fillPath = Path();
+
+    for (int i = 0; i < lineData.length; i++) {
+      double x = size.width * (i / (lineData.length - 1));
+      double y = size.height - ((lineData[i] - minValue) / range) * size.height;
+
+      if (i == 0) {
+        path.moveTo(x, y);
+        fillPath.moveTo(x, y);
+      } else {
+        // Create smooth curve
+        double prevX = size.width * ((i - 1) / (lineData.length - 1));
+        double prevY = size.height - ((lineData[i - 1] - minValue) / range) * size.height;
+
+        double controlX1 = prevX + (x - prevX) * 0.5;
+        double controlX2 = prevX + (x - prevX) * 0.5;
+
+        path.cubicTo(
+          controlX1, prevY,
+          controlX2, y,
+          x, y,
+        );
+        fillPath.cubicTo(
+          controlX1, prevY,
+          controlX2, y,
+          x, y,
+        );
+      }
+    }
+
+    // Complete fill path
+    fillPath.lineTo(size.width, size.height);
+    fillPath.lineTo(0, size.height);
+    fillPath.close();
+
+    // Draw fill
+    canvas.drawPath(fillPath, fillPaint);
+
+    // Draw line
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9769,628 +8201,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
   }
 }
 
-// class _PersonalDetailsTab extends StatelessWidget {
-//   final String ownerName;
-//   final String mobileNumber;
-//   final String email;
-//   final String aadharNumber;
-//   final Map<String, dynamic> personPhotoInfo;
-//   final String alternateContact;
-//   final List<String> landlineNumbers;
-//   final String website;
-//
-//   const _PersonalDetailsTab({
-//     required this.ownerName,
-//     required this.mobileNumber,
-//     required this.email,
-//     required this.aadharNumber,
-//     required this.personPhotoInfo,
-//     this.alternateContact = '',
-//     this.landlineNumbers = const [],
-//     this.website = '',
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       padding: EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           _buildSectionHeader('Profile Photo'),
-//           SizedBox(height: 12),
-//           _buildProfilePhotoCard(),
-//
-//           SizedBox(height: 24),
-//
-//           _buildSectionHeader('Identity Cards'),
-//           SizedBox(height: 12),
-//           _buildAadharCard(),
-//
-//           SizedBox(height: 24),
-//
-//           _buildSectionHeader('Contact Information'),
-//           SizedBox(height: 12),
-//           _buildContactCard(),
-//
-//           if (alternateContact.isNotEmpty || landlineNumbers.isNotEmpty || website.isNotEmpty) ...[
-//             SizedBox(height: 24),
-//             _buildAdditionalContactCard(),
-//           ],
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildProfilePhotoCard() {
-//     final isUploaded = personPhotoInfo['uploaded'] as bool? ?? false;
-//     final fileName = personPhotoInfo['name'] as String? ?? '';
-//
-//     return Container(
-//       padding: EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Row(
-//         children: [
-//           Container(
-//             width: 70,
-//             height: 70,
-//             decoration: BoxDecoration(
-//               color: Color(0xFF4F46E5).withOpacity(0.1),
-//               borderRadius: BorderRadius.circular(12),
-//               border: Border.all(color: Color(0xFF4F46E5).withOpacity(0.2), width: 2),
-//             ),
-//             child: isUploaded && personPhotoInfo['path'] != null
-//                 ? ClipRRect(
-//               borderRadius: BorderRadius.circular(12),
-//               child: Image.file(
-//                 File(personPhotoInfo['path']),
-//                 fit: BoxFit.cover,
-//               ),
-//             )
-//                 : Icon(Icons.person, color: Color(0xFF4F46E5), size: 32),
-//           ),
-//           SizedBox(width: 16),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Profile Photo',
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.w600,
-//                     color: Colors.grey[800],
-//                   ),
-//                 ),
-//                 SizedBox(height: 6),
-//                 Row(
-//                   children: [
-//                     Icon(
-//                       isUploaded ? Icons.check_circle : Icons.pending,
-//                       size: 16,
-//                       color: isUploaded ? Color(0xFF4CAF50) : Colors.grey[500],
-//                     ),
-//                     SizedBox(width: 6),
-//                     Text(
-//                       isUploaded ? 'Uploaded Successfully' : 'Not Uploaded',
-//                       style: TextStyle(
-//                         fontSize: 13,
-//                         color: isUploaded ? Color(0xFF4CAF50) : Colors.grey[600],
-//                         fontWeight: isUploaded ? FontWeight.w500 : FontWeight.w400,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 if (isUploaded && fileName.isNotEmpty) ...[
-//                   SizedBox(height: 8),
-//                   Container(
-//                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-//                     decoration: BoxDecoration(
-//                       color: Colors.grey[50],
-//                       borderRadius: BorderRadius.circular(8),
-//                     ),
-//                     child: Row(
-//                       children: [
-//                         Icon(Icons.photo, size: 14, color: Colors.grey[600]),
-//                         SizedBox(width: 6),
-//                         Expanded(
-//                           child: Text(
-//                             fileName,
-//                             style: TextStyle(
-//                               fontSize: 12,
-//                               color: Colors.grey[700],
-//                             ),
-//                             overflow: TextOverflow.ellipsis,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildAadharCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             children: [
-//               Container(
-//                 width: 50,
-//                 height: 50,
-//                 decoration: BoxDecoration(
-//                   gradient: LinearGradient(
-//                     colors: [Color(0xFF4CAF50), Color(0xFF2E7D32)],
-//                     begin: Alignment.topLeft,
-//                     end: Alignment.bottomRight,
-//                   ),
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: Icon(Icons.credit_card, color: Colors.white, size: 26),
-//               ),
-//               SizedBox(width: 16),
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'Aadhar Card Number',
-//                       style: TextStyle(
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.w600,
-//                         color: Colors.grey[800],
-//                       ),
-//                     ),
-//                     SizedBox(height: 4),
-//                     Text(
-//                       aadharNumber.isNotEmpty ? aadharNumber : 'Not provided',
-//                       style: TextStyle(
-//                         fontSize: 15,
-//                         color: aadharNumber.isNotEmpty ? Colors.grey[800] : Colors.grey[400],
-//                         fontWeight: FontWeight.w500,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 16),
-//           Row(
-//             children: [
-//               Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                 decoration: BoxDecoration(
-//                   color: aadharNumber.isNotEmpty ? Color(0xFF4CAF50).withOpacity(0.1) : Colors.grey.withOpacity(0.1),
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Icon(
-//                       aadharNumber.isNotEmpty ? Icons.verified : Icons.pending,
-//                       size: 14,
-//                       color: aadharNumber.isNotEmpty ? Color(0xFF4CAF50) : Colors.grey,
-//                     ),
-//                     SizedBox(width: 6),
-//                     Text(
-//                       aadharNumber.isNotEmpty ? 'Verified' : 'Not Verified',
-//                       style: TextStyle(
-//                         fontSize: 12,
-//                         color: aadharNumber.isNotEmpty ? Color(0xFF4CAF50) : Colors.grey,
-//                         fontWeight: FontWeight.w600,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               Spacer(),
-//               if (aadharNumber.isNotEmpty)
-//                 Container(
-//                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                   decoration: BoxDecoration(
-//                     color: Color(0xFF4F46E5).withOpacity(0.1),
-//                     borderRadius: BorderRadius.circular(12),
-//                   ),
-//                   child: Row(
-//                     children: [
-//                       Icon(Icons.fingerprint, size: 14, color: Color(0xFF4F46E5)),
-//                       SizedBox(width: 6),
-//                       Text(
-//                         'UIDAI Verified',
-//                         style: TextStyle(
-//                           fontSize: 12,
-//                           color: Color(0xFF4F46E5),
-//                           fontWeight: FontWeight.w600,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildSectionHeader(String title) {
-//     return Row(
-//       children: [
-//         Container(
-//           width: 4,
-//           height: 20,
-//           decoration: BoxDecoration(
-//             gradient: LinearGradient(
-//               colors: [
-//                 Color(0xFF4F46E5),
-//                 Color(0xFF7C3AED),
-//               ],
-//             ),
-//             borderRadius: BorderRadius.circular(2),
-//           ),
-//         ),
-//         SizedBox(width: 12),
-//         Text(
-//           title,
-//           style: TextStyle(
-//             fontSize: 18,
-//             fontWeight: FontWeight.w700,
-//             color: Colors.grey[800],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildContactCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         children: [
-//           _buildContactRow(
-//             icon: Icons.person_outline,
-//             label: 'Owner Name',
-//             value: ownerName,
-//             isPrimary: true,
-//           ),
-//           Divider(height: 24, color: Colors.grey[200]),
-//           _buildContactRow(
-//             icon: Icons.phone_android,
-//             label: 'Primary Mobile',
-//             value: mobileNumber,
-//             isPrimary: true,
-//             isCopyable: true,
-//             iconColor: Color(0xFF4CAF50),
-//           ),
-//           Divider(height: 24, color: Colors.grey[200]),
-//           _buildContactRow(
-//             icon: Icons.email_outlined,
-//             label: 'Email Address',
-//             value: email,
-//             isPrimary: true,
-//             isCopyable: true,
-//             iconColor: Color(0xFF2196F3),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildAdditionalContactCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             'Additional Contact Details',
-//             style: TextStyle(
-//               fontSize: 16,
-//               fontWeight: FontWeight.w600,
-//               color: Colors.grey[800],
-//             ),
-//           ),
-//           SizedBox(height: 16),
-//
-//           if (alternateContact.isNotEmpty) ...[
-//             _buildAdditionalContactRow(
-//               icon: Icons.phone_iphone,
-//               label: 'Alternate Contact',
-//               value: alternateContact,
-//               iconColor: Color(0xFFF59E0B),
-//             ),
-//             if (landlineNumbers.isNotEmpty || website.isNotEmpty)
-//               Divider(height: 20, color: Colors.grey[200]),
-//           ],
-//
-//           if (landlineNumbers.isNotEmpty) ...[
-//             _buildLandlineSection(),
-//             if (website.isNotEmpty)
-//               Divider(height: 20, color: Colors.grey[200]),
-//           ],
-//
-//           if (website.isNotEmpty)
-//             _buildAdditionalContactRow(
-//               icon: Icons.language,
-//               label: 'Website',
-//               value: website,
-//               iconColor: Color(0xFF4F46E5),
-//               isWebsite: true,
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildContactRow({
-//     required IconData icon,
-//     required String label,
-//     required String value,
-//     bool isPrimary = false,
-//     bool isCopyable = false,
-//     Color iconColor = Colors.grey,
-//     bool isWebsite = false,
-//   }) {
-//     return Row(
-//       children: [
-//         Container(
-//           width: 48,
-//           height: 48,
-//           decoration: BoxDecoration(
-//             color: iconColor.withOpacity(0.1),
-//             borderRadius: BorderRadius.circular(12),
-//             border: Border.all(color: iconColor.withOpacity(0.2), width: 1.5),
-//           ),
-//           child: Icon(icon, size: 22, color: iconColor),
-//         ),
-//         SizedBox(width: 16),
-//         Expanded(
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 label,
-//                 style: TextStyle(
-//                   fontSize: 12,
-//                   color: Colors.grey[600],
-//                   fontWeight: FontWeight.w500,
-//                 ),
-//               ),
-//               SizedBox(height: 4),
-//               Row(
-//                 children: [
-//                   Expanded(
-//                     child: Text(
-//                       value,
-//                       style: TextStyle(
-//                         fontSize: 15,
-//                         fontWeight: isPrimary ? FontWeight.w600 : FontWeight.w500,
-//                         color: isWebsite ? Colors.blue[600] : Colors.grey[800],
-//                         decoration: isWebsite ? TextDecoration.underline : TextDecoration.none,
-//                       ),
-//                     ),
-//                   ),
-//                   if (isCopyable)
-//                     IconButton(
-//                       icon: Icon(Icons.content_copy, size: 18, color: Color(0xFF4F46E5)),
-//                       onPressed: () {
-//                         // Clipboard.setData(ClipboardData(text: value));
-//                         // ScaffoldMessenger.of(context).showSnackBar(
-//                         //   SnackBar(
-//                         //     content: Text('Copied to clipboard'),
-//                         //     duration: Duration(seconds: 1),
-//                         //   ),
-//                         // );
-//                       },
-//                     ),
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildAdditionalContactRow({
-//     required IconData icon,
-//     required String label,
-//     required String value,
-//     Color iconColor = Colors.grey,
-//     bool isWebsite = false,
-//   }) {
-//     return Container(
-//       padding: EdgeInsets.symmetric(vertical: 12),
-//       child: Row(
-//         children: [
-//           Container(
-//             width: 42,
-//             height: 42,
-//             decoration: BoxDecoration(
-//               color: iconColor.withOpacity(0.1),
-//               borderRadius: BorderRadius.circular(10),
-//             ),
-//             child: Icon(icon, size: 20, color: iconColor),
-//           ),
-//           SizedBox(width: 14),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   label,
-//                   style: TextStyle(
-//                     fontSize: 12,
-//                     color: Colors.grey[600],
-//                     fontWeight: FontWeight.w500,
-//                   ),
-//                 ),
-//                 SizedBox(height: 4),
-//                 Text(
-//                   value,
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     fontWeight: FontWeight.w500,
-//                     color: isWebsite ? Colors.blue[600] : Colors.grey[800],
-//                     decoration: isWebsite ? TextDecoration.underline : TextDecoration.none,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           IconButton(
-//             icon: Icon(Icons.content_copy, size: 18, color: Color(0xFF4F46E5)),
-//             onPressed: () {
-//               // Clipboard.setData(ClipboardData(text: value));
-//               // ScaffoldMessenger.of(context).showSnackBar(
-//               //   SnackBar(
-//               //     content: Text('Copied to clipboard'),
-//               //     duration: Duration(seconds: 1),
-//               //   ),
-//               // );
-//             },
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildLandlineSection() {
-//     return Container(
-//       padding: EdgeInsets.symmetric(vertical: 12),
-//       child: Row(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Container(
-//             width: 42,
-//             height: 42,
-//             decoration: BoxDecoration(
-//               color: Color(0xFF4F46E5).withOpacity(0.1),
-//               borderRadius: BorderRadius.circular(10),
-//             ),
-//             child: Icon(Icons.phone_in_talk, size: 20, color: Color(0xFF4F46E5)),
-//           ),
-//           SizedBox(width: 14),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Landline Numbers',
-//                   style: TextStyle(
-//                     fontSize: 12,
-//                     color: Colors.grey[600],
-//                     fontWeight: FontWeight.w500,
-//                   ),
-//                 ),
-//                 SizedBox(height: 6),
-//                 Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: landlineNumbers.asMap().entries.map((entry) {
-//                     int index = entry.key;
-//                     String number = entry.value;
-//                     return Padding(
-//                       padding: EdgeInsets.only(bottom: 8),
-//                       child: Row(
-//                         children: [
-//                           Container(
-//                             width: 24,
-//                             height: 24,
-//                             decoration: BoxDecoration(
-//                               color: Colors.grey[100],
-//                               borderRadius: BorderRadius.circular(6),
-//                             ),
-//                             child: Center(
-//                               child: Text(
-//                                 '${index + 1}',
-//                                 style: TextStyle(
-//                                   fontSize: 11,
-//                                   fontWeight: FontWeight.w600,
-//                                   color: Colors.grey[600],
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(width: 10),
-//                           Expanded(
-//                             child: Text(
-//                               number,
-//                               style: TextStyle(
-//                                 fontSize: 14,
-//                                 fontWeight: FontWeight.w500,
-//                                 color: Colors.grey[800],
-//                               ),
-//                             ),
-//                           ),
-//                           IconButton(
-//                             icon: Icon(Icons.phone, size: 16, color: Color(0xFF4CAF50)),
-//                             onPressed: () {
-//                               // Make call functionality
-//                             },
-//                           ),
-//                         ],
-//                       ),
-//                     );
-//                   }).toList(),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+
 
 class _PersonalDetailsTab extends StatelessWidget {
   final String ownerName;
@@ -11167,335 +8978,7 @@ class _PersonalDetailsTab extends StatelessWidget {
   }
 }
 
-// class _HotelDetailsTab extends StatelessWidget {
-//   final String hotelName;
-//   final String addressLine1;
-//   final String addressLine2;
-//   final String city;
-//   final String district;
-//   final String state;
-//   final String pinCode;
-//   final int totalRooms;
-//   final String hotelType;
-//   final String yearOfEstablishment;
-//   final String website;
-//   final String landmark;
-//
-//   const _HotelDetailsTab({
-//     required this.hotelName,
-//     required this.addressLine1,
-//     required this.addressLine2,
-//     required this.city,
-//     required this.district,
-//     required this.state,
-//     required this.pinCode,
-//     required this.totalRooms,
-//     required this.hotelType,
-//     required this.yearOfEstablishment,
-//     required this.website,
-//     required this.landmark,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return SingleChildScrollView(
-//       padding: EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           _buildSectionHeader('Hotel Information'),
-//           SizedBox(height: 12),
-//           _buildHotelInfoCard(),
-//
-//           SizedBox(height: 20),
-//
-//           _buildSectionHeader('Address Details'),
-//           SizedBox(height: 12),
-//           _buildAddressCard(),
-//
-//           SizedBox(height: 20),
-//
-//           // Landmark card - now always shown
-//           _buildSectionHeader('Landmark'),
-//           SizedBox(height: 12),
-//           _buildLandmarkCard(),
-//
-//           SizedBox(height: 20),
-//
-//           // Website card - now always shown
-//           _buildSectionHeader('Website'),
-//           SizedBox(height: 12),
-//           _buildWebsiteCard(),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildSectionHeader(String title) {
-//     return Row(
-//       children: [
-//         Container(
-//           width: 4,
-//           height: 20,
-//           decoration: BoxDecoration(
-//             gradient: LinearGradient(
-//               colors: [
-//                 Color(0xFF4F46E5),
-//                 Color(0xFF7C3AED),
-//               ],
-//             ),
-//             borderRadius: BorderRadius.circular(2),
-//           ),
-//         ),
-//         SizedBox(width: 12),
-//         Text(
-//           title,
-//           style: TextStyle(
-//             fontSize: 18,
-//             fontWeight: FontWeight.w700,
-//             color: Colors.grey[800],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildHotelInfoCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         children: [
-//           _buildInfoRow('Hotel Name', hotelName),
-//           Divider(height: 20),
-//           _buildInfoRow('Hotel Type', hotelType.isNotEmpty ? hotelType : 'Not specified'),
-//           Divider(height: 20),
-//           _buildInfoRow('Year of Establishment', yearOfEstablishment.isNotEmpty ? yearOfEstablishment : 'Not specified'),
-//           Divider(height: 20),
-//           _buildInfoRow('Total Rooms', '$totalRooms Rooms'),
-//           Divider(height: 20),
-//           _buildInfoRow('City', city),
-//           Divider(height: 20),
-//           _buildInfoRow('District', district),
-//           Divider(height: 20),
-//           _buildInfoRow('State', state),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildAddressCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             children: [
-//               Icon(Icons.location_on, color: Color(0xFF4F46E5), size: 20),
-//               SizedBox(width: 8),
-//               Text(
-//                 'Complete Address',
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.w600,
-//                   color: Colors.grey[800],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 12),
-//           Text(
-//             addressLine1,
-//             style: TextStyle(
-//               color: Colors.grey[700],
-//               fontSize: 14,
-//             ),
-//           ),
-//           if (addressLine2.isNotEmpty) ...[
-//             SizedBox(height: 4),
-//             Text(
-//               addressLine2,
-//               style: TextStyle(
-//                 color: Colors.grey[700],
-//                 fontSize: 14,
-//               ),
-//             ),
-//           ],
-//           SizedBox(height: 8),
-//           Wrap(
-//             spacing: 12,
-//             runSpacing: 8,
-//             children: [
-//               _buildAddressTag(city),
-//               _buildAddressTag(district),
-//               _buildAddressTag(state),
-//               _buildAddressTag('PIN: $pinCode'),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildLandmarkCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Row(
-//         children: [
-//           Icon(Icons.place, color: Color(0xFF4F46E5), size: 24),
-//           SizedBox(width: 12),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Nearest Landmark',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     fontWeight: FontWeight.w600,
-//                     color: Colors.grey[800],
-//                   ),
-//                 ),
-//                 SizedBox(height: 4),
-//                 Text(
-//                   landmark.isNotEmpty ? landmark : 'Not specified',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     color: landmark.isNotEmpty ? Colors.grey[700] : Colors.grey[400],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildWebsiteCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Row(
-//         children: [
-//           Icon(Icons.language, color: Color(0xFF4F46E5), size: 24),
-//           SizedBox(width: 12),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Hotel Website',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     fontWeight: FontWeight.w600,
-//                     color: Colors.grey[800],
-//                   ),
-//                 ),
-//                 SizedBox(height: 4),
-//                 Text(
-//                   website.isNotEmpty ? website : 'Not provided',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     color: website.isNotEmpty ? Colors.blue[600] : Colors.grey[400],
-//                     decoration: website.isNotEmpty ? TextDecoration.underline : TextDecoration.none,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildAddressTag(String text) {
-//     return Container(
-//       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//       decoration: BoxDecoration(
-//         color: Color(0xFF4F46E5).withOpacity(0.1),
-//         borderRadius: BorderRadius.circular(20),
-//       ),
-//       child: Text(
-//         text,
-//         style: TextStyle(
-//           color: Color(0xFF4F46E5),
-//           fontSize: 12,
-//           fontWeight: FontWeight.w500,
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildInfoRow(String label, String value) {
-//     return Row(
-//       children: [
-//         Expanded(
-//           child: Text(
-//             label,
-//             style: TextStyle(
-//               color: Colors.grey[600],
-//               fontSize: 14,
-//             ),
-//           ),
-//         ),
-//         Expanded(
-//           child: Text(
-//             value,
-//             style: TextStyle(
-//               color: Colors.grey[800],
-//               fontSize: 14,
-//               fontWeight: FontWeight.w600,
-//             ),
-//             textAlign: TextAlign.right,
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }
+
 
 class _HotelDetailsTab extends StatelessWidget {
   final String hotelName;
@@ -12886,462 +10369,7 @@ class _AmenitiesDetailsTab extends StatelessWidget {
   }
 }
 
-// class _RoomAvailabilityTab extends StatelessWidget {
-//   final Map<String, bool> selectedRoomTypes;
-//   final Map<String, Map<String, dynamic>> roomDetails;
-//   final String minTariff;
-//   final String maxTariff;
-//   final bool extraBedAvailable;
-//   final int totalRooms;
-//
-//   const _RoomAvailabilityTab({
-//     required this.selectedRoomTypes,
-//     required this.roomDetails,
-//     required this.minTariff,
-//     required this.maxTariff,
-//     required this.extraBedAvailable,
-//     required this.totalRooms,
-//   });
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final availableRoomTypes = selectedRoomTypes.entries
-//         .where((entry) => entry.value)
-//         .map((entry) => entry.key)
-//         .toList();
-//
-//     int totalConfiguredRooms = 0;
-//     roomDetails.forEach((key, value) {
-//       if (value['rooms'] != null && value['rooms'].isNotEmpty) {
-//         totalConfiguredRooms += int.tryParse(value['rooms'].toString()) ?? 0;
-//       }
-//     });
-//
-//     return SingleChildScrollView(
-//       padding: EdgeInsets.all(20),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           _buildSectionHeader('Room Summary'),
-//           SizedBox(height: 12),
-//           _buildSummaryCard(totalConfiguredRooms, availableRoomTypes.length),
-//
-//           SizedBox(height: 20),
-//
-//           _buildSectionHeader('Price Range'),
-//           SizedBox(height: 12),
-//           _buildPriceRangeCard(),
-//
-//           SizedBox(height: 20),
-//
-//           _buildSectionHeader('Room Types Available (${availableRoomTypes.length})'),
-//           SizedBox(height: 12),
-//
-//           if (availableRoomTypes.isEmpty)
-//             _buildNoRoomsCard()
-//           else
-//             ...availableRoomTypes.map((roomType) {
-//               return Container(
-//                 margin: EdgeInsets.only(bottom: 16),
-//                 child: _buildRoomTypeCard(roomType),
-//               );
-//             }).toList(),
-//
-//           SizedBox(height: 20),
-//
-//           _buildSectionHeader('Extra Bed Facility'),
-//           SizedBox(height: 12),
-//           _buildExtraBedCard(),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildSectionHeader(String title) {
-//     return Row(
-//       children: [
-//         Container(
-//           width: 4,
-//           height: 20,
-//           decoration: BoxDecoration(
-//             gradient: LinearGradient(
-//               colors: [
-//                 Color(0xFF4F46E5),
-//                 Color(0xFF7C3AED),
-//               ],
-//             ),
-//             borderRadius: BorderRadius.circular(2),
-//           ),
-//         ),
-//         SizedBox(width: 12),
-//         Text(
-//           title,
-//           style: TextStyle(
-//             fontSize: 18,
-//             fontWeight: FontWeight.w700,
-//             color: Colors.grey[800],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildSummaryCard(int configuredRooms, int roomTypesCount) {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceAround,
-//         children: [
-//           _buildSummaryItem(
-//             value: totalRooms.toString(),
-//             label: 'Total Rooms',
-//             icon: Icons.meeting_room,
-//             color: Color(0xFF4F46E5),
-//           ),
-//           _buildSummaryItem(
-//             value: configuredRooms.toString(),
-//             label: 'Configured',
-//             icon: Icons.check_circle,
-//             color: Color(0xFF4CAF50),
-//           ),
-//           _buildSummaryItem(
-//             value: roomTypesCount.toString(),
-//             label: 'Room Types',
-//             icon: Icons.category,
-//             color: Color(0xFF2196F3),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildSummaryItem({
-//     required String value,
-//     required String label,
-//     required IconData icon,
-//     required Color color,
-//   }) {
-//     return Column(
-//       children: [
-//         Container(
-//           width: 50,
-//           height: 50,
-//           decoration: BoxDecoration(
-//             color: color.withOpacity(0.1),
-//             shape: BoxShape.circle,
-//           ),
-//           child: Icon(icon, color: color, size: 24),
-//         ),
-//         SizedBox(height: 8),
-//         Text(
-//           value,
-//           style: TextStyle(
-//             fontSize: 20,
-//             fontWeight: FontWeight.w700,
-//             color: color,
-//           ),
-//         ),
-//         SizedBox(height: 4),
-//         Text(
-//           label,
-//           style: TextStyle(
-//             fontSize: 12,
-//             color: Colors.grey[600],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildPriceRangeCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             children: [
-//               Icon(Icons.attach_money, color: Color(0xFF4CAF50), size: 24),
-//               SizedBox(width: 12),
-//               Text(
-//                 'Price per Night',
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.w600,
-//                   color: Colors.grey[800],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 12),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               _buildPriceBox('Minimum', minTariff.isNotEmpty ? '₹$minTariff' : 'Not set'),
-//               SizedBox(width: 20),
-//               Text('to', style: TextStyle(color: Colors.grey[600])),
-//               SizedBox(width: 20),
-//               _buildPriceBox('Maximum', maxTariff.isNotEmpty ? '₹$maxTariff' : 'Not set'),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildPriceBox(String label, String value) {
-//     return Column(
-//       children: [
-//         Text(
-//           label,
-//           style: TextStyle(
-//             fontSize: 12,
-//             color: Colors.grey[600],
-//           ),
-//         ),
-//         SizedBox(height: 4),
-//         Container(
-//           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-//           decoration: BoxDecoration(
-//             color: Colors.grey[50],
-//             borderRadius: BorderRadius.circular(12),
-//             border: Border.all(color: Colors.grey[200]!),
-//           ),
-//           child: Text(
-//             value,
-//             style: TextStyle(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//               color: Color(0xFF4F46E5),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildNoRoomsCard() {
-//     return Container(
-//       padding: EdgeInsets.all(30),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         children: [
-//           Icon(Icons.hotel, size: 50, color: Colors.grey[300]),
-//           SizedBox(height: 16),
-//           Text(
-//             'No Room Types Configured',
-//             style: TextStyle(
-//               fontSize: 16,
-//               fontWeight: FontWeight.w600,
-//               color: Colors.grey[600],
-//             ),
-//           ),
-//           SizedBox(height: 8),
-//           Text(
-//             'Please configure room types in hotel settings',
-//             style: TextStyle(
-//               fontSize: 14,
-//               color: Colors.grey[500],
-//             ),
-//             textAlign: TextAlign.center,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildRoomTypeCard(String roomType) {
-//     final details = roomDetails[roomType] ?? {};
-//     final rooms = details['rooms']?.toString() ?? '0';
-//     final occupancy = details['occupancy']?.toString() ?? '0';
-//     final price = details['price']?.toString() ?? '0';
-//     final isAC = details['ac'] ?? true;
-//     final extraBed = details['extraBed'] ?? false;
-//     final extraBedPrice = details['extraBedPrice']?.toString() ?? '0';
-//
-//     return Container(
-//       padding: EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text(
-//                 roomType,
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.w600,
-//                   color: Colors.grey[800],
-//                 ),
-//               ),
-//               Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-//                 decoration: BoxDecoration(
-//                   color: isAC ? Color(0xFF2196F3).withOpacity(0.1) : Colors.orange.withOpacity(0.1),
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: Text(
-//                   isAC ? 'AC' : 'Non-AC',
-//                   style: TextStyle(
-//                     color: isAC ? Color(0xFF2196F3) : Colors.orange,
-//                     fontSize: 12,
-//                     fontWeight: FontWeight.w600,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 12),
-//           Row(
-//             children: [
-//               _buildRoomDetailItem(Icons.meeting_room, '$rooms Rooms'),
-//               SizedBox(width: 16),
-//               _buildRoomDetailItem(Icons.people, '$occupancy Persons'),
-//               SizedBox(width: 16),
-//               _buildRoomDetailItem(Icons.attach_money, '₹$price'),
-//             ],
-//           ),
-//           if (extraBed && extraBedPrice.isNotEmpty && extraBedPrice != '0')
-//             Padding(
-//               padding: EdgeInsets.only(top: 12),
-//               child: Row(
-//                 children: [
-//                   Icon(Icons.airline_seat_flat, size: 16, color: Colors.green),
-//                   SizedBox(width: 6),
-//                   Text(
-//                     'Extra Bed: ₹$extraBedPrice',
-//                     style: TextStyle(
-//                       fontSize: 13,
-//                       color: Colors.green[700],
-//                       fontWeight: FontWeight.w500,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildRoomDetailItem(IconData icon, String text) {
-//     return Row(
-//       children: [
-//         Icon(icon, size: 16, color: Color(0xFF4F46E5)),
-//         SizedBox(width: 4),
-//         Text(
-//           text,
-//           style: TextStyle(
-//             fontSize: 13,
-//             color: Colors.grey[700],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildExtraBedCard() {
-//     return Container(
-//       padding: EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: Colors.white,
-//         borderRadius: BorderRadius.circular(16),
-//         boxShadow: [
-//           BoxShadow(
-//             color: Colors.black.withOpacity(0.08),
-//             blurRadius: 12,
-//             offset: Offset(0, 4),
-//           ),
-//         ],
-//       ),
-//       child: Row(
-//         children: [
-//           Container(
-//             width: 50,
-//             height: 50,
-//             decoration: BoxDecoration(
-//               color: extraBedAvailable ? Color(0xFF4CAF50).withOpacity(0.1) : Colors.grey.withOpacity(0.1),
-//               borderRadius: BorderRadius.circular(10),
-//             ),
-//             child: Icon(
-//               extraBedAvailable ? Icons.check_circle : Icons.block,
-//               color: extraBedAvailable ? Color(0xFF4CAF50) : Colors.grey,
-//               size: 26,
-//             ),
-//           ),
-//           SizedBox(width: 16),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Extra Bed Facility',
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                     fontWeight: FontWeight.w600,
-//                     color: Colors.grey[800],
-//                   ),
-//                 ),
-//                 SizedBox(height: 4),
-//                 Text(
-//                   extraBedAvailable ? 'Available' : 'Not Available',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     color: extraBedAvailable ? Color(0xFF4CAF50) : Colors.grey[600],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+
 
 class _RoomAvailabilityTab extends StatelessWidget {
   final Map<String, bool> selectedRoomTypes;
