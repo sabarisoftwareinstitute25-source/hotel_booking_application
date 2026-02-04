@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:hotel_booking_mobile_application/onboarding_screen/find_stays_screen.dart';
 import '../home_screen/hotel_registration_screen.dart';
 
@@ -705,6 +707,18 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
   final TextEditingController _registerPasswordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
+  // Register form validation + UI state
+  final Map<String, String?> _fieldErrors = {
+    'fullName': null,
+    'businessName': null,
+    'email': null,
+    'phoneOrEmail': null,
+    'password': null,
+    'confirmPassword': null,
+  };
+  bool _showRegisterPassword = false;
+  bool _showConfirmPassword = false;
+
   @override
   void initState() {
     super.initState();
@@ -810,41 +824,360 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
       ),
     );
   }
-  void _handleRegister() {
-    // Validate form
-    if (_nameController.text.isEmpty ||
-        _businessNameController.text.isEmpty ||
-        _phoneController.text.isEmpty ||
-        _registerPasswordController.text.isEmpty ||
-        _confirmPasswordController.text.isEmpty) {
+  Future<void> _handleRegister() async {
+    // Local validation for better UX and field highlighting
+    setState(() {
+      _fieldErrors.updateAll((key, value) => null);
+    });
+
+    final fullName = _nameController.text.trim();
+    final businessName = _businessNameController.text.trim();
+    final email = _emailController.text.trim();
+    final phone = _phoneController.text.trim();
+    final password = _registerPasswordController.text;
+    final confirmPassword = _confirmPasswordController.text;
+
+    // 1) Minimal validation for existing-vendor fast path: only email + phone.
+    if (email.isEmpty) {
+      _fieldErrors['email'] = 'Email is required';
+    } else if (!RegExp(r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+      _fieldErrors['email'] = 'Enter a valid email address';
+    }
+
+    if (phone.isEmpty) {
+      _fieldErrors['phoneOrEmail'] = 'Phone number is required';
+    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
+      _fieldErrors['phoneOrEmail'] = 'Enter a valid 10‑digit phone number';
+    }
+
+    setState(() {});
+
+    // If email+phone are valid, FIRST check if this vendor already exists.
+    final hasBasicErrors = _fieldErrors['email'] != null || _fieldErrors['phoneOrEmail'] != null;
+    if (!hasBasicErrors) {
+      final existingVendor = await _getExistingVendor(phone);
+      if (existingVendor != null) {
+        if (!mounted) return;
+
+        // Verify that the email entered matches the vendor's email in DB
+        final backendEmail = (existingVendor['email'] ?? '') as String;
+        if (backendEmail.isNotEmpty &&
+            backendEmail.toLowerCase() != email.toLowerCase()) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                'This phone is already registered with a different email. Please use the same email or contact support.',
+              ),
+              backgroundColor: Colors.red,
+            ),
+          );
+          return;
+        }
+
+        // Continue hotel registration on next page using existing vendor data
+        final ownerName = (existingVendor['fullName'] ?? '') as String;
+        final business = (existingVendor['businessName'] ?? '') as String;
+        final mobileNumber = (existingVendor['phone'] ?? phone) as String;
+        final vendorEmail = backendEmail.isNotEmpty ? backendEmail : email;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Account found. Continuing hotel registration...'),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HotelOwnerDashboard(
+              hotelName: business,
+              ownerName: ownerName,
+              mobileNumber: mobileNumber,
+              email: vendorEmail,
+              addressLine1: '',
+              addressLine2: '',
+              city: '',
+              district: '',
+              state: '',
+              pinCode: '',
+              gstNumber: '',
+              fssaiLicense: '',
+              tradeLicense: '',
+              panNumber: '',
+              aadharNumber: '',
+              accountHolderName: '',
+              bankName: '',
+              accountNumber: '',
+              ifscCode: '',
+              branch: '',
+              accountType: '',
+              totalRooms: 0,
+              personPhotoInfo: const {},
+              registrationData: {
+                'hotelName': business,
+                'ownerName': ownerName,
+                'mobileNumber': mobileNumber,
+                'email': vendorEmail,
+              },
+            ),
+          ),
+        );
+        return; // Do NOT create a new vendor
+      }
+    }
+
+    // 2) Full validation for NEW vendor registration (no existing vendor found).
+    _fieldErrors.updateAll((key, value) => null);
+
+    if (fullName.isEmpty) {
+      _fieldErrors['fullName'] = 'Full name is required';
+    } else if (fullName.length < 2) {
+      _fieldErrors['fullName'] = 'Full name must be at least 2 characters';
+    }
+
+    if (businessName.isEmpty) {
+      _fieldErrors['businessName'] = 'Business name is required';
+    } else if (businessName.length < 2) {
+      _fieldErrors['businessName'] = 'Business name must be at least 2 characters';
+    }
+
+    // Re-apply email/phone checks for consistency
+    if (email.isEmpty) {
+      _fieldErrors['email'] = 'Email is required';
+    } else if (!RegExp(r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+      _fieldErrors['email'] = 'Enter a valid email address';
+    }
+
+    if (phone.isEmpty) {
+      _fieldErrors['phoneOrEmail'] = 'Phone number is required';
+    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
+      _fieldErrors['phoneOrEmail'] = 'Enter a valid 10‑digit phone number';
+    }
+
+    if (password.isEmpty) {
+      _fieldErrors['password'] = 'Password is required';
+    } else if (password.length < 8) {
+      _fieldErrors['password'] = 'Password must be at least 8 characters';
+    }
+
+    if (confirmPassword.isEmpty) {
+      _fieldErrors['confirmPassword'] = 'Please confirm your password';
+    } else if (password != confirmPassword) {
+      _fieldErrors['confirmPassword'] = 'Passwords do not match';
+    }
+
+    if (fullName.isEmpty) {
+      _fieldErrors['fullName'] = 'Full name is required';
+    }
+
+    setState(() {});
+
+    final hasErrors = _fieldErrors.values.any((e) => e != null && e.isNotEmpty);
+    if (hasErrors) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please fill all fields'),
+        const SnackBar(
+          content: Text('Please correct the highlighted fields'),
           backgroundColor: Colors.red,
         ),
       );
       return;
     }
 
-    if (_registerPasswordController.text != _confirmPasswordController.text) {
+    // Build request payload expected by AccountDetailsRequest on backend
+    // Before creating a new account, check if this phone already has a vendor account
+    final existingVendor = await _getExistingVendor(phone);
+    if (existingVendor != null) {
+      if (!mounted) return;
+
+      // Verify that the email entered matches the vendor's email in DB
+      final backendEmail = (existingVendor['email'] ?? '') as String;
+      if (backendEmail.isNotEmpty &&
+          backendEmail.toLowerCase() != email.toLowerCase()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'This phone is already registered with a different email. Please use the same email or contact support.',
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      // Continue hotel registration on next page using existing vendor data
+      final ownerName = (existingVendor['fullName'] ?? '') as String;
+      final businessName = (existingVendor['businessName'] ?? '') as String;
+      final mobileNumber = (existingVendor['phone'] ?? phone) as String;
+      final vendorEmail = backendEmail.isNotEmpty ? backendEmail : email;
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Passwords do not match'),
-          backgroundColor: Colors.red,
+        const SnackBar(
+          content: Text('Account found. Continuing hotel registration...'),
+          backgroundColor: Colors.green,
+        ),
+      );
+
+      // Navigate to dashboard/registration flow with pre-filled basic data
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HotelOwnerDashboard(
+            hotelName: businessName,
+            ownerName: ownerName,
+            mobileNumber: mobileNumber,
+            email: vendorEmail,
+            addressLine1: '',
+            addressLine2: '',
+            city: '',
+            district: '',
+            state: '',
+            pinCode: '',
+            gstNumber: '',
+            fssaiLicense: '',
+            tradeLicense: '',
+            panNumber: '',
+            aadharNumber: '',
+            accountHolderName: '',
+            bankName: '',
+            accountNumber: '',
+            ifscCode: '',
+            branch: '',
+            accountType: '',
+            totalRooms: 0,
+            personPhotoInfo: const {},
+            registrationData: {
+              'hotelName': businessName,
+              'ownerName': ownerName,
+              'mobileNumber': mobileNumber,
+              'email': vendorEmail,
+            },
+          ),
         ),
       );
       return;
     }
 
-    // Navigate to Welcome/Info Screen
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => WelcomeScreen(
+    final payload = {
+      'fullName': fullName,
+      'businessName': businessName,
+      'phoneOrEmail': phone,
+      'password': password,
+    };
 
+    // Use 10.0.2.2 to reach localhost:8080 from Android emulator
+    final uri = Uri.parse('http://10.0.2.2:8080/api/hotels/vendor/account-details');
+
+    try {
+      final response = await http.post(
+        uri,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(payload),
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        // Success – parse vendorId if needed
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        final vendorId = data['vendorId'] as String?;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              vendorId != null
+                  ? 'Account created successfully. Vendor ID: $vendorId'
+                  : 'Account created successfully.',
+            ),
+            backgroundColor: Colors.green,
+          ),
+        );
+
+        // Navigate to welcome / info screen after short delay
+        await Future.delayed(const Duration(seconds: 1));
+        if (!mounted) return;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WelcomeScreen(),
+          ),
+        );
+      } else {
+        // Try to extract backend validation errors for specific fields
+        String message = 'Failed to create account (${response.statusCode})';
+        try {
+          final data = jsonDecode(response.body);
+          if (data is Map) {
+            // Prefer fieldErrors if present
+            if (data['fieldErrors'] is Map) {
+              final errors = (data['fieldErrors'] as Map).cast<String, dynamic>();
+
+              // Map backend field errors into UI field error map
+              setState(() {
+                if (errors.containsKey('fullName')) {
+                  _fieldErrors['fullName'] = errors['fullName']?.toString();
+                }
+                if (errors.containsKey('businessName')) {
+                  _fieldErrors['businessName'] = errors['businessName']?.toString();
+                }
+                if (errors.containsKey('phoneOrEmail')) {
+                  _fieldErrors['phoneOrEmail'] = errors['phoneOrEmail']?.toString();
+                }
+                if (errors.containsKey('password')) {
+                  _fieldErrors['password'] = errors['password']?.toString();
+                }
+              });
+
+              // Build a human readable summary for the SnackBar
+              final buffer = StringBuffer('Please fix these fields:\n');
+              errors.forEach((field, err) {
+                if (err != null && err.toString().trim().isNotEmpty) {
+                  buffer.writeln('$field: ${err.toString()}');
+                }
+              });
+              message = buffer.toString().trimRight();
+            } else if (data['message'] is String) {
+              // Fallback to generic backend message
+              message = data['message'] as String;
+            }
+          }
+        } catch (_) {}
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(message),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Network error: $e'),
+          backgroundColor: Colors.red,
         ),
-      ),
-    );
+      );
+    }
+  }
+
+  /// Fetch existing vendor from backend by phone/email if it exists.
+  /// Returns vendor map or null.
+  Future<Map<String, dynamic>?> _getExistingVendor(String phoneOrEmail) async {
+    final uri = Uri.parse(
+      'http://10.0.2.2:8080/api/hotels/vendor/check-account',
+    ).replace(queryParameters: {'phoneOrEmail': phoneOrEmail});
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data is Map && data['exists'] == true && data['vendor'] is Map) {
+          return Map<String, dynamic>.from(data['vendor'] as Map);
+        }
+      }
+    } catch (_) {
+      // On network/parse errors, fall back to allowing registration flow;
+      // the POST /account-details will still enforce uniqueness/validation.
+    }
+    return null;
   }
 
   @override
@@ -1123,6 +1456,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
                     children: [
                       // Name Field
                       _buildModernTextField(
+                        fieldKey: 'fullName',
                         label: "Full Name",
                         hint: "Enter your full name",
                         icon: Icons.person_outline_rounded,
@@ -1134,6 +1468,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 
                       // Business Name Field
                       _buildModernTextField(
+                        fieldKey: 'businessName',
                         label: "Business Name",
                         hint: "Hotel/Guest House/Business name",
                         icon: Icons.business_outlined,
@@ -1145,6 +1480,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 
                       // Combined Phone or Email Field
                       _buildModernTextField(
+                        fieldKey: 'email',
                         label: "Email address",
                         hint: "Email address",
                         icon: Icons.contact_phone_outlined,
@@ -1157,6 +1493,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 
                       // Combined Phone or Email Field
                       _buildModernTextField(
+                        fieldKey: 'phoneOrEmail',
                         label: "Phone number",
                         hint: "Phone number",
                         icon: Icons.phone,
@@ -1170,6 +1507,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 
                       // Password Field
                       _buildModernTextField(
+                        fieldKey: 'password',
                         label: "Password",
                         hint: "Create a strong password",
                         icon: Icons.lock_outline_rounded,
@@ -1182,6 +1520,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
 
                       // Confirm Password Field
                       _buildModernTextField(
+                        fieldKey: 'confirmPassword',
                         label: "Confirm Password",
                         hint: "Re-enter your password",
                         icon: Icons.lock_clock_outlined,
@@ -1258,6 +1597,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
   }
 
   Widget _buildModernTextField({
+    required String fieldKey,
     required String label,
     required String hint,
     required IconData icon,
@@ -1266,6 +1606,18 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
     bool isRequired = false,
     TextInputType keyboardType = TextInputType.text,
   }) {
+    final errorText = _fieldErrors[fieldKey];
+
+    // Determine password visibility state
+    bool obscure = false;
+    if (isPassword) {
+      if (fieldKey == 'password') {
+        obscure = !_showRegisterPassword;
+      } else if (fieldKey == 'confirmPassword') {
+        obscure = !_showConfirmPassword;
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -1297,7 +1649,9 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Color(0xFFE5E7EB)),
+            border: Border.all(
+              color: errorText != null ? Colors.red : const Color(0xFFE5E7EB),
+            ),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.02),
@@ -1332,7 +1686,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
               Expanded(
                 child: TextField(
                   controller: controller,
-                  obscureText: isPassword,
+                  obscureText: isPassword ? obscure : false,
                   keyboardType: keyboardType,
                   decoration: InputDecoration(
                     hintText: hint,
@@ -1344,15 +1698,24 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
                     contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 15),
                     suffixIcon: isPassword
                         ? IconButton(
-                      icon: Icon(
-                        Icons.visibility_outlined,
-                        size: 20,
-                        color: Color(0xFF6B7280),
-                      ),
-                      onPressed: () {
-                        // Toggle password visibility
-                      },
-                    )
+                            icon: Icon(
+                              (fieldKey == 'password' && _showRegisterPassword) ||
+                                      (fieldKey == 'confirmPassword' && _showConfirmPassword)
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                              size: 20,
+                              color: const Color(0xFF6B7280),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                if (fieldKey == 'password') {
+                                  _showRegisterPassword = !_showRegisterPassword;
+                                } else if (fieldKey == 'confirmPassword') {
+                                  _showConfirmPassword = !_showConfirmPassword;
+                                }
+                              });
+                            },
+                          )
                         : null,
                   ),
                   style: TextStyle(
@@ -1364,6 +1727,16 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
             ],
           ),
         ),
+        if (errorText != null) ...[
+          const SizedBox(height: 4),
+          Text(
+            errorText,
+            style: const TextStyle(
+              color: Colors.red,
+              fontSize: 12,
+            ),
+          ),
+        ],
       ],
     );
   }
