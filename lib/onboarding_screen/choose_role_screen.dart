@@ -2926,6 +2926,20 @@ class HotelCategoryScreen extends StatelessWidget {
                   builder: (context) => TwoStarHotelRegistrationScreen(),
                 ),
               );
+            } else if (categories[index]['title'] == '3 Star Hotel') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ThreeStarHotelRegistrationScreen(),
+                ),
+              );
+            } else if (categories[index]['title'] == '4 Star Hotel') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ThreeStarHotelRegistrationScreen(),
+                ),
+              );
             };
           },
         ),
