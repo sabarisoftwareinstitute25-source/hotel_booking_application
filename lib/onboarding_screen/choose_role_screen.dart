@@ -685,7 +685,8 @@ class ChooseRoleScreen extends StatelessWidget {
 
 
 class PropertyAuthScreen extends StatefulWidget {
-  const PropertyAuthScreen({super.key});
+  final Map<String, dynamic>? registrationData;
+  const PropertyAuthScreen({super.key,   this.registrationData = const {},});
 
   @override
   State<PropertyAuthScreen> createState() => _PropertyAuthScreenState();
@@ -723,40 +724,92 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
     super.dispose();
   }
 
+  // void _handleLogin() {
+  //   // For demo, just navigate to PropertyTypeScreen
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => HotelOwnerDashboard(
+  //           hotelName: '',
+  //           ownerName: '',
+  //           mobileNumber: '',
+  //           email: '',
+  //           addressLine1: '',
+  //           addressLine2: '',
+  //           city: '',
+  //           district: '',
+  //           state: '',
+  //           pinCode: '',
+  //           gstNumber: '',
+  //           fssaiLicense: '',
+  //           tradeLicense: '',
+  //           panNumber: '',
+  //           aadharNumber: '',
+  //           accountHolderName: '',
+  //           bankName: '',
+  //           accountNumber: '',
+  //           ifscCode: '',
+  //           branch: '',
+  //           accountType: '',
+  //           personPhotoInfo: {},
+  //           totalRooms: 35
+  //       ),
+  //     ),
+  //   );
+  // }
   void _handleLogin() {
-    // For demo, just navigate to PropertyTypeScreen
+    // Helper function to safely extract data
+    String getData(String key, String defaultValue) {
+      if (widget.registrationData == null) return defaultValue;
+      return widget.registrationData![key]?.toString() ?? defaultValue;
+    }
+
+    Map<String, dynamic> getPersonPhotoInfo() {
+      if (widget.registrationData == null ||
+          widget.registrationData!['personPhotoInfo'] == null ||
+          widget.registrationData!['personPhotoInfo'] is! Map<String, dynamic>) {
+        return {'name': '', 'size': 0, 'path': '', 'uploaded': false};
+      }
+      return widget.registrationData!['personPhotoInfo'] as Map<String, dynamic>;
+    }
+
+    int getTotalRooms() {
+      if (widget.registrationData == null) return 58;
+      return int.tryParse(widget.registrationData!['totalRooms']?.toString() ?? '58') ?? 58;
+    }
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
         builder: (context) => HotelOwnerDashboard(
-            hotelName: '',
-            ownerName: '',
-            mobileNumber: '',
-            email: '',
-            addressLine1: '',
-            addressLine2: '',
-            city: '',
-            district: '',
-            state: '',
-            pinCode: '',
-            gstNumber: '',
-            fssaiLicense: '',
-            tradeLicense: '',
-            panNumber: '',
-            aadharNumber: '',
-            accountHolderName: '',
-            bankName: '',
-            accountNumber: '',
-            ifscCode: '',
-            branch: '',
-            accountType: '',
-            personPhotoInfo: {},
-            totalRooms: 35
+          hotelName: getData('hotelName', 'Raj Bhavan Hotel'),
+          ownerName: getData('ownerName', 'John Alexandar'),
+          mobileNumber: getData('mobileNumber', '99933366677'),
+          email: getData('email', 'hotel@gmail.com'),
+          addressLine1: getData('addressLine1', '123 Main Street'),
+          addressLine2: getData('addressLine2', ''),
+          city: getData('city', 'Mumbai'),
+          district: getData('district', 'Mumbai District'),
+          state: getData('state', 'Maharashtra'),
+          pinCode: getData('pinCode', '400001'),
+          gstNumber: getData('gstNumber', '27ABCDE1234F1Z5'),
+          fssaiLicense: getData('fssaiLicense', '12345678901234'),
+          tradeLicense: getData('tradeLicense', 'TL78901234'),
+          panNumber: getData('panNumber', ''),
+          aadharNumber: getData('aadharNumber', '1234 5678 9012'),
+          accountHolderName: getData('accountHolderName', 'John Alexandar'),
+          bankName: getData('bankName', 'State Bank of India'),
+          accountNumber: getData('accountNumber', '123456789012'),
+          ifscCode: getData('ifscCode', 'SBIN0001234'),
+          branch: getData('branch', 'Mumbai Main'),
+          accountType: getData('accountType', 'Savings'),
+          personPhotoInfo: getPersonPhotoInfo(),
+          totalRooms: getTotalRooms(),
+          registrationData: widget.registrationData ?? {},
         ),
       ),
     );
   }
-
   void _handleRegister() {
     // Validate form
     if (_nameController.text.isEmpty ||
@@ -1095,7 +1148,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
                         label: "Email address",
                         hint: "Email address",
                         icon: Icons.contact_phone_outlined,
-                        controller: _phoneController,
+                        controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
                         isRequired: true,
                       ),
@@ -1108,7 +1161,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
                         hint: "Phone number",
                         icon: Icons.phone,
                         controller: _phoneController,
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.phone,
                         isRequired: true,
                       ),
 
@@ -2434,7 +2487,14 @@ class HotelCategoryScreen extends StatelessWidget {
                   builder: (context) => HotelRegistrationScreen(),
                 ),
               );
-            }
+            } else if (categories[index]['title'] == '2 Star Hotel') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TwoStarHotelRegistrationScreen(),
+                ),
+              );
+            };
           },
         ),
       ),

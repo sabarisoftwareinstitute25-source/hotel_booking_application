@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../home_screen/hotel_registration_screen.dart';
 import '../home_screen/hotel_search_screen.dart';
 import '../signup_screen/signup_screen.dart';
 import 'forget_password.dart';
@@ -10,7 +11,8 @@ class LoginScreen extends StatefulWidget {
 
   final String? registeredEmail;
   final String? registeredPassword;
-  const LoginScreen({super.key, this.registeredEmail, this.registeredPassword});
+  final Map<String, dynamic>? registrationData;
+  const LoginScreen({super.key, this.registeredEmail, this.registeredPassword, this.registrationData,});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -32,10 +34,25 @@ class _LoginScreenState extends State<LoginScreen>
 
 
 
+
   @override
   void initState() {
     super.initState();
 
+    // Pre-fill email if available
+    if (widget.registeredEmail != null) {
+      _emailController.text = widget.registeredEmail!;
+    }
+
+    // For demo, set default password
+    if (widget.registeredPassword != null) {
+      _passwordController.text = widget.registeredPassword!;
+    } else {
+      // Default password for demo
+      _passwordController.text = 'hotel@123';
+    }
+
+    // Animation setup
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
@@ -76,6 +93,75 @@ class _LoginScreenState extends State<LoginScreen>
 
 
 
+  // void _submitForm() {
+  //   if (_emailController.text.trim().isEmpty ||
+  //       _passwordController.text.trim().isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text("Please fill all fields"),
+  //         backgroundColor: Colors.red,
+  //         behavior: SnackBarBehavior.floating,
+  //       ),
+  //     );
+  //     return;
+  //   }
+  //
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //
+  //
+  //     if (_emailController.text.trim() == widget.registeredEmail &&
+  //         _passwordController.text.trim() == widget.registeredPassword) {
+  //
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Row(
+  //             children: [
+  //               Icon(Icons.check_circle, color: Colors.white),
+  //               SizedBox(width: 8),
+  //               Text("Login Successful!"),
+  //             ],
+  //           ),
+  //           backgroundColor: Colors.green,
+  //           behavior: SnackBarBehavior.floating,
+  //           duration: Duration(seconds: 2),
+  //         ),
+  //       );
+  //
+  //
+  //       Future.delayed(const Duration(seconds: 2), () {
+  //         Navigator.pushReplacement(
+  //           context,
+  //           MaterialPageRoute(builder: (context) => HotelSearchScreen()),
+  //         );
+  //       });
+  //     } else {
+  //
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Row(
+  //             children: [
+  //               Icon(Icons.error, color: Colors.white),
+  //               SizedBox(width: 8),
+  //               Text("Invalid email or password"),
+  //             ],
+  //           ),
+  //           backgroundColor: Colors.red,
+  //           behavior: SnackBarBehavior.floating,
+  //         ),
+  //       );
+  //     }
+  //   });
+  // }
+
+
+
   void _submitForm() {
     if (_emailController.text.trim().isEmpty ||
         _passwordController.text.trim().isEmpty) {
@@ -98,9 +184,11 @@ class _LoginScreenState extends State<LoginScreen>
         _isLoading = false;
       });
 
-
-      if (_emailController.text.trim() == widget.registeredEmail &&
-          _passwordController.text.trim() == widget.registeredPassword) {
+      // For demo purposes: Accept ANY login if registrationData exists
+      // OR check against registered credentials
+      if (widget.registrationData != null ||
+          (_emailController.text.trim() == widget.registeredEmail &&
+              _passwordController.text.trim() == widget.registeredPassword)) {
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -117,15 +205,137 @@ class _LoginScreenState extends State<LoginScreen>
           ),
         );
 
-
         Future.delayed(const Duration(seconds: 2), () {
-          Navigator.pushReplacement(
+          // Use registrationData if available, otherwise use individual fields
+          Map<String, dynamic> regData = widget.registrationData ?? {};
+
+          // Extract hotel owner data from registration data
+          String hotelName = regData['hotelName'] ?? 'Raj Bhavan Hotel';
+          String ownerName = regData['ownerName'] ?? 'John Alexandar';
+          String mobileNumber = regData['mobileNumber'] ?? '99933366677';
+          String email = regData['email'] ?? 'hotel@gmail.com';
+          String addressLine1 = regData['addressLine1'] ?? '123 Main Street';
+          String addressLine2 = regData['addressLine2'] ?? '';
+          String city = regData['city'] ?? 'Mumbai';
+          String district = regData['district'] ?? 'Mumbai District';
+          String state = regData['state'] ?? 'Maharashtra';
+          String pinCode = regData['pinCode'] ?? '400001';
+          String gstNumber = regData['gstNumber'] ?? '27ABCDE1234F1Z5';
+          String fssaiLicense = regData['fssaiLicense'] ?? '12345678901234';
+          String tradeLicense = regData['tradeLicense'] ?? 'TL78901234';
+          String aadharNumber = regData['aadharNumber'] ?? '1234 5678 9012';
+          String accountHolderName = regData['accountHolderName'] ?? 'John Alexandar';
+          String bankName = regData['bankName'] ?? 'State Bank of India';
+          String accountNumber = regData['accountNumber'] ?? '123456789012';
+          String ifscCode = regData['ifscCode'] ?? 'SBIN0001234';
+          String branch = regData['branch'] ?? 'Mumbai Main';
+          String accountType = regData['accountType'] ?? 'Savings';
+          int totalRooms = int.tryParse(regData['totalRooms']?.toString() ?? '58') ?? 58;
+
+          // Person photo info
+          Map<String, dynamic> personPhotoInfo = regData['personPhotoInfo'] ??
+              {'name': '', 'size': 0, 'path': '', 'uploaded': false};
+
+          // Other registration data
+          String hotelType = regData['hotelType'] ?? 'Standard Hotel';
+          String yearOfEstablishment = regData['yearOfEstablishment'] ?? '2015';
+          String website = regData['website'] ?? 'https://rajbhavanhotel.com';
+          String landmark = regData['landmark'] ?? 'Near City Center';
+          Map<String, bool> selectedRoomTypes = regData['selectedRoomTypes'] ?? {};
+          Map<String, Map<String, dynamic>> roomDetails = regData['roomDetails'] ?? {};
+          String minTariff = regData['minTariff'] ?? '2500';
+          String maxTariff = regData['maxTariff'] ?? '6000';
+          bool extraBedAvailable = regData['extraBedAvailable'] ?? true;
+          Map<String, bool> basicAmenities = regData['basicAmenities'] ?? {};
+          Map<String, bool> hotelFacilities = regData['hotelFacilities'] ?? {};
+          Map<String, bool> foodServices = regData['foodServices'] ?? {};
+          Map<String, bool> additionalAmenities = regData['additionalAmenities'] ?? {};
+          List<String> customAmenities = List<String>.from(regData['customAmenities'] ?? []);
+          String alternateContact = regData['alternateContact'] ?? '';
+          List<String> landlineNumbers = List<String>.from(regData['landlineNumbers'] ?? []);
+          Map<String, Map<String, dynamic>> uploadedFiles = Map<String, Map<String, dynamic>>.from(regData['uploadedFiles'] ?? {});
+          String signatureName = regData['signatureName'] ?? 'John Alexandar';
+          String declarationName = regData['declarationName'] ?? 'John Alexandar';
+          DateTime? declarationDate = regData['declarationDate'];
+          bool declarationAccepted = regData['declarationAccepted'] ?? true;
+
+          Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => HotelSearchScreen()),
+            MaterialPageRoute(
+              builder: (context) => HotelOwnerDashboard(
+                hotelName: hotelName,
+                ownerName: ownerName,
+                mobileNumber: mobileNumber,
+                email: email,
+                addressLine1: addressLine1,
+                addressLine2: addressLine2,
+                city: city,
+                district: district,
+                state: state,
+                pinCode: pinCode,
+                gstNumber: gstNumber,
+                fssaiLicense: fssaiLicense,
+                tradeLicense: tradeLicense,
+                aadharNumber: aadharNumber,
+                accountHolderName: accountHolderName,
+                bankName: bankName,
+                accountNumber: accountNumber,
+                ifscCode: ifscCode,
+                branch: branch,
+                accountType: accountType,
+                totalRooms: totalRooms,
+                personPhotoInfo: personPhotoInfo,
+                registrationData: {
+                  'hotelName': hotelName,
+                  'ownerName': ownerName,
+                  'mobileNumber': mobileNumber,
+                  'email': email,
+                  'addressLine1': addressLine1,
+                  'addressLine2': addressLine2,
+                  'city': city,
+                  'district': district,
+                  'state': state,
+                  'pinCode': pinCode,
+                  'gstNumber': gstNumber,
+                  'fssaiLicense': fssaiLicense,
+                  'tradeLicense': tradeLicense,
+                  'aadharNumber': aadharNumber,
+                  'accountHolderName': accountHolderName,
+                  'bankName': bankName,
+                  'accountNumber': accountNumber,
+                  'ifscCode': ifscCode,
+                  'branch': branch,
+                  'accountType': accountType,
+                  'totalRooms': totalRooms,
+                  'personPhotoInfo': personPhotoInfo,
+                  'hotelType': hotelType,
+                  'yearOfEstablishment': yearOfEstablishment,
+                  'website': website,
+                  'landmark': landmark,
+                  'selectedRoomTypes': selectedRoomTypes,
+                  'roomDetails': roomDetails,
+                  'minTariff': minTariff,
+                  'maxTariff': maxTariff,
+                  'extraBedAvailable': extraBedAvailable,
+                  'basicAmenities': basicAmenities,
+                  'hotelFacilities': hotelFacilities,
+                  'foodServices': foodServices,
+                  'additionalAmenities': additionalAmenities,
+                  'customAmenities': customAmenities,
+                  'alternateContact': alternateContact,
+                  'landlineNumbers': landlineNumbers,
+                  'uploadedFiles': uploadedFiles,
+                  'signatureName': signatureName,
+                  'declarationName': declarationName,
+                  'declarationDate': declarationDate,
+                  'declarationAccepted': declarationAccepted,
+                }, panNumber: '',
+              ),
+            ),
+                (route) => false,
           );
         });
       } else {
-
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Row(
