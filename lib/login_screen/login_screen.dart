@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import '../home_screen/hotel_registration_screen.dart';
 import '../home_screen/hotel_search_screen.dart';
 import '../signup_screen/signup_screen.dart';
 import 'forget_password.dart';
@@ -46,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen>
 
 
 
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen>
     if (widget.registeredPassword != null) {
       _passwordController.text = widget.registeredPassword!;
     }
-
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
