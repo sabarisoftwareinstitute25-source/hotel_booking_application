@@ -4,6 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:hotel_booking_mobile_application/onboarding_screen/find_stays_screen.dart';
 import '../home_screen/hotel_registration_screen.dart';
 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 class ChooseRoleScreen extends StatelessWidget {
   const ChooseRoleScreen({super.key});
 
@@ -307,383 +309,7 @@ class ChooseRoleScreen extends StatelessWidget {
   }
 }
 
-// class PropertyAuthScreen extends StatefulWidget {
-//   const PropertyAuthScreen({super.key});
-//
-//   @override
-//   State<PropertyAuthScreen> createState() => _PropertyAuthScreenState();
-// }
-//
-// class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTickerProviderStateMixin {
-//   late TabController _tabController;
-//   final TextEditingController _emailController = TextEditingController();
-//   final TextEditingController _passwordController = TextEditingController();
-//   final TextEditingController _confirmPasswordController = TextEditingController();
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _tabController = TabController(length: 2, vsync: this);
-//   }
-//
-//   @override
-//   void dispose() {
-//     _tabController.dispose();
-//     _emailController.dispose();
-//     _passwordController.dispose();
-//     _confirmPasswordController.dispose();
-//     super.dispose();
-//   }
-//
-//   void _handleLogin() {
-//     // For demo, just navigate to PropertyTypeScreen
-//     Navigator.pushReplacement(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => HotelOwnerDashboard(hotelName: '', ownerName: '', mobileNumber: '', email: '', addressLine1: '', addressLine2: '', city: '', district: '', state: '', pinCode: '', gstNumber: '', fssaiLicense: '', tradeLicense: '', panNumber: '', aadharNumber: '', accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', branch: '', accountType: '', personPhotoInfo: {}, totalRooms: 35),
-//       ),
-//     );
-//   }
-//
-//   void _handleRegister() {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => PropertyTypeScreen(),
-//       ),
-//     );
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         decoration: const BoxDecoration(
-//           gradient: LinearGradient(
-//             begin: Alignment.topCenter,
-//             end: Alignment.bottomCenter,
-//             colors: [
-//               Color(0xFFF8FAFF),
-//               Color(0xFFF0F4FF),
-//             ],
-//           ),
-//         ),
-//         child: SafeArea(
-//           child: Column(
-//             children: [
-//               // Back Button
-//               Align(
-//                 alignment: Alignment.centerLeft,
-//                 child: IconButton(
-//                   icon: Icon(Icons.arrow_back, color: Color(0xFF6B7280)),
-//                   onPressed: () => Navigator.pop(context),
-//                 ),
-//               ),
-//
-//               // Logo
-//               Container(
-//                 width: 80,
-//                 height: 80,
-//                 decoration: BoxDecoration(
-//                   gradient: LinearGradient(
-//                     colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-//                     begin: Alignment.topLeft,
-//                     end: Alignment.bottomRight,
-//                   ),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: Center(
-//                   child: Icon(
-//                     Icons.business,
-//                     size: 40,
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ),
-//
-//               const SizedBox(height: 20),
-//
-//               Text(
-//                 "Property Partner",
-//                 style: TextStyle(
-//                   fontSize: 28,
-//                   fontWeight: FontWeight.w800,
-//                   color: Color(0xFF1F2937),
-//                 ),
-//               ),
-//
-//               Text(
-//                 "Manage your hospitality business",
-//                 style: TextStyle(
-//                   color: Color(0xFF6B7280),
-//                 ),
-//               ),
-//
-//               const SizedBox(height: 20),
-//
-//               // Tab Bar
-//               Container(
-//                 margin: EdgeInsets.symmetric(horizontal: 24),
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(12),
-//                   boxShadow: [
-//                     BoxShadow(
-//                       color: Colors.black.withOpacity(0.05),
-//                       blurRadius: 10,
-//                     ),
-//                   ],
-//                 ),
-//                 child: TabBar(
-//                   controller: _tabController,
-//                   labelColor: Colors.white,
-//                   unselectedLabelColor: Color(0xFF6B7280),
-//                   indicator: BoxDecoration(
-//                     gradient: LinearGradient(
-//                       colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-//                     ),
-//                     borderRadius: BorderRadius.circular(10),
-//                   ),
-//                   tabs: [
-//                     Tab(text: 'Login to your account'),
-//                     Tab(text: 'New User Registration'),
-//                   ],
-//                 ),
-//               ),
-//
-//               const SizedBox(height: 20),
-//
-//
-//               Expanded(
-//                 child: TabBarView(
-//                   controller: _tabController,
-//                   children: [
-//                     // Login Tab
-//                     _buildLoginTab(),
-//
-//                     // Register Tab
-//                     _buildRegisterTab(),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildLoginTab() {
-//     return SingleChildScrollView(
-//       padding: EdgeInsets.all(24),
-//       child: Column(
-//         children: [
-//           // Email Field
-//           _buildTextField(
-//             label: "Email Address",
-//             hint: "Enter your email",
-//             icon: Icons.email,
-//             controller: _emailController,
-//           ),
-//
-//           const SizedBox(height: 16),
-//
-//           // Password Field
-//           _buildTextField(
-//             label: "Password",
-//             hint: "Enter your password",
-//             icon: Icons.lock,
-//             controller: _passwordController,
-//             isPassword: true,
-//           ),
-//
-//           const SizedBox(height: 4),
-//
-//           // Forgot Password
-//           Align(
-//             alignment: Alignment.centerRight,
-//             child: TextButton(
-//               onPressed: () {},
-//               child: Text(
-//                 "Forgot Password?",
-//                 style: TextStyle(color: Color(0xFFFF5F6D)),
-//               ),
-//             ),
-//           ),
-//
-//           const SizedBox(height: 14),
-//
-//           // Login Button
-//           SizedBox(
-//             width: double.infinity,
-//             height: 50,
-//             child: ElevatedButton(
-//               onPressed: _handleLogin,
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: Color(0xFFFF5F6D),
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//               ),
-//               child: Text(
-//                 "Login",
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.w600,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//             ),
-//           ),
-//
-//           const SizedBox(height: 20),
-//
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildRegisterTab() {
-//     return SingleChildScrollView(
-//       padding: EdgeInsets.all(24),
-//       child: Column(
-//         children: [
-//           Text(
-//             "New Property Registration",
-//             style: TextStyle(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//               color: Color(0xFF1F2937),
-//             ),
-//           ),
-//
-//           const SizedBox(height: 16),
-//
-//           Text(
-//             "Register your hotel, villa, or guest house to start earning with us",
-//             style: TextStyle(
-//               color: Color(0xFF6B7280),
-//               // textAlign: TextAlign.center,
-//             ),
-//           ),
-//
-//           const SizedBox(height: 30),
-//
-//           // Benefits List
-//           _buildBenefitItem(Icons.verified, "Verified Partner Badge"),
-//           _buildBenefitItem(Icons.group, "Reach millions of travelers"),
-//           _buildBenefitItem(Icons.attach_money, "Competitive commission rates"),
-//           _buildBenefitItem(Icons.support_agent, "24/7 partner support"),
-//
-//           const SizedBox(height: 30),
-//
-//           // Register Button
-//           SizedBox(
-//             width: double.infinity,
-//             height: 50,
-//             child: ElevatedButton(
-//               onPressed: _handleRegister,
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: Color(0xFFFF5F6D),
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//               ),
-//               child: Text(
-//                 "Create an account",
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.w600,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//             ),
-//           ),
-//
-//           const SizedBox(height: 16),
-//
-//           // Terms
-//           Text(
-//             "By registering, you agree to our Terms & Conditions",
-//             style: TextStyle(
-//               fontSize: 12,
-//               color: Color(0xFF6B7280),
-//             ),
-//             textAlign: TextAlign.center,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildTextField({
-//     required String label,
-//     required String hint,
-//     required IconData icon,
-//     required TextEditingController controller,
-//     bool isPassword = false,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           label,
-//           style: TextStyle(
-//             fontWeight: FontWeight.w500,
-//             color: Color(0xFF374151),
-//           ),
-//         ),
-//         const SizedBox(height: 8),
-//         Container(
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             borderRadius: BorderRadius.circular(12),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.black.withOpacity(0.05),
-//                 blurRadius: 10,
-//               ),
-//             ],
-//           ),
-//           child: TextField(
-//             controller: controller,
-//             obscureText: isPassword,
-//             decoration: InputDecoration(
-//               hintText: hint,
-//               prefixIcon: Icon(icon, color: Color(0xFF6B7280)),
-//               border: InputBorder.none,
-//               contentPadding: EdgeInsets.all(16),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildBenefitItem(IconData icon, String text) {
-//     return Padding(
-//       padding: EdgeInsets.only(bottom: 12),
-//       child: Row(
-//         children: [
-//           Container(
-//             width: 36,
-//             height: 36,
-//             decoration: BoxDecoration(
-//               color: Colors.red.withOpacity(0.1),
-//               borderRadius: BorderRadius.circular(8),
-//             ),
-//             child: Icon(icon, size: 20, color: Colors.red),
-//           ),
-//           const SizedBox(width: 12),
-//           Text(
-//             text,
-//             style: TextStyle(fontWeight: FontWeight.w500),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+
 
 
 class PropertyAuthScreen extends StatefulWidget {
@@ -824,360 +450,384 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen> with SingleTick
       ),
     );
   }
-  Future<void> _handleRegister() async {
-    // Local validation for better UX and field highlighting
-    setState(() {
-      _fieldErrors.updateAll((key, value) => null);
-    });
 
-    final fullName = _nameController.text.trim();
-    final businessName = _businessNameController.text.trim();
-    final email = _emailController.text.trim();
-    final phone = _phoneController.text.trim();
-    final password = _registerPasswordController.text;
-    final confirmPassword = _confirmPasswordController.text;
 
-    // 1) Minimal validation for existing-vendor fast path: only email + phone.
-    if (email.isEmpty) {
-      _fieldErrors['email'] = 'Email is required';
-    } else if (!RegExp(r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
-      _fieldErrors['email'] = 'Enter a valid email address';
-    }
+  // Future<void> _handleRegister() async {
+  //   // Local validation for better UX and field highlighting
+  //   setState(() {
+  //     _fieldErrors.updateAll((key, value) => null);
+  //   });
+  //
+  //   final fullName = _nameController.text.trim();
+  //   final businessName = _businessNameController.text.trim();
+  //   final email = _emailController.text.trim();
+  //   final phone = _phoneController.text.trim();
+  //   final password = _registerPasswordController.text;
+  //   final confirmPassword = _confirmPasswordController.text;
+  //
+  //   // 1) Minimal validation for existing-vendor fast path: only email + phone.
+  //   if (email.isEmpty) {
+  //     _fieldErrors['email'] = 'Email is required';
+  //   } else if (!RegExp(r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+  //     _fieldErrors['email'] = 'Enter a valid email address';
+  //   }
+  //
+  //   if (phone.isEmpty) {
+  //     _fieldErrors['phoneOrEmail'] = 'Phone number is required';
+  //   } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
+  //     _fieldErrors['phoneOrEmail'] = 'Enter a valid 10‑digit phone number';
+  //   }
+  //
+  //   setState(() {});
+  //
+  //   // If email+phone are valid, FIRST check if this vendor already exists.
+  //   final hasBasicErrors = _fieldErrors['email'] != null || _fieldErrors['phoneOrEmail'] != null;
+  //   if (!hasBasicErrors) {
+  //     final existingVendor = await _getExistingVendor(phone);
+  //     if (existingVendor != null) {
+  //       if (!mounted) return;
+  //
+  //       // Verify that the email entered matches the vendor's email in DB
+  //       final backendEmail = (existingVendor['email'] ?? '') as String;
+  //       if (backendEmail.isNotEmpty &&
+  //           backendEmail.toLowerCase() != email.toLowerCase()) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(
+  //             content: Text(
+  //               'This phone is already registered with a different email. Please use the same email or contact support.',
+  //             ),
+  //             backgroundColor: Colors.red,
+  //           ),
+  //         );
+  //         return;
+  //       }
+  //
+  //       // Continue hotel registration on next page using existing vendor data
+  //       final ownerName = (existingVendor['fullName'] ?? '') as String;
+  //       final business = (existingVendor['businessName'] ?? '') as String;
+  //       final mobileNumber = (existingVendor['phone'] ?? phone) as String;
+  //       final vendorEmail = backendEmail.isNotEmpty ? backendEmail : email;
+  //
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Text('Account found. Continuing hotel registration...'),
+  //           backgroundColor: Colors.green,
+  //         ),
+  //       );
+  //
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => HotelOwnerDashboard(
+  //             hotelName: business,
+  //             ownerName: ownerName,
+  //             mobileNumber: mobileNumber,
+  //             email: vendorEmail,
+  //             addressLine1: '',
+  //             addressLine2: '',
+  //             city: '',
+  //             district: '',
+  //             state: '',
+  //             pinCode: '',
+  //             gstNumber: '',
+  //             fssaiLicense: '',
+  //             tradeLicense: '',
+  //             panNumber: '',
+  //             aadharNumber: '',
+  //             accountHolderName: '',
+  //             bankName: '',
+  //             accountNumber: '',
+  //             ifscCode: '',
+  //             branch: '',
+  //             accountType: '',
+  //             totalRooms: 0,
+  //             personPhotoInfo: const {},
+  //             registrationData: {
+  //               'hotelName': business,
+  //               'ownerName': ownerName,
+  //               'mobileNumber': mobileNumber,
+  //               'email': vendorEmail,
+  //             },
+  //           ),
+  //         ),
+  //       );
+  //       return; // Do NOT create a new vendor
+  //     }
+  //   }
+  //
+  //   // 2) Full validation for NEW vendor registration (no existing vendor found).
+  //   _fieldErrors.updateAll((key, value) => null);
+  //
+  //   if (fullName.isEmpty) {
+  //     _fieldErrors['fullName'] = 'Full name is required';
+  //   } else if (fullName.length < 2) {
+  //     _fieldErrors['fullName'] = 'Full name must be at least 2 characters';
+  //   }
+  //
+  //   if (businessName.isEmpty) {
+  //     _fieldErrors['businessName'] = 'Business name is required';
+  //   } else if (businessName.length < 2) {
+  //     _fieldErrors['businessName'] = 'Business name must be at least 2 characters';
+  //   }
+  //
+  //   // Re-apply email/phone checks for consistency
+  //   if (email.isEmpty) {
+  //     _fieldErrors['email'] = 'Email is required';
+  //   } else if (!RegExp(r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
+  //     _fieldErrors['email'] = 'Enter a valid email address';
+  //   }
+  //
+  //   if (phone.isEmpty) {
+  //     _fieldErrors['phoneOrEmail'] = 'Phone number is required';
+  //   } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
+  //     _fieldErrors['phoneOrEmail'] = 'Enter a valid 10‑digit phone number';
+  //   }
+  //
+  //   if (password.isEmpty) {
+  //     _fieldErrors['password'] = 'Password is required';
+  //   } else if (password.length < 8) {
+  //     _fieldErrors['password'] = 'Password must be at least 8 characters';
+  //   }
+  //
+  //   if (confirmPassword.isEmpty) {
+  //     _fieldErrors['confirmPassword'] = 'Please confirm your password';
+  //   } else if (password != confirmPassword) {
+  //     _fieldErrors['confirmPassword'] = 'Passwords do not match';
+  //   }
+  //
+  //   if (fullName.isEmpty) {
+  //     _fieldErrors['fullName'] = 'Full name is required';
+  //   }
+  //
+  //   setState(() {});
+  //
+  //   final hasErrors = _fieldErrors.values.any((e) => e != null && e.isNotEmpty);
+  //   if (hasErrors) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text('Please correct the highlighted fields'),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //     return;
+  //   }
+  //
+  //   // Build request payload expected by AccountDetailsRequest on backend
+  //   // Before creating a new account, check if this phone already has a vendor account
+  //   final existingVendor = await _getExistingVendor(phone);
+  //   if (existingVendor != null) {
+  //     if (!mounted) return;
+  //
+  //     // Verify that the email entered matches the vendor's email in DB
+  //     final backendEmail = (existingVendor['email'] ?? '') as String;
+  //     if (backendEmail.isNotEmpty &&
+  //         backendEmail.toLowerCase() != email.toLowerCase()) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(
+  //           content: Text(
+  //             'This phone is already registered with a different email. Please use the same email or contact support.',
+  //           ),
+  //           backgroundColor: Colors.red,
+  //         ),
+  //       );
+  //       return;
+  //     }
+  //
+  //     // Continue hotel registration on next page using existing vendor data
+  //     final ownerName = (existingVendor['fullName'] ?? '') as String;
+  //     final businessName = (existingVendor['businessName'] ?? '') as String;
+  //     final mobileNumber = (existingVendor['phone'] ?? phone) as String;
+  //     final vendorEmail = backendEmail.isNotEmpty ? backendEmail : email;
+  //
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text('Account found. Continuing hotel registration...'),
+  //         backgroundColor: Colors.green,
+  //       ),
+  //     );
+  //
+  //     // Navigate to dashboard/registration flow with pre-filled basic data
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => HotelOwnerDashboard(
+  //           hotelName: businessName,
+  //           ownerName: ownerName,
+  //           mobileNumber: mobileNumber,
+  //           email: vendorEmail,
+  //           addressLine1: '',
+  //           addressLine2: '',
+  //           city: '',
+  //           district: '',
+  //           state: '',
+  //           pinCode: '',
+  //           gstNumber: '',
+  //           fssaiLicense: '',
+  //           tradeLicense: '',
+  //           panNumber: '',
+  //           aadharNumber: '',
+  //           accountHolderName: '',
+  //           bankName: '',
+  //           accountNumber: '',
+  //           ifscCode: '',
+  //           branch: '',
+  //           accountType: '',
+  //           totalRooms: 0,
+  //           personPhotoInfo: const {},
+  //           registrationData: {
+  //             'hotelName': businessName,
+  //             'ownerName': ownerName,
+  //             'mobileNumber': mobileNumber,
+  //             'email': vendorEmail,
+  //           },
+  //         ),
+  //       ),
+  //     );
+  //     return;
+  //   }
+  //
+  //   final payload = {
+  //     'fullName': fullName,
+  //     'businessName': businessName,
+  //     'phoneOrEmail': phone,
+  //     'password': password,
+  //   };
+  //
+  //   // Use 10.0.2.2 to reach localhost:8080 from Android emulator
+  //   final uri = Uri.parse('http://10.0.2.2:8080/api/hotels/vendor/account-details');
+  //
+  //   try {
+  //     final response = await http.post(
+  //       uri,
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: jsonEncode(payload),
+  //     );
+  //
+  //     if (response.statusCode == 201 || response.statusCode == 200) {
+  //       // Success – parse vendorId if needed
+  //       final data = jsonDecode(response.body) as Map<String, dynamic>;
+  //       final vendorId = data['vendorId'] as String?;
+  //
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text(
+  //             vendorId != null
+  //                 ? 'Account created successfully. Vendor ID: $vendorId'
+  //                 : 'Account created successfully.',
+  //           ),
+  //           backgroundColor: Colors.green,
+  //         ),
+  //       );
+  //
+  //       // Navigate to welcome / info screen after short delay
+  //       await Future.delayed(const Duration(seconds: 1));
+  //       if (!mounted) return;
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => const WelcomeScreen(),
+  //         ),
+  //       );
+  //     } else {
+  //       // Try to extract backend validation errors for specific fields
+  //       String message = 'Failed to create account (${response.statusCode})';
+  //       try {
+  //         final data = jsonDecode(response.body);
+  //         if (data is Map) {
+  //           // Prefer fieldErrors if present
+  //           if (data['fieldErrors'] is Map) {
+  //             final errors = (data['fieldErrors'] as Map).cast<String, dynamic>();
+  //
+  //             // Map backend field errors into UI field error map
+  //             setState(() {
+  //               if (errors.containsKey('fullName')) {
+  //                 _fieldErrors['fullName'] = errors['fullName']?.toString();
+  //               }
+  //               if (errors.containsKey('businessName')) {
+  //                 _fieldErrors['businessName'] = errors['businessName']?.toString();
+  //               }
+  //               if (errors.containsKey('phoneOrEmail')) {
+  //                 _fieldErrors['phoneOrEmail'] = errors['phoneOrEmail']?.toString();
+  //               }
+  //               if (errors.containsKey('password')) {
+  //                 _fieldErrors['password'] = errors['password']?.toString();
+  //               }
+  //             });
+  //
+  //             // Build a human readable summary for the SnackBar
+  //             final buffer = StringBuffer('Please fix these fields:\n');
+  //             errors.forEach((field, err) {
+  //               if (err != null && err.toString().trim().isNotEmpty) {
+  //                 buffer.writeln('$field: ${err.toString()}');
+  //               }
+  //             });
+  //             message = buffer.toString().trimRight();
+  //           } else if (data['message'] is String) {
+  //             // Fallback to generic backend message
+  //             message = data['message'] as String;
+  //           }
+  //         }
+  //       } catch (_) {}
+  //
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text(message),
+  //           backgroundColor: Colors.red,
+  //         ),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Network error: $e'),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //   }
+  // }
 
-    if (phone.isEmpty) {
-      _fieldErrors['phoneOrEmail'] = 'Phone number is required';
-    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
-      _fieldErrors['phoneOrEmail'] = 'Enter a valid 10‑digit phone number';
-    }
 
-    setState(() {});
+  // /// Fetch existing vendor from backend by phone/email if it exists.
+  // /// Returns vendor map or null.
+  // Future<Map<String, dynamic>?> _getExistingVendor(String phoneOrEmail) async {
+  //   final uri = Uri.parse(
+  //     'http://10.0.2.2:8080/api/hotels/vendor/check-account',
+  //   ).replace(queryParameters: {'phoneOrEmail': phoneOrEmail});
+  //
+  //   try {
+  //     final response = await http.get(uri);
+  //     if (response.statusCode == 200) {
+  //       final data = jsonDecode(response.body);
+  //       if (data is Map && data['exists'] == true && data['vendor'] is Map) {
+  //         return Map<String, dynamic>.from(data['vendor'] as Map);
+  //       }
+  //     }
+  //   } catch (_) {
+  //     // On network/parse errors, fall back to allowing registration flow;
+  //     // the POST /account-details will still enforce uniqueness/validation.
+  //   }
+  //   return null;
+  // }
 
-    // If email+phone are valid, FIRST check if this vendor already exists.
-    final hasBasicErrors = _fieldErrors['email'] != null || _fieldErrors['phoneOrEmail'] != null;
-    if (!hasBasicErrors) {
-      final existingVendor = await _getExistingVendor(phone);
-      if (existingVendor != null) {
-        if (!mounted) return;
-
-        // Verify that the email entered matches the vendor's email in DB
-        final backendEmail = (existingVendor['email'] ?? '') as String;
-        if (backendEmail.isNotEmpty &&
-            backendEmail.toLowerCase() != email.toLowerCase()) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text(
-                'This phone is already registered with a different email. Please use the same email or contact support.',
-              ),
-              backgroundColor: Colors.red,
-            ),
-          );
-          return;
-        }
-
-        // Continue hotel registration on next page using existing vendor data
-        final ownerName = (existingVendor['fullName'] ?? '') as String;
-        final business = (existingVendor['businessName'] ?? '') as String;
-        final mobileNumber = (existingVendor['phone'] ?? phone) as String;
-        final vendorEmail = backendEmail.isNotEmpty ? backendEmail : email;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Account found. Continuing hotel registration...'),
-            backgroundColor: Colors.green,
-          ),
-        );
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HotelOwnerDashboard(
-              hotelName: business,
-              ownerName: ownerName,
-              mobileNumber: mobileNumber,
-              email: vendorEmail,
-              addressLine1: '',
-              addressLine2: '',
-              city: '',
-              district: '',
-              state: '',
-              pinCode: '',
-              gstNumber: '',
-              fssaiLicense: '',
-              tradeLicense: '',
-              panNumber: '',
-              aadharNumber: '',
-              accountHolderName: '',
-              bankName: '',
-              accountNumber: '',
-              ifscCode: '',
-              branch: '',
-              accountType: '',
-              totalRooms: 0,
-              personPhotoInfo: const {},
-              registrationData: {
-                'hotelName': business,
-                'ownerName': ownerName,
-                'mobileNumber': mobileNumber,
-                'email': vendorEmail,
-              },
-            ),
-          ),
-        );
-        return; // Do NOT create a new vendor
-      }
-    }
-
-    // 2) Full validation for NEW vendor registration (no existing vendor found).
-    _fieldErrors.updateAll((key, value) => null);
-
-    if (fullName.isEmpty) {
-      _fieldErrors['fullName'] = 'Full name is required';
-    } else if (fullName.length < 2) {
-      _fieldErrors['fullName'] = 'Full name must be at least 2 characters';
-    }
-
-    if (businessName.isEmpty) {
-      _fieldErrors['businessName'] = 'Business name is required';
-    } else if (businessName.length < 2) {
-      _fieldErrors['businessName'] = 'Business name must be at least 2 characters';
-    }
-
-    // Re-apply email/phone checks for consistency
-    if (email.isEmpty) {
-      _fieldErrors['email'] = 'Email is required';
-    } else if (!RegExp(r'^[\w\-.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email)) {
-      _fieldErrors['email'] = 'Enter a valid email address';
-    }
-
-    if (phone.isEmpty) {
-      _fieldErrors['phoneOrEmail'] = 'Phone number is required';
-    } else if (!RegExp(r'^[0-9]{10}$').hasMatch(phone)) {
-      _fieldErrors['phoneOrEmail'] = 'Enter a valid 10‑digit phone number';
-    }
-
-    if (password.isEmpty) {
-      _fieldErrors['password'] = 'Password is required';
-    } else if (password.length < 8) {
-      _fieldErrors['password'] = 'Password must be at least 8 characters';
-    }
-
-    if (confirmPassword.isEmpty) {
-      _fieldErrors['confirmPassword'] = 'Please confirm your password';
-    } else if (password != confirmPassword) {
-      _fieldErrors['confirmPassword'] = 'Passwords do not match';
-    }
-
-    if (fullName.isEmpty) {
-      _fieldErrors['fullName'] = 'Full name is required';
-    }
-
-    setState(() {});
-
-    final hasErrors = _fieldErrors.values.any((e) => e != null && e.isNotEmpty);
-    if (hasErrors) {
+  void _handleRegister() async {
+    // Basic validation only
+    if (_nameController.text.isEmpty || _phoneController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please correct the highlighted fields'),
+          content: Text('Please fill required fields'),
           backgroundColor: Colors.red,
         ),
       );
       return;
     }
 
-    // Build request payload expected by AccountDetailsRequest on backend
-    // Before creating a new account, check if this phone already has a vendor account
-    final existingVendor = await _getExistingVendor(phone);
-    if (existingVendor != null) {
-      if (!mounted) return;
-
-      // Verify that the email entered matches the vendor's email in DB
-      final backendEmail = (existingVendor['email'] ?? '') as String;
-      if (backendEmail.isNotEmpty &&
-          backendEmail.toLowerCase() != email.toLowerCase()) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'This phone is already registered with a different email. Please use the same email or contact support.',
-            ),
-            backgroundColor: Colors.red,
-          ),
-        );
-        return;
-      }
-
-      // Continue hotel registration on next page using existing vendor data
-      final ownerName = (existingVendor['fullName'] ?? '') as String;
-      final businessName = (existingVendor['businessName'] ?? '') as String;
-      final mobileNumber = (existingVendor['phone'] ?? phone) as String;
-      final vendorEmail = backendEmail.isNotEmpty ? backendEmail : email;
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Account found. Continuing hotel registration...'),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      // Navigate to dashboard/registration flow with pre-filled basic data
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HotelOwnerDashboard(
-            hotelName: businessName,
-            ownerName: ownerName,
-            mobileNumber: mobileNumber,
-            email: vendorEmail,
-            addressLine1: '',
-            addressLine2: '',
-            city: '',
-            district: '',
-            state: '',
-            pinCode: '',
-            gstNumber: '',
-            fssaiLicense: '',
-            tradeLicense: '',
-            panNumber: '',
-            aadharNumber: '',
-            accountHolderName: '',
-            bankName: '',
-            accountNumber: '',
-            ifscCode: '',
-            branch: '',
-            accountType: '',
-            totalRooms: 0,
-            personPhotoInfo: const {},
-            registrationData: {
-              'hotelName': businessName,
-              'ownerName': ownerName,
-              'mobileNumber': mobileNumber,
-              'email': vendorEmail,
-            },
-          ),
-        ),
-      );
-      return;
-    }
-
-    final payload = {
-      'fullName': fullName,
-      'businessName': businessName,
-      'phoneOrEmail': phone,
-      'password': password,
-    };
-
-    // Use 10.0.2.2 to reach localhost:8080 from Android emulator
-    final uri = Uri.parse('http://10.0.2.2:8080/api/hotels/vendor/account-details');
-
-    try {
-      final response = await http.post(
-        uri,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode(payload),
-      );
-
-      if (response.statusCode == 201 || response.statusCode == 200) {
-        // Success – parse vendorId if needed
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
-        final vendorId = data['vendorId'] as String?;
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              vendorId != null
-                  ? 'Account created successfully. Vendor ID: $vendorId'
-                  : 'Account created successfully.',
-            ),
-            backgroundColor: Colors.green,
-          ),
-        );
-
-        // Navigate to welcome / info screen after short delay
-        await Future.delayed(const Duration(seconds: 1));
-        if (!mounted) return;
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const WelcomeScreen(),
-          ),
-        );
-      } else {
-        // Try to extract backend validation errors for specific fields
-        String message = 'Failed to create account (${response.statusCode})';
-        try {
-          final data = jsonDecode(response.body);
-          if (data is Map) {
-            // Prefer fieldErrors if present
-            if (data['fieldErrors'] is Map) {
-              final errors = (data['fieldErrors'] as Map).cast<String, dynamic>();
-
-              // Map backend field errors into UI field error map
-              setState(() {
-                if (errors.containsKey('fullName')) {
-                  _fieldErrors['fullName'] = errors['fullName']?.toString();
-                }
-                if (errors.containsKey('businessName')) {
-                  _fieldErrors['businessName'] = errors['businessName']?.toString();
-                }
-                if (errors.containsKey('phoneOrEmail')) {
-                  _fieldErrors['phoneOrEmail'] = errors['phoneOrEmail']?.toString();
-                }
-                if (errors.containsKey('password')) {
-                  _fieldErrors['password'] = errors['password']?.toString();
-                }
-              });
-
-              // Build a human readable summary for the SnackBar
-              final buffer = StringBuffer('Please fix these fields:\n');
-              errors.forEach((field, err) {
-                if (err != null && err.toString().trim().isNotEmpty) {
-                  buffer.writeln('$field: ${err.toString()}');
-                }
-              });
-              message = buffer.toString().trimRight();
-            } else if (data['message'] is String) {
-              // Fallback to generic backend message
-              message = data['message'] as String;
-            }
-          }
-        } catch (_) {}
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(message),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Network error: $e'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-  /// Fetch existing vendor from backend by phone/email if it exists.
-  /// Returns vendor map or null.
-  Future<Map<String, dynamic>?> _getExistingVendor(String phoneOrEmail) async {
-    final uri = Uri.parse(
-      'http://10.0.2.2:8080/api/hotels/vendor/check-account',
-    ).replace(queryParameters: {'phoneOrEmail': phoneOrEmail});
-
-    try {
-      final response = await http.get(uri);
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        if (data is Map && data['exists'] == true && data['vendor'] is Map) {
-          return Map<String, dynamic>.from(data['vendor'] as Map);
-        }
-      }
-    } catch (_) {
-      // On network/parse errors, fall back to allowing registration flow;
-      // the POST /account-details will still enforce uniqueness/validation.
-    }
-    return null;
+    // Direct navigation for testing
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WelcomeScreen(),
+      ),
+    );
   }
 
   @override
@@ -2826,7 +2476,7 @@ class HotelCategoryScreen extends StatelessWidget {
         'description': 'World-class facilities',
         'stars': '⭐⭐⭐⭐⭐',
         'price': '₹6,000 - ₹15,000',
-        'color': Color(0xFFFF6347),
+        'color': Color(0xFFFB717D),
         'image': 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80',
       },
       {
@@ -2874,11 +2524,12 @@ class HotelCategoryScreen extends StatelessWidget {
                   builder: (context) => ThreeStarHotelRegistrationScreen(),
                 ),
               );
+
             } else if (categories[index]['title'] == '4 Star Hotel') {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ThreeStarHotelRegistrationScreen(),
+                  builder: (context) => FourStarHotelRegistrationScreen(),
                 ),
               );
             };
