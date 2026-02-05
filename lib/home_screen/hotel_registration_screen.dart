@@ -20086,6 +20086,41 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
     {'title': 'Amenities & Policies', 'subtitle': 'Facilities and rules'},
     {'title': 'Legal & Documents', 'subtitle': 'Compliance and files'},
   ];
+  List<Map<String, TextEditingController>> _additionalAddresses = [];
+
+  final List<String> _timeOptions = [
+    '12:00 AM', '01:00 AM', '02:00 AM', '03:00 AM', '04:00 AM', '05:00 AM',
+    '06:00 AM', '07:00 AM', '08:00 AM', '09:00 AM', '10:00 AM', '11:00 AM',
+    '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM',
+    '06:00 PM', '07:00 PM', '08:00 PM', '09:00 PM', '10:00 PM', '11:00 PM'
+  ];
+  // Add these lists for check-in/check-out time options
+  final List<Map<String, String>> _timeOptions24Hour = [
+    {'value': '00:00', 'display': '12:00 AM'},
+    {'value': '01:00', 'display': '01:00 AM'},
+    {'value': '02:00', 'display': '02:00 AM'},
+    {'value': '03:00', 'display': '03:00 AM'},
+    {'value': '04:00', 'display': '04:00 AM'},
+    {'value': '05:00', 'display': '05:00 AM'},
+    {'value': '06:00', 'display': '06:00 AM'},
+    {'value': '07:00', 'display': '07:00 AM'},
+    {'value': '08:00', 'display': '08:00 AM'},
+    {'value': '09:00', 'display': '09:00 AM'},
+    {'value': '10:00', 'display': '10:00 AM'},
+    {'value': '11:00', 'display': '11:00 AM'},
+    {'value': '12:00', 'display': '12:00 PM'},
+    {'value': '13:00', 'display': '01:00 PM'},
+    {'value': '14:00', 'display': '02:00 PM'},
+    {'value': '15:00', 'display': '03:00 PM'},
+    {'value': '16:00', 'display': '04:00 PM'},
+    {'value': '17:00', 'display': '05:00 PM'},
+    {'value': '18:00', 'display': '06:00 PM'},
+    {'value': '19:00', 'display': '07:00 PM'},
+    {'value': '20:00', 'display': '08:00 PM'},
+    {'value': '21:00', 'display': '09:00 PM'},
+    {'value': '22:00', 'display': '10:00 PM'},
+    {'value': '23:00', 'display': '11:00 PM'},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -20578,11 +20613,73 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
           ],
         ),
         SizedBox(height: 16),
+        // _buildCard(
+        //   title: '3. Hotel Address',
+        //   children: [
+        //     _buildInputField(
+        //       label: 'Address Line 1 *',
+        //       controller: _address1Controller,
+        //       hint: 'Street address',
+        //     ),
+        //     SizedBox(height: 16),
+        //     _buildInputField(
+        //       label: 'Address Line 2',
+        //       controller: _address2Controller,
+        //       hint: 'Apartment, suite, etc.',
+        //     ),
+        //     SizedBox(height: 16),
+        //     Row(
+        //       children: [
+        //         Expanded(
+        //           child: _buildInputField(
+        //             label: 'City *',
+        //             controller: _cityController,
+        //             hint: 'Enter city',
+        //           ),
+        //         ),
+        //         SizedBox(width: 16),
+        //         Expanded(
+        //           child: _buildInputField(
+        //             label: 'District *',
+        //             controller: _districtController,
+        //             hint: 'Enter district',
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //     SizedBox(height: 16),
+        //     Row(
+        //       children: [
+        //         Expanded(
+        //           child: _buildInputField(
+        //             label: 'State *',
+        //             controller: _stateController,
+        //             hint: 'Enter state',
+        //           ),
+        //         ),
+        //         SizedBox(width: 16),
+        //         Expanded(
+        //           child: _buildInputField(
+        //             label: 'PIN Code *',
+        //             controller: _pinController,
+        //             hint: '6-digit PIN',
+        //             keyboardType: TextInputType.number,
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //   ],
+        // ),
+
+
+        // In _buildStep2() method, update the Hotel Address section:
+
+
         _buildCard(
           title: '3. Hotel Address',
           children: [
             _buildInputField(
-              label: 'Address Line 1 *',
+              label: 'Primary Address Line 1 *',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -20593,6 +20690,68 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
               hint: 'Apartment, suite, etc.',
             ),
             SizedBox(height: 16),
+
+            // Additional Addresses
+            // Additional Addresses
+            if (_additionalAddresses.isNotEmpty)
+              ..._additionalAddresses.asMap().entries.map((entry) {
+                int index = entry.key;
+                Map<String, TextEditingController> address = entry.value;
+
+                // Get the controller, handle null case
+                TextEditingController? addressController = address['address'];
+
+                // If controller is null for some reason, create it
+                if (addressController == null) {
+                  addressController = TextEditingController();
+                  address['address'] = addressController;
+                }
+
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildInputField(
+                            label: 'Additional Address ${index + 1}',
+                            controller: addressController,
+                            hint: 'Enter additional address',
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        IconButton(
+                          icon: Icon(Icons.remove_circle, color: Colors.red),
+                          onPressed: () => _removeAdditionalAddress(index),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                );
+              }).toList(),
+
+            SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: _addAdditionalAddress,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: Icon(Icons.add_location, size: 18, color: Colors.white),
+              label: Text(
+                'Add Additional Address',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+
+            // Rest of the address fields remain the same
             Row(
               children: [
                 Expanded(
@@ -20770,12 +20929,68 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
 
             SizedBox(height: 20),
 
-            // Room Tariff
+            // // Room Tariff
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(
+            //       'Room Tariff (per night):',
+            //       style: TextStyle(
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.w500,
+            //         color: _textPrimary,
+            //       ),
+            //     ),
+            //     SizedBox(height: 8),
+            //     Row(
+            //       children: [
+            //         Expanded(
+            //           child: TextFormField(
+            //             controller: _minTariffController,
+            //             keyboardType: TextInputType.number,
+            //             decoration: InputDecoration(
+            //               hintText: 'Minimum',
+            //               prefixText: '₹ ',
+            //               contentPadding:
+            //               EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            //               border: OutlineInputBorder(
+            //                 borderRadius: BorderRadius.circular(8),
+            //                 borderSide: BorderSide(color: _borderColor),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //         Padding(
+            //           padding: EdgeInsets.symmetric(horizontal: 8),
+            //           child: Text('to', style: TextStyle(color: _textSecondary)),
+            //         ),
+            //         Expanded(
+            //           child: TextFormField(
+            //             controller: _maxTariffController,
+            //             keyboardType: TextInputType.number,
+            //             decoration: InputDecoration(
+            //               hintText: 'Maximum',
+            //               prefixText: '₹ ',
+            //               contentPadding:
+            //               EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            //               border: OutlineInputBorder(
+            //                 borderRadius: BorderRadius.circular(8),
+            //                 borderSide: BorderSide(color: _borderColor),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+
+// Room Tariff per day
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Room Tariff (per night):',
+                  'Select Price Per Day:',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -20786,19 +21001,31 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
                 Row(
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        controller: _minTariffController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: 'Minimum',
-                          prefixText: '₹ ',
-                          contentPadding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: _borderColor),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Text(
+                          //   'From',
+                          //   style: TextStyle(
+                          //     fontSize: 12,
+                          //     color: _textSecondary,
+                          //   ),
+                          // ),
+                          TextFormField(
+                            controller: _minTariffController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: 'Rs',
+                              prefixText: '₹ ',
+                              contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: _borderColor),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                     Padding(
@@ -20806,19 +21033,31 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
                       child: Text('to', style: TextStyle(color: _textSecondary)),
                     ),
                     Expanded(
-                      child: TextFormField(
-                        controller: _maxTariffController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: 'Maximum',
-                          prefixText: '₹ ',
-                          contentPadding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: _borderColor),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Text(
+                          //   'To',
+                          //   style: TextStyle(
+                          //     fontSize: 12,
+                          //     color: _textSecondary,
+                          //   ),
+                          // ),
+                          TextFormField(
+                            controller: _maxTariffController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: 'Rs',
+                              prefixText: '₹ ',
+                              contentPadding:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: _borderColor),
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ],
@@ -20858,21 +21097,54 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
         _buildCard(
           title: '6. Check-in & Policies',
           children: [
+            // Replace the existing check-in/check-out fields in _buildStep4():
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: _buildTimeDropdown(
+            //         label: 'Standard Check-in Time',
+            //         selectedValue: _checkInController.text.isNotEmpty ? _checkInController.text : null,
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _checkInController.text = value ?? '';
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //     SizedBox(width: 16),
+            //     Expanded(
+            //       child: _buildTimeDropdown(
+            //         label: 'Standard Check-out Time',
+            //         selectedValue: _checkOutController.text.isNotEmpty ? _checkOutController.text : null,
+            //         onChanged: (value) {
+            //           setState(() {
+            //             _checkOutController.text = value ?? '';
+            //           });
+            //         },
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
             Row(
               children: [
                 Expanded(
-                  child: _buildInputField(
+                  child: _buildTimeDropdown(
                     label: 'Standard Check-in Time',
-                    controller: _checkInController, // To this
-                    hint: 'HH:MM',
+                    controller: _checkInController,
+                    onChanged: (value) {
+                      // Value is already stored in controller
+                    },
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: _buildInputField(
+                  child: _buildTimeDropdown(
                     label: 'Standard Check-out Time',
                     controller: _checkOutController,
-                    hint: 'HH:MM',
+                    onChanged: (value) {
+                      // Value is already stored in controller
+                    },
                   ),
                 ),
               ],
@@ -20942,33 +21214,8 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
             // Policies
             Row(
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Couple Friendly:',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        children: [
-                          _buildToggleChip('Yes', _coupleFriendly, () {
-                            setState(() => _coupleFriendly = true);
-                          }),
-                          SizedBox(width: 8),
-                          _buildToggleChip('No', !_coupleFriendly, () {
-                            setState(() => _coupleFriendly = false);
-                          }),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(width: 20),
+
+
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -20999,6 +21246,9 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
             ),
           ],
         ),
+
+
+
       ],
     );
   }
@@ -21838,21 +22088,31 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
+    bool isRequired = true,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: _textPrimary,
-          ),
+        Row(
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: _textPrimary,
+              ),
+            ),
+            if (isRequired)
+              Text(
+                ' *',
+                style: TextStyle(color: Colors.red),
+              ),
+          ],
         ),
         SizedBox(height: 8),
         TextFormField(
-          controller: controller,
+          controller: controller, // This should work with the provided controller
           keyboardType: keyboardType,
           decoration: InputDecoration(
             hintText: hint,
@@ -22360,39 +22620,6 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
     }
   }
 
-  // // File Upload Methods
-  // Future<void> _pickDocument(String documentType) async {
-  //   // Implement file picking logic
-  //   print('Picking document: $documentType');
-  //
-  //   // Simulating file upload
-  //   setState(() {
-  //     _uploadedFiles[documentType] = {
-  //       'name': '${documentType.replaceAll(' ', '_')}_signed.pdf',
-  //       'size': 2048,
-  //       'path': '/temp/uploaded_file.pdf',
-  //       'uploaded': true,
-  //     };
-  //   });
-  // }
-  //
-  // void _viewDocument(String documentType) {
-  //   // Implement document viewing
-  //   print('Viewing document: $documentType');
-  // }
-  //
-  // void _removeDocument(String documentType) {
-  //   setState(() {
-  //     _uploadedFiles[documentType] = {
-  //       'name': '',
-  //       'size': 0,
-  //       'path': '',
-  //       'uploaded': false,
-  //     };
-  //   });
-  // }
-// Add these methods to handle file uploads
-
   Future<void> _pickDocument(String documentType) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -22782,6 +23009,12 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
       'signatureFile': _signatureFile, // Add signature file
       'declarationDate': _selectedDate,
       'declarationAccepted': _declarationAccepted,
+      'additionalAddresses': _additionalAddresses.map((addr) {
+        return {
+          'type': addr['type']?.text ?? '',
+          'address': addr['address']?.text ?? '',
+        };
+      }).toList(),
     };
 
     // Navigate to summary screen
@@ -22794,6 +23027,152 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
           declarationAccepted: _declarationAccepted,
         ),
       ),
+    );
+  }
+
+
+  void _addAdditionalAddress() {
+    setState(() {
+      _additionalAddresses.add({
+        'address': TextEditingController(),
+      });
+    });
+  }
+
+
+  void _removeAdditionalAddress(int index) {
+    if (index >= 0 && index < _additionalAddresses.length) {
+      setState(() {
+        // Dispose the controller
+        _additionalAddresses[index]['address']?.dispose();
+        _additionalAddresses.removeAt(index);
+      });
+    }
+  }
+
+
+
+  String _convertTo12HourFormat(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length < 2) return time24;
+
+      int hour = int.tryParse(parts[0]) ?? 0;
+      int minute = int.tryParse(parts[1]) ?? 0;
+
+      String period = hour >= 12 ? 'PM' : 'AM';
+      int hour12 = hour % 12;
+      if (hour12 == 0) hour12 = 12;
+
+      return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+    } catch (e) {
+      return time24;
+    }
+  }
+
+// Helper method to convert 12-hour format back to 24-hour
+  String _convertTo24HourFormat(String time12) {
+    if (time12.isEmpty) return '';
+    try {
+      // Remove any extra spaces and convert to uppercase
+      time12 = time12.trim().toUpperCase();
+
+      // Check if it already contains AM/PM
+      if (!time12.contains('AM') && !time12.contains('PM')) {
+        // If not, assume it's already in 24-hour format
+        return time12;
+      }
+
+      // Extract time and period
+      String period = time12.contains('PM') ? 'PM' : 'AM';
+      String timeOnly = time12.replaceAll(RegExp(r'[AP]M'), '').trim();
+
+      List<String> parts = timeOnly.split(':');
+      if (parts.length < 2) return time12;
+
+      int hour = int.tryParse(parts[0]) ?? 0;
+      int minute = int.tryParse(parts[1]) ?? 0;
+
+      if (period == 'PM' && hour != 12) {
+        hour += 12;
+      } else if (period == 'AM' && hour == 12) {
+        hour = 0;
+      }
+
+      return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+    } catch (e) {
+      return time12;
+    }
+  }
+
+// Helper method to build time dropdown
+  Widget _buildTimeDropdown({
+    required String label,
+    required TextEditingController controller,
+    required ValueChanged<String> onChanged,
+  }) {
+    // Convert current value to display format
+    String currentValue = controller.text;
+    String displayValue = '';
+
+    if (currentValue.isNotEmpty) {
+      // Try to find matching value in options
+      for (var option in _timeOptions24Hour) {
+        if (option['value'] == currentValue) {
+          displayValue = option['value']!;
+          break;
+        }
+      }
+      // If not found, try to parse the time
+      if (displayValue.isEmpty) {
+        displayValue = _convertTo24HourFormat(currentValue);
+      }
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          height: 48,
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: _borderColor),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: displayValue.isNotEmpty ? displayValue : null,
+              isExpanded: true,
+              icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
+              hint: Text('Select time'),
+              items: _timeOptions24Hour.map((option) {
+                return DropdownMenuItem<String>(
+                  value: option['value'],
+                  child: Text(option['display']!),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    controller.text = value;
+                  });
+                  onChanged(value);
+                }
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -22831,10 +23210,4978 @@ class _TwoStarHotelRegistrationScreenState extends State<TwoStarHotelRegistratio
     _ifscController.dispose();
     _branchController.dispose();
     _declarationNameController.dispose();
+    // Dispose additional address controllers
+    for (var address in _additionalAddresses) {
+      address['type']?.dispose();
+      address['address']?.dispose();
+    }
+    _additionalAddresses.clear();
+
     super.dispose();
   }
 }
 
+
+// class ThreeStarHotelRegistrationScreen extends StatefulWidget {
+//   const ThreeStarHotelRegistrationScreen({super.key});
+//
+//   @override
+//   State<ThreeStarHotelRegistrationScreen> createState() =>
+//       _ThreeStarHotelRegistrationScreenState();
+// }
+//
+// class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistrationScreen> {
+//   final _formKey = GlobalKey<FormState>();
+//   int _currentStep = 0;
+//
+//   final Color _primaryColor = Color(0xFFDAA520); // Golden color for 3-star
+//   final Color _primaryLight = Color(0xFFFFF8E1);
+//   final Color _bgColor = Color(0xFFFAFAFA);
+//   final Color _cardColor = Colors.white;
+//   final Color _borderColor = Color(0xFFE5E7EB);
+//   final Color _textPrimary = Color(0xFF111827);
+//   final Color _textSecondary = Color(0xFF6B7280);
+//   final Color _successColor = Color(0xFFFFB74D);
+//
+//   // Controllers
+//   final TextEditingController _hotelNameController = TextEditingController();
+//   final TextEditingController _yearController = TextEditingController();
+//   final TextEditingController _registrationNumberController = TextEditingController();
+//   final TextEditingController _roomsController = TextEditingController();
+//   final TextEditingController _ownerNameController = TextEditingController();
+//   final TextEditingController _designationController = TextEditingController();
+//   final TextEditingController _mobileController = TextEditingController();
+//   final TextEditingController _altMobileController = TextEditingController();
+//   final TextEditingController _emailController = TextEditingController();
+//   final TextEditingController _websiteController = TextEditingController();
+//   final TextEditingController _address1Controller = TextEditingController();
+//   final TextEditingController _address2Controller = TextEditingController();
+//   final TextEditingController _cityController = TextEditingController();
+//   final TextEditingController _districtController = TextEditingController();
+//   final TextEditingController _stateController = TextEditingController();
+//   final TextEditingController _pinController = TextEditingController();
+//   final TextEditingController _checkInController = TextEditingController(text: '14:00');
+//   final TextEditingController _checkOutController = TextEditingController(text: '12:00');
+//   final TextEditingController _gstController = TextEditingController();
+//   final TextEditingController _panController = TextEditingController();
+//   final TextEditingController _tradeLicenseController = TextEditingController();
+//   final TextEditingController _fssaiController = TextEditingController();
+//   final TextEditingController _accountNameController = TextEditingController();
+//   final TextEditingController _bankNameController = TextEditingController();
+//   final TextEditingController _accountNumberController = TextEditingController();
+//   final TextEditingController _ifscController = TextEditingController();
+//   final TextEditingController _branchController = TextEditingController();
+//   final TextEditingController _signatoryNameController = TextEditingController();
+//
+//   // Room Details
+//   final Map<String, Map<String, dynamic>> _roomDetails = {
+//     'Standard': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'ac': true,
+//       'bedType': 'Queen',
+//       'price': '',
+//     },
+//     'Deluxe': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'ac': true,
+//       'bedType': 'King',
+//       'price': '',
+//     },
+//     'Suite': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'ac': true,
+//       'bedType': 'King',
+//       'price': '',
+//     },
+//   };
+//
+//   // Selected Room Types
+//   Map<String, bool> _selectedRoomTypes = {
+//     'Standard': true, // Default selected for 3-star
+//     'Deluxe': false,
+//     'Suite': false,
+//   };
+//
+//   // Hotel Type Selection
+//   String? _selectedHotelType;
+//
+//   // Policies
+//   bool _extraBedAvailable = false;
+//   bool _seasonalPricing = false;
+//   bool _earlyCheckinAllowed = false;
+//   bool _earlyCheckinChargeable = true;
+//   bool _coupleFriendly = true;
+//   bool _petsAllowed = false;
+//   bool _fireSafetyCertificate = false;
+//   //
+//   // // Amenities Categories
+//   // Map<String, bool> _roomAmenities = {
+//   //   'Air Conditioning': true,
+//   //   'Free High-Speed Wi-Fi': true,
+//   //   'LED TV (Cable/DTH)': true,
+//   //   'Work Desk & Chair': true,
+//   //   'Wardrobe / Closet': true,
+//   //   'Tea / Coffee Maker': true,
+//   //   'Mini Refrigerator': true,
+//   //   'Electronic Safe': true,
+//   //   'Attached Bathroom with Toiletries': true,
+//   //   'Hot & Cold Water': true,
+//   // };
+//   //
+//   // Map<String, bool> _hotelFacilities = {
+//   //   '24-Hour Front Desk': true,
+//   //   'Lift / Elevator': true,
+//   //   'Power Backup': true,
+//   //   'Daily Housekeeping': true,
+//   //   'Luggage Storage': true,
+//   //   'CCTV Surveillance': true,
+//   //   'Fire Safety System': true,
+//   //   'Disabled-Friendly Access': true,
+//   // };
+//   //
+//   // Map<String, bool> _foodServices = {
+//   //   'Multi-Cuisine Restaurant': false,
+//   //   'Complimentary Breakfast': true,
+//   //   'In-Room Dining': true,
+//   //   'Bar / Lounge': false,
+//   //   'Banquet / Event Hall': false,
+//   // };
+//   //
+//   // Map<String, bool> _businessServices = {
+//   //   'Conference / Meeting Room': false,
+//   //   'Business Center': true,
+//   //   'Laundry / Dry Cleaning': true,
+//   //   'Travel Desk / Taxi Service': true,
+//   //   'Doctor on Call': true,
+//   //   'Wake-Up Call': true,
+//   //   'Concierge Service': true,
+//   // };
+//
+//   // Correct the amenities initialization - change from true to false
+//
+// // Room Amenities - CHANGED: All from true to false
+//   Map<String, bool> _roomAmenities = {
+//     'Air Conditioning': false,
+//     'Free High-Speed Wi-Fi': false,
+//     'LED TV (Cable/DTH)': false,
+//     'Work Desk & Chair': false,
+//     'Wardrobe / Closet': false,
+//     'Tea / Coffee Maker': false,
+//     'Mini Refrigerator': false,
+//     'Electronic Safe': false,
+//     'Attached Bathroom with Toiletries': false,
+//     'Hot & Cold Water': false,
+//   };
+//
+// // Hotel Facilities - CHANGED: All from true to false
+//   Map<String, bool> _hotelFacilities = {
+//     '24-Hour Front Desk': false,
+//     'Lift / Elevator': false,
+//     'Power Backup': false,
+//     'Daily Housekeeping': false,
+//     'Luggage Storage': false,
+//     'CCTV Surveillance': false,
+//     'Fire Safety System': false,
+//     'Disabled-Friendly Access': false,
+//   };
+//
+// // Food Services - CHANGED: All from true/false to false
+//   Map<String, bool> _foodServices = {
+//     'Multi-Cuisine Restaurant': false,
+//     'Complimentary Breakfast': false,
+//     'In-Room Dining': false,
+//     'Bar / Lounge': false,
+//     'Banquet / Event Hall': false,
+//   };
+//
+// // Business Services - CHANGED: All from true to false
+//   Map<String, bool> _businessServices = {
+//     'Conference / Meeting Room': false,
+//     'Business Center': false,
+//     'Laundry / Dry Cleaning': false,
+//     'Travel Desk / Taxi Service': false,
+//     'Doctor on Call': false,
+//     'Wake-Up Call': false,
+//     'Concierge Service': false,
+//   };
+//
+//   // Bed Type Options
+//   final List<String> _bedTypes = ['Single', 'Double', 'Queen', 'King', 'Twin'];
+//
+//   // Document Uploads
+//   final Map<String, Map<String, dynamic>> _uploadedFiles = {
+//     'GST Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'PAN Card': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Trade License': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'FSSAI Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Fire Safety Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Cancelled Cheque': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Hotel & Room Photos': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//   };
+//
+//   // Signature
+//   final Map<String, dynamic> _signatureFile = {
+//     'name': '',
+//     'size': 0,
+//     'path': '',
+//     'uploaded': false,
+//   };
+//
+//   // Declaration
+//   bool _declarationAccepted = false;
+//   DateTime? _selectedDate;
+//
+//   // Steps
+//   final List<Map<String, dynamic>> _steps = [
+//     {'title': 'Hotel Info', 'subtitle': 'Basic hotel details'},
+//     {'title': 'Contact & Address', 'subtitle': 'Contact and location'},
+//     {'title': 'Room Configuration', 'subtitle': 'Room types and rates'},
+//     {'title': 'Amenities & Policies', 'subtitle': 'Facilities and rules'},
+//     {'title': 'Legal & Documents', 'subtitle': 'Compliance and files'},
+//   ];
+//
+//
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: _bgColor,
+//       appBar: AppBar(
+//         backgroundColor: Colors.white,
+//         elevation: 0,
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back, color: _textPrimary),
+//           onPressed: () => Navigator.pop(context),
+//         ),
+//         title: Text(
+//           '3-Star Hotel Vendor Registration Form',
+//           style: TextStyle(
+//             fontSize: 17.5,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         centerTitle: true,
+//       ),
+//       body: Form(
+//         key: _formKey,
+//         child: Column(
+//           children: [
+//             // Progress Steps
+//             Container(
+//               padding: EdgeInsets.all(5),
+//               color: Colors.white,
+//               child: Column(
+//                 children: [
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: List.generate(_steps.length, (index) {
+//                         bool isActive = index == _currentStep;
+//                         bool isCompleted = index < _currentStep;
+//
+//                         return Container(
+//                           margin: EdgeInsets.symmetric(horizontal: 2),
+//                           child: GestureDetector(
+//                             onTap: () {
+//                               if (index <= _currentStep) {
+//                                 setState(() {
+//                                   _currentStep = index;
+//                                 });
+//                               }
+//                             },
+//                             child: Column(
+//                               children: [
+//                                 Container(
+//                                   width: 32,
+//                                   height: 32,
+//                                   decoration: BoxDecoration(
+//                                     shape: BoxShape.circle,
+//                                     color: isActive
+//                                         ? _primaryColor
+//                                         : isCompleted
+//                                         ? _successColor
+//                                         : Colors.white,
+//                                     border: Border.all(
+//                                       color: isActive || isCompleted
+//                                           ? Colors.transparent
+//                                           : _borderColor,
+//                                       width: 2,
+//                                     ),
+//                                   ),
+//                                   child: Center(
+//                                     child: isCompleted
+//                                         ? Icon(
+//                                       Icons.check,
+//                                       size: 18,
+//                                       color: Colors.white,
+//                                     )
+//                                         : Text(
+//                                       '${index + 1}',
+//                                       style: TextStyle(
+//                                         color: isActive || isCompleted
+//                                             ? Colors.white
+//                                             : _textSecondary,
+//                                         fontWeight: FontWeight.w600,
+//                                         fontSize: 14,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 8),
+//                                 SizedBox(
+//                                   width: 70,
+//                                   child: Text(
+//                                     _steps[index]['title'],
+//                                     style: TextStyle(
+//                                       fontSize: 11,
+//                                       fontWeight: FontWeight.w500,
+//                                       color: isActive || isCompleted
+//                                           ? _textPrimary
+//                                           : _textSecondary,
+//                                     ),
+//                                     textAlign: TextAlign.center,
+//                                     maxLines: 2,
+//                                     overflow: TextOverflow.ellipsis,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       }),
+//                     ),
+//                   ),
+//                   SizedBox(height: 16),
+//                   LinearProgressIndicator(
+//                     value: (_currentStep + 1) / _steps.length,
+//                     backgroundColor: _borderColor,
+//                     color: _primaryColor,
+//                     minHeight: 4,
+//                     borderRadius: BorderRadius.circular(2),
+//                   ),
+//                   SizedBox(height: 8),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Text(
+//                         'Step ${_currentStep + 1} of ${_steps.length}',
+//                         style: TextStyle(fontSize: 12, color: _textSecondary),
+//                       ),
+//                       Text(
+//                         '${((_currentStep + 1) / _steps.length * 100).toInt()}%',
+//                         style: TextStyle(
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w600,
+//                           color: _primaryColor,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             // Content
+//             Expanded(
+//               child: SingleChildScrollView(
+//                 padding: EdgeInsets.all(16),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     // Step Header
+//                     Container(
+//                       margin: EdgeInsets.only(bottom: 20),
+//                       padding: EdgeInsets.all(16),
+//                       decoration: BoxDecoration(
+//                         color: _cardColor,
+//                         borderRadius: BorderRadius.circular(12),
+//                         border: Border.all(color: _borderColor),
+//                       ),
+//                       child: Row(
+//                         children: [
+//                           Container(
+//                             width: 40,
+//                             height: 40,
+//                             decoration: BoxDecoration(
+//                               color: _primaryLight,
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                             child: Center(
+//                               child: Text(
+//                                 '${_currentStep + 1}',
+//                                 style: TextStyle(
+//                                   fontSize: 16,
+//                                   fontWeight: FontWeight.w700,
+//                                   color: _primaryColor,
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           SizedBox(width: 12),
+//                           Expanded(
+//                             child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Text(
+//                                   _steps[_currentStep]['title'],
+//                                   style: TextStyle(
+//                                     fontSize: 16,
+//                                     fontWeight: FontWeight.w600,
+//                                     color: _textPrimary,
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 4),
+//                                 Text(
+//                                   _steps[_currentStep]['subtitle'],
+//                                   style: TextStyle(
+//                                     fontSize: 12,
+//                                     color: _textSecondary,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                           Container(
+//                             padding: EdgeInsets.symmetric(
+//                                 horizontal: 12, vertical: 6),
+//                             decoration: BoxDecoration(
+//                               color: _primaryColor,
+//                               borderRadius: BorderRadius.circular(20),
+//                             ),
+//                             child: Row(
+//                               children: [
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 SizedBox(width: 4),
+//                                 Text(
+//                                   '3-Star',
+//                                   style: TextStyle(
+//                                     fontSize: 12,
+//                                     color: Colors.white,
+//                                     fontWeight: FontWeight.w600,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//
+//                     // Step Content
+//                     _buildStepContent(),
+//                     SizedBox(height: 32),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//             // Navigation Buttons
+//             Container(
+//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 border: Border(top: BorderSide(color: _borderColor)),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black.withOpacity(0.05),
+//                     blurRadius: 8,
+//                     offset: Offset(0, -2),
+//                   ),
+//                 ],
+//               ),
+//               child: Row(
+//                 children: [
+//                   if (_currentStep > 0)
+//                     Expanded(
+//                       child: SizedBox(
+//                         height: 55,
+//                         child: OutlinedButton(
+//                           onPressed: _previousStep,
+//                           style: OutlinedButton.styleFrom(
+//                             side: BorderSide(color: _borderColor),
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                           ),
+//                           child: Text(
+//                             'Back',
+//                             style: TextStyle(
+//                               fontSize: 14,
+//                               fontWeight: FontWeight.w500,
+//                               color: _textPrimary,
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   if (_currentStep > 0) SizedBox(width: 12),
+//                   Expanded(
+//                     child: SizedBox(
+//                       height: 58,
+//                       child: ElevatedButton(
+//                         onPressed: _nextStep,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: _primaryColor,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           elevation: 0,
+//                         ),
+//                         child: Text(
+//                           _currentStep == _steps.length - 1
+//                               ? 'Submit Registration'
+//                               : 'Continue',
+//                           style: TextStyle(
+//                             fontSize: 14,
+//                             fontWeight: FontWeight.w500,
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildStepContent() {
+//     switch (_currentStep) {
+//       case 0:
+//         return _buildStep1(); // Hotel Information
+//       case 1:
+//         return _buildStep2(); // Contact & Address
+//       case 2:
+//         return _buildStep3(); // Room Configuration
+//       case 3:
+//         return _buildStep4(); // Amenities & Policies
+//       case 4:
+//         return _buildStep5(); // Legal & Documents
+//       default:
+//         return Container();
+//     }
+//   }
+//
+//   // Step 1: Hotel Information
+//   Widget _buildStep1() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '1. Hotel Information',
+//           children: [
+//             _buildInputField(
+//               label: 'Hotel Name *',
+//               controller: _hotelNameController,
+//               hint: 'Enter hotel name',
+//             ),
+//             SizedBox(height: 16),
+//
+//             // Hotel Category (Fixed as 3-Star)
+//             Container(
+//               padding: EdgeInsets.all(10),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(color: _primaryColor.withOpacity(0.3)),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 38,
+//                     height: 40,
+//                     decoration: BoxDecoration(
+//                       color: _primaryColor,
+//                       borderRadius: BorderRadius.circular(6),
+//                     ),
+//                     child: Center(
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           Icon(Icons.star, size: 12, color: Colors.white),
+//                           Icon(Icons.star, size: 12, color: Colors.white),
+//                           Icon(Icons.star, size: 12, color: Colors.white),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(width: 15),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           'Hotel Category',
+//                           style: TextStyle(
+//                             fontSize: 13,
+//                             fontWeight: FontWeight.w500,
+//                             color: _textSecondary,
+//                           ),
+//                         ),
+//                         Text(
+//                           '3-Star Hotel',
+//                           style: TextStyle(
+//                             fontSize: 15,
+//                             fontWeight: FontWeight.w600,
+//                             color: _primaryColor,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//
+//             // Hotel Type
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Hotel Type *',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w500,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Wrap(
+//                   spacing: 8,
+//                   runSpacing: 8,
+//                   children: ['Business', 'Family', 'Tourist', 'Boutique']
+//                       .map((type) => _buildHotelTypeChip(type))
+//                       .toList(),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Year of Establishment',
+//                     controller: _yearController,
+//                     hint: 'YYYY',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Total Number of Rooms',
+//                     controller: _roomsController,
+//                     hint: '0',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             // _buildInputField(
+//             //   label: 'Total Number of Rooms',
+//             //   controller: _roomsController,
+//             //   hint: '0',
+//             //   keyboardType: TextInputType.number,
+//             // ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   // Step 2: Contact & Address
+//   Widget _buildStep2() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '2. Contact Details',
+//           children: [
+//             _buildInputField(
+//               label: 'Owner / Authorized Person Name *',
+//               controller: _ownerNameController,
+//               hint: 'Enter full name',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Designation',
+//               controller: _designationController,
+//               hint: 'e.g., Owner, Manager, Director',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Mobile Number *',
+//               controller: _mobileController,
+//               hint: 'Enter 10-digit mobile number',
+//               keyboardType: TextInputType.phone,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Alternate Contact Number',
+//               controller: _altMobileController,
+//               hint: 'Optional',
+//               keyboardType: TextInputType.phone,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Email ID',
+//               controller: _emailController,
+//               hint: 'example@email.com',
+//               keyboardType: TextInputType.emailAddress,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Website / Booking Link',
+//               controller: _websiteController,
+//               hint: 'https://example.com',
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '3. Hotel Address',
+//           children: [
+//             _buildInputField(
+//               label: 'Address Line 1 *',
+//               controller: _address1Controller,
+//               hint: 'Street address',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Address Line 2',
+//               controller: _address2Controller,
+//               hint: 'Apartment, suite, etc.',
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'City *',
+//                     controller: _cityController,
+//                     hint: 'Enter city',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'District *',
+//                     controller: _districtController,
+//                     hint: 'Enter district',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'State *',
+//                     controller: _stateController,
+//                     hint: 'Enter state',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'PIN Code *',
+//                     controller: _pinController,
+//                     hint: '6-digit PIN',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   // Step 3: Room Configuration
+//   Widget _buildStep3() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '4. Room Inventory & Tariff',
+//           children: [
+//             // Room Type Selection
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Select Room Types Available:',
+//                   style: TextStyle(
+//                     fontSize: 13,
+//                     fontWeight: FontWeight.w500,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 12),
+//                 Wrap(
+//                   spacing: 8,
+//                   runSpacing: 8,
+//                   children: _selectedRoomTypes.entries.map((entry) {
+//                     bool isSelected = entry.value;
+//                     return GestureDetector(
+//                       onTap: () {
+//                         setState(() {
+//                           _selectedRoomTypes[entry.key] = !isSelected;
+//                         });
+//                       },
+//                       child: Container(
+//                         padding:
+//                         EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+//                         decoration: BoxDecoration(
+//                           color: isSelected ? _primaryLight : Colors.white,
+//                           borderRadius: BorderRadius.circular(20),
+//                           border: Border.all(
+//                             color: isSelected ? _primaryColor : _borderColor,
+//                             width: isSelected ? 2 : 1,
+//                           ),
+//                         ),
+//                         child: Row(
+//                           mainAxisSize: MainAxisSize.min,
+//                           children: [
+//                             Icon(
+//                               isSelected
+//                                   ? Icons.check_circle
+//                                   : Icons.circle_outlined,
+//                               size: 16,
+//                               color: isSelected ? _primaryColor : _textSecondary,
+//                             ),
+//                             SizedBox(width: 6),
+//                             Text(
+//                               entry.key,
+//                               style: TextStyle(
+//                                 fontSize: 13,
+//                                 color:
+//                                 isSelected ? _primaryColor : _textSecondary,
+//                                 fontWeight: isSelected
+//                                     ? FontWeight.w600
+//                                     : FontWeight.w500,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     );
+//                   }).toList(),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 20),
+//
+//             // Room Configuration Table
+//             if (_selectedRoomTypes.entries.any((entry) => entry.value))
+//               Column(
+//                 children: [
+//                   Text(
+//                     'Configure selected room types:',
+//                     style: TextStyle(
+//                       fontSize: 14,
+//                       fontWeight: FontWeight.w600,
+//                       color: _textPrimary,
+//                     ),
+//                   ),
+//                   SizedBox(height: 16),
+//                   ..._selectedRoomTypes.entries
+//                       .where((entry) => entry.value)
+//                       .map((entry) {
+//                     String roomType = entry.key;
+//                     return Container(
+//                       margin: EdgeInsets.only(bottom: 16),
+//                       child: _buildRoomConfigurationCard(roomType),
+//                     );
+//                   }).toList(),
+//                 ],
+//               ),
+//
+//             SizedBox(height: 20),
+//             Divider(color: _borderColor),
+//             SizedBox(height: 20),
+//
+//             // Extra Bed & Seasonal Pricing
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Extra Bed Available:',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 20),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Seasonal Pricing:',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _seasonalPricing, () {
+//                             setState(() => _seasonalPricing = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_seasonalPricing, () {
+//                             setState(() => _seasonalPricing = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   // Step 4: Amenities & Policies
+//   Widget _buildStep4() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '5. Amenities Available',
+//           children: [
+//             // Room Amenities
+//             _buildAmenitiesSection('Room Amenities', _roomAmenities),
+//             SizedBox(height: 20),
+//
+//             // Hotel Facilities
+//             _buildAmenitiesSection('Hotel Facilities', _hotelFacilities),
+//             SizedBox(height: 20),
+//
+//             // Food & Beverage
+//             _buildAmenitiesSection('Food & Beverage', _foodServices),
+//             SizedBox(height: 20),
+//
+//             // Business & Guest Services
+//             _buildAmenitiesSection('Business & Guest Services', _businessServices),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '6. Check-in Policies',
+//           children: [
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Standard Check-in Time',
+//                     controller: _checkInController,
+//                     hint: 'HH:MM',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Standard Check-out Time',
+//                     controller: _checkOutController,
+//                     hint: 'HH:MM',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 20),
+//
+//             // Early Check-in Policies
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Early Check-in / Late Check-out:',
+//                   style: TextStyle(
+//                     fontSize: 13,
+//                     fontWeight: FontWeight.w500,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Row(
+//                           children: [
+//                             _buildToggleChip('Allowed', _earlyCheckinAllowed, () {
+//                               setState(() => _earlyCheckinAllowed = true);
+//                             }),
+//                             SizedBox(width: 8),
+//                             _buildToggleChip('Not Allowed', !_earlyCheckinAllowed,
+//                                     () {
+//                                   setState(() {
+//                                     _earlyCheckinAllowed = false;
+//                                     _earlyCheckinChargeable = false;
+//                                   });
+//                                 }),
+//                           ],
+//                         ),
+//                         SizedBox(height: 8),
+//                         if (_earlyCheckinAllowed)
+//                           Row(
+//                             children: [
+//                               _buildToggleChip(
+//                                   'Chargeable', _earlyCheckinChargeable, () {
+//                                 setState(() => _earlyCheckinChargeable = true);
+//                               }),
+//                               SizedBox(width: 8),
+//                               _buildToggleChip(
+//                                   'Free', !_earlyCheckinChargeable, () {
+//                                 setState(() => _earlyCheckinChargeable = false);
+//                               }),
+//                             ],
+//                           ),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 20),
+//
+//             // Couple & Pets Policies
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Couple Friendly:',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _coupleFriendly, () {
+//                             setState(() => _coupleFriendly = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_coupleFriendly, () {
+//                             setState(() => _coupleFriendly = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 20),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Pets Allowed:',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _petsAllowed, () {
+//                             setState(() => _petsAllowed = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_petsAllowed, () {
+//                             setState(() => _petsAllowed = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   // Step 5: Legal & Documents
+//   Widget _buildStep5() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '7. Legal & Compliance Details',
+//           children: [
+//             _buildInputField(
+//               label: 'GST Number *',
+//               controller: _gstController,
+//               hint: 'Enter GST number',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'PAN Number *',
+//               controller: _panController,
+//               hint: 'Enter PAN number',
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Trade License Number',
+//                     controller: _tradeLicenseController,
+//                     hint: 'Enter license number',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'FSSAI License',
+//                     controller: _fssaiController,
+//                     hint: 'If restaurant',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Fire Safety Certificate:',
+//                   style: TextStyle(
+//                     fontSize: 13,
+//                     fontWeight: FontWeight.w500,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     _buildToggleChip('Yes', _fireSafetyCertificate, () {
+//                       setState(() => _fireSafetyCertificate = true);
+//                     }),
+//                     SizedBox(width: 12),
+//                     _buildToggleChip('No', !_fireSafetyCertificate, () {
+//                       setState(() => _fireSafetyCertificate = false);
+//                     }),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '8. Bank Details (Payment Settlement)',
+//           children: [
+//             _buildInputField(
+//               label: 'Account Holder Name *',
+//               controller: _accountNameController,
+//               hint: 'Enter name as per bank',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Bank Name *',
+//               controller: _bankNameController,
+//               hint: 'Enter bank name',
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Account Number *',
+//                     controller: _accountNumberController,
+//                     hint: 'Enter account number',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'IFSC Code *',
+//                     controller: _ifscController,
+//                     hint: 'Enter IFSC code',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Branch',
+//               controller: _branchController,
+//               hint: 'Enter branch name',
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '9. Documents Required',
+//           children: [
+//             Text(
+//               'Please upload clear scanned copies of the following documents:',
+//               style: TextStyle(fontSize: 12, color: _textSecondary),
+//             ),
+//             SizedBox(height: 16),
+//
+//             // GST Certificate
+//             _buildDocumentUploadItem(
+//               documentName: 'GST Certificate',
+//               fileInfo: _uploadedFiles['GST Certificate']!,
+//               onUploadPressed: () => _pickDocument('GST Certificate'),
+//               onViewPressed: () => _viewDocument('GST Certificate'),
+//               onRemovePressed: () => _removeDocument('GST Certificate'),
+//               isOptional: false,
+//             ),
+//
+//             // PAN Card
+//             _buildDocumentUploadItem(
+//               documentName: 'PAN Card',
+//               fileInfo: _uploadedFiles['PAN Card']!,
+//               onUploadPressed: () => _pickDocument('PAN Card'),
+//               onViewPressed: () => _viewDocument('PAN Card'),
+//               onRemovePressed: () => _removeDocument('PAN Card'),
+//               isOptional: false,
+//             ),
+//
+//             // Trade License
+//             _buildDocumentUploadItem(
+//               documentName: 'Trade License',
+//               fileInfo: _uploadedFiles['Trade License']!,
+//               onUploadPressed: () => _pickDocument('Trade License'),
+//               onViewPressed: () => _viewDocument('Trade License'),
+//               onRemovePressed: () => _removeDocument('Trade License'),
+//               isOptional: false,
+//             ),
+//
+//             // FSSAI Certificate
+//             _buildDocumentUploadItem(
+//               documentName: 'FSSAI Certificate',
+//               fileInfo: _uploadedFiles['FSSAI Certificate']!,
+//               onUploadPressed: () => _pickDocument('FSSAI Certificate'),
+//               onViewPressed: () => _viewDocument('FSSAI Certificate'),
+//               onRemovePressed: () => _removeDocument('FSSAI Certificate'),
+//               isOptional: true,
+//             ),
+//
+//             // Fire Safety Certificate
+//             _buildDocumentUploadItem(
+//               documentName: 'Fire Safety Certificate',
+//               fileInfo: _uploadedFiles['Fire Safety Certificate']!,
+//               onUploadPressed: () => _pickDocument('Fire Safety Certificate'),
+//               onViewPressed: () => _viewDocument('Fire Safety Certificate'),
+//               onRemovePressed: () => _removeDocument('Fire Safety Certificate'),
+//               isOptional: false,
+//               optionalText: 'Required if available',
+//             ),
+//
+//             // Cancelled Cheque
+//             _buildDocumentUploadItem(
+//               documentName: 'Cancelled Cheque',
+//               fileInfo: _uploadedFiles['Cancelled Cheque']!,
+//               onUploadPressed: () => _pickDocument('Cancelled Cheque'),
+//               onViewPressed: () => _viewDocument('Cancelled Cheque'),
+//               onRemovePressed: () => _removeDocument('Cancelled Cheque'),
+//               isOptional: false,
+//             ),
+//
+//             // Hotel & Room Photos
+//             _buildDocumentUploadItem(
+//               documentName: 'Hotel & Room Photos',
+//               fileInfo: _uploadedFiles['Hotel & Room Photos']!,
+//               onUploadPressed: () => _pickDocument('Hotel & Room Photos'),
+//               onViewPressed: () => _viewDocument('Hotel & Room Photos'),
+//               onRemovePressed: () => _removeDocument('Hotel & Room Photos'),
+//               isOptional: false,
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '10. Declaration',
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _declarationAccepted
+//                     ? _successColor.withOpacity(0.05)
+//                     : Colors.white,
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(
+//                   color: _declarationAccepted ? _successColor : _borderColor,
+//                   width: _declarationAccepted ? 1.5 : 1,
+//                 ),
+//               ),
+//               child: Row(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Checkbox(
+//                     value: _declarationAccepted,
+//                     onChanged: (value) {
+//                       setState(() {
+//                         _declarationAccepted = value ?? false;
+//                       });
+//                     },
+//                     activeColor: _primaryColor,
+//                     shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                   ),
+//                   SizedBox(width: 8),
+//                   Expanded(
+//                     child: Text(
+//                       'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: Color(0xFF0C4A6E),
+//                         height: 1.5,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             SizedBox(height: 16),
+//
+//             // Signature Upload
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Signature & Hotel Seal',
+//                   style: TextStyle(
+//                     fontSize: 14,
+//                     fontWeight: FontWeight.w600,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 _buildSignatureUploadItem(),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//
+//             // Date
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Date *',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w500,
+//                     fontSize: 13,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 GestureDetector(
+//                   onTap: () => _selectDate(context),
+//                   child: Container(
+//                     height: 48,
+//                     padding: EdgeInsets.symmetric(horizontal: 12),
+//                     decoration: BoxDecoration(
+//                       border: Border.all(color: _borderColor),
+//                       borderRadius: BorderRadius.circular(8),
+//                     ),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         Text(
+//                           _selectedDate != null
+//                               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+//                               : 'Select date',
+//                           style: TextStyle(
+//                             fontSize: 14,
+//                             color: _selectedDate != null
+//                                 ? _textPrimary
+//                                 : _textSecondary,
+//                           ),
+//                         ),
+//                         Icon(
+//                           Icons.calendar_today,
+//                           size: 18,
+//                           color: _textSecondary,
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   // Helper Widgets
+//
+//   Widget _buildCard({required String title, required List<Widget> children}) {
+//     return Container(
+//       width: double.infinity,
+//       padding: EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//         color: _cardColor,
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: _borderColor),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             title,
+//             style: TextStyle(
+//               fontSize: 15,
+//               fontWeight: FontWeight.w600,
+//               color: _textPrimary,
+//             ),
+//           ),
+//           SizedBox(height: 16),
+//           ...children,
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildInputField({
+//     required String label,
+//     required TextEditingController controller,
+//     required String hint,
+//     TextInputType? keyboardType,
+//     bool isRequired = true,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Row(
+//           children: [
+//             Text(
+//               label,
+//               style: TextStyle(
+//                 fontSize: 13,
+//                 fontWeight: FontWeight.w500,
+//                 color: _textPrimary,
+//               ),
+//             ),
+//             if (isRequired)
+//               Text(
+//                 ' *',
+//                 style: TextStyle(color: Colors.red),
+//               ),
+//           ],
+//         ),
+//         SizedBox(height: 8),
+//         TextFormField(
+//           controller: controller,
+//           keyboardType: keyboardType,
+//           decoration: InputDecoration(
+//             hintText: hint,
+//             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _primaryColor),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildHotelTypeChip(String type) {
+//     bool isSelected = _selectedHotelType == type;
+//     return GestureDetector(
+//       onTap: () {
+//         setState(() {
+//           _selectedHotelType = isSelected ? null : type;
+//         });
+//       },
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(
+//             color: isSelected ? _primaryColor : _borderColor,
+//             width: isSelected ? 2 : 1,
+//           ),
+//         ),
+//         child: Text(
+//           type,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildRoomConfigurationCard(String roomType) {
+//     final details = _roomDetails[roomType]!;
+//
+//     return Container(
+//       padding: EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//         color: Colors.grey[50],
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(color: _borderColor),
+//       ),
+//       child: Column(
+//         children: [
+//           Text(
+//             roomType,
+//             style: TextStyle(
+//               fontSize: 14,
+//               fontWeight: FontWeight.w600,
+//               color: _primaryColor,
+//             ),
+//           ),
+//           SizedBox(height: 12),
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'No. of Rooms',
+//                   controller: TextEditingController(text: details['rooms']),
+//                   onChanged: (value) => details['rooms'] = value,
+//                   hint: '0',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'Max Occupancy',
+//                   controller: TextEditingController(text: details['occupancy']),
+//                   onChanged: (value) => details['occupancy'] = value,
+//                   hint: 'Persons',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'AC',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                     SizedBox(height: 8),
+//                     Row(
+//                       children: [
+//                         _buildToggleChip('Yes', details['ac'], () {
+//                           setState(() => details['ac'] = true);
+//                         }),
+//                         SizedBox(width: 8),
+//                         _buildToggleChip('No', !details['ac'], () {
+//                           setState(() => details['ac'] = false);
+//                         }),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'Bed Type',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                     SizedBox(height: 8),
+//                     Container(
+//                       height: 35,
+//                       padding: EdgeInsets.symmetric(horizontal: 8),
+//                       decoration: BoxDecoration(
+//                         border: Border.all(color: _borderColor),
+//                         borderRadius: BorderRadius.circular(6),
+//                       ),
+//                       child: DropdownButtonHideUnderline(
+//                         child: DropdownButton<String>(
+//                           value: details['bedType'],
+//                           isExpanded: true,
+//                           icon: Icon(Icons.arrow_drop_down, size: 20),
+//                           items: _bedTypes.map((String value) {
+//                             return DropdownMenuItem<String>(
+//                               value: value,
+//                               child: Text(
+//                                 value,
+//                                 style: TextStyle(fontSize: 12),
+//                               ),
+//                             );
+//                           }).toList(),
+//                           onChanged: (String? newValue) {
+//                             setState(() {
+//                               details['bedType'] = newValue!;
+//                             });
+//                           },
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//           _buildSmallInput(
+//             label: 'Average Tariff (₹)',
+//             controller: TextEditingController(text: details['price']),
+//             onChanged: (value) => details['price'] = value,
+//             hint: '0',
+//             keyboardType: TextInputType.number,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildSmallInput({
+//     required String label,
+//     required TextEditingController controller,
+//     required ValueChanged<String> onChanged,
+//     required String hint,
+//     TextInputType? keyboardType,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             fontWeight: FontWeight.w500,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         SizedBox(
+//           height: 40,
+//           child: TextFormField(
+//             controller: controller,
+//             onChanged: onChanged,
+//             keyboardType: keyboardType,
+//             decoration: InputDecoration(
+//               hintText: hint,
+//               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(6),
+//                 borderSide: BorderSide(color: _borderColor),
+//               ),
+//               isDense: true,
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(
+//             color: isSelected ? _primaryColor : _borderColor,
+//             width: isSelected ? 2 : 1,
+//           ),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildAmenitiesSection(String title, Map<String, bool> amenities) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           title,
+//           style: TextStyle(
+//             fontSize: 13,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: amenities.entries.map((entry) {
+//             bool isSelected = entry.value;
+//             return GestureDetector(
+//               onTap: () {
+//                 setState(() {
+//                   amenities[entry.key] = !isSelected;
+//                 });
+//               },
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//                 decoration: BoxDecoration(
+//                   color: isSelected ? _primaryLight : Colors.white,
+//                   borderRadius: BorderRadius.circular(16),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Icon(
+//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
+//                       size: 14,
+//                       color: isSelected ? _primaryColor : _textSecondary,
+//                     ),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       entry.key,
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: isSelected ? _primaryColor : _textSecondary,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildDocumentUploadItem({
+//     required String documentName,
+//     required Map<String, dynamic> fileInfo,
+//     required VoidCallback onUploadPressed,
+//     required VoidCallback onViewPressed,
+//     required VoidCallback onRemovePressed,
+//     bool isOptional = false,
+//     String? optionalText,
+//   }) {
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final isUploaded = (fileInfo['uploaded'] as bool?) ?? false;
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     return Container(
+//       margin: EdgeInsets.only(bottom: 12),
+//       padding: EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(
+//           color: isUploaded ? _successColor : _borderColor,
+//           width: isUploaded ? 1.5 : 1,
+//         ),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   Icon(
+//                     _getDocumentIcon(documentName),
+//                     size: 18,
+//                     color: isUploaded ? _successColor : _primaryColor,
+//                   ),
+//                   SizedBox(width: 8),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         documentName,
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                           color: isUploaded ? _successColor : _textPrimary,
+//                         ),
+//                       ),
+//                       if (isOptional && optionalText != null)
+//                         Text(
+//                           optionalText,
+//                           style: TextStyle(
+//                             fontSize: 10,
+//                             color: Colors.orange,
+//                             fontStyle: FontStyle.italic,
+//                           ),
+//                         ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//               if (isUploaded)
+//                 Row(
+//                   children: [
+//                     Icon(Icons.check_circle, color: _successColor, size: 16),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       'Uploaded',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         color: _successColor,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//             ],
+//           ),
+//           SizedBox(height: 8),
+//
+//           if (!isUploaded)
+//             SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 onPressed: onUploadPressed,
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: _primaryColor,
+//                   padding: EdgeInsets.symmetric(vertical: 10),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                 ),
+//                 child: Text(
+//                   'Upload $documentName',
+//                   style: TextStyle(color: Colors.white),
+//                 ),
+//               ),
+//             ),
+//
+//           if (isUploaded && fileName.isNotEmpty)
+//             Container(
+//               padding: EdgeInsets.all(10),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(6),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 40,
+//                     height: 40,
+//                     decoration: BoxDecoration(
+//                       color: _primaryColor.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                     child: Center(
+//                       child: _getFileIcon(fileName),
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           fileName,
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 12,
+//                             color: _textPrimary,
+//                           ),
+//                           overflow: TextOverflow.ellipsis,
+//                           maxLines: 1,
+//                         ),
+//                         SizedBox(height: 2),
+//                         Text(
+//                           '${(fileSize / 1024).toStringAsFixed(1)} KB • ${_getFileExtension(fileName).toUpperCase()}',
+//                           style: TextStyle(fontSize: 10, color: _textSecondary),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: onViewPressed,
+//                         icon: Icon(
+//                           Icons.remove_red_eye,
+//                           size: 18,
+//                           color: _primaryColor,
+//                         ),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'View',
+//                       ),
+//                       IconButton(
+//                         onPressed: onRemovePressed,
+//                         icon: Icon(Icons.delete, size: 18, color: Colors.red),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'Remove',
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildSignatureUploadItem() {
+//     final fileName = _signatureFile['name'] as String? ?? '';
+//     final isUploaded = (_signatureFile['uploaded'] as bool?) ?? false;
+//     final fileSize = (_signatureFile['size'] as int?) ?? 0;
+//
+//     Future<void> _pickSignature() async {
+//       try {
+//         FilePickerResult? result = await FilePicker.platform.pickFiles(
+//           type: FileType.custom,
+//           allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+//           allowMultiple: false,
+//         );
+//
+//         if (result != null && result.files.isNotEmpty) {
+//           final file = result.files.first;
+//
+//           if (file.size > 2 * 1024 * 1024) {
+//             _showErrorDialog(
+//               'File too large',
+//               'Please select a signature file smaller than 2MB',
+//             );
+//             return;
+//           }
+//
+//           setState(() {
+//             _signatureFile['name'] = file.name;
+//             _signatureFile['size'] = file.size;
+//             _signatureFile['path'] = file.path ?? '';
+//             _signatureFile['uploaded'] = true;
+//           });
+//
+//           ScaffoldMessenger.of(context).showSnackBar(
+//             SnackBar(
+//               content: Text('Signature uploaded successfully'),
+//               backgroundColor: _successColor,
+//               duration: Duration(seconds: 2),
+//             ),
+//           );
+//         }
+//       } catch (e) {
+//         _showErrorDialog(
+//           'Upload Error',
+//           'Failed to upload signature: ${e.toString()}',
+//         );
+//       }
+//     }
+//
+//     void _viewSignature() {
+//       if (fileName.isNotEmpty) {
+//         showDialog(
+//           context: context,
+//           builder: (context) => AlertDialog(
+//             title: Text('Signature'),
+//             content: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 Container(
+//                   width: 200,
+//                   height: 100,
+//                   decoration: BoxDecoration(
+//                     color: Colors.grey[100],
+//                     borderRadius: BorderRadius.circular(8),
+//                     border: Border.all(color: Colors.grey[300]!),
+//                   ),
+//                   child: Center(
+//                     child: Text(
+//                       'Signature Preview',
+//                       style: TextStyle(
+//                         fontSize: 16,
+//                         fontStyle: FontStyle.italic,
+//                         color: Colors.grey[600],
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: 16),
+//                 Text('File: $fileName'),
+//                 Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+//               ],
+//             ),
+//             actions: [
+//               TextButton(
+//                 onPressed: () => Navigator.pop(context),
+//                 child: Text('Close'),
+//               ),
+//             ],
+//           ),
+//         );
+//       }
+//     }
+//
+//     void _removeSignature() {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Text('Remove Signature'),
+//           content: Text('Are you sure you want to remove this signature?'),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Cancel'),
+//             ),
+//             TextButton(
+//               onPressed: () {
+//                 setState(() {
+//                   _signatureFile['name'] = '';
+//                   _signatureFile['size'] = 0;
+//                   _signatureFile['path'] = '';
+//                   _signatureFile['uploaded'] = false;
+//                 });
+//                 Navigator.pop(context);
+//                 ScaffoldMessenger.of(context).showSnackBar(
+//                   SnackBar(
+//                     content: Text('Signature removed'),
+//                     backgroundColor: Colors.orange,
+//                     duration: Duration(seconds: 2),
+//                   ),
+//                 );
+//               },
+//               child: Text('Remove', style: TextStyle(color: Colors.red)),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//
+//     return Container(
+//       padding: EdgeInsets.all(10),
+//       decoration: BoxDecoration(
+//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(
+//           color: isUploaded ? _successColor : _borderColor,
+//           width: isUploaded ? 1.5 : 1,
+//         ),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   Icon(
+//                     Icons.note_alt_outlined,
+//                     size: 20,
+//                     color: isUploaded ? _successColor : _primaryColor,
+//                   ),
+//                   SizedBox(width: 10),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Digital Signature',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w600,
+//                           fontSize: 14,
+//                           color: isUploaded ? _successColor : _textPrimary,
+//                         ),
+//                       ),
+//                       Text(
+//                         'PNG or JPG format',
+//                         style: TextStyle(
+//                           fontSize: 11,
+//                           color: _textSecondary,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//               if (isUploaded)
+//                 Row(
+//                   children: [
+//                     Icon(Icons.check_circle, color: _successColor, size: 16),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       'Uploaded',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         color: _successColor,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//
+//           if (!isUploaded)
+//             SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton.icon(
+//                 onPressed: _pickSignature,
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: _primaryColor,
+//                   padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                 ),
+//                 icon: Icon(Icons.upload, size: 18, color: Colors.white),
+//                 label: Text(
+//                   'Upload Signature',
+//                   style: TextStyle(
+//                     fontSize: 14,
+//                     fontWeight: FontWeight.w500,
+//                     color: Colors.white,
+//                   ),
+//                 ),
+//               ),
+//             ),
+//
+//           if (isUploaded && fileName.isNotEmpty)
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(8),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 50,
+//                     height: 50,
+//                     decoration: BoxDecoration(
+//                       color: _successColor.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(6),
+//                       border: Border.all(color: _successColor.withOpacity(0.3)),
+//                     ),
+//                     child: Center(
+//                       child: Icon(
+//                         Icons.note_alt_outlined,
+//                         size: 24,
+//                         color: _successColor,
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           fileName,
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 13,
+//                             color: _textPrimary,
+//                           ),
+//                           overflow: TextOverflow.ellipsis,
+//                           maxLines: 1,
+//                         ),
+//                         SizedBox(height: 4),
+//                         Text(
+//                           '${(fileSize / 1024).toStringAsFixed(1)} KB',
+//                           style: TextStyle(
+//                             fontSize: 11,
+//                             color: _textSecondary,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(width: 8),
+//                   Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: _viewSignature,
+//                         icon: Icon(
+//                           Icons.remove_red_eye,
+//                           size: 20,
+//                           color: _primaryColor,
+//                         ),
+//                         tooltip: 'Preview Signature',
+//                       ),
+//                       IconButton(
+//                         onPressed: _removeSignature,
+//                         icon: Icon(Icons.delete, size: 20, color: Colors.red),
+//                         tooltip: 'Remove Signature',
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   // File Helper Methods
+//   Widget _getFileIcon(String fileName) {
+//     final ext = _getFileExtension(fileName).toLowerCase();
+//
+//     if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
+//       return Icon(Icons.image, size: 20, color: _primaryColor);
+//     } else if (['pdf'].contains(ext)) {
+//       return Icon(Icons.picture_as_pdf, size: 20, color: Colors.red);
+//     } else if (['doc', 'docx'].contains(ext)) {
+//       return Icon(Icons.description, size: 20, color: Colors.blue);
+//     } else {
+//       return Icon(Icons.insert_drive_file, size: 20, color: _primaryColor);
+//     }
+//   }
+//
+//   String _getFileExtension(String fileName) {
+//     final dotIndex = fileName.lastIndexOf('.');
+//     return dotIndex != -1 ? fileName.substring(dotIndex + 1) : '';
+//   }
+//
+//   IconData _getDocumentIcon(String documentName) {
+//     if (documentName.contains('GST')) return Icons.receipt;
+//     if (documentName.contains('PAN')) return Icons.credit_card;
+//     if (documentName.contains('License')) return Icons.badge;
+//     if (documentName.contains('FSSAI')) return Icons.restaurant;
+//     if (documentName.contains('Fire')) return Icons.fire_extinguisher;
+//     if (documentName.contains('Cheque')) return Icons.account_balance;
+//     if (documentName.contains('Photos')) return Icons.photo_library;
+//     return Icons.description;
+//   }
+//
+//   // File Upload Methods
+//   Future<void> _pickDocument(String documentType) async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         type: FileType.custom,
+//         allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
+//         allowMultiple: false,
+//       );
+//
+//       if (result != null && result.files.isNotEmpty) {
+//         final file = result.files.first;
+//
+//         if (file.size > 5 * 1024 * 1024) {
+//           _showErrorDialog(
+//             'File too large',
+//             'Please select a file smaller than 5MB',
+//           );
+//           return;
+//         }
+//
+//         setState(() {
+//           _uploadedFiles[documentType] = {
+//             'name': file.name,
+//             'size': file.size,
+//             'path': file.path ?? '',
+//             'uploaded': true,
+//           };
+//         });
+//
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('${file.name} uploaded successfully'),
+//             backgroundColor: _successColor,
+//             duration: Duration(seconds: 2),
+//           ),
+//         );
+//       }
+//     } catch (e) {
+//       _showErrorDialog(
+//         'Upload Error',
+//         'Failed to upload file: ${e.toString()}',
+//       );
+//     }
+//   }
+//
+//   void _viewDocument(String documentType) {
+//     final fileInfo = _uploadedFiles[documentType]!;
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     if (fileName.isNotEmpty) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Row(
+//             children: [
+//               Icon(
+//                 _getDocumentIcon(documentType),
+//                 color: _primaryColor,
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Text(documentType, overflow: TextOverflow.ellipsis),
+//               ),
+//             ],
+//           ),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Container(
+//                 width: 200,
+//                 height: 100,
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey[100],
+//                   borderRadius: BorderRadius.circular(8),
+//                   border: Border.all(color: Colors.grey[300]!),
+//                 ),
+//                 child: Center(child: _getFileIcon(fileName)),
+//               ),
+//               SizedBox(height: 16),
+//               Text('File Details:', style: TextStyle(fontWeight: FontWeight.w500)),
+//               SizedBox(height: 8),
+//               Text('Name: $fileName'),
+//               Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+//               Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
+//               if (documentType == 'FSSAI Certificate')
+//                 Padding(
+//                   padding: EdgeInsets.only(top: 8),
+//                   child: Text(
+//                     'Required for hotels with restaurant facilities',
+//                     style: TextStyle(
+//                       fontSize: 12,
+//                       color: Colors.orange[700],
+//                       fontStyle: FontStyle.italic,
+//                     ),
+//                   ),
+//                 ),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Close'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   }
+//
+//   void _removeDocument(String documentType) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text('Remove Document'),
+//         content: Text('Are you sure you want to remove this document?'),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('Cancel'),
+//           ),
+//           TextButton(
+//             onPressed: () {
+//               setState(() {
+//                 _uploadedFiles[documentType] = {
+//                   'name': '',
+//                   'size': 0,
+//                   'path': '',
+//                   'uploaded': false,
+//                 };
+//               });
+//               Navigator.pop(context);
+//               ScaffoldMessenger.of(context).showSnackBar(
+//                 SnackBar(
+//                   content: Text('Document removed'),
+//                   backgroundColor: Colors.orange,
+//                   duration: Duration(seconds: 2),
+//                 ),
+//               );
+//             },
+//             child: Text('Remove', style: TextStyle(color: Colors.red)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   // Navigation Methods
+//   void _nextStep() {
+//     if (_currentStep < _steps.length - 1) {
+//       setState(() {
+//         _currentStep++;
+//       });
+//     } else {
+//       _submitForm();
+//     }
+//   }
+//
+//   void _previousStep() {
+//     if (_currentStep > 0) {
+//       setState(() {
+//         _currentStep--;
+//       });
+//     }
+//   }
+//
+//   Future<void> _selectDate(BuildContext context) async {
+//     final DateTime? picked = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(2000),
+//       lastDate: DateTime.now(),
+//     );
+//     if (picked != null && picked != _selectedDate) {
+//       setState(() {
+//         _selectedDate = picked;
+//       });
+//     }
+//   }
+//
+//   void _showErrorDialog(String title, String message) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text(title),
+//         content: Text(message),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('OK'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   // Form Submission
+//   void _submitForm() {
+//     // Check required fields
+//     if (_hotelNameController.text.isEmpty ||
+//         _ownerNameController.text.isEmpty ||
+//         _mobileController.text.isEmpty ||
+//         _address1Controller.text.isEmpty ||
+//         _cityController.text.isEmpty ||
+//         _stateController.text.isEmpty ||
+//         _pinController.text.isEmpty ||
+//         _gstController.text.isEmpty ||
+//         _panController.text.isEmpty ||
+//         _accountNameController.text.isEmpty ||
+//         _bankNameController.text.isEmpty ||
+//         _accountNumberController.text.isEmpty ||
+//         _ifscController.text.isEmpty) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please fill all required fields marked with *'),
+//           backgroundColor: Colors.red,
+//         ),
+//       );
+//       return;
+//     }
+//
+//     if (!_declarationAccepted) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please accept the declaration to proceed'),
+//           backgroundColor: Colors.orange,
+//         ),
+//       );
+//       return;
+//     }
+//
+//     if (!(_signatureFile['uploaded'] ?? false)) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please upload Digital Signature'),
+//           backgroundColor: Colors.red,
+//         ),
+//       );
+//       setState(() => _currentStep = 4);
+//       return;
+//     }
+//
+//     // Check required documents
+//     final requiredDocs = [
+//       'GST Certificate',
+//       'PAN Card',
+//       'Trade License',
+//       'Cancelled Cheque',
+//       'Hotel & Room Photos',
+//     ];
+//
+//     for (var doc in requiredDocs) {
+//       if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Please upload $doc'),
+//             backgroundColor: Colors.red,
+//           ),
+//         );
+//         setState(() => _currentStep = 4);
+//         return;
+//       }
+//     }
+//
+//     // Prepare form data
+//     Map<String, dynamic> formData = {
+//       'hotelName': _hotelNameController.text,
+//       'hotelCategory': '3-Star',
+//       'hotelType': _selectedHotelType,
+//       'yearOfEstablishment': _yearController.text,
+//       'registrationNumber': _registrationNumberController.text,
+//       'totalRooms': _roomsController.text,
+//       'ownerName': _ownerNameController.text,
+//       'designation': _designationController.text,
+//       'mobileNumber': _mobileController.text,
+//       'alternateContact': _altMobileController.text,
+//       'email': _emailController.text,
+//       'website': _websiteController.text,
+//       'addressLine1': _address1Controller.text,
+//       'addressLine2': _address2Controller.text,
+//       'city': _cityController.text,
+//       'district': _districtController.text,
+//       'state': _stateController.text,
+//       'pinCode': _pinController.text,
+//       'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
+//       'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
+//       'extraBedAvailable': _extraBedAvailable,
+//       'seasonalPricing': _seasonalPricing,
+//       'checkInTime': _checkInController.text,
+//       'checkOutTime': _checkOutController.text,
+//       'earlyCheckinAllowed': _earlyCheckinAllowed,
+//       'earlyCheckinChargeable': _earlyCheckinChargeable,
+//       'coupleFriendly': _coupleFriendly,
+//       'petsAllowed': _petsAllowed,
+//       'roomAmenities': Map<String, bool>.from(_roomAmenities),
+//       'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
+//       'foodServices': Map<String, bool>.from(_foodServices),
+//       'businessServices': Map<String, bool>.from(_businessServices),
+//       'gstNumber': _gstController.text,
+//       'panNumber': _panController.text,
+//       'tradeLicense': _tradeLicenseController.text,
+//       'fssaiLicense': _fssaiController.text,
+//       'fireSafetyCertificate': _fireSafetyCertificate,
+//       'accountHolderName': _accountNameController.text,
+//       'bankName': _bankNameController.text,
+//       'accountNumber': _accountNumberController.text,
+//       'ifscCode': _ifscController.text,
+//       'branch': _branchController.text,
+//       'uploadedFiles': _uploadedFiles,
+//       'signatureFile': _signatureFile,
+//       'signatoryName': _signatoryNameController.text,
+//       'declarationDate': _selectedDate,
+//       'declarationAccepted': _declarationAccepted,
+//     };
+//
+//     // Navigate to summary screen
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => RegistrationSummaryScreen(
+//           registrationData: formData,
+//           hotelCategory: '3-Star',
+//           declarationAccepted: _declarationAccepted,
+//         ),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     // Dispose all controllers
+//     _hotelNameController.dispose();
+//     _yearController.dispose();
+//     _registrationNumberController.dispose();
+//     _roomsController.dispose();
+//     _ownerNameController.dispose();
+//     _designationController.dispose();
+//     _mobileController.dispose();
+//     _altMobileController.dispose();
+//     _emailController.dispose();
+//     _websiteController.dispose();
+//     _address1Controller.dispose();
+//     _address2Controller.dispose();
+//     _cityController.dispose();
+//     _districtController.dispose();
+//     _stateController.dispose();
+//     _pinController.dispose();
+//     _checkInController.dispose();
+//     _checkOutController.dispose();
+//     _gstController.dispose();
+//     _panController.dispose();
+//     _tradeLicenseController.dispose();
+//     _fssaiController.dispose();
+//     _accountNameController.dispose();
+//     _bankNameController.dispose();
+//     _accountNumberController.dispose();
+//     _ifscController.dispose();
+//     _branchController.dispose();
+//     _signatoryNameController.dispose();
+//     super.dispose();
+//   }
+// }
+//
+// class FourStarHotelRegistrationScreen extends StatefulWidget {
+//   const FourStarHotelRegistrationScreen({super.key});
+//
+//   @override
+//   State<FourStarHotelRegistrationScreen> createState() =>
+//       _FourStarHotelRegistrationScreenState();
+// }
+//
+// class _FourStarHotelRegistrationScreenState
+//     extends State<FourStarHotelRegistrationScreen> {
+//   final _formKey = GlobalKey<FormState>();
+//   int _currentStep = 0;
+//
+//   final Color _primaryColor = Color(0xFF4F46E5);
+//   final Color _primaryLight = Color(0xFFEEF2FF);
+//   final Color _bgColor = Color(0xFFFAFAFA);
+//   final Color _cardColor = Colors.white;
+//   final Color _borderColor = Color(0xFFE5E7EB);
+//   final Color _textPrimary = Color(0xFF111827);
+//   final Color _textSecondary = Color(0xFF6B7280);
+//   final Color _successColor = Color(0xFF10B981);
+//   final Color _goldColor = Color(0xFFFFD700);
+//
+//   // Text Controllers
+//   final TextEditingController _hotelNameController = TextEditingController();
+//   final TextEditingController _registrationNoController =
+//   TextEditingController();
+//   final TextEditingController _yearController = TextEditingController();
+//   final TextEditingController _totalRoomsController = TextEditingController();
+//   final TextEditingController _ownerNameController = TextEditingController();
+//   final TextEditingController _designationController = TextEditingController();
+//   final TextEditingController _mobileController = TextEditingController();
+//   final TextEditingController _altMobileController = TextEditingController();
+//   final TextEditingController _emailController = TextEditingController();
+//   final TextEditingController _websiteController = TextEditingController();
+//   final TextEditingController _address1Controller = TextEditingController();
+//   final TextEditingController _address2Controller = TextEditingController();
+//   final TextEditingController _cityController = TextEditingController();
+//   final TextEditingController _districtController = TextEditingController();
+//   final TextEditingController _stateController = TextEditingController();
+//   final TextEditingController _pinController = TextEditingController();
+//   final TextEditingController _checkInController = TextEditingController();
+//   final TextEditingController _checkOutController = TextEditingController();
+//   final TextEditingController _gstController = TextEditingController();
+//   final TextEditingController _panController = TextEditingController();
+//   final TextEditingController _tradeLicenseController =
+//   TextEditingController();
+//   final TextEditingController _fssaiController = TextEditingController();
+//   final TextEditingController _fireSafetyController = TextEditingController();
+//   final TextEditingController _pollutionController = TextEditingController();
+//   final TextEditingController _starCertController = TextEditingController();
+//   final TextEditingController _accountNameController = TextEditingController();
+//   final TextEditingController _bankNameController = TextEditingController();
+//   final TextEditingController _accountNumberController =
+//   TextEditingController();
+//   final TextEditingController _ifscController = TextEditingController();
+//   final TextEditingController _branchController = TextEditingController();
+//   final TextEditingController _signatoryNameController =
+//   TextEditingController();
+//   final TextEditingController _signatoryDesignationController =
+//   TextEditingController();
+//   final TextEditingController _declarationDateController =
+//   TextEditingController();
+//
+//   // Room Details for 4-Star Hotel
+//   final Map<String, Map<String, dynamic>> _roomDetails = {
+//     'Superior Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//     'Deluxe Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//     'Executive Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//     'Suite Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//   };
+//
+//   List<String> _hotelTypes = ['Business', 'Leisure', 'Resort', 'Boutique'];
+//   String? _selectedHotelType;
+//   bool _extraBedAvailable = false;
+//   bool _seasonalPricing = false;
+//   bool _coupleFriendly = false;
+//   bool _petsAllowed = false;
+//   bool _declarationAccepted = false;
+//   TimeOfDay? _checkInTime;
+//   TimeOfDay? _checkOutTime;
+//
+//   // Early/Late Check options
+//   String? _earlyCheckInOption;
+//   String? _lateCheckOutOption;
+//
+//   // Amenities Categories
+//   Map<String, bool> _inRoomAmenities = {
+//     'Central Air Conditioning': false,
+//     'High-Speed Wi-Fi': false,
+//     'Smart / LED TV': false,
+//     'Work Desk & Ergonomic Chair': false,
+//     'Mini Bar': false,
+//     'Tea & Coffee Maker': false,
+//     'In-Room Safe': false,
+//     'Premium Toiletries': false,
+//     'Bath Tub / Rain Shower': false,
+//     'Hair Dryer & Shaving Kit': false,
+//     '24-Hour Room Service': false,
+//   };
+//
+//   Map<String, bool> _hotelFacilities = {
+//     '24-Hour Front Desk & Concierge': false,
+//     'Valet Parking': false,
+//     'Lift / Elevator': false,
+//     'Power Backup': false,
+//     'Daily Housekeeping (2×)': false,
+//     'Luggage Storage': false,
+//     'CCTV & Access Control': false,
+//     'Fire Detection & Sprinkler System': false,
+//     'Wheelchair-Friendly Access': false,
+//   };
+//
+//   Map<String, bool> _foodBeverageEvents = {
+//     'Multi-Cuisine Fine Dining Restaurant': false,
+//     'All-Day Dining Café': false,
+//     'Complimentary Breakfast Buffet': false,
+//     'Bar / Lounge': false,
+//     'Banquet Hall': false,
+//     'Conference & Meeting Rooms': false,
+//     'Outdoor Event / Lawn Space': false,
+//   };
+//
+//   Map<String, bool> _wellnessRecreation = {
+//     'Fitness Center / Gym': false,
+//     'Spa & Wellness Center': false,
+//     'Swimming Pool': false,
+//     'Yoga / Wellness Programs': false,
+//   };
+//
+//   Map<String, bool> _guestBusinessServices = {
+//     'Business Center': false,
+//     'Secretarial Services': false,
+//     'Airport Transfers': false,
+//     'Travel Desk': false,
+//     'Laundry & Dry Cleaning': false,
+//     'Doctor on Call': false,
+//     'Childcare / Babysitting': false,
+//     'Currency Exchange': false,
+//   };
+//
+//   // Legal & Compliance
+//   Map<String, bool> _complianceCertificates = {
+//     'Fire Safety Certificate': false,
+//     'Pollution Control Certificate': false,
+//     'Star Classification Certificate': false,
+//   };
+//
+//   // Documents
+//   final Map<String, Map<String, dynamic>> _uploadedFiles = {
+//     'GST Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'PAN Card': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Trade License': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'FSSAI Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Fire Safety NOC': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Star Classification Certificate': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false
+//     },
+//     'Cancelled Cheque': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Property & Room Photographs': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false
+//     },
+//   };
+//
+//   final List<Map<String, dynamic>> _steps = [
+//     {'title': 'Hotel Profile', 'subtitle': 'Basic hotel information'},
+//     {'title': 'Contact Details', 'subtitle': 'Management & contact information'},
+//     {'title': 'Address', 'subtitle': 'Hotel location details'},
+//     {'title': 'Rooms & Rates', 'subtitle': 'Room inventory and pricing'},
+//     {'title': 'Amenities', 'subtitle': 'Facilities and services'},
+//     {'title': 'Policies', 'subtitle': 'Guest policies and compliance'},
+//     {'title': 'Bank & Documents', 'subtitle': 'Payment and documentation'},
+//   ];
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: _bgColor,
+//       appBar: AppBar(
+//         backgroundColor: Colors.white,
+//         elevation: 0,
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back, color: _textPrimary),
+//           onPressed: () => Navigator.pop(context),
+//         ),
+//         title: Row(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Icon(Icons.star, color: _goldColor, size: 20),
+//             SizedBox(width: 8),
+//             Text(
+//               '4-Star Hotel Registration',
+//               style: TextStyle(
+//                 fontSize: 18,
+//                 fontWeight: FontWeight.w600,
+//                 color: _textPrimary,
+//               ),
+//             ),
+//             SizedBox(width: 8),
+//             Icon(Icons.star, color: _goldColor, size: 20),
+//           ],
+//         ),
+//         centerTitle: true,
+//       ),
+//       body: Form(
+//         key: _formKey,
+//         child: Column(
+//           children: [
+//             // Stepper Header
+//             Container(
+//               padding: EdgeInsets.all(5),
+//               color: Colors.white,
+//               child: Column(
+//                 children: [
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: List.generate(_steps.length, (index) {
+//                         bool isActive = index == _currentStep;
+//                         bool isCompleted = index < _currentStep;
+//
+//                         return Container(
+//                           margin: EdgeInsets.symmetric(horizontal: 2),
+//                           child: GestureDetector(
+//                             onTap: () {
+//                               if (index <= _currentStep) {
+//                                 setState(() {
+//                                   _currentStep = index;
+//                                 });
+//                               }
+//                             },
+//                             child: Column(
+//                               children: [
+//                                 Container(
+//                                   width: 32,
+//                                   height: 32,
+//                                   decoration: BoxDecoration(
+//                                     shape: BoxShape.circle,
+//                                     color: isActive
+//                                         ? _primaryColor
+//                                         : isCompleted
+//                                         ? _successColor
+//                                         : Colors.white,
+//                                     border: Border.all(
+//                                       color: isActive || isCompleted
+//                                           ? Colors.transparent
+//                                           : _borderColor,
+//                                       width: 2,
+//                                     ),
+//                                   ),
+//                                   child: Center(
+//                                     child: isCompleted
+//                                         ? Icon(
+//                                       Icons.check,
+//                                       size: 18,
+//                                       color: Colors.white,
+//                                     )
+//                                         : Text(
+//                                       '${index + 1}',
+//                                       style: TextStyle(
+//                                         color: isActive || isCompleted
+//                                             ? Colors.white
+//                                             : _textSecondary,
+//                                         fontWeight: FontWeight.w600,
+//                                         fontSize: 14,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 8),
+//                                 SizedBox(
+//                                   width: 70,
+//                                   child: Text(
+//                                     _steps[index]['title'],
+//                                     style: TextStyle(
+//                                       fontSize: 11,
+//                                       fontWeight: FontWeight.w500,
+//                                       color: isActive || isCompleted
+//                                           ? _textPrimary
+//                                           : _textSecondary,
+//                                     ),
+//                                     textAlign: TextAlign.center,
+//                                     maxLines: 2,
+//                                     overflow: TextOverflow.ellipsis,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       }),
+//                     ),
+//                   ),
+//                   SizedBox(height: 16),
+//                   LinearProgressIndicator(
+//                     value: (_currentStep + 1) / _steps.length,
+//                     backgroundColor: _borderColor,
+//                     color: _primaryColor,
+//                     minHeight: 4,
+//                     borderRadius: BorderRadius.circular(2),
+//                   ),
+//                   SizedBox(height: 8),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Text(
+//                         'Step ${_currentStep + 1} of ${_steps.length}',
+//                         style: TextStyle(fontSize: 12, color: _textSecondary),
+//                       ),
+//                       Text(
+//                         '${((_currentStep + 1) / _steps.length * 100).toInt()}%',
+//                         style: TextStyle(
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w600,
+//                           color: _primaryColor,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             // Step Content
+//             Expanded(
+//               child: SingleChildScrollView(
+//                 padding: EdgeInsets.all(16),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Container(
+//                       margin: EdgeInsets.only(bottom: 20),
+//                       padding: EdgeInsets.all(16),
+//                       decoration: BoxDecoration(
+//                         color: _cardColor,
+//                         borderRadius: BorderRadius.circular(12),
+//                         border: Border.all(color: _borderColor),
+//                       ),
+//                       child: Row(
+//                         children: [
+//                           Container(
+//                             width: 40,
+//                             height: 40,
+//                             decoration: BoxDecoration(
+//                               color: _primaryLight,
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                             child: Center(
+//                               child: Text(
+//                                 '${_currentStep + 1}',
+//                                 style: TextStyle(
+//                                   fontSize: 16,
+//                                   fontWeight: FontWeight.w700,
+//                                   color: _primaryColor,
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           SizedBox(width: 12),
+//                           Expanded(
+//                             child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Row(
+//                                   children: [
+//                                     Text(
+//                                       '4-STAR HOTEL - ',
+//                                       style: TextStyle(
+//                                         fontSize: 14,
+//                                         fontWeight: FontWeight.w700,
+//                                         color: _goldColor,
+//                                       ),
+//                                     ),
+//                                     Text(
+//                                       _steps[_currentStep]['title'],
+//                                       style: TextStyle(
+//                                         fontSize: 16,
+//                                         fontWeight: FontWeight.w600,
+//                                         color: _textPrimary,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 SizedBox(height: 4),
+//                                 Text(
+//                                   _steps[_currentStep]['subtitle'],
+//                                   style: TextStyle(
+//                                     fontSize: 12,
+//                                     color: _textSecondary,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//
+//                     _buildStepContent(),
+//                     SizedBox(height: 32),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//             // Navigation Buttons
+//             Container(
+//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 border: Border(top: BorderSide(color: _borderColor)),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black.withOpacity(0.05),
+//                     blurRadius: 8,
+//                     offset: Offset(0, -2),
+//                   ),
+//                 ],
+//               ),
+//               child: Row(
+//                 children: [
+//                   if (_currentStep > 0)
+//                     Expanded(
+//                       child: SizedBox(
+//                         height: 55,
+//                         child: OutlinedButton(
+//                           onPressed: _previousStep,
+//                           style: OutlinedButton.styleFrom(
+//                             side: BorderSide(color: _borderColor),
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                           ),
+//                           child: Text(
+//                             'Back',
+//                             style: TextStyle(
+//                               fontSize: 14,
+//                               fontWeight: FontWeight.w500,
+//                               color: _textPrimary,
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   if (_currentStep > 0) SizedBox(width: 12),
+//                   Expanded(
+//                     child: SizedBox(
+//                       height: 58,
+//                       child: ElevatedButton(
+//                         onPressed: _nextStep,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: _primaryColor,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           elevation: 0,
+//                         ),
+//                         child: Text(
+//                           _currentStep == _steps.length - 1
+//                               ? 'Submit Registration'
+//                               : 'Next',
+//                           style: TextStyle(
+//                             fontSize: 14,
+//                             fontWeight: FontWeight.w500,
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildStepContent() {
+//     switch (_currentStep) {
+//       case 0:
+//         return _buildStep1();
+//       case 1:
+//         return _buildStep2();
+//       case 2:
+//         return _buildStep3();
+//       case 3:
+//         return _buildStep4();
+//       case 4:
+//         return _buildStep5();
+//       case 5:
+//         return _buildStep6();
+//       case 6:
+//         return _buildStep7();
+//       default:
+//         return Container();
+//     }
+//   }
+//
+//   Widget _buildStep1() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Hotel Profile',
+//           children: [
+//             _buildInputField(
+//               label: 'Hotel Name *',
+//               controller: _hotelNameController,
+//               hint: 'Enter 4-star hotel name',
+//               prefixIcon: Icons.business,
+//             ),
+//             SizedBox(height: 16),
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _goldColor.withOpacity(0.1),
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(color: _goldColor),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Icon(Icons.star, color: _goldColor),
+//                   SizedBox(width: 8),
+//                   Text(
+//                     '4-Star Hotel Category',
+//                     style: TextStyle(
+//                       fontWeight: FontWeight.w600,
+//                       color: Colors.brown,
+//                     ),
+//                   ),
+//                   Spacer(),
+//                   Icon(Icons.verified, color: _successColor),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Hotel Type *',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w500,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Wrap(
+//                   spacing: 8,
+//                   runSpacing: 8,
+//                   children: _hotelTypes.map((type) => _buildChip(type)).toList(),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Year of Establishment',
+//                     controller: _yearController,
+//                     hint: 'YYYY',
+//                     keyboardType: TextInputType.number,
+//                     prefixIcon: Icons.calendar_today,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Registration / Star Classification No.',
+//                     controller: _registrationNoController,
+//                     hint: 'Enter registration number',
+//                     prefixIcon: Icons.confirmation_number,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Total Number of Rooms',
+//               controller: _totalRoomsController,
+//               hint: 'Enter total rooms',
+//               keyboardType: TextInputType.number,
+//               prefixIcon: Icons.hotel,
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep2() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Contact & Management Details',
+//           children: [
+//             _buildInputField(
+//               label: 'Owner / Authorized Representative *',
+//               controller: _ownerNameController,
+//               hint: 'Enter full name',
+//               prefixIcon: Icons.person,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Designation',
+//               controller: _designationController,
+//               hint: 'e.g., General Manager, Owner',
+//               prefixIcon: Icons.badge,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Mobile Number *',
+//               controller: _mobileController,
+//               hint: 'Enter mobile number',
+//               keyboardType: TextInputType.phone,
+//               prefixIcon: Icons.phone,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Alternate Contact',
+//               controller: _altMobileController,
+//               hint: 'Optional alternate contact',
+//               keyboardType: TextInputType.phone,
+//               prefixIcon: Icons.phone_android,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Email ID *',
+//               controller: _emailController,
+//               hint: 'official@hotel.com',
+//               keyboardType: TextInputType.emailAddress,
+//               prefixIcon: Icons.email,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Official Website / Booking Engine',
+//               controller: _websiteController,
+//               hint: 'https://www.hotelwebsite.com',
+//               prefixIcon: Icons.language,
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep3() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Hotel Address',
+//           children: [
+//             _buildInputField(
+//               label: 'Address Line 1 *',
+//               controller: _address1Controller,
+//               hint: 'Street address, building name',
+//               prefixIcon: Icons.location_on,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Address Line 2',
+//               controller: _address2Controller,
+//               hint: 'Area, landmark',
+//               prefixIcon: Icons.location_city,
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'City *',
+//                     controller: _cityController,
+//                     hint: 'Enter city',
+//                     prefixIcon: Icons.location_city,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'District *',
+//                     controller: _districtController,
+//                     hint: 'Enter district',
+//                     prefixIcon: Icons.map,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'State *',
+//                     controller: _stateController,
+//                     hint: 'Enter state',
+//                     prefixIcon: Icons.flag,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'PIN Code *',
+//                     controller: _pinController,
+//                     hint: '6-digit PIN',
+//                     keyboardType: TextInputType.number,
+//                     prefixIcon: Icons.markunread_mailbox,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep4() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Room Inventory & Pricing',
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: Colors.grey[50],
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(color: _borderColor),
+//               ),
+//               child: Table(
+//                 columnWidths: {
+//                   0: FlexColumnWidth(2),
+//                   1: FlexColumnWidth(1),
+//                   2: FlexColumnWidth(1),
+//                   3: FlexColumnWidth(1.5),
+//                   4: FlexColumnWidth(1.5),
+//                 },
+//                 children: [
+//                   TableRow(
+//                     decoration: BoxDecoration(
+//                       border: Border(bottom: BorderSide(color: _borderColor)),
+//                     ),
+//                     children: [
+//                       _buildTableHeader('Room Category'),
+//                       _buildTableHeader('No. of Rooms'),
+//                       _buildTableHeader('Max Occupancy'),
+//                       _buildTableHeader('Bed Type'),
+//                       _buildTableHeader('Avg Tariff (₹)'),
+//                     ],
+//                   ),
+//                   ..._roomDetails.entries.map((entry) {
+//                     return TableRow(
+//                       decoration: BoxDecoration(
+//                         border: Border(bottom: BorderSide(color: _borderColor)),
+//                       ),
+//                       children: [
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 8),
+//                           child: Text(
+//                             entry.key,
+//                             style: TextStyle(
+//                               fontWeight: FontWeight.w500,
+//                               fontSize: 12,
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['rooms']),
+//                               onChanged: (value) =>
+//                               entry.value['rooms'] = value,
+//                               keyboardType: TextInputType.number,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: '0',
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['occupancy']),
+//                               onChanged: (value) =>
+//                               entry.value['occupancy'] = value,
+//                               keyboardType: TextInputType.number,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: 'Persons',
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['bedType']),
+//                               onChanged: (value) =>
+//                               entry.value['bedType'] = value,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: 'e.g., King',
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['tariff']),
+//                               onChanged: (value) =>
+//                               entry.value['tariff'] = value,
+//                               keyboardType: TextInputType.number,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: '₹',
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     );
+//                   }).toList(),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Extra Bed Facility:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Seasonal / Dynamic Pricing:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _seasonalPricing, () {
+//                             setState(() => _seasonalPricing = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_seasonalPricing, () {
+//                             setState(() => _seasonalPricing = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep5() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Amenities & Facilities',
+//           children: [
+//             Text(
+//               'Please select all applicable amenities for your 4-star hotel',
+//               style: TextStyle(
+//                 fontSize: 12,
+//                 color: _textSecondary,
+//                 fontStyle: FontStyle.italic,
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//             _buildAmenitiesSection('In-Room Amenities', _inRoomAmenities),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection('Hotel Facilities', _hotelFacilities),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection(
+//                 'Food, Beverage & Events', _foodBeverageEvents),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection(
+//                 'Wellness & Recreation', _wellnessRecreation),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection(
+//                 'Guest & Business Services', _guestBusinessServices),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep6() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Guest Policies',
+//           children: [
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Standard Check-In Time',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       GestureDetector(
+//                         onTap: () => _selectCheckInTime(context),
+//                         child: Container(
+//                           height: 48,
+//                           padding: EdgeInsets.symmetric(horizontal: 12),
+//                           decoration: BoxDecoration(
+//                             border: Border.all(color: _borderColor),
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [
+//                               Text(
+//                                 _checkInTime != null
+//                                     ? _checkInTime!.format(context)
+//                                     : 'Select time',
+//                                 style: TextStyle(
+//                                   fontSize: 14,
+//                                   color: _checkInTime != null
+//                                       ? _textPrimary
+//                                       : _textSecondary,
+//                                 ),
+//                               ),
+//                               Icon(
+//                                 Icons.access_time,
+//                                 size: 18,
+//                                 color: _textSecondary,
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Standard Check-Out Time',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       GestureDetector(
+//                         onTap: () => _selectCheckOutTime(context),
+//                         child: Container(
+//                           height: 48,
+//                           padding: EdgeInsets.symmetric(horizontal: 12),
+//                           decoration: BoxDecoration(
+//                             border: Border.all(color: _borderColor),
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [
+//                               Text(
+//                                 _checkOutTime != null
+//                                     ? _checkOutTime!.format(context)
+//                                     : 'Select time',
+//                                 style: TextStyle(
+//                                   fontSize: 14,
+//                                   color: _checkOutTime != null
+//                                       ? _textPrimary
+//                                       : _textSecondary,
+//                                 ),
+//                               ),
+//                               Icon(
+//                                 Icons.access_time,
+//                                 size: 18,
+//                                 color: _textSecondary,
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Early Check-In',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       DropdownButtonFormField<String>(
+//                         value: _earlyCheckInOption,
+//                         items: [
+//                           DropdownMenuItem(
+//                             value: 'Complimentary',
+//                             child: Text('Complimentary'),
+//                           ),
+//                           DropdownMenuItem(
+//                             value: 'Chargeable',
+//                             child: Text('Chargeable'),
+//                           ),
+//                         ],
+//                         onChanged: (value) {
+//                           setState(() {
+//                             _earlyCheckInOption = value;
+//                           });
+//                         },
+//                         decoration: InputDecoration(
+//                           hintText: 'Select option',
+//                           border: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                         ),
+//                         isExpanded: true,
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Late Check-Out',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       DropdownButtonFormField<String>(
+//                         value: _lateCheckOutOption,
+//                         items: [
+//                           DropdownMenuItem(
+//                             value: 'Complimentary',
+//                             child: Text('Complimentary'),
+//                           ),
+//                           DropdownMenuItem(
+//                             value: 'Chargeable',
+//                             child: Text('Chargeable'),
+//                           ),
+//                         ],
+//                         onChanged: (value) {
+//                           setState(() {
+//                             _lateCheckOutOption = value;
+//                           });
+//                         },
+//                         decoration: InputDecoration(
+//                           hintText: 'Select option',
+//                           border: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                         ),
+//                         isExpanded: true,
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Couple Friendly:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _coupleFriendly, () {
+//                             setState(() => _coupleFriendly = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_coupleFriendly, () {
+//                             setState(() => _coupleFriendly = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Pets Allowed:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _petsAllowed, () {
+//                             setState(() => _petsAllowed = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_petsAllowed, () {
+//                             setState(() => _petsAllowed = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: 'Legal, Safety & Compliance',
+//           children: [
+//             _buildInputField(
+//               label: 'GST Number *',
+//               controller: _gstController,
+//               hint: 'Enter 15-digit GST number',
+//               prefixIcon: Icons.receipt,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'PAN Number *',
+//               controller: _panController,
+//               hint: 'Enter PAN number',
+//               prefixIcon: Icons.credit_card,
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Trade License No.',
+//                     controller: _tradeLicenseController,
+//                     hint: 'Enter license number',
+//                     prefixIcon: Icons.badge,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'FSSAI License No.',
+//                     controller: _fssaiController,
+//                     hint: 'If restaurant',
+//                     prefixIcon: Icons.restaurant,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildComplianceSection(),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep7() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Bank Details (Vendor Settlement)',
+//           children: [
+//             _buildInputField(
+//               label: 'Account Holder Name *',
+//               controller: _accountNameController,
+//               hint: 'Enter name as per bank records',
+//               prefixIcon: Icons.person_outline,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Bank Name *',
+//               controller: _bankNameController,
+//               hint: 'Enter bank name',
+//               prefixIcon: Icons.account_balance,
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Account Number *',
+//                     controller: _accountNumberController,
+//                     hint: 'Enter account number',
+//                     keyboardType: TextInputType.number,
+//                     prefixIcon: Icons.numbers,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'IFSC Code *',
+//                     controller: _ifscController,
+//                     hint: 'Enter IFSC code',
+//                     prefixIcon: Icons.code,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Branch',
+//               controller: _branchController,
+//               hint: 'Enter branch name',
+//               prefixIcon: Icons.location_city,
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: 'Documents Required',
+//           children: [
+//             Text(
+//               'Upload clear scanned copies of all required documents',
+//               style: TextStyle(fontSize: 12, color: _textSecondary),
+//             ),
+//             SizedBox(height: 16),
+//             ..._uploadedFiles.entries.map(
+//                   (entry) => _buildDocumentUploadItem(
+//                 documentName: entry.key,
+//                 fileInfo: entry.value,
+//                 onUploadPressed: () => _pickDocument(entry.key),
+//                 onViewPressed: () => _viewDocument(entry.key),
+//                 onRemovePressed: () => _removeDocument(entry.key),
+//               ),
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: 'Declaration',
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _declarationAccepted
+//                     ? _successColor.withOpacity(0.05)
+//                     : Colors.white,
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(
+//                   color: _declarationAccepted ? _successColor : _borderColor,
+//                   width: _declarationAccepted ? 1.5 : 1,
+//                 ),
+//               ),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Row(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Checkbox(
+//                         value: _declarationAccepted,
+//                         onChanged: (value) {
+//                           setState(() {
+//                             _declarationAccepted = value ?? false;
+//                           });
+//                         },
+//                         activeColor: _primaryColor,
+//                         shape: RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.circular(4),
+//                         ),
+//                       ),
+//                       Expanded(
+//                         child: Text(
+//                           'I hereby declare that all information provided above is accurate and complete. '
+//                               'I agree to comply with vendor terms, service quality standards, and applicable laws.',
+//                           style: TextStyle(
+//                             fontSize: 12,
+//                             color: Color(0xFF0C4A6E),
+//                             height: 1.5,
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 16),
+//                   Row(
+//                     children: [
+//                       Expanded(
+//                         child: _buildInputField(
+//                           label: 'Authorized Signatory Name',
+//                           controller: _signatoryNameController,
+//                           hint: 'Enter full name',
+//                         ),
+//                       ),
+//                       SizedBox(width: 16),
+//                       Expanded(
+//                         child: _buildInputField(
+//                           label: 'Designation',
+//                           controller: _signatoryDesignationController,
+//                           hint: 'Enter designation',
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 16),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Signature & Hotel Seal:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Text(
+//                         'Please upload scanned copy of signature with hotel seal',
+//                         style: TextStyle(
+//                           fontSize: 11,
+//                           color: _textSecondary,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       _buildDocumentUploadItem(
+//                         documentName: 'Signature & Hotel Seal',
+//                         fileInfo: _uploadedFiles['Cancelled Cheque']!,
+//                         onUploadPressed: () =>
+//                             _pickDocument('Signature & Hotel Seal'),
+//                         onViewPressed: () =>
+//                             _viewDocument('Signature & Hotel Seal'),
+//                         onRemovePressed: () =>
+//                             _removeDocument('Signature & Hotel Seal'),
+//                         signatureHint: 'Upload signature with hotel seal',
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 16),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Date',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       GestureDetector(
+//                         onTap: () => _selectDeclarationDate(context),
+//                         child: Container(
+//                           height: 48,
+//                           padding: EdgeInsets.symmetric(horizontal: 12),
+//                           decoration: BoxDecoration(
+//                             border: Border.all(color: _borderColor),
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [
+//                               Text(
+//                                 _declarationDateController.text.isNotEmpty
+//                                     ? _declarationDateController.text
+//                                     : 'Select date',
+//                                 style: TextStyle(
+//                                   fontSize: 14,
+//                                   color: _declarationDateController
+//                                       .text.isNotEmpty
+//                                       ? _textPrimary
+//                                       : _textSecondary,
+//                                 ),
+//                               ),
+//                               Icon(
+//                                 Icons.calendar_today,
+//                                 size: 18,
+//                                 color: _textSecondary,
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildCard({required String title, required List<Widget> children}) {
+//     return Container(
+//       width: double.infinity,
+//       padding: EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//         color: _cardColor,
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: _borderColor),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             title,
+//             style: TextStyle(
+//               fontSize: 15,
+//               fontWeight: FontWeight.w600,
+//               color: _textPrimary,
+//             ),
+//           ),
+//           SizedBox(height: 16),
+//           ...children,
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildInputField({
+//     required String label,
+//     required TextEditingController controller,
+//     required String hint,
+//     TextInputType? keyboardType,
+//     IconData? prefixIcon,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 13,
+//             fontWeight: FontWeight.w500,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         TextFormField(
+//           controller: controller,
+//           keyboardType: keyboardType,
+//           decoration: InputDecoration(
+//             hintText: hint,
+//             prefixIcon:
+//             prefixIcon != null ? Icon(prefixIcon, size: 20) : null,
+//             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _primaryColor),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildTableHeader(String text) {
+//     return Padding(
+//       padding: EdgeInsets.symmetric(vertical: 8),
+//       child: Text(
+//         text,
+//         style: TextStyle(
+//           fontWeight: FontWeight.w600,
+//           fontSize: 12,
+//           color: _textPrimary,
+//         ),
+//         textAlign: TextAlign.center,
+//       ),
+//     );
+//   }
+//
+//   Widget _buildChip(String label) {
+//     bool isSelected = _selectedHotelType == label;
+//     return GestureDetector(
+//       onTap: () {
+//         setState(() {
+//           _selectedHotelType = isSelected ? null : label;
+//         });
+//       },
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(color: isSelected ? _primaryColor : _borderColor),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(color: isSelected ? _primaryColor : _borderColor),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildAmenitiesSection(String title, Map<String, bool> amenities) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           title,
+//           style: TextStyle(
+//             fontSize: 14,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: amenities.entries.map((entry) {
+//             bool isSelected = entry.value;
+//             return GestureDetector(
+//               onTap: () {
+//                 setState(() {
+//                   amenities[entry.key] = !isSelected;
+//                 });
+//               },
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//                 decoration: BoxDecoration(
+//                   color: isSelected ? _primaryLight : Colors.white,
+//                   borderRadius: BorderRadius.circular(16),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Icon(
+//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
+//                       size: 14,
+//                       color: isSelected ? _primaryColor : _textSecondary,
+//                     ),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       entry.key,
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: isSelected ? _primaryColor : _textSecondary,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildComplianceSection() {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           'Compliance Certificates:',
+//           style: TextStyle(
+//             fontWeight: FontWeight.w500,
+//             fontSize: 13,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: _complianceCertificates.entries.map((entry) {
+//             bool isSelected = entry.value;
+//             return GestureDetector(
+//               onTap: () {
+//                 setState(() {
+//                   _complianceCertificates[entry.key] = !isSelected;
+//                 });
+//               },
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//                 decoration: BoxDecoration(
+//                   color: isSelected ? _primaryLight : Colors.white,
+//                   borderRadius: BorderRadius.circular(16),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Icon(
+//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
+//                       size: 14,
+//                       color: isSelected ? _primaryColor : _textSecondary,
+//                     ),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       entry.key,
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: isSelected ? _primaryColor : _textSecondary,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildDocumentUploadItem({
+//     required String documentName,
+//     required Map<String, dynamic> fileInfo,
+//     required VoidCallback onUploadPressed,
+//     required VoidCallback onViewPressed,
+//     required VoidCallback onRemovePressed,
+//     String? signatureHint,
+//   }) {
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final isUploaded = (fileInfo['uploaded'] as bool?) ?? false;
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     Color getIconColor() {
+//       if (isUploaded) return _successColor;
+//       if (documentName.contains('Star')) return _goldColor;
+//       if (documentName.contains('Signature')) return Colors.purple;
+//       return _primaryColor;
+//     }
+//
+//     IconData getDocumentIcon() {
+//       if (documentName.contains('PAN')) return Icons.credit_card;
+//       if (documentName.contains('FSSAI')) return Icons.restaurant;
+//       if (documentName.contains('Fire')) return Icons.fire_extinguisher;
+//       if (documentName.contains('Star')) return Icons.star;
+//       if (documentName.contains('Photos')) return Icons.photo_library;
+//       if (documentName.contains('Signature')) return Icons.draw;
+//       if (documentName.contains('Cheque')) return Icons.account_balance;
+//       return Icons.description;
+//     }
+//
+//     return Container(
+//       margin: EdgeInsets.only(bottom: 12),
+//       padding: EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(
+//           color: isUploaded ? _successColor : _borderColor,
+//           width: isUploaded ? 1.5 : 1,
+//         ),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   Icon(getDocumentIcon(), size: 18, color: getIconColor()),
+//                   SizedBox(width: 8),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         documentName,
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                           color: isUploaded ? _successColor : _textPrimary,
+//                         ),
+//                       ),
+//                       if (signatureHint != null)
+//                         Text(
+//                           signatureHint,
+//                           style: TextStyle(fontSize: 10, color: _textSecondary),
+//                         ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//               if (isUploaded)
+//                 Row(
+//                   children: [
+//                     Icon(Icons.check_circle, color: _successColor, size: 16),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       'Uploaded',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         color: _successColor,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//             ],
+//           ),
+//           SizedBox(height: 8),
+//
+//           if (!isUploaded)
+//             SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 onPressed: onUploadPressed,
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: _primaryColor,
+//                   padding: EdgeInsets.symmetric(vertical: 10),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Icon(Icons.cloud_upload, size: 16, color: Colors.white),
+//                     SizedBox(width: 8),
+//                     Text(
+//                       'Upload ${documentName}',
+//                       style: TextStyle(color: Colors.white),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//           if (isUploaded && fileName.isNotEmpty)
+//             Container(
+//               padding: EdgeInsets.all(10),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(6),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 40,
+//                     height: 40,
+//                     decoration: BoxDecoration(
+//                       color: getIconColor().withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                     child: Center(
+//                       child: Icon(getDocumentIcon(),
+//                           size: 20, color: getIconColor()),
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           fileName,
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 12,
+//                             color: _textPrimary,
+//                           ),
+//                           overflow: TextOverflow.ellipsis,
+//                           maxLines: 1,
+//                         ),
+//                         SizedBox(height: 2),
+//                         Text(
+//                           '${(fileSize / 1024).toStringAsFixed(1)} KB • ${_getFileExtension(fileName).toUpperCase()}',
+//                           style: TextStyle(fontSize: 10, color: _textSecondary),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: onViewPressed,
+//                         icon: Icon(
+//                           Icons.remove_red_eye,
+//                           size: 18,
+//                           color: _primaryColor,
+//                         ),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'View',
+//                       ),
+//                       IconButton(
+//                         onPressed: onRemovePressed,
+//                         icon: Icon(Icons.delete, size: 18, color: Colors.red),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'Remove',
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Future<void> _pickDocument(String documentType) async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         type: FileType.custom,
+//         allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
+//         allowMultiple: false,
+//       );
+//
+//       if (result != null && result.files.isNotEmpty) {
+//         final file = result.files.first;
+//
+//         if (file.size > 5 * 1024 * 1024) {
+//           _showErrorDialog(
+//             'File too large',
+//             'Please select a file smaller than 5MB',
+//           );
+//           return;
+//         }
+//
+//         setState(() {
+//           _uploadedFiles[documentType] = {
+//             'name': file.name,
+//             'size': file.size,
+//             'path': file.path ?? '',
+//             'uploaded': true,
+//           };
+//         });
+//
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('${file.name} uploaded successfully'),
+//             backgroundColor: _successColor,
+//             duration: Duration(seconds: 2),
+//           ),
+//         );
+//       }
+//     } catch (e) {
+//       _showErrorDialog(
+//         'Upload Error',
+//         'Failed to upload file: ${e.toString()}',
+//       );
+//     }
+//   }
+//
+//   void _viewDocument(String documentType) {
+//     final fileInfo = _uploadedFiles[documentType]!;
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     if (fileName.isNotEmpty) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Row(
+//             children: [
+//               Icon(
+//                 documentType.contains('Signature')
+//                     ? Icons.draw
+//                     : Icons.description,
+//                 color: documentType.contains('Signature')
+//                     ? Colors.purple
+//                     : _primaryColor,
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Text(documentType, overflow: TextOverflow.ellipsis),
+//               ),
+//             ],
+//           ),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Container(
+//                 width: 200,
+//                 height: 100,
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey[100],
+//                   borderRadius: BorderRadius.circular(8),
+//                   border: Border.all(color: Colors.grey[300]!),
+//                 ),
+//                 child: Center(
+//                   child: documentType.contains('Signature')
+//                       ? Text(
+//                     'Signature & Seal Preview',
+//                     style: TextStyle(
+//                       fontSize: 16,
+//                       fontStyle: FontStyle.italic,
+//                       color: Colors.grey[600],
+//                     ),
+//                   )
+//                       : documentType.contains('Star')
+//                       ? Icon(Icons.star, size: 40, color: _goldColor)
+//                       : Icon(Icons.description, size: 40, color: _primaryColor),
+//                 ),
+//               ),
+//               SizedBox(height: 16),
+//               Text(
+//                 'File Details:',
+//                 style: TextStyle(fontWeight: FontWeight.w500),
+//               ),
+//               SizedBox(height: 8),
+//               Text('Name: $fileName'),
+//               Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+//               Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Close'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   }
+//
+//   void _removeDocument(String documentType) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text('Remove Document'),
+//         content: Text('Are you sure you want to remove this document?'),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('Cancel'),
+//           ),
+//           TextButton(
+//             onPressed: () {
+//               setState(() {
+//                 _uploadedFiles[documentType] = {
+//                   'name': '',
+//                   'size': 0,
+//                   'path': '',
+//                   'uploaded': false,
+//                 };
+//               });
+//               Navigator.pop(context);
+//               ScaffoldMessenger.of(context).showSnackBar(
+//                 SnackBar(
+//                   content: Text('Document removed'),
+//                   backgroundColor: Colors.orange,
+//                   duration: Duration(seconds: 2),
+//                 ),
+//               );
+//             },
+//             child: Text('Remove', style: TextStyle(color: Colors.red)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   String _getFileExtension(String fileName) {
+//     final dotIndex = fileName.lastIndexOf('.');
+//     return dotIndex != -1 ? fileName.substring(dotIndex + 1) : '';
+//   }
+//
+//   void _showErrorDialog(String title, String message) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text(title),
+//         content: Text(message),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('OK'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Future<void> _selectCheckInTime(BuildContext context) async {
+//     final TimeOfDay? picked = await showTimePicker(
+//       context: context,
+//       initialTime: TimeOfDay(hour: 14, minute: 0),
+//       initialEntryMode: TimePickerEntryMode.input,
+//     );
+//     if (picked != null) {
+//       setState(() {
+//         _checkInTime = picked;
+//         _checkInController.text = picked.format(context);
+//       });
+//     }
+//   }
+//
+//   Future<void> _selectCheckOutTime(BuildContext context) async {
+//     final TimeOfDay? picked = await showTimePicker(
+//       context: context,
+//       initialTime: TimeOfDay(hour: 12, minute: 0),
+//       initialEntryMode: TimePickerEntryMode.input,
+//     );
+//     if (picked != null) {
+//       setState(() {
+//         _checkOutTime = picked;
+//         _checkOutController.text = picked.format(context);
+//       });
+//     }
+//   }
+//
+//   Future<void> _selectDeclarationDate(BuildContext context) async {
+//     final DateTime? picked = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(2000),
+//       lastDate: DateTime.now(),
+//     );
+//     if (picked != null) {
+//       setState(() {
+//         _declarationDateController.text =
+//         '${picked.day}/${picked.month}/${picked.year}';
+//       });
+//     }
+//   }
+//
+//   void _nextStep() {
+//     if (_currentStep < _steps.length - 1) {
+//       setState(() {
+//         _currentStep++;
+//       });
+//     } else {
+//       _submitForm();
+//     }
+//   }
+//
+//   void _previousStep() {
+//     if (_currentStep > 0) {
+//       setState(() {
+//         _currentStep--;
+//       });
+//     }
+//   }
+//
+//   void _submitForm() {
+//     if (!_declarationAccepted) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please accept the declaration to proceed'),
+//           backgroundColor: Colors.orange,
+//         ),
+//       );
+//       return;
+//     }
+//
+//     Map<String, dynamic> formData = {
+//       'hotelName': _hotelNameController.text,
+//       'hotelCategory': '4-Star',
+//       'hotelType': _selectedHotelType,
+//       'registrationNo': _registrationNoController.text,
+//       'yearOfEstablishment': _yearController.text,
+//       'totalRooms': _totalRoomsController.text,
+//       'ownerName': _ownerNameController.text,
+//       'designation': _designationController.text,
+//       'mobileNumber': _mobileController.text,
+//       'alternateContact': _altMobileController.text,
+//       'email': _emailController.text,
+//       'website': _websiteController.text,
+//       'addressLine1': _address1Controller.text,
+//       'addressLine2': _address2Controller.text,
+//       'city': _cityController.text,
+//       'district': _districtController.text,
+//       'state': _stateController.text,
+//       'pinCode': _pinController.text,
+//       'roomDetails': _roomDetails,
+//       'extraBedAvailable': _extraBedAvailable,
+//       'seasonalPricing': _seasonalPricing,
+//       'inRoomAmenities': _inRoomAmenities,
+//       'hotelFacilities': _hotelFacilities,
+//       'foodBeverageEvents': _foodBeverageEvents,
+//       'wellnessRecreation': _wellnessRecreation,
+//       'guestBusinessServices': _guestBusinessServices,
+//       'checkInTime': _checkInTime?.format(context),
+//       'checkOutTime': _checkOutTime?.format(context),
+//       'earlyCheckIn': _earlyCheckInOption,
+//       'lateCheckOut': _lateCheckOutOption,
+//       'coupleFriendly': _coupleFriendly,
+//       'petsAllowed': _petsAllowed,
+//       'gstNumber': _gstController.text,
+//       'panNumber': _panController.text,
+//       'tradeLicense': _tradeLicenseController.text,
+//       'fssaiLicense': _fssaiController.text,
+//       'complianceCertificates': _complianceCertificates,
+//       'accountHolderName': _accountNameController.text,
+//       'bankName': _bankNameController.text,
+//       'accountNumber': _accountNumberController.text,
+//       'ifscCode': _ifscController.text,
+//       'branch': _branchController.text,
+//       'uploadedFiles': _uploadedFiles,
+//       'signatoryName': _signatoryNameController.text,
+//       'signatoryDesignation': _signatoryDesignationController.text,
+//       'declarationDate': _declarationDateController.text,
+//       'declarationAccepted': _declarationAccepted,
+//     };
+//
+//     // Navigate to summary screen
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => RegistrationSummaryScreen(
+//           registrationData: formData,
+//           hotelCategory: '4-Star',
+//           declarationAccepted: _declarationAccepted,
+//         ),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     // Dispose all controllers
+//     _hotelNameController.dispose();
+//     _registrationNoController.dispose();
+//     _yearController.dispose();
+//     _totalRoomsController.dispose();
+//     _ownerNameController.dispose();
+//     _designationController.dispose();
+//     _mobileController.dispose();
+//     _altMobileController.dispose();
+//     _emailController.dispose();
+//     _websiteController.dispose();
+//     _address1Controller.dispose();
+//     _address2Controller.dispose();
+//     _cityController.dispose();
+//     _districtController.dispose();
+//     _stateController.dispose();
+//     _pinController.dispose();
+//     _checkInController.dispose();
+//     _checkOutController.dispose();
+//     _gstController.dispose();
+//     _panController.dispose();
+//     _tradeLicenseController.dispose();
+//     _fssaiController.dispose();
+//     _fireSafetyController.dispose();
+//     _pollutionController.dispose();
+//     _starCertController.dispose();
+//     _accountNameController.dispose();
+//     _bankNameController.dispose();
+//     _accountNumberController.dispose();
+//     _ifscController.dispose();
+//     _branchController.dispose();
+//     _signatoryNameController.dispose();
+//     _signatoryDesignationController.dispose();
+//     _declarationDateController.dispose();
+//
+//     super.dispose();
+//   }
+// }
 
 class ThreeStarHotelRegistrationScreen extends StatefulWidget {
   const ThreeStarHotelRegistrationScreen({super.key});
@@ -22874,8 +28221,8 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
-  final TextEditingController _checkInController = TextEditingController(text: '14:00');
-  final TextEditingController _checkOutController = TextEditingController(text: '12:00');
+  final TextEditingController _checkInController = TextEditingController();
+  final TextEditingController _checkOutController = TextEditingController();
   final TextEditingController _gstController = TextEditingController();
   final TextEditingController _panController = TextEditingController();
   final TextEditingController _tradeLicenseController = TextEditingController();
@@ -22914,7 +28261,7 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
 
   // Selected Room Types
   Map<String, bool> _selectedRoomTypes = {
-    'Standard': true, // Default selected for 3-star
+    'Standard': true,
     'Deluxe': false,
     'Suite': false,
   };
@@ -22927,56 +28274,10 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
   bool _seasonalPricing = false;
   bool _earlyCheckinAllowed = false;
   bool _earlyCheckinChargeable = true;
-  bool _coupleFriendly = true;
   bool _petsAllowed = false;
   bool _fireSafetyCertificate = false;
-  //
-  // // Amenities Categories
-  // Map<String, bool> _roomAmenities = {
-  //   'Air Conditioning': true,
-  //   'Free High-Speed Wi-Fi': true,
-  //   'LED TV (Cable/DTH)': true,
-  //   'Work Desk & Chair': true,
-  //   'Wardrobe / Closet': true,
-  //   'Tea / Coffee Maker': true,
-  //   'Mini Refrigerator': true,
-  //   'Electronic Safe': true,
-  //   'Attached Bathroom with Toiletries': true,
-  //   'Hot & Cold Water': true,
-  // };
-  //
-  // Map<String, bool> _hotelFacilities = {
-  //   '24-Hour Front Desk': true,
-  //   'Lift / Elevator': true,
-  //   'Power Backup': true,
-  //   'Daily Housekeeping': true,
-  //   'Luggage Storage': true,
-  //   'CCTV Surveillance': true,
-  //   'Fire Safety System': true,
-  //   'Disabled-Friendly Access': true,
-  // };
-  //
-  // Map<String, bool> _foodServices = {
-  //   'Multi-Cuisine Restaurant': false,
-  //   'Complimentary Breakfast': true,
-  //   'In-Room Dining': true,
-  //   'Bar / Lounge': false,
-  //   'Banquet / Event Hall': false,
-  // };
-  //
-  // Map<String, bool> _businessServices = {
-  //   'Conference / Meeting Room': false,
-  //   'Business Center': true,
-  //   'Laundry / Dry Cleaning': true,
-  //   'Travel Desk / Taxi Service': true,
-  //   'Doctor on Call': true,
-  //   'Wake-Up Call': true,
-  //   'Concierge Service': true,
-  // };
 
-  // Correct the amenities initialization - change from true to false
-
-// Room Amenities - CHANGED: All from true to false
+  // Amenities Categories
   Map<String, bool> _roomAmenities = {
     'Air Conditioning': false,
     'Free High-Speed Wi-Fi': false,
@@ -22990,7 +28291,6 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
     'Hot & Cold Water': false,
   };
 
-// Hotel Facilities - CHANGED: All from true to false
   Map<String, bool> _hotelFacilities = {
     '24-Hour Front Desk': false,
     'Lift / Elevator': false,
@@ -23002,7 +28302,6 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
     'Disabled-Friendly Access': false,
   };
 
-// Food Services - CHANGED: All from true/false to false
   Map<String, bool> _foodServices = {
     'Multi-Cuisine Restaurant': false,
     'Complimentary Breakfast': false,
@@ -23011,7 +28310,6 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
     'Banquet / Event Hall': false,
   };
 
-// Business Services - CHANGED: All from true to false
   Map<String, bool> _businessServices = {
     'Conference / Meeting Room': false,
     'Business Center': false,
@@ -23055,6 +28353,37 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
     {'title': 'Room Configuration', 'subtitle': 'Room types and rates'},
     {'title': 'Amenities & Policies', 'subtitle': 'Facilities and rules'},
     {'title': 'Legal & Documents', 'subtitle': 'Compliance and files'},
+  ];
+
+  // NEW: Additional Addresses (Point 1)
+  List<Map<String, TextEditingController>> _additionalAddresses = [];
+
+  // NEW: Time Options for dropdown (Point 3)
+  final List<Map<String, String>> _timeOptions24Hour = [
+    {'value': '00:00', 'display': '12:00 AM'},
+    {'value': '01:00', 'display': '01:00 AM'},
+    {'value': '02:00', 'display': '02:00 AM'},
+    {'value': '03:00', 'display': '03:00 AM'},
+    {'value': '04:00', 'display': '04:00 AM'},
+    {'value': '05:00', 'display': '05:00 AM'},
+    {'value': '06:00', 'display': '06:00 AM'},
+    {'value': '07:00', 'display': '07:00 AM'},
+    {'value': '08:00', 'display': '08:00 AM'},
+    {'value': '09:00', 'display': '09:00 AM'},
+    {'value': '10:00', 'display': '10:00 AM'},
+    {'value': '11:00', 'display': '11:00 AM'},
+    {'value': '12:00', 'display': '12:00 PM'},
+    {'value': '13:00', 'display': '01:00 PM'},
+    {'value': '14:00', 'display': '02:00 PM'},
+    {'value': '15:00', 'display': '03:00 PM'},
+    {'value': '16:00', 'display': '04:00 PM'},
+    {'value': '17:00', 'display': '05:00 PM'},
+    {'value': '18:00', 'display': '06:00 PM'},
+    {'value': '19:00', 'display': '07:00 PM'},
+    {'value': '20:00', 'display': '08:00 PM'},
+    {'value': '21:00', 'display': '09:00 PM'},
+    {'value': '22:00', 'display': '10:00 PM'},
+    {'value': '23:00', 'display': '11:00 PM'},
   ];
 
   @override
@@ -23501,12 +28830,6 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
               ],
             ),
             SizedBox(height: 16),
-            // _buildInputField(
-            //   label: 'Total Number of Rooms',
-            //   controller: _roomsController,
-            //   hint: '0',
-            //   keyboardType: TextInputType.number,
-            // ),
           ],
         ),
       ],
@@ -23561,11 +28884,13 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
           ],
         ),
         SizedBox(height: 16),
+
+        // UPDATED: Hotel Address with Additional Addresses (Point 1)
         _buildCard(
           title: '3. Hotel Address',
           children: [
             _buildInputField(
-              label: 'Address Line 1 *',
+              label: 'Primary Address Line 1 *',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -23576,6 +28901,63 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
               hint: 'Apartment, suite, etc.',
             ),
             SizedBox(height: 16),
+
+            // Additional Addresses
+            if (_additionalAddresses.isNotEmpty)
+              ..._additionalAddresses.asMap().entries.map((entry) {
+                int index = entry.key;
+                Map<String, TextEditingController> address = entry.value;
+                TextEditingController? addressController = address['address'];
+
+                if (addressController == null) {
+                  addressController = TextEditingController();
+                  address['address'] = addressController;
+                }
+
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildInputField(
+                            label: 'Additional Address ${index + 1}',
+                            controller: addressController,
+                            hint: 'Enter additional address',
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        IconButton(
+                          icon: Icon(Icons.remove_circle, color: Colors.red),
+                          onPressed: () => _removeAdditionalAddress(index),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                );
+              }).toList(),
+
+            SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: _addAdditionalAddress,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: Icon(Icons.add_location, size: 18, color: Colors.white),
+              label: Text(
+                'Add Additional Address',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+
             Row(
               children: [
                 Expanded(
@@ -23816,21 +29198,22 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
         _buildCard(
           title: '6. Check-in Policies',
           children: [
+            // UPDATED: Check-in/Check-out with dropdown (Point 3)
             Row(
               children: [
                 Expanded(
-                  child: _buildInputField(
+                  child: _buildTimeDropdown(
                     label: 'Standard Check-in Time',
                     controller: _checkInController,
-                    hint: 'HH:MM',
+                    onChanged: (value) {},
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: _buildInputField(
+                  child: _buildTimeDropdown(
                     label: 'Standard Check-out Time',
                     controller: _checkOutController,
-                    hint: 'HH:MM',
+                    onChanged: (value) {},
                   ),
                 ),
               ],
@@ -23892,61 +29275,28 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
             ),
             SizedBox(height: 20),
 
-            // Couple & Pets Policies
-            Row(
+            // UPDATED: Removed Couple Friendly, only Pets Allowed (Point 4)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Couple Friendly:',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        children: [
-                          _buildToggleChip('Yes', _coupleFriendly, () {
-                            setState(() => _coupleFriendly = true);
-                          }),
-                          SizedBox(width: 8),
-                          _buildToggleChip('No', !_coupleFriendly, () {
-                            setState(() => _coupleFriendly = false);
-                          }),
-                        ],
-                      ),
-                    ],
+                Text(
+                  'Pets Allowed:',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(width: 20),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Pets Allowed:',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        children: [
-                          _buildToggleChip('Yes', _petsAllowed, () {
-                            setState(() => _petsAllowed = true);
-                          }),
-                          SizedBox(width: 8),
-                          _buildToggleChip('No', !_petsAllowed, () {
-                            setState(() => _petsAllowed = false);
-                          }),
-                        ],
-                      ),
-                    ],
-                  ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    _buildToggleChip('Yes', _petsAllowed, () {
+                      setState(() => _petsAllowed = true);
+                    }),
+                    SizedBox(width: 8),
+                    _buildToggleChip('No', !_petsAllowed, () {
+                      setState(() => _petsAllowed = false);
+                    }),
+                  ],
                 ),
               ],
             ),
@@ -24497,11 +29847,12 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
             ],
           ),
           SizedBox(height: 12),
+          // UPDATED: Changed to "Select Price Per Day" (Point 2)
           _buildSmallInput(
-            label: 'Average Tariff (₹)',
+            label: 'Select Price Per Day (₹)',
             controller: TextEditingController(text: details['price']),
             onChanged: (value) => details['price'] = value,
-            hint: '0',
+            hint: 'Rs',
             keyboardType: TextInputType.number,
           ),
         ],
@@ -24628,6 +29979,70 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
               ),
             );
           }).toList(),
+        ),
+      ],
+    );
+  }
+
+  // NEW: Time Dropdown Widget (Point 3)
+  Widget _buildTimeDropdown({
+    required String label,
+    required TextEditingController controller,
+    required ValueChanged<String> onChanged,
+  }) {
+    String currentValue = controller.text;
+    String displayValue = '';
+
+    if (currentValue.isNotEmpty) {
+      for (var option in _timeOptions24Hour) {
+        if (option['value'] == currentValue) {
+          displayValue = option['value']!;
+          break;
+        }
+      }
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          height: 48,
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: _borderColor),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: displayValue.isNotEmpty ? displayValue : null,
+              isExpanded: true,
+              icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
+              hint: Text('Select time'),
+              items: _timeOptions24Hour.map((option) {
+                return DropdownMenuItem<String>(
+                  value: option['value'],
+                  child: Text(option['display']!),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    controller.text = value;
+                  });
+                  onChanged(value);
+                }
+              },
+            ),
+          ),
         ),
       ],
     );
@@ -25277,6 +30692,24 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
     );
   }
 
+  // NEW: Additional Address Methods (Point 1)
+  void _addAdditionalAddress() {
+    setState(() {
+      _additionalAddresses.add({
+        'address': TextEditingController(),
+      });
+    });
+  }
+
+  void _removeAdditionalAddress(int index) {
+    if (index >= 0 && index < _additionalAddresses.length) {
+      setState(() {
+        _additionalAddresses[index]['address']?.dispose();
+        _additionalAddresses.removeAt(index);
+      });
+    }
+  }
+
   // Navigation Methods
   void _nextStep() {
     if (_currentStep < _steps.length - 1) {
@@ -25422,7 +30855,6 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
       'checkOutTime': _checkOutController.text,
       'earlyCheckinAllowed': _earlyCheckinAllowed,
       'earlyCheckinChargeable': _earlyCheckinChargeable,
-      'coupleFriendly': _coupleFriendly,
       'petsAllowed': _petsAllowed,
       'roomAmenities': Map<String, bool>.from(_roomAmenities),
       'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
@@ -25443,6 +30875,12 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
       'signatoryName': _signatoryNameController.text,
       'declarationDate': _selectedDate,
       'declarationAccepted': _declarationAccepted,
+      // NEW: Include additional addresses
+      'additionalAddresses': _additionalAddresses.map((addr) {
+        return {
+          'address': addr['address']?.text ?? '',
+        };
+      }).toList(),
     };
 
     // Navigate to summary screen
@@ -25489,6 +30927,5248 @@ class _ThreeStarHotelRegistrationScreenState extends State<ThreeStarHotelRegistr
     _ifscController.dispose();
     _branchController.dispose();
     _signatoryNameController.dispose();
+
+    // Dispose additional address controllers
+    for (var address in _additionalAddresses) {
+      address['address']?.dispose();
+    }
+    _additionalAddresses.clear();
+
+    super.dispose();
+  }
+}
+
+class FourStarHotelRegistrationScreen extends StatefulWidget {
+  const FourStarHotelRegistrationScreen({super.key});
+
+  @override
+  State<FourStarHotelRegistrationScreen> createState() =>
+      _FourStarHotelRegistrationScreenState();
+}
+//
+// class _FourStarHotelRegistrationScreenState
+//     extends State<FourStarHotelRegistrationScreen> {
+//   final _formKey = GlobalKey<FormState>();
+//   int _currentStep = 0;
+//
+//   final Color _primaryColor = Color(0xFF4F46E5);
+//   final Color _primaryLight = Color(0xFFEEF2FF);
+//   final Color _bgColor = Color(0xFFFAFAFA);
+//   final Color _cardColor = Colors.white;
+//   final Color _borderColor = Color(0xFFE5E7EB);
+//   final Color _textPrimary = Color(0xFF111827);
+//   final Color _textSecondary = Color(0xFF6B7280);
+//   final Color _successColor = Color(0xFF10B981);
+//   final Color _goldColor = Color(0xFFFFD700);
+//
+//   // Text Controllers
+//   final TextEditingController _hotelNameController = TextEditingController();
+//   final TextEditingController _registrationNoController =
+//   TextEditingController();
+//   final TextEditingController _yearController = TextEditingController();
+//   final TextEditingController _totalRoomsController = TextEditingController();
+//   final TextEditingController _ownerNameController = TextEditingController();
+//   final TextEditingController _designationController = TextEditingController();
+//   final TextEditingController _mobileController = TextEditingController();
+//   final TextEditingController _altMobileController = TextEditingController();
+//   final TextEditingController _emailController = TextEditingController();
+//   final TextEditingController _websiteController = TextEditingController();
+//   final TextEditingController _address1Controller = TextEditingController();
+//   final TextEditingController _address2Controller = TextEditingController();
+//   final TextEditingController _cityController = TextEditingController();
+//   final TextEditingController _districtController = TextEditingController();
+//   final TextEditingController _stateController = TextEditingController();
+//   final TextEditingController _pinController = TextEditingController();
+//   final TextEditingController _checkInController = TextEditingController();
+//   final TextEditingController _checkOutController = TextEditingController();
+//   final TextEditingController _gstController = TextEditingController();
+//   final TextEditingController _panController = TextEditingController();
+//   final TextEditingController _tradeLicenseController =
+//   TextEditingController();
+//   final TextEditingController _fssaiController = TextEditingController();
+//   final TextEditingController _fireSafetyController = TextEditingController();
+//   final TextEditingController _pollutionController = TextEditingController();
+//   final TextEditingController _starCertController = TextEditingController();
+//   final TextEditingController _accountNameController = TextEditingController();
+//   final TextEditingController _bankNameController = TextEditingController();
+//   final TextEditingController _accountNumberController =
+//   TextEditingController();
+//   final TextEditingController _ifscController = TextEditingController();
+//   final TextEditingController _branchController = TextEditingController();
+//   final TextEditingController _signatoryNameController =
+//   TextEditingController();
+//   final TextEditingController _signatoryDesignationController =
+//   TextEditingController();
+//   final TextEditingController _declarationDateController =
+//   TextEditingController();
+//
+//   // Room Details for 4-Star Hotel
+//   final Map<String, Map<String, dynamic>> _roomDetails = {
+//     'Superior Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//     'Deluxe Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//     'Executive Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//     'Suite Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'bedType': '',
+//       'tariff': '',
+//     },
+//   };
+//
+//   List<String> _hotelTypes = ['Business', 'Leisure', 'Resort', 'Boutique'];
+//   String? _selectedHotelType;
+//   bool _extraBedAvailable = false;
+//   bool _seasonalPricing = false;
+//   bool _petsAllowed = false;
+//   bool _declarationAccepted = false;
+//   TimeOfDay? _checkInTime;
+//   TimeOfDay? _checkOutTime;
+//
+//   // Early/Late Check options
+//   String? _earlyCheckInOption;
+//   String? _lateCheckOutOption;
+//
+//   // Amenities Categories
+//   Map<String, bool> _inRoomAmenities = {
+//     'Central Air Conditioning': false,
+//     'High-Speed Wi-Fi': false,
+//     'Smart / LED TV': false,
+//     'Work Desk & Ergonomic Chair': false,
+//     'Mini Bar': false,
+//     'Tea & Coffee Maker': false,
+//     'In-Room Safe': false,
+//     'Premium Toiletries': false,
+//     'Bath Tub / Rain Shower': false,
+//     'Hair Dryer & Shaving Kit': false,
+//     '24-Hour Room Service': false,
+//   };
+//
+//   Map<String, bool> _hotelFacilities = {
+//     '24-Hour Front Desk & Concierge': false,
+//     'Valet Parking': false,
+//     'Lift / Elevator': false,
+//     'Power Backup': false,
+//     'Daily Housekeeping (2×)': false,
+//     'Luggage Storage': false,
+//     'CCTV & Access Control': false,
+//     'Fire Detection & Sprinkler System': false,
+//     'Wheelchair-Friendly Access': false,
+//   };
+//
+//   Map<String, bool> _foodBeverageEvents = {
+//     'Multi-Cuisine Fine Dining Restaurant': false,
+//     'All-Day Dining Café': false,
+//     'Complimentary Breakfast Buffet': false,
+//     'Bar / Lounge': false,
+//     'Banquet Hall': false,
+//     'Conference & Meeting Rooms': false,
+//     'Outdoor Event / Lawn Space': false,
+//   };
+//
+//   Map<String, bool> _wellnessRecreation = {
+//     'Fitness Center / Gym': false,
+//     'Spa & Wellness Center': false,
+//     'Swimming Pool': false,
+//     'Yoga / Wellness Programs': false,
+//   };
+//
+//   Map<String, bool> _guestBusinessServices = {
+//     'Business Center': false,
+//     'Secretarial Services': false,
+//     'Airport Transfers': false,
+//     'Travel Desk': false,
+//     'Laundry & Dry Cleaning': false,
+//     'Doctor on Call': false,
+//     'Childcare / Babysitting': false,
+//     'Currency Exchange': false,
+//   };
+//
+//   // Legal & Compliance
+//   Map<String, bool> _complianceCertificates = {
+//     'Fire Safety Certificate': false,
+//     'Pollution Control Certificate': false,
+//     'Star Classification Certificate': false,
+//   };
+//
+//   // Documents
+//   final Map<String, Map<String, dynamic>> _uploadedFiles = {
+//     'GST Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'PAN Card': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Trade License': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'FSSAI Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Fire Safety NOC': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Star Classification Certificate': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false
+//     },
+//     'Cancelled Cheque': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Property & Room Photographs': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false
+//     },
+//   };
+//
+//   final List<Map<String, dynamic>> _steps = [
+//     {'title': 'Hotel Profile', 'subtitle': 'Basic hotel information'},
+//     {'title': 'Contact Details', 'subtitle': 'Management & contact information'},
+//     {'title': 'Address', 'subtitle': 'Hotel location details'},
+//     {'title': 'Rooms & Rates', 'subtitle': 'Room inventory and pricing'},
+//     {'title': 'Amenities', 'subtitle': 'Facilities and services'},
+//     {'title': 'Policies', 'subtitle': 'Guest policies and compliance'},
+//     {'title': 'Bank & Documents', 'subtitle': 'Payment and documentation'},
+//   ];
+//
+//   // NEW: Additional Addresses (Point 1)
+//   List<Map<String, TextEditingController>> _additionalAddresses = [];
+//
+//   // NEW: Time Options for dropdown (Point 3)
+//   final List<Map<String, String>> _timeOptions24Hour = [
+//     {'value': '00:00', 'display': '12:00 AM'},
+//     {'value': '01:00', 'display': '01:00 AM'},
+//     {'value': '02:00', 'display': '02:00 AM'},
+//     {'value': '03:00', 'display': '03:00 AM'},
+//     {'value': '04:00', 'display': '04:00 AM'},
+//     {'value': '05:00', 'display': '05:00 AM'},
+//     {'value': '06:00', 'display': '06:00 AM'},
+//     {'value': '07:00', 'display': '07:00 AM'},
+//     {'value': '08:00', 'display': '08:00 AM'},
+//     {'value': '09:00', 'display': '09:00 AM'},
+//     {'value': '10:00', 'display': '10:00 AM'},
+//     {'value': '11:00', 'display': '11:00 AM'},
+//     {'value': '12:00', 'display': '12:00 PM'},
+//     {'value': '13:00', 'display': '01:00 PM'},
+//     {'value': '14:00', 'display': '02:00 PM'},
+//     {'value': '15:00', 'display': '03:00 PM'},
+//     {'value': '16:00', 'display': '04:00 PM'},
+//     {'value': '17:00', 'display': '05:00 PM'},
+//     {'value': '18:00', 'display': '06:00 PM'},
+//     {'value': '19:00', 'display': '07:00 PM'},
+//     {'value': '20:00', 'display': '08:00 PM'},
+//     {'value': '21:00', 'display': '09:00 PM'},
+//     {'value': '22:00', 'display': '10:00 PM'},
+//     {'value': '23:00', 'display': '11:00 PM'},
+//   ];
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: _bgColor,
+//       appBar: AppBar(
+//         backgroundColor: Colors.white,
+//         elevation: 0,
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back, color: _textPrimary),
+//           onPressed: () => Navigator.pop(context),
+//         ),
+//         title: Row(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//
+//             Text(
+//               '4-Star Hotel Vendor Registration Form',
+//               style: TextStyle(
+//                 fontSize: 17.5,
+//                 fontWeight: FontWeight.w600,
+//                 color: _textPrimary,
+//               ),
+//             ),
+//
+//           ],
+//         ),
+//         centerTitle: true,
+//       ),
+//       body: Form(
+//         key: _formKey,
+//         child: Column(
+//           children: [
+//             // Stepper Header
+//             Container(
+//               padding: EdgeInsets.all(5),
+//               color: Colors.white,
+//               child: Column(
+//                 children: [
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: List.generate(_steps.length, (index) {
+//                         bool isActive = index == _currentStep;
+//                         bool isCompleted = index < _currentStep;
+//
+//                         return Container(
+//                           margin: EdgeInsets.symmetric(horizontal: 2),
+//                           child: GestureDetector(
+//                             onTap: () {
+//                               if (index <= _currentStep) {
+//                                 setState(() {
+//                                   _currentStep = index;
+//                                 });
+//                               }
+//                             },
+//                             child: Column(
+//                               children: [
+//                                 Container(
+//                                   width: 32,
+//                                   height: 32,
+//                                   decoration: BoxDecoration(
+//                                     shape: BoxShape.circle,
+//                                     color: isActive
+//                                         ? _primaryColor
+//                                         : isCompleted
+//                                         ? _successColor
+//                                         : Colors.white,
+//                                     border: Border.all(
+//                                       color: isActive || isCompleted
+//                                           ? Colors.transparent
+//                                           : _borderColor,
+//                                       width: 2,
+//                                     ),
+//                                   ),
+//                                   child: Center(
+//                                     child: isCompleted
+//                                         ? Icon(
+//                                       Icons.check,
+//                                       size: 18,
+//                                       color: Colors.white,
+//                                     )
+//                                         : Text(
+//                                       '${index + 1}',
+//                                       style: TextStyle(
+//                                         color: isActive || isCompleted
+//                                             ? Colors.white
+//                                             : _textSecondary,
+//                                         fontWeight: FontWeight.w600,
+//                                         fontSize: 14,
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 8),
+//                                 SizedBox(
+//                                   width: 70,
+//                                   child: Text(
+//                                     _steps[index]['title'],
+//                                     style: TextStyle(
+//                                       fontSize: 11,
+//                                       fontWeight: FontWeight.w500,
+//                                       color: isActive || isCompleted
+//                                           ? _textPrimary
+//                                           : _textSecondary,
+//                                     ),
+//                                     textAlign: TextAlign.center,
+//                                     maxLines: 2,
+//                                     overflow: TextOverflow.ellipsis,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       }),
+//                     ),
+//                   ),
+//                   SizedBox(height: 16),
+//                   LinearProgressIndicator(
+//                     value: (_currentStep + 1) / _steps.length,
+//                     backgroundColor: _borderColor,
+//                     color: _primaryColor,
+//                     minHeight: 4,
+//                     borderRadius: BorderRadius.circular(2),
+//                   ),
+//                   SizedBox(height: 8),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Text(
+//                         'Step ${_currentStep + 1} of ${_steps.length}',
+//                         style: TextStyle(fontSize: 12, color: _textSecondary),
+//                       ),
+//                       Text(
+//                         '${((_currentStep + 1) / _steps.length * 100).toInt()}%',
+//                         style: TextStyle(
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w600,
+//                           color: _primaryColor,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             // Step Content
+//             Expanded(
+//               child: SingleChildScrollView(
+//                 padding: EdgeInsets.all(16),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Container(
+//                       margin: EdgeInsets.only(bottom: 20),
+//                       padding: EdgeInsets.all(16),
+//                       decoration: BoxDecoration(
+//                         color: _cardColor,
+//                         borderRadius: BorderRadius.circular(12),
+//                         border: Border.all(color: _borderColor),
+//                       ),
+//                       child: Row(
+//                         children: [
+//                           Container(
+//                             width: 40,
+//                             height: 40,
+//                             decoration: BoxDecoration(
+//                               color: _primaryLight,
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                             child: Center(
+//                               child: Text(
+//                                 '${_currentStep + 1}',
+//                                 style: TextStyle(
+//                                   fontSize: 16,
+//                                   fontWeight: FontWeight.w700,
+//                                   color: _primaryColor,
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           SizedBox(width: 12),
+//                           Expanded(
+//                             child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Row(
+//                                   children: [
+//                                     Text(
+//                                       '4-STAR HOTEL - ',
+//                                       style: TextStyle(
+//                                         fontSize: 14,
+//                                         fontWeight: FontWeight.w700,
+//                                         color: _goldColor,
+//                                       ),
+//                                     ),
+//                                     Text(
+//                                       _steps[_currentStep]['title'],
+//                                       style: TextStyle(
+//                                         fontSize: 16,
+//                                         fontWeight: FontWeight.w600,
+//                                         color: _textPrimary,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 SizedBox(height: 4),
+//                                 Text(
+//                                   _steps[_currentStep]['subtitle'],
+//                                   style: TextStyle(
+//                                     fontSize: 12,
+//                                     color: _textSecondary,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//
+//                     _buildStepContent(),
+//                     SizedBox(height: 32),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//             // Navigation Buttons
+//             Container(
+//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 border: Border(top: BorderSide(color: _borderColor)),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black.withOpacity(0.05),
+//                     blurRadius: 8,
+//                     offset: Offset(0, -2),
+//                   ),
+//                 ],
+//               ),
+//               child: Row(
+//                 children: [
+//                   if (_currentStep > 0)
+//                     Expanded(
+//                       child: SizedBox(
+//                         height: 55,
+//                         child: OutlinedButton(
+//                           onPressed: _previousStep,
+//                           style: OutlinedButton.styleFrom(
+//                             side: BorderSide(color: _borderColor),
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                           ),
+//                           child: Text(
+//                             'Back',
+//                             style: TextStyle(
+//                               fontSize: 14,
+//                               fontWeight: FontWeight.w500,
+//                               color: _textPrimary,
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   if (_currentStep > 0) SizedBox(width: 12),
+//                   Expanded(
+//                     child: SizedBox(
+//                       height: 58,
+//                       child: ElevatedButton(
+//                         onPressed: _nextStep,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: _primaryColor,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           elevation: 0,
+//                         ),
+//                         child: Text(
+//                           _currentStep == _steps.length - 1
+//                               ? 'Submit Registration'
+//                               : 'Next',
+//                           style: TextStyle(
+//                             fontSize: 14,
+//                             fontWeight: FontWeight.w500,
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildStepContent() {
+//     switch (_currentStep) {
+//       case 0:
+//         return _buildStep1();
+//       case 1:
+//         return _buildStep2();
+//       case 2:
+//         return _buildStep3();
+//       case 3:
+//         return _buildStep4();
+//       case 4:
+//         return _buildStep5();
+//       case 5:
+//         return _buildStep6();
+//       case 6:
+//         return _buildStep7();
+//       default:
+//         return Container();
+//     }
+//   }
+//
+//   Widget _buildStep1() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Hotel Profile',
+//           children: [
+//             _buildInputField(
+//               label: 'Hotel Name *',
+//               controller: _hotelNameController,
+//               hint: 'Enter 4-star hotel name',
+//               prefixIcon: Icons.business,
+//             ),
+//             SizedBox(height: 16),
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _goldColor.withOpacity(0.1),
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(color: _goldColor),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Icon(Icons.star, color: _goldColor),
+//                   SizedBox(width: 8),
+//                   Text(
+//                     '4-Star Hotel Category',
+//                     style: TextStyle(
+//                       fontWeight: FontWeight.w600,
+//                       color: Colors.brown,
+//                     ),
+//                   ),
+//                   Spacer(),
+//                   Icon(Icons.verified, color: _successColor),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Hotel Type *',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w500,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Wrap(
+//                   spacing: 8,
+//                   runSpacing: 8,
+//                   children: _hotelTypes.map((type) => _buildChip(type)).toList(),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Year of Establishment',
+//                     controller: _yearController,
+//                     hint: 'YYYY',
+//                     keyboardType: TextInputType.number,
+//                     prefixIcon: Icons.calendar_today,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Total Number of Rooms',
+//                     controller: _totalRoomsController,
+//                     hint: 'Enter total rooms',
+//                     prefixIcon: Icons.hotel,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//
+//
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep2() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Contact & Management Details',
+//           children: [
+//             _buildInputField(
+//               label: 'Owner / Authorized Representative *',
+//               controller: _ownerNameController,
+//               hint: 'Enter full name',
+//               prefixIcon: Icons.person,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Designation',
+//               controller: _designationController,
+//               hint: 'e.g., General Manager, Owner',
+//               prefixIcon: Icons.badge,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Mobile Number *',
+//               controller: _mobileController,
+//               hint: 'Enter mobile number',
+//               keyboardType: TextInputType.phone,
+//               prefixIcon: Icons.phone,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Alternate Contact',
+//               controller: _altMobileController,
+//               hint: 'Optional alternate contact',
+//               keyboardType: TextInputType.phone,
+//               prefixIcon: Icons.phone_android,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Email ID *',
+//               controller: _emailController,
+//               hint: 'official@hotel.com',
+//               keyboardType: TextInputType.emailAddress,
+//               prefixIcon: Icons.email,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Official Website / Booking Engine',
+//               controller: _websiteController,
+//               hint: 'https://www.hotelwebsite.com',
+//               prefixIcon: Icons.language,
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep3() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Hotel Address',
+//           children: [
+//             _buildInputField(
+//               label: 'Primary Address Line 1 *',
+//               controller: _address1Controller,
+//               hint: 'Street address, building name',
+//               prefixIcon: Icons.location_on,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Address Line 2',
+//               controller: _address2Controller,
+//               hint: 'Area, landmark',
+//               prefixIcon: Icons.location_city,
+//             ),
+//             SizedBox(height: 16),
+//
+//             // NEW: Additional Addresses (Point 1)
+//             if (_additionalAddresses.isNotEmpty)
+//               ..._additionalAddresses.asMap().entries.map((entry) {
+//                 int index = entry.key;
+//                 Map<String, TextEditingController> address = entry.value;
+//                 TextEditingController? addressController = address['address'];
+//
+//                 if (addressController == null) {
+//                   addressController = TextEditingController();
+//                   address['address'] = addressController;
+//                 }
+//
+//                 return Column(
+//                   children: [
+//                     Row(
+//                       children: [
+//                         Expanded(
+//                           child: _buildInputField(
+//                             label: 'Additional Address ${index + 1}',
+//                             controller: addressController,
+//                             hint: 'Enter additional address',
+//                           ),
+//                         ),
+//                         SizedBox(width: 8),
+//                         IconButton(
+//                           icon: Icon(Icons.remove_circle, color: Colors.red),
+//                           onPressed: () => _removeAdditionalAddress(index),
+//                         ),
+//                       ],
+//                     ),
+//                     SizedBox(height: 16),
+//                   ],
+//                 );
+//               }).toList(),
+//
+//             SizedBox(height: 16),
+//             ElevatedButton.icon(
+//               onPressed: _addAdditionalAddress,
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: _primaryColor,
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//               ),
+//               icon: Icon(Icons.add_location, size: 18, color: Colors.white),
+//               label: Text(
+//                 'Add Additional Address',
+//                 style: TextStyle(
+//                   fontSize: 14,
+//                   fontWeight: FontWeight.w500,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'City *',
+//                     controller: _cityController,
+//                     hint: 'Enter city',
+//                     prefixIcon: Icons.location_city,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'District *',
+//                     controller: _districtController,
+//                     hint: 'Enter district',
+//                     prefixIcon: Icons.map,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'State *',
+//                     controller: _stateController,
+//                     hint: 'Enter state',
+//                     prefixIcon: Icons.flag,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'PIN Code *',
+//                     controller: _pinController,
+//                     hint: '6-digit PIN',
+//                     keyboardType: TextInputType.number,
+//                     prefixIcon: Icons.markunread_mailbox,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep4() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Room Inventory & Pricing',
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: Colors.grey[50],
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(color: _borderColor),
+//               ),
+//               child: Table(
+//                 columnWidths: {
+//                   0: FlexColumnWidth(2),
+//                   1: FlexColumnWidth(1),
+//                   2: FlexColumnWidth(1),
+//                   3: FlexColumnWidth(1.5),
+//                   4: FlexColumnWidth(1.5),
+//                 },
+//                 children: [
+//                   TableRow(
+//                     decoration: BoxDecoration(
+//                       border: Border(bottom: BorderSide(color: _borderColor)),
+//                     ),
+//                     children: [
+//                       _buildTableHeader('Room Category'),
+//                       _buildTableHeader('No. of Rooms'),
+//                       _buildTableHeader('Max Occupancy'),
+//                       _buildTableHeader('Bed Type'),
+//                       _buildTableHeader('Select Price Per Day (₹)'), // UPDATED (Point 2)
+//                     ],
+//                   ),
+//                   ..._roomDetails.entries.map((entry) {
+//                     return TableRow(
+//                       decoration: BoxDecoration(
+//                         border: Border(bottom: BorderSide(color: _borderColor)),
+//                       ),
+//                       children: [
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 8),
+//                           child: Text(
+//                             entry.key,
+//                             style: TextStyle(
+//                               fontWeight: FontWeight.w500,
+//                               fontSize: 12,
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['rooms']),
+//                               onChanged: (value) =>
+//                               entry.value['rooms'] = value,
+//                               keyboardType: TextInputType.number,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: '0',
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['occupancy']),
+//                               onChanged: (value) =>
+//                               entry.value['occupancy'] = value,
+//                               keyboardType: TextInputType.number,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: 'Persons',
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['bedType']),
+//                               onChanged: (value) =>
+//                               entry.value['bedType'] = value,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: 'e.g., King',
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                         Padding(
+//                           padding: EdgeInsets.symmetric(vertical: 4),
+//                           child: SizedBox(
+//                             height: 32,
+//                             child: TextFormField(
+//                               controller: TextEditingController(
+//                                   text: entry.value['tariff']),
+//                               onChanged: (value) =>
+//                               entry.value['tariff'] = value,
+//                               keyboardType: TextInputType.number,
+//                               textAlign: TextAlign.center,
+//                               decoration: InputDecoration(
+//                                 hintText: 'Rs', // UPDATED hint (Point 2)
+//                                 contentPadding: EdgeInsets.all(4),
+//                                 border: OutlineInputBorder(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                 ),
+//                                 isDense: true,
+//                               ),
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     );
+//                   }).toList(),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Extra Bed Facility:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Seasonal / Dynamic Pricing:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _seasonalPricing, () {
+//                             setState(() => _seasonalPricing = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_seasonalPricing, () {
+//                             setState(() => _seasonalPricing = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep5() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Amenities & Facilities',
+//           children: [
+//             Text(
+//               'Please select all applicable amenities for your 4-star hotel',
+//               style: TextStyle(
+//                 fontSize: 12,
+//                 color: _textSecondary,
+//                 fontStyle: FontStyle.italic,
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//             _buildAmenitiesSection('In-Room Amenities', _inRoomAmenities),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection('Hotel Facilities', _hotelFacilities),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection(
+//                 'Food, Beverage & Events', _foodBeverageEvents),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection(
+//                 'Wellness & Recreation', _wellnessRecreation),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection(
+//                 'Guest & Business Services', _guestBusinessServices),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep6() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Guest Policies',
+//           children: [
+//             // UPDATED: Check-in/Check-out with dropdown (Point 3)
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildTimeDropdown(
+//                     label: 'Standard Check-In Time',
+//                     controller: _checkInController,
+//                     onChanged: (value) {},
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildTimeDropdown(
+//                     label: 'Standard Check-Out Time',
+//                     controller: _checkOutController,
+//                     onChanged: (value) {},
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Early Check-In',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       DropdownButtonFormField<String>(
+//                         value: _earlyCheckInOption,
+//                         items: [
+//                           DropdownMenuItem(
+//                             value: 'Complimentary',
+//                             child: Text('Complimentary'),
+//                           ),
+//                           DropdownMenuItem(
+//                             value: 'Chargeable',
+//                             child: Text('Chargeable'),
+//                           ),
+//                         ],
+//                         onChanged: (value) {
+//                           setState(() {
+//                             _earlyCheckInOption = value;
+//                           });
+//                         },
+//                         decoration: InputDecoration(
+//                           hintText: 'Select option',
+//                           border: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                         ),
+//                         isExpanded: true,
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Late Check-Out',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       DropdownButtonFormField<String>(
+//                         value: _lateCheckOutOption,
+//                         items: [
+//                           DropdownMenuItem(
+//                             value: 'Complimentary',
+//                             child: Text('Complimentary'),
+//                           ),
+//                           DropdownMenuItem(
+//                             value: 'Chargeable',
+//                             child: Text('Chargeable'),
+//                           ),
+//                         ],
+//                         onChanged: (value) {
+//                           setState(() {
+//                             _lateCheckOutOption = value;
+//                           });
+//                         },
+//                         decoration: InputDecoration(
+//                           hintText: 'Select option',
+//                           border: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                         ),
+//                         isExpanded: true,
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             // UPDATED: Removed Couple Friendly, only Pets Allowed (Point 4)
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Pets Allowed:',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w500,
+//                     fontSize: 13,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     _buildToggleChip('Yes', _petsAllowed, () {
+//                       setState(() => _petsAllowed = true);
+//                     }),
+//                     SizedBox(width: 8),
+//                     _buildToggleChip('No', !_petsAllowed, () {
+//                       setState(() => _petsAllowed = false);
+//                     }),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: 'Legal, Safety & Compliance',
+//           children: [
+//             _buildInputField(
+//               label: 'GST Number *',
+//               controller: _gstController,
+//               hint: 'Enter 15-digit GST number',
+//               prefixIcon: Icons.receipt,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'PAN Number *',
+//               controller: _panController,
+//               hint: 'Enter PAN number',
+//               prefixIcon: Icons.credit_card,
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Trade License No.',
+//                     controller: _tradeLicenseController,
+//                     hint: 'Enter license number',
+//                     prefixIcon: Icons.badge,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'FSSAI License No.',
+//                     controller: _fssaiController,
+//                     hint: 'If restaurant',
+//                     prefixIcon: Icons.restaurant,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildComplianceSection(),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep7() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: 'Bank Details (Vendor Settlement)',
+//           children: [
+//             _buildInputField(
+//               label: 'Account Holder Name *',
+//               controller: _accountNameController,
+//               hint: 'Enter name as per bank records',
+//               prefixIcon: Icons.person_outline,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Bank Name *',
+//               controller: _bankNameController,
+//               hint: 'Enter bank name',
+//               prefixIcon: Icons.account_balance,
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Account Number *',
+//                     controller: _accountNumberController,
+//                     hint: 'Enter account number',
+//                     keyboardType: TextInputType.number,
+//                     prefixIcon: Icons.numbers,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'IFSC Code *',
+//                     controller: _ifscController,
+//                     hint: 'Enter IFSC code',
+//                     prefixIcon: Icons.code,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Branch',
+//               controller: _branchController,
+//               hint: 'Enter branch name',
+//               prefixIcon: Icons.location_city,
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: 'Documents Required',
+//           children: [
+//             Text(
+//               'Upload clear scanned copies of all required documents',
+//               style: TextStyle(fontSize: 12, color: _textSecondary),
+//             ),
+//             SizedBox(height: 16),
+//             ..._uploadedFiles.entries.map(
+//                   (entry) => _buildDocumentUploadItem(
+//                 documentName: entry.key,
+//                 fileInfo: entry.value,
+//                 onUploadPressed: () => _pickDocument(entry.key),
+//                 onViewPressed: () => _viewDocument(entry.key),
+//                 onRemovePressed: () => _removeDocument(entry.key),
+//               ),
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: 'Declaration',
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _declarationAccepted
+//                     ? _successColor.withOpacity(0.05)
+//                     : Colors.white,
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(
+//                   color: _declarationAccepted ? _successColor : _borderColor,
+//                   width: _declarationAccepted ? 1.5 : 1,
+//                 ),
+//               ),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Row(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Checkbox(
+//                         value: _declarationAccepted,
+//                         onChanged: (value) {
+//                           setState(() {
+//                             _declarationAccepted = value ?? false;
+//                           });
+//                         },
+//                         activeColor: _primaryColor,
+//                         shape: RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.circular(4),
+//                         ),
+//                       ),
+//                       Expanded(
+//                         child: Text(
+//                           'I hereby declare that all information provided above is accurate and complete. '
+//                               'I agree to comply with vendor terms, service quality standards, and applicable laws.',
+//                           style: TextStyle(
+//                             fontSize: 12,
+//                             color: Color(0xFF0C4A6E),
+//                             height: 1.5,
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 16),
+//                   Row(
+//                     children: [
+//                       Expanded(
+//                         child: _buildInputField(
+//                           label: 'Authorized Signatory Name',
+//                           controller: _signatoryNameController,
+//                           hint: 'Enter full name',
+//                         ),
+//                       ),
+//                       SizedBox(width: 16),
+//                       Expanded(
+//                         child: _buildInputField(
+//                           label: 'Designation',
+//                           controller: _signatoryDesignationController,
+//                           hint: 'Enter designation',
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 16),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Signature & Hotel Seal:',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Text(
+//                         'Please upload scanned copy of signature with hotel seal',
+//                         style: TextStyle(
+//                           fontSize: 11,
+//                           color: _textSecondary,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       _buildDocumentUploadItem(
+//                         documentName: 'Signature & Hotel Seal',
+//                         fileInfo: _uploadedFiles['Cancelled Cheque']!,
+//                         onUploadPressed: () =>
+//                             _pickDocument('Signature & Hotel Seal'),
+//                         onViewPressed: () =>
+//                             _viewDocument('Signature & Hotel Seal'),
+//                         onRemovePressed: () =>
+//                             _removeDocument('Signature & Hotel Seal'),
+//                         signatureHint: 'Upload signature with hotel seal',
+//                       ),
+//                     ],
+//                   ),
+//                   SizedBox(height: 16),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Date',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       GestureDetector(
+//                         onTap: () => _selectDeclarationDate(context),
+//                         child: Container(
+//                           height: 48,
+//                           padding: EdgeInsets.symmetric(horizontal: 12),
+//                           decoration: BoxDecoration(
+//                             border: Border.all(color: _borderColor),
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                             children: [
+//                               Text(
+//                                 _declarationDateController.text.isNotEmpty
+//                                     ? _declarationDateController.text
+//                                     : 'Select date',
+//                                 style: TextStyle(
+//                                   fontSize: 14,
+//                                   color: _declarationDateController
+//                                       .text.isNotEmpty
+//                                       ? _textPrimary
+//                                       : _textSecondary,
+//                                 ),
+//                               ),
+//                               Icon(
+//                                 Icons.calendar_today,
+//                                 size: 18,
+//                                 color: _textSecondary,
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildCard({required String title, required List<Widget> children}) {
+//     return Container(
+//       width: double.infinity,
+//       padding: EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//         color: _cardColor,
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: _borderColor),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             title,
+//             style: TextStyle(
+//               fontSize: 15,
+//               fontWeight: FontWeight.w600,
+//               color: _textPrimary,
+//             ),
+//           ),
+//           SizedBox(height: 16),
+//           ...children,
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildInputField({
+//     required String label,
+//     required TextEditingController controller,
+//     required String hint,
+//     TextInputType? keyboardType,
+//     IconData? prefixIcon,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 13,
+//             fontWeight: FontWeight.w500,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         TextFormField(
+//           controller: controller,
+//           keyboardType: keyboardType,
+//           decoration: InputDecoration(
+//             hintText: hint,
+//             prefixIcon:
+//             prefixIcon != null ? Icon(prefixIcon, size: 20) : null,
+//             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _primaryColor),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildTableHeader(String text) {
+//     return Padding(
+//       padding: EdgeInsets.symmetric(vertical: 8),
+//       child: Text(
+//         text,
+//         style: TextStyle(
+//           fontWeight: FontWeight.w600,
+//           fontSize: 12,
+//           color: _textPrimary,
+//         ),
+//         textAlign: TextAlign.center,
+//       ),
+//     );
+//   }
+//
+//   Widget _buildChip(String label) {
+//     bool isSelected = _selectedHotelType == label;
+//     return GestureDetector(
+//       onTap: () {
+//         setState(() {
+//           _selectedHotelType = isSelected ? null : label;
+//         });
+//       },
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(color: isSelected ? _primaryColor : _borderColor),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(color: isSelected ? _primaryColor : _borderColor),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   // NEW: Time Dropdown Widget (Point 3)
+//   Widget _buildTimeDropdown({
+//     required String label,
+//     required TextEditingController controller,
+//     required ValueChanged<String> onChanged,
+//   }) {
+//     String currentValue = controller.text;
+//     String displayValue = '';
+//
+//     if (currentValue.isNotEmpty) {
+//       for (var option in _timeOptions24Hour) {
+//         if (option['value'] == currentValue) {
+//           displayValue = option['value']!;
+//           break;
+//         }
+//       }
+//     }
+//
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 13,
+//             fontWeight: FontWeight.w500,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Container(
+//           height: 48,
+//           padding: EdgeInsets.symmetric(horizontal: 12),
+//           decoration: BoxDecoration(
+//             border: Border.all(color: _borderColor),
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           child: DropdownButtonHideUnderline(
+//             child: DropdownButton<String>(
+//               value: displayValue.isNotEmpty ? displayValue : null,
+//               isExpanded: true,
+//               icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
+//               hint: Text('Select time'),
+//               items: _timeOptions24Hour.map((option) {
+//                 return DropdownMenuItem<String>(
+//                   value: option['value'],
+//                   child: Text(option['display']!),
+//                 );
+//               }).toList(),
+//               onChanged: (value) {
+//                 if (value != null) {
+//                   setState(() {
+//                     controller.text = value;
+//                   });
+//                   onChanged(value);
+//                 }
+//               },
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildAmenitiesSection(String title, Map<String, bool> amenities) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           title,
+//           style: TextStyle(
+//             fontSize: 14,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: amenities.entries.map((entry) {
+//             bool isSelected = entry.value;
+//             return GestureDetector(
+//               onTap: () {
+//                 setState(() {
+//                   amenities[entry.key] = !isSelected;
+//                 });
+//               },
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//                 decoration: BoxDecoration(
+//                   color: isSelected ? _primaryLight : Colors.white,
+//                   borderRadius: BorderRadius.circular(16),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Icon(
+//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
+//                       size: 14,
+//                       color: isSelected ? _primaryColor : _textSecondary,
+//                     ),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       entry.key,
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: isSelected ? _primaryColor : _textSecondary,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildComplianceSection() {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           'Compliance Certificates:',
+//           style: TextStyle(
+//             fontWeight: FontWeight.w500,
+//             fontSize: 13,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: _complianceCertificates.entries.map((entry) {
+//             bool isSelected = entry.value;
+//             return GestureDetector(
+//               onTap: () {
+//                 setState(() {
+//                   _complianceCertificates[entry.key] = !isSelected;
+//                 });
+//               },
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//                 decoration: BoxDecoration(
+//                   color: isSelected ? _primaryLight : Colors.white,
+//                   borderRadius: BorderRadius.circular(16),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Icon(
+//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
+//                       size: 14,
+//                       color: isSelected ? _primaryColor : _textSecondary,
+//                     ),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       entry.key,
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: isSelected ? _primaryColor : _textSecondary,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildDocumentUploadItem({
+//     required String documentName,
+//     required Map<String, dynamic> fileInfo,
+//     required VoidCallback onUploadPressed,
+//     required VoidCallback onViewPressed,
+//     required VoidCallback onRemovePressed,
+//     String? signatureHint,
+//   }) {
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final isUploaded = (fileInfo['uploaded'] as bool?) ?? false;
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     Color getIconColor() {
+//       if (isUploaded) return _successColor;
+//       if (documentName.contains('Star')) return _goldColor;
+//       if (documentName.contains('Signature')) return Colors.purple;
+//       return _primaryColor;
+//     }
+//
+//     IconData getDocumentIcon() {
+//       if (documentName.contains('PAN')) return Icons.credit_card;
+//       if (documentName.contains('FSSAI')) return Icons.restaurant;
+//       if (documentName.contains('Fire')) return Icons.fire_extinguisher;
+//       if (documentName.contains('Star')) return Icons.star;
+//       if (documentName.contains('Photos')) return Icons.photo_library;
+//       if (documentName.contains('Signature')) return Icons.draw;
+//       if (documentName.contains('Cheque')) return Icons.account_balance;
+//       return Icons.description;
+//     }
+//
+//     return Container(
+//       margin: EdgeInsets.only(bottom: 12),
+//       padding: EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(
+//           color: isUploaded ? _successColor : _borderColor,
+//           width: isUploaded ? 1.5 : 1,
+//         ),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   Icon(getDocumentIcon(), size: 18, color: getIconColor()),
+//                   SizedBox(width: 8),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         documentName,
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                           color: isUploaded ? _successColor : _textPrimary,
+//                         ),
+//                       ),
+//                       if (signatureHint != null)
+//                         Text(
+//                           signatureHint,
+//                           style: TextStyle(fontSize: 10, color: _textSecondary),
+//                         ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//               if (isUploaded)
+//                 Row(
+//                   children: [
+//                     Icon(Icons.check_circle, color: _successColor, size: 16),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       'Uploaded',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         color: _successColor,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//             ],
+//           ),
+//           SizedBox(height: 8),
+//
+//           if (!isUploaded)
+//             SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 onPressed: onUploadPressed,
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: _primaryColor,
+//                   padding: EdgeInsets.symmetric(vertical: 10),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Icon(Icons.cloud_upload, size: 16, color: Colors.white),
+//                     SizedBox(width: 8),
+//                     Text(
+//                       'Upload ${documentName}',
+//                       style: TextStyle(color: Colors.white),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//           if (isUploaded && fileName.isNotEmpty)
+//             Container(
+//               padding: EdgeInsets.all(10),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(6),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 40,
+//                     height: 40,
+//                     decoration: BoxDecoration(
+//                       color: getIconColor().withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                     child: Center(
+//                       child: Icon(getDocumentIcon(),
+//                           size: 20, color: getIconColor()),
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           fileName,
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 12,
+//                             color: _textPrimary,
+//                           ),
+//                           overflow: TextOverflow.ellipsis,
+//                           maxLines: 1,
+//                         ),
+//                         SizedBox(height: 2),
+//                         Text(
+//                           '${(fileSize / 1024).toStringAsFixed(1)} KB • ${_getFileExtension(fileName).toUpperCase()}',
+//                           style: TextStyle(fontSize: 10, color: _textSecondary),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: onViewPressed,
+//                         icon: Icon(
+//                           Icons.remove_red_eye,
+//                           size: 18,
+//                           color: _primaryColor,
+//                         ),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'View',
+//                       ),
+//                       IconButton(
+//                         onPressed: onRemovePressed,
+//                         icon: Icon(Icons.delete, size: 18, color: Colors.red),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'Remove',
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   // NEW: Additional Address Methods (Point 1)
+//   void _addAdditionalAddress() {
+//     setState(() {
+//       _additionalAddresses.add({
+//         'address': TextEditingController(),
+//       });
+//     });
+//   }
+//
+//   void _removeAdditionalAddress(int index) {
+//     if (index >= 0 && index < _additionalAddresses.length) {
+//       setState(() {
+//         _additionalAddresses[index]['address']?.dispose();
+//         _additionalAddresses.removeAt(index);
+//       });
+//     }
+//   }
+//
+//   Future<void> _pickDocument(String documentType) async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         type: FileType.custom,
+//         allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
+//         allowMultiple: false,
+//       );
+//
+//       if (result != null && result.files.isNotEmpty) {
+//         final file = result.files.first;
+//
+//         if (file.size > 5 * 1024 * 1024) {
+//           _showErrorDialog(
+//             'File too large',
+//             'Please select a file smaller than 5MB',
+//           );
+//           return;
+//         }
+//
+//         setState(() {
+//           _uploadedFiles[documentType] = {
+//             'name': file.name,
+//             'size': file.size,
+//             'path': file.path ?? '',
+//             'uploaded': true,
+//           };
+//         });
+//
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('${file.name} uploaded successfully'),
+//             backgroundColor: _successColor,
+//             duration: Duration(seconds: 2),
+//           ),
+//         );
+//       }
+//     } catch (e) {
+//       _showErrorDialog(
+//         'Upload Error',
+//         'Failed to upload file: ${e.toString()}',
+//       );
+//     }
+//   }
+//
+//   void _viewDocument(String documentType) {
+//     final fileInfo = _uploadedFiles[documentType]!;
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     if (fileName.isNotEmpty) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Row(
+//             children: [
+//               Icon(
+//                 documentType.contains('Signature')
+//                     ? Icons.draw
+//                     : Icons.description,
+//                 color: documentType.contains('Signature')
+//                     ? Colors.purple
+//                     : _primaryColor,
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Text(documentType, overflow: TextOverflow.ellipsis),
+//               ),
+//             ],
+//           ),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Container(
+//                 width: 200,
+//                 height: 100,
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey[100],
+//                   borderRadius: BorderRadius.circular(8),
+//                   border: Border.all(color: Colors.grey[300]!),
+//                 ),
+//                 child: Center(
+//                   child: documentType.contains('Signature')
+//                       ? Text(
+//                     'Signature & Seal Preview',
+//                     style: TextStyle(
+//                       fontSize: 16,
+//                       fontStyle: FontStyle.italic,
+//                       color: Colors.grey[600],
+//                     ),
+//                   )
+//                       : documentType.contains('Star')
+//                       ? Icon(Icons.star, size: 40, color: _goldColor)
+//                       : Icon(Icons.description, size: 40, color: _primaryColor),
+//                 ),
+//               ),
+//               SizedBox(height: 16),
+//               Text(
+//                 'File Details:',
+//                 style: TextStyle(fontWeight: FontWeight.w500),
+//               ),
+//               SizedBox(height: 8),
+//               Text('Name: $fileName'),
+//               Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+//               Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Close'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   }
+//
+//   void _removeDocument(String documentType) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text('Remove Document'),
+//         content: Text('Are you sure you want to remove this document?'),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('Cancel'),
+//           ),
+//           TextButton(
+//             onPressed: () {
+//               setState(() {
+//                 _uploadedFiles[documentType] = {
+//                   'name': '',
+//                   'size': 0,
+//                   'path': '',
+//                   'uploaded': false,
+//                 };
+//               });
+//               Navigator.pop(context);
+//               ScaffoldMessenger.of(context).showSnackBar(
+//                 SnackBar(
+//                   content: Text('Document removed'),
+//                   backgroundColor: Colors.orange,
+//                   duration: Duration(seconds: 2),
+//                 ),
+//               );
+//             },
+//             child: Text('Remove', style: TextStyle(color: Colors.red)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   String _getFileExtension(String fileName) {
+//     final dotIndex = fileName.lastIndexOf('.');
+//     return dotIndex != -1 ? fileName.substring(dotIndex + 1) : '';
+//   }
+//
+//   void _showErrorDialog(String title, String message) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text(title),
+//         content: Text(message),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('OK'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Future<void> _selectCheckInTime(BuildContext context) async {
+//     final TimeOfDay? picked = await showTimePicker(
+//       context: context,
+//       initialTime: TimeOfDay(hour: 14, minute: 0),
+//       initialEntryMode: TimePickerEntryMode.input,
+//     );
+//     if (picked != null) {
+//       setState(() {
+//         _checkInTime = picked;
+//         _checkInController.text = picked.format(context);
+//       });
+//     }
+//   }
+//
+//   Future<void> _selectCheckOutTime(BuildContext context) async {
+//     final TimeOfDay? picked = await showTimePicker(
+//       context: context,
+//       initialTime: TimeOfDay(hour: 12, minute: 0),
+//       initialEntryMode: TimePickerEntryMode.input,
+//     );
+//     if (picked != null) {
+//       setState(() {
+//         _checkOutTime = picked;
+//         _checkOutController.text = picked.format(context);
+//       });
+//     }
+//   }
+//
+//   Future<void> _selectDeclarationDate(BuildContext context) async {
+//     final DateTime? picked = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(2000),
+//       lastDate: DateTime.now(),
+//     );
+//     if (picked != null) {
+//       setState(() {
+//         _declarationDateController.text =
+//         '${picked.day}/${picked.month}/${picked.year}';
+//       });
+//     }
+//   }
+//
+//   void _nextStep() {
+//     if (_currentStep < _steps.length - 1) {
+//       setState(() {
+//         _currentStep++;
+//       });
+//     } else {
+//       _submitForm();
+//     }
+//   }
+//
+//   void _previousStep() {
+//     if (_currentStep > 0) {
+//       setState(() {
+//         _currentStep--;
+//       });
+//     }
+//   }
+//
+//   void _submitForm() {
+//     if (!_declarationAccepted) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please accept the declaration to proceed'),
+//           backgroundColor: Colors.orange,
+//         ),
+//       );
+//       return;
+//     }
+//
+//     Map<String, dynamic> formData = {
+//       'hotelName': _hotelNameController.text,
+//       'hotelCategory': '4-Star',
+//       'hotelType': _selectedHotelType,
+//       'registrationNo': _registrationNoController.text,
+//       'yearOfEstablishment': _yearController.text,
+//       'totalRooms': _totalRoomsController.text,
+//       'ownerName': _ownerNameController.text,
+//       'designation': _designationController.text,
+//       'mobileNumber': _mobileController.text,
+//       'alternateContact': _altMobileController.text,
+//       'email': _emailController.text,
+//       'website': _websiteController.text,
+//       'addressLine1': _address1Controller.text,
+//       'addressLine2': _address2Controller.text,
+//       'city': _cityController.text,
+//       'district': _districtController.text,
+//       'state': _stateController.text,
+//       'pinCode': _pinController.text,
+//       'roomDetails': _roomDetails,
+//       'extraBedAvailable': _extraBedAvailable,
+//       'seasonalPricing': _seasonalPricing,
+//       'inRoomAmenities': _inRoomAmenities,
+//       'hotelFacilities': _hotelFacilities,
+//       'foodBeverageEvents': _foodBeverageEvents,
+//       'wellnessRecreation': _wellnessRecreation,
+//       'guestBusinessServices': _guestBusinessServices,
+//       'checkInTime': _checkInController.text,
+//       'checkOutTime': _checkOutController.text,
+//       'earlyCheckIn': _earlyCheckInOption,
+//       'lateCheckOut': _lateCheckOutOption,
+//       'petsAllowed': _petsAllowed,
+//       'gstNumber': _gstController.text,
+//       'panNumber': _panController.text,
+//       'tradeLicense': _tradeLicenseController.text,
+//       'fssaiLicense': _fssaiController.text,
+//       'complianceCertificates': _complianceCertificates,
+//       'accountHolderName': _accountNameController.text,
+//       'bankName': _bankNameController.text,
+//       'accountNumber': _accountNumberController.text,
+//       'ifscCode': _ifscController.text,
+//       'branch': _branchController.text,
+//       'uploadedFiles': _uploadedFiles,
+//       'signatoryName': _signatoryNameController.text,
+//       'signatoryDesignation': _signatoryDesignationController.text,
+//       'declarationDate': _declarationDateController.text,
+//       'declarationAccepted': _declarationAccepted,
+//       // NEW: Include additional addresses
+//       'additionalAddresses': _additionalAddresses.map((addr) {
+//         return {
+//           'address': addr['address']?.text ?? '',
+//         };
+//       }).toList(),
+//     };
+//
+//     // Navigate to summary screen
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => RegistrationSummaryScreen(
+//           registrationData: formData,
+//           hotelCategory: '4-Star',
+//           declarationAccepted: _declarationAccepted,
+//         ),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     // Dispose all controllers
+//     _hotelNameController.dispose();
+//     _registrationNoController.dispose();
+//     _yearController.dispose();
+//     _totalRoomsController.dispose();
+//     _ownerNameController.dispose();
+//     _designationController.dispose();
+//     _mobileController.dispose();
+//     _altMobileController.dispose();
+//     _emailController.dispose();
+//     _websiteController.dispose();
+//     _address1Controller.dispose();
+//     _address2Controller.dispose();
+//     _cityController.dispose();
+//     _districtController.dispose();
+//     _stateController.dispose();
+//     _pinController.dispose();
+//     _checkInController.dispose();
+//     _checkOutController.dispose();
+//     _gstController.dispose();
+//     _panController.dispose();
+//     _tradeLicenseController.dispose();
+//     _fssaiController.dispose();
+//     _fireSafetyController.dispose();
+//     _pollutionController.dispose();
+//     _starCertController.dispose();
+//     _accountNameController.dispose();
+//     _bankNameController.dispose();
+//     _accountNumberController.dispose();
+//     _ifscController.dispose();
+//     _branchController.dispose();
+//     _signatoryNameController.dispose();
+//     _signatoryDesignationController.dispose();
+//     _declarationDateController.dispose();
+//
+//     // Dispose additional address controllers
+//     for (var address in _additionalAddresses) {
+//       address['address']?.dispose();
+//     }
+//     _additionalAddresses.clear();
+//
+//     super.dispose();
+//   }
+// }
+
+
+class _FourStarHotelRegistrationScreenState
+    extends State<FourStarHotelRegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
+  int _currentStep = 0;
+
+  final Color _primaryColor = Color(0xFF4F46E5);
+  final Color _primaryLight = Color(0xFFEEF2FF);
+  final Color _bgColor = Color(0xFFFAFAFA);
+  final Color _cardColor = Colors.white;
+  final Color _borderColor = Color(0xFFE5E7EB);
+  final Color _textPrimary = Color(0xFF111827);
+  final Color _textSecondary = Color(0xFF6B7280);
+  final Color _successColor = Color(0xFF4F46E5);
+  final Color _goldColor = Color(0xFFFFD700);
+
+  // Controllers
+  final TextEditingController _hotelNameController = TextEditingController();
+  final TextEditingController _registrationNumberController = TextEditingController();
+  final TextEditingController _yearController = TextEditingController();
+  final TextEditingController _roomsController = TextEditingController();
+  final TextEditingController _ownerNameController = TextEditingController();
+  final TextEditingController _designationController = TextEditingController();
+  final TextEditingController _mobileController = TextEditingController();
+  final TextEditingController _altMobileController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _websiteController = TextEditingController();
+  final TextEditingController _address1Controller = TextEditingController();
+  final TextEditingController _address2Controller = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _districtController = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _checkInController = TextEditingController();
+  final TextEditingController _checkOutController = TextEditingController();
+  final TextEditingController _gstController = TextEditingController();
+  final TextEditingController _panController = TextEditingController();
+  final TextEditingController _tradeLicenseController = TextEditingController();
+  final TextEditingController _fssaiController = TextEditingController();
+  final TextEditingController _fireSafetyController = TextEditingController();
+  final TextEditingController _starCertController = TextEditingController();
+  final TextEditingController _accountNameController = TextEditingController();
+  final TextEditingController _bankNameController = TextEditingController();
+  final TextEditingController _accountNumberController = TextEditingController();
+  final TextEditingController _ifscController = TextEditingController();
+  final TextEditingController _branchController = TextEditingController();
+  final TextEditingController _signatoryNameController = TextEditingController();
+
+  // Room Details for 4-Star Hotel
+  final Map<String, Map<String, dynamic>> _roomDetails = {
+    'Superior Room': {
+      'rooms': '',
+      'occupancy': '',
+      'ac': true,
+      'bedType': 'Queen',
+      'price': '',
+    },
+    'Deluxe Room': {
+      'rooms': '',
+      'occupancy': '',
+      'ac': true,
+      'bedType': 'King',
+      'price': '',
+    },
+    'Executive Room': {
+      'rooms': '',
+      'occupancy': '',
+      'ac': true,
+      'bedType': 'King',
+      'price': '',
+    },
+    'Suite Room': {
+      'rooms': '',
+      'occupancy': '',
+      'ac': true,
+      'bedType': 'King',
+      'price': '',
+    },
+  };
+
+  // Selected Room Types
+  Map<String, bool> _selectedRoomTypes = {
+    'Superior Room': true,
+    'Deluxe Room': false,
+    'Executive Room': false,
+    'Suite Room': false,
+  };
+
+  // Hotel Type Selection
+  String? _selectedHotelType;
+
+  // Policies
+  bool _extraBedAvailable = false;
+  bool _seasonalPricing = false;
+  bool _earlyCheckinAllowed = false;
+  bool _earlyCheckinChargeable = true;
+  bool _petsAllowed = false;
+  bool _fireSafetyCertificate = false;
+  bool _starCertificate = false;
+
+  // Amenities Categories for 4-Star Hotel
+  Map<String, bool> _roomAmenities = {
+    'Central Air Conditioning': false,
+    'High-Speed Wi-Fi': false,
+    'Smart / LED TV': false,
+    'Work Desk & Ergonomic Chair': false,
+    'Mini Bar': false,
+    'Tea & Coffee Maker': false,
+    'In-Room Safe': false,
+    'Premium Toiletries': false,
+    'Bath Tub / Rain Shower': false,
+    'Hair Dryer & Shaving Kit': false,
+    '24-Hour Room Service': false,
+  };
+
+  Map<String, bool> _hotelFacilities = {
+    '24-Hour Front Desk & Concierge': false,
+    'Valet Parking': false,
+    'Lift / Elevator': false,
+    'Power Backup': false,
+    'Daily Housekeeping (2×)': false,
+    'Luggage Storage': false,
+    'CCTV & Access Control': false,
+    'Fire Detection & Sprinkler System': false,
+    'Wheelchair-Friendly Access': false,
+  };
+
+  Map<String, bool> _foodServices = {
+    'Multi-Cuisine Fine Dining Restaurant': false,
+    'All-Day Dining Café': false,
+    'Complimentary Breakfast Buffet': false,
+    'Bar / Lounge': false,
+    'Banquet Hall': false,
+  };
+
+  Map<String, bool> _businessServices = {
+    'Conference & Meeting Rooms': false,
+    'Business Center': false,
+    'Secretarial Services': false,
+    'Airport Transfers': false,
+    'Travel Desk': false,
+    'Laundry & Dry Cleaning': false,
+    'Doctor on Call': false,
+    'Childcare / Babysitting': false,
+    'Currency Exchange': false,
+  };
+
+  Map<String, bool> _wellnessRecreation = {
+    'Fitness Center / Gym': false,
+    'Spa & Wellness Center': false,
+    'Swimming Pool': false,
+    'Yoga / Wellness Programs': false,
+  };
+
+  // Bed Type Options
+  final List<String> _bedTypes = ['Single', 'Double', 'Queen', 'King', 'Twin'];
+
+  // Document Uploads
+  final Map<String, Map<String, dynamic>> _uploadedFiles = {
+    'GST Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'PAN Card': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'Trade License': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'FSSAI Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'Fire Safety Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'Star Classification Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'Cancelled Cheque': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'Hotel & Room Photos': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+  };
+
+  // Signature
+  final Map<String, dynamic> _signatureFile = {
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
+  };
+
+  // Declaration
+  bool _declarationAccepted = false;
+  DateTime? _selectedDate;
+
+  // Steps
+  final List<Map<String, dynamic>> _steps = [
+    {'title': 'Hotel Info', 'subtitle': 'Basic hotel details'},
+    {'title': 'Contact & Address', 'subtitle': 'Contact and location'},
+    {'title': 'Room Configuration', 'subtitle': 'Room types and rates'},
+    {'title': 'Amenities & Policies', 'subtitle': 'Facilities and rules'},
+    {'title': 'Legal & Documents', 'subtitle': 'Compliance and files'},
+  ];
+
+  // NEW: Additional Addresses (Point 1)
+  List<Map<String, TextEditingController>> _additionalAddresses = [];
+
+  // NEW: Time Options for dropdown (Point 3)
+  final List<Map<String, String>> _timeOptions24Hour = [
+    {'value': '00:00', 'display': '12:00 AM'},
+    {'value': '01:00', 'display': '01:00 AM'},
+    {'value': '02:00', 'display': '02:00 AM'},
+    {'value': '03:00', 'display': '03:00 AM'},
+    {'value': '04:00', 'display': '04:00 AM'},
+    {'value': '05:00', 'display': '05:00 AM'},
+    {'value': '06:00', 'display': '06:00 AM'},
+    {'value': '07:00', 'display': '07:00 AM'},
+    {'value': '08:00', 'display': '08:00 AM'},
+    {'value': '09:00', 'display': '09:00 AM'},
+    {'value': '10:00', 'display': '10:00 AM'},
+    {'value': '11:00', 'display': '11:00 AM'},
+    {'value': '12:00', 'display': '12:00 PM'},
+    {'value': '13:00', 'display': '01:00 PM'},
+    {'value': '14:00', 'display': '02:00 PM'},
+    {'value': '15:00', 'display': '03:00 PM'},
+    {'value': '16:00', 'display': '04:00 PM'},
+    {'value': '17:00', 'display': '05:00 PM'},
+    {'value': '18:00', 'display': '06:00 PM'},
+    {'value': '19:00', 'display': '07:00 PM'},
+    {'value': '20:00', 'display': '08:00 PM'},
+    {'value': '21:00', 'display': '09:00 PM'},
+    {'value': '22:00', 'display': '10:00 PM'},
+    {'value': '23:00', 'display': '11:00 PM'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: _bgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: _textPrimary),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          '4-Star Hotel Vendor Registration Form',
+          style: TextStyle(
+            fontSize: 17.5,
+            fontWeight: FontWeight.w600,
+            color: _textPrimary,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            // Progress Steps
+            Container(
+              padding: EdgeInsets.all(5),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: List.generate(_steps.length, (index) {
+                        bool isActive = index == _currentStep;
+                        bool isCompleted = index < _currentStep;
+
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 2),
+                          child: GestureDetector(
+                            onTap: () {
+                              if (index <= _currentStep) {
+                                setState(() {
+                                  _currentStep = index;
+                                });
+                              }
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 32,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: isActive
+                                        ? _primaryColor
+                                        : isCompleted
+                                        ? _successColor
+                                        : Colors.white,
+                                    border: Border.all(
+                                      color: isActive || isCompleted
+                                          ? Colors.transparent
+                                          : _borderColor,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: isCompleted
+                                        ? Icon(
+                                      Icons.check,
+                                      size: 18,
+                                      color: Colors.white,
+                                    )
+                                        : Text(
+                                      '${index + 1}',
+                                      style: TextStyle(
+                                        color: isActive || isCompleted
+                                            ? Colors.white
+                                            : _textSecondary,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 8),
+                                SizedBox(
+                                  width: 70,
+                                  child: Text(
+                                    _steps[index]['title'],
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w500,
+                                      color: isActive || isCompleted
+                                          ? _textPrimary
+                                          : _textSecondary,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  LinearProgressIndicator(
+                    value: (_currentStep + 1) / _steps.length,
+                    backgroundColor: _borderColor,
+                    color: _primaryColor,
+                    minHeight: 4,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Step ${_currentStep + 1} of ${_steps.length}',
+                        style: TextStyle(fontSize: 12, color: _textSecondary),
+                      ),
+                      Text(
+                        '${((_currentStep + 1) / _steps.length * 100).toInt()}%',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: _primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // Content
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Step Header
+                    Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      padding: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: _cardColor,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: _borderColor),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: _primaryLight,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${_currentStep + 1}',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: _primaryColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _steps[_currentStep]['title'],
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: _textPrimary,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  _steps[_currentStep]['subtitle'],
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: _textSecondary,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: _primaryColor,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.star, size: 14, color: Colors.white),
+                                Icon(Icons.star, size: 14, color: Colors.white),
+                                Icon(Icons.star, size: 14, color: Colors.white),
+                                Icon(Icons.star, size: 14, color: Colors.white),
+                                SizedBox(width: 4),
+                                Text(
+                                  '4-Star',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Step Content
+                    _buildStepContent(),
+                    SizedBox(height: 32),
+                  ],
+                ),
+              ),
+            ),
+
+            // Navigation Buttons
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(top: BorderSide(color: _borderColor)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 8,
+                    offset: Offset(0, -2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  if (_currentStep > 0)
+                    Expanded(
+                      child: SizedBox(
+                        height: 55,
+                        child: OutlinedButton(
+                          onPressed: _previousStep,
+                          style: OutlinedButton.styleFrom(
+                            side: BorderSide(color: _borderColor),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(
+                            'Back',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: _textPrimary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (_currentStep > 0) SizedBox(width: 12),
+                  Expanded(
+                    child: SizedBox(
+                      height: 58,
+                      child: ElevatedButton(
+                        onPressed: _nextStep,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: _primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          _currentStep == _steps.length - 1
+                              ? 'Submit Registration'
+                              : 'Continue',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStepContent() {
+    switch (_currentStep) {
+      case 0:
+        return _buildStep1(); // Hotel Information
+      case 1:
+        return _buildStep2(); // Contact & Address
+      case 2:
+        return _buildStep3(); // Room Configuration
+      case 3:
+        return _buildStep4(); // Amenities & Policies
+      case 4:
+        return _buildStep5(); // Legal & Documents
+      default:
+        return Container();
+    }
+  }
+
+  // Step 1: Hotel Information
+  Widget _buildStep1() {
+    return Column(
+      children: [
+        _buildCard(
+          title: '1. Hotel Information',
+          children: [
+            _buildInputField(
+              label: 'Hotel Name *',
+              controller: _hotelNameController,
+              hint: 'Enter hotel name',
+            ),
+            SizedBox(height: 16),
+
+            // Hotel Category (Fixed as 4-Star)
+            // Container(
+            //   padding: EdgeInsets.all(10),
+            //   decoration: BoxDecoration(
+            //     color: _primaryLight,
+            //     borderRadius: BorderRadius.circular(8),
+            //     border: Border.all(color: _primaryColor.withOpacity(0.3)),
+            //   ),
+            //   child: Row(
+            //     children: [
+            //       Container(
+            //         width: 38,
+            //         height: 50,
+            //         decoration: BoxDecoration(
+            //           color: _primaryColor,
+            //           borderRadius: BorderRadius.circular(6),
+            //         ),
+            //         child: Center(
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             children: [
+            //               Icon(Icons.star, size: 10, color: Colors.white),
+            //               Icon(Icons.star, size: 10, color: Colors.white),
+            //               Icon(Icons.star, size: 10, color: Colors.white),
+            //               Icon(Icons.star, size: 10, color: Colors.white),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //       SizedBox(width: 15),
+            //       Expanded(
+            //         child: Column(
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: [
+            //             Text(
+            //               'Hotel Category',
+            //               style: TextStyle(
+            //                 fontSize: 13,
+            //                 fontWeight: FontWeight.w500,
+            //                 color: _textSecondary,
+            //               ),
+            //             ),
+            //             Text(
+            //               '4-Star Hotel',
+            //               style: TextStyle(
+            //                 fontSize: 15,
+            //                 fontWeight: FontWeight.w600,
+            //                 color: _primaryColor,
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: _primaryColor.withOpacity(0.3)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50, // Slightly increased width
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Center(
+                      child: Wrap(
+                        spacing: 1,
+                        children: List.generate(4, (index) =>
+                            Icon(Icons.star, size: 10, color: Colors.white)
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hotel Category',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w500,
+                            color: _textSecondary,
+                          ),
+                        ),
+                        Text(
+                          '4-Star Hotel',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: _primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+
+            // Hotel Type
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Hotel Type *',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: ['Business', 'Leisure', 'Resort', 'Boutique']
+                      .map((type) => _buildHotelTypeChip(type))
+                      .toList(),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Year of Establishment',
+                    controller: _yearController,
+                    hint: 'YYYY',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Total Number of Rooms',
+                    controller: _roomsController,
+                    hint: '0',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Step 2: Contact & Address
+  Widget _buildStep2() {
+    return Column(
+      children: [
+        _buildCard(
+          title: '2. Contact Details',
+          children: [
+            _buildInputField(
+              label: 'Owner / Authorized Person Name *',
+              controller: _ownerNameController,
+              hint: 'Enter full name',
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Designation',
+              controller: _designationController,
+              hint: 'e.g., Owner, Manager, Director',
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Mobile Number *',
+              controller: _mobileController,
+              hint: 'Enter 10-digit mobile number',
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Alternate Contact Number',
+              controller: _altMobileController,
+              hint: 'Optional',
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Email ID',
+              controller: _emailController,
+              hint: 'example@email.com',
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Website / Booking Link',
+              controller: _websiteController,
+              hint: 'https://example.com',
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+
+        // UPDATED: Hotel Address with Additional Addresses (Point 1)
+        _buildCard(
+          title: '3. Hotel Address',
+          children: [
+            _buildInputField(
+              label: 'Primary Address Line 1 *',
+              controller: _address1Controller,
+              hint: 'Street address',
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Address Line 2',
+              controller: _address2Controller,
+              hint: 'Apartment, suite, etc.',
+            ),
+            SizedBox(height: 16),
+
+            // Additional Addresses
+            if (_additionalAddresses.isNotEmpty)
+              ..._additionalAddresses.asMap().entries.map((entry) {
+                int index = entry.key;
+                Map<String, TextEditingController> address = entry.value;
+                TextEditingController? addressController = address['address'];
+
+                if (addressController == null) {
+                  addressController = TextEditingController();
+                  address['address'] = addressController;
+                }
+
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildInputField(
+                            label: 'Additional Address ${index + 1}',
+                            controller: addressController,
+                            hint: 'Enter additional address',
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        IconButton(
+                          icon: Icon(Icons.remove_circle, color: Colors.red),
+                          onPressed: () => _removeAdditionalAddress(index),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                );
+              }).toList(),
+
+            SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: _addAdditionalAddress,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              icon: Icon(Icons.add_location, size: 18, color: Colors.white),
+              label: Text(
+                'Add Additional Address',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'City *',
+                    controller: _cityController,
+                    hint: 'Enter city',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'District *',
+                    controller: _districtController,
+                    hint: 'Enter district',
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'State *',
+                    controller: _stateController,
+                    hint: 'Enter state',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'PIN Code *',
+                    controller: _pinController,
+                    hint: '6-digit PIN',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Step 3: Room Configuration
+  Widget _buildStep3() {
+    return Column(
+      children: [
+        _buildCard(
+          title: '4. Room Inventory & Tariff',
+          children: [
+            // Room Type Selection
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Select Room Types Available:',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _selectedRoomTypes.entries.map((entry) {
+                    bool isSelected = entry.value;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedRoomTypes[entry.key] = !isSelected;
+                        });
+                      },
+                      child: Container(
+                        padding:
+                        EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: isSelected ? _primaryLight : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: isSelected ? _primaryColor : _borderColor,
+                            width: isSelected ? 2 : 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              isSelected
+                                  ? Icons.check_circle
+                                  : Icons.circle_outlined,
+                              size: 16,
+                              color: isSelected ? _primaryColor : _textSecondary,
+                            ),
+                            SizedBox(width: 6),
+                            Text(
+                              entry.key,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color:
+                                isSelected ? _primaryColor : _textSecondary,
+                                fontWeight: isSelected
+                                    ? FontWeight.w600
+                                    : FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // Room Configuration Table
+            if (_selectedRoomTypes.entries.any((entry) => entry.value))
+              Column(
+                children: [
+                  Text(
+                    'Configure selected room types:',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: _textPrimary,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  ..._selectedRoomTypes.entries
+                      .where((entry) => entry.value)
+                      .map((entry) {
+                    String roomType = entry.key;
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 16),
+                      child: _buildRoomConfigurationCard(roomType),
+                    );
+                  }).toList(),
+                ],
+              ),
+
+            SizedBox(height: 20),
+            Divider(color: _borderColor),
+            SizedBox(height: 20),
+
+            // Extra Bed & Seasonal Pricing
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Extra Bed Available:',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          _buildToggleChip('Yes', _extraBedAvailable, () {
+                            setState(() => _extraBedAvailable = true);
+                          }),
+                          SizedBox(width: 8),
+                          _buildToggleChip('No', !_extraBedAvailable, () {
+                            setState(() => _extraBedAvailable = false);
+                          }),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Seasonal Pricing:',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        children: [
+                          _buildToggleChip('Yes', _seasonalPricing, () {
+                            setState(() => _seasonalPricing = true);
+                          }),
+                          SizedBox(width: 8),
+                          _buildToggleChip('No', !_seasonalPricing, () {
+                            setState(() => _seasonalPricing = false);
+                          }),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Step 4: Amenities & Policies
+  Widget _buildStep4() {
+    return Column(
+      children: [
+        _buildCard(
+          title: '5. Amenities Available',
+          children: [
+            // Room Amenities
+            _buildAmenitiesSection('Room Amenities', _roomAmenities),
+            SizedBox(height: 20),
+
+            // Hotel Facilities
+            _buildAmenitiesSection('Hotel Facilities', _hotelFacilities),
+            SizedBox(height: 20),
+
+            // Food & Beverage
+            _buildAmenitiesSection('Food & Beverage', _foodServices),
+            SizedBox(height: 20),
+
+            // Business & Guest Services
+            _buildAmenitiesSection('Business & Guest Services', _businessServices),
+            SizedBox(height: 20),
+
+            // Wellness & Recreation
+            _buildAmenitiesSection('Wellness & Recreation', _wellnessRecreation),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildCard(
+          title: '6. Check-in Policies',
+          children: [
+            // UPDATED: Check-in/Check-out with dropdown (Point 3)
+            Row(
+              children: [
+                Expanded(
+                  child: _buildTimeDropdown(
+                    label: 'Standard Check-in Time',
+                    controller: _checkInController,
+                    onChanged: (value) {},
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildTimeDropdown(
+                    label: 'Standard Check-out Time',
+                    controller: _checkOutController,
+                    onChanged: (value) {},
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // Early Check-in Policies
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Early Check-in / Late Check-out:',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            _buildToggleChip('Allowed', _earlyCheckinAllowed, () {
+                              setState(() => _earlyCheckinAllowed = true);
+                            }),
+                            SizedBox(width: 8),
+                            _buildToggleChip('Not Allowed', !_earlyCheckinAllowed,
+                                    () {
+                                  setState(() {
+                                    _earlyCheckinAllowed = false;
+                                    _earlyCheckinChargeable = false;
+                                  });
+                                }),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        if (_earlyCheckinAllowed)
+                          Row(
+                            children: [
+                              _buildToggleChip(
+                                  'Chargeable', _earlyCheckinChargeable, () {
+                                setState(() => _earlyCheckinChargeable = true);
+                              }),
+                              SizedBox(width: 8),
+                              _buildToggleChip(
+                                  'Free', !_earlyCheckinChargeable, () {
+                                setState(() => _earlyCheckinChargeable = false);
+                              }),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+
+            // UPDATED: Removed Couple Friendly, only Pets Allowed (Point 4)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Pets Allowed:',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    _buildToggleChip('Yes', _petsAllowed, () {
+                      setState(() => _petsAllowed = true);
+                    }),
+                    SizedBox(width: 8),
+                    _buildToggleChip('No', !_petsAllowed, () {
+                      setState(() => _petsAllowed = false);
+                    }),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Step 5: Legal & Documents
+  Widget _buildStep5() {
+    return Column(
+      children: [
+        _buildCard(
+          title: '7. Legal & Compliance Details',
+          children: [
+            _buildInputField(
+              label: 'GST Number *',
+              controller: _gstController,
+              hint: 'Enter GST number',
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'PAN Number *',
+              controller: _panController,
+              hint: 'Enter PAN number',
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Trade License Number',
+                    controller: _tradeLicenseController,
+                    hint: 'Enter license number',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'FSSAI License',
+                    controller: _fssaiController,
+                    hint: 'If restaurant',
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Fire Safety Certificate:',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    _buildToggleChip('Yes', _fireSafetyCertificate, () {
+                      setState(() => _fireSafetyCertificate = true);
+                    }),
+                    SizedBox(width: 12),
+                    _buildToggleChip('No', !_fireSafetyCertificate, () {
+                      setState(() => _fireSafetyCertificate = false);
+                    }),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Star Classification Certificate:',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    _buildToggleChip('Yes', _starCertificate, () {
+                      setState(() => _starCertificate = true);
+                    }),
+                    SizedBox(width: 12),
+                    _buildToggleChip('No', !_starCertificate, () {
+                      setState(() => _starCertificate = false);
+                    }),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildCard(
+          title: '8. Bank Details (Payment Settlement)',
+          children: [
+            _buildInputField(
+              label: 'Account Holder Name *',
+              controller: _accountNameController,
+              hint: 'Enter name as per bank',
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Bank Name *',
+              controller: _bankNameController,
+              hint: 'Enter bank name',
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Account Number *',
+                    controller: _accountNumberController,
+                    hint: 'Enter account number',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'IFSC Code *',
+                    controller: _ifscController,
+                    hint: 'Enter IFSC code',
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Branch',
+              controller: _branchController,
+              hint: 'Enter branch name',
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildCard(
+          title: '9. Documents Required',
+          children: [
+            Text(
+              'Please upload clear scanned copies of the following documents:',
+              style: TextStyle(fontSize: 12, color: _textSecondary),
+            ),
+            SizedBox(height: 16),
+
+            // GST Certificate
+            _buildDocumentUploadItem(
+              documentName: 'GST Certificate',
+              fileInfo: _uploadedFiles['GST Certificate']!,
+              onUploadPressed: () => _pickDocument('GST Certificate'),
+              onViewPressed: () => _viewDocument('GST Certificate'),
+              onRemovePressed: () => _removeDocument('GST Certificate'),
+              isOptional: false,
+            ),
+
+            // PAN Card
+            _buildDocumentUploadItem(
+              documentName: 'PAN Card',
+              fileInfo: _uploadedFiles['PAN Card']!,
+              onUploadPressed: () => _pickDocument('PAN Card'),
+              onViewPressed: () => _viewDocument('PAN Card'),
+              onRemovePressed: () => _removeDocument('PAN Card'),
+              isOptional: false,
+            ),
+
+            // Trade License
+            _buildDocumentUploadItem(
+              documentName: 'Trade License',
+              fileInfo: _uploadedFiles['Trade License']!,
+              onUploadPressed: () => _pickDocument('Trade License'),
+              onViewPressed: () => _viewDocument('Trade License'),
+              onRemovePressed: () => _removeDocument('Trade License'),
+              isOptional: false,
+            ),
+
+            // FSSAI Certificate
+            _buildDocumentUploadItem(
+              documentName: 'FSSAI Certificate',
+              fileInfo: _uploadedFiles['FSSAI Certificate']!,
+              onUploadPressed: () => _pickDocument('FSSAI Certificate'),
+              onViewPressed: () => _viewDocument('FSSAI Certificate'),
+              onRemovePressed: () => _removeDocument('FSSAI Certificate'),
+              isOptional: true,
+            ),
+
+            // Fire Safety Certificate
+            _buildDocumentUploadItem(
+              documentName: 'Fire Safety Certificate',
+              fileInfo: _uploadedFiles['Fire Safety Certificate']!,
+              onUploadPressed: () => _pickDocument('Fire Safety Certificate'),
+              onViewPressed: () => _viewDocument('Fire Safety Certificate'),
+              onRemovePressed: () => _removeDocument('Fire Safety Certificate'),
+              isOptional: false,
+              optionalText: 'Required if available',
+            ),
+
+            // Star Classification Certificate
+            _buildDocumentUploadItem(
+              documentName: 'Star Classification Certificate',
+              fileInfo: _uploadedFiles['Star Classification Certificate']!,
+              onUploadPressed: () => _pickDocument('Star Classification Certificate'),
+              onViewPressed: () => _viewDocument('Star Classification Certificate'),
+              onRemovePressed: () => _removeDocument('Star Classification Certificate'),
+              isOptional: false,
+            ),
+
+            // Cancelled Cheque
+            _buildDocumentUploadItem(
+              documentName: 'Cancelled Cheque',
+              fileInfo: _uploadedFiles['Cancelled Cheque']!,
+              onUploadPressed: () => _pickDocument('Cancelled Cheque'),
+              onViewPressed: () => _viewDocument('Cancelled Cheque'),
+              onRemovePressed: () => _removeDocument('Cancelled Cheque'),
+              isOptional: false,
+            ),
+
+            // Hotel & Room Photos
+            _buildDocumentUploadItem(
+              documentName: 'Hotel & Room Photos',
+              fileInfo: _uploadedFiles['Hotel & Room Photos']!,
+              onUploadPressed: () => _pickDocument('Hotel & Room Photos'),
+              onViewPressed: () => _viewDocument('Hotel & Room Photos'),
+              onRemovePressed: () => _removeDocument('Hotel & Room Photos'),
+              isOptional: false,
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildCard(
+          title: '10. Declaration',
+          children: [
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _declarationAccepted
+                    ? _successColor.withOpacity(0.05)
+                    : Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(
+                  color: _declarationAccepted ? _successColor : _borderColor,
+                  width: _declarationAccepted ? 1.5 : 1,
+                ),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Checkbox(
+                    value: _declarationAccepted,
+                    onChanged: (value) {
+                      setState(() {
+                        _declarationAccepted = value ?? false;
+                      });
+                    },
+                    activeColor: _primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF0C4A6E),
+                        height: 1.5,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 16),
+
+            // Signature Upload
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Signature & Hotel Seal',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                _buildSignatureUploadItem(),
+              ],
+            ),
+            SizedBox(height: 16),
+
+            // Date
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Date *',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                  ),
+                ),
+                SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () => _selectDate(context),
+                  child: Container(
+                    height: 48,
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: _borderColor),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          _selectedDate != null
+                              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                              : 'Select date',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: _selectedDate != null
+                                ? _textPrimary
+                                : _textSecondary,
+                          ),
+                        ),
+                        Icon(
+                          Icons.calendar_today,
+                          size: 18,
+                          color: _textSecondary,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Helper Widgets (same as 3-star version but with 4-star colors)
+  Widget _buildCard({required String title, required List<Widget> children}) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _cardColor,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _borderColor),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: _textPrimary,
+            ),
+          ),
+          SizedBox(height: 16),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInputField({
+    required String label,
+    required TextEditingController controller,
+    required String hint,
+    TextInputType? keyboardType,
+    bool isRequired = true,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: _textPrimary,
+              ),
+            ),
+            if (isRequired)
+              Text(
+                ' *',
+                style: TextStyle(color: Colors.red),
+              ),
+          ],
+        ),
+        SizedBox(height: 8),
+        TextFormField(
+          controller: controller,
+          keyboardType: keyboardType,
+          decoration: InputDecoration(
+            hintText: hint,
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _borderColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _primaryColor),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHotelTypeChip(String type) {
+    bool isSelected = _selectedHotelType == type;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedHotelType = isSelected ? null : type;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isSelected ? _primaryLight : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? _primaryColor : _borderColor,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Text(
+          type,
+          style: TextStyle(
+            fontSize: 12,
+            color: isSelected ? _primaryColor : _textSecondary,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRoomConfigurationCard(String roomType) {
+    final details = _roomDetails[roomType]!;
+
+    return Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: _borderColor),
+      ),
+      child: Column(
+        children: [
+          Text(
+            roomType,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: _primaryColor,
+            ),
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildSmallInput(
+                  label: 'No. of Rooms',
+                  controller: TextEditingController(text: details['rooms']),
+                  onChanged: (value) => details['rooms'] = value,
+                  hint: '0',
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: _buildSmallInput(
+                  label: 'Max Occupancy',
+                  controller: TextEditingController(text: details['occupancy']),
+                  onChanged: (value) => details['occupancy'] = value,
+                  hint: 'Persons',
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'AC',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      children: [
+                        _buildToggleChip('Yes', details['ac'], () {
+                          setState(() => details['ac'] = true);
+                        }),
+                        SizedBox(width: 8),
+                        _buildToggleChip('No', !details['ac'], () {
+                          setState(() => details['ac'] = false);
+                        }),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Bed Type',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Container(
+                      height: 35,
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: _borderColor),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: details['bedType'],
+                          isExpanded: true,
+                          icon: Icon(Icons.arrow_drop_down, size: 20),
+                          items: _bedTypes.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              details['bedType'] = newValue!;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          // UPDATED: Changed to "Select Price Per Day" (Point 2)
+          _buildSmallInput(
+            label: 'Select Price Per Day (₹)',
+            controller: TextEditingController(text: details['price']),
+            onChanged: (value) => details['price'] = value,
+            hint: 'Rs',
+            keyboardType: TextInputType.number,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSmallInput({
+    required String label,
+    required TextEditingController controller,
+    required ValueChanged<String> onChanged,
+    required String hint,
+    TextInputType? keyboardType,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        SizedBox(
+          height: 40,
+          child: TextFormField(
+            controller: controller,
+            onChanged: onChanged,
+            keyboardType: keyboardType,
+            decoration: InputDecoration(
+              hintText: hint,
+              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: BorderSide(color: _borderColor),
+              ),
+              isDense: true,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isSelected ? _primaryLight : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? _primaryColor : _borderColor,
+            width: isSelected ? 2 : 1,
+          ),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: isSelected ? _primaryColor : _textSecondary,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAmenitiesSection(String title, Map<String, bool> amenities) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: amenities.entries.map((entry) {
+            bool isSelected = entry.value;
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  amenities[entry.key] = !isSelected;
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: isSelected ? _primaryLight : Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: isSelected ? _primaryColor : _borderColor,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      isSelected ? Icons.check_circle : Icons.circle_outlined,
+                      size: 14,
+                      color: isSelected ? _primaryColor : _textSecondary,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      entry.key,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: isSelected ? _primaryColor : _textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+
+  // NEW: Time Dropdown Widget (Point 3)
+  Widget _buildTimeDropdown({
+    required String label,
+    required TextEditingController controller,
+    required ValueChanged<String> onChanged,
+  }) {
+    String currentValue = controller.text;
+    String displayValue = '';
+
+    if (currentValue.isNotEmpty) {
+      for (var option in _timeOptions24Hour) {
+        if (option['value'] == currentValue) {
+          displayValue = option['value']!;
+          break;
+        }
+      }
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        Container(
+          height: 48,
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            border: Border.all(color: _borderColor),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: displayValue.isNotEmpty ? displayValue : null,
+              isExpanded: true,
+              icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
+              hint: Text('Select time'),
+              items: _timeOptions24Hour.map((option) {
+                return DropdownMenuItem<String>(
+                  value: option['value'],
+                  child: Text(option['display']!),
+                );
+              }).toList(),
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    controller.text = value;
+                  });
+                  onChanged(value);
+                }
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDocumentUploadItem({
+    required String documentName,
+    required Map<String, dynamic> fileInfo,
+    required VoidCallback onUploadPressed,
+    required VoidCallback onViewPressed,
+    required VoidCallback onRemovePressed,
+    bool isOptional = false,
+    String? optionalText,
+  }) {
+    final fileName = fileInfo['name'] as String? ?? '';
+    final isUploaded = (fileInfo['uploaded'] as bool?) ?? false;
+    final fileSize = (fileInfo['size'] as int?) ?? 0;
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    _getDocumentIcon(documentName),
+                    size: 18,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 8),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        documentName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      if (isOptional && optionalText != null)
+                        Text(
+                          optionalText,
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: Colors.orange,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 8),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: onUploadPressed,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                ),
+                child: Text(
+                  'Upload $documentName',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Center(
+                      child: _getFileIcon(fileName),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB • ${_getFileExtension(fileName).toUpperCase()}',
+                          style: TextStyle(fontSize: 10, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: onViewPressed,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 18,
+                          color: _primaryColor,
+                        ),
+                        padding: EdgeInsets.all(4),
+                        tooltip: 'View',
+                      ),
+                      IconButton(
+                        onPressed: onRemovePressed,
+                        icon: Icon(Icons.delete, size: 18, color: Colors.red),
+                        padding: EdgeInsets.all(4),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSignatureUploadItem() {
+    final fileName = _signatureFile['name'] as String? ?? '';
+    final isUploaded = (_signatureFile['uploaded'] as bool?) ?? false;
+    final fileSize = (_signatureFile['size'] as int?) ?? 0;
+
+    Future<void> _pickSignature() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a signature file smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _signatureFile['name'] = file.name;
+            _signatureFile['size'] = file.size;
+            _signatureFile['path'] = file.path ?? '';
+            _signatureFile['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Signature uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload signature: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewSignature() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Signature'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 200,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Signature Preview',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('File: $fileName'),
+                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    void _removeSignature() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Remove Signature'),
+          content: Text('Are you sure you want to remove this signature?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _signatureFile['name'] = '';
+                  _signatureFile['size'] = 0;
+                  _signatureFile['path'] = '';
+                  _signatureFile['uploaded'] = false;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Signature removed'),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: Text('Remove', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.note_alt_outlined,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Digital Signature',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'PNG or JPG format',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: _textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickSignature,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Signature',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _successColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: _successColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.note_alt_outlined,
+                        size: 24,
+                        color: _successColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: _textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewSignature,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview Signature',
+                      ),
+                      IconButton(
+                        onPressed: _removeSignature,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove Signature',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // File Helper Methods
+  Widget _getFileIcon(String fileName) {
+    final ext = _getFileExtension(fileName).toLowerCase();
+
+    if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
+      return Icon(Icons.image, size: 20, color: _primaryColor);
+    } else if (['pdf'].contains(ext)) {
+      return Icon(Icons.picture_as_pdf, size: 20, color: Colors.red);
+    } else if (['doc', 'docx'].contains(ext)) {
+      return Icon(Icons.description, size: 20, color: Colors.blue);
+    } else {
+      return Icon(Icons.insert_drive_file, size: 20, color: _primaryColor);
+    }
+  }
+
+  String _getFileExtension(String fileName) {
+    final dotIndex = fileName.lastIndexOf('.');
+    return dotIndex != -1 ? fileName.substring(dotIndex + 1) : '';
+  }
+
+  IconData _getDocumentIcon(String documentName) {
+    if (documentName.contains('GST')) return Icons.receipt;
+    if (documentName.contains('PAN')) return Icons.credit_card;
+    if (documentName.contains('License')) return Icons.badge;
+    if (documentName.contains('FSSAI')) return Icons.restaurant;
+    if (documentName.contains('Fire')) return Icons.fire_extinguisher;
+    if (documentName.contains('Star')) return Icons.star;
+    if (documentName.contains('Cheque')) return Icons.account_balance;
+    if (documentName.contains('Photos')) return Icons.photo_library;
+    return Icons.description;
+  }
+
+  // File Upload Methods
+  Future<void> _pickDocument(String documentType) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.isNotEmpty) {
+        final file = result.files.first;
+
+        if (file.size > 5 * 1024 * 1024) {
+          _showErrorDialog(
+            'File too large',
+            'Please select a file smaller than 5MB',
+          );
+          return;
+        }
+
+        setState(() {
+          _uploadedFiles[documentType] = {
+            'name': file.name,
+            'size': file.size,
+            'path': file.path ?? '',
+            'uploaded': true,
+          };
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${file.name} uploaded successfully'),
+            backgroundColor: _successColor,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      _showErrorDialog(
+        'Upload Error',
+        'Failed to upload file: ${e.toString()}',
+      );
+    }
+  }
+
+  void _viewDocument(String documentType) {
+    final fileInfo = _uploadedFiles[documentType]!;
+    final fileName = fileInfo['name'] as String? ?? '';
+    final fileSize = (fileInfo['size'] as int?) ?? 0;
+
+    if (fileName.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Row(
+            children: [
+              Icon(
+                _getDocumentIcon(documentType),
+                color: _primaryColor,
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(documentType, overflow: TextOverflow.ellipsis),
+              ),
+            ],
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 200,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.grey[300]!),
+                ),
+                child: Center(child: _getFileIcon(fileName)),
+              ),
+              SizedBox(height: 16),
+              Text('File Details:', style: TextStyle(fontWeight: FontWeight.w500)),
+              SizedBox(height: 8),
+              Text('Name: $fileName'),
+              Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
+              if (documentType == 'FSSAI Certificate')
+                Padding(
+                  padding: EdgeInsets.only(top: 8),
+                  child: Text(
+                    'Required for hotels with restaurant facilities',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.orange[700],
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Close'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  void _removeDocument(String documentType) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Remove Document'),
+        content: Text('Are you sure you want to remove this document?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _uploadedFiles[documentType] = {
+                  'name': '',
+                  'size': 0,
+                  'path': '',
+                  'uploaded': false,
+                };
+              });
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Document removed'),
+                  backgroundColor: Colors.orange,
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            },
+            child: Text('Remove', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // NEW: Additional Address Methods (Point 1)
+  void _addAdditionalAddress() {
+    setState(() {
+      _additionalAddresses.add({
+        'address': TextEditingController(),
+      });
+    });
+  }
+
+  void _removeAdditionalAddress(int index) {
+    if (index >= 0 && index < _additionalAddresses.length) {
+      setState(() {
+        _additionalAddresses[index]['address']?.dispose();
+        _additionalAddresses.removeAt(index);
+      });
+    }
+  }
+
+  // Navigation Methods
+  void _nextStep() {
+    if (_currentStep < _steps.length - 1) {
+      setState(() {
+        _currentStep++;
+      });
+    } else {
+      _submitForm();
+    }
+  }
+
+  void _previousStep() {
+    if (_currentStep > 0) {
+      setState(() {
+        _currentStep--;
+      });
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now(),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
+  void _showErrorDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Form Submission
+  void _submitForm() {
+    // Check required fields
+    if (_hotelNameController.text.isEmpty ||
+        _ownerNameController.text.isEmpty ||
+        _mobileController.text.isEmpty ||
+        _address1Controller.text.isEmpty ||
+        _cityController.text.isEmpty ||
+        _stateController.text.isEmpty ||
+        _pinController.text.isEmpty ||
+        _gstController.text.isEmpty ||
+        _panController.text.isEmpty ||
+        _accountNameController.text.isEmpty ||
+        _bankNameController.text.isEmpty ||
+        _accountNumberController.text.isEmpty ||
+        _ifscController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill all required fields marked with *'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    if (!_declarationAccepted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please accept the declaration to proceed'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    if (!(_signatureFile['uploaded'] ?? false)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please upload Digital Signature'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      setState(() => _currentStep = 4);
+      return;
+    }
+
+    // Check required documents
+    final requiredDocs = [
+      'GST Certificate',
+      'PAN Card',
+      'Trade License',
+      'Star Classification Certificate',
+      'Cancelled Cheque',
+      'Hotel & Room Photos',
+    ];
+
+    for (var doc in requiredDocs) {
+      if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please upload $doc'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        setState(() => _currentStep = 4);
+        return;
+      }
+    }
+
+    // Prepare form data
+    Map<String, dynamic> formData = {
+      'hotelName': _hotelNameController.text,
+      'hotelCategory': '4-Star',
+      'hotelType': _selectedHotelType,
+      'yearOfEstablishment': _yearController.text,
+      'registrationNumber': _registrationNumberController.text,
+      'totalRooms': _roomsController.text,
+      'ownerName': _ownerNameController.text,
+      'designation': _designationController.text,
+      'mobileNumber': _mobileController.text,
+      'alternateContact': _altMobileController.text,
+      'email': _emailController.text,
+      'website': _websiteController.text,
+      'addressLine1': _address1Controller.text,
+      'addressLine2': _address2Controller.text,
+      'city': _cityController.text,
+      'district': _districtController.text,
+      'state': _stateController.text,
+      'pinCode': _pinController.text,
+      'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
+      'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
+      'extraBedAvailable': _extraBedAvailable,
+      'seasonalPricing': _seasonalPricing,
+      'checkInTime': _checkInController.text,
+      'checkOutTime': _checkOutController.text,
+      'earlyCheckinAllowed': _earlyCheckinAllowed,
+      'earlyCheckinChargeable': _earlyCheckinChargeable,
+      'petsAllowed': _petsAllowed,
+      'roomAmenities': Map<String, bool>.from(_roomAmenities),
+      'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
+      'foodServices': Map<String, bool>.from(_foodServices),
+      'businessServices': Map<String, bool>.from(_businessServices),
+      'wellnessRecreation': Map<String, bool>.from(_wellnessRecreation),
+      'gstNumber': _gstController.text,
+      'panNumber': _panController.text,
+      'tradeLicense': _tradeLicenseController.text,
+      'fssaiLicense': _fssaiController.text,
+      'fireSafetyCertificate': _fireSafetyCertificate,
+      'starCertificate': _starCertificate,
+      'accountHolderName': _accountNameController.text,
+      'bankName': _bankNameController.text,
+      'accountNumber': _accountNumberController.text,
+      'ifscCode': _ifscController.text,
+      'branch': _branchController.text,
+      'uploadedFiles': _uploadedFiles,
+      'signatureFile': _signatureFile,
+      'signatoryName': _signatoryNameController.text,
+      'declarationDate': _selectedDate,
+      'declarationAccepted': _declarationAccepted,
+      // NEW: Include additional addresses
+      'additionalAddresses': _additionalAddresses.map((addr) {
+        return {
+          'address': addr['address']?.text ?? '',
+        };
+      }).toList(),
+    };
+
+    // Navigate to summary screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RegistrationSummaryScreen(
+          registrationData: formData,
+          hotelCategory: '4-Star',
+          declarationAccepted: _declarationAccepted,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // Dispose all controllers
+    _hotelNameController.dispose();
+    _yearController.dispose();
+    _registrationNumberController.dispose();
+    _roomsController.dispose();
+    _ownerNameController.dispose();
+    _designationController.dispose();
+    _mobileController.dispose();
+    _altMobileController.dispose();
+    _emailController.dispose();
+    _websiteController.dispose();
+    _address1Controller.dispose();
+    _address2Controller.dispose();
+    _cityController.dispose();
+    _districtController.dispose();
+    _stateController.dispose();
+    _pinController.dispose();
+    _checkInController.dispose();
+    _checkOutController.dispose();
+    _gstController.dispose();
+    _panController.dispose();
+    _tradeLicenseController.dispose();
+    _fssaiController.dispose();
+    _fireSafetyController.dispose();
+    _starCertController.dispose();
+    _accountNameController.dispose();
+    _bankNameController.dispose();
+    _accountNumberController.dispose();
+    _ifscController.dispose();
+    _branchController.dispose();
+    _signatoryNameController.dispose();
+
+    // Dispose additional address controllers
+    for (var address in _additionalAddresses) {
+      address['address']?.dispose();
+    }
+    _additionalAddresses.clear();
+
     super.dispose();
   }
 }
