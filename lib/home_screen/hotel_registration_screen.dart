@@ -9918,114 +9918,6 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
       ),
     );
   }
-
-    final updatedData = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HotelOwnerProfilePage(
-          hotelName: widget.hotelName,
-          ownerName: widget.ownerName,
-          mobileNumber: widget.mobileNumber,
-          email: widget.email,
-          addressLine1: widget.addressLine1,
-          addressLine2: widget.addressLine2,
-          city: widget.city,
-          district: widget.district,
-          state: widget.state,
-          pinCode: widget.pinCode,
-          gstNumber: widget.gstNumber,
-          fssaiLicense: widget.fssaiLicense,
-          tradeLicense: widget.tradeLicense,
-          aadharNumber: widget.aadharNumber,
-          accountHolderName: widget.accountHolderName,
-          bankName: widget.bankName,
-          accountNumber: widget.accountNumber,
-          ifscCode: widget.ifscCode,
-          branch: widget.branch,
-          accountType: widget.accountType,
-          totalRooms: widget.totalRooms,
-          personPhotoInfo: widget.personPhotoInfo,
-          hotelType: regData['hotelType'] ?? '',
-          yearOfEstablishment: regData['yearOfEstablishment'] ?? '',
-          website: regData['website'] ?? '',
-          landmark: regData['landmark'] ?? '',
-          selectedRoomTypes: regData['selectedRoomTypes'] ?? {},
-          roomDetails: regData['roomDetails'] ?? {},
-          minTariff: regData['minTariff'] ?? '',
-          maxTariff: regData['maxTariff'] ?? '',
-          extraBedAvailable: regData['extraBedAvailable'] ?? false,
-          basicAmenities: regData['basicAmenities'] ?? {},
-          hotelFacilities: regData['hotelFacilities'] ?? {},
-          foodServices: regData['foodServices'] ?? {},
-          additionalAmenities: regData['additionalAmenities'] ?? {},
-          customAmenities: regData['customAmenities'] ?? [],
-          alternateContact: regData['alternateContact'] ?? '',
-          landlineNumbers: regData['landlineNumbers'] ?? [],
-          uploadedFiles: regData['uploadedFiles'] ?? {},
-          signatureName: regData['signatureName'] ?? '',
-          declarationName: regData['declarationName'] ?? '',
-          declarationDate: regData['declarationDate'],
-          declarationAccepted: regData['declarationAccepted'] ?? false,
-        ),
-      ),
-    );
-
-    if (updatedData != null && updatedData is Map<String, dynamic>) {
-      // Update the dashboard with new data
-      setState(() {
-        // Update widget data (you need to make widgets mutable or use state management)
-        // Since widget properties are final, you need to rebuild the entire dashboard
-        // Or better, use a state management solution
-
-        // For now, show a snackbar and refresh the page
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Profile updated successfully!'),
-            backgroundColor: Colors.green,
-          ),
-        );
-
-        // You could navigate to a new dashboard with updated data
-        _refreshDashboard(updatedData);
-      });
-    }
-  }
-
-  void _refreshDashboard(Map<String, dynamic> updatedData) {
-    // Create a new HotelOwnerDashboard with updated data
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => HotelOwnerDashboard(
-          hotelName: updatedData['hotelName'] ?? widget.hotelName,
-          ownerName: updatedData['ownerName'] ?? widget.ownerName,
-          mobileNumber: updatedData['mobileNumber'] ?? widget.mobileNumber,
-          email: updatedData['email'] ?? widget.email,
-          addressLine1: updatedData['addressLine1'] ?? widget.addressLine1,
-          addressLine2: updatedData['addressLine2'] ?? widget.addressLine2,
-          city: updatedData['city'] ?? widget.city,
-          district: updatedData['district'] ?? widget.district,
-          state: updatedData['state'] ?? widget.state,
-          pinCode: updatedData['pinCode'] ?? widget.pinCode,
-          gstNumber: updatedData['gstNumber'] ?? widget.gstNumber,
-          fssaiLicense: updatedData['fssaiLicense'] ?? widget.fssaiLicense,
-          tradeLicense: updatedData['tradeLicense'] ?? widget.tradeLicense,
-          panNumber: '', // Add if you have this field
-          aadharNumber: updatedData['aadharNumber'] ?? widget.aadharNumber,
-          accountHolderName: updatedData['accountHolderName'] ?? widget.accountHolderName,
-          bankName: updatedData['bankName'] ?? widget.bankName,
-          accountNumber: updatedData['accountNumber'] ?? widget.accountNumber,
-          ifscCode: updatedData['ifscCode'] ?? widget.ifscCode,
-          branch: updatedData['branch'] ?? widget.branch,
-          accountType: updatedData['accountType'] ?? widget.accountType,
-          totalRooms: int.tryParse(updatedData['totalRooms']?.toString() ?? widget.totalRooms.toString()) ?? widget.totalRooms,
-          personPhotoInfo: updatedData['personPhotoInfo'] ?? widget.personPhotoInfo,
-          registrationData: updatedData,
-        ),
-      ),
-    );
-  }
-<<<<<<< HEAD
 }
 
 
@@ -18537,7 +18429,6 @@ class _BookingTrendGraphPainter extends CustomPainter {
 //     super.dispose();
 //   }
 // }
->>>>>>> 0641d04 (first commit)
 
 
 class HotelOwnerProfilePage extends StatefulWidget {
@@ -18717,7 +18608,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
     super.initState();
 
     _tabController = TabController(length: 5, vsync: this);
-<<<<<<< HEAD
     
     // Initialize with widget values as defaults - ensure all fields are set
     _ownerName = widget.ownerName.isNotEmpty ? widget.ownerName : '';
@@ -18965,13 +18855,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
         _isLoadingProfile = false;
       });
     }
-=======
-    _tabController.addListener(() {
-      setState(() {
-        _currentTabIndex = _tabController.index;
-      });
-    });
->>>>>>> 0641d04 (first commit)
   }
 
 
@@ -19017,7 +18900,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
     super.dispose();
   }
 
-<<<<<<< HEAD
   // Build profile photo image from base64, file path, or URL
   Widget _buildProfilePhotoImage() {
     // Use API data first, then widget data
@@ -19081,9 +18963,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
   }
 
   // Add this helper method
-=======
-
->>>>>>> 0641d04 (first commit)
   Widget _buildDefaultProfileImage() {
     return Container(
       color: Colors.white.withOpacity(0.2),
@@ -19220,22 +19099,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                                       ],
                                     ),
                                     child: ClipOval(
-<<<<<<< HEAD
                                       child: _buildProfilePhotoImage(),
-=======
-                                      child:
-                                      widget.personPhotoInfo['uploaded'] ==
-                                          true
-                                          ? Image.network(
-                                        widget.personPhotoInfo['url'],
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return _buildDefaultProfileImage();
-                                        },
-                                      )
-                                          : _buildDefaultProfileImage(),
->>>>>>> 0641d04 (first commit)
                                     ),
                                   ),
 
@@ -19499,7 +19363,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
           },
           body: Column(
             children: [
-<<<<<<< HEAD
               // Personal details Tab - updated with new fields
               _PersonalDetailsTab(
                 ownerName: _ownerName.isNotEmpty ? _ownerName : widget.ownerName,
@@ -19569,186 +19432,11 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                 declarationName: _declarationName.isNotEmpty ? _declarationName : widget.declarationName,
                 declarationDate: _declarationDate != null ? _declarationDate : widget.declarationDate,
                 declarationAccepted: _declarationAccepted || widget.declarationAccepted,
-=======
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    // Personal details Tab - updated with new fields
-                    _PersonalDetailsTab(
-                      ownerName: widget.ownerName,
-                      mobileNumber: widget.mobileNumber,
-                      email: widget.email,
-                      aadharNumber: widget.aadharNumber,
-
-                      personPhotoInfo: widget.personPhotoInfo,
-                      alternateContact: widget.alternateContact,
-                      // landlineNumbers: widget.landlineNumbers,
-                      website: widget.website,
-                    ),
-
-                    // Hotel details Tab
-                    _HotelDetailsTab(
-                      hotelName: widget.hotelName,
-                      addressLine1: widget.addressLine1,
-                      addressLine2: widget.addressLine2,
-                      city: widget.city,
-                      district: widget.district,
-                      state: widget.state,
-                      pinCode: widget.pinCode,
-                      totalRooms: widget.totalRooms,
-                      hotelType: widget.hotelType,
-                      yearOfEstablishment: widget.yearOfEstablishment,
-                      website: widget.website,
-                      landmark: widget.landmark,
-                      hotelEmail: '',
-                      hotelPhone: '',
-                    ),
-
-                    // Room Availability Tab
-                    _RoomAvailabilityTab(
-                      selectedRoomTypes: widget.selectedRoomTypes,
-                      roomDetails: widget.roomDetails,
-                      minTariff: widget.minTariff,
-                      maxTariff: widget.maxTariff,
-                      extraBedAvailable: widget.extraBedAvailable,
-                      totalRooms: widget.totalRooms,
-                    ),
-
-                    // Amenities details Tab - updated with PAN number
-                    _AmenitiesDetailsTab(
-                      basicAmenities: widget.basicAmenities,
-                      hotelFacilities: widget.hotelFacilities,
-                      foodServices: widget.foodServices,
-                      additionalAmenities: widget.additionalAmenities,
-                      customAmenities: widget.customAmenities,
-                      gstNumber: widget.gstNumber,
-                      fssaiLicense: widget.fssaiLicense,
-                      tradeLicense: widget.tradeLicense,
-                      aadharNumber: widget.aadharNumber,
-                    ),
-
-                    // Bank & Documents Tab - updated with all document fields
-                    _BankAndDocumentsTab(
-                      accountHolderName: widget.accountHolderName,
-                      bankName: widget.bankName,
-                      accountNumber: widget.accountNumber,
-                      ifscCode: widget.ifscCode,
-                      branch: widget.branch,
-                      accountType: widget.accountType,
-                      gstNumber: widget.gstNumber,
-                      fssaiLicense: widget.fssaiLicense,
-                      tradeLicense: widget.tradeLicense,
-
-                      uploadedFiles: widget.uploadedFiles,
-                      signatureName: widget.signatureName,
-                      declarationName: widget.declarationName,
-                      declarationDate: widget.declarationDate,
-                      declarationAccepted: widget.declarationAccepted,
                     ),
                   ],
                 ),
               ),
-
-              // Navigation Buttons at Bottom
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(top: BorderSide(color: Colors.grey[200]!)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.05),
-                      blurRadius: 4,
-                      offset: Offset(0, -2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    // Previous Button
-                    if (_currentTabIndex > 0)
-                      Expanded(
-                        child: SizedBox(
-                          height: 50,
-                          child: OutlinedButton(
-                            onPressed: _goToPreviousTab,
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Color(0xFF4F46E5)),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.arrow_back,
-                                    size: 18,
-                                    color: Color(0xFF4F46E5)),
-                                SizedBox(width: 8),
-                                Text(
-                                  'Previous',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Color(0xFF4F46E5),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                    if (_currentTabIndex > 0) SizedBox(width: 12),
-
-                    // Next Button
-                    Expanded(
-                      child: SizedBox(
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: _goToNextTab,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF4F46E5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                _currentTabIndex == _tabTitles.length - 1
-                                    ? 'Finish'
-                                    : 'Next',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              if (_currentTabIndex < _tabTitles.length - 1)
-                                SizedBox(width: 8),
-                              if (_currentTabIndex < _tabTitles.length - 1)
-                                Icon(Icons.arrow_forward,
-                                    size: 18,
-                                    color: Colors.white),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
->>>>>>> 0641d04 (first commit)
-              ),
-            ],
-          ),
-        ),
       ),
-
-
     );
   }
 
@@ -19843,7 +19531,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
   }
 }
 
-<<<<<<< HEAD
 // class _PersonalDetailsTab extends StatelessWidget {
 //   final String ownerName;
 //   final String mobileNumber;
@@ -20467,8 +20154,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
 //   }
 // }
 
-=======
->>>>>>> 0641d04 (first commit)
 class _PersonalDetailsTab extends StatelessWidget {
   final String ownerName;
   final String mobileNumber;
@@ -21371,7 +21056,6 @@ class _PersonalDetailsTab extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
 // class _HotelDetailsTab extends StatelessWidget {
 //   final String hotelName;
 //   final String addressLine1;
@@ -21702,8 +21386,6 @@ class _PersonalDetailsTab extends StatelessWidget {
 //   }
 // }
 
-=======
->>>>>>> 0641d04 (first commit)
 class _HotelDetailsTab extends StatelessWidget {
   final String hotelName;
   final String addressLine1;
@@ -22986,7 +22668,6 @@ class _AmenitiesDetailsTab extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
 // class _RoomAvailabilityTab extends StatelessWidget {
 //   final Map<String, bool> selectedRoomTypes;
 //   final Map<String, Map<String, dynamic>> roomDetails;
@@ -23444,8 +23125,6 @@ class _AmenitiesDetailsTab extends StatelessWidget {
 //   }
 // }
 
-=======
->>>>>>> 0641d04 (first commit)
 class _RoomAvailabilityTab extends StatelessWidget {
   final Map<String, bool> selectedRoomTypes;
   final Map<String, Map<String, dynamic>> roomDetails;
