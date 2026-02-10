@@ -46,7 +46,10 @@ dependencies:
   iconsax: ^0.0.8
   url_launcher: ^6.3.1
   shared_preferences: ^2.5.3
-
+  signature:
+  path:
+  photo_view:
+  image_picker:
 dev_dependencies:
   flutter_test:
     sdk: flutter
