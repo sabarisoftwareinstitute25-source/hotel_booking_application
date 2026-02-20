@@ -54185,7 +54185,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState extends State<GlobalEliteLu
   DateTime? _selectedDate;
   bool _declarationAccepted = false;
 
-// Add this near your other lists (around line 50-60)
+
   final List<String> _bedTypeOptions = [
     'King',
     'Queen',
@@ -54196,7 +54196,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState extends State<GlobalEliteLu
     'Custom',
   ];
 
-// Update your _accommodationMatrix declaration - make sure it's properly initialized
+
   final Map<String, Map<String, dynamic>> _accommodationMatrix = {
     'Luxury Room': {
       'units': '',
@@ -54240,7 +54240,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState extends State<GlobalEliteLu
     },
   };
 
-// Make sure _selectedAccommodationTypes is properly declared
+
   Map<String, bool> _selectedAccommodationTypes = {
     'Luxury Room': false,
     'Club Suite': false,
@@ -54648,7 +54648,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState extends State<GlobalEliteLu
                   if (_currentStep > 0) SizedBox(width: 12),
                   Expanded(
                     child: SizedBox(
-                      height: 48,
+                      height: 50,
                       child: ElevatedButton(
                         onPressed: _nextStep,
                         style: ElevatedButton.styleFrom(

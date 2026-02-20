@@ -6,6 +6,417 @@ import '../home_screen/hotel_registration_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../screens/dashboard_screen.dart';
+import '../screens/office_users_screen.dart';
+
+
+// class ChooseRoleScreen extends StatelessWidget {
+//   const ChooseRoleScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         decoration: const BoxDecoration(
+//           gradient: LinearGradient(
+//             begin: Alignment.topCenter,
+//             end: Alignment.bottomCenter,
+//             colors: [
+//               Color(0xFFF8FAFF),
+//               Color(0xFFF0F4FF),
+//             ],
+//           ),
+//         ),
+//         child: SafeArea(
+//           child: Padding(
+//             padding: const EdgeInsets.all(24.0),
+//             child: Column(
+//               children: [
+//                 // Top Row with Admin and Office buttons
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     // Office Button (Left side)
+//                     GestureDetector(
+//                       onTap: () {
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => const OfficeLoginScreen(),
+//                           ),
+//                         );
+//                       },
+//                       child: Container(
+//                         padding: const EdgeInsets.symmetric(
+//                           horizontal: 16,
+//                           vertical: 8,
+//                         ),
+//                         decoration: BoxDecoration(
+//                           gradient: const LinearGradient(
+//                             colors: [
+//                               Color(0xFF3B82F6),
+//                               Color(0xFF2563EB),
+//                             ],
+//                             begin: Alignment.topLeft,
+//                             end: Alignment.bottomRight,
+//                           ),
+//                           borderRadius: BorderRadius.circular(30),
+//                           boxShadow: [
+//                             BoxShadow(
+//                               color: Colors.black.withOpacity(0.1),
+//                               blurRadius: 8,
+//                               offset: const Offset(0, 2),
+//                             ),
+//                           ],
+//                         ),
+//                         child: Row(
+//                           mainAxisSize: MainAxisSize.min,
+//                           children: [
+//                             const Icon(
+//                               Icons.business_center_rounded,
+//                               size: 18,
+//                               color: Colors.white,
+//                             ),
+//                             const SizedBox(width: 8),
+//                             const Text(
+//                               "Office",
+//                               style: TextStyle(
+//                                 color: Colors.white,
+//                                 fontSize: 14,
+//                                 fontWeight: FontWeight.w600,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//
+//                     // Admin Button (Right side)
+//                     GestureDetector(
+//                       onTap: () {
+//                         Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => OfficeLoginScreen(),
+//                           ),
+//                         );
+//                       },
+//                       child: Container(
+//                         padding: const EdgeInsets.symmetric(
+//                           horizontal: 16,
+//                           vertical: 8,
+//                         ),
+//                         decoration: BoxDecoration(
+//                           gradient: const LinearGradient(
+//                             colors: [
+//                               Color(0xFF1E293B),
+//                               Color(0xFF334155),
+//                             ],
+//                             begin: Alignment.topLeft,
+//                             end: Alignment.bottomRight,
+//                           ),
+//                           borderRadius: BorderRadius.circular(30),
+//                           boxShadow: [
+//                             BoxShadow(
+//                               color: Colors.black.withOpacity(0.1),
+//                               blurRadius: 8,
+//                               offset: const Offset(0, 2),
+//                             ),
+//                           ],
+//                         ),
+//                         child: Row(
+//                           mainAxisSize: MainAxisSize.min,
+//                           children: [
+//                             Icon(
+//                               Icons.admin_panel_settings_rounded,
+//                               size: 18,
+//                               color: Colors.amber.shade300,
+//                             ),
+//                             const SizedBox(width: 8),
+//                             const Text(
+//                               "Admin",
+//                               style: TextStyle(
+//                                 color: Colors.white,
+//                                 fontSize: 14,
+//                                 fontWeight: FontWeight.w600,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//
+//                 const SizedBox(height: 20),
+//
+//                 // Logo/Hotel Icon
+//                 Container(
+//                   width: 100,
+//                   height: 100,
+//                   decoration: BoxDecoration(
+//                     gradient: const LinearGradient(
+//                       colors: [
+//                         Color(0xFFFF5F6D),
+//                         Color(0xFFFFC371),
+//                       ],
+//                       begin: Alignment.topLeft,
+//                       end: Alignment.bottomRight,
+//                     ),
+//                     borderRadius: BorderRadius.circular(25),
+//                     boxShadow: [
+//                       BoxShadow(
+//                         color: const Color(0xFFFF5F6D).withOpacity(0.2),
+//                         blurRadius: 25,
+//                         spreadRadius: 3,
+//                       ),
+//                     ],
+//                   ),
+//                   child: const Center(
+//                     child: Icon(
+//                       Icons.hotel,
+//                       size: 48,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                 ),
+//
+//                 const SizedBox(height: 24),
+//
+//                 // Welcome Text
+//                 Column(
+//                   children: [
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         const Icon(
+//                           Icons.waving_hand_rounded,
+//                           color: Color(0xFFFF5F6D),
+//                           size: 28,
+//                         ),
+//                         const SizedBox(width: 10),
+//                         ShaderMask(
+//                           shaderCallback: (bounds) => const LinearGradient(
+//                             colors: [
+//                               Color(0xFFFF5F6D),
+//                               Color(0xFFFFC371),
+//                             ],
+//                             begin: Alignment.centerLeft,
+//                             end: Alignment.centerRight,
+//                           ).createShader(bounds),
+//                           child: const Text(
+//                             "Welcome Aboard!",
+//                             style: TextStyle(
+//                               fontSize: 26,
+//                               fontWeight: FontWeight.w800,
+//                               color: Colors.white,
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//
+//                     const SizedBox(height: 10),
+//
+//                     Container(
+//                       height: 2,
+//                       width: 60,
+//                       decoration: BoxDecoration(
+//                         gradient: const LinearGradient(
+//                           colors: [
+//                             Color(0xFFFF5F6D),
+//                             Color(0xFFFFC371),
+//                           ],
+//                         ),
+//                         borderRadius: BorderRadius.circular(1),
+//                       ),
+//                     ),
+//
+//                     const SizedBox(height: 26),
+//
+//                     Column(
+//                       children: [
+//                         const Text(
+//                           "Trusted by travelers worldwide",
+//                           style: TextStyle(
+//                             fontSize: 17,
+//                             fontWeight: FontWeight.w700,
+//                             color: Color(0xFF1F2937),
+//                           ),
+//                           textAlign: TextAlign.center,
+//                         ),
+//                         const SizedBox(height: 18),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             const Icon(Icons.verified, color: Color(0xFF10B981), size: 16),
+//                             const SizedBox(width: 6),
+//                             const Text(
+//                               "Secure bookings | Best prices",
+//                               style: TextStyle(
+//                                 fontSize: 13,
+//                                 color: Color(0xFF6B7280),
+//                                 fontWeight: FontWeight.w500,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//
+//                     const SizedBox(height: 26),
+//
+//                     // Role Selection Label
+//                     Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: [
+//                         Container(
+//                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+//                           decoration: BoxDecoration(
+//                             color: const Color(0xDDED6262),
+//                             borderRadius: BorderRadius.circular(20),
+//                           ),
+//                           child: const Text(
+//                             "Choose your role 👇",
+//                             style: TextStyle(
+//                               color: Colors.white,
+//                               fontSize: 14,
+//                               fontWeight: FontWeight.w600,
+//                             ),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//
+//                 // Role Cards
+//                 Expanded(
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       _buildRoleCard(
+//                         icon: Icons.houseboat_outlined,
+//                         title: "Book hotels and experiences",
+//                         description: "Find Stays",
+//                         color: const Color(0xFF3B82F6),
+//                         onTap: () {
+//                           Navigator.pushReplacement(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => FindStaysScreen(),
+//                             ),
+//                           );
+//                         },
+//                       ),
+//                       const SizedBox(height: 20),
+//
+//                       _buildRoleCard(
+//                         icon: Icons.business_outlined,
+//                         title: "Register your hotel or villa",
+//                         description: "List Property",
+//                         color: const Color(0xFF10B981),
+//                         onTap: () {
+//                           Navigator.push(
+//                             context,
+//                             MaterialPageRoute(
+//                               builder: (context) => PropertyAuthScreen(),
+//                             ),
+//                           );
+//                         },
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//
+//                 const SizedBox(height: 20),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildRoleCard({
+//     required IconData icon,
+//     required String title,
+//     required String description,
+//     required Color color,
+//     required VoidCallback onTap,
+//   }) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         width: double.infinity,
+//         padding: const EdgeInsets.all(24),
+//         decoration: BoxDecoration(
+//           color: Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(color: Colors.grey.shade100),
+//           boxShadow: [
+//             BoxShadow(
+//               color: Colors.black.withOpacity(0.05),
+//               blurRadius: 20,
+//               offset: const Offset(0, 4),
+//             ),
+//           ],
+//         ),
+//         child: Row(
+//           children: [
+//             Container(
+//               width: 50,
+//               height: 50,
+//               decoration: BoxDecoration(
+//                 color: color.withOpacity(0.1),
+//                 borderRadius: BorderRadius.circular(12),
+//               ),
+//               child: Center(
+//                 child: Icon(
+//                   icon,
+//                   size: 28,
+//                   color: color,
+//                 ),
+//               ),
+//             ),
+//             const SizedBox(width: 20),
+//             Expanded(
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     title,
+//                     style: const TextStyle(
+//                       fontSize: 18,
+//                       fontWeight: FontWeight.w600,
+//                       color: Color(0xFF1F2937),
+//                     ),
+//                   ),
+//                   const SizedBox(height: 4),
+//                   Text(
+//                     description,
+//                     style: const TextStyle(
+//                       fontSize: 14,
+//                       color: Color(0xFF6B7280),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             Icon(
+//               Icons.arrow_forward_ios_rounded,
+//               size: 20,
+//               color: Colors.grey.shade400,
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
 class ChooseRoleScreen extends StatelessWidget {
   const ChooseRoleScreen({super.key});
 
@@ -28,15 +439,76 @@ class ChooseRoleScreen extends StatelessWidget {
             padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
-                const SizedBox(height: 40),
+                // Top Row with Admin button only (Office button removed from top)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Admin Button (Right side only)
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OfficeLoginScreen(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color(0xFF1E293B),
+                              Color(0xFF334155),
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.admin_panel_settings_rounded,
+                              size: 18,
+                              color: Colors.amber.shade300,
+                            ),
+                            const SizedBox(width: 8),
+                            const Text(
+                              "Admin",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+
+                // Logo/Hotel Icon
                 Container(
                   width: 100,
                   height: 100,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [
-                        // Color(0xFF3B82F6),
-                        // Color(0xFF8B5CF6),
                         Color(0xFFFF5F6D),
                         Color(0xFFFFC371),
                       ],
@@ -46,13 +518,13 @@ class ChooseRoleScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25),
                     boxShadow: [
                       BoxShadow(
-                        color: Color(0xFFFF5F6D).withOpacity(0.2),
+                        color: const Color(0xFFFF5F6D).withOpacity(0.2),
                         blurRadius: 25,
                         spreadRadius: 3,
                       ),
                     ],
                   ),
-                  child: Center(
+                  child: const Center(
                     child: Icon(
                       Icons.hotel,
                       size: 48,
@@ -62,29 +534,29 @@ class ChooseRoleScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 24),
+
+                // Welcome Text
                 Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.waving_hand_rounded,
                           color: Color(0xFFFF5F6D),
                           size: 28,
                         ),
                         const SizedBox(width: 10),
                         ShaderMask(
-                          shaderCallback: (bounds) => LinearGradient(
+                          shaderCallback: (bounds) => const LinearGradient(
                             colors: [
-                              // Color(0xFF3B82F6),
-                              // Color(0xFF8B5CF6),
                               Color(0xFFFF5F6D),
                               Color(0xFFFFC371),
                             ],
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                           ).createShader(bounds),
-                          child: Text(
+                          child: const Text(
                             "Welcome Aboard!",
                             style: TextStyle(
                               fontSize: 26,
@@ -98,14 +570,12 @@ class ChooseRoleScreen extends StatelessWidget {
 
                     const SizedBox(height: 10),
 
-
                     Container(
                       height: 2,
                       width: 60,
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           colors: [
-
                             Color(0xFFFF5F6D),
                             Color(0xFFFFC371),
                           ],
@@ -116,10 +586,9 @@ class ChooseRoleScreen extends StatelessWidget {
 
                     const SizedBox(height: 26),
 
-
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           "Trusted by travelers worldwide",
                           style: TextStyle(
                             fontSize: 17,
@@ -132,9 +601,9 @@ class ChooseRoleScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.verified, color: Color(0xFF10B981), size: 16),
-                            SizedBox(width: 6),
-                            Text(
+                            const Icon(Icons.verified, color: Color(0xFF10B981), size: 16),
+                            const SizedBox(width: 6),
+                            const Text(
                               "Secure bookings | Best prices",
                               style: TextStyle(
                                 fontSize: 13,
@@ -146,23 +615,20 @@ class ChooseRoleScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     const SizedBox(height: 26),
 
-
-
-
+                    // Role Selection Label
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-
-                        const SizedBox(width: 16),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xDDED6262),
+                            color: const Color(0xDDED6262),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Choose your role 👇",
                             style: TextStyle(
                               color: Colors.white,
@@ -171,17 +637,12 @@ class ChooseRoleScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(width: 16),
-
                       ],
                     ),
                   ],
                 ),
 
-
-
-
-
+                // Role Cards
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +651,7 @@ class ChooseRoleScreen extends StatelessWidget {
                         icon: Icons.houseboat_outlined,
                         title: "Book hotels and experiences",
                         description: "Find Stays",
-                        color: Color(0xFF3B82F6),
+                        color: const Color(0xFF3B82F6),
                         onTap: () {
                           Navigator.pushReplacement(
                             context,
@@ -206,7 +667,7 @@ class ChooseRoleScreen extends StatelessWidget {
                         icon: Icons.business_outlined,
                         title: "Register your hotel or villa",
                         description: "List Property",
-                        color: Color(0xFF10B981),
+                        color: const Color(0xFF10B981),
                         onTap: () {
                           Navigator.push(
                             context,
@@ -220,9 +681,50 @@ class ChooseRoleScreen extends StatelessWidget {
                   ),
                 ),
 
-
-
-                const SizedBox(height: 20),
+                // Office Button at the bottom (no colored background)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20, top: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const OfficeLoginScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 12,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: Colors.grey.shade300),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.business_center_rounded,
+                            size: 18,
+                            color: Colors.grey.shade600,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Office Login",
+                            style: TextStyle(
+                              color: Colors.grey.shade700,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -279,7 +781,7 @@ class ChooseRoleScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFF1F2937),
@@ -288,7 +790,7 @@ class ChooseRoleScreen extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     description,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       color: Color(0xFF6B7280),
                     ),
@@ -309,6 +811,157 @@ class ChooseRoleScreen extends StatelessWidget {
 }
 
 
+class OfficeLoginScreen extends StatefulWidget {
+  const OfficeLoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OfficeLoginScreen> createState() => _OfficeLoginScreenState();
+}
+
+class _OfficeLoginScreenState extends State<OfficeLoginScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
+  bool _isLoading = false;
+
+  void _login() async {
+    setState(() => _isLoading = true);
+
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() => _isLoading = false);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Login Successful")),
+    );
+
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (_) => const OfficeDashboardScreen()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xff4e73df), Color(0xff1cc88a)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 15,
+                    offset: const Offset(0, 8),
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.admin_panel_settings,
+                    size: 60,
+                    color: Color(0xff4e73df),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    "Office Login",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  // Email Field
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Office Email",
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: _obscurePassword,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff4e73df),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      onPressed: _isLoading ? null : _login,
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                          : const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Forgot Password?"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 
 
@@ -3732,7 +4385,7 @@ class HotelCategoryScreen extends StatelessWidget {
         'subtitle': 'International Standards',
         'description': 'World-renowned hospitality brands',
         'stars': '⭐⭐⭐⭐⭐⭐⭐',
-        'price': '₹35,000 - ₹1,00,000+',
+        'price': '₹35,000+',
         'color': Color(0xFF10B981),
         'image': 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&h=400&q=80',
       },
@@ -4061,4 +4714,156 @@ class _HotelCategoryCard extends StatelessWidget {
 
 
 
+
+class AdminLoginScreen extends StatefulWidget {
+  const AdminLoginScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OfficeLoginScreen> createState() => _OfficeLoginScreenState();
+}
+
+class _AdminLoginScreenState extends State<OfficeLoginScreen> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _obscurePassword = true;
+  bool _isLoading = false;
+
+  void _login() async {
+    setState(() => _isLoading = true);
+
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() => _isLoading = false);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Login Successful")),
+    );
+
+    Navigator.pushReplacement(context,
+       MaterialPageRoute(builder: (_) => const DashboardScreen()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xff4e73df), Color(0xff1cc88a)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.15),
+                    blurRadius: 15,
+                    offset: const Offset(0, 8),
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.admin_panel_settings,
+                    size: 60,
+                    color: Color(0xff4e73df),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    "Admin Login",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  // Email Field
+                  TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Admin Email",
+                      prefixIcon: const Icon(Icons.email_outlined),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: _obscurePassword,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: const Icon(Icons.lock_outline),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscurePassword
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xff4e73df),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      onPressed: _isLoading ? null : _login,
+                      child: _isLoading
+                          ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                          : const Text(
+                        "Login",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text("Forgot Password?"),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 

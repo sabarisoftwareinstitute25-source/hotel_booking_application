@@ -50,6 +50,7 @@ dependencies:
   path:
   photo_view:
   image_picker:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
