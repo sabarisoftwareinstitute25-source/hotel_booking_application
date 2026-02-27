@@ -2612,6 +2612,578 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
   }
 
 
+  // Widget _buildReminderCard(
+  //     Map<String, dynamic> booking,
+  //     DateTime bookingDate,
+  //     DateTime checkInDate,
+  //     DateTime today,
+  //     ) {
+  //   String reminderMessage = _getReminderMessage(
+  //     bookingDate,
+  //     checkInDate,
+  //     today,
+  //   );
+  //   int daysUntilCheckIn = checkInDate.difference(today).inDays;
+  //
+  //
+  //   int bookingAdvanceDays = checkInDate.difference(bookingDate).inDays;
+  //   int bookingAdvanceWeeks = (bookingAdvanceDays / 7).floor();
+  //
+  //
+  //   DateTime nextReminderDate;
+  //   if (bookingAdvanceDays >= 60) {
+  //
+  //     nextReminderDate = today.add(const Duration(days: 14));
+  //   } else if (bookingAdvanceDays >= 30) {
+  //
+  //     nextReminderDate = today.add(const Duration(days: 7));
+  //   } else {
+  //
+  //     nextReminderDate = today.add(const Duration(days: 1));
+  //   }
+  //
+  //   String formattedNextReminder = _formatDate(nextReminderDate);
+  //
+  //   Color cardColor;
+  //   IconData reminderIcon;
+  //   bool isFinalWeek = false;
+  //
+  //   if (reminderMessage.contains('Final week') ||
+  //       reminderMessage.contains('Last minute') ||
+  //       reminderMessage.contains('daily reminders') ||
+  //       daysUntilCheckIn <= 7 && daysUntilCheckIn > 0) {
+  //     cardColor = const Color(0xFFEF4444);
+  //     reminderIcon = Icons.warning_rounded;
+  //     isFinalWeek = true;
+  //     print('FINAL WEEK DETECTED: $reminderMessage, days: $daysUntilCheckIn');
+  //   } else if (reminderMessage.contains('TODAY')) {
+  //     cardColor = const Color(0xFF10B981);
+  //     reminderIcon = Icons.check_circle_rounded;
+  //     isFinalWeek = true;
+  //   } else if (reminderMessage.contains('Tomorrow') || daysUntilCheckIn <= 2) {
+  //     cardColor = const Color(0xFFF59E0B);
+  //     reminderIcon = Icons.access_alarm_rounded;
+  //     isFinalWeek = true;
+  //   } else {
+  //     cardColor = const Color(0xFF3B82F6);
+  //     reminderIcon = Icons.notifications_active_rounded;
+  //   }
+  //
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(16),
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.grey.withOpacity(0.08),
+  //           blurRadius: 10,
+  //           offset: const Offset(0, 3),
+  //         ),
+  //       ],
+  //       border: Border.all(color: cardColor.withOpacity(0.2), width: 1),
+  //     ),
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(14),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Row(
+  //             children: [
+  //               Container(
+  //                 width: 44,
+  //                 height: 44,
+  //                 decoration: BoxDecoration(
+  //                   gradient: LinearGradient(
+  //                     colors: [cardColor, cardColor.withOpacity(0.7)],
+  //                     begin: Alignment.topLeft,
+  //                     end: Alignment.bottomRight,
+  //                   ),
+  //                   borderRadius: BorderRadius.circular(12),
+  //                 ),
+  //                 child: Center(
+  //                   child: Text(
+  //                     booking['customer'].toString()[0],
+  //                     style: const TextStyle(
+  //                       color: Colors.white,
+  //                       fontSize: 18,
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 14),
+  //               Expanded(
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   mainAxisSize: MainAxisSize.min,
+  //                   children: [
+  //                     Text(
+  //                       booking['customer'].toString(),
+  //                       style: const TextStyle(
+  //                         fontSize: 16,
+  //                         fontWeight: FontWeight.w700,
+  //                         color: Color(0xFF1E293B),
+  //                       ),
+  //                       maxLines: 1,
+  //                       overflow: TextOverflow.ellipsis,
+  //                     ),
+  //                     const SizedBox(height: 4),
+  //
+  //                     GestureDetector(
+  //                       onTap: () {
+  //                         // _makePhoneCall(booking['phone'].toString());
+  //                       },
+  //                       child: Row(
+  //                         children: [
+  //                           Icon(
+  //                             Icons.phone_outlined,
+  //                             size: 12,
+  //                             color: cardColor,
+  //                           ),
+  //                           const SizedBox(width: 6),
+  //                           Expanded(
+  //                             child: Text(
+  //                               booking['phone'].toString(),
+  //                               style: TextStyle(
+  //                                 fontSize: 12,
+  //                                 color: Colors.grey[700],
+  //                                 fontWeight: FontWeight.w500,
+  //                                 decoration: TextDecoration.underline,
+  //                                 decorationColor: cardColor.withOpacity(0.3),
+  //                               ),
+  //                               maxLines: 1,
+  //                               overflow: TextOverflow.ellipsis,
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //
+  //               Container(
+  //                 padding: const EdgeInsets.symmetric(
+  //                   horizontal: 8,
+  //                   vertical: 4,
+  //                 ),
+  //                 decoration: BoxDecoration(
+  //                   color: Colors.grey[100],
+  //                   borderRadius: BorderRadius.circular(20),
+  //                 ),
+  //                 child: Text(
+  //                   booking['id'].toString(),
+  //                   style: TextStyle(
+  //                     fontSize: 10,
+  //                     color: Colors.grey[700],
+  //                     fontWeight: FontWeight.w600,
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //
+  //           const SizedBox(height: 16),
+  //
+  //           Container(
+  //             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+  //             decoration: BoxDecoration(
+  //               color: Colors.grey[50],
+  //               borderRadius: BorderRadius.circular(8),
+  //               border: Border.all(color: Colors.grey.shade200),
+  //             ),
+  //             child: Row(
+  //               children: [
+  //                 Icon(Icons.event_available_rounded, size: 14, color: cardColor),
+  //                 const SizedBox(width: 6),
+  //                 Text(
+  //                   'Confirmed: ${_formatDate(bookingDate)}',
+  //                   style: TextStyle(
+  //                     fontSize: 11,
+  //                     color: Colors.grey[700],
+  //                     fontWeight: FontWeight.w500,
+  //                   ),
+  //                 ),
+  //                 const Spacer(),
+  //                 Container(
+  //                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+  //                   decoration: BoxDecoration(
+  //                     color: cardColor.withOpacity(0.1),
+  //                     borderRadius: BorderRadius.circular(12),
+  //                   ),
+  //                   child: Text(
+  //                     '$bookingAdvanceDays days / $bookingAdvanceWeeks weeks',
+  //                     style: TextStyle(
+  //                       fontSize: 10,
+  //                       color: cardColor,
+  //                       fontWeight: FontWeight.w600,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //
+  //           const SizedBox(height: 12),
+  //
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: Container(
+  //                   padding: const EdgeInsets.symmetric(
+  //                     vertical: 10,
+  //                     horizontal: 12,
+  //                   ),
+  //                   decoration: BoxDecoration(
+  //                     color: const Color(0xFF3B82F6).withOpacity(0.08),
+  //                     borderRadius: BorderRadius.circular(12),
+  //                     border: Border.all(
+  //                       color: const Color(0xFF3B82F6).withOpacity(0.2),
+  //                       width: 1,
+  //                     ),
+  //                   ),
+  //                   child: Row(
+  //                     children: [
+  //                       Container(
+  //                         padding: const EdgeInsets.all(4),
+  //                         decoration: BoxDecoration(
+  //                           color: const Color(0xFF3B82F6).withOpacity(0.2),
+  //                           borderRadius: BorderRadius.circular(6),
+  //                         ),
+  //                         child: const Icon(
+  //                           Icons.login_rounded,
+  //                           size: 12,
+  //                           color: Color(0xFF3B82F6),
+  //                         ),
+  //                       ),
+  //                       const SizedBox(width: 8),
+  //                       Expanded(
+  //                         child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             Text(
+  //                               'CHECK IN',
+  //                               style: TextStyle(
+  //                                 fontSize: 8,
+  //                                 color: Colors.grey[600],
+  //                                 fontWeight: FontWeight.w600,
+  //                                 letterSpacing: 0.5,
+  //                               ),
+  //                             ),
+  //                             Text(
+  //                               booking['checkIn'].toString(),
+  //                               style: const TextStyle(
+  //                                 fontSize: 12,
+  //                                 fontWeight: FontWeight.w700,
+  //                                 color: Color(0xFF1E293B),
+  //                               ),
+  //                               maxLines: 1,
+  //                               overflow: TextOverflow.ellipsis,
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 10),
+  //
+  //               Expanded(
+  //                 child: Container(
+  //                   padding: const EdgeInsets.symmetric(
+  //                     vertical: 10,
+  //                     horizontal: 12,
+  //                   ),
+  //                   decoration: BoxDecoration(
+  //                     color: const Color(0xFFF59E0B).withOpacity(0.08),
+  //                     borderRadius: BorderRadius.circular(12),
+  //                     border: Border.all(
+  //                       color: const Color(0xFFF59E0B).withOpacity(0.2),
+  //                       width: 1,
+  //                     ),
+  //                   ),
+  //                   child: Row(
+  //                     children: [
+  //                       Container(
+  //                         padding: const EdgeInsets.all(4),
+  //                         decoration: BoxDecoration(
+  //                           color: const Color(0xFFF59E0B).withOpacity(0.2),
+  //                           borderRadius: BorderRadius.circular(6),
+  //                         ),
+  //                         child: const Icon(
+  //                           Icons.logout_rounded,
+  //                           size: 12,
+  //                           color: Color(0xFFF59E0B),
+  //                         ),
+  //                       ),
+  //                       const SizedBox(width: 8),
+  //                       Expanded(
+  //                         child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             Text(
+  //                               'CHECK OUT',
+  //                               style: TextStyle(
+  //                                 fontSize: 8,
+  //                                 color: Colors.grey[600],
+  //                                 fontWeight: FontWeight.w600,
+  //                                 letterSpacing: 0.5,
+  //                               ),
+  //                             ),
+  //                             Text(
+  //                               booking['checkOut'].toString(),
+  //                               style: const TextStyle(
+  //                                 fontSize: 12,
+  //                                 fontWeight: FontWeight.w700,
+  //                                 color: Color(0xFF1E293B),
+  //                               ),
+  //                               maxLines: 1,
+  //                               overflow: TextOverflow.ellipsis,
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //
+  //           const SizedBox(height: 14),
+  //
+  //           // Container(
+  //           //   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+  //           //   decoration: BoxDecoration(
+  //           //     color: cardColor.withOpacity(0.08),
+  //           //     borderRadius: BorderRadius.circular(12),
+  //           //     border: Border.all(color: cardColor.withOpacity(0.3), width: 1),
+  //           //   ),
+  //           //   child: Row(
+  //           //     children: [
+  //           //       Icon(reminderIcon, size: 18, color: cardColor),
+  //           //       const SizedBox(width: 10),
+  //           //       Expanded(
+  //           //         child: Column(
+  //           //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           //           children: [
+  //           //             Text(
+  //           //               reminderMessage,
+  //           //               style: TextStyle(
+  //           //                 fontSize: 12,
+  //           //                 color: cardColor,
+  //           //                 fontWeight: FontWeight.w600,
+  //           //                 height: 1.3,
+  //           //               ),
+  //           //               maxLines: 2,
+  //           //               overflow: TextOverflow.ellipsis,
+  //           //             ),
+  //           //             const SizedBox(height: 4),
+  //           //             Text(
+  //           //               'Next: $formattedNextReminder',
+  //           //               style: TextStyle(
+  //           //                 fontSize: 9,
+  //           //                 color: cardColor.withOpacity(0.7),
+  //           //                 fontWeight: FontWeight.w500,
+  //           //               ),
+  //           //             ),
+  //           //           ],
+  //           //         ),
+  //           //       ),
+  //           //       const SizedBox(width: 8),
+  //           //
+  //           //       // SHOW BOTH ICONS FOR ALL REMINDERS (including final week)
+  //           //       Row(
+  //           //         mainAxisSize: MainAxisSize.min,
+  //           //         children: [
+  //           //           GestureDetector(
+  //           //             onTap: () {
+  //           //               // _makePhoneCall(booking['phone'].toString());
+  //           //             },
+  //           //             child: Container(
+  //           //               padding: const EdgeInsets.all(8),
+  //           //               decoration: BoxDecoration(
+  //           //                 color: cardColor,
+  //           //                 borderRadius: BorderRadius.circular(10),
+  //           //                 boxShadow: [
+  //           //                   BoxShadow(
+  //           //                     color: cardColor.withOpacity(0.3),
+  //           //                     blurRadius: 4,
+  //           //                     offset: const Offset(0, 2),
+  //           //                   ),
+  //           //                 ],
+  //           //               ),
+  //           //               child: const Icon(
+  //           //                 Icons.phone_rounded,
+  //           //                 size: 16,
+  //           //                 color: Colors.white,
+  //           //               ),
+  //           //             ),
+  //           //           ),
+  //           //           const SizedBox(width: 8),
+  //           //           GestureDetector(
+  //           //             onTap: () {
+  //           //               // _openWhatsApp(booking['phone'].toString());
+  //           //             },
+  //           //             child: Container(
+  //           //               padding: const EdgeInsets.all(8),
+  //           //               decoration: BoxDecoration(
+  //           //                 color: const Color(0xFF25D366),
+  //           //                 borderRadius: BorderRadius.circular(10),
+  //           //                 boxShadow: [
+  //           //                   BoxShadow(
+  //           //                     color: const Color(0xFF25D366).withOpacity(0.3),
+  //           //                     blurRadius: 4,
+  //           //                     offset: const Offset(0, 2),
+  //           //                   ),
+  //           //                 ],
+  //           //               ),
+  //           //               child: const Icon(
+  //           //                 Icons.message_rounded,
+  //           //                 size: 16,
+  //           //                 color: Colors.white,
+  //           //               ),
+  //           //             ),
+  //           //           ),
+  //           //         ],
+  //           //       ),
+  //           //     ],
+  //           //   ),
+  //           // ),
+  //
+  //
+  //           Container(
+  //             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+  //             decoration: BoxDecoration(
+  //               color: cardColor.withOpacity(0.08),
+  //               borderRadius: BorderRadius.circular(12),
+  //               border: Border.all(color: cardColor.withOpacity(0.3), width: 1),
+  //             ),
+  //             child: Row(
+  //               children: [
+  //                 Icon(reminderIcon, size: 18, color: cardColor),
+  //                 const SizedBox(width: 10),
+  //                 Expanded(
+  //                   child: Column(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       Text(
+  //                         reminderMessage,
+  //                         style: TextStyle(
+  //                           fontSize: 12,
+  //                           color: cardColor,
+  //                           fontWeight: FontWeight.w600,
+  //                           height: 1.3,
+  //                         ),
+  //                         maxLines: 2,
+  //                         overflow: TextOverflow.ellipsis,
+  //                       ),
+  //                       const SizedBox(height: 4),
+  //
+  //                       if (!(reminderMessage.contains('ONLY') ||
+  //                           reminderMessage.contains('TODAY') ||
+  //                           reminderMessage.contains('TOMORROW') ||
+  //                           daysUntilCheckIn <= 2))
+  //                         Text(
+  //                           'Next: $formattedNextReminder',
+  //                           style: TextStyle(
+  //                             fontSize: 9,
+  //                             color: cardColor.withOpacity(0.7),
+  //                             fontWeight: FontWeight.w500,
+  //                           ),
+  //                         ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 const SizedBox(width: 8),
+  //
+  //
+  //                 Row(
+  //                   mainAxisSize: MainAxisSize.min,
+  //                   children: [
+  //                     GestureDetector(
+  //                       onTap: () {
+  //                         // _makePhoneCall(booking['phone'].toString());
+  //                       },
+  //                       child: Container(
+  //                         padding: const EdgeInsets.all(8),
+  //                         decoration: BoxDecoration(
+  //                           color: cardColor,
+  //                           borderRadius: BorderRadius.circular(10),
+  //                           boxShadow: [
+  //                             BoxShadow(
+  //                               color: cardColor.withOpacity(0.3),
+  //                               blurRadius: 4,
+  //                               offset: const Offset(0, 2),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                         child: const Icon(
+  //                           Icons.phone_rounded,
+  //                           size: 16,
+  //                           color: Colors.white,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     const SizedBox(width: 8),
+  //                     GestureDetector(
+  //                       onTap: () {
+  //                         // _openWhatsApp(booking['phone'].toString());
+  //                       },
+  //                       child: Container(
+  //                         padding: const EdgeInsets.all(8),
+  //                         decoration: BoxDecoration(
+  //                           color: const Color(0xFF25D366),
+  //                           borderRadius: BorderRadius.circular(10),
+  //                           boxShadow: [
+  //                             BoxShadow(
+  //                               color: const Color(0xFF25D366).withOpacity(0.3),
+  //                               blurRadius: 4,
+  //                               offset: const Offset(0, 2),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                         child: const Icon(
+  //                           Icons.message_rounded,
+  //                           size: 16,
+  //                           color: Colors.white,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //
+  //           const SizedBox(height: 8),
+  //
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.end,
+  //             children: [
+  //               Icon(Icons.hotel_rounded, size: 10, color: Colors.grey[400]),
+  //               const SizedBox(width: 4),
+  //               Text(
+  //                 booking['hotel'].toString(),
+  //                 style: TextStyle(
+  //                   fontSize: 10,
+  //                   color: Colors.grey[500],
+  //                   fontStyle: FontStyle.italic,
+  //                 ),
+  //                 maxLines: 1,
+  //                 overflow: TextOverflow.ellipsis,
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+
   Widget _buildReminderCard(
       Map<String, dynamic> booking,
       DateTime bookingDate,
@@ -2625,48 +3197,44 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
     );
     int daysUntilCheckIn = checkInDate.difference(today).inDays;
 
-
     int bookingAdvanceDays = checkInDate.difference(bookingDate).inDays;
     int bookingAdvanceWeeks = (bookingAdvanceDays / 7).floor();
 
-
     DateTime nextReminderDate;
     if (bookingAdvanceDays >= 60) {
-
       nextReminderDate = today.add(const Duration(days: 14));
     } else if (bookingAdvanceDays >= 30) {
-
       nextReminderDate = today.add(const Duration(days: 7));
     } else {
-
       nextReminderDate = today.add(const Duration(days: 1));
     }
 
     String formattedNextReminder = _formatDate(nextReminderDate);
 
+
     Color cardColor;
     IconData reminderIcon;
-    bool isFinalWeek = false;
 
-    if (reminderMessage.contains('Final week') ||
-        reminderMessage.contains('Last minute') ||
-        reminderMessage.contains('daily reminders') ||
-        daysUntilCheckIn <= 7 && daysUntilCheckIn > 0) {
-      cardColor = const Color(0xFFEF4444);
-      reminderIcon = Icons.warning_rounded;
-      isFinalWeek = true;
-      print('FINAL WEEK DETECTED: $reminderMessage, days: $daysUntilCheckIn');
-    } else if (reminderMessage.contains('TODAY')) {
-      cardColor = const Color(0xFF10B981);
-      reminderIcon = Icons.check_circle_rounded;
-      isFinalWeek = true;
-    } else if (reminderMessage.contains('Tomorrow') || daysUntilCheckIn <= 2) {
-      cardColor = const Color(0xFFF59E0B);
-      reminderIcon = Icons.access_alarm_rounded;
-      isFinalWeek = true;
-    } else {
+    if (daysUntilCheckIn > 30) {
+
       cardColor = const Color(0xFF3B82F6);
       reminderIcon = Icons.notifications_active_rounded;
+    } else if (daysUntilCheckIn > 15) {
+
+      cardColor = const Color(0xFFF59E0B);
+      reminderIcon = Icons.access_alarm_rounded;
+    } else if (daysUntilCheckIn > 7) {
+
+      cardColor = const Color(0xFF10B981);
+      reminderIcon = Icons.info_rounded;
+    } else if (daysUntilCheckIn > 0) {
+
+      cardColor = const Color(0xFFEF4444);
+      reminderIcon = Icons.warning_rounded;
+    } else {
+
+      cardColor = const Color(0xFF10B981);
+      reminderIcon = Icons.check_circle_rounded;
     }
 
     return Container(
@@ -2762,7 +3330,7 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
                     ],
                   ),
                 ),
-                // Booking ID chip
+
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -2786,7 +3354,6 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
 
             const SizedBox(height: 16),
 
-            // Confirm Date Row
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
@@ -2955,106 +3522,6 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
 
             const SizedBox(height: 14),
 
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-            //   decoration: BoxDecoration(
-            //     color: cardColor.withOpacity(0.08),
-            //     borderRadius: BorderRadius.circular(12),
-            //     border: Border.all(color: cardColor.withOpacity(0.3), width: 1),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       Icon(reminderIcon, size: 18, color: cardColor),
-            //       const SizedBox(width: 10),
-            //       Expanded(
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             Text(
-            //               reminderMessage,
-            //               style: TextStyle(
-            //                 fontSize: 12,
-            //                 color: cardColor,
-            //                 fontWeight: FontWeight.w600,
-            //                 height: 1.3,
-            //               ),
-            //               maxLines: 2,
-            //               overflow: TextOverflow.ellipsis,
-            //             ),
-            //             const SizedBox(height: 4),
-            //             Text(
-            //               'Next: $formattedNextReminder',
-            //               style: TextStyle(
-            //                 fontSize: 9,
-            //                 color: cardColor.withOpacity(0.7),
-            //                 fontWeight: FontWeight.w500,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //       const SizedBox(width: 8),
-            //
-            //       // SHOW BOTH ICONS FOR ALL REMINDERS (including final week)
-            //       Row(
-            //         mainAxisSize: MainAxisSize.min,
-            //         children: [
-            //           GestureDetector(
-            //             onTap: () {
-            //               // _makePhoneCall(booking['phone'].toString());
-            //             },
-            //             child: Container(
-            //               padding: const EdgeInsets.all(8),
-            //               decoration: BoxDecoration(
-            //                 color: cardColor,
-            //                 borderRadius: BorderRadius.circular(10),
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                     color: cardColor.withOpacity(0.3),
-            //                     blurRadius: 4,
-            //                     offset: const Offset(0, 2),
-            //                   ),
-            //                 ],
-            //               ),
-            //               child: const Icon(
-            //                 Icons.phone_rounded,
-            //                 size: 16,
-            //                 color: Colors.white,
-            //               ),
-            //             ),
-            //           ),
-            //           const SizedBox(width: 8),
-            //           GestureDetector(
-            //             onTap: () {
-            //               // _openWhatsApp(booking['phone'].toString());
-            //             },
-            //             child: Container(
-            //               padding: const EdgeInsets.all(8),
-            //               decoration: BoxDecoration(
-            //                 color: const Color(0xFF25D366),
-            //                 borderRadius: BorderRadius.circular(10),
-            //                 boxShadow: [
-            //                   BoxShadow(
-            //                     color: const Color(0xFF25D366).withOpacity(0.3),
-            //                     blurRadius: 4,
-            //                     offset: const Offset(0, 2),
-            //                   ),
-            //                 ],
-            //               ),
-            //               child: const Icon(
-            //                 Icons.message_rounded,
-            //                 size: 16,
-            //                 color: Colors.white,
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               decoration: BoxDecoration(
@@ -3082,7 +3549,7 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
-                        // Only show "Next:" text if NOT in 2 days or less scenario
+
                         if (!(reminderMessage.contains('ONLY') ||
                             reminderMessage.contains('TODAY') ||
                             reminderMessage.contains('TOMORROW') ||
@@ -3099,7 +3566,6 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
                     ),
                   ),
                   const SizedBox(width: 8),
-
 
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -3184,13 +3650,11 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
     );
   }
 
-
-
-
   String _formatDate(DateTime date) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return '${date.day} ${months[date.month - 1]} ${date.year}';
   }
+
 
 
   // String _getReminderMessage(
@@ -3261,7 +3725,6 @@ class _OfficeReminderScreenState extends State<OfficeReminderScreen> {
     if (daysUntilCheckIn == 2) {
       return "⚡ 2 DAYS LEFT! Daily Remainder";
     }
-
 
     if (daysUntilCheckIn == 1) {
       return "✨ TOMORROW! - Final preparations needed";
