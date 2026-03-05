@@ -313,85 +313,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Header
-            // Container(
-            //   padding: const EdgeInsets.fromLTRB(24, 20, 24, 30),
-            //   decoration: const BoxDecoration(
-            //     gradient: LinearGradient(
-            //       begin: Alignment.topLeft,
-            //       end: Alignment.bottomRight,
-            //       colors: [Color(0xFF4157FF), Color(0xFF6B7DFF)],
-            //     ),
-            //     borderRadius: BorderRadius.only(
-            //       bottomLeft: Radius.circular(35),
-            //       bottomRight: Radius.circular(35),
-            //     ),
-            //   ),
-            //   child: Column(
-            //     children: [
-            //       Row(
-            //         children: [
-            //           GestureDetector(
-            //             onTap: () => Navigator.pop(context),
-            //             child: Container(
-            //               padding: const EdgeInsets.all(10),
-            //               decoration: BoxDecoration(
-            //                 color: Colors.white.withOpacity(0.2),
-            //                 borderRadius: BorderRadius.circular(15),
-            //               ),
-            //               child: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 18),
-            //             ),
-            //           ),
-            //           const SizedBox(width: 16),
-            //           const Text(
-            //             'Verification Center',
-            //             style: TextStyle(
-            //               color: Colors.white,
-            //               fontSize: 24,
-            //               fontWeight: FontWeight.bold,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            //
-            // // Overview Stats Cards
-            // Padding(
-            //   padding: const EdgeInsets.all(20),
-            //   child: Row(
-            //     children: [
-            //       _buildOverviewCard(
-            //         'Pending',
-            //         _pendingCount.toString(),
-            //         Icons.pending_actions_rounded,
-            //         const Color(0xFFF59E0B),
-            //       ),
-            //       const SizedBox(width: 12),
-            //       _buildOverviewCard(
-            //         'Verified Today',
-            //         _todayCount.toString(),
-            //         Icons.today_rounded,
-            //         const Color(0xFF10B981),
-            //       ),
-            //       const SizedBox(width: 12),
-            //       _buildOverviewCard(
-            //         'Approved',
-            //         _verifiedCount.toString(),
-            //         Icons.check_circle_rounded,
-            //         const Color(0xFF4157FF),
-            //       ),
-            //       const SizedBox(width: 12),
-            //       _buildOverviewCard(
-            //         'Rejected',
-            //         _rejectedCount.toString(),
-            //         Icons.cancel_rounded,
-            //         const Color(0xFFEF4444),
-            //       ),
-            //     ],
-            //   ),
-            // ),
+
 
             Container(
               padding: const EdgeInsets.all(24),
@@ -415,7 +337,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                 children: [
                   const SizedBox(height: 4),
 
-                  // Quick Stats Row with actual data
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -467,7 +389,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
 
             const SizedBox(height: 20),
 
-            // Results Count
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Row(
@@ -664,10 +586,10 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Header Row with Vendor Info
+
             Row(
               children: [
-                // Avatar with Gradient
+
                 Container(
                   width: 50,
                   height: 50,
@@ -683,7 +605,6 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                 ),
                 const SizedBox(width: 12),
 
-                // Vendor Basic Info
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -708,7 +629,6 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                   ),
                 ),
 
-                // Status Badge
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
@@ -743,7 +663,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
 
             const SizedBox(height: 16),
 
-            // Details Grid
+
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -752,7 +672,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
               ),
               child: Row(
                 children: [
-                  // Hotel Details
+
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -780,10 +700,10 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
 
             const SizedBox(height: 16),
 
-            // Action Buttons
+
             Row(
               children: [
-                // View Details Button
+
                 Expanded(
                   child: OutlinedButton.icon(
                     onPressed: () => _showVendorDetails(vendor),
@@ -800,7 +720,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                   ),
                 ),
 
-                // Approve Button (only if pending)
+
                 if (vendor.verificationStatus == VerificationStatus.pending) ...[
                   const SizedBox(width: 8),
                   Expanded(
@@ -893,7 +813,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
           ),
           child: Column(
             children: [
-              // Handle
+
               Container(
                 margin: const EdgeInsets.only(top: 12),
                 height: 5,
@@ -905,7 +825,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Close Button
+
               Padding(
                 padding: const EdgeInsets.only(right: 20),
                 child: Align(
@@ -929,7 +849,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     children: [
-                      // Avatar
+
                       Container(
                         width: 100,
                         height: 100,
@@ -945,7 +865,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                       ),
                       const SizedBox(height: 16),
 
-                      // Hotel Name
+
                       Text(
                         vendor.hotelName ?? vendor.name,
                         style: const TextStyle(
@@ -956,7 +876,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                       ),
                       const SizedBox(height: 4),
 
-                      // Owner Name
+
                       Text(
                         'Owner: ${vendor.name}',
                         style: TextStyle(
@@ -966,7 +886,6 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
                       ),
                       const SizedBox(height: 12),
 
-                      // Status Badge
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
@@ -1000,7 +919,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
 
                       const SizedBox(height: 24),
 
-                      // Details Card
+
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -1076,6 +995,7 @@ class _ProfileVerificationScreenState extends State<ProfileVerificationScreen> {
         return allVendors.length;
     }
   }
+
 
   void _showVerificationDialog(UserModel vendor, bool isApprove) {
     showDialog(

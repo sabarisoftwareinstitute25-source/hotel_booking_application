@@ -1,4 +1,4 @@
-// feedback_model.dart
+
 class FeedbackModel {
   final String id;
   final String customerName;
@@ -25,7 +25,7 @@ class FeedbackModel {
   });
 }
 
-// Simple storage class
+
 class FeedbackStorage {
   static List<FeedbackModel> _feedbacks = [];
 
@@ -39,7 +39,7 @@ class FeedbackStorage {
     _feedbacks.clear();
   }
 
-  // Add some sample data for testing
+
   static void addSampleData() {
     if (_feedbacks.isEmpty) {
       _feedbacks.addAll([

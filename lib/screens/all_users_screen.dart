@@ -979,13 +979,7 @@ class AllUsersScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                // Text(
-                //   subtitle,
-                //   style: TextStyle(
-                //     fontSize: 13,
-                //     color: Colors.grey[600],
-                //   ),
-                // ),
+
               ],
             ),
           ),
@@ -1320,7 +1314,7 @@ class _VendorListScreenState extends State<VendorListScreen> {
 
                             const SizedBox(height: 20),
 
-                            // Date Range Filter
+
                             const Text(
                               'Date Range',
                               style: TextStyle(
@@ -3448,41 +3442,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen>
                                       ),
                                     ),
                                     const SizedBox(height: 4),
-                                    // Container(
-                                    //   padding: const EdgeInsets.symmetric(
-                                    //     horizontal: 12,
-                                    //     vertical: 5,
-                                    //   ),
-                                    //   decoration: BoxDecoration(
-                                    //     color: Colors.white.withOpacity(0.15),
-                                    //     borderRadius: BorderRadius.circular(30),
-                                    //     border: Border.all(
-                                    //       color: Colors.white.withOpacity(0.2),
-                                    //     ),
-                                    //   ),
-                                    //   child: Row(
-                                    //     mainAxisSize: MainAxisSize.min,
-                                    //     children: [
-                                    //       Container(
-                                    //         width: 6,
-                                    //         height: 6,
-                                    //         decoration: const BoxDecoration(
-                                    //           color: Color(0xFF10B981),
-                                    //           shape: BoxShape.circle,
-                                    //         ),
-                                    //       ),
-                                    //       const SizedBox(width: 6),
-                                    //       Text(
-                                    //         'Total Customers: 2,547',
-                                    //         style: TextStyle(
-                                    //           color: Colors.white.withOpacity(0.9),
-                                    //           fontSize: 12,
-                                    //           fontWeight: FontWeight.w500,
-                                    //         ),
-                                    //       ),
-                                    //     ],
-                                    //   ),
-                                    // ),
+
                                   ],
                                 ),
                               ),
@@ -3492,42 +3452,7 @@ class _CustomerManagementScreenState extends State<CustomerManagementScreen>
                           ),
                         ),
 
-                        // const Spacer(),
-                        //
-                        // // Premium Stats Cards
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        //   child: Row(
-                        //     children: [
-                        //       Expanded(
-                        //         child: _buildGlassStatCard(
-                        //           'Active',
-                        //           '2,150',
-                        //           Icons.verified_rounded,
-                        //           _accentColor,
-                        //         ),
-                        //       ),
-                        //       const SizedBox(width: 12),
-                        //       Expanded(
-                        //         child: _buildGlassStatCard(
-                        //           'Bookings',
-                        //           '1,892',
-                        //           Icons.book_online_rounded,
-                        //           const Color(0xFF8B5CF6),
-                        //         ),
-                        //       ),
-                        //       const SizedBox(width: 12),
-                        //       Expanded(
-                        //         child: _buildGlassStatCard(
-                        //           'New',
-                        //           '128',
-                        //           Icons.fiber_new_rounded,
-                        //           _warningColor,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
+
                       ],
                     ),
                   ),
@@ -5626,23 +5551,7 @@ class _VendorDashboardScreenState extends State<VendorDashboardScreen> with Sing
                                       ),
                                     ),
                                     const SizedBox(height: 4),
-                                    // Container(
-                                    //   padding: const EdgeInsets.symmetric(
-                                    //     horizontal: 10,
-                                    //     vertical: 3,
-                                    //   ),
-                                    //   decoration: BoxDecoration(
-                                    //     color: Colors.white.withOpacity(0.15),
-                                    //     borderRadius: BorderRadius.circular(20),
-                                    //   ),
-                                    //   child: Text(
-                                    //     '${_allVendors.length} Total Vendors',
-                                    //     style: TextStyle(
-                                    //       color: Colors.white.withOpacity(0.9),
-                                    //       fontSize: 11,
-                                    //     ),
-                                    //   ),
-                                    // ),
+
                                   ],
                                 ),
                               ),
@@ -5965,7 +5874,7 @@ class _VendorDashboardScreenState extends State<VendorDashboardScreen> with Sing
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // Icon(Icons.cancel_rounded, size: 14),
+
                               const SizedBox(width: 4),
                               Flexible(
                                 child: Text(
@@ -5981,7 +5890,7 @@ class _VendorDashboardScreenState extends State<VendorDashboardScreen> with Sing
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // Icon(Icons.cancel_presentation_sharp, size: 14),
+
                               const SizedBox(width: 4),
                               Flexible(
                                 child: Text(

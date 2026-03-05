@@ -66,7 +66,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
 
             const SizedBox(height: 20),
 
-            // Admin & Office User Management Header
+
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -104,20 +104,14 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  // Row(
-                  //   children: [
-                  //     _buildTypeChip('Admin Users', true),
-                  //     const SizedBox(width: 8),
-                  //     _buildTypeChip('Office Users', false),
-                  //   ],
-                  // ),
+
                 ],
               ),
             ),
 
             const SizedBox(height: 20),
 
-            // Info Cards
+
             Row(
               children: [
                 Expanded(
@@ -142,7 +136,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
 
             const SizedBox(height: 24),
 
-            // Admin Users Section
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -170,12 +164,12 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
 
             const SizedBox(height: 12),
 
-            // Admin Users List
+
             ...adminUsers.map((admin) => _buildUserCard(admin, 'admin')).toList(),
 
             const SizedBox(height: 24),
 
-            // Office Users Section
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -330,7 +324,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
       ),
       child: Column(
         children: [
-          // Header with initials and status
+
           Row(
             children: [
               Container(
@@ -444,7 +438,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
           const Divider(),
           const SizedBox(height: 8),
 
-          // Footer with created date and actions
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -739,13 +733,13 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  // Find the index of the user in the list
+
                   final index = isAdmin
                       ? adminUsers.indexWhere((u) => u.id == user.id)
                       : officeUsers.indexWhere((u) => u.id == user.id);
 
                   if (index != -1) {
-                    // Create a new user with updated values
+
                     final updatedUser = UserModel(
                       id: user.id,
                       name: nameController.text,
@@ -794,7 +788,7 @@ class _AdminUsersScreenState extends State<AdminUsersScreen> {
 
   void _toggleUserStatus(UserModel user) {
     setState(() {
-      // Find the index and create a new user with toggled status
+
       if (adminUsers.contains(user)) {
         final index = adminUsers.indexOf(user);
         adminUsers[index] = UserModel(

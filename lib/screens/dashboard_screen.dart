@@ -1249,7 +1249,7 @@ class DashboardContent extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       child: Column(
         children: [
-          // Welcome Banner with Quick Stats
+
           Container(
             padding: const EdgeInsets.all(20),
             margin: const EdgeInsets.all(16),
@@ -1279,7 +1279,7 @@ class DashboardContent extends StatelessWidget {
             ),
           ),
 
-          // Customer Overview Section - 3 boxes horizontally
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -1326,10 +1326,10 @@ class DashboardContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // Customer Stats - 3 boxes in a row
+
                 Row(
                   children: [
-                    // Total Customers Card
+
                     Expanded(
                       child: _buildCustomerStatCard(
                         title: 'Total Customers',
@@ -1342,7 +1342,7 @@ class DashboardContent extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
 
-                    // Booking Registered Card
+
                     Expanded(
                       child: _buildCustomerStatCard(
                         title: 'Booking Registered',
@@ -1355,7 +1355,7 @@ class DashboardContent extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
 
-                    // Cancellation Card
+
                     Expanded(
                       child: _buildCustomerStatCard(
                         title: 'Cancellation',
@@ -1374,7 +1374,7 @@ class DashboardContent extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          // Vendor Overview Section
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -1469,7 +1469,7 @@ class DashboardContent extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          // Recent Activities
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -1499,7 +1499,7 @@ class DashboardContent extends StatelessWidget {
 
           const SizedBox(height: 16),
 
-          // Activity List
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -1541,7 +1541,7 @@ class DashboardContent extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          // Quick Actions
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -1572,7 +1572,7 @@ class DashboardContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                // Action Buttons
+
                 Row(
                   children: [
                     Expanded(
@@ -1604,7 +1604,7 @@ class DashboardContent extends StatelessWidget {
             ),
           ),
 
-          // Add extra bottom padding
+
           const SizedBox(height: 30),
         ],
       ),

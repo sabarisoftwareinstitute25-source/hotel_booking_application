@@ -114,7 +114,7 @@ class UserModel {
   }
 }
 
-// Extension for HotelStar
+
 extension HotelStarExtension on HotelStar {
   String get displayName {
     switch (this) {

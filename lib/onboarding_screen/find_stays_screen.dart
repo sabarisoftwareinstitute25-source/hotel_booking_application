@@ -738,7 +738,7 @@ class _FindStaysScreenState extends State<FindStaysScreen>
                             key: _formKey,
                             child: Column(
                               children: [
-                                // User Illustration
+
                                 Container(
                                   width: 80,
                                   height: 80,
@@ -769,7 +769,7 @@ class _FindStaysScreenState extends State<FindStaysScreen>
 
                                 SizedBox(height: h * 0.03),
 
-                                // Title
+
                                 Text(
                                   "Create Your Account",
                                   style: TextStyle(
@@ -851,7 +851,7 @@ class _FindStaysScreenState extends State<FindStaysScreen>
                                               if (value.length < 3) {
                                                 return 'Name must be at least 3 characters';
                                               }
-                                              // Optional: Add name validation regex
+
                                               if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
                                                 return 'Please enter a valid name';
                                               }

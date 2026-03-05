@@ -39,20 +39,20 @@ class _LoginScreenState extends State<LoginScreen>
   void initState() {
     super.initState();
 
-    // Pre-fill email if available
+
     if (widget.registeredEmail != null) {
       _emailController.text = widget.registeredEmail!;
     }
 
-    // For demo, set default password
+
     if (widget.registeredPassword != null) {
       _passwordController.text = widget.registeredPassword!;
     } else {
-      // Default password for demo
+
       _passwordController.text = 'hotel@123';
     }
 
-    // Animation setup
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
@@ -93,72 +93,7 @@ class _LoginScreenState extends State<LoginScreen>
 
 
 
-  // void _submitForm() {
-  //   if (_emailController.text.trim().isEmpty ||
-  //       _passwordController.text.trim().isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text("Please fill all fields"),
-  //         backgroundColor: Colors.red,
-  //         behavior: SnackBarBehavior.floating,
-  //       ),
-  //     );
-  //     return;
-  //   }
-  //
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     setState(() {
-  //       _isLoading = false;
-  //     });
-  //
-  //
-  //     if (_emailController.text.trim() == widget.registeredEmail &&
-  //         _passwordController.text.trim() == widget.registeredPassword) {
-  //
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Row(
-  //             children: [
-  //               Icon(Icons.check_circle, color: Colors.white),
-  //               SizedBox(width: 8),
-  //               Text("Login Successful!"),
-  //             ],
-  //           ),
-  //           backgroundColor: Colors.green,
-  //           behavior: SnackBarBehavior.floating,
-  //           duration: Duration(seconds: 2),
-  //         ),
-  //       );
-  //
-  //
-  //       Future.delayed(const Duration(seconds: 2), () {
-  //         Navigator.pushReplacement(
-  //           context,
-  //           MaterialPageRoute(builder: (context) => HotelSearchScreen()),
-  //         );
-  //       });
-  //     } else {
-  //
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Row(
-  //             children: [
-  //               Icon(Icons.error, color: Colors.white),
-  //               SizedBox(width: 8),
-  //               Text("Invalid email or password"),
-  //             ],
-  //           ),
-  //           backgroundColor: Colors.red,
-  //           behavior: SnackBarBehavior.floating,
-  //         ),
-  //       );
-  //     }
-  //   });
-  // }
+
 
 
 
@@ -184,8 +119,7 @@ class _LoginScreenState extends State<LoginScreen>
         _isLoading = false;
       });
 
-      // For demo purposes: Accept ANY login if registrationData exists
-      // OR check against registered credentials
+
       if (widget.registrationData != null ||
           (_emailController.text.trim() == widget.registeredEmail &&
               _passwordController.text.trim() == widget.registeredPassword)) {
@@ -206,10 +140,10 @@ class _LoginScreenState extends State<LoginScreen>
         );
 
         Future.delayed(const Duration(seconds: 2), () {
-          // Use registrationData if available, otherwise use individual fields
+
           Map<String, dynamic> regData = widget.registrationData ?? {};
 
-          // Extract hotel owner data from registration data
+
           String hotelName = regData['hotelName'] ?? 'Raj Bhavan Hotel';
           String ownerName = regData['ownerName'] ?? 'John Alexandar';
           String mobileNumber = regData['mobileNumber'] ?? '99933366677';
@@ -232,11 +166,11 @@ class _LoginScreenState extends State<LoginScreen>
           String accountType = regData['accountType'] ?? 'Savings';
           int totalRooms = int.tryParse(regData['totalRooms']?.toString() ?? '58') ?? 58;
 
-          // Person photo info
+
           Map<String, dynamic> personPhotoInfo = regData['personPhotoInfo'] ??
               {'name': '', 'size': 0, 'path': '', 'uploaded': false};
 
-          // Other registration data
+
           String hotelType = regData['hotelType'] ?? 'Standard Hotel';
           String yearOfEstablishment = regData['yearOfEstablishment'] ?? '2015';
           String website = regData['website'] ?? 'https://rajbhavanhotel.com';
