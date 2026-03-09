@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
-
+import 'package:flutter/services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -34,7 +34,6 @@ class HotelRegistrationScreen extends StatefulWidget {
 class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
   int _currentStep = 0;
-  String? _selectedAccountType;
   final Color _primaryColor = Color(0xFFFF5F6D);
   final Color _primaryLight = Color(0xFFEEF2FF);
   final Color _bgColor = Color(0xFFFAFAFA);
@@ -43,7 +42,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   final Color _textPrimary = Color(0xFF111827);
   final Color _textSecondary = Color(0xFF6B7280);
   final Color _successColor = Color(0xFFFB717D);
-
+  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _hotelNameController = TextEditingController();
   final TextEditingController _yearController = TextEditingController();
   final TextEditingController _roomsController = TextEditingController();
@@ -89,57 +88,106 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     'uploaded': false,
   };
 
+  // final Map<String, Map<String, dynamic>> _roomDetails = {
+  //   'Single Room': {
+  //     'rooms': '',
+  //     'occupancy': '',
+  //     'ac': true,
+  //     'price': '',
+  //     'extraBed': false,
+  //     'extraBedPrice': '',
+  //   },
+  //   'Double Room': {
+  //     'rooms': '',
+  //     'occupancy': '',
+  //     'ac': true,
+  //     'price': '',
+  //     'extraBed': false,
+  //     'extraBedPrice': '',
+  //   },
+  //   'Deluxe Room': {
+  //     'rooms': '',
+  //     'occupancy': '',
+  //     'ac': true,
+  //     'price': '',
+  //     'extraBed': false,
+  //     'extraBedPrice': '',
+  //   },
+  //   'Suite Room': {
+  //     'rooms': '',
+  //     'occupancy': '',
+  //     'ac': true,
+  //     'price': '',
+  //     'extraBed': false,
+  //     'extraBedPrice': '',
+  //   },
+  //   'Family Room': {
+  //     'rooms': '',
+  //     'occupancy': '',
+  //     'ac': true,
+  //     'price': '',
+  //     'extraBed': false,
+  //     'extraBedPrice': '',
+  //   },
+  //   'Executive Room': {
+  //     'rooms': '',
+  //     'occupancy': '',
+  //     'ac': true,
+  //     'price': '',
+  //     'extraBed': false,
+  //     'extraBedPrice': '',
+  //   },
+  // };
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Single Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,           // Changed from '' to 0
+      'occupancy': 0,       // Changed from '' to 0
       'ac': true,
-      'price': '',
+      'price': 0.0,         // Changed from '' to 0.0
       'extraBed': false,
-      'extraBedPrice': '',
+      'extraBedPrice': 0.0, // Changed from '' to 0.0
     },
     'Double Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
-      'price': '',
+      'price': 0.0,
       'extraBed': false,
-      'extraBedPrice': '',
+      'extraBedPrice': 0.0,
     },
     'Deluxe Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
-      'price': '',
+      'price': 0.0,
       'extraBed': false,
-      'extraBedPrice': '',
+      'extraBedPrice': 0.0,
     },
     'Suite Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
-      'price': '',
+      'price': 0.0,
       'extraBed': false,
-      'extraBedPrice': '',
+      'extraBedPrice': 0.0,
     },
     'Family Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
-      'price': '',
+      'price': 0.0,
       'extraBed': false,
-      'extraBedPrice': '',
+      'extraBedPrice': 0.0,
     },
     'Executive Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
-      'price': '',
+      'price': 0.0,
       'extraBed': false,
-      'extraBedPrice': '',
+      'extraBedPrice': 0.0,
     },
   };
-
   final SignatureController _signatureController = SignatureController(
     penStrokeWidth: 3,
     penColor: Colors.black,
@@ -233,7 +281,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   @override
   void initState() {
     super.initState();
-    // Set default account type to Savings
+
     _accountTypeController.text = 'Savings';
   }
   @override
@@ -479,7 +527,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
           title: 'Hotel Information',
           children: [
             _buildInputField(
-              label: 'Hotel Name *',
+              label: 'Hotel Name',
               controller: _hotelNameController,
               hint: 'Enter hotel name',
             ),
@@ -488,7 +536,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hotel Type *',
+                  'Hotel Type',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: _textPrimary,
@@ -510,6 +558,27 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               ],
             ),
             SizedBox(height: 16),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: _buildInputField(
+            //         label: 'Year of Establishment',
+            //         controller: _yearController,
+            //         hint: 'YYYY',
+            //         keyboardType: TextInputType.number,
+            //       ),
+            //     ),
+            //     SizedBox(width: 16),
+            //     Expanded(
+            //       child: _buildInputField(
+            //         label: 'Total Number of Rooms',
+            //         controller: _roomsController,
+            //         hint: '0',
+            //         keyboardType: TextInputType.number,
+            //       ),
+            //     ),
+            //   ],
+            // ),
             Row(
               children: [
                 Expanded(
@@ -518,6 +587,10 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                     controller: _yearController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -527,6 +600,9 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                     controller: _roomsController,
                     hint: '0',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
                 ),
               ],
@@ -550,18 +626,19 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                 ),
                 SizedBox(height: 8),
                 _buildPhotoUploadItem(),
+
               ],
             ),
             SizedBox(height: 16),
 
             _buildInputField(
-              label: 'Owner / Manager Name *',
+              label: 'Owner / Manager Name',
               controller: _ownerNameController,
               hint: 'Enter name',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Mobile Number *',
+              label: 'Mobile Number',
               controller: _mobileController,
               hint: 'Enter mobile number',
               keyboardType: TextInputType.phone,
@@ -582,7 +659,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Landline Number(s)',
+                      'Landline Number',
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
@@ -684,6 +761,75 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     );
   }
 
+  // Widget _buildStep2() {
+  //   return Column(
+  //     children: [
+  //       _buildCard(
+  //         title: 'Hotel Address',
+  //         children: [
+  //           _buildInputField(
+  //             label: 'Address Line 1',
+  //             controller: _address1Controller,
+  //             hint: 'Street address',
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Address Line 2',
+  //             controller: _address2Controller,
+  //             hint: 'Apartment, suite, etc.',
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'City',
+  //                   controller: _cityController,
+  //                   hint: 'Enter city',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'District',
+  //                   controller: _districtController,
+  //                   hint: 'Enter district',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'State',
+  //                   controller: _stateController,
+  //                   hint: 'Enter state',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'PIN Code',
+  //                   controller: _pinController,
+  //                   hint: '6-digit PIN',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Landmark',
+  //             controller: _landmarkController,
+  //             hint: 'Nearby place',
+  //           ),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
   Widget _buildStep2() {
     return Column(
       children: [
@@ -691,7 +837,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
           title: 'Hotel Address',
           children: [
             _buildInputField(
-              label: 'Address Line 1 *',
+              label: 'Address Line 1',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -706,7 +852,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'City *',
+                    label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
                   ),
@@ -714,7 +860,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'District *',
+                    label: 'District',
                     controller: _districtController,
                     hint: 'Enter district',
                   ),
@@ -726,7 +872,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'State *',
+                    label: 'State',
                     controller: _stateController,
                     hint: 'Enter state',
                   ),
@@ -734,26 +880,39 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'PIN Code *',
-                    controller: _pinController,
-                    hint: '6-digit PIN',
-                    keyboardType: TextInputType.number,
+                    label: 'Country',  // New country field
+                    controller: _countryController,
+                    hint: 'Enter country',
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16),
-            _buildInputField(
-              label: 'Landmark (Optional)',
-              controller: _landmarkController,
-              hint: 'Nearby place',
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'PIN Code',
+                    controller: _pinController,
+                    hint: '6-digit PIN',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Landmark',
+                    controller: _landmarkController,
+                    hint: 'Nearby place',
+                  ),
+                ),
+              ],
             ),
           ],
         ),
       ],
     );
   }
-
   Widget _buildStep3() {
     return Column(
       children: [
@@ -839,46 +998,99 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               children: [
                 Row(
                   children: [
+                    // Expanded(
+                    //   child: _buildSmallInput(
+                    //     label: 'Number of Rooms',
+                    //     controller: TextEditingController(
+                    //       text: _roomDetails[roomType]!['rooms'],
+                    //
+                    //     ),
+                    //     onChanged: (value) =>
+                    //         _roomDetails[roomType]!['rooms'] = value,
+                    //     hint: '0',
+                    //     keyboardType: TextInputType.number,
+                    //   ),
+                    // ),
                     Expanded(
                       child: _buildSmallInput(
                         label: 'Number of Rooms',
                         controller: TextEditingController(
-                          text: _roomDetails[roomType]!['rooms'],
+                          // text: _roomDetails[roomType]!['rooms'].toString(),
+                          text: _getInitialText(_roomDetails[roomType]!['rooms']),
                         ),
-                        onChanged: (value) =>
-                            _roomDetails[roomType]!['rooms'] = value,
+                        onChanged: (value) {
+                          final intValue = int.tryParse(value) ?? 0;
+                          _roomDetails[roomType]!['rooms'] = intValue;
+                        },
                         hint: '0',
                         keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       ),
                     ),
+
                     SizedBox(width: 12),
+                    // Expanded(
+                    //   child: _buildSmallInput(
+                    //     label: 'Max Occupancy',
+                    //     controller: TextEditingController(
+                    //       text: _roomDetails[roomType]!['occupancy'],
+                    //     ),
+                    //     onChanged: (value) =>
+                    //         _roomDetails[roomType]!['occupancy'] = value,
+                    //     hint: 'Persons',
+                    //     keyboardType: TextInputType.number,
+                    //   ),
+                    // ),
                     Expanded(
                       child: _buildSmallInput(
                         label: 'Max Occupancy',
                         controller: TextEditingController(
-                          text: _roomDetails[roomType]!['occupancy'],
+                          // text: _roomDetails[roomType]!['occupancy'].toString(),
+                          text: _getInitialText(_roomDetails[roomType]!['occupancy']),// Convert to string
                         ),
-                        onChanged: (value) =>
-                            _roomDetails[roomType]!['occupancy'] = value,
+                        onChanged: (value) {
+                          final intValue = int.tryParse(value) ?? 0;
+                          _roomDetails[roomType]!['occupancy'] = intValue;
+                        },
                         hint: 'Persons',
                         keyboardType: TextInputType.number,
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       ),
                     ),
+
                   ],
                 ),
                 SizedBox(height: 12),
                 Row(
                   children: [
+                    // Expanded(
+                    //   child: _buildSmallInput(
+                    //     label: 'Price per Night (₹)',
+                    //     controller: TextEditingController(
+                    //       text: _roomDetails[roomType]!['price'],
+                    //     ),
+                    //     onChanged: (value) =>
+                    //         _roomDetails[roomType]!['price'] = value,
+                    //     hint: '0',
+                    //     keyboardType: TextInputType.number,
+                    //   ),
+                    // ),
                     Expanded(
                       child: _buildSmallInput(
                         label: 'Price per Night (₹)',
                         controller: TextEditingController(
-                          text: _roomDetails[roomType]!['price'],
+                          // text: _roomDetails[roomType]!['price'].toString(),
+                          text: _getInitialText(_roomDetails[roomType]!['price']),
                         ),
-                        onChanged: (value) =>
-                            _roomDetails[roomType]!['price'] = value,
+                        onChanged: (value) {
+                          final doubleValue = double.tryParse(value) ?? 0.0;
+                          _roomDetails[roomType]!['price'] = doubleValue;
+                        },
                         hint: '0',
-                        keyboardType: TextInputType.number,
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
                       ),
                     ),
                     SizedBox(width: 12),
@@ -969,21 +1181,44 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                     ),
                     SizedBox(width: 12),
                     if (_roomDetails[roomType]!['extraBed'])
+                      // Expanded(
+                      //   child: _buildSmallInput(
+                      //     label: 'Extra Bed Price (₹)',
+                      //     controller: TextEditingController(
+                      //       text: _roomDetails[roomType]!['extraBedPrice'],
+                      //     ),
+                      //     onChanged: (value) =>
+                      //         _roomDetails[roomType]!['extraBedPrice'] = value,
+                      //     hint: '0',
+                      //     keyboardType: TextInputType.number,
+                      //   ),
+                      // ),
                       Expanded(
                         child: _buildSmallInput(
                           label: 'Extra Bed Price (₹)',
                           controller: TextEditingController(
-                            text: _roomDetails[roomType]!['extraBedPrice'],
+                            // text: _roomDetails[roomType]!['extraBedPrice'].toString(),
+                            text: _getInitialText(_roomDetails[roomType]!['extraBedPrice']),// // Convert to string
                           ),
-                          onChanged: (value) =>
-                              _roomDetails[roomType]!['extraBedPrice'] = value,
+                          onChanged: (value) {
+                            final doubleValue = double.tryParse(value) ?? 0.0;
+                            _roomDetails[roomType]!['extraBedPrice'] = doubleValue;
+                          },
                           hint: '0',
-                          keyboardType: TextInputType.number,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                          ],
                         ),
                       ),
+
                   ],
                 ),
-                SizedBox(height: 8),
+
+
+
+
+
               ],
             ),
           );
@@ -1042,6 +1277,8 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                     ),
                   ],
                 ),
+
+
               ],
             ),
             SizedBox(height: 16),
@@ -1080,7 +1317,11 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       ],
     );
   }
-
+  String _getInitialText(dynamic value) {
+    if (value == null) return '';
+    if (value is num && value == 0) return '';
+    return value.toString();
+  }
   Widget _buildStep4() {
     return Column(
       children: [
@@ -1246,9 +1487,9 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
 
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Aadhar Number (Owner)',
+              label: 'Aadhaar Number (Owner)',
               controller: _aadharController,
-              hint: 'Enter Aadhar number',
+              hint: 'Enter Aadhaar number',
             ),
           ],
         ),
@@ -1263,13 +1504,13 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
           title: 'Bank Details',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountNameController,
               hint: 'Enter name',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Bank Name *',
+              label: 'Bank Name',
               controller: _bankNameController,
               hint: 'Enter bank name',
             ),
@@ -1278,7 +1519,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
@@ -1287,7 +1528,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscController,
                     hint: 'Enter IFSC code',
                   ),
@@ -1310,7 +1551,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Account Type *',
+                  'Account Type',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -1759,11 +2000,55 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     );
   }
 
+  // Widget _buildInputField({
+  //   required String label,
+  //   required TextEditingController controller,
+  //   required String hint,
+  //   TextInputType? keyboardType,
+  //
+  // }) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         label,
+  //         style: TextStyle(
+  //           fontSize: 13,
+  //           fontWeight: FontWeight.w500,
+  //           color: _textPrimary,
+  //         ),
+  //       ),
+  //       SizedBox(height: 8),
+  //       TextFormField(
+  //         controller: controller,
+  //         keyboardType: keyboardType,
+  //         decoration: InputDecoration(
+  //           hintText: hint,
+  //           contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+  //           border: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: BorderSide(color: _borderColor),
+  //           ),
+  //           enabledBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: BorderSide(color: _borderColor),
+  //           ),
+  //           focusedBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: BorderSide(color: _primaryColor),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters, // Add this parameter
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1780,6 +2065,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters, // Add this
           decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -1800,6 +2086,46 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       ],
     );
   }
+  // Widget _buildSmallInput({
+  //   required String label,
+  //   required TextEditingController controller,
+  //   required ValueChanged<String> onChanged,
+  //   required String hint,
+  //   TextInputType? keyboardType,
+  // }) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         label,
+  //         style: TextStyle(
+  //           fontSize: 12,
+  //           fontWeight: FontWeight.w500,
+  //           color: _textPrimary,
+  //         ),
+  //       ),
+  //       SizedBox(height: 8),
+  //       SizedBox(
+  //         height: 40,
+  //         child: TextFormField(
+  //           controller: controller,
+  //           onChanged: onChanged,
+  //           keyboardType: keyboardType,
+  //           textAlign: TextAlign.center,
+  //           decoration: InputDecoration(
+  //             hintText: hint,
+  //             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+  //             border: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(6),
+  //               borderSide: BorderSide(color: _borderColor),
+  //             ),
+  //             isDense: true,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildSmallInput({
     required String label,
@@ -1807,6 +2133,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters, // Add this parameter
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1826,6 +2153,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters, // Add this
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: hint,
@@ -1841,7 +2169,6 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       ],
     );
   }
-
   Widget _buildPhotoUploadItem() {
     final isUploaded = _personPhotoInfo['uploaded'] as bool? ?? false;
     final fileName = _personPhotoInfo['name'] as String? ?? '';
@@ -2377,16 +2704,27 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
 
   Future<void> _pickPersonPhoto() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-        allowedExtensions: ['jpg', 'jpeg', 'png'],
-        allowMultiple: false,
+      print('=== DEBUG: Starting _pickPersonPhoto with ImagePicker ===');
+
+      final ImagePicker picker = ImagePicker();
+      final XFile? image = await picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: 1024,
+        maxHeight: 1024,
+        imageQuality: 85,
       );
 
-      if (result != null && result.files.isNotEmpty) {
-        final file = result.files.first;
+      if (image != null) {
+        print('Selected image: ${image.name}');
+        print('Image path: ${image.path}');
 
-        if (file.size > 5 * 1024 * 1024) {
+        // Get file size
+        final File file = File(image.path);
+        final int fileSize = await file.length();
+        print('File size: $fileSize bytes');
+
+        // Check file size (5MB limit)
+        if (fileSize > 5 * 1024 * 1024) {
           _showErrorDialog(
             'File too large',
             'Please select a photo smaller than 5MB',
@@ -2394,24 +2732,31 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
           return;
         }
 
+        // Update the state with the selected file info
         setState(() {
           _personPhotoInfo = {
-            'name': file.name,
-            'size': file.size,
-            'path': file.path ?? '',
+            'name': image.name,
+            'size': fileSize,
+            'path': image.path,
             'uploaded': true,
           };
+          print('Updated _personPhotoInfo: $_personPhotoInfo');
         });
 
+        // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Photo uploaded successfully'),
             backgroundColor: _successColor,
             duration: Duration(seconds: 2),
+            behavior: SnackBarBehavior.floating,
           ),
         );
+      } else {
+        print('No image selected');
       }
     } catch (e) {
+      print('Upload error: $e');
       _showErrorDialog(
         'Upload Error',
         'Failed to upload photo: ${e.toString()}',
@@ -2961,6 +3306,91 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     }
   }
 
+
+
+
+  void _submitForm() {
+    if (!_declarationAccepted) {
+      _showErrorDialog(
+        'Declaration Required',
+        'Please accept the declaration to proceed.',
+      );
+      return;
+    }
+
+    // Create hotel data with a unique ID
+    String hotelId = 'HOTEL_${DateTime.now().millisecondsSinceEpoch}';
+
+    Map<String, dynamic> hotelData = {
+      'id': hotelId,
+      'propertyType': 'hotel',
+      'hotelName': _hotelNameController.text,
+      'hotelType': _selectedHotelType ?? '',
+      'hotelCategory': 'Normal',
+      'yearOfEstablishment': _yearController.text,
+      'totalRooms': int.tryParse(_roomsController.text) ?? 0,
+      'ownerName': _ownerNameController.text,
+      'mobileNumber': _mobileController.text,
+      'alternateContact': _altMobileController.text,
+      'landlineNumbers': _landlineControllers
+          .map((c) => c.text)
+          .where((text) => text.isNotEmpty)
+          .toList(),
+      'email': _emailController.text,
+      'website': _websiteController.text,
+      'addressLine1': _address1Controller.text,
+      'addressLine2': _address2Controller.text,
+      'city': _cityController.text,
+      'district': _districtController.text,
+      'state': _stateController.text,
+      'country': _countryController.text,
+      'pinCode': _pinController.text,
+      'landmark': _landmarkController.text,
+      'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
+      'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
+      'minTariff': _minTariffController.text,
+      'maxTariff': _maxTariffController.text,
+      'extraBedAvailable': _extraBedAvailable,
+      'basicAmenities': Map<String, bool>.from(_basicAmenities),
+      'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
+      'foodServices': Map<String, bool>.from(_foodServices),
+      'additionalAmenities': Map<String, bool>.from(_additionalAmenities),
+      'customAmenities': List<String>.from(_customAmenities),
+      'gstNumber': _gstController.text,
+      'fssaiLicense': _fssaiController.text,
+      'tradeLicense': _tradeLicenseController.text,
+      'aadharNumber': _aadharController.text,
+      'panNumber': _panController.text,
+      'accountHolderName': _accountNameController.text,
+      'bankName': _bankNameController.text,
+      'accountNumber': _accountNumberController.text,
+      'ifscCode': _ifscController.text,
+      'branch': _branchController.text,
+      'accountType': _accountTypeController.text,
+      'uploadedFiles': Map<String, Map<String, dynamic>>.from(_uploadedFiles),
+      'personPhotoInfo': Map<String, dynamic>.from(_personPhotoInfo),
+      'declarationName': _declarationNameController.text,
+      'declarationDate': _selectedDate?.toIso8601String(),
+      'declarationAccepted': _declarationAccepted,
+      'hasDigitalSignature': _hasDigitalSignature,
+      'digitalSignatureImage': _digitalSignatureImage,
+      'registeredAt': DateTime.now().toIso8601String(),
+    };
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RegistrationSummaryScreen(
+          registrationData: hotelData,
+          hotelCategory: 'Normal',
+          declarationAccepted: _declarationAccepted,
+        ),
+      ),
+    );
+  }
+
+
+
   // void _submitForm() {
   //   if (!_declarationAccepted) {
   //     _showErrorDialog(
@@ -2970,8 +3400,13 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   //     return;
   //   }
   //
-  //   // Create a complete data map
+  //   // Create a complete data map with ALL fields including personal info
   //   Map<String, dynamic> formData = {
+  //     // Personal Information (from PropertyAuthScreen prefill)
+  //     'fullName': _ownerNameController.text,
+  //     'email': _emailController.text,
+  //     'phone': _mobileController.text,
+  //
   //     // Basic Information
   //     'hotelName': _hotelNameController.text,
   //     'hotelType': _selectedHotelType ?? '',
@@ -2999,18 +3434,18 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   //     'landmark': _landmarkController.text,
   //
   //     // Room Configuration
-  //     'selectedRoomTypes': _selectedRoomTypes,
-  //     'roomDetails': _roomDetails,
+  //     'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
+  //     'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
   //     'minTariff': _minTariffController.text,
   //     'maxTariff': _maxTariffController.text,
   //     'extraBedAvailable': _extraBedAvailable,
   //
   //     // Amenities
-  //     'basicAmenities': _basicAmenities,
-  //     'hotelFacilities': _hotelFacilities,
-  //     'foodServices': _foodServices,
-  //     'additionalAmenities': _additionalAmenities,
-  //     'customAmenities': _customAmenities,
+  //     'basicAmenities': Map<String, bool>.from(_basicAmenities),
+  //     'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
+  //     'foodServices': Map<String, bool>.from(_foodServices),
+  //     'additionalAmenities': Map<String, bool>.from(_additionalAmenities),
+  //     'customAmenities': List<String>.from(_customAmenities),
   //
   //     // Legal Details
   //     'gstNumber': _gstController.text,
@@ -3028,8 +3463,8 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   //     'accountType': _accountTypeController.text,
   //
   //     // Uploaded Files
-  //     'uploadedFiles': _uploadedFiles,
-  //     'personPhotoInfo': _personPhotoInfo,
+  //     'uploadedFiles': Map<String, Map<String, dynamic>>.from(_uploadedFiles),
+  //     'personPhotoInfo': Map<String, dynamic>.from(_personPhotoInfo),
   //
   //     // Signature & Declaration
   //     'signatureName': _signatureNameController.text,
@@ -3037,10 +3472,16 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   //     'declarationDate': _selectedDate?.toIso8601String(),
   //     'declarationAccepted': _declarationAccepted,
   //     'hasDigitalSignature': _hasDigitalSignature,
-  //     'digitalSignatureImage': _digitalSignatureImage?.toString(),
+  //     'digitalSignatureImage': _digitalSignatureImage,
+  //
+  //     // Hotel Category
+  //     'hotelCategory': 'Normal',
+  //
+  //     // CRITICAL: Add propertyType for detection
+  //     'propertyType': 'hotel',
   //   };
   //
-  //   // Navigate to RegistrationSummaryScreen
+  //   // Navigate to RegistrationSummaryScreen with all data
   //   Navigator.push(
   //     context,
   //     MaterialPageRoute(
@@ -3055,104 +3496,8 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
 
 
 
-  void _submitForm() {
-    if (!_declarationAccepted) {
-      _showErrorDialog(
-        'Declaration Required',
-        'Please accept the declaration to proceed.',
-      );
-      return;
-    }
-
-    // Create a complete data map with ALL fields
-    Map<String, dynamic> formData = {
-      // Basic Information
-      'hotelName': _hotelNameController.text,
-      'hotelType': _selectedHotelType ?? '',
-      'yearOfEstablishment': _yearController.text,
-      'totalRooms': int.tryParse(_roomsController.text) ?? 0,
-
-      // Contact Information
-      'ownerName': _ownerNameController.text,
-      'mobileNumber': _mobileController.text,
-      'alternateContact': _altMobileController.text,
-      'landlineNumbers': _landlineControllers
-          .map((c) => c.text)
-          .where((text) => text.isNotEmpty)
-          .toList(),
-      'email': _emailController.text,
-      'website': _websiteController.text,
-
-      // Address Information
-      'addressLine1': _address1Controller.text,
-      'addressLine2': _address2Controller.text,
-      'city': _cityController.text,
-      'district': _districtController.text,
-      'state': _stateController.text,
-      'pinCode': _pinController.text,
-      'landmark': _landmarkController.text,
-
-      // Room Configuration
-      'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
-      'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
-      'minTariff': _minTariffController.text,
-      'maxTariff': _maxTariffController.text,
-      'extraBedAvailable': _extraBedAvailable,
-
-      // Amenities
-      'basicAmenities': Map<String, bool>.from(_basicAmenities),
-      'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
-      'foodServices': Map<String, bool>.from(_foodServices),
-      'additionalAmenities': Map<String, bool>.from(_additionalAmenities),
-      'customAmenities': List<String>.from(_customAmenities),
-
-      // Legal Details
-      'gstNumber': _gstController.text,
-      'fssaiLicense': _fssaiController.text,
-      'tradeLicense': _tradeLicenseController.text,
-      'aadharNumber': _aadharController.text,
-      'panNumber': _panController.text,
-
-      // Bank Details
-      'accountHolderName': _accountNameController.text,
-      'bankName': _bankNameController.text,
-      'accountNumber': _accountNumberController.text,
-      'ifscCode': _ifscController.text,
-      'branch': _branchController.text,
-      'accountType': _accountTypeController.text,
-
-      // Uploaded Files
-      'uploadedFiles': Map<String, Map<String, dynamic>>.from(_uploadedFiles),
-      'personPhotoInfo': Map<String, dynamic>.from(_personPhotoInfo),
-
-      // Signature & Declaration
-      'signatureName': _signatureNameController.text,
-      'declarationName': _declarationNameController.text,
-      'declarationDate': _selectedDate?.toIso8601String(),
-      'declarationAccepted': _declarationAccepted,
-      'hasDigitalSignature': _hasDigitalSignature,
-      'digitalSignatureImage': _digitalSignatureImage,
-
-      // Hotel Category
-      'hotelCategory': 'Normal',
-    };
-
-    // Navigate to RegistrationSummaryScreen with all data
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
-          registrationData: formData,
-          hotelCategory: 'Normal',
-          declarationAccepted: _declarationAccepted,
-        ),
-      ),
-    );
-  }
-
   String _getHotelCategory() {
-    // You can add logic to determine hotel category based on data
-    // For now, return 'Normal' as default
+
     return 'Normal';
   }
 
@@ -3172,6 +3517,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     _cityController.dispose();
     _districtController.dispose();
     _stateController.dispose();
+    _countryController.dispose();
     _pinController.dispose();
     _minTariffController.dispose();
     _maxTariffController.dispose();
@@ -3198,7 +3544,6 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     super.dispose();
   }
 }
-
 
 
 class RegistrationSummaryScreen extends StatelessWidget {
@@ -3466,12 +3811,27 @@ class RegistrationSummaryScreen extends StatelessWidget {
         _infoRow('Hotel Category', hotelCategory),
         if (_get('hotelType') != null)
           _infoRow('Hotel Type', _get('hotelType')),
-        if (_get('yearOfEstablishment') != null &&
-            _get('yearOfEstablishment').toString().isNotEmpty)
-          _infoRow('Year Established', _get('yearOfEstablishment')),
+        // if (_get('yearOfEstablishment') != null &&
+        //     _get('yearOfEstablishment').toString().isNotEmpty)
+        //   _infoRow('Year Established', _get('yearOfEstablishment')),
+        // if (_get('totalRooms') != null &&
+        //     _get('totalRooms').toString().isNotEmpty)
+        //   _infoRow('Total Rooms', _get('totalRooms')),
+
+        // UPDATED: Year of Establishment as integer
+        if (_get('yearOfEstablishment') != null)
+          _infoRow(
+              'Year Established',
+              _get('yearOfEstablishment').toString()
+          ),
+
+        // UPDATED: Total Rooms as integer
         if (_get('totalRooms') != null &&
-            _get('totalRooms').toString().isNotEmpty)
-          _infoRow('Total Rooms', _get('totalRooms')),
+            (_get('totalRooms') is int || _get('totalRooms').toString().isNotEmpty))
+          _infoRow(
+              'Total Rooms',
+              _get('totalRooms').toString()
+          ),
 
         // 2-Star, 3-Star, 4-Star, 5-Star specific
         if (_get('designation') != null &&
@@ -3739,7 +4099,115 @@ class RegistrationSummaryScreen extends StatelessWidget {
 
     children.add(const SizedBox(height: 16));
 
-    // Room Details for each type
+    // // Room Details for each type
+    // for (var roomType in selectedTypes) {
+    //   final details = roomDetails[roomType] ?? {};
+    //
+    //   children.add(
+    //     Container(
+    //       margin: const EdgeInsets.only(bottom: 16),
+    //       padding: const EdgeInsets.all(16),
+    //       decoration: BoxDecoration(
+    //         color: Colors.white,
+    //         borderRadius: BorderRadius.circular(12),
+    //         border: Border.all(color: _borderColor),
+    //         boxShadow: [
+    //           BoxShadow(
+    //             color: Colors.black.withOpacity(0.02),
+    //             blurRadius: 4,
+    //             offset: const Offset(0, 2),
+    //           ),
+    //         ],
+    //       ),
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           Row(
+    //             children: [
+    //               Container(
+    //                 padding: const EdgeInsets.all(8),
+    //                 decoration: BoxDecoration(
+    //                   color: _primaryLight,
+    //                   borderRadius: BorderRadius.circular(8),
+    //                 ),
+    //                 child: Icon(Icons.hotel, size: 18, color: _primaryColor),
+    //               ),
+    //               const SizedBox(width: 12),
+    //               Text(
+    //                 roomType,
+    //                 style: TextStyle(
+    //                   fontSize: 15,
+    //                   fontWeight: FontWeight.w700,
+    //                   color: _textDark,
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //           const SizedBox(height: 12),
+    //
+    //           Common fields for all categories
+    //           if (details['rooms'] != null &&
+    //               details['rooms'].toString().isNotEmpty)
+    //             _detailRow('Number of Rooms', details['rooms'].toString()),
+    //
+    //           if (details['occupancy'] != null &&
+    //               details['occupancy'].toString().isNotEmpty)
+    //             _detailRow('Max Occupancy', '${details['occupancy']} Persons'),
+    //
+    //          
+    //
+    //           // AC/Non-AC (all except 6-Star which uses Climate Control)
+    //           if (details['ac'] != null)
+    //             _detailRow(
+    //               _isSixStar() ? 'Climate Control' : 'AC/Non-AC',
+    //               details['ac'] == true
+    //                   ? (_isSixStar() ? 'Available' : 'AC')
+    //                   : (_isSixStar() ? 'Not Available' : 'Non-AC'),
+    //             ),
+    //
+    //           // Bed Type (2-Star+)
+    //           if (details['bedType'] != null &&
+    //               details['bedType'].toString().isNotEmpty)
+    //             _detailRow('Bed Type', details['bedType']),
+    //
+    //           // Price formats based on category
+    //           if (_isFiveStar() || _isSixStar()) ...[
+    //             if (details['minPrice'] != null &&
+    //                 details['minPrice'].toString().isNotEmpty)
+    //               _detailRow('Minimum Price', '₹${details['minPrice']}'),
+    //             if (details['maxPrice'] != null &&
+    //                 details['maxPrice'].toString().isNotEmpty)
+    //               _detailRow('Maximum Price', '₹${details['maxPrice']}'),
+    //           ] else if (details['price'] != null &&
+    //               details['price'].toString().isNotEmpty)
+    //             _detailRow('Price per Night', '₹${details['price']}'),
+    //
+    //         
+    //
+    //
+    //           Extra Bed (Normal, 2-Star, 3-Star, 4-Star)
+    //           if (!_isFiveStar() && !_isSixStar()) ...[
+    //             if (details['extraBed'] != null)
+    //               _detailRow(
+    //                 'Extra Bed',
+    //                 details['extraBed'] == true ? 'Yes' : 'No',
+    //               ),
+    //             if (details['extraBed'] == true &&
+    //                 details['extraBedPrice'] != null &&
+    //                 details['extraBedPrice'].toString().isNotEmpty)
+    //               _detailRow('Extra Bed Price', '₹${details['extraBedPrice']}'),
+    //           ],
+    //
+    //           Extra Bed (Normal, 2-Star, 3-Star, 4-Star)
+    //
+    //
+    //          
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // }
+
     for (var roomType in selectedTypes) {
       final details = roomDetails[roomType] ?? {};
 
@@ -3785,16 +4253,17 @@ class RegistrationSummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Common fields for all categories
+              // Number of Rooms
               if (details['rooms'] != null &&
-                  details['rooms'].toString().isNotEmpty)
+                  (details['rooms'] is int || details['rooms'].toString().isNotEmpty))
                 _detailRow('Number of Rooms', details['rooms'].toString()),
 
+              // Max Occupancy
               if (details['occupancy'] != null &&
-                  details['occupancy'].toString().isNotEmpty)
+                  (details['occupancy'] is int || details['occupancy'].toString().isNotEmpty))
                 _detailRow('Max Occupancy', '${details['occupancy']} Persons'),
 
-              // AC/Non-AC (all except 6-Star which uses Climate Control)
+              // AC/Non-AC
               if (details['ac'] != null)
                 _detailRow(
                   _isSixStar() ? 'Climate Control' : 'AC/Non-AC',
@@ -3803,34 +4272,36 @@ class RegistrationSummaryScreen extends StatelessWidget {
                       : (_isSixStar() ? 'Not Available' : 'Non-AC'),
                 ),
 
-              // Bed Type (2-Star+)
+              // Bed Type
               if (details['bedType'] != null &&
                   details['bedType'].toString().isNotEmpty)
                 _detailRow('Bed Type', details['bedType']),
 
-              // Price formats based on category
+              // Price fields - CORRECTED: Use collection if without braces
               if (_isFiveStar() || _isSixStar()) ...[
                 if (details['minPrice'] != null &&
-                    details['minPrice'].toString().isNotEmpty)
-                  _detailRow('Minimum Price', '₹${details['minPrice']}'),
-                if (details['maxPrice'] != null &&
-                    details['maxPrice'].toString().isNotEmpty)
-                  _detailRow('Maximum Price', '₹${details['maxPrice']}'),
-              ] else if (details['price'] != null &&
-                  details['price'].toString().isNotEmpty)
-                _detailRow('Price per Night', '₹${details['price']}'),
+                    (details['minPrice'] is double || details['minPrice'].toString().isNotEmpty))
+                  _detailRow('Minimum Price', '₹${_formatPrice(details['minPrice'])}'),
 
-              // Extra Bed (Normal, 2-Star, 3-Star, 4-Star)
+                if (details['maxPrice'] != null &&
+                    (details['maxPrice'] is double || details['maxPrice'].toString().isNotEmpty))
+                  _detailRow('Maximum Price', '₹${_formatPrice(details['maxPrice'])}'),
+              ] else if (details['price'] != null &&
+                  (details['price'] is double || details['price'].toString().isNotEmpty))
+                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
+
+              // Extra Bed fields - CORRECTED: Use collection if without braces
               if (!_isFiveStar() && !_isSixStar()) ...[
                 if (details['extraBed'] != null)
                   _detailRow(
                     'Extra Bed',
                     details['extraBed'] == true ? 'Yes' : 'No',
                   ),
+
                 if (details['extraBed'] == true &&
                     details['extraBedPrice'] != null &&
-                    details['extraBedPrice'].toString().isNotEmpty)
-                  _detailRow('Extra Bed Price', '₹${details['extraBedPrice']}'),
+                    (details['extraBedPrice'] is double || details['extraBedPrice'].toString().isNotEmpty))
+                  _detailRow('Extra Bed Price', '₹${_formatPrice(details['extraBedPrice'])}'),
               ],
             ],
           ),
@@ -3842,7 +4313,84 @@ class RegistrationSummaryScreen extends StatelessWidget {
     final minTariff = _get('minTariff', '');
     final maxTariff = _get('maxTariff', '');
 
+    // if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
+    //   children.add(
+    //     Container(
+    //       padding: const EdgeInsets.all(16),
+    //       decoration: BoxDecoration(
+    //         color: _successColor.withOpacity(0.1),
+    //         borderRadius: BorderRadius.circular(12),
+    //         border: Border.all(color: _successColor.withOpacity(0.3)),
+    //       ),
+    //       child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //         children: [
+    //           Column(
+    //             crossAxisAlignment: CrossAxisAlignment.start,
+    //             children: [
+    //               Text(
+    //                 'Room Tariff Range',
+    //                 style: TextStyle(
+    //                   fontSize: 13,
+    //                   color: _textLight,
+    //                   fontWeight: FontWeight.w500,
+    //                 ),
+    //               ),
+    //               const SizedBox(height: 4),
+    //               Text(
+    //                 '₹${minTariff.toString().isNotEmpty ? minTariff : '0'} - ₹${maxTariff.toString().isNotEmpty ? maxTariff : '0'}',
+    //                 style: TextStyle(
+    //                   fontSize: 18,
+    //                   fontWeight: FontWeight.w700,
+    //                   color: _successColor,
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //           if (_get('extraBedAvailable') != null)
+    //             Container(
+    //               padding: const EdgeInsets.symmetric(
+    //                 horizontal: 12,
+    //                 vertical: 6,
+    //               ),
+    //               decoration: BoxDecoration(
+    //                 color: Colors.white,
+    //                 borderRadius: BorderRadius.circular(20),
+    //                 border: Border.all(color: _successColor),
+    //               ),
+    //               child: Text(
+    //                 _get('extraBedAvailable') == true
+    //                     ? 'Extra Bed Available'
+    //                     : 'No Extra Bed',
+    //                 style: TextStyle(
+    //                   fontSize: 11,
+    //                   fontWeight: FontWeight.w600,
+    //                   color: _successColor,
+    //                 ),
+    //               ),
+    //             ),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // }
+
     if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
+      // Parse to double if needed
+      String minDisplay = minTariff.toString();
+      String maxDisplay = maxTariff.toString();
+
+      // Try to format as double if it's numeric
+      if (minTariff is double || (minTariff is String && double.tryParse(minTariff) != null)) {
+        double minVal = double.tryParse(minTariff.toString()) ?? 0;
+        minDisplay = minVal.toStringAsFixed(minVal.truncateToDouble() == minVal ? 0 : 2);
+      }
+
+      if (maxTariff is double || (maxTariff is String && double.tryParse(maxTariff) != null)) {
+        double maxVal = double.tryParse(maxTariff.toString()) ?? 0;
+        maxDisplay = maxVal.toStringAsFixed(maxVal.truncateToDouble() == maxVal ? 0 : 2);
+      }
+
       children.add(
         Container(
           padding: const EdgeInsets.all(16),
@@ -3867,7 +4415,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '₹${minTariff.toString().isNotEmpty ? minTariff : '0'} - ₹${maxTariff.toString().isNotEmpty ? maxTariff : '0'}',
+                    '₹$minDisplay - ₹$maxDisplay',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
@@ -3910,7 +4458,52 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children: children,
     );
   }
+// Add this helper method to properly format price values
+  String _formatPrice(dynamic price) {
+    if (price == null) return '0';
 
+    // If it's already a double
+    if (price is double) {
+      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
+    }
+
+    // If it's an int
+    if (price is int) {
+      return price.toString();
+    }
+
+    // If it's a string, try to parse
+    if (price is String) {
+      double? parsed = double.tryParse(price);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+      }
+    }
+
+    return price.toString();
+  }
+
+// Add this helper method to properly format integer values
+  String _formatInteger(dynamic value) {
+    if (value == null) return '0';
+
+    if (value is int) {
+      return value.toString();
+    }
+
+    if (value is double) {
+      return value.toInt().toString();
+    }
+
+    if (value is String) {
+      int? parsed = int.tryParse(value);
+      if (parsed != null) {
+        return parsed.toString();
+      }
+    }
+
+    return value.toString();
+  }
   // ==================== AMENITIES SECTION ====================
   Widget _buildAmenitiesSection() {
     final List<Widget> amenitySections = [];
@@ -4357,9 +4950,9 @@ class RegistrationSummaryScreen extends StatelessWidget {
 
     // Aadhar Number - Normal hotels
     if (_isNormal()) {
-      if (_get('aadharNumber') != null &&
-          _get('aadharNumber').toString().isNotEmpty) {
-        children.add(_infoRow('Aadhar Number', _get('aadharNumber')));
+      if (_get('aadhaarNumber') != null &&
+          _get('aadhaarNumber').toString().isNotEmpty) {
+        children.add(_infoRow('Aadhaar Number', _get('aadhaarNumber')));
       }
     }
 
@@ -4777,7 +5370,103 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // ==================== DECLARATION SECTION ====================
+  // // ==================== DECLARATION SECTION ====================
+  // Widget _buildDeclarationSection() {
+  //   final List<Widget> children = [];
+  //
+  //   // Signatory Name
+  //   if (_get('signatoryName') != null &&
+  //       _get('signatoryName').toString().isNotEmpty) {
+  //     children.add(_infoRow('Signatory Name', _get('signatoryName')));
+  //   }
+  //
+  //   // Declaration Name (Normal hotels)
+  //   if (_isNormal()) {
+  //     if (_get('declarationName') != null &&
+  //         _get('declarationName').toString().isNotEmpty) {
+  //       children.add(_infoRow('Name', _get('declarationName')));
+  //     }
+  //   }
+  //
+  //   // Declaration Date
+  //   final declarationDate = _get('declarationDate');
+  //   if (declarationDate != null) {
+  //     String dateStr = '';
+  //     if (declarationDate is DateTime) {
+  //       dateStr =
+  //           '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
+  //     } else if (declarationDate is String) {
+  //       dateStr = declarationDate;
+  //     }
+  //     if (dateStr.isNotEmpty) {
+  //       children.add(_infoRow('Date', dateStr));
+  //     }
+  //   }
+  //
+  //   // Declaration Status
+  //   children.add(
+  //     Container(
+  //       padding: const EdgeInsets.all(16),
+  //       decoration: BoxDecoration(
+  //         color: _get('declarationAccepted', false) == true
+  //             ? _successColor.withOpacity(0.1)
+  //             : _dangerColor.withOpacity(0.1),
+  //         borderRadius: BorderRadius.circular(12),
+  //         border: Border.all(
+  //           color: _get('declarationAccepted', false) == true
+  //               ? _successColor.withOpacity(0.3)
+  //               : _dangerColor.withOpacity(0.3),
+  //         ),
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           Icon(
+  //             _get('declarationAccepted', false) == true
+  //                 ? Icons.check_circle
+  //                 : Icons.error,
+  //             color: _get('declarationAccepted', false) == true
+  //                 ? _successColor
+  //                 : _dangerColor,
+  //             size: 24,
+  //           ),
+  //           const SizedBox(width: 12),
+  //           Expanded(
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   _get('declarationAccepted', false) == true
+  //                       ? 'Declaration Accepted'
+  //                       : 'Declaration Not Accepted',
+  //                   style: TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.w600,
+  //                     color: _get('declarationAccepted', false) == true
+  //                         ? _successColor
+  //                         : _dangerColor,
+  //                   ),
+  //                 ),
+  //                 const SizedBox(height: 2),
+  //                 Text(
+  //                   _getDeclarationText(),
+  //                   style: TextStyle(fontSize: 12, color: _textLight),
+  //                   maxLines: 2,
+  //                   overflow: TextOverflow.ellipsis,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  //
+  //   return _buildSectionCard(
+  //     title: 'Declaration',
+  //     icon: Icons.verified_user,
+  //     children: children,
+  //   );
+  // }
   Widget _buildDeclarationSection() {
     final List<Widget> children = [];
 
@@ -4795,15 +5484,21 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Declaration Date
+    // Declaration Date - FIXED: Handle DateTime properly
     final declarationDate = _get('declarationDate');
     if (declarationDate != null) {
       String dateStr = '';
       if (declarationDate is DateTime) {
-        dateStr =
-            '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
+        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
       } else if (declarationDate is String) {
-        dateStr = declarationDate;
+        try {
+          // Try to parse the string to DateTime
+          DateTime parsedDate = DateTime.parse(declarationDate);
+          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
+        } catch (e) {
+          // If parsing fails, use the string as is
+          dateStr = declarationDate;
+        }
       }
       if (dateStr.isNotEmpty) {
         children.add(_infoRow('Date', dateStr));
@@ -4874,7 +5569,6 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children: children,
     );
   }
-
   // ==================== UPDATED FINISH BUTTON ====================
   Widget _buildFinishButton(BuildContext context) {
     return SafeArea(
@@ -4931,54 +5625,6 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text(
-            'Your hotel has been registered successfully! Please login to access your dashboard.',
-          ),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  // Navigate to PropertyAuthScreen with all registration data
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => PropertyAuthScreen(
-                        selectedPropertyType: 'hotel',
-                        registrationData: registrationData,
-                      ),
-                    ),
-                        (Route<dynamic> route) => false,
-                  );
-                },
-                child: const Text(
-                  'Continue to Login',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   // void _showSuccessDialogAndNavigate(BuildContext context) {
   //   showDialog(
@@ -4988,7 +5634,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
   //       return AlertDialog(
   //         title: const Text('Registration Complete'),
   //         content: const Text(
-  //           'Your hotel has been registered successfully! Please login to access your dashboard.',
+  //           'Your hotel has been registered successfully!',
   //         ),
   //         actions: [
   //           SizedBox(
@@ -5002,20 +5648,32 @@ class RegistrationSummaryScreen extends StatelessWidget {
   //                 ),
   //               ),
   //               onPressed: () {
-  //                 // Navigate to PropertyAuthScreen with explicit property type
+  //                 // Create FINAL data with ALL hotel information
+  //                 Map<String, dynamic> finalData = Map<String, dynamic>.from(registrationData);
+  //
+  //                 // Ensure propertyType is set
+  //                 finalData['propertyType'] = 'hotel';
+  //
+  //                 // Ensure hotelName is present
+  //                 if (!finalData.containsKey('hotelName')) {
+  //                   finalData['hotelName'] = registrationData['hotelName'];
+  //                 }
+  //
+  //                 print('Final data keys: ${finalData.keys}');
+  //                 print('HotelName: ${finalData['hotelName']}');
+  //
   //                 Navigator.of(context).pushAndRemoveUntil(
   //                   MaterialPageRoute(
-  //                     builder: (context) => PropertyAuthScreen(
-  //                       selectedPropertyType:
-  //                           'hotel', // Explicitly pass 'hotel'
-  //                       registrationData: registrationData,
+  //                     builder: (context) => OwnerDashboardScreen(
+  //                       userData: finalData,
+  //                       userEmail: registrationData['email']?.toString() ?? '',
   //                     ),
   //                   ),
-  //                   (Route<dynamic> route) => false,
+  //                       (Route<dynamic> route) => false,
   //                 );
   //               },
   //               child: const Text(
-  //                 'Continue to Login',
+  //                 'Go to Dashboard',
   //                 style: TextStyle(
   //                   fontSize: 16,
   //                   fontWeight: FontWeight.w600,
@@ -5029,8 +5687,204 @@ class RegistrationSummaryScreen extends StatelessWidget {
   //     },
   //   );
   // }
+  void _showSuccessDialogAndNavigate(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registration Complete'),
+          content: const Text(
+            'Your hotel has been registered successfully!',
+          ),
+          actions: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  try {
+                    // Get existing users from SharedPreferences
+                    final prefs = await SharedPreferences.getInstance();
+                    final String usersJson = prefs.getString('registered_users') ?? '[]';
 
-  // ==================== UTILITY METHODS ====================
+                    // Parse JSON safely without type casting
+                    final List<dynamic> usersList = jsonDecode(usersJson);
+
+                    // Convert to List<Map<String, dynamic>> safely
+                    List<Map<String, dynamic>> users = [];
+                    for (var user in usersList) {
+                      if (user is Map) {
+                        // Convert each user map safely
+                        Map<String, dynamic> safeUserMap = {};
+                        user.forEach((key, value) {
+                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
+                        });
+                        users.add(safeUserMap);
+                      }
+                    }
+
+                    String userEmail = registrationData['email']?.toString() ?? '';
+                    if (userEmail.isEmpty && registrationData.containsKey('email')) {
+                      userEmail = registrationData['email'].toString();
+                    }
+
+                    // Create a JSON-safe copy of registrationData
+                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
+
+                    // Find the current user
+                    int userIndex = -1;
+                    for (int i = 0; i < users.length; i++) {
+                      if (users[i]['email'] == userEmail) {
+                        userIndex = i;
+                        break;
+                      }
+                    }
+
+                    Map<String, dynamic> userData;
+
+                    if (userIndex >= 0) {
+                      // User exists - update their hotels list
+                      userData = Map<String, dynamic>.from(users[userIndex]);
+
+                      // Initialize hotels list if it doesn't exist
+                      if (!userData.containsKey('hotels')) {
+                        userData['hotels'] = [];
+                      }
+
+                      // Add the new hotel (make sure to add as Map, not List)
+                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
+                      hotels.add(safeRegistrationData);
+                      userData['hotels'] = hotels;
+
+                      // Update propertyType if needed
+                      userData['propertyType'] = 'hotel';
+
+                      // Update the user in the list
+                      users[userIndex] = userData;
+                    } else {
+                      // New user - create their profile
+                      userData = {
+                        'email': userEmail,
+                        'fullName': registrationData['fullName']?.toString() ??
+                            registrationData['ownerName']?.toString() ?? '',
+                        'phone': registrationData['phone']?.toString() ??
+                            registrationData['mobileNumber']?.toString() ?? '',
+                        'propertyType': 'hotel',
+                        'hotels': [safeRegistrationData],
+                        'registeredAt': DateTime.now().toIso8601String(),
+                      };
+
+                      // Add all other fields safely
+                      registrationData.forEach((key, value) {
+                        if (!userData.containsKey(key)) {
+                          userData[key] = _convertToJsonSafe(value);
+                        }
+                      });
+
+                      users.add(userData);
+                    }
+
+                    // Save back to SharedPreferences
+                    await prefs.setString('registered_users', jsonEncode(users));
+
+                    print('Navigating to OwnerDashboardScreen with:');
+                    print('- User email: $userEmail');
+                    print('- Hotels count: ${(userData['hotels'] as List).length}');
+
+                    // Navigate to OwnerDashboardScreen
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => OwnerDashboardScreen(
+                          userData: userData,
+                          userEmail: userEmail,
+                        ),
+                      ),
+                          (Route<dynamic> route) => false,
+                    );
+                  } catch (e) {
+                    print('Error in navigation: $e');
+                    // Show error dialog
+                    Navigator.of(context).pop(); // Close the success dialog
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Error'),
+                        content: Text('Failed to save registration: ${e.toString()}'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Go to Dashboard',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+// Improved helper method to convert any object to JSON-safe format
+  dynamic _convertToJsonSafe(dynamic obj) {
+    if (obj == null) {
+      return null;
+    }
+
+    if (obj is DateTime) {
+      return obj.toIso8601String();
+    }
+
+    if (obj is Uint8List) {
+      return base64Encode(obj);
+    }
+
+    if (obj is Map) {
+      Map<String, dynamic> result = {};
+      obj.forEach((key, value) {
+        result[key.toString()] = _convertToJsonSafe(value);
+      });
+      return result;
+    }
+
+    if (obj is List) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+
+    if (obj is Set) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+
+    // Handle primitive types and other objects
+    if (obj is String || obj is num || obj is bool) {
+      return obj;
+    }
+
+    // For any other object type, try to convert to string
+    try {
+      return obj.toString();
+    } catch (e) {
+      return null;
+    }
+  }
+
   String _getDeclarationText() {
     switch (hotelCategory) {
       case '2-Star':
@@ -5144,9 +5998,65 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
+  // Widget _infoRow(String label, dynamic value) {
+  //   if (value == null || value.toString().isEmpty)
+  //     return const SizedBox.shrink();
+  //
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 12),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Expanded(flex: 4, child: Text(label, style: _labelStyle)),
+  //         Expanded(
+  //           flex: 6,
+  //           child: Text(
+  //             value.toString(),
+  //             style: _valueStyle,
+  //             textAlign: TextAlign.right,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Widget _detailRow(String label, String value) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
+  //         Text(
+  //           value,
+  //           style: TextStyle(
+  //             fontSize: 13,
+  //             fontWeight: FontWeight.w600,
+  //             color: _textDark,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget _infoRow(String label, dynamic value) {
-    if (value == null || value.toString().isEmpty)
-      return const SizedBox.shrink();
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    // Handle different numeric types
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      // Format double to show .00 only if needed
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    if (displayValue.isEmpty) return const SizedBox.shrink();
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -5157,7 +6067,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
           Expanded(
             flex: 6,
             child: Text(
-              value.toString(),
+              displayValue,
               style: _valueStyle,
               textAlign: TextAlign.right,
             ),
@@ -5167,7 +6077,21 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _detailRow(String label, String value) {
+  Widget _detailRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    // Handle different numeric types
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      // Format double to show .00 only if needed
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Row(
@@ -5175,7 +6099,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
         children: [
           Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
           Text(
-            value,
+            displayValue,
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
@@ -5186,6 +6110,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       ),
     );
   }
+
 
   Widget _buildPhotoInfo(String label, Map<String, dynamic> photoInfo) {
     return Padding(
@@ -5255,70 +6180,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
 }
 
-// class HotelOwnerDashboard extends StatefulWidget {
-//   final String hotelName;
-//   final String ownerName;
-//   final String mobileNumber;
-//   final String email;
-//   final String addressLine1;
-//   final String addressLine2;
-//   final String city;
-//   final String district;
-//   final String state;
-//   final String pinCode;
-//   final String gstNumber;
-//   final String fssaiLicense;
-//   final String tradeLicense;
-//   final String panNumber;
-//   final String aadharNumber;
-//   final String accountHolderName;
-//   final String bankName;
-//   final String accountNumber;
-//   final String ifscCode;
-//   final String branch;
-//   final String accountType;
-//   final int totalRooms;
-//   final Map<String, dynamic> personPhotoInfo;
-//   // final List<Map<String, dynamic>> hotelPhotos;
-//   final String primaryHotelPhoto;
-//   final Map<String, dynamic> registrationData;
-//   final String? hotelPhotoPath;
-//   final List<Map<String, dynamic>>? hotelPhotos;
-//   const HotelOwnerDashboard({
-//     Key? key,
-//     required this.hotelName,
-//     required this.ownerName,
-//     required this.mobileNumber,
-//     required this.email,
-//     required this.addressLine1,
-//     required this.addressLine2,
-//     required this.city,
-//     required this.district,
-//     required this.state,
-//     required this.pinCode,
-//     required this.gstNumber,
-//     required this.fssaiLicense,
-//     required this.tradeLicense,
-//     required this.panNumber,
-//     required this.aadharNumber,
-//     required this.accountHolderName,
-//     required this.bankName,
-//     required this.accountNumber,
-//     required this.ifscCode,
-//     required this.branch,
-//     required this.accountType,
-//     required this.totalRooms,
-//     required this.personPhotoInfo,
-//     // this.hotelPhotos = const [],
-//     this.primaryHotelPhoto = '',
-//     this.hotelPhotoPath,
-//     this.hotelPhotos,
-//     this.registrationData = const {},
-//   }) : super(key: key);
-//
-//   @override
-//   State<HotelOwnerDashboard> createState() => _HotelOwnerDashboardState();
-// }
+
 class HotelOwnerDashboard extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
@@ -8432,221 +9294,8 @@ class _BookingTrendGraphPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
-// class HotelOwnerProfilePage extends StatefulWidget {
-//   // Common fields for all categories
-//   final String hotelName;
-//   final String ownerName;
-//   final String mobileNumber;
-//   final String email;
-//   final String addressLine1;
-//   final String addressLine2;
-//   final String city;
-//   final String district;
-//   final String state;
-//   final String pinCode;
-//   final String gstNumber;
-//   final String fssaiLicense;
-//   final String tradeLicense;
-//   final String aadharNumber;
-//   final String accountHolderName;
-//   final String bankName;
-//   final String accountNumber;
-//   final String ifscCode;
-//   final String branch;
-//   final String accountType;
-//   final int totalRooms;
-//   final Map<String, dynamic> personPhotoInfo;
-//
-//   // Optional fields
-//   final String hotelType;
-//   final String yearOfEstablishment;
-//   final String website;
-//   final String landmark;
-//   final Map<String, bool> selectedRoomTypes;
-//   final Map<String, Map<String, dynamic>> roomDetails;
-//   final String minTariff;
-//   final String maxTariff;
-//   final bool extraBedAvailable;
-//   final Map<String, bool> basicAmenities;
-//   final Map<String, bool> hotelFacilities;
-//   final Map<String, bool> foodServices;
-//   final Map<String, bool> additionalAmenities;
-//   final List<String> customAmenities;
-//   final String alternateContact;
-//   final List<String> landlineNumbers;
-//   final Map<String, Map<String, dynamic>> uploadedFiles;
-//   final String signatureName;
-//   final String declarationName;
-//   final DateTime? declarationDate;
-//   final bool declarationAccepted;
-//
-//   // NEW: Hotel category field - CRITICAL for dynamic display
-//   final String hotelCategory;
-//
-//   // 2-Star+ specific fields
-//   final String? designation;
-//   final String? panNumber;
-//   final String? checkInTime;
-//   final String? checkOutTime;
-//   final Map<String, bool>? roomAmenities;
-//   final Map<String, bool>? guestServices;
-//   final bool? coupleFriendly;
-//   final bool? petsAllowed;
-//   final String? selectedIdProof;
-//   final Map<String, Map<String, dynamic>>? idProofFiles;
-//
-//   // 3-Star+ specific fields
-//   final String? registrationNumber;
-//   final String? signatoryName;
-//   final bool? seasonalPricing;
-//   final bool? earlyCheckinAllowed;
-//   final bool? earlyCheckinChargeable;
-//   final bool? fireSafetyCertificate;
-//   final Map<String, bool>? businessServices;
-//
-//   // 4-Star+ specific fields
-//   final bool? starCertificate;
-//   final Map<String, bool>? wellnessRecreation;
-//
-//   // 5-Star+ specific fields
-//   final String? brandName;
-//   final String? starCertNumber;
-//   final bool? pollutionCertificate;
-//   final bool? liftCertificate;
-//   final Map<String, bool>? diningServices;
-//   final Map<String, bool>? wellnessRecreation5Star; // 5-Star version
-//
-//   // 6-Star specific fields
-//   final String? globalRecognition;
-//   final String? gmName;
-//   final String? country;
-//   final bool? personalButler;
-//   final bool? aiPricing;
-//   final bool? vipProtocols;
-//   final bool? petLuxuryServices;
-//   final bool? fireSafetyNoc;
-//   final bool? environmentalCert;
-//   final bool? internationalCert;
-//   final Map<String, bool>? hotelInfrastructure;
-//   final Map<String, bool>? diningExperiences;
-//   final Map<String, bool>? wellnessLeisure;
-//   final Map<String, bool>? guestPrivileges;
-//   final List<dynamic>? additionalAddresses;
-//
-//   // Digital Signature
-//   final bool? hasDigitalSignature;
-//   final Uint8List? digitalSignatureImage;
-//
-//   const HotelOwnerProfilePage({
-//     super.key,
-//     // Common required fields
-//     required this.hotelName,
-//     required this.ownerName,
-//     required this.mobileNumber,
-//     required this.email,
-//     required this.addressLine1,
-//     required this.addressLine2,
-//     required this.city,
-//     required this.district,
-//     required this.state,
-//     required this.pinCode,
-//     required this.gstNumber,
-//     required this.fssaiLicense,
-//     required this.tradeLicense,
-//     required this.aadharNumber,
-//     required this.accountHolderName,
-//     required this.bankName,
-//     required this.accountNumber,
-//     required this.ifscCode,
-//     required this.branch,
-//     required this.accountType,
-//     required this.totalRooms,
-//     required this.personPhotoInfo,
-//     required this.selectedRoomTypes,
-//     required this.roomDetails,
-//     required this.basicAmenities,
-//     required this.hotelFacilities,
-//     required this.foodServices,
-//     required this.additionalAmenities,
-//     required this.customAmenities,
-//     required this.uploadedFiles,
-//
-//     // Optional common fields
-//     this.hotelType = '',
-//     this.yearOfEstablishment = '',
-//     this.website = '',
-//     this.landmark = '',
-//     this.minTariff = '',
-//     this.maxTariff = '',
-//     this.extraBedAvailable = false,
-//     this.alternateContact = '',
-//     this.landlineNumbers = const [],
-//     this.signatureName = '',
-//     this.declarationName = '',
-//     this.declarationDate,
-//     this.declarationAccepted = false,
-//
-//     // CRITICAL: Hotel category
-//     this.hotelCategory = 'Normal',
-//
-//     // 2-Star+ fields
-//     this.designation,
-//     this.panNumber,
-//     this.checkInTime,
-//     this.checkOutTime,
-//     this.roomAmenities,
-//     this.guestServices,
-//     this.coupleFriendly,
-//     this.petsAllowed,
-//     this.selectedIdProof,
-//     this.idProofFiles,
-//
-//     // 3-Star+ fields
-//     this.registrationNumber,
-//     this.signatoryName,
-//     this.seasonalPricing,
-//     this.earlyCheckinAllowed,
-//     this.earlyCheckinChargeable,
-//     this.fireSafetyCertificate,
-//     this.businessServices,
-//
-//     // 4-Star+ fields
-//     this.starCertificate,
-//     this.wellnessRecreation,
-//
-//     // 5-Star+ fields
-//     this.brandName,
-//     this.starCertNumber,
-//     this.pollutionCertificate,
-//     this.liftCertificate,
-//     this.diningServices,
-//     this.wellnessRecreation5Star,
-//
-//     // 6-Star fields
-//     this.globalRecognition,
-//     this.gmName,
-//     this.country,
-//     this.personalButler,
-//     this.aiPricing,
-//     this.vipProtocols,
-//     this.petLuxuryServices,
-//     this.fireSafetyNoc,
-//     this.environmentalCert,
-//     this.internationalCert,
-//     this.hotelInfrastructure,
-//     this.diningExperiences,
-//     this.wellnessLeisure,
-//     this.guestPrivileges,
-//     this.additionalAddresses,
-//
-//     // Digital Signature
-//     this.hasDigitalSignature,
-//     this.digitalSignatureImage,
-//   });
-//
-//   @override
-//   State<HotelOwnerProfilePage> createState() => _HotelOwnerProfilePageState();
-// }
+
+
 class HotelOwnerProfilePage extends StatefulWidget {
   // Common fields for all categories
   final String hotelName;
@@ -9849,7 +10498,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Aadhar Card',
+                      'Aadhaar Card',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -13298,11 +13947,11 @@ class _AmenitiesDetailsTab extends StatelessWidget {
       );
     }
 
-    // Aadhar Number (Normal, 2-Star)
+    // Aadhaar Number (Normal, 2-Star)
     if ((_isNormal || _isTwoStar) && aadharNumber.isNotEmpty) {
       if (legalRows.isNotEmpty) legalRows.add(const Divider(height: 20));
       legalRows.add(
-        _buildLegalDocRow('Aadhar Number', aadharNumber, Icons.badge),
+        _buildLegalDocRow('Aadhaar Number', aadharNumber, Icons.badge),
       );
     }
 
@@ -16248,9 +16897,9 @@ class _EditHotelProfileScreenState extends State<EditHotelProfileScreen> {
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Aadhar Number (Owner)',
+              label: 'Aadhaar Number (Owner)',
               controller: _aadharController,
-              hint: 'Enter Aadhar number',
+              hint: 'Enter Aadhaar number',
               enabled: true,
             ),
           ],
@@ -41065,7 +41714,7 @@ class _VillaRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildFileUploadItem(
-              label: 'ID Proof (Aadhar/PAN) *',
+              label: 'ID Proof (Aadhaar/PAN) *',
               fileInfo: _idProofInfo,
               onUpload: () => _pickFile('idproof'),
               onView: () => _viewFile(_idProofInfo),
@@ -44331,34 +44980,53 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
         return AlertDialog(
           title: const Text('Registration Complete'),
           content: const Text(
-            'Your villa has been registered successfully! Please login to access your dashboard.',
+            'Your hotel has been registered successfully!',
           ),
           actions: [
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF00897B),
+                  backgroundColor: Colors.blue,
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 onPressed: () {
-                  // Navigate to PropertyAuthScreen with explicit property type
+                  // Create a clean data structure
+                  Map<String, dynamic> finalData = {
+                    'propertyType': 'hotel',
+                    'fullName': registrationData['fullName'],
+                    'businessName': registrationData['businessName'] ?? registrationData['hotelName'],
+                    'email': registrationData['email'],
+                    'phone': registrationData['phone'],
+                    'hotelName': registrationData['hotelName'],
+                    'hotelType': registrationData['hotelType'],
+                    'hotelCategory': 'Normal',
+                    'registeredAt': DateTime.now().toIso8601String(),
+                    'lastLogin': DateTime.now().toIso8601String(),
+                  };
+
+                  // Add all other hotel data
+                  registrationData.forEach((key, value) {
+                    if (!finalData.containsKey(key)) {
+                      finalData[key] = value;
+                    }
+                  });
+
                   Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
-                      builder: (context) => PropertyAuthScreen(
-                        selectedPropertyType:
-                            'villa', // Explicitly pass 'villa'
-                        registrationData: registrationData, // Pass the data
+                      builder: (context) => OwnerDashboardScreen(
+                        userData: finalData,
+                        userEmail: registrationData['email']?.toString() ?? '',
                       ),
                     ),
-                    (Route<dynamic> route) => false,
+                        (Route<dynamic> route) => false,
                   );
                 },
                 child: const Text(
-                  'Continue to Login',
+                  'Go to Dashboard',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -45539,7 +46207,7 @@ class _ApartmentRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildFileUploadItem(
-              label: 'ID Proof (Aadhar / PAN / Passport) *',
+              label: 'ID Proof (Aadhaar / PAN / Passport) *',
               fileInfo: _idProofInfo,
               onUpload: () => _pickFile('idproof'),
               onView: () => _viewFile(_idProofInfo),

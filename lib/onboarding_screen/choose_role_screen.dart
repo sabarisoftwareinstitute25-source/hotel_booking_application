@@ -537,2594 +537,7 @@ class _OfficeLoginScreenState extends State<OfficeLoginScreen> {
   }
 }
 
-// class PropertyAuthScreen extends StatefulWidget {
-//   // final String selectedPropertyType;
-//   final Map<String, dynamic>? registrationData;
-//   const PropertyAuthScreen({super.key,   this.registrationData = const {}});
-//
-//   @override
-//   State<PropertyAuthScreen> createState() => _PropertyAuthScreenState();
-// }
-//
-// class _PropertyAuthScreenState extends State<PropertyAuthScreen>
-//     with SingleTickerProviderStateMixin {
-//   late TabController _tabController;
-//
-//   final TextEditingController _loginEmailController = TextEditingController();
-//   final TextEditingController _loginPasswordController =
-//       TextEditingController();
-//
-//   final TextEditingController _regNameController = TextEditingController();
-//   final TextEditingController _regBusinessController = TextEditingController();
-//   final TextEditingController _regEmailController = TextEditingController();
-//   final TextEditingController _regPhoneController = TextEditingController();
-//   final TextEditingController _regPasswordController = TextEditingController();
-//   final TextEditingController _regConfirmPasswordController =
-//       TextEditingController();
-//
-//   final Map<String, String?> _loginErrors = {};
-//   final Map<String, String?> _regErrors = {};
-//
-//   bool _showLoginPassword = false;
-//   bool _showRegPassword = false;
-//   bool _showConfirmPassword = false;
-//   bool _isLoggingIn = false;
-//   bool _isRegistering = false;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _tabController = TabController(length: 2, vsync: this);
-//
-//     _prefillRegistrationData();
-//   }
-//
-//   void _prefillRegistrationData() {
-//     if (widget.registrationData != null &&
-//         widget.registrationData!.isNotEmpty) {
-//       final data = widget.registrationData!;
-//       if (data['hotelName'] != null) {
-//         _regBusinessController.text = data['hotelName'].toString();
-//       }
-//       if (data['ownerName'] != null) {
-//         _regNameController.text = data['ownerName'].toString();
-//       }
-//       if (data['email'] != null) {
-//         _regEmailController.text = data['email'].toString();
-//       }
-//       if (data['mobileNumber'] != null) {
-//         _regPhoneController.text = data['mobileNumber'].toString();
-//       }
-//     }
-//   }
-//
-//   // Future<void> _saveUser(Map<String, dynamic> userData) async {
-//   //   try {
-//   //     final prefs = await SharedPreferences.getInstance();
-//   //
-//   //     final String usersJson = prefs.getString('registered_users') ?? '[]';
-//   //     List<dynamic> users = jsonDecode(usersJson);
-//   //
-//   //     final normalizedEmail = userData['email'].toString().toLowerCase().trim();
-//   //     userData['email'] = normalizedEmail;
-//   //
-//   //     bool userExists = false;
-//   //     for (int i = 0; i < users.length; i++) {
-//   //       final existingEmail =
-//   //           users[i]['email']?.toString().toLowerCase().trim() ?? '';
-//   //       if (existingEmail == normalizedEmail) {
-//   //         users[i] = userData;
-//   //         userExists = true;
-//   //         print('Updated existing user: $normalizedEmail');
-//   //         break;
-//   //       }
-//   //     }
-//   //
-//   //     if (!userExists) {
-//   //       users.add(userData);
-//   //       print('Added new user: $normalizedEmail');
-//   //     }
-//   //
-//   //     await prefs.setString('registered_users', jsonEncode(users));
-//   //     print('Total registered users: ${users.length}');
-//   //   } catch (e) {
-//   //     print('Error saving user: $e');
-//   //   }
-//   // }
-//
-//   // Future<Map<String, dynamic>?> _getUser(String email) async {
-//   //   try {
-//   //     final prefs = await SharedPreferences.getInstance();
-//   //     final String usersJson = prefs.getString('registered_users') ?? '[]';
-//   //     final List<dynamic> users = jsonDecode(usersJson);
-//   //
-//   //     final normalizedEmail = email.toLowerCase().trim();
-//   //
-//   //     for (var user in users) {
-//   //       final storedEmail =
-//   //           user['email']?.toString().toLowerCase().trim() ?? '';
-//   //       if (storedEmail == normalizedEmail) {
-//   //         return Map<String, dynamic>.from(user);
-//   //       }
-//   //     }
-//   //     return null;
-//   //   } catch (e) {
-//   //     print('Error getting user: $e');
-//   //     return null;
-//   //   }
-//   // }
-//   Future<void> _saveUser(Map<String, dynamic> userData) async {
-//     try {
-//       final prefs = await SharedPreferences.getInstance();
-//
-//       final String usersJson = prefs.getString('registered_users') ?? '[]';
-//       List<dynamic> users = jsonDecode(usersJson);
-//
-//       final normalizedEmail = userData['email'].toString().toLowerCase().trim();
-//       userData['email'] = normalizedEmail;
-//
-//       print('=== SAVING USER ===');
-//       print('User data keys: ${userData.keys.toList()}');
-//       if (userData.containsKey('basicInfo')) {
-//         print('basicInfo exists with keys: ${(userData['basicInfo'] as Map).keys.toList()}');
-//       }
-//
-//       bool userExists = false;
-//       for (int i = 0; i < users.length; i++) {
-//         final existingEmail = users[i]['email']?.toString().toLowerCase().trim() ?? '';
-//         if (existingEmail == normalizedEmail) {
-//           users[i] = userData;
-//           userExists = true;
-//           print('Updated existing user: $normalizedEmail');
-//           break;
-//         }
-//       }
-//
-//       if (!userExists) {
-//         users.add(userData);
-//         print('Added new user: $normalizedEmail');
-//       }
-//
-//       await prefs.setString('registered_users', jsonEncode(users));
-//       print('Total registered users: ${users.length}');
-//     } catch (e) {
-//       print('Error saving user: $e');
-//     }
-//   }
-//   Future<Map<String, dynamic>?> _getUser(String email) async {
-//     try {
-//       final prefs = await SharedPreferences.getInstance();
-//       final String usersJson = prefs.getString('registered_users') ?? '[]';
-//       final List<dynamic> users = jsonDecode(usersJson);
-//
-//       final normalizedEmail = email.toLowerCase().trim();
-//
-//       for (var user in users) {
-//         final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
-//         if (storedEmail == normalizedEmail) {
-//           print('=== FOUND USER ===');
-//           print('User data keys: ${user.keys.toList()}');
-//           return Map<String, dynamic>.from(user);
-//         }
-//       }
-//       return null;
-//     } catch (e) {
-//       print('Error getting user: $e');
-//       return null;
-//     }
-//   }
-//
-//   Future<bool> _validateCredentials(String email, String password) async {
-//     final user = await _getUser(email);
-//     return user != null && user['password'] == password;
-//   }
-//
-//   bool _isValidEmail(String email) {
-//     return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
-//   }
-//
-//   bool _isValidPhone(String phone) {
-//     return RegExp(r'^[0-9]{10}$').hasMatch(phone);
-//   }
-//
-//   bool _isValidPassword(String password) {
-//     return password.length >= 6;
-//   }
-//
-//   void _clearAllForms() {
-//     _loginEmailController.clear();
-//     _loginPasswordController.clear();
-//     _regNameController.clear();
-//     _regBusinessController.clear();
-//     _regEmailController.clear();
-//     _regPhoneController.clear();
-//     _regPasswordController.clear();
-//     _regConfirmPasswordController.clear();
-//
-//     _loginErrors.clear();
-//     _regErrors.clear();
-//
-//     setState(() {
-//       _showLoginPassword = false;
-//       _showRegPassword = false;
-//       _showConfirmPassword = false;
-//     });
-//   }
-//
-//   Future<void> _handleRegister() async {
-//     setState(() {
-//       _regErrors.clear();
-//     });
-//
-//     final fullName = _regNameController.text.trim();
-//     final businessName = _regBusinessController.text.trim();
-//     final email = _regEmailController.text.trim();
-//     final phone = _regPhoneController.text.trim();
-//     final password = _regPasswordController.text;
-//     final confirmPassword = _regConfirmPasswordController.text;
-//
-//     bool hasErrors = false;
-//
-//     if (fullName.isEmpty) {
-//       _regErrors['fullName'] = 'Full name is required';
-//       hasErrors = true;
-//     }
-//
-//     if (businessName.isEmpty) {
-//       _regErrors['businessName'] = 'Business name is required';
-//       hasErrors = true;
-//     }
-//
-//     if (email.isEmpty) {
-//       _regErrors['email'] = 'Email is required';
-//       hasErrors = true;
-//     } else if (!_isValidEmail(email)) {
-//       _regErrors['email'] = 'Enter a valid email address';
-//       hasErrors = true;
-//     }
-//
-//     if (phone.isEmpty) {
-//       _regErrors['phone'] = 'Phone number is required';
-//       hasErrors = true;
-//     } else if (!_isValidPhone(phone)) {
-//       _regErrors['phone'] = 'Enter a valid 10-digit phone number';
-//       hasErrors = true;
-//     }
-//
-//     if (password.isEmpty) {
-//       _regErrors['password'] = 'Password is required';
-//       hasErrors = true;
-//     } else if (!_isValidPassword(password)) {
-//       _regErrors['password'] = 'Password must be at least 6 characters';
-//       hasErrors = true;
-//     }
-//
-//     if (confirmPassword.isEmpty) {
-//       _regErrors['confirmPassword'] = 'Please confirm your password';
-//       hasErrors = true;
-//     } else if (password != confirmPassword) {
-//       _regErrors['confirmPassword'] = 'Passwords do not match';
-//       hasErrors = true;
-//     }
-//
-//     if (hasErrors) {
-//       setState(() {});
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(
-//           content: Text('Please correct the highlighted fields'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//       return;
-//     }
-//
-//     final existingUser = await _getUser(email);
-//     if (existingUser != null) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Email already registered. Please login.'),
-//           backgroundColor: Colors.orange,
-//         ),
-//       );
-//       _tabController.animateTo(0);
-//       _loginEmailController.text = email;
-//       _loginPasswordController.text = password;
-//       return;
-//     }
-//
-//     setState(() => _isRegistering = true);
-//
-//     try {
-//       final userData = {
-//         'fullName': fullName,
-//         'businessName': businessName,
-//         'email': email.toLowerCase().trim(),
-//         'phone': phone,
-//         'password': password,
-//         'registeredAt': DateTime.now().toIso8601String(),
-//         'lastLogin': DateTime.now().toIso8601String(),
-//
-//         if (widget.registrationData != null) ...widget.registrationData!,
-//       };
-//
-//       await _saveUser(userData);
-//
-//       final prefs = await SharedPreferences.getInstance();
-//       await prefs.setBool('is_logged_in', true);
-//       await prefs.setString('current_user_email', email.toLowerCase().trim());
-//
-//       if (!mounted) return;
-//
-//       setState(() => _isRegistering = false);
-//
-//       _clearAllForms();
-//
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(
-//           content: Text('Registration successful!'),
-//           backgroundColor: Colors.green,
-//         ),
-//       );
-//
-//       await Future.delayed(const Duration(milliseconds: 500));
-//
-//       final mergedData = {...userData, ...?widget.registrationData};
-//
-//       Navigator.pushReplacement(
-//         context,
-//         MaterialPageRoute(builder: (context) => WelcomeScreen()),
-//       );
-//     } catch (e) {
-//       setState(() => _isRegistering = false);
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Registration failed: ${e.toString()}'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//     }
-//   }
-//
-//   Future<void> _handleLogin() async {
-//     setState(() {
-//       _loginErrors.clear();
-//     });
-//
-//     final email = _loginEmailController.text.trim();
-//     final password = _loginPasswordController.text;
-//
-//     bool hasErrors = false;
-//
-//     if (email.isEmpty) {
-//       _loginErrors['email'] = 'Email is required';
-//       hasErrors = true;
-//     } else if (!_isValidEmail(email)) {
-//       _loginErrors['email'] = 'Enter a valid email address';
-//       hasErrors = true;
-//     }
-//
-//     if (password.isEmpty) {
-//       _loginErrors['password'] = 'Password is required';
-//       hasErrors = true;
-//     }
-//
-//     if (hasErrors) {
-//       setState(() {});
-//       return;
-//     }
-//
-//     setState(() => _isLoggingIn = true);
-//
-//     try {
-//       final isValid = await _validateCredentials(email, password);
-//
-//       if (!isValid) {
-//         setState(() {
-//           _isLoggingIn = false;
-//           _loginErrors['email'] = 'Invalid email or password';
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           const SnackBar(
-//             content: Text('Invalid email or password'),
-//             backgroundColor: Colors.red,
-//           ),
-//         );
-//         return;
-//       }
-//
-//       final userData = await _getUser(email);
-//
-//       if (userData == null) {
-//         setState(() => _isLoggingIn = false);
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           const SnackBar(
-//             content: Text('User data not found'),
-//             backgroundColor: Colors.red,
-//           ),
-//         );
-//         return;
-//       }
-//
-//       userData['lastLogin'] = DateTime.now().toIso8601String();
-//       await _saveUser(userData);
-//
-//       final prefs = await SharedPreferences.getInstance();
-//       await prefs.setBool('is_logged_in', true);
-//       await prefs.setString('current_user_email', email.toLowerCase().trim());
-//
-//       if (!mounted) return;
-//
-//       setState(() => _isLoggingIn = false);
-//
-//       _clearAllForms();
-//
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(
-//           content: Text('Login successful!'),
-//           backgroundColor: Colors.green,
-//         ),
-//       );
-//
-//       await Future.delayed(const Duration(milliseconds: 500));
-//
-//       final mergedData = {...userData, ...?widget.registrationData};
-//
-//       Navigator.pushReplacement(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => HotelOwnerDashboard(
-//             registrationData: mergedData,
-//             hotelName: '',
-//             ownerName: '',
-//             mobileNumber: '',
-//             email: '',
-//             addressLine1: '',
-//             addressLine2: '',
-//             city: '',
-//             district: '',
-//             state: '',
-//             pinCode: '',
-//             gstNumber: '',
-//             fssaiLicense: '',
-//             tradeLicense: '',
-//             panNumber: '',
-//             aadharNumber: '',
-//             accountHolderName: '',
-//             bankName: '',
-//             accountNumber: '',
-//             ifscCode: '',
-//             branch: '',
-//             accountType: '',
-//             totalRooms: 0,
-//             personPhotoInfo: {},
-//           ),
-//         ),
-//       );
-//     } catch (e) {
-//       setState(() => _isLoggingIn = false);
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Login error: ${e.toString()}'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//     }
-//   }
-//
-//
-//   // Future<void> _handleRegister() async {
-//   //   setState(() {
-//   //     _regErrors.clear();
-//   //   });
-//   //
-//   //   final fullName = _regNameController.text.trim();
-//   //   final businessName = _regBusinessController.text.trim();
-//   //   final email = _regEmailController.text.trim();
-//   //   final phone = _regPhoneController.text.trim();
-//   //   final password = _regPasswordController.text;
-//   //   final confirmPassword = _regConfirmPasswordController.text;
-//   //
-//   //   bool hasErrors = false;
-//   //
-//   //   if (fullName.isEmpty) {
-//   //     _regErrors['fullName'] = 'Full name is required';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (businessName.isEmpty) {
-//   //     _regErrors['businessName'] = 'Business name is required';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (email.isEmpty) {
-//   //     _regErrors['email'] = 'Email is required';
-//   //     hasErrors = true;
-//   //   } else if (!_isValidEmail(email)) {
-//   //     _regErrors['email'] = 'Enter a valid email address';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (phone.isEmpty) {
-//   //     _regErrors['phone'] = 'Phone number is required';
-//   //     hasErrors = true;
-//   //   } else if (!_isValidPhone(phone)) {
-//   //     _regErrors['phone'] = 'Enter a valid 10-digit phone number';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (password.isEmpty) {
-//   //     _regErrors['password'] = 'Password is required';
-//   //     hasErrors = true;
-//   //   } else if (!_isValidPassword(password)) {
-//   //     _regErrors['password'] = 'Password must be at least 6 characters';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (confirmPassword.isEmpty) {
-//   //     _regErrors['confirmPassword'] = 'Please confirm your password';
-//   //     hasErrors = true;
-//   //   } else if (password != confirmPassword) {
-//   //     _regErrors['confirmPassword'] = 'Passwords do not match';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (hasErrors) {
-//   //     setState(() {});
-//   //     ScaffoldMessenger.of(context).showSnackBar(
-//   //       const SnackBar(
-//   //         content: Text('Please correct the highlighted fields'),
-//   //         backgroundColor: Colors.red,
-//   //       ),
-//   //     );
-//   //     return;
-//   //   }
-//   //
-//   //   final existingUser = await _getUser(email);
-//   //   if (existingUser != null) {
-//   //     ScaffoldMessenger.of(context).showSnackBar(
-//   //       SnackBar(
-//   //         content: Text('Email already registered. Please login.'),
-//   //         backgroundColor: Colors.orange,
-//   //       ),
-//   //     );
-//   //     _tabController.animateTo(0);
-//   //     _loginEmailController.text = email;
-//   //     _loginPasswordController.text = password;
-//   //     return;
-//   //   }
-//   //
-//   //   setState(() => _isRegistering = true);
-//   //
-//   //   try {
-//   //     print('=== HANDLE REGISTER START ===');
-//   //     print('widget.registrationData is null? ${widget.registrationData == null}');
-//   //     print('widget.selectedPropertyType: ${widget.selectedPropertyType}');
-//   //
-//   //     // IMPORTANT: Start with an empty map
-//   //     final Map<String, dynamic> userData = {};
-//   //
-//   //     // FIRST: Add ALL registration data (this contains the villa data)
-//   //     if (widget.registrationData != null) {
-//   //       print('✅ Registration data exists');
-//   //       print('Registration data keys: ${widget.registrationData!.keys.toList()}');
-//   //
-//   //       // Add each key from registration data individually to ensure deep copy
-//   //       widget.registrationData!.forEach((key, value) {
-//   //         if (value is Map) {
-//   //           // Create a deep copy of maps
-//   //           userData[key] = Map<String, dynamic>.from(value);
-//   //         } else if (value is List) {
-//   //           // Create a deep copy of lists
-//   //           userData[key] = List.from(value);
-//   //         } else {
-//   //           userData[key] = value;
-//   //         }
-//   //       });
-//   //       print('✅ Added registration data to userData');
-//   //     } else {
-//   //       print('❌ WARNING: No registration data available!');
-//   //     }
-//   //
-//   //     // SECOND: Add user account data
-//   //     userData['fullName'] = fullName;
-//   //     userData['businessName'] = businessName;
-//   //     userData['email'] = email.toLowerCase().trim();
-//   //     userData['phone'] = phone;
-//   //     userData['password'] = password;
-//   //     userData['registeredAt'] = DateTime.now().toIso8601String();
-//   //     userData['lastLogin'] = DateTime.now().toIso8601String();
-//   //
-//   //     // THIRD: Set property type from the widget parameter
-//   //     String propertyType = widget.selectedPropertyType.isNotEmpty
-//   //         ? widget.selectedPropertyType
-//   //         : 'unknown';
-//   //
-//   //     userData['propertyType'] = propertyType;
-//   //
-//   //     print('✅ FINAL USER DATA KEYS: ${userData.keys.toList()}');
-//   //
-//   //     // Verify villa data is present
-//   //     if (userData.containsKey('basicInfo')) {
-//   //       print('✅✅✅ basicInfo EXISTS with keys: ${(userData['basicInfo'] as Map).keys.toList()}');
-//   //       print('✅✅✅ villaName: ${(userData['basicInfo'] as Map)['villaName']}');
-//   //     } else {
-//   //       print('❌❌❌ basicInfo NOT found in userData');
-//   //       print('This is the problem! Registration data is not being properly added.');
-//   //     }
-//   //
-//   //     if (userData.containsKey('propertyDetails')) {
-//   //       print('✅ propertyDetails EXISTS with keys: ${(userData['propertyDetails'] as Map).keys.toList()}');
-//   //     }
-//   //
-//   //     // Save the complete user data
-//   //     await _saveUser(userData);
-//   //
-//   //     final prefs = await SharedPreferences.getInstance();
-//   //     await prefs.setBool('is_logged_in', true);
-//   //     await prefs.setString('current_user_email', email.toLowerCase().trim());
-//   //
-//   //     if (!mounted) return;
-//   //
-//   //     setState(() => _isRegistering = false);
-//   //
-//   //     _clearAllForms();
-//   //
-//   //     ScaffoldMessenger.of(context).showSnackBar(
-//   //       const SnackBar(
-//   //         content: Text('Registration successful!'),
-//   //         backgroundColor: Colors.green,
-//   //       ),
-//   //     );
-//   //
-//   //     await Future.delayed(const Duration(milliseconds: 500));
-//   //
-//   //     // Navigate to appropriate dashboard based on property type
-//   //     if (propertyType == 'villa') {
-//   //       print('✅✅✅ Navigating to VillaOwnerDashboard');
-//   //
-//   //       // Handle digital signature safely
-//   //       Uint8List? digitalSignatureImage;
-//   //       if (userData['signature'] != null &&
-//   //           userData['signature']['digitalSignature'] != null &&
-//   //           userData['signature']['digitalSignature'] is Uint8List) {
-//   //         digitalSignatureImage = userData['signature']['digitalSignature'];
-//   //       }
-//   //
-//   //       // Handle declaration date safely
-//   //       DateTime? declarationDate;
-//   //       if (userData['signature'] != null && userData['signature']['date'] != null) {
-//   //         if (userData['signature']['date'] is DateTime) {
-//   //           declarationDate = userData['signature']['date'];
-//   //         } else {
-//   //           declarationDate = DateTime.tryParse(userData['signature']['date'].toString());
-//   //         }
-//   //       }
-//   //
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(
-//   //           builder: (context) => VillaOwnerDashboard(
-//   //             registrationData: userData,
-//   //             villaName: userData['basicInfo']?['villaName'] ?? userData['villaName'] ?? '',
-//   //             ownerName: userData['basicInfo']?['ownerName'] ?? userData['ownerName'] ?? '',
-//   //             mobileNumber: userData['basicInfo']?['mobile'] ?? userData['mobileNumber'] ?? '',
-//   //             email: userData['basicInfo']?['email'] ?? userData['email'] ?? '',
-//   //             address: userData['location']?['address'] ?? userData['address'] ?? '',
-//   //             area: userData['location']?['area'] ?? userData['area'] ?? '',
-//   //             city: userData['location']?['city'] ?? userData['city'] ?? '',
-//   //             state: userData['location']?['state'] ?? userData['state'] ?? '',
-//   //             pincode: userData['location']?['pincode'] ?? userData['pincode'] ?? '',
-//   //             propertyType: userData['propertyDetails']?['propertyType'] ?? userData['propertyType'] ?? '',
-//   //             bedrooms: int.tryParse(userData['propertyDetails']?['bedrooms']?.toString() ?? userData['bedrooms']?.toString() ?? '0') ?? 0,
-//   //             bathrooms: int.tryParse(userData['propertyDetails']?['bathrooms']?.toString() ?? userData['bathrooms']?.toString() ?? '0') ?? 0,
-//   //             guestCapacity: int.tryParse(userData['propertyDetails']?['guestCapacity']?.toString() ?? userData['guestCapacity']?.toString() ?? '0') ?? 0,
-//   //             propertySize: userData['propertyDetails']?['propertySize']?.toString() ?? userData['propertySize']?.toString() ?? '',
-//   //             yearConstruction: userData['propertyDetails']?['yearConstruction']?.toString() ?? userData['yearConstruction']?.toString() ?? '',
-//   //             description: userData['propertyDetails']?['description']?.toString() ?? userData['description']?.toString() ?? '',
-//   //             villaAmenities: Map<String, bool>.from(userData['amenities']?['selected'] ?? userData['villaAmenities'] ?? {}),
-//   //             customAmenities: List<String>.from(userData['amenities']?['custom'] ?? userData['customAmenities'] ?? []),
-//   //             basePrice: userData['pricing']?['basePrice']?.toString() ?? userData['basePrice']?.toString() ?? '',
-//   //             weekendPrice: userData['pricing']?['weekendPrice']?.toString() ?? userData['weekendPrice']?.toString() ?? '',
-//   //             peakPrice: userData['pricing']?['peakPrice']?.toString() ?? userData['peakPrice']?.toString() ?? '',
-//   //             securityDeposit: userData['pricing']?['securityDeposit']?.toString() ?? userData['securityDeposit']?.toString() ?? '',
-//   //             minimumStay: userData['pricing']?['minimumStay']?.toString() ?? userData['minimumStay']?.toString() ?? '',
-//   //             checkInTime: userData['pricing']?['checkInTime']?.toString() ?? userData['checkInTime']?.toString(),
-//   //             checkOutTime: userData['pricing']?['checkOutTime']?.toString() ?? userData['checkOutTime']?.toString(),
-//   //             cancellationPolicy: Map<String, dynamic>.from(userData['pricing']?['cancellationPolicy'] ?? userData['cancellationPolicy'] ?? {}),
-//   //             availabilityCalendar: Map<String, dynamic>.from(userData['pricing']?['availabilityCalendar'] ?? userData['availabilityCalendar'] ?? {}),
-//   //             ownershipProof: Map<String, dynamic>.from(userData['legal']?['ownershipProof'] ?? userData['ownershipProof'] ?? {}),
-//   //             idProof: Map<String, dynamic>.from(userData['legal']?['idProof'] ?? userData['idProof'] ?? {}),
-//   //             gstNumber: userData['legal']?['gstNumber']?.toString() ?? userData['gstNumber']?.toString() ?? '',
-//   //             tradeLicense: userData['legal']?['tradeLicense']?.toString() ?? userData['tradeLicense']?.toString() ?? '',
-//   //             accountHolderName: userData['bank']?['accountHolder']?.toString() ?? userData['accountHolderName']?.toString() ?? '',
-//   //             bankName: userData['bank']?['bankName']?.toString() ?? userData['bankName']?.toString() ?? '',
-//   //             accountNumber: userData['bank']?['accountNumber']?.toString() ?? userData['accountNumber']?.toString() ?? '',
-//   //             ifscCode: userData['bank']?['ifscCode']?.toString() ?? userData['ifscCode']?.toString() ?? '',
-//   //             upiId: userData['bank']?['upiId']?.toString() ?? userData['upiId']?.toString() ?? '',
-//   //             cancelledCheque: Map<String, dynamic>.from(userData['bank']?['cancelledCheque'] ?? userData['cancelledCheque'] ?? {}),
-//   //             mediaFiles: Map<String, List<Map<String, dynamic>>>.from(userData['media'] ?? userData['mediaFiles'] ?? {}),
-//   //             ownerPhoto: Map<String, dynamic>.from(userData['basicInfo']?['ownerPhoto'] ?? userData['ownerPhoto'] ?? {}),
-//   //             hasDigitalSignature: userData['signature']?['hasDigital'] ?? userData['hasDigitalSignature'] ?? false,
-//   //             digitalSignatureImage: digitalSignatureImage,
-//   //             declarationDate: declarationDate,
-//   //             declarationAccepted: userData['declarationAccepted'] ?? false,
-//   //             altMobile: userData['basicInfo']?['altMobile']?.toString() ?? userData['altMobile']?.toString(),
-//   //             website: userData['basicInfo']?['website']?.toString() ?? userData['website']?.toString(),
-//   //             googleMapLink: userData['location']?['googleMapLink']?.toString() ?? userData['googleMapLink']?.toString(),
-//   //           ),
-//   //         ),
-//   //       );
-//   //     } else if (propertyType == 'hotel') {
-//   //       print('Navigating to HotelOwnerDashboard');
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(
-//   //           builder: (context) => HotelOwnerDashboard(
-//   //             registrationData: userData,
-//   //             hotelName: userData['hotelName'] ?? '',
-//   //             ownerName: userData['ownerName'] ?? '',
-//   //             mobileNumber: userData['mobileNumber'] ?? '',
-//   //             email: userData['email'] ?? '',
-//   //             addressLine1: userData['addressLine1'] ?? '',
-//   //             addressLine2: userData['addressLine2'] ?? '',
-//   //             city: userData['city'] ?? '',
-//   //             district: userData['district'] ?? '',
-//   //             state: userData['state'] ?? '',
-//   //             pinCode: userData['pinCode'] ?? '',
-//   //             gstNumber: userData['gstNumber'] ?? '',
-//   //             fssaiLicense: userData['fssaiLicense'] ?? '',
-//   //             tradeLicense: userData['tradeLicense'] ?? '',
-//   //             panNumber: userData['panNumber'] ?? '',
-//   //             aadharNumber: userData['aadharNumber'] ?? '',
-//   //             accountHolderName: userData['accountHolderName'] ?? '',
-//   //             bankName: userData['bankName'] ?? '',
-//   //             accountNumber: userData['accountNumber'] ?? '',
-//   //             ifscCode: userData['ifscCode'] ?? '',
-//   //             branch: userData['branch'] ?? '',
-//   //             accountType: userData['accountType'] ?? '',
-//   //             totalRooms: int.tryParse(userData['totalRooms']?.toString() ?? '0') ?? 0,
-//   //             personPhotoInfo: Map<String, dynamic>.from(userData['personPhotoInfo'] ?? {}),
-//   //           ),
-//   //         ),
-//   //       );
-//   //     } else {
-//   //       print('❌ Unknown property type: "$propertyType", navigating to WelcomeScreen');
-//   //       ScaffoldMessenger.of(context).showSnackBar(
-//   //         SnackBar(
-//   //           content: Text('Unknown property type: $propertyType. Please contact support.'),
-//   //           backgroundColor: Colors.red,
-//   //         ),
-//   //       );
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(builder: (context) => WelcomeScreen()),
-//   //       );
-//   //     }
-//   //   } catch (e) {
-//   //     setState(() => _isRegistering = false);
-//   //     print('Registration error: $e');
-//   //     ScaffoldMessenger.of(context).showSnackBar(
-//   //       SnackBar(
-//   //         content: Text('Registration failed: ${e.toString()}'),
-//   //         backgroundColor: Colors.red,
-//   //       ),
-//   //     );
-//   //   }
-//   // }
-//   // String _determinePropertyTypeFromRegistrationData(Map<String, dynamic>? data) {
-//   //   print('=== DETERMINING PROPERTY TYPE FROM REGISTRATION DATA ===');
-//   //
-//   //   if (data == null) {
-//   //     print('❌ Registration data is NULL');
-//   //     return 'unknown';
-//   //   }
-//   //
-//   //   if (data.isEmpty) {
-//   //     print('❌ Registration data is EMPTY');
-//   //     return 'unknown';
-//   //   }
-//   //
-//   //   print('📋 Registration data keys: ${data.keys.toList()}');
-//   //
-//   //   // Check if this is villa data by looking for villa-specific structures
-//   //   if (data.containsKey('basicInfo')) {
-//   //     print('✅ Found basicInfo section');
-//   //     final basicInfo = data['basicInfo'] as Map;
-//   //     print('basicInfo keys: ${basicInfo.keys.toList()}');
-//   //
-//   //     if (basicInfo.containsKey('villaName')) {
-//   //       print('✅✅✅ Found villaName in basicInfo - this is a VILLA');
-//   //       return 'villa';
-//   //     }
-//   //   }
-//   //
-//   //   if (data.containsKey('propertyDetails')) {
-//   //     print('Found propertyDetails section');
-//   //     final propertyDetails = data['propertyDetails'] as Map;
-//   //     print('propertyDetails keys: ${propertyDetails.keys.toList()}');
-//   //
-//   //     if (propertyDetails.containsKey('bedrooms') ||
-//   //         propertyDetails.containsKey('bathrooms') ||
-//   //         propertyDetails.containsKey('guestCapacity')) {
-//   //       print('✅✅✅ Found villa-specific fields in propertyDetails - this is a VILLA');
-//   //       return 'villa';
-//   //     }
-//   //
-//   //     // Also check propertyType in propertyDetails
-//   //     if (propertyDetails.containsKey('propertyType')) {
-//   //       final type = propertyDetails['propertyType'].toString().toLowerCase();
-//   //       print('Found propertyType in propertyDetails: $type');
-//   //       if (type.contains('villa')) {
-//   //         print('✅✅✅ Found propertyType: $type in propertyDetails - this is a VILLA');
-//   //         return 'villa';
-//   //       }
-//   //     }
-//   //   }
-//   //
-//   //   // Check for direct villa keys
-//   //   if (data.containsKey('villaName')) {
-//   //     print('✅✅✅ Found direct villaName - this is a VILLA');
-//   //     return 'villa';
-//   //   }
-//   //
-//   //   if (data.containsKey('bedrooms') && data.containsKey('bathrooms')) {
-//   //     print('✅✅✅ Found bedrooms and bathrooms - this is likely a VILLA');
-//   //     return 'villa';
-//   //   }
-//   //
-//   //   // Check for hotel
-//   //   if (data.containsKey('hotelName') || data.containsKey('totalRooms') || data.containsKey('roomDetails')) {
-//   //     print('Found hotel-specific fields - this is a HOTEL');
-//   //     return 'hotel';
-//   //   }
-//   //
-//   //   // Check for apartment
-//   //   if (data.containsKey('apartmentName')) {
-//   //     print('Found apartment-specific fields - this is an APARTMENT');
-//   //     return 'apartment';
-//   //   }
-//   //
-//   //   // Check for resort
-//   //   if (data.containsKey('resortName')) {
-//   //     print('Found resort-specific fields - this is a RESORT');
-//   //     return 'resort';
-//   //   }
-//   //
-//   //   print('❌ Could not determine property type from registration data');
-//   //   return 'unknown';
-//   // }
-//   // Future<void> _handleLogin() async {
-//   //   setState(() {
-//   //     _loginErrors.clear();
-//   //   });
-//   //
-//   //   final email = _loginEmailController.text.trim();
-//   //   final password = _loginPasswordController.text;
-//   //
-//   //   bool hasErrors = false;
-//   //
-//   //   if (email.isEmpty) {
-//   //     _loginErrors['email'] = 'Email is required';
-//   //     hasErrors = true;
-//   //   } else if (!_isValidEmail(email)) {
-//   //     _loginErrors['email'] = 'Enter a valid email address';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (password.isEmpty) {
-//   //     _loginErrors['password'] = 'Password is required';
-//   //     hasErrors = true;
-//   //   }
-//   //
-//   //   if (hasErrors) {
-//   //     setState(() {});
-//   //     return;
-//   //   }
-//   //
-//   //   setState(() => _isLoggingIn = true);
-//   //
-//   //   try {
-//   //     final isValid = await _validateCredentials(email, password);
-//   //
-//   //     if (!isValid) {
-//   //       setState(() {
-//   //         _isLoggingIn = false;
-//   //         _loginErrors['email'] = 'Invalid email or password';
-//   //       });
-//   //
-//   //       ScaffoldMessenger.of(context).showSnackBar(
-//   //         const SnackBar(
-//   //           content: Text('Invalid email or password'),
-//   //           backgroundColor: Colors.red,
-//   //         ),
-//   //       );
-//   //       return;
-//   //     }
-//   //
-//   //     final userData = await _getUser(email);
-//   //
-//   //     if (userData == null) {
-//   //       setState(() => _isLoggingIn = false);
-//   //       ScaffoldMessenger.of(context).showSnackBar(
-//   //         const SnackBar(
-//   //           content: Text('User data not found'),
-//   //           backgroundColor: Colors.red,
-//   //         ),
-//   //       );
-//   //       return;
-//   //     }
-//   //
-//   //     userData['lastLogin'] = DateTime.now().toIso8601String();
-//   //     await _saveUser(userData);
-//   //
-//   //     final prefs = await SharedPreferences.getInstance();
-//   //     await prefs.setBool('is_logged_in', true);
-//   //     await prefs.setString('current_user_email', email.toLowerCase().trim());
-//   //
-//   //     if (!mounted) return;
-//   //
-//   //     setState(() => _isLoggingIn = false);
-//   //
-//   //     _clearAllForms();
-//   //
-//   //     ScaffoldMessenger.of(context).showSnackBar(
-//   //       const SnackBar(
-//   //         content: Text('Login successful!'),
-//   //         backgroundColor: Colors.green,
-//   //       ),
-//   //     );
-//   //
-//   //     await Future.delayed(const Duration(milliseconds: 500));
-//   //
-//   //     // Determine property type from user data
-//   //     final propertyType = _determinePropertyType(userData);
-//   //
-//   //     // Navigate to the appropriate dashboard based on property type
-//   //     if (propertyType == 'villa') {
-//   //       // Navigate to VillaOwnerDashboard
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(
-//   //           builder: (context) => VillaOwnerDashboard(
-//   //             registrationData: userData,
-//   //             villaName: userData['villaName'] ?? userData['basicInfo']?['villaName'] ?? '',
-//   //             ownerName: userData['ownerName'] ?? userData['basicInfo']?['ownerName'] ?? '',
-//   //             mobileNumber: userData['mobileNumber'] ?? userData['basicInfo']?['mobile'] ?? '',
-//   //             email: userData['email'] ?? userData['basicInfo']?['email'] ?? '',
-//   //             address: userData['address'] ?? userData['location']?['address'] ?? '',
-//   //             area: userData['area'] ?? userData['location']?['area'] ?? '',
-//   //             city: userData['city'] ?? userData['location']?['city'] ?? '',
-//   //             state: userData['state'] ?? userData['location']?['state'] ?? '',
-//   //             pincode: userData['pincode'] ?? userData['location']?['pincode'] ?? '',
-//   //             propertyType: userData['propertyType'] ?? userData['propertyDetails']?['propertyType'] ?? '',
-//   //             bedrooms: int.tryParse(userData['bedrooms']?.toString() ?? userData['propertyDetails']?['bedrooms']?.toString() ?? '0') ?? 0,
-//   //             bathrooms: int.tryParse(userData['bathrooms']?.toString() ?? userData['propertyDetails']?['bathrooms']?.toString() ?? '0') ?? 0,
-//   //             guestCapacity: int.tryParse(userData['guestCapacity']?.toString() ?? userData['propertyDetails']?['guestCapacity']?.toString() ?? '0') ?? 0,
-//   //             propertySize: userData['propertySize']?.toString() ?? userData['propertyDetails']?['propertySize']?.toString() ?? '',
-//   //             yearConstruction: userData['yearConstruction']?.toString() ?? userData['propertyDetails']?['yearConstruction']?.toString() ?? '',
-//   //             description: userData['description']?.toString() ?? userData['propertyDetails']?['description']?.toString() ?? '',
-//   //             villaAmenities: Map<String, bool>.from(userData['villaAmenities'] ?? userData['amenities']?['selected'] ?? {}),
-//   //             customAmenities: List<String>.from(userData['customAmenities'] ?? userData['amenities']?['custom'] ?? []),
-//   //             basePrice: userData['basePrice']?.toString() ?? userData['pricing']?['basePrice']?.toString() ?? '',
-//   //             weekendPrice: userData['weekendPrice']?.toString() ?? userData['pricing']?['weekendPrice']?.toString() ?? '',
-//   //             peakPrice: userData['peakPrice']?.toString() ?? userData['pricing']?['peakPrice']?.toString() ?? '',
-//   //             securityDeposit: userData['securityDeposit']?.toString() ?? userData['pricing']?['securityDeposit']?.toString() ?? '',
-//   //             minimumStay: userData['minimumStay']?.toString() ?? userData['pricing']?['minimumStay']?.toString() ?? '',
-//   //             checkInTime: userData['checkInTime']?.toString() ?? userData['pricing']?['checkInTime']?.toString(),
-//   //             checkOutTime: userData['checkOutTime']?.toString() ?? userData['pricing']?['checkOutTime']?.toString(),
-//   //             cancellationPolicy: Map<String, dynamic>.from(userData['cancellationPolicy'] ?? userData['pricing']?['cancellationPolicy'] ?? {}),
-//   //             availabilityCalendar: Map<String, dynamic>.from(userData['availabilityCalendar'] ?? userData['pricing']?['availabilityCalendar'] ?? {}),
-//   //             ownershipProof: Map<String, dynamic>.from(userData['ownershipProof'] ?? userData['legal']?['ownershipProof'] ?? {}),
-//   //             idProof: Map<String, dynamic>.from(userData['idProof'] ?? userData['legal']?['idProof'] ?? {}),
-//   //             gstNumber: userData['gstNumber']?.toString() ?? userData['legal']?['gstNumber']?.toString() ?? '',
-//   //             tradeLicense: userData['tradeLicense']?.toString() ?? userData['legal']?['tradeLicense']?.toString() ?? '',
-//   //             accountHolderName: userData['accountHolderName']?.toString() ?? userData['bank']?['accountHolder']?.toString() ?? '',
-//   //             bankName: userData['bankName']?.toString() ?? userData['bank']?['bankName']?.toString() ?? '',
-//   //             accountNumber: userData['accountNumber']?.toString() ?? userData['bank']?['accountNumber']?.toString() ?? '',
-//   //             ifscCode: userData['ifscCode']?.toString() ?? userData['bank']?['ifscCode']?.toString() ?? '',
-//   //             upiId: userData['upiId']?.toString() ?? userData['bank']?['upiId']?.toString() ?? '',
-//   //             cancelledCheque: Map<String, dynamic>.from(userData['cancelledCheque'] ?? userData['bank']?['cancelledCheque'] ?? {}),
-//   //             mediaFiles: Map<String, List<Map<String, dynamic>>>.from(userData['mediaFiles'] ?? userData['media'] ?? {}),
-//   //             ownerPhoto: Map<String, dynamic>.from(userData['ownerPhoto'] ?? userData['basicInfo']?['ownerPhoto'] ?? {}),
-//   //             hasDigitalSignature: userData['hasDigitalSignature'] ?? userData['signature']?['hasDigital'] ?? false,
-//   //             digitalSignatureImage: userData['digitalSignatureImage'] != null
-//   //                 ? (userData['digitalSignatureImage'] is Uint8List
-//   //                 ? userData['digitalSignatureImage']
-//   //                 : null)
-//   //                 : null,
-//   //             declarationDate: userData['declarationDate'] != null
-//   //                 ? (userData['declarationDate'] is DateTime
-//   //                 ? userData['declarationDate']
-//   //                 : DateTime.tryParse(userData['declarationDate'].toString()))
-//   //                 : null,
-//   //             declarationAccepted: userData['declarationAccepted'] ?? userData['signature']?['declarationAccepted'] ?? false,
-//   //             altMobile: userData['altMobile']?.toString() ?? userData['basicInfo']?['altMobile']?.toString(),
-//   //             website: userData['website']?.toString() ?? userData['basicInfo']?['website']?.toString(),
-//   //             googleMapLink: userData['googleMapLink']?.toString() ?? userData['location']?['googleMapLink']?.toString(),
-//   //           ),
-//   //         ),
-//   //       );
-//   //     } else if (propertyType == 'hotel') {
-//   //       // Navigate to HotelOwnerDashboard
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(
-//   //           builder: (context) => HotelOwnerDashboard(
-//   //             registrationData: userData,
-//   //             hotelName: userData['hotelName'] ?? '',
-//   //             ownerName: userData['ownerName'] ?? '',
-//   //             mobileNumber: userData['mobileNumber'] ?? '',
-//   //             email: userData['email'] ?? '',
-//   //             addressLine1: userData['addressLine1'] ?? '',
-//   //             addressLine2: userData['addressLine2'] ?? '',
-//   //             city: userData['city'] ?? '',
-//   //             district: userData['district'] ?? '',
-//   //             state: userData['state'] ?? '',
-//   //             pinCode: userData['pinCode'] ?? '',
-//   //             gstNumber: userData['gstNumber'] ?? '',
-//   //             fssaiLicense: userData['fssaiLicense'] ?? '',
-//   //             tradeLicense: userData['tradeLicense'] ?? '',
-//   //             panNumber: userData['panNumber'] ?? '',
-//   //             aadharNumber: userData['aadharNumber'] ?? '',
-//   //             accountHolderName: userData['accountHolderName'] ?? '',
-//   //             bankName: userData['bankName'] ?? '',
-//   //             accountNumber: userData['accountNumber'] ?? '',
-//   //             ifscCode: userData['ifscCode'] ?? '',
-//   //             branch: userData['branch'] ?? '',
-//   //             accountType: userData['accountType'] ?? '',
-//   //             totalRooms: int.tryParse(userData['totalRooms']?.toString() ?? '0') ?? 0,
-//   //             personPhotoInfo: Map<String, dynamic>.from(userData['personPhotoInfo'] ?? {}),
-//   //           ),
-//   //         ),
-//   //       );
-//   //     } else if (propertyType == 'apartment') {
-//   //       // Navigate to ApartmentOwnerDashboard (create this later)
-//   //       ScaffoldMessenger.of(context).showSnackBar(
-//   //         const SnackBar(
-//   //           content: Text('Apartment dashboard coming soon!'),
-//   //           backgroundColor: Colors.orange,
-//   //         ),
-//   //       );
-//   //       // For now, navigate to WelcomeScreen
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(builder: (context) => WelcomeScreen()),
-//   //       );
-//   //     } else if (propertyType == 'resort') {
-//   //       // Navigate to ResortOwnerDashboard (create this later)
-//   //       ScaffoldMessenger.of(context).showSnackBar(
-//   //         const SnackBar(
-//   //           content: Text('Resort dashboard coming soon!'),
-//   //           backgroundColor: Colors.orange,
-//   //         ),
-//   //       );
-//   //       // For now, navigate to WelcomeScreen
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(builder: (context) => WelcomeScreen()),
-//   //       );
-//   //     } else {
-//   //       // Unknown property type - show error and navigate to WelcomeScreen
-//   //       ScaffoldMessenger.of(context).showSnackBar(
-//   //         const SnackBar(
-//   //           content: Text('Unknown property type. Please contact support.'),
-//   //           backgroundColor: Colors.red,
-//   //         ),
-//   //       );
-//   //       Navigator.pushReplacement(
-//   //         context,
-//   //         MaterialPageRoute(builder: (context) => WelcomeScreen()),
-//   //       );
-//   //     }
-//   //   } catch (e) {
-//   //     setState(() => _isLoggingIn = false);
-//   //     ScaffoldMessenger.of(context).showSnackBar(
-//   //       SnackBar(
-//   //         content: Text('Login error: ${e.toString()}'),
-//   //         backgroundColor: Colors.red,
-//   //       ),
-//   //     );
-//   //   }
-//   // }
-//   // String _determinePropertyType(Map<String, dynamic> userData) {
-//   //   print('=== DETERMINING PROPERTY TYPE DURING LOGIN ===');
-//   //   print('User data keys: ${userData.keys.toList()}');
-//   //
-//   //   // Check if propertyType is directly stored
-//   //   if (userData.containsKey('propertyType')) {
-//   //     final type = userData['propertyType'].toString().toLowerCase();
-//   //     print('Found direct propertyType: $type');
-//   //     if (type == 'villa') return 'villa';
-//   //     if (type == 'hotel') return 'hotel';
-//   //     if (type == 'apartment') return 'apartment';
-//   //     if (type == 'resort') return 'resort';
-//   //   }
-//   //
-//   //   // Check for villa-specific fields
-//   //   if (userData.containsKey('basicInfo')) {
-//   //     print('Found basicInfo section - this is a VILLA');
-//   //     return 'villa';
-//   //   }
-//   //
-//   //   if (userData.containsKey('villaName') ||
-//   //       userData.containsKey('bedrooms') ||
-//   //       userData.containsKey('bathrooms')) {
-//   //     print('Found villa-specific fields - this is a VILLA');
-//   //     return 'villa';
-//   //   }
-//   //
-//   //   // Check for hotel-specific fields
-//   //   if (userData.containsKey('hotelName') ||
-//   //       userData.containsKey('totalRooms') ||
-//   //       userData.containsKey('roomDetails')) {
-//   //     print('Found hotel-specific fields - this is a HOTEL');
-//   //     return 'hotel';
-//   //   }
-//   //
-//   //   // Check for apartment
-//   //   if (userData.containsKey('apartmentName')) {
-//   //     print('Found apartment-specific fields - this is an APARTMENT');
-//   //     return 'apartment';
-//   //   }
-//   //
-//   //   // Check for resort
-//   //   if (userData.containsKey('resortName')) {
-//   //     print('Found resort-specific fields - this is a RESORT');
-//   //     return 'resort';
-//   //   }
-//   //
-//   //   print('Could not determine property type, defaulting to unknown');
-//   //   return 'unknown';
-//   // }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         decoration: const BoxDecoration(
-//           gradient: LinearGradient(
-//             begin: Alignment.topCenter,
-//             end: Alignment.bottomCenter,
-//             colors: [Color(0xFFF8FAFF), Color(0xFFF0F4FF)],
-//           ),
-//         ),
-//         child: SafeArea(
-//           child: Column(
-//             children: [
-//               Align(
-//                 alignment: Alignment.centerLeft,
-//                 child: IconButton(
-//                   icon: const Icon(Icons.arrow_back, color: Color(0xFF6B7280)),
-//                   onPressed: () => Navigator.pop(context),
-//                 ),
-//               ),
-//
-//               Container(
-//                 width: 80,
-//                 height: 80,
-//                 decoration: BoxDecoration(
-//                   gradient: const LinearGradient(
-//                     colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-//                   ),
-//                   borderRadius: BorderRadius.circular(20),
-//                 ),
-//                 child: const Center(
-//                   child: Icon(Icons.business, size: 40, color: Colors.white),
-//                 ),
-//               ),
-//               const SizedBox(height: 20),
-//
-//               const Text(
-//                 "Property Partner",
-//                 style: TextStyle(
-//                   fontSize: 28,
-//                   fontWeight: FontWeight.w800,
-//                   color: Color(0xFF1F2937),
-//                 ),
-//               ),
-//               const Text(
-//                 "Manage your hospitality business",
-//                 style: TextStyle(color: Color(0xFF6B7280)),
-//               ),
-//               const SizedBox(height: 20),
-//
-//               Container(
-//                 margin: const EdgeInsets.symmetric(horizontal: 24),
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(12),
-//                   boxShadow: [
-//                     BoxShadow(
-//                       color: Colors.black.withOpacity(0.05),
-//                       blurRadius: 10,
-//                     ),
-//                   ],
-//                 ),
-//                 child: TabBar(
-//                   controller: _tabController,
-//                   labelColor: Colors.white,
-//                   unselectedLabelColor: const Color(0xFF6B7280),
-//                   indicator: BoxDecoration(
-//                     gradient: const LinearGradient(
-//                       colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-//                     ),
-//                     borderRadius: BorderRadius.circular(10),
-//                   ),
-//                   tabs: const [
-//                     Tab(text: 'Login to your account'),
-//                     Tab(text: 'New User Registration'),
-//                   ],
-//                 ),
-//               ),
-//               const SizedBox(height: 20),
-//
-//               Expanded(
-//                 child: TabBarView(
-//                   controller: _tabController,
-//                   children: [_buildLoginTab(), _buildRegisterTab()],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildLoginTab() {
-//     final emailError = _loginErrors['email'];
-//     final passwordError = _loginErrors['password'];
-//
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(24),
-//       child: Column(
-//         children: [
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               const Text(
-//                 "Email Address",
-//                 style: TextStyle(
-//                   fontWeight: FontWeight.w500,
-//                   color: Color(0xFF374151),
-//                 ),
-//               ),
-//               const SizedBox(height: 8),
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(12),
-//                   border: Border.all(
-//                     color: emailError != null
-//                         ? Colors.red
-//                         : const Color(0xFFE5E7EB),
-//                   ),
-//                 ),
-//                 child: TextField(
-//                   controller: _loginEmailController,
-//                   keyboardType: TextInputType.emailAddress,
-//                   decoration: const InputDecoration(
-//                     hintText: "Enter registered email",
-//                     prefixIcon: Icon(Icons.email, color: Color(0xFF6B7280)),
-//                     border: InputBorder.none,
-//                     contentPadding: EdgeInsets.all(16),
-//                   ),
-//                 ),
-//               ),
-//               if (emailError != null) ...[
-//                 const SizedBox(height: 4),
-//                 Text(
-//                   emailError,
-//                   style: const TextStyle(color: Colors.red, fontSize: 12),
-//                 ),
-//               ],
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//
-//           Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               const Text(
-//                 "Password",
-//                 style: TextStyle(
-//                   fontWeight: FontWeight.w500,
-//                   color: Color(0xFF374151),
-//                 ),
-//               ),
-//               const SizedBox(height: 8),
-//               Container(
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(12),
-//                   border: Border.all(
-//                     color: passwordError != null
-//                         ? Colors.red
-//                         : const Color(0xFFE5E7EB),
-//                   ),
-//                 ),
-//                 child: TextField(
-//                   controller: _loginPasswordController,
-//                   obscureText: !_showLoginPassword,
-//                   decoration: InputDecoration(
-//                     hintText: "Enter your password",
-//                     prefixIcon: const Icon(
-//                       Icons.lock,
-//                       color: Color(0xFF6B7280),
-//                     ),
-//                     border: InputBorder.none,
-//                     contentPadding: const EdgeInsets.all(16),
-//                     suffixIcon: IconButton(
-//                       icon: Icon(
-//                         _showLoginPassword
-//                             ? Icons.visibility_off
-//                             : Icons.visibility,
-//                         color: const Color(0xFF6B7280),
-//                       ),
-//                       onPressed: () => setState(
-//                         () => _showLoginPassword = !_showLoginPassword,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//               if (passwordError != null) ...[
-//                 const SizedBox(height: 4),
-//                 Text(
-//                   passwordError,
-//                   style: const TextStyle(color: Colors.red, fontSize: 12),
-//                 ),
-//               ],
-//             ],
-//           ),
-//
-//           const SizedBox(height: 24),
-//
-//           SizedBox(
-//             width: double.infinity,
-//             height: 50,
-//             child: ElevatedButton(
-//               onPressed: _isLoggingIn ? null : _handleLogin,
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: const Color(0xFFFF5F6D),
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//               ),
-//               child: _isLoggingIn
-//                   ? const SizedBox(
-//                       width: 20,
-//                       height: 20,
-//                       child: CircularProgressIndicator(
-//                         strokeWidth: 2,
-//                         valueColor: AlwaysStoppedAnimation(Colors.white),
-//                       ),
-//                     )
-//                   : const Text(
-//                       "Login",
-//                       style: TextStyle(
-//                         fontSize: 16,
-//                         fontWeight: FontWeight.w600,
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildRegisterTab() {
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           Container(
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.circular(16),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: Colors.black.withOpacity(0.05),
-//                   blurRadius: 20,
-//                   offset: const Offset(0, 4),
-//                 ),
-//               ],
-//             ),
-//             child: Column(
-//               children: [
-//                 Container(
-//                   padding: const EdgeInsets.all(20),
-//                   decoration: const BoxDecoration(
-//                     color: Color(0xFFF9FAFB),
-//                     borderRadius: BorderRadius.only(
-//                       topLeft: Radius.circular(16),
-//                       topRight: Radius.circular(16),
-//                     ),
-//                   ),
-//                   child: Row(
-//                     children: [
-//                       Container(
-//                         width: 40,
-//                         height: 40,
-//                         decoration: BoxDecoration(
-//                           gradient: const LinearGradient(
-//                             colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-//                           ),
-//                           borderRadius: BorderRadius.circular(10),
-//                         ),
-//                         child: const Center(
-//                           child: Icon(
-//                             Icons.how_to_reg_rounded,
-//                             size: 20,
-//                             color: Colors.white,
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(width: 12),
-//                       const Expanded(
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Text(
-//                               "Account Details",
-//                               style: TextStyle(
-//                                 fontSize: 16,
-//                                 fontWeight: FontWeight.w700,
-//                                 color: Color(0xFF1F2937),
-//                               ),
-//                             ),
-//                             Text(
-//                               "Fill in your information",
-//                               style: TextStyle(
-//                                 fontSize: 12,
-//                                 color: Color(0xFF6B7280),
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//
-//                 Padding(
-//                   padding: const EdgeInsets.all(20),
-//                   child: Column(
-//                     children: [
-//                       _buildTextField(
-//                         label: "Full Name",
-//                         hint: "Enter your full name",
-//                         icon: Icons.person_outline_rounded,
-//                         controller: _regNameController,
-//                         error: _regErrors['fullName'],
-//                       ),
-//                       const SizedBox(height: 16),
-//
-//                       _buildTextField(
-//                         label: "Business Name",
-//                         hint: "Hotel/Guest House/Business name",
-//                         icon: Icons.business_outlined,
-//                         controller: _regBusinessController,
-//                         error: _regErrors['businessName'],
-//                       ),
-//                       const SizedBox(height: 16),
-//
-//                       _buildTextField(
-//                         label: "Email address",
-//                         hint: "Valid email address",
-//                         icon: Icons.email_outlined,
-//                         controller: _regEmailController,
-//                         keyboardType: TextInputType.emailAddress,
-//                         error: _regErrors['email'],
-//                       ),
-//                       const SizedBox(height: 16),
-//
-//                       _buildTextField(
-//                         label: "Phone number",
-//                         hint: "10-digit phone number",
-//                         icon: Icons.phone,
-//                         controller: _regPhoneController,
-//                         keyboardType: TextInputType.phone,
-//                         error: _regErrors['phone'],
-//                       ),
-//                       const SizedBox(height: 16),
-//
-//                       _buildPasswordField(
-//                         label: "Password",
-//                         hint: "Minimum 6 characters",
-//                         controller: _regPasswordController,
-//                         obscure: !_showRegPassword,
-//                         onToggle: () => setState(
-//                           () => _showRegPassword = !_showRegPassword,
-//                         ),
-//                         error: _regErrors['password'],
-//                       ),
-//                       const SizedBox(height: 16),
-//
-//                       _buildPasswordField(
-//                         label: "Confirm Password",
-//                         hint: "Re-enter your password",
-//                         controller: _regConfirmPasswordController,
-//                         obscure: !_showConfirmPassword,
-//                         onToggle: () => setState(
-//                           () => _showConfirmPassword = !_showConfirmPassword,
-//                         ),
-//                         error: _regErrors['confirmPassword'],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//
-//           const SizedBox(height: 24),
-//
-//           Container(
-//             height: 56,
-//             width: double.infinity,
-//             decoration: BoxDecoration(
-//               gradient: const LinearGradient(
-//                 colors: [Color(0xFFFF5F6D), Color(0xFFFF8A7A)],
-//               ),
-//               borderRadius: BorderRadius.circular(14),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: const Color(0xFFFF5F6D).withOpacity(0.3),
-//                   blurRadius: 15,
-//                   offset: const Offset(0, 5),
-//                 ),
-//               ],
-//             ),
-//             child: ElevatedButton(
-//               onPressed: _isRegistering ? null : _handleRegister,
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: Colors.transparent,
-//                 shadowColor: Colors.transparent,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(14),
-//                 ),
-//                 padding: EdgeInsets.zero,
-//               ),
-//               child: _isRegistering
-//                   ? const SizedBox(
-//                       width: 20,
-//                       height: 20,
-//                       child: CircularProgressIndicator(
-//                         strokeWidth: 2,
-//                         valueColor: AlwaysStoppedAnimation(Colors.white),
-//                       ),
-//                     )
-//                   : const Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         Icon(
-//                           Icons.rocket_launch_rounded,
-//                           color: Colors.white,
-//                           size: 20,
-//                         ),
-//                         SizedBox(width: 10),
-//                         Text(
-//                           "Create Account",
-//                           style: TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.w700,
-//                             color: Colors.white,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildTextField({
-//     required String label,
-//     required String hint,
-//     required IconData icon,
-//     required TextEditingController controller,
-//     TextInputType keyboardType = TextInputType.text,
-//     String? error,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Row(
-//           children: [
-//             Text(
-//               label,
-//               style: const TextStyle(
-//                 fontWeight: FontWeight.w600,
-//                 color: Color(0xFF374151),
-//                 fontSize: 14,
-//               ),
-//             ),
-//             const Padding(
-//               padding: EdgeInsets.only(left: 4),
-//               child: Text(
-//                 "*",
-//                 style: TextStyle(
-//                   color: Color(0xFFFF5F6D),
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//         const SizedBox(height: 8),
-//         Container(
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             borderRadius: BorderRadius.circular(12),
-//             border: Border.all(
-//               color: error != null ? Colors.red : const Color(0xFFE5E7EB),
-//             ),
-//           ),
-//           child: Row(
-//             children: [
-//               Container(
-//                 width: 50,
-//                 height: 50,
-//                 decoration: const BoxDecoration(
-//                   color: Color(0xFFF9FAFB),
-//                   borderRadius: BorderRadius.only(
-//                     topLeft: Radius.circular(12),
-//                     bottomLeft: Radius.circular(12),
-//                   ),
-//                   border: Border(right: BorderSide(color: Color(0xFFE5E7EB))),
-//                 ),
-//                 child: Center(
-//                   child: Icon(icon, size: 20, color: const Color(0xFF6B7280)),
-//                 ),
-//               ),
-//               Expanded(
-//                 child: TextField(
-//                   controller: controller,
-//                   keyboardType: keyboardType,
-//                   decoration: InputDecoration(
-//                     hintText: hint,
-//                     hintStyle: const TextStyle(
-//                       color: Color(0xFF9CA3AF),
-//                       fontSize: 14,
-//                     ),
-//                     border: InputBorder.none,
-//                     contentPadding: const EdgeInsets.symmetric(
-//                       horizontal: 16,
-//                       vertical: 15,
-//                     ),
-//                   ),
-//                   style: const TextStyle(
-//                     fontSize: 14,
-//                     color: Color(0xFF1F2937),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//         if (error != null) ...[
-//           const SizedBox(height: 4),
-//           Text(error, style: const TextStyle(color: Colors.red, fontSize: 12)),
-//         ],
-//       ],
-//     );
-//   }
-//
-//   Widget _buildPasswordField({
-//     required String label,
-//     required String hint,
-//     required TextEditingController controller,
-//     required bool obscure,
-//     required VoidCallback onToggle,
-//     String? error,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Row(
-//           children: [
-//             Text(
-//               label,
-//               style: const TextStyle(
-//                 fontWeight: FontWeight.w600,
-//                 color: Color(0xFF374151),
-//                 fontSize: 14,
-//               ),
-//             ),
-//             const Padding(
-//               padding: EdgeInsets.only(left: 4),
-//               child: Text(
-//                 "*",
-//                 style: TextStyle(
-//                   color: Color(0xFFFF5F6D),
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//         const SizedBox(height: 8),
-//         Container(
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             borderRadius: BorderRadius.circular(12),
-//             border: Border.all(
-//               color: error != null ? Colors.red : const Color(0xFFE5E7EB),
-//             ),
-//           ),
-//           child: Row(
-//             children: [
-//               Container(
-//                 width: 50,
-//                 height: 50,
-//                 decoration: const BoxDecoration(
-//                   color: Color(0xFFF9FAFB),
-//                   borderRadius: BorderRadius.only(
-//                     topLeft: Radius.circular(12),
-//                     bottomLeft: Radius.circular(12),
-//                   ),
-//                   border: Border(right: BorderSide(color: Color(0xFFE5E7EB))),
-//                 ),
-//                 child: const Center(
-//                   child: Icon(
-//                     Icons.lock_outline_rounded,
-//                     size: 20,
-//                     color: Color(0xFF6B7280),
-//                   ),
-//                 ),
-//               ),
-//               Expanded(
-//                 child: TextField(
-//                   controller: controller,
-//                   obscureText: obscure,
-//                   decoration: InputDecoration(
-//                     hintText: hint,
-//                     hintStyle: const TextStyle(
-//                       color: Color(0xFF9CA3AF),
-//                       fontSize: 14,
-//                     ),
-//                     border: InputBorder.none,
-//                     contentPadding: const EdgeInsets.symmetric(
-//                       horizontal: 16,
-//                       vertical: 15,
-//                     ),
-//                     suffixIcon: IconButton(
-//                       icon: Icon(
-//                         obscure
-//                             ? Icons.visibility_off_outlined
-//                             : Icons.visibility_outlined,
-//                         size: 20,
-//                         color: const Color(0xFF6B7280),
-//                       ),
-//                       onPressed: onToggle,
-//                     ),
-//                   ),
-//                   style: const TextStyle(
-//                     fontSize: 14,
-//                     color: Color(0xFF1F2937),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//         if (error != null) ...[
-//           const SizedBox(height: 4),
-//           Text(error, style: const TextStyle(color: Colors.red, fontSize: 12)),
-//         ],
-//       ],
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     _tabController.dispose();
-//     _loginEmailController.dispose();
-//     _loginPasswordController.dispose();
-//     _regNameController.dispose();
-//     _regBusinessController.dispose();
-//     _regEmailController.dispose();
-//     _regPhoneController.dispose();
-//     _regPasswordController.dispose();
-//     _regConfirmPasswordController.dispose();
-//     super.dispose();
-//   }
-// }
 
-
-
-
-class VillaAuthScreen extends StatefulWidget {
-  final Map<String, dynamic>? registrationData;
-
-  const VillaAuthScreen({super.key, this.registrationData});
-
-  @override
-  State<VillaAuthScreen> createState() => _VillaAuthScreenState();
-}
-
-class _VillaAuthScreenState extends State<VillaAuthScreen> {
-  final TextEditingController _loginEmailController = TextEditingController();
-  final TextEditingController _loginPasswordController = TextEditingController();
-
-  final Map<String, String?> _loginErrors = {};
-
-  bool _showLoginPassword = false;
-  bool _isLoggingIn = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  // Future<void> _saveUser(Map<String, dynamic> userData) async {
-  //   try {
-  //     final prefs = await SharedPreferences.getInstance();
-  //     final String usersJson = prefs.getString('registered_users') ?? '[]';
-  //     List<dynamic> users = jsonDecode(usersJson);
-  //
-  //     final normalizedEmail = userData['email'].toString().toLowerCase().trim();
-  //     userData['email'] = normalizedEmail;
-  //
-  //     bool userExists = false;
-  //     for (int i = 0; i < users.length; i++) {
-  //       final existingEmail = users[i]['email']?.toString().toLowerCase().trim() ?? '';
-  //       if (existingEmail == normalizedEmail) {
-  //         users[i] = userData;
-  //         userExists = true;
-  //         break;
-  //       }
-  //     }
-  //
-  //     if (!userExists) {
-  //       users.add(userData);
-  //     }
-  //
-  //     await prefs.setString('registered_users', jsonEncode(users));
-  //   } catch (e) {
-  //     print('Error saving user: $e');
-  //   }
-  // }
-  //
-  // Future<Map<String, dynamic>?> _getUser(String email) async {
-  //   try {
-  //     final prefs = await SharedPreferences.getInstance();
-  //     final String usersJson = prefs.getString('registered_users') ?? '[]';
-  //     final List<dynamic> users = jsonDecode(usersJson);
-  //
-  //     final normalizedEmail = email.toLowerCase().trim();
-  //
-  //     for (var user in users) {
-  //       final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
-  //       if (storedEmail == normalizedEmail) {
-  //         return Map<String, dynamic>.from(user);
-  //       }
-  //     }
-  //     return null;
-  //   } catch (e) {
-  //     print('Error getting user: $e');
-  //     return null;
-  //   }
-  // }
-
-
-  Future<void> _saveUser(Map<String, dynamic> userData) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final String usersJson = prefs.getString('registered_users') ?? '[]';
-      List<dynamic> users = jsonDecode(usersJson);
-
-      final normalizedEmail = userData['email'].toString().toLowerCase().trim();
-      userData['email'] = normalizedEmail;
-
-
-      bool userExists = false;
-      for (int i = 0; i < users.length; i++) {
-        final existingEmail = users[i]['email']?.toString().toLowerCase().trim() ?? '';
-        if (existingEmail == normalizedEmail) {
-          users[i] = userData;
-          userExists = true;
-          break;
-        }
-      }
-
-      if (!userExists) {
-        users.add(userData);
-      }
-
-      await prefs.setString('registered_users', jsonEncode(users));
-    } catch (e) {
-      print('Error saving user: $e');
-    }
-  }
-
-
-  Future<Map<String, dynamic>?> _getUser(String email) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final String usersJson = prefs.getString('registered_users') ?? '[]';
-      final List<dynamic> users = jsonDecode(usersJson);
-
-      final normalizedEmail = email.toLowerCase().trim();
-
-      for (var user in users) {
-        final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
-        if (storedEmail == normalizedEmail) {
-          // Make sure to properly cast all nested maps
-          return Map<String, dynamic>.from(user);
-        }
-      }
-      return null;
-    } catch (e) {
-      print('Error getting user: $e');
-      return null;
-    }
-  }
-
-  Future<bool> _validateCredentials(String email, String password) async {
-    final user = await _getUser(email);
-    return user != null && user['password'] == password;
-  }
-
-  bool _isValidEmail(String email) {
-    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(email);
-  }
-
-  // Future<void> _handleLogin() async {
-  //   setState(() {
-  //     _loginErrors.clear();
-  //   });
-  //
-  //   final email = _loginEmailController.text.trim();
-  //   final password = _loginPasswordController.text;
-  //
-  //   bool hasErrors = false;
-  //
-  //   if (email.isEmpty) {
-  //     _loginErrors['email'] = 'Email is required';
-  //     hasErrors = true;
-  //   } else if (!_isValidEmail(email)) {
-  //     _loginErrors['email'] = 'Enter a valid email address';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (password.isEmpty) {
-  //     _loginErrors['password'] = 'Password is required';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (hasErrors) {
-  //     setState(() {});
-  //     return;
-  //   }
-  //
-  //   setState(() => _isLoggingIn = true);
-  //
-  //   try {
-  //     final isValid = await _validateCredentials(email, password);
-  //
-  //     if (!isValid) {
-  //       setState(() {
-  //         _isLoggingIn = false;
-  //         _loginErrors['email'] = 'Invalid email or password';
-  //       });
-  //
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Invalid email or password'),
-  //           backgroundColor: Colors.red,
-  //         ),
-  //       );
-  //       return;
-  //     }
-  //
-  //     final userData = await _getUser(email);
-  //
-  //     if (userData == null) {
-  //       setState(() => _isLoggingIn = false);
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('User data not found'),
-  //           backgroundColor: Colors.red,
-  //         ),
-  //       );
-  //       return;
-  //     }
-  //
-  //     // NO RESTRICTIONS - Just update last login and proceed
-  //     userData['lastLogin'] = DateTime.now().toIso8601String();
-  //     await _saveUser(userData);
-  //
-  //     final prefs = await SharedPreferences.getInstance();
-  //     await prefs.setBool('is_logged_in', true);
-  //     await prefs.setString('current_user_email', email.toLowerCase().trim());
-  //
-  //     if (!mounted) return;
-  //
-  //     setState(() => _isLoggingIn = false);
-  //     _clearForms();
-  //
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Login successful!'),
-  //         backgroundColor: Colors.green,
-  //       ),
-  //     );
-  //
-  //     await Future.delayed(const Duration(milliseconds: 500));
-  //
-  //     // Navigate to VillaOwnerDashboard - NO RESTRICTIONS
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => VillaOwnerDashboard(
-  //           registrationData: userData,
-  //           villaName: userData['villaName'] ?? userData['basicInfo']?['villaName'] ?? '',
-  //           ownerName: userData['ownerName'] ?? userData['basicInfo']?['ownerName'] ?? userData['fullName'] ?? '',
-  //           mobileNumber: userData['mobileNumber'] ?? userData['basicInfo']?['mobile'] ?? userData['phone'] ?? '',
-  //           email: userData['email'] ?? '',
-  //           address: userData['address'] ?? userData['location']?['address'] ?? '',
-  //           area: userData['area'] ?? userData['location']?['area'] ?? '',
-  //           city: userData['city'] ?? userData['location']?['city'] ?? '',
-  //           state: userData['state'] ?? userData['location']?['state'] ?? '',
-  //           pincode: userData['pincode'] ?? userData['location']?['pincode'] ?? '',
-  //           propertyType: 'villa',
-  //           bedrooms: int.tryParse(userData['bedrooms']?.toString() ?? userData['propertyDetails']?['bedrooms']?.toString() ?? '0') ?? 0,
-  //           bathrooms: int.tryParse(userData['bathrooms']?.toString() ?? userData['propertyDetails']?['bathrooms']?.toString() ?? '0') ?? 0,
-  //           guestCapacity: int.tryParse(userData['guestCapacity']?.toString() ?? userData['propertyDetails']?['guestCapacity']?.toString() ?? '0') ?? 0,
-  //           propertySize: userData['propertySize']?.toString() ?? userData['propertyDetails']?['propertySize']?.toString() ?? '',
-  //           yearConstruction: userData['yearConstruction']?.toString() ?? userData['propertyDetails']?['yearConstruction']?.toString() ?? '',
-  //           description: userData['description']?.toString() ?? userData['propertyDetails']?['description']?.toString() ?? '',
-  //           villaAmenities: Map<String, bool>.from(userData['villaAmenities'] ?? userData['amenities']?['selected'] ?? {}),
-  //           customAmenities: List<String>.from(userData['customAmenities'] ?? userData['amenities']?['custom'] ?? []),
-  //           basePrice: userData['basePrice']?.toString() ?? userData['pricing']?['basePrice']?.toString() ?? '',
-  //           weekendPrice: userData['weekendPrice']?.toString() ?? userData['pricing']?['weekendPrice']?.toString() ?? '',
-  //           peakPrice: userData['peakPrice']?.toString() ?? userData['pricing']?['peakPrice']?.toString() ?? '',
-  //           securityDeposit: userData['securityDeposit']?.toString() ?? userData['pricing']?['securityDeposit']?.toString() ?? '',
-  //           minimumStay: userData['minimumStay']?.toString() ?? userData['pricing']?['minimumStay']?.toString() ?? '',
-  //           checkInTime: userData['checkInTime']?.toString() ?? userData['pricing']?['checkInTime']?.toString(),
-  //           checkOutTime: userData['checkOutTime']?.toString() ?? userData['pricing']?['checkOutTime']?.toString(),
-  //           cancellationPolicy: Map<String, dynamic>.from(userData['cancellationPolicy'] ?? userData['pricing']?['cancellationPolicy'] ?? {}),
-  //           availabilityCalendar: Map<String, dynamic>.from(userData['availabilityCalendar'] ?? userData['pricing']?['availabilityCalendar'] ?? {}),
-  //           ownershipProof: Map<String, dynamic>.from(userData['ownershipProof'] ?? userData['legal']?['ownershipProof'] ?? {}),
-  //           idProof: Map<String, dynamic>.from(userData['idProof'] ?? userData['legal']?['idProof'] ?? {}),
-  //           gstNumber: userData['gstNumber']?.toString() ?? userData['legal']?['gstNumber']?.toString() ?? '',
-  //           tradeLicense: userData['tradeLicense']?.toString() ?? userData['legal']?['tradeLicense']?.toString() ?? '',
-  //           accountHolderName: userData['accountHolderName']?.toString() ?? userData['bank']?['accountHolder']?.toString() ?? '',
-  //           bankName: userData['bankName']?.toString() ?? userData['bank']?['bankName']?.toString() ?? '',
-  //           accountNumber: userData['accountNumber']?.toString() ?? userData['bank']?['accountNumber']?.toString() ?? '',
-  //           ifscCode: userData['ifscCode']?.toString() ?? userData['bank']?['ifscCode']?.toString() ?? '',
-  //           upiId: userData['upiId']?.toString() ?? userData['bank']?['upiId']?.toString() ?? '',
-  //           cancelledCheque: Map<String, dynamic>.from(userData['cancelledCheque'] ?? userData['bank']?['cancelledCheque'] ?? {}),
-  //           mediaFiles: Map<String, List<Map<String, dynamic>>>.from(userData['mediaFiles'] ?? userData['media'] ?? {}),
-  //           ownerPhoto: Map<String, dynamic>.from(userData['ownerPhoto'] ?? userData['basicInfo']?['ownerPhoto'] ?? {}),
-  //           hasDigitalSignature: userData['hasDigitalSignature'] ?? userData['signature']?['hasDigital'] ?? false,
-  //           digitalSignatureImage: userData['digitalSignatureImage'] != null
-  //               ? (userData['digitalSignatureImage'] is Uint8List
-  //               ? userData['digitalSignatureImage']
-  //               : null)
-  //               : (userData['signature']?['digitalSignature'] is Uint8List
-  //               ? userData['signature']['digitalSignature']
-  //               : null),
-  //           declarationDate: userData['declarationDate'] != null
-  //               ? (userData['declarationDate'] is DateTime
-  //               ? userData['declarationDate']
-  //               : DateTime.tryParse(userData['declarationDate'].toString()))
-  //               : (userData['signature']?['date'] != null
-  //               ? (userData['signature']['date'] is DateTime
-  //               ? userData['signature']['date']
-  //               : DateTime.tryParse(userData['signature']['date'].toString()))
-  //               : null),
-  //           declarationAccepted: userData['declarationAccepted'] ?? false,
-  //           altMobile: userData['altMobile']?.toString() ?? userData['basicInfo']?['altMobile']?.toString(),
-  //           website: userData['website']?.toString() ?? userData['basicInfo']?['website']?.toString(),
-  //           googleMapLink: userData['googleMapLink']?.toString() ?? userData['location']?['googleMapLink']?.toString(),
-  //         ),
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     setState(() => _isLoggingIn = false);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Login error: ${e.toString()}'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //   }
-  // }
-
-
-
-  Future<void> _handleLogin() async {
-    setState(() {
-      _loginErrors.clear();
-    });
-
-    final email = _loginEmailController.text.trim();
-    final password = _loginPasswordController.text;
-
-    bool hasErrors = false;
-
-    if (email.isEmpty) {
-      _loginErrors['email'] = 'Email is required';
-      hasErrors = true;
-    } else if (!_isValidEmail(email)) {
-      _loginErrors['email'] = 'Enter a valid email address';
-      hasErrors = true;
-    }
-
-    if (password.isEmpty) {
-      _loginErrors['password'] = 'Password is required';
-      hasErrors = true;
-    }
-
-    if (hasErrors) {
-      setState(() {});
-      return;
-    }
-
-    setState(() => _isLoggingIn = true);
-
-    try {
-      final isValid = await _validateCredentials(email, password);
-
-      if (!isValid) {
-        setState(() {
-          _isLoggingIn = false;
-          _loginErrors['email'] = 'Invalid email or password';
-        });
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Invalid email or password'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        return;
-      }
-
-      final userData = await _getUser(email);
-
-      if (userData == null) {
-        setState(() => _isLoggingIn = false);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('User data not found'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        return;
-      }
-
-
-      print('=== USER DATA AFTER LOGIN ===');
-      print('All keys: ${userData.keys.toList()}');
-      if (userData.containsKey('basicInfo')) {
-        print('basicInfo keys: ${(userData['basicInfo'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('propertyDetails')) {
-        print('propertyDetails keys: ${(userData['propertyDetails'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('amenities')) {
-        print('amenities keys: ${(userData['amenities'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('pricing')) {
-        print('pricing keys: ${(userData['pricing'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('location')) {
-        print('location keys: ${(userData['location'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('legal')) {
-        print('legal keys: ${(userData['legal'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('bank')) {
-        print('bank keys: ${(userData['bank'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('media')) {
-        print('media keys: ${(userData['media'] as Map).keys.toList()}');
-      }
-      if (userData.containsKey('signature')) {
-        print('signature keys: ${(userData['signature'] as Map).keys.toList()}');
-      }
-
-      userData['lastLogin'] = DateTime.now().toIso8601String();
-      await _saveUser(userData);
-
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('is_logged_in', true);
-      await prefs.setString('current_user_email', email.toLowerCase().trim());
-
-      if (!mounted) return;
-
-      setState(() => _isLoggingIn = false);
-      _clearForms();
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login successful!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-
-      await Future.delayed(const Duration(milliseconds: 500));
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => VillaOwnerDashboard(
-            registrationData: userData,
-            // Basic Info
-            villaName: userData['basicInfo']?['villaName'] ?? userData['villaName'] ?? '',
-            ownerName: userData['basicInfo']?['ownerName'] ?? userData['ownerName'] ?? userData['fullName'] ?? '',
-            mobileNumber: userData['basicInfo']?['mobile'] ?? userData['mobileNumber'] ?? userData['phone'] ?? '',
-            email: userData['basicInfo']?['email'] ?? userData['email'] ?? '',
-
-            // Location
-            address: userData['location']?['address'] ?? userData['address'] ?? '',
-            area: userData['location']?['area'] ?? userData['area'] ?? '',
-            city: userData['location']?['city'] ?? userData['city'] ?? '',
-            state: userData['location']?['state'] ?? userData['state'] ?? '',
-            pincode: userData['location']?['pincode'] ?? userData['pincode'] ?? '',
-
-            // Property Details
-            propertyType: userData['propertyDetails']?['propertyType'] ?? 'villa',
-            bedrooms: int.tryParse(userData['propertyDetails']?['bedrooms']?.toString() ?? '0') ?? 0,
-            bathrooms: int.tryParse(userData['propertyDetails']?['bathrooms']?.toString() ?? '0') ?? 0,
-            guestCapacity: int.tryParse(userData['propertyDetails']?['guestCapacity']?.toString() ?? '0') ?? 0,
-            propertySize: userData['propertyDetails']?['propertySize']?.toString() ?? '',
-            yearConstruction: userData['propertyDetails']?['yearConstruction']?.toString() ?? '',
-            description: userData['propertyDetails']?['description']?.toString() ?? '',
-
-            // Amenities
-            villaAmenities: Map<String, bool>.from(
-                userData['amenities']?['selected'] ?? userData['villaAmenities'] ?? {}),
-            customAmenities: List<String>.from(
-                userData['amenities']?['custom'] ?? userData['customAmenities'] ?? []),
-
-            // Pricing
-            basePrice: userData['pricing']?['basePrice']?.toString() ?? userData['basePrice']?.toString() ?? '',
-            weekendPrice: userData['pricing']?['weekendPrice']?.toString() ?? userData['weekendPrice']?.toString() ?? '',
-            peakPrice: userData['pricing']?['peakPrice']?.toString() ?? userData['peakPrice']?.toString() ?? '',
-            securityDeposit: userData['pricing']?['securityDeposit']?.toString() ?? userData['securityDeposit']?.toString() ?? '',
-            minimumStay: userData['pricing']?['minimumStay']?.toString() ?? userData['minimumStay']?.toString() ?? '',
-            checkInTime: userData['pricing']?['checkInTime']?.toString() ?? userData['checkInTime']?.toString(),
-            checkOutTime: userData['pricing']?['checkOutTime']?.toString() ?? userData['checkOutTime']?.toString(),
-            cancellationPolicy: Map<String, dynamic>.from(
-                userData['pricing']?['cancellationPolicy'] ?? userData['cancellationPolicy'] ?? {}),
-            availabilityCalendar: Map<String, dynamic>.from(
-                userData['pricing']?['availabilityCalendar'] ?? userData['availabilityCalendar'] ?? {}),
-
-            // Legal
-            ownershipProof: Map<String, dynamic>.from(
-                userData['legal']?['ownershipProof'] ?? userData['ownershipProof'] ?? {}),
-            idProof: Map<String, dynamic>.from(
-                userData['legal']?['idProof'] ?? userData['idProof'] ?? {}),
-            gstNumber: userData['legal']?['gstNumber']?.toString() ?? userData['gstNumber']?.toString() ?? '',
-            tradeLicense: userData['legal']?['tradeLicense']?.toString() ?? userData['tradeLicense']?.toString() ?? '',
-
-            // Bank
-            accountHolderName: userData['bank']?['accountHolder']?.toString() ?? userData['accountHolderName']?.toString() ?? '',
-            bankName: userData['bank']?['bankName']?.toString() ?? userData['bankName']?.toString() ?? '',
-            accountNumber: userData['bank']?['accountNumber']?.toString() ?? userData['accountNumber']?.toString() ?? '',
-            ifscCode: userData['bank']?['ifscCode']?.toString() ?? userData['ifscCode']?.toString() ?? '',
-            upiId: userData['bank']?['upiId']?.toString() ?? userData['upiId']?.toString() ?? '',
-            cancelledCheque: Map<String, dynamic>.from(
-                userData['bank']?['cancelledCheque'] ?? userData['cancelledCheque'] ?? {}),
-
-            // Media
-            mediaFiles: Map<String, List<Map<String, dynamic>>>.from(
-                userData['media'] ?? userData['mediaFiles'] ?? {}),
-            ownerPhoto: Map<String, dynamic>.from(
-                userData['basicInfo']?['ownerPhoto'] ?? userData['ownerPhoto'] ?? {}),
-
-            // Signature
-            hasDigitalSignature: userData['signature']?['hasDigital'] ?? userData['hasDigitalSignature'] ?? false,
-            digitalSignatureImage: userData['signature']?['digitalSignature'] != null
-                ? (userData['signature']['digitalSignature'] is Uint8List
-                ? userData['signature']['digitalSignature']
-                : null)
-                : null,
-            declarationDate: userData['signature']?['date'] != null
-                ? (userData['signature']['date'] is DateTime
-                ? userData['signature']['date']
-                : DateTime.tryParse(userData['signature']['date'].toString()))
-                : null,
-            declarationAccepted: userData['declarationAccepted'] ?? false,
-
-            // Additional
-            altMobile: userData['basicInfo']?['altMobile']?.toString() ?? userData['altMobile']?.toString(),
-            website: userData['basicInfo']?['website']?.toString() ?? userData['website']?.toString(),
-            googleMapLink: userData['location']?['googleMapLink']?.toString() ?? userData['googleMapLink']?.toString(),
-          ),
-        ),
-      );
-    } catch (e) {
-      setState(() => _isLoggingIn = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Login error: ${e.toString()}'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
-
-
-  void _clearForms() {
-    _loginEmailController.clear();
-    _loginPasswordController.clear();
-    _loginErrors.clear();
-    setState(() {
-      _showLoginPassword = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Villa Owner Login'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        foregroundColor: Color(0xFF1F2937),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFF8FAFF), Color(0xFFF0F4FF)],
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-                    ),
-                    borderRadius: BorderRadius.circular(25),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFFFF5F6D).withOpacity(0.3),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                  ),
-                  child: const Center(
-                    child: Icon(Icons.home_work, size: 50, color: Colors.white),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                const Text(
-                  "Welcome Back!",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w800,
-                    color: Color(0xFF1F2937),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  "Login to your villa dashboard",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color(0xFF6B7280),
-                  ),
-                ),
-                const SizedBox(height: 40),
-
-                // Login Form
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 20,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Email Field
-                      const Text(
-                        "Email Address",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF374151),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF9FAFB),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: _loginErrors['email'] != null
-                                ? Colors.red
-                                : const Color(0xFFE5E7EB),
-                          ),
-                        ),
-                        child: TextField(
-                          controller: _loginEmailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: "Enter your email",
-                            prefixIcon: const Icon(Icons.email_outlined,
-                                color: Color(0xFF6B7280)),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 14),
-                          ),
-                        ),
-                      ),
-                      if (_loginErrors['email'] != null) ...[
-                        const SizedBox(height: 4),
-                        Text(
-                          _loginErrors['email']!,
-                          style: const TextStyle(color: Colors.red, fontSize: 12),
-                        ),
-                      ],
-
-                      const SizedBox(height: 20),
-
-                      // Password Field
-                      const Text(
-                        "Password",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF374151),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF9FAFB),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: _loginErrors['password'] != null
-                                ? Colors.red
-                                : const Color(0xFFE5E7EB),
-                          ),
-                        ),
-                        child: TextField(
-                          controller: _loginPasswordController,
-                          obscureText: !_showLoginPassword,
-                          decoration: InputDecoration(
-                            hintText: "Enter your password",
-                            prefixIcon: const Icon(Icons.lock_outline_rounded,
-                                color: Color(0xFF6B7280)),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _showLoginPassword
-                                    ? Icons.visibility_off_outlined
-                                    : Icons.visibility_outlined,
-                                color: const Color(0xFF6B7280),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _showLoginPassword = !_showLoginPassword;
-                                });
-                              },
-                            ),
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 14),
-                          ),
-                        ),
-                      ),
-                      if (_loginErrors['password'] != null) ...[
-                        const SizedBox(height: 4),
-                        Text(
-                          _loginErrors['password']!,
-                          style: const TextStyle(color: Colors.red, fontSize: 12),
-                        ),
-                      ],
-
-                      const SizedBox(height: 16),
-
-                      // Forgot Password
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            // Handle forgot password
-                          },
-                          child: const Text(
-                            "Forgot Password?",
-                            style: TextStyle(
-                              color: Color(0xFFFF5F6D),
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // Login Button
-                      Container(
-                        width: double.infinity,
-                        height: 56,
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            colors: [Color(0xFFFF5F6D), Color(0xFFFF8A7A)],
-                          ),
-                          borderRadius: BorderRadius.circular(14),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color(0xFFFF5F6D).withOpacity(0.3),
-                              blurRadius: 15,
-                              offset: const Offset(0, 5),
-                            ),
-                          ],
-                        ),
-                        child: ElevatedButton(
-                          onPressed: _isLoggingIn ? null : _handleLogin,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: _isLoggingIn
-                              ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation(Colors.white),
-                            ),
-                          )
-                              : const Text(
-                            "Login to Villa Dashboard",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _loginEmailController.dispose();
-    _loginPasswordController.dispose();
-    super.dispose();
-  }
-}
 
 
 
@@ -3364,315 +777,7 @@ class PropertyTypeScreen extends StatefulWidget {
   State<PropertyTypeScreen> createState() => _PropertyTypeScreenState();
 }
 
-// class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
-//   int _selectedIndex = -1;
-//
-//   final List<PropertyType> _propertyTypes = [
-//     PropertyType(
-//       icon: '🏨',
-//       title: 'Hotel',
-//       description: 'Hotels, Lodges & Guest Houses',
-//       color: Color(0xFFFFC371),
-//       isPopular: true,
-//       isAvailable: true,
-//     ),
-//     PropertyType(
-//       icon: '🏡',
-//       title: 'Villa',
-//       description: 'Private Villas & Bungalows',
-//       color: Color(0xFFFFC371),
-//       isPopular: false,
-//       isAvailable: true,
-//     ),
-//     PropertyType(
-//       icon: '🏢',
-//       title: 'Apartment',
-//       description: 'Serviced Apartments',
-//       color: Color(0xFFFFC371),
-//       isPopular: true,
-//       isAvailable: true,
-//     ),
-//     PropertyType(
-//       icon: '🌴',
-//       title: 'Resort',
-//       description: 'Beach & Hill Resorts',
-//       color: Color(0xFFFFC371),
-//       isPopular: false,
-//       isAvailable: true,
-//     ),
-//   ];
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: SafeArea(
-//         child: Column(
-//           children: [
-//             Container(
-//               padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 boxShadow: [
-//                   BoxShadow(
-//                     color: Color(0x14000000),
-//                     blurRadius: 10,
-//                     offset: Offset(0, 1),
-//                   ),
-//                 ],
-//               ),
-//               child: Row(
-//                 children: [
-//                   GestureDetector(
-//                     onTap: () => Navigator.pop(context),
-//                     child: Container(
-//                       width: 40,
-//                       height: 40,
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(12),
-//                         color: Color(0xFFF5F5F7),
-//                       ),
-//                       child: Icon(
-//                         Icons.arrow_back_ios_new_rounded,
-//                         size: 18,
-//                         color: Color(0xFF3C3C43),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(width: 12),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           'PROPERTY TYPE',
-//                           style: TextStyle(
-//                             fontSize: 12,
-//                             color: Color(0xFF8E8E93),
-//                             fontWeight: FontWeight.w500,
-//                             letterSpacing: 0.5,
-//                           ),
-//                         ),
-//                         SizedBox(height: 2),
-//                         Text(
-//                           'Choose Category',
-//                           style: TextStyle(
-//                             fontSize: 20,
-//                             color: Color(0xFF1C1C1E),
-//                             fontWeight: FontWeight.w700,
-//                             height: 1.2,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//
-//             Expanded(
-//               child: SingleChildScrollView(
-//                 child: Padding(
-//                   padding: EdgeInsets.all(20),
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       SizedBox(height: 4),
-//                       Row(
-//                         children: [
-//                           Container(
-//                             width: 100,
-//                             height: 4,
-//                             decoration: BoxDecoration(
-//                               borderRadius: BorderRadius.circular(2),
-//                               gradient: LinearGradient(
-//                                 colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-//                               ),
-//                             ),
-//                           ),
-//                           SizedBox(width: 4),
-//                           Expanded(
-//                             child: Container(
-//                               height: 4,
-//                               decoration: BoxDecoration(
-//                                 borderRadius: BorderRadius.circular(2),
-//                                 color: Color(0xFFF2F2F7),
-//                               ),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(height: 32),
-//
-//                       Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Text(
-//                             'What type of property\ndo you want to list?',
-//                             style: TextStyle(
-//                               fontSize: 28,
-//                               fontWeight: FontWeight.w800,
-//                               color: Color(0xFF1C1C1E),
-//                               height: 1.2,
-//                             ),
-//                           ),
-//                           SizedBox(height: 8),
-//                           Text(
-//                             'Select the category that best describes your property',
-//                             style: TextStyle(
-//                               fontSize: 16,
-//                               color: Color(0xFF8E8E93),
-//                               height: 1.4,
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                       SizedBox(height: 32),
-//
-//                       GridView.builder(
-//                         shrinkWrap: true,
-//                         physics: NeverScrollableScrollPhysics(),
-//                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                           crossAxisCount: 2,
-//                           crossAxisSpacing: 12,
-//                           mainAxisSpacing: 12,
-//                           childAspectRatio: 0.9,
-//                         ),
-//                         itemCount: _propertyTypes.length,
-//                         itemBuilder: (context, index) {
-//                           final property = _propertyTypes[index];
-//                           return GestureDetector(
-//                             // onTap: () {
-//                             //   if (property.isAvailable) {
-//                             //
-//                             //     if (property.title == 'Hotel') {
-//                             //
-//                             //       Navigator.push(
-//                             //         context,
-//                             //         MaterialPageRoute(
-//                             //           builder: (context) =>
-//                             //               HotelCategoryScreen(),
-//                             //         ),
-//                             //       );
-//                             //     } else if (property.title == 'Villa') {
-//                             //
-//                             //       Navigator.push(
-//                             //         context,
-//                             //         MaterialPageRoute(
-//                             //           builder: (context) =>
-//                             //               VillaRegistrationVendorForm(),
-//                             //         ),
-//                             //       );
-//                             //     } else if (property.title == 'Apartment') {
-//                             //
-//                             //       Navigator.push(
-//                             //         context,
-//                             //         MaterialPageRoute(
-//                             //           builder: (context) =>
-//                             //               ApartmentRegistrationVendorForm(),
-//                             //         ),
-//                             //       );
-//                             //     }
-//                             //   } else if (property.title == 'Resort') {
-//                             //
-//                             //     Navigator.push(
-//                             //       context,
-//                             //       MaterialPageRoute(
-//                             //         builder: (context) =>
-//                             //             ResortRegistrationVendorForm(),
-//                             //       ),
-//                             //     );
-//                             //   } else {
-//                             //     _showComingSoonDialog(context, property.title);
-//                             //   }
-//                             // },
-//
-//                             onTap: () {
-//                               if (property.isAvailable) {
-//                                 if (property.title == 'Hotel') {
-//                                   Navigator.push(
-//                                     context,
-//                                     MaterialPageRoute(
-//                                       builder: (context) => HotelCategoryScreen(),
-//                                     ),
-//                                   );
-//                                 } else if (property.title == 'Villa') {
-//                                   Navigator.push(
-//                                     context,
-//                                     MaterialPageRoute(
-//                                       builder: (context) => VillaRegistrationVendorForm(),
-//                                     ),
-//                                   );
-//                                 } else if (property.title == 'Apartment') {
-//                                   Navigator.push(
-//                                     context,
-//                                     MaterialPageRoute(
-//                                       builder: (context) => ApartmentRegistrationVendorForm(),
-//                                     ),
-//                                   );
-//                                 } else if (property.title == 'Resort') {
-//                                   Navigator.push(
-//                                     context,
-//                                     MaterialPageRoute(
-//                                       builder: (context) => ResortRegistrationVendorForm(),
-//                                     ),
-//                                   );
-//                                 }
-//                               } else {
-//                                 _showComingSoonDialog(context, property.title);
-//                               }
-//                             },
-//                             child: _PropertyCard(
-//                               property: property,
-//                               isSelected: _selectedIndex == index,
-//                             ),
-//                           );
-//                         },
-//                       ),
-//                       SizedBox(height: 40),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   void _showComingSoonDialog(BuildContext context, String propertyType) {
-//     showDialog(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-//         title: Row(
-//           children: [
-//             Icon(Icons.hourglass_empty, color: Color(0xFFFFC371)),
-//             SizedBox(width: 12),
-//             Text('Coming Soon'),
-//           ],
-//         ),
-//         content: Text(
-//           '$propertyType registration will be available soon. Currently, only Hotel registration is supported.',
-//           style: TextStyle(fontSize: 15, color: Color(0xFF8E8E93)),
-//         ),
-//         actions: [
-//           TextButton(
-//             onPressed: () => Navigator.pop(context),
-//             child: Text(
-//               'OK',
-//               style: TextStyle(
-//                 color: Color(0xFFFF5F6D),
-//                 fontWeight: FontWeight.w600,
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+
 
 class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
   int _selectedIndex = -1;
@@ -4880,7 +1985,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-
+//
     // Store property type directly from widget - SIMPLE AND RELIABLE
     _propertyType = widget.selectedPropertyType.toLowerCase().trim();
 
@@ -4918,48 +2023,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     }
   }
 
-  // Future<void> _saveUser(Map<String, dynamic> userData) async {
-  //   try {
-  //     final prefs = await SharedPreferences.getInstance();
-  //     final String usersJson = prefs.getString('registered_users') ?? '[]';
-  //     List<dynamic> users = jsonDecode(usersJson);
-  //
-  //     final normalizedEmail = userData['email'].toString().toLowerCase().trim();
-  //     userData['email'] = normalizedEmail;
-  //
-  //     // Ensure propertyType is set using the stored _propertyType
-  //     if (!userData.containsKey('propertyType') ||
-  //         userData['propertyType'] == null ||
-  //         userData['propertyType'].toString().isEmpty) {
-  //       userData['propertyType'] = _propertyType;
-  //     }
-  //
-  //     print('=== SAVING USER ===');
-  //     print('Property Type being saved: "${userData['propertyType']}"');
-  //     print('Stored _propertyType: "$_propertyType"');
-  //
-  //     bool userExists = false;
-  //     for (int i = 0; i < users.length; i++) {
-  //       final existingEmail = users[i]['email']?.toString().toLowerCase().trim() ?? '';
-  //       if (existingEmail == normalizedEmail) {
-  //         users[i] = userData;
-  //         userExists = true;
-  //         print('Updated existing user: $normalizedEmail');
-  //         break;
-  //       }
-  //     }
-  //
-  //     if (!userExists) {
-  //       users.add(userData);
-  //       print('Added new user: $normalizedEmail');
-  //     }
-  //
-  //     await prefs.setString('registered_users', jsonEncode(users));
-  //     print('User saved with propertyType: ${userData['propertyType']}');
-  //   } catch (e) {
-  //     print('Error saving user: $e');
-  //   }
-  // }
+
+
   Future<void> _saveUser(Map<String, dynamic> userData) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -5042,29 +2107,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       return null;
     }
   }
-  // Future<Map<String, dynamic>?> _getUser(String email) async {
-  //   try {
-  //     final prefs = await SharedPreferences.getInstance();
-  //     final String usersJson = prefs.getString('registered_users') ?? '[]';
-  //     final List<dynamic> users = jsonDecode(usersJson);
-  //
-  //     final normalizedEmail = email.toLowerCase().trim();
-  //
-  //     for (var user in users) {
-  //       final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
-  //       if (storedEmail == normalizedEmail) {
-  //         print('=== FOUND USER ===');
-  //         print('User propertyType: "${user['propertyType']}"');
-  //         print('User keys: ${user.keys.toList()}');
-  //         return Map<String, dynamic>.from(user);
-  //       }
-  //     }
-  //     return null;
-  //   } catch (e) {
-  //     print('Error getting user: $e');
-  //     return null;
-  //   }
-  // }
+
+
 
   Future<bool> _validateCredentials(String email, String password) async {
     final user = await _getUser(email);
@@ -5103,6 +2147,153 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     });
   }
 
+
+  // Future<void> _handleRegister() async {
+  //   setState(() {
+  //     _regErrors.clear();
+  //   });
+  //
+  //   final fullName = _regNameController.text.trim();
+  //   final businessName = _regBusinessController.text.trim();
+  //   final email = _regEmailController.text.trim();
+  //   final phone = _regPhoneController.text.trim();
+  //   final password = _regPasswordController.text;
+  //   final confirmPassword = _regConfirmPasswordController.text;
+  //
+  //   bool hasErrors = false;
+  //
+  //   if (fullName.isEmpty) {
+  //     _regErrors['fullName'] = 'Full name is required';
+  //     hasErrors = true;
+  //   }
+  //
+  //   if (businessName.isEmpty) {
+  //     _regErrors['businessName'] = 'Business name is required';
+  //     hasErrors = true;
+  //   }
+  //
+  //   if (email.isEmpty) {
+  //     _regErrors['email'] = 'Email is required';
+  //     hasErrors = true;
+  //   } else if (!_isValidEmail(email)) {
+  //     _regErrors['email'] = 'Enter a valid email address';
+  //     hasErrors = true;
+  //   }
+  //
+  //   if (phone.isEmpty) {
+  //     _regErrors['phone'] = 'Phone number is required';
+  //     hasErrors = true;
+  //   } else if (!_isValidPhone(phone)) {
+  //     _regErrors['phone'] = 'Enter a valid 10-digit phone number';
+  //     hasErrors = true;
+  //   }
+  //
+  //   if (password.isEmpty) {
+  //     _regErrors['password'] = 'Password is required';
+  //     hasErrors = true;
+  //   } else if (!_isValidPassword(password)) {
+  //     _regErrors['password'] = 'Password must be at least 6 characters';
+  //     hasErrors = true;
+  //   }
+  //
+  //   if (confirmPassword.isEmpty) {
+  //     _regErrors['confirmPassword'] = 'Please confirm your password';
+  //     hasErrors = true;
+  //   } else if (password != confirmPassword) {
+  //     _regErrors['confirmPassword'] = 'Passwords do not match';
+  //     hasErrors = true;
+  //   }
+  //
+  //   if (hasErrors) {
+  //     setState(() {});
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text('Please correct the highlighted fields'),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //     return;
+  //   }
+  //
+  //   final existingUser = await _getUser(email);
+  //   if (existingUser != null) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Email already registered. Please login.'),
+  //         backgroundColor: Colors.orange,
+  //       ),
+  //     );
+  //     _tabController.animateTo(0);
+  //     _loginEmailController.text = email;
+  //     _loginPasswordController.text = password;
+  //     return;
+  //   }
+  //
+  //   setState(() => _isRegistering = true);
+  //
+  //   try {
+  //     final Map<String, dynamic> userData = {};
+  //
+  //     // CRITICAL: Set property type using the stored _propertyType
+  //     userData['propertyType'] = _propertyType;
+  //
+  //     print('=== REGISTRATION ===');
+  //     print('Setting propertyType to: "${userData['propertyType']}"');
+  //
+  //     // Add registration data if available
+  //     if (widget.registrationData != null && widget.registrationData!.isNotEmpty) {
+  //       userData.addAll(widget.registrationData!);
+  //       print('Added registration data with keys: ${widget.registrationData!.keys.toList()}');
+  //     }
+  //
+  //     // Add user account data
+  //     userData['fullName'] = fullName;
+  //     userData['businessName'] = businessName;
+  //     userData['email'] = email.toLowerCase().trim();
+  //     userData['phone'] = phone;
+  //     userData['password'] = password;
+  //     userData['registeredAt'] = DateTime.now().toIso8601String();
+  //     userData['lastLogin'] = DateTime.now().toIso8601String();
+  //
+  //     await _saveUser(userData);
+  //
+  //     final prefs = await SharedPreferences.getInstance();
+  //     await prefs.setBool('is_logged_in', true);
+  //     await prefs.setString('current_user_email', email.toLowerCase().trim());
+  //
+  //     if (!mounted) return;
+  //
+  //     setState(() => _isRegistering = false);
+  //     _clearAllForms();
+  //
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(
+  //         content: Text('Registration successful!'),
+  //         backgroundColor: Colors.green,
+  //       ),
+  //     );
+  //
+  //     // Navigate directly to OwnerDashboardScreen (not to login tab)
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => OwnerDashboardScreen(
+  //           userData: userData,
+  //           userEmail: email.toLowerCase().trim(),
+  //         ),
+  //       ),
+  //     );
+  //
+  //   } catch (e) {
+  //     setState(() => _isRegistering = false);
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Registration failed: ${e.toString()}'),
+  //         backgroundColor: Colors.red,
+  //       ),
+  //     );
+  //   }
+  // }
   Future<void> _handleRegister() async {
     setState(() {
       _regErrors.clear();
@@ -5189,16 +2380,19 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     try {
       final Map<String, dynamic> userData = {};
 
-      // CRITICAL: Set property type using the stored _propertyType
-      userData['propertyType'] = _propertyType;
+      // CRITICAL FIX: Only set propertyType if there's ACTUAL registration data
+      // For first-time account creation with NO hotel data, propertyType should NOT be set
+      if (widget.registrationData != null &&
+          widget.registrationData!.isNotEmpty &&
+          widget.registrationData!.containsKey('hotelName')) {
 
-      print('=== REGISTRATION ===');
-      print('Setting propertyType to: "${userData['propertyType']}"');
-
-      // Add registration data if available
-      if (widget.registrationData != null && widget.registrationData!.isNotEmpty) {
+        userData['propertyType'] = 'hotel';
+        print('Setting propertyType to hotel because hotel registration data exists');
         userData.addAll(widget.registrationData!);
-        print('Added registration data with keys: ${widget.registrationData!.keys.toList()}');
+      } else {
+        // This is just account creation, no property registered yet
+        print('Creating account only - no property registered yet');
+        // DO NOT set propertyType here
       }
 
       // Add user account data
@@ -5223,14 +2417,21 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Registration successful! Please login.'),
+          content: Text('Registration successful!'),
           backgroundColor: Colors.green,
         ),
       );
 
-      _tabController.animateTo(0);
-      _loginEmailController.text = email;
-      _loginPasswordController.text = password;
+      // Navigate directly to OwnerDashboardScreen
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OwnerDashboardScreen(
+            userData: userData,
+            userEmail: email.toLowerCase().trim(),
+          ),
+        ),
+      );
 
     } catch (e) {
       setState(() => _isRegistering = false);
@@ -5242,7 +2443,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       );
     }
   }
-
   Future<void> _handleLogin() async {
     setState(() {
       _loginErrors.clear();
@@ -5369,260 +2569,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     }
   }
 
-  // Future<void> _handleRegister() async {
-  //   setState(() {
-  //     _regErrors.clear();
-  //   });
-  //
-  //   final fullName = _regNameController.text.trim();
-  //   final businessName = _regBusinessController.text.trim();
-  //   final email = _regEmailController.text.trim();
-  //   final phone = _regPhoneController.text.trim();
-  //   final password = _regPasswordController.text;
-  //   final confirmPassword = _regConfirmPasswordController.text;
-  //
-  //   bool hasErrors = false;
-  //
-  //   if (fullName.isEmpty) {
-  //     _regErrors['fullName'] = 'Full name is required';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (businessName.isEmpty) {
-  //     _regErrors['businessName'] = 'Business name is required';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (email.isEmpty) {
-  //     _regErrors['email'] = 'Email is required';
-  //     hasErrors = true;
-  //   } else if (!_isValidEmail(email)) {
-  //     _regErrors['email'] = 'Enter a valid email address';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (phone.isEmpty) {
-  //     _regErrors['phone'] = 'Phone number is required';
-  //     hasErrors = true;
-  //   } else if (!_isValidPhone(phone)) {
-  //     _regErrors['phone'] = 'Enter a valid 10-digit phone number';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (password.isEmpty) {
-  //     _regErrors['password'] = 'Password is required';
-  //     hasErrors = true;
-  //   } else if (!_isValidPassword(password)) {
-  //     _regErrors['password'] = 'Password must be at least 6 characters';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (confirmPassword.isEmpty) {
-  //     _regErrors['confirmPassword'] = 'Please confirm your password';
-  //     hasErrors = true;
-  //   } else if (password != confirmPassword) {
-  //     _regErrors['confirmPassword'] = 'Passwords do not match';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (hasErrors) {
-  //     setState(() {});
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Please correct the highlighted fields'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //     return;
-  //   }
-  //
-  //   final existingUser = await _getUser(email);
-  //   if (existingUser != null) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Email already registered. Please login.'),
-  //         backgroundColor: Colors.orange,
-  //       ),
-  //     );
-  //     _tabController.animateTo(0);
-  //     _loginEmailController.text = email;
-  //     _loginPasswordController.text = password;
-  //     return;
-  //   }
-  //
-  //   setState(() => _isRegistering = true);
-  //
-  //   try {
-  //     // Create a clean user data structure
-  //     final Map<String, dynamic> userData = {};
-  //
-  //     // CRITICAL: Set property type
-  //     userData['propertyType'] = _propertyType;
-  //
-  //     // Add user account data
-  //     userData['fullName'] = fullName;
-  //     userData['businessName'] = businessName;
-  //     userData['email'] = email.toLowerCase().trim();
-  //     userData['phone'] = phone;
-  //     userData['password'] = password;
-  //     userData['registeredAt'] = DateTime.now().toIso8601String();
-  //     userData['lastLogin'] = DateTime.now().toIso8601String();
-  //
-  //     // IMPORTANT: Store ALL registration data in a single field
-  //     if (widget.registrationData != null && widget.registrationData!.isNotEmpty) {
-  //       print('=== STORING REGISTRATION DATA ===');
-  //       print('Registration data keys: ${widget.registrationData!.keys.toList()}');
-  //
-  //       // Store the complete registration data in a nested field
-  //       userData['registrationData'] = widget.registrationData;
-  //
-  //       // Also store key fields at top level for backward compatibility
-  //       userData.addAll(widget.registrationData!);
-  //     }
-  //
-  //     print('=== SAVING USER ===');
-  //     print('Property Type: "${userData['propertyType']}"');
-  //     print('User data keys: ${userData.keys.toList()}');
-  //
-  //     await _saveUser(userData);
-  //
-  //     final prefs = await SharedPreferences.getInstance();
-  //     await prefs.setBool('is_logged_in', true);
-  //     await prefs.setString('current_user_email', email.toLowerCase().trim());
-  //
-  //     if (!mounted) return;
-  //
-  //     setState(() => _isRegistering = false);
-  //     _clearAllForms();
-  //
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Registration successful!'),
-  //         backgroundColor: Colors.green,
-  //       ),
-  //     );
-  //
-  //     // Navigate directly to dashboard instead of showing login tab
-  //     _navigateToDashboard(userData, _propertyType);
-  //
-  //   } catch (e) {
-  //     setState(() => _isRegistering = false);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Registration failed: ${e.toString()}'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //   }
-  // }
-  // Future<void> _handleLogin() async {
-  //   setState(() {
-  //     _loginErrors.clear();
-  //   });
-  //
-  //   final email = _loginEmailController.text.trim();
-  //   final password = _loginPasswordController.text;
-  //
-  //   bool hasErrors = false;
-  //
-  //   if (email.isEmpty) {
-  //     _loginErrors['email'] = 'Email is required';
-  //     hasErrors = true;
-  //   } else if (!_isValidEmail(email)) {
-  //     _loginErrors['email'] = 'Enter a valid email address';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (password.isEmpty) {
-  //     _loginErrors['password'] = 'Password is required';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (hasErrors) {
-  //     setState(() {});
-  //     return;
-  //   }
-  //
-  //   setState(() => _isLoggingIn = true);
-  //
-  //   try {
-  //     final userData = await _getUser(email);
-  //
-  //     if (userData == null) {
-  //       setState(() {
-  //         _isLoggingIn = false;
-  //         _loginErrors['email'] = 'User not found';
-  //       });
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Invalid email or password'),
-  //           backgroundColor: Colors.red,
-  //         ),
-  //       );
-  //       return;
-  //     }
-  //
-  //     // Verify password
-  //     if (userData['password'] != password) {
-  //       setState(() {
-  //         _isLoggingIn = false;
-  //         _loginErrors['password'] = 'Incorrect password';
-  //       });
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Invalid email or password'),
-  //           backgroundColor: Colors.red,
-  //         ),
-  //       );
-  //       return;
-  //     }
-  //
-  //     // Get property type
-  //     String propertyType = userData['propertyType']?.toString().toLowerCase().trim() ?? _propertyType;
-  //
-  //     print('=== LOGIN SUCCESSFUL ===');
-  //     print('Email: $email');
-  //     print('Property Type: $propertyType');
-  //     print('User data keys: ${userData.keys.toList()}');
-  //
-  //     // Check if registration data exists
-  //     if (userData.containsKey('registrationData')) {
-  //       print('Registration data found with keys: ${(userData['registrationData'] as Map).keys.toList()}');
-  //     }
-  //
-  //     // Update last login
-  //     userData['lastLogin'] = DateTime.now().toIso8601String();
-  //     await _saveUser(userData);
-  //
-  //     final prefs = await SharedPreferences.getInstance();
-  //     await prefs.setBool('is_logged_in', true);
-  //     await prefs.setString('current_user_email', email.toLowerCase().trim());
-  //
-  //     if (!mounted) return;
-  //
-  //     setState(() => _isLoggingIn = false);
-  //     _clearAllForms();
-  //
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Login successful!'),
-  //         backgroundColor: Colors.green,
-  //       ),
-  //     );
-  //
-  //     await Future.delayed(const Duration(milliseconds: 500));
-  //     _navigateToDashboard(userData, propertyType);
-  //
-  //   } catch (e) {
-  //     setState(() => _isLoggingIn = false);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Login error: ${e.toString()}'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //   }
-  // }
+
 
   void _navigateToDashboard(Map<String, dynamic> userData, String propertyType) {
     print('=== NAVIGATING TO DASHBOARD ===');
@@ -7195,5 +4142,4609 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
 
 
 
+
+
+
+
+
+
+
+
+
+class OwnerDashboardScreen extends StatefulWidget {
+  final Map<String, dynamic> userData;
+  final String userEmail;
+
+  const OwnerDashboardScreen({
+    Key? key,
+    required this.userData,
+    required this.userEmail,
+  }) : super(key: key);
+
+  @override
+  State<OwnerDashboardScreen> createState() => _OwnerDashboardScreenState();
+}
+
+class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
+  Map<String, dynamic> _userData = {};
+  bool _isLoading = true;
+  // Map<String, bool> _registeredProperties = {};
+  Map<String, bool> _registeredProperties = {};
+  // bool _showProperties = false;
+  @override
+  void initState() {
+    super.initState();
+    _userData = widget.userData;
+    _checkRegisteredProperties();
+    _loadUserData();
+  }
+
+
+  // Future<void> _loadUserData() async {
+  //   setState(() => _isLoading = true);
+  //
+  //   try {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     final String usersJson = prefs.getString('registered_users') ?? '[]';
+  //     final List<dynamic> usersList = jsonDecode(usersJson);
+  //
+  //     final normalizedEmail = widget.userEmail.toLowerCase().trim();
+  //
+  //     for (var user in usersList) {
+  //       if (user is Map) {
+  //         final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
+  //         if (storedEmail == normalizedEmail) {
+  //           // Convert safely without casting
+  //           Map<String, dynamic> safeUserData = {};
+  //           user.forEach((key, value) {
+  //             safeUserData[key.toString()] = value;
+  //           });
+  //
+  //           setState(() {
+  //             _userData = safeUserData;
+  //             _checkRegisteredProperties();
+  //           });
+  //           break;
+  //         }
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print('Error loading user data: $e');
+  //   } finally {
+  //     setState(() => _isLoading = false);
+  //   }
+  // }
+
+  // void _checkRegisteredProperties() {
+  //   // Check which properties this user has already registered
+  //   bool isHotelRegistered = false;
+  //   bool isVillaRegistered = false;
+  //   bool isApartmentRegistered = false;
+  //   bool isResortRegistered = false;
+  //
+  //   // Check for HOTEL registration
+  //   if (_userData.containsKey('propertyType') &&
+  //       _userData['propertyType'] != null &&
+  //       _userData['propertyType'].toString().toLowerCase() == 'hotel') {
+  //     isHotelRegistered = true;
+  //   }
+  //
+  //   if (_userData.containsKey('hotelName') &&
+  //       _userData['hotelName'] != null &&
+  //       _userData['hotelName'].toString().isNotEmpty) {
+  //     isHotelRegistered = true;
+  //   }
+  //
+  //   // Check for hotels list
+  //   if (_userData.containsKey('hotels') &&
+  //       _userData['hotels'] is List &&
+  //       (_userData['hotels'] as List).isNotEmpty) {
+  //     isHotelRegistered = true;
+  //   }
+  //
+  //   // Check for hotel-specific fields
+  //   if (_userData.containsKey('totalRooms') ||
+  //       _userData.containsKey('roomDetails') ||
+  //       _userData.containsKey('selectedRoomTypes')) {
+  //     isHotelRegistered = true;
+  //   }
+  //
+  //   // Check for VILLA registration
+  //   if (_userData.containsKey('propertyType') &&
+  //       _userData['propertyType'] != null &&
+  //       _userData['propertyType'].toString().toLowerCase() == 'villa') {
+  //     isVillaRegistered = true;
+  //   }
+  //
+  //   if (_userData.containsKey('villaName') &&
+  //       _userData['villaName'] != null &&
+  //       _userData['villaName'].toString().isNotEmpty) {
+  //     isVillaRegistered = true;
+  //   }
+  //
+  //   if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+  //     final basicInfo = _userData['basicInfo'] as Map;
+  //     if (basicInfo.containsKey('villaName') &&
+  //         basicInfo['villaName'].toString().isNotEmpty) {
+  //       isVillaRegistered = true;
+  //     }
+  //   }
+  //
+  //   // Check for APARTMENT registration
+  //   if (_userData.containsKey('propertyType') &&
+  //       _userData['propertyType'] != null &&
+  //       _userData['propertyType'].toString().toLowerCase() == 'apartment') {
+  //     isApartmentRegistered = true;
+  //   }
+  //
+  //   if (_userData.containsKey('apartmentName') &&
+  //       _userData['apartmentName'] != null &&
+  //       _userData['apartmentName'].toString().isNotEmpty) {
+  //     isApartmentRegistered = true;
+  //   }
+  //
+  //   if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+  //     final basicInfo = _userData['basicInfo'] as Map;
+  //     if (basicInfo.containsKey('apartmentName') &&
+  //         basicInfo['apartmentName'].toString().isNotEmpty) {
+  //       isApartmentRegistered = true;
+  //     }
+  //   }
+  //
+  //   // Check for RESORT registration
+  //   if (_userData.containsKey('propertyType') &&
+  //       _userData['propertyType'] != null &&
+  //       _userData['propertyType'].toString().toLowerCase() == 'resort') {
+  //     isResortRegistered = true;
+  //   }
+  //
+  //   if (_userData.containsKey('resortName') &&
+  //       _userData['resortName'] != null &&
+  //       _userData['resortName'].toString().isNotEmpty) {
+  //     isResortRegistered = true;
+  //   }
+  //
+  //   if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+  //     final basicInfo = _userData['basicInfo'] as Map;
+  //     if (basicInfo.containsKey('resortName') &&
+  //         basicInfo['resortName'].toString().isNotEmpty) {
+  //       isResortRegistered = true;
+  //     }
+  //   }
+  //
+  //   setState(() {
+  //     _registeredProperties = {
+  //       'hotel': isHotelRegistered,
+  //       'villa': isVillaRegistered,
+  //       'apartment': isApartmentRegistered,
+  //       'resort': isResortRegistered,
+  //     };
+  //   });
+  //
+  //   print('Registered properties: $_registeredProperties');
+  // }
+
+  Future<void> _loadUserData() async {
+    setState(() => _isLoading = true);
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String usersJson = prefs.getString('registered_users') ?? '[]';
+      final List<dynamic> usersList = jsonDecode(usersJson);
+
+      final normalizedEmail = widget.userEmail.toLowerCase().trim();
+
+      for (var user in usersList) {
+        if (user is Map) {
+          final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
+          if (storedEmail == normalizedEmail) {
+            // Convert safely without casting
+            Map<String, dynamic> safeUserData = {};
+            user.forEach((key, value) {
+              safeUserData[key.toString()] = value;
+            });
+
+            // CRITICAL: Ensure propertyType is preserved
+            if (!safeUserData.containsKey('propertyType') ||
+                safeUserData['propertyType'] == null) {
+              // If propertyType is missing, try to determine it
+              if (safeUserData.containsKey('hotelName') ||
+                  safeUserData.containsKey('hotels') ||
+                  safeUserData.containsKey('roomDetails')) {
+                safeUserData['propertyType'] = 'hotel';
+                print('Added missing propertyType: hotel');
+              }
+            }
+
+            setState(() {
+              _userData = safeUserData;
+              _checkRegisteredProperties();
+            });
+            break;
+          }
+        }
+      }
+    } catch (e) {
+      print('Error loading user data: $e');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+  // void _checkRegisteredProperties() {
+  //   print('=== CHECKING REGISTERED PROPERTIES ===');
+  //   print('User data keys: ${_userData.keys.toList()}');
+  //
+  //   // Initialize all as false
+  //   bool isHotelRegistered = false;
+  //   bool isVillaRegistered = false;
+  //   bool isApartmentRegistered = false;
+  //   bool isResortRegistered = false;
+  //
+  //   // CRITICAL: First check propertyType - this should be the PRIMARY indicator
+  //   if (_userData.containsKey('propertyType') && _userData['propertyType'] != null) {
+  //     String propertyType = _userData['propertyType'].toString().toLowerCase();
+  //     print('Found propertyType: "$propertyType"');
+  //
+  //     if (propertyType == 'hotel') {
+  //       isHotelRegistered = true;
+  //       print('Setting isHotelRegistered = true based on propertyType');
+  //     } else if (propertyType == 'villa') {
+  //       isVillaRegistered = true;
+  //     } else if (propertyType == 'apartment') {
+  //       isApartmentRegistered = true;
+  //     } else if (propertyType == 'resort') {
+  //       isResortRegistered = true;
+  //     }
+  //   }
+  //
+  //   // Check for hotel-specific fields - only set hotel to true, don't affect others
+  //   if (_userData.containsKey('hotelName') &&
+  //       _userData['hotelName'] != null &&
+  //       _userData['hotelName'].toString().isNotEmpty) {
+  //     isHotelRegistered = true;
+  //     print('Setting isHotelRegistered = true based on hotelName');
+  //   }
+  //
+  //   // Check for hotels list
+  //   if (_userData.containsKey('hotels') &&
+  //       _userData['hotels'] is List &&
+  //       (_userData['hotels'] as List).isNotEmpty) {
+  //     isHotelRegistered = true;
+  //     print('Setting isHotelRegistered = true based on hotels list');
+  //   }
+  //
+  //   // Check for hotel-specific fields
+  //   if (_userData.containsKey('totalRooms') ||
+  //       _userData.containsKey('roomDetails') ||
+  //       _userData.containsKey('selectedRoomTypes')) {
+  //     isHotelRegistered = true;
+  //     print('Setting isHotelRegistered = true based on hotel-specific fields');
+  //   }
+  //
+  //   // IMPORTANT: Do NOT check for other property types if this is a hotel registration
+  //   // Only check for other properties if propertyType indicates they might exist
+  //
+  //   setState(() {
+  //     _registeredProperties = {
+  //       'hotel': isHotelRegistered,
+  //       'villa': isVillaRegistered,
+  //       'apartment': isApartmentRegistered,
+  //       'resort': isResortRegistered,
+  //     };
+  //   });
+  //
+  //   print('Final registered properties: $_registeredProperties');
+  // }
+
+  void _checkRegisteredProperties() {
+    print('=== CHECKING REGISTERED PROPERTIES ===');
+    print('User data keys: ${_userData.keys.toList()}');
+
+    // Initialize all as false
+    bool isHotelRegistered = false;
+    bool isVillaRegistered = false;
+    bool isApartmentRegistered = false;
+    bool isResortRegistered = false;
+
+    // CRITICAL FIX: Only check for ACTUAL data, not just propertyType
+
+    // Check for hotel-specific fields - these indicate an ACTUAL hotel registration
+    if (_userData.containsKey('hotelName') &&
+        _userData['hotelName'] != null &&
+        _userData['hotelName'].toString().isNotEmpty) {
+      isHotelRegistered = true;
+      print('Setting isHotelRegistered = true based on hotelName');
+    }
+
+    // Check for hotels list
+    if (_userData.containsKey('hotels') &&
+        _userData['hotels'] is List &&
+        (_userData['hotels'] as List).isNotEmpty) {
+      isHotelRegistered = true;
+      print('Setting isHotelRegistered = true based on hotels list');
+    }
+
+    // Check for hotel-specific fields
+    if (_userData.containsKey('totalRooms') ||
+        _userData.containsKey('roomDetails') ||
+        _userData.containsKey('selectedRoomTypes') ||
+        _userData.containsKey('basicAmenities')) {
+      isHotelRegistered = true;
+      print('Setting isHotelRegistered = true based on hotel-specific fields');
+    }
+
+    // Check registrationData if it exists
+    if (_userData.containsKey('registrationData') &&
+        _userData['registrationData'] != null) {
+      final regData = _userData['registrationData'] as Map;
+      if (regData.containsKey('hotelName') &&
+          regData['hotelName']?.toString().isNotEmpty == true) {
+        isHotelRegistered = true;
+        print('Found hotel in registrationData');
+      }
+    }
+
+    // DO NOT use propertyType alone to determine registration
+    // Only use propertyType if we're confident it's correct
+    if (_userData.containsKey('propertyType') && _userData['propertyType'] != null) {
+      String propertyType = _userData['propertyType'].toString().toLowerCase();
+      print('Found propertyType: "$propertyType" - but not using it alone for registration status');
+    }
+
+    setState(() {
+      _registeredProperties = {
+        'hotel': isHotelRegistered,
+        'villa': isVillaRegistered,
+        'apartment': isApartmentRegistered,
+        'resort': isResortRegistered,
+      };
+    });
+
+    print('Final registered properties: $_registeredProperties');
+  }
+  void _navigateToWelcomeScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => WelcomeScreen()),
+    );
+  }
+
+  void _navigateToPropertyDetails(String propertyType) {
+    if (!_registeredProperties[propertyType]!) {
+      // If not registered, show message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You have not registered for $propertyType yet'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    // Navigate to the appropriate property details screen
+    switch (propertyType) {
+      case 'hotel':
+        _navigateToHotelDetails();
+        break;
+      case 'villa':
+        _navigateToVillaDetails();
+        break;
+      case 'apartment':
+        _navigateToApartmentDetails();
+        break;
+      case 'resort':
+        _navigateToResortDetails();
+        break;
+    }
+  }
+
+  void _navigateToHotelDetails() {
+    print('=== Navigating to Hotel Details ===');
+
+    // Extract all hotel registration data
+    Map<String, dynamic> hotelData = {};
+
+    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+      hotelData = Map<String, dynamic>.from(_userData['registrationData']);
+    } else {
+      hotelData = Map<String, dynamic>.from(_userData);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HotelRegistrationDetailsScreen(
+          registrationData: hotelData,
+        ),
+      ),
+    );
+  }
+
+  void _navigateToVillaDetails() {
+    print('=== Navigating to Villa Details ===');
+
+    Map<String, dynamic> villaData = {};
+
+    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+      villaData = Map<String, dynamic>.from(_userData['registrationData']);
+    } else {
+      villaData = Map<String, dynamic>.from(_userData);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VillaRegistrationDetailsScreen(
+          registrationData: villaData,
+        ),
+      ),
+    );
+  }
+
+  void _navigateToApartmentDetails() {
+    print('=== Navigating to Apartment Details ===');
+
+    Map<String, dynamic> apartmentData = {};
+
+    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+      apartmentData = Map<String, dynamic>.from(_userData['registrationData']);
+    } else {
+      apartmentData = Map<String, dynamic>.from(_userData);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ApartmentRegistrationDetailsScreen(
+          registrationData: apartmentData,
+        ),
+      ),
+    );
+  }
+
+  void _navigateToResortDetails() {
+    print('=== Navigating to Resort Details ===');
+
+    Map<String, dynamic> resortData = {};
+
+    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+      resortData = Map<String, dynamic>.from(_userData['registrationData']);
+    } else {
+      resortData = Map<String, dynamic>.from(_userData);
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResortRegistrationDetailsScreen(
+          registrationData: resortData,
+        ),
+      ),
+    );
+  }
+
+  String _getUserFullName() {
+    if (_userData.containsKey('fullName')) {
+      return _userData['fullName'].toString();
+    }
+    if (_userData.containsKey('ownerName')) {
+      return _userData['ownerName'].toString();
+    }
+    if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+      final basicInfo = _userData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerName')) {
+        return basicInfo['ownerName'].toString();
+      }
+    }
+    return 'User';
+  }
+
+  String _getUserEmail() {
+    return _userData['email']?.toString() ?? widget.userEmail;
+  }
+
+  String _getUserPhone() {
+    if (_userData.containsKey('phone')) {
+      return _userData['phone'].toString();
+    }
+    if (_userData.containsKey('mobileNumber')) {
+      return _userData['mobileNumber'].toString();
+    }
+    if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+      final basicInfo = _userData['basicInfo'] as Map;
+      if (basicInfo.containsKey('mobile')) {
+        return basicInfo['mobile'].toString();
+      }
+    }
+    return 'Not provided';
+  }
+
+  String _getRegisteredPropertyType() {
+    if (_userData.containsKey('propertyType')) {
+      return _userData['propertyType'].toString();
+    }
+    if (_userData.containsKey('hotelName')) return 'hotel';
+    if (_userData.containsKey('villaName')) return 'villa';
+    if (_userData.containsKey('apartmentName')) return 'apartment';
+    if (_userData.containsKey('resortName')) return 'resort';
+    if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+      final basicInfo = _userData['basicInfo'] as Map;
+      if (basicInfo.containsKey('hotelName')) return 'hotel';
+      if (basicInfo.containsKey('villaName')) return 'villa';
+      if (basicInfo.containsKey('apartmentName')) return 'apartment';
+      if (basicInfo.containsKey('resortName')) return 'resort';
+    }
+    return 'none';
+  }
+
+  // Widget _buildActionButton({
+  //   required VoidCallback onTap,
+  //   required IconData icon,
+  //   required String title,
+  //   required String subtitle,
+  //   required List<Color> gradientColors,
+  // }) {
+  //   return GestureDetector(
+  //     onTap: onTap,
+  //     child: Container(
+  //       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         borderRadius: BorderRadius.circular(16),
+  //         border: Border.all(
+  //           color: gradientColors.first.withOpacity(0.2),
+  //           width: 1.5,
+  //         ),
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: gradientColors.first.withOpacity(0.1),
+  //             blurRadius: 15,
+  //             offset: const Offset(0, 5),
+  //           ),
+  //         ],
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           // Icon with gradient background
+  //           Container(
+  //             padding: const EdgeInsets.all(2),
+  //             decoration: BoxDecoration(
+  //               gradient: LinearGradient(
+  //                 colors: gradientColors,
+  //               ),
+  //               borderRadius: BorderRadius.circular(14),
+  //               boxShadow: [
+  //                 BoxShadow(
+  //                   color: gradientColors.first.withOpacity(0.3),
+  //                   blurRadius: 8,
+  //                   offset: const Offset(0, 3),
+  //                 ),
+  //               ],
+  //             ),
+  //             child: Icon(
+  //               icon,
+  //               color: Colors.white,
+  //               size: 22,
+  //             ),
+  //           ),
+  //           const SizedBox(width: 12),
+  //           // Text Column
+  //           Expanded(
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               children: [
+  //                 Text(
+  //                   title,
+  //                   style: const TextStyle(
+  //                     fontSize: 16,
+  //                     fontWeight: FontWeight.w700,
+  //                     color: Color(0xFF1F2937),
+  //                   ),
+  //                 ),
+  //                 const SizedBox(height: 2),
+  //                 Text(
+  //                   subtitle,
+  //                   style: TextStyle(
+  //                     fontSize: 11,
+  //                     color: Colors.grey.shade600,
+  //                     fontWeight: FontWeight.w500,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           // Circular indicator
+  //           Container(
+  //             padding: const EdgeInsets.all(4),
+  //             decoration: BoxDecoration(
+  //               color: gradientColors.first.withOpacity(0.1),
+  //               shape: BoxShape.circle,
+  //             ),
+  //             child: Icon(
+  //               Icons.arrow_forward_rounded,
+  //               color: gradientColors.first,
+  //               size: 16,
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+  Widget _buildActionButton({
+    required VoidCallback onTap,
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required List<Color> gradientColors,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: gradientColors,
+          ),
+          borderRadius: BorderRadius.circular(14),
+          boxShadow: [
+            BoxShadow(
+              color: gradientColors.first.withOpacity(0.3),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Icon with white background
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                icon,
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+            const SizedBox(width: 8),
+            // Text Column - Fixed height to ensure consistency
+            SizedBox(
+              height: 38, // Fixed height for both buttons
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                  if (subtitle.isNotEmpty) // Only show if subtitle exists
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white.withOpacity(0.9),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8FAFF),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Dashboard',
+          style: TextStyle(
+            color: Color(0xFF1F2937),
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+
+      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // My Profile Section
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  // Profile Header with Button
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                              colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+                            ),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.person,
+                              size: 30,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _getUserFullName(),
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF1F2937),
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                _getUserEmail(),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF6B7280),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // My Profile Button
+                        // ElevatedButton(
+                        //   onPressed: () {
+                        //     _showProfileDialog();
+                        //   },
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: const Color(0xFFFF5F6D),
+                        //     shape: RoundedRectangleBorder(
+                        //       borderRadius: BorderRadius.circular(20),
+                        //     ),
+                        //   ),
+                        //   child: const Text('My Profile'),
+                        // ),
+                      ],
+                    ),
+                  ),
+
+                  // Personal Details Summary (First-time registered data)
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF9FAFB),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Personal Details',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF374151),
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: _buildDetailItem(
+                                  icon: Icons.phone,
+                                  label: 'Phone',
+                                  value: _getUserPhone(),
+                                ),
+                              ),
+                              Expanded(
+                                child: _buildDetailItem(
+                                  icon: Icons.email,
+                                  label: 'Email',
+                                  value: _getUserEmail(),
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (_getRegisteredPropertyType() != 'none')
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: _buildDetailItem(
+                                icon: Icons.business,
+                                label: 'Registered As',
+                                value: _getRegisteredPropertyType().toUpperCase(),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // In the build method, update the My Profile button:
+            Row(
+              children: [
+                // New Register Button
+                Expanded(
+                  child: _buildActionButton(
+                    onTap: _navigateToWelcomeScreen,
+                    icon: Icons.app_registration,
+                    title: 'New Register',
+                    subtitle: 'Add another property',
+                    gradientColors: [Colors.blue, Colors.lightBlue.shade300],
+                  ),
+                ),
+                const SizedBox(width: 10),
+                // My Profile Button
+                Expanded(
+                  child: _buildActionButton(
+                    onTap: () {
+                      print('Navigating to PropertiesScreen with userData: ${_userData.keys}');
+                      print('propertyType: ${_userData['propertyType']}');
+
+                      // Create a fresh copy with explicit propertyType
+                      Map<String, dynamic> dataToPass = Map<String, dynamic>.from(_userData);
+
+                      // Ensure propertyType has a value
+                      if (dataToPass['propertyType'] == null || dataToPass['propertyType'].toString().isEmpty) {
+                        dataToPass['propertyType'] = 'hotel';
+                      }
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PropertiesScreen(
+                            userData: dataToPass,
+                            userEmail: widget.userEmail,
+                          ),
+                        ),
+                      );
+                    },
+                    icon: Icons.person_rounded,
+                    title: 'My Profile',
+                    subtitle: 'View properties',  // Static subtitle
+                    gradientColors: [const Color(0xFFFF5F6D), const Color(0xFFFFC371)],
+                  ),
+                ),
+              ],
+            ),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     backgroundColor: const Color(0xFFF8FAFF),
+  //     appBar: AppBar(
+  //       backgroundColor: Colors.white,
+  //       elevation: 0,
+  //       title: const Text(
+  //         'Dashboard',
+  //         style: TextStyle(
+  //           color: Color(0xFF1F2937),
+  //           fontSize: 20,
+  //           fontWeight: FontWeight.w700,
+  //         ),
+  //       ),
+  //     ),
+  //     body: _isLoading
+  //         ? const Center(child: CircularProgressIndicator())
+  //         : Padding(
+  //       padding: const EdgeInsets.all(16),
+  //       child: Column(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: [
+  //           // Welcome Message
+  //           Container(
+  //             padding: const EdgeInsets.all(24),
+  //             decoration: BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.circular(20),
+  //               boxShadow: [
+  //                 BoxShadow(
+  //                   color: Colors.black.withOpacity(0.05),
+  //                   blurRadius: 10,
+  //                 ),
+  //               ],
+  //             ),
+  //             child: Column(
+  //               children: [
+  //                 const Icon(
+  //                   Icons.dashboard_rounded,
+  //                   size: 60,
+  //                   color: Color(0xFFFF5F6D),
+  //                 ),
+  //                 const SizedBox(height: 16),
+  //                 Text(
+  //                   'Welcome, ${_getUserFullName()}!',
+  //                   style: const TextStyle(
+  //                     fontSize: 22,
+  //                     fontWeight: FontWeight.w700,
+  //                     color: Color(0xFF1F2937),
+  //                   ),
+  //                 ),
+  //                 const SizedBox(height: 8),
+  //                 const Text(
+  //                   'What would you like to do?',
+  //                   style: TextStyle(
+  //                     fontSize: 16,
+  //                     color: Color(0xFF6B7280),
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //
+  //           const SizedBox(height: 32),
+  //
+  //           // Action Buttons
+  //           Row(
+  //             children: [
+  //               // New Register Button
+  //               Expanded(
+  //                 child: _buildActionButton(
+  //                   onTap: _navigateToWelcomeScreen,
+  //                   icon: Icons.app_registration,
+  //                   title: 'New Register',
+  //                   subtitle: 'Add another property',
+  //                   gradientColors: [Colors.blue, Colors.lightBlue.shade300],
+  //                 ),
+  //               ),
+  //               const SizedBox(width: 10),
+  //               // My Profile Button
+  //               Expanded(
+  //                 child: _buildActionButton(
+  //                   onTap: () {
+  //                     Navigator.push(
+  //                       context,
+  //                       MaterialPageRoute(
+  //                         builder: (context) => PropertiesScreen(
+  //                           userData: _userData,
+  //                           userEmail: widget.userEmail,
+  //                         ),
+  //                       ),
+  //                     );
+  //                   },
+  //                   icon: Icons.person_rounded,
+  //                   title: 'My Profile',
+  //                   subtitle: 'View properties',
+  //                   gradientColors: [const Color(0xFFFF5F6D), const Color(0xFFFFC371)],
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget _buildDetailItem({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: const Color(0xFF6B7280)),
+        const SizedBox(width: 4),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 10,
+                  color: Color(0xFF6B7280),
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF1F2937),
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPropertyBox({
+    required String propertyType,
+    required IconData icon,
+    required Color color,
+    required bool isRegistered,
+  }) {
+    return GestureDetector(
+      onTap: isRegistered ? () => _navigateToPropertyDetails(propertyType.toLowerCase()) : null,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isRegistered ? color : Colors.grey.shade300,
+            width: isRegistered ? 2 : 1,
+          ),
+          boxShadow: isRegistered
+              ? [
+            BoxShadow(
+              color: color.withOpacity(0.2),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            )
+          ]
+              : null,
+        ),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  size: 40,
+                  color: isRegistered ? color : Colors.grey.shade400,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  propertyType,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: isRegistered ? color : Colors.grey.shade500,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: isRegistered ? color.withOpacity(0.1) : Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    isRegistered ? 'Registered' : 'Not Registered',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w500,
+                      color: isRegistered ? color : Colors.grey.shade600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            if (!isRegistered)
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.7),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.lock_outline,
+                      size: 30,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showProfileDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Center(
+                child: Text(
+                  'Profile Details',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF1F2937),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              _buildProfileDetailRow('Full Name', _getUserFullName()),
+              const Divider(),
+              _buildProfileDetailRow('Email', _getUserEmail()),
+              const Divider(),
+              _buildProfileDetailRow('Phone', _getUserPhone()),
+              const Divider(),
+              _buildProfileDetailRow('Registered Property',
+                  _getRegisteredPropertyType() != 'none'
+                      ? _getRegisteredPropertyType().toUpperCase()
+                      : 'None'),
+              const Divider(),
+              _buildProfileDetailRow('Registration Date',
+                  _userData.containsKey('registeredAt')
+                      ? _formatDate(_userData['registeredAt'])
+                      : 'Not available'),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFFF5F6D),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text('Close'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF374151),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(
+                color: Color(0xFF6B7280),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatDate(String? dateString) {
+    if (dateString == null) return 'Not available';
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return dateString;
+    }
+  }
+}
+
+
+
+
+
+class VillaRegistrationDetailsScreen extends StatelessWidget {
+  final Map<String, dynamic> registrationData;
+
+  const VillaRegistrationDetailsScreen({
+    Key? key,
+    required this.registrationData,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Villa Registration Details'),
+        backgroundColor: Colors.green,
+        foregroundColor: Colors.white,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Step 1: Basic Information
+            _buildSection(
+              title: 'Step 1: Basic Information',
+              icon: Icons.info,
+              color: Colors.green,
+              children: [
+                _buildDetailRow('Villa Name', _getNestedValue('basicInfo', 'villaName') ?? 'N/A'),
+                _buildDetailRow('Owner Name', _getNestedValue('basicInfo', 'ownerName') ?? 'N/A'),
+                _buildDetailRow('Mobile Number', _getNestedValue('basicInfo', 'mobile') ?? 'N/A'),
+                _buildDetailRow('Alternate Mobile', _getNestedValue('basicInfo', 'altMobile') ?? 'N/A'),
+                _buildDetailRow('Email', _getNestedValue('basicInfo', 'email') ?? 'N/A'),
+                _buildDetailRow('Website', _getNestedValue('basicInfo', 'website') ?? 'N/A'),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Step 2: Location Details
+            _buildSection(
+              title: 'Step 2: Location Details',
+              icon: Icons.location_on,
+              color: Colors.green.shade700,
+              children: [
+                _buildDetailRow('Address', _getNestedValue('location', 'address') ?? 'N/A'),
+                _buildDetailRow('Area', _getNestedValue('location', 'area') ?? 'N/A'),
+                _buildDetailRow('City', _getNestedValue('location', 'city') ?? 'N/A'),
+                _buildDetailRow('State', _getNestedValue('location', 'state') ?? 'N/A'),
+                _buildDetailRow('Pincode', _getNestedValue('location', 'pincode') ?? 'N/A'),
+                _buildDetailRow('Google Map Link', _getNestedValue('location', 'googleMapLink') ?? 'N/A'),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Step 3: Property Details
+            _buildSection(
+              title: 'Step 3: Property Details',
+              icon: Icons.home,
+              color: Colors.green.shade600,
+              children: [
+                _buildDetailRow('Property Type', _getNestedValue('propertyDetails', 'propertyType') ?? 'Villa'),
+                _buildDetailRow('Bedrooms', _getNestedValue('propertyDetails', 'bedrooms') ?? '0'),
+                _buildDetailRow('Bathrooms', _getNestedValue('propertyDetails', 'bathrooms') ?? '0'),
+                _buildDetailRow('Guest Capacity', _getNestedValue('propertyDetails', 'guestCapacity') ?? '0'),
+                _buildDetailRow('Property Size', _getNestedValue('propertyDetails', 'propertySize') ?? 'N/A'),
+                _buildDetailRow('Year Construction', _getNestedValue('propertyDetails', 'yearConstruction') ?? 'N/A'),
+                _buildDetailRow('Description', _getNestedValue('propertyDetails', 'description') ?? 'N/A'),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Step 4: Amenities
+            _buildSection(
+              title: 'Step 4: Amenities',
+              icon: Icons.star,
+              color: Colors.green.shade500,
+              children: _buildAmenities(),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Step 5: Pricing
+            _buildSection(
+              title: 'Step 5: Pricing',
+              icon: Icons.attach_money,
+              color: Colors.green.shade400,
+              children: [
+                _buildDetailRow('Base Price', _getNestedValue('pricing', 'basePrice') ?? 'N/A'),
+                _buildDetailRow('Weekend Price', _getNestedValue('pricing', 'weekendPrice') ?? 'N/A'),
+                _buildDetailRow('Peak Price', _getNestedValue('pricing', 'peakPrice') ?? 'N/A'),
+                _buildDetailRow('Security Deposit', _getNestedValue('pricing', 'securityDeposit') ?? 'N/A'),
+                _buildDetailRow('Minimum Stay', _getNestedValue('pricing', 'minimumStay') ?? 'N/A'),
+                _buildDetailRow('Check-in Time', _getNestedValue('pricing', 'checkInTime') ?? 'N/A'),
+                _buildDetailRow('Check-out Time', _getNestedValue('pricing', 'checkOutTime') ?? 'N/A'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String? _getNestedValue(String section, String key) {
+    if (registrationData.containsKey(section) &&
+        registrationData[section] != null &&
+        registrationData[section] is Map) {
+      final map = registrationData[section] as Map;
+      if (map.containsKey(key)) {
+        return map[key]?.toString();
+      }
+    }
+    return null;
+  }
+
+  Widget _buildSection({
+    required String title,
+    required IconData icon,
+    required Color color,
+    required List<Widget> children,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.1),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+            child: Row(
+              children: [
+                Icon(icon, color: color),
+                const SizedBox(width: 8),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children.isNotEmpty ? children : [
+                const Center(
+                  child: Text(
+                    'No data available',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120,
+            child: Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF374151),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Text(
+              value,
+              style: const TextStyle(color: Color(0xFF6B7280)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildAmenities() {
+    List<Widget> widgets = [];
+
+    if (registrationData.containsKey('amenities') &&
+        registrationData['amenities'] != null) {
+      final amenities = registrationData['amenities'] as Map;
+
+      if (amenities.containsKey('selected') && amenities['selected'] != null) {
+        final selected = amenities['selected'] as Map;
+        List<String> selectedAmenities = [];
+        selected.forEach((key, value) {
+          if (value == true) {
+            selectedAmenities.add(key.toString());
+          }
+        });
+
+        if (selectedAmenities.isNotEmpty) {
+          widgets.add(const Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Text('Selected Amenities:',
+                style: TextStyle(fontWeight: FontWeight.w600)),
+          ));
+          widgets.add(
+            Padding(
+              padding: const EdgeInsets.only(left: 16, bottom: 12),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: selectedAmenities.map((item) => Chip(
+                  label: Text(item),
+                  backgroundColor: Colors.green.shade50,
+                  labelStyle: const TextStyle(fontSize: 12),
+                )).toList(),
+              ),
+            ),
+          );
+        }
+      }
+
+      if (amenities.containsKey('custom') && amenities['custom'] != null) {
+        final custom = amenities['custom'] as Map;
+        if (custom.isNotEmpty) {
+          widgets.add(const Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: Text('Custom Amenities:',
+                style: TextStyle(fontWeight: FontWeight.w600)),
+          ));
+          widgets.add(
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: custom.values.map((item) => Chip(
+                  label: Text(item.toString()),
+                  backgroundColor: Colors.purple.shade50,
+                  labelStyle: const TextStyle(fontSize: 12),
+                )).toList(),
+              ),
+            ),
+          );
+        }
+      }
+    }
+
+    return widgets;
+  }
+}
+
+class ApartmentRegistrationDetailsScreen extends StatelessWidget {
+  final Map<String, dynamic> registrationData;
+
+  const ApartmentRegistrationDetailsScreen({
+    Key? key,
+    required this.registrationData,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Apartment Registration Details'),
+        backgroundColor: Colors.orange,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Text('Apartment Details - Implement similar to Villa screen'),
+      ),
+    );
+  }
+}
+
+class ResortRegistrationDetailsScreen extends StatelessWidget {
+  final Map<String, dynamic> registrationData;
+
+  const ResortRegistrationDetailsScreen({
+    Key? key,
+    required this.registrationData,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Resort Registration Details'),
+        backgroundColor: Colors.purple,
+        foregroundColor: Colors.white,
+      ),
+      body: Center(
+        child: Text('Resort Details - Implement similar to Villa screen'),
+      ),
+    );
+  }
+}
+
+
+class HotelRegistrationDetailsScreen extends StatefulWidget {
+  final Map<String, dynamic> registrationData;
+
+  const HotelRegistrationDetailsScreen({
+    Key? key,
+    required this.registrationData,
+  }) : super(key: key);
+
+  @override
+  State<HotelRegistrationDetailsScreen> createState() => _HotelRegistrationDetailsScreenState();
+}
+
+
+
+
+class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetailsScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  late Map<String, dynamic> _data;
+
+  // Your beautiful color
+  final Color primaryColor = const Color(0xFFFF5F6D);
+  final Color primaryLight = const Color(0xFFFF5F6D).withOpacity(0.1);
+  final Color primarySoft = const Color(0xFFFF5F6D).withOpacity(0.05);
+  final Color primaryMedium = const Color(0xFFFF5F6D).withOpacity(0.03);
+
+  // Sophisticated neutral palette
+  final Color darkText = const Color(0xFF1A1E2B);
+  final Color mediumText = const Color(0xFF4A5568);
+  final Color lightText = const Color(0xFF8E9AAB);
+  final Color bgColor = const Color(0xFFF5F7FA);
+  final Color cardColor = Colors.white;
+  final Color borderColor = const Color(0xFFE9EDF2);
+  final Color shadowColor = const Color(0xFF1A1E2B).withOpacity(0.03);
+
+  @override
+  void initState() {
+    super.initState();
+    _data = widget.registrationData;
+    _tabController = TabController(length: 5, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  String _formatInteger(dynamic value) {
+    if (value == null) return '';
+
+    if (value is int) {
+      return value.toString();
+    }
+
+    if (value is double) {
+      return value.toInt().toString();
+    }
+
+    if (value is String) {
+      // Try to parse as double first, then convert to int
+      double? parsedDouble = double.tryParse(value);
+      if (parsedDouble != null) {
+        return parsedDouble.toInt().toString();
+      }
+      return value;
+    }
+
+    return value.toString();
+  }
+
+// Helper method to format price/double values
+  String _formatPrice(dynamic value) {
+    if (value == null) return '';
+
+    if (value is double) {
+      // Show .00 only if it has decimal places
+      return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    }
+
+    if (value is int) {
+      return value.toString();
+    }
+
+    if (value is String) {
+      double? parsed = double.tryParse(value);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+      }
+      return value;
+    }
+
+    return value.toString();
+  }
+
+// Helper method to safely get and format any numeric value
+  String _getFormattedValue(dynamic value, {bool isPrice = false}) {
+    if (value == null) return '';
+
+    if (isPrice) {
+      return _formatPrice(value);
+    } else {
+      return _formatInteger(value);
+    }
+  }
+  String _getRegistrationId() {
+    final hotelName = _data['hotelName']?.toString() ?? 'HOTEL';
+    final timestamp = DateTime.now().millisecondsSinceEpoch.toString().substring(8);
+    final namePrefix = hotelName.length >= 3 ? hotelName.substring(0, 3).toUpperCase() : hotelName.toUpperCase();
+    return '$namePrefix-${timestamp}';
+  }
+
+  String _getUserFullName() {
+    if (_data.containsKey('fullName') && _data['fullName'].toString().isNotEmpty) {
+      return _data['fullName'].toString();
+    }
+    if (_data.containsKey('ownerName') && _data['ownerName'].toString().isNotEmpty) {
+      return _data['ownerName'].toString();
+    }
+    return 'User';
+  }
+
+  String _getUserEmail() {
+    return _data['email']?.toString() ?? 'Not provided';
+  }
+
+  String _getUserPhone() {
+    if (_data.containsKey('phone')) {
+      return _data['phone'].toString();
+    }
+    if (_data.containsKey('mobileNumber')) {
+      return _data['mobileNumber'].toString();
+    }
+    return 'Not provided';
+  }
+
+  String _getHotelName() {
+    return _data['hotelName']?.toString() ?? 'Hotel';
+  }
+
+  String _getHotelType() {
+    return _data['hotelType']?.toString() ?? 'Normal Hotel';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: bgColor,
+      body: CustomScrollView(
+        slivers: [
+
+
+
+
+
+
+
+
+
+          // Tab Bar Views
+          SliverAppBar(
+            expandedHeight: 180, // Increased height significantly
+            pinned: true,
+            backgroundColor: primaryColor,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      primaryColor,
+                      primaryColor.withOpacity(0.85),
+                    ],
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                ),
+                child: SafeArea(
+                  bottom: false,
+
+
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 25),
+
+                      // Main Content Card
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(28),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                            width: 1.5,
+                          ),
+                          // backdropFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        ),
+                        child: Row(
+                          children: [
+                            // Icon
+                            Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(22),
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.hotel,
+                                  color: Colors.white,
+                                  size: 32,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+
+                            // Text Content
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _getHotelName(),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    _getHotelType(),
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.qr_code,
+                                        size: 14,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        'ID: ${_getRegistrationId()}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white.withOpacity(0.8),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            leading: IconButton(
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.3),
+                  ),
+                ),
+                child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+
+          ),
+          SliverFillRemaining(
+            child: Container(
+              color: bgColor,
+              child: Column(
+                children: [
+                  // Personal Info Card - Now outside the SliverAppBar and visible
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: shadowColor,
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                        BoxShadow(
+                          color: primaryColor.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        // Profile Avatar with Gradient Border
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [primaryColor, primaryColor.withOpacity(0.7)],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: cardColor,
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.person_rounded,
+                                  size: 35,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        // User Details
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _getUserFullName(),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: darkText,
+                                  letterSpacing: -0.3,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: _buildInfoChip(
+                                      icon: Icons.phone_outlined,
+                                      value: _getUserPhone(),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: _buildInfoChip(
+                                      icon: Icons.email_outlined,
+                                      value: _getUserEmail(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Tab Bar
+                  Container(
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: shadowColor,
+                          blurRadius: 10,
+                          offset: const Offset(0, -2),
+                        ),
+                      ],
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      isScrollable: true,
+                      labelColor: primaryColor,
+                      unselectedLabelColor: lightText,
+                      indicatorColor: primaryColor,
+                      indicatorWeight: 3,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      unselectedLabelStyle: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      tabs: const [
+                        Tab(text: 'Basic Info'),
+                        Tab(text: 'Address'),
+                        Tab(text: 'Room Config'),
+                        Tab(text: 'Amenities'),
+                        Tab(text: 'Legal & Bank'),
+                      ],
+                    ),
+                  ),
+
+                  // Tab Bar Views
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildStep1(),
+                        _buildStep2(),
+                        _buildStep3(),
+                        _buildStep4(),
+                        _buildStep5(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoChip({
+    required IconData icon,
+    required String value,
+  }) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 7),
+        decoration: BoxDecoration(
+          color: primarySoft,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: primaryColor.withOpacity(0.1)),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 14, color: primaryColor),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                value,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: mediumText,
+                  fontWeight: FontWeight.w500,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Step 1: Basic Information
+  Widget _buildStep1() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Hotel Information',
+            icon: Icons.business_center,
+            children: [
+              _buildInfoRow('Hotel Name', _data['hotelName']),
+              _buildInfoRow('Hotel Type', _data['hotelType']),
+              // _buildInfoRow('Year of Establishment', _data['yearOfEstablishment']),
+              // _buildInfoRow('Total Rooms', _data['totalRooms']),
+              // UPDATED: Year of Establishment as integer
+              _buildInfoRow('Year of Establishment', _data['yearOfEstablishment']),
+              // UPDATED: Total Rooms as integer
+              _buildInfoRow('Total Rooms', _data['totalRooms']),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Contact Information',
+            icon: Icons.contact_phone,
+            children: [
+              _buildInfoRow('Owner/Manager', _data['ownerName']),
+              _buildInfoRow('Mobile Number', _data['mobileNumber']),
+              _buildInfoRow('Alternate Contact', _data['alternateContact']),
+              _buildInfoRow('Email', _data['email']),
+              _buildInfoRow('Website', _data['website']),
+              ..._buildLandlineNumbers(_data['landlineNumbers']),
+            ],
+          ),
+          if (_data['personPhotoInfo'] != null && _data['personPhotoInfo']['uploaded'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildPhotoTile(_data['personPhotoInfo']),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 2: Address Details
+  Widget _buildStep2() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Address Details',
+            icon: Icons.location_on,
+            children: [
+              _buildInfoRow('Address Line 1', _data['addressLine1']),
+              _buildInfoRow('Address Line 2', _data['addressLine2']),
+              _buildInfoRow('City', _data['city']),
+              _buildInfoRow('District', _data['district']),
+              _buildInfoRow('State', _data['state']),
+              _buildInfoRow('PIN Code', _data['pinCode']),
+              _buildInfoRow('Landmark', _data['landmark']),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Step 3: Room Configuration
+  Widget _buildStep3() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Room Types Available',
+            icon: Icons.meeting_room,
+            children: _buildRoomTypes(),
+          ),
+          ..._buildRoomDetails(),
+          if (_data['minTariff'] != null || _data['maxTariff'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildGlassCard(
+                title: 'Pricing Information',
+                icon: Icons.attach_money,
+                children: [
+                  // _buildPriceRow('Min Tariff', _data['minTariff']),
+                  // _buildPriceRow('Max Tariff', _data['maxTariff']),
+                  // UPDATED: Min Tariff as price
+                  if (_hasValue(_data['minTariff']))
+                    _buildPriceRow('Min Tariff', _data['minTariff']),
+
+                  // UPDATED: Max Tariff as price
+                  if (_hasValue(_data['maxTariff']))
+                    _buildPriceRow('Max Tariff', _data['maxTariff']),
+                  if (_data['extraBedAvailable'] != null)
+                    _buildStatusRow('Extra Bed Available', _data['extraBedAvailable'] == true),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 4: Amenities
+  Widget _buildStep4() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          if (_data['basicAmenities'] != null)
+            _buildAmenityCard('Basic Amenities', _data['basicAmenities']),
+          if (_data['hotelFacilities'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard('Hotel Facilities', _data['hotelFacilities']),
+            ),
+          if (_data['foodServices'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard('Food Services', _data['foodServices']),
+            ),
+          if (_data['additionalAmenities'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard('Additional Amenities', _data['additionalAmenities']),
+            ),
+          if (_data['customAmenities'] != null && (_data['customAmenities'] as List).isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildCustomAmenitiesCard(_data['customAmenities']),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 5: Legal & Bank Details
+  Widget _buildStep5() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Legal Details',
+            icon: Icons.gavel,
+            children: [
+              _buildInfoRow('GST Number', _data['gstNumber']),
+              _buildInfoRow('FSSAI License', _data['fssaiLicense']),
+              _buildInfoRow('Trade License', _data['tradeLicense']),
+              _buildInfoRow('Aadhar Number', _data['aadharNumber']),
+              _buildInfoRow('PAN Number', _data['panNumber']),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Bank Details',
+            icon: Icons.account_balance,
+            children: [
+              _buildInfoRow('Account Holder', _data['accountHolderName']),
+              _buildInfoRow('Bank Name', _data['bankName']),
+              _buildInfoRow('Account Number', _maskAccountNumber(_data['accountNumber']?.toString() ?? '')),
+              _buildInfoRow('IFSC Code', _data['ifscCode']),
+              _buildInfoRow('Branch', _data['branch']),
+              _buildAccountTypeRow(_data['accountType']),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Uploaded Documents',
+            icon: Icons.folder,
+            children: _buildUploadedDocuments(),
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Declaration',
+            icon: Icons.verified_user,
+            children: [
+              _buildInfoRow('Name', _data['declarationName']),
+              _buildInfoRow('Date', _data['declarationDate']),
+              _buildStatusRow('Accepted', _data['declarationAccepted'] == true),
+            ],
+          ),
+          if (_data['hasDigitalSignature'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildDigitalSignatureTile(),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Beautiful Glass Card Design
+  Widget _buildGlassCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    final filteredChildren = children.where((child) {
+      if (child is SizedBox) return true;
+      return child is Widget;
+    }).toList();
+
+    if (filteredChildren.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+          BoxShadow(
+            color: primaryColor.withOpacity(0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, size: 18, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ...filteredChildren,
+        ],
+      ),
+    );
+  }
+
+  // // Elegant Info Row
+  // Widget _buildInfoRow(String label, dynamic value) {
+  //   if (value == null || value.toString().isEmpty) {
+  //     return const SizedBox.shrink();
+  //   }
+  //   return Container(
+  //     margin: const EdgeInsets.only(bottom: 12),
+  //     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+  //     decoration: BoxDecoration(
+  //       color: primaryMedium,
+  //       borderRadius: BorderRadius.circular(12),
+  //       border: Border.all(color: primaryColor.withOpacity(0.05)),
+  //     ),
+  //     child: Row(
+  //       children: [
+  //         Expanded(
+  //           flex: 3,
+  //           child: Text(
+  //             label,
+  //             style: TextStyle(
+  //               fontSize: 13,
+  //               color: lightText,
+  //               fontWeight: FontWeight.w500,
+  //             ),
+  //           ),
+  //         ),
+  //         Expanded(
+  //           flex: 4,
+  //           child: Text(
+  //             value.toString(),
+  //             style: TextStyle(
+  //               fontSize: 13,
+  //               fontWeight: FontWeight.w600,
+  //               color: darkText,
+  //             ),
+  //             textAlign: TextAlign.right,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Price Row with Special Styling
+
+  Widget _buildInfoRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    // Check if this is a numeric field that needs special formatting
+    if (label.contains('Year') ||
+        label.contains('Rooms') ||
+        label.contains('Occupancy') ||
+        label == 'Total Rooms' ||
+        label == 'Number of Rooms' ||
+        label == 'Max Occupancy') {
+      displayValue = _formatInteger(value);
+    } else if (label.contains('Price') ||
+        label.contains('Tariff') ||
+        label.contains('Min') ||
+        label.contains('Max')) {
+      displayValue = '₹${_formatPrice(value)}';
+    } else {
+      displayValue = value.toString();
+    }
+
+    if (displayValue.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primaryMedium,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.05)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              displayValue,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: darkText,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  // Widget _buildPriceRow(String label, dynamic value) {
+  //   if (value == null || value.toString().isEmpty) {
+  //     return const SizedBox.shrink();
+  //   }
+  //   return Container(
+  //     margin: const EdgeInsets.only(bottom: 12),
+  //     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+  //     decoration: BoxDecoration(
+  //       color: primarySoft,
+  //       borderRadius: BorderRadius.circular(12),
+  //       border: Border.all(color: primaryColor.withOpacity(0.15)),
+  //     ),
+  //     child: Row(
+  //       children: [
+  //         Expanded(
+  //           flex: 3,
+  //           child: Text(
+  //             label,
+  //             style: TextStyle(
+  //               fontSize: 13,
+  //               color: mediumText,
+  //               fontWeight: FontWeight.w500,
+  //             ),
+  //           ),
+  //         ),
+  //         Expanded(
+  //           flex: 4,
+  //           child: Text(
+  //             '₹${value.toString()}',
+  //             style: TextStyle(
+  //               fontSize: 14,
+  //               fontWeight: FontWeight.w700,
+  //               color: primaryColor,
+  //             ),
+  //             textAlign: TextAlign.right,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Widget _buildPriceRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue = _formatPrice(value);
+    if (displayValue.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.15)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: mediumText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              '₹$displayValue',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: primaryColor,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Status Row
+  Widget _buildStatusRow(String label, bool value) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: value ? primarySoft : primaryMedium,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: value ? primaryColor.withOpacity(0.2) : borderColor,
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  value ? Icons.check_circle : Icons.cancel,
+                  size: 16,
+                  color: value ? primaryColor : lightText,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  value ? 'Yes' : 'No',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: value ? primaryColor : lightText,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Account Type Row
+  Widget _buildAccountTypeRow(dynamic accountType) {
+    if (accountType == null || accountType.toString().isEmpty) {
+      return const SizedBox.shrink();
+    }
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.15)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              'Account Type',
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: primaryColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                accountType.toString(),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: primaryColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildLandlineNumbers(dynamic landlineNumbers) {
+    List<Widget> widgets = [];
+    if (landlineNumbers is List && landlineNumbers.isNotEmpty) {
+      for (var i = 0; i < landlineNumbers.length; i++) {
+        if (landlineNumbers[i].toString().isNotEmpty) {
+          widgets.add(_buildInfoRow('Landline ${i + 1}', landlineNumbers[i]));
+        }
+      }
+    }
+    return widgets;
+  }
+
+  List<Widget> _buildRoomTypes() {
+    List<Widget> widgets = [];
+    final selectedRoomTypes = _data['selectedRoomTypes'];
+    if (selectedRoomTypes is Map) {
+      final selected = selectedRoomTypes.entries
+          .where((e) => e.value == true)
+          .map((e) => e.key)
+          .toList();
+
+      if (selected.isNotEmpty) {
+        widgets.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: selected.map((type) => Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [primaryColor, primaryColor.withOpacity(0.8)],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: primaryColor.withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  type.toString(),
+                  style: const TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              )).toList(),
+            ),
+          ),
+        );
+      }
+    }
+    return widgets;
+  }
+
+  // List<Widget> _buildRoomDetails() {
+  //   List<Widget> widgets = [];
+  //   final roomDetails = _data['roomDetails'];
+  //   final selectedRoomTypes = _data['selectedRoomTypes'];
+  //
+  //   if (roomDetails is Map && selectedRoomTypes is Map) {
+  //     selectedRoomTypes.forEach((type, isSelected) {
+  //       if (isSelected == true && roomDetails.containsKey(type)) {
+  //         final details = roomDetails[type];
+  //         if (details is Map) {
+  //           bool hasData = details['rooms'].toString().isNotEmpty ||
+  //               details['occupancy'].toString().isNotEmpty ||
+  //               details['price'].toString().isNotEmpty;
+  //
+  //           if (hasData) {
+  //             widgets.add(
+  //               Container(
+  //                 margin: const EdgeInsets.only(bottom: 12),
+  //                 padding: const EdgeInsets.all(16),
+  //                 decoration: BoxDecoration(
+  //                   color: cardColor,
+  //                   borderRadius: BorderRadius.circular(16),
+  //                   border: Border.all(color: borderColor),
+  //                 ),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Row(
+  //                       children: [
+  //                         Container(
+  //                           padding: const EdgeInsets.all(8),
+  //                           decoration: BoxDecoration(
+  //                             color: primarySoft,
+  //                             borderRadius: BorderRadius.circular(10),
+  //                           ),
+  //                           child: Icon(Icons.hotel, size: 16, color: primaryColor),
+  //                         ),
+  //                         const SizedBox(width: 12),
+  //                         Text(
+  //                           type.toString(),
+  //                           style: TextStyle(
+  //                             fontSize: 14,
+  //                             fontWeight: FontWeight.w700,
+  //                             color: darkText,
+  //                           ),
+  //                         ),
+  //                       ],
+  //                     ),
+  //                     const SizedBox(height: 12),
+  //                     if (details['rooms'].toString().isNotEmpty)
+  //                       _buildDetailRow('Number of Rooms', details['rooms'].toString()),
+  //                     if (details['occupancy'].toString().isNotEmpty)
+  //                       _buildDetailRow('Max Occupancy', '${details['occupancy']} Persons'),
+  //                     if (details['ac'] != null)
+  //                       _buildDetailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
+  //                     if (details['price'].toString().isNotEmpty)
+  //                       _buildDetailRow('Price per Night', '₹${details['price']}'),
+  //                     if (details['extraBed'] != null)
+  //                       _buildDetailRow('Extra Bed', details['extraBed'] == true ? 'Yes' : 'No'),
+  //                     if (details['extraBed'] == true && details['extraBedPrice'].toString().isNotEmpty)
+  //                       _buildDetailRow('Extra Bed Price', '₹${details['extraBedPrice']}'),
+  //                   ],
+  //                 ),
+  //               ),
+  //             );
+  //           }
+  //         }
+  //       }
+  //     });
+  //   }
+  //   return widgets;
+  // }
+  List<Widget> _buildRoomDetails() {
+    List<Widget> widgets = [];
+    final roomDetails = _data['roomDetails'];
+    final selectedRoomTypes = _data['selectedRoomTypes'];
+
+    if (roomDetails is Map && selectedRoomTypes is Map) {
+      selectedRoomTypes.forEach((type, isSelected) {
+        if (isSelected == true && roomDetails.containsKey(type)) {
+          final details = roomDetails[type];
+          if (details is Map) {
+            bool hasData = _hasValue(details['rooms']) ||
+                _hasValue(details['occupancy']) ||
+                _hasValue(details['price']);
+
+            if (hasData) {
+              widgets.add(
+                Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: cardColor,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: borderColor),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: primarySoft,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(Icons.hotel, size: 16, color: primaryColor),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            type.toString(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: darkText,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+
+                      // UPDATED: Number of Rooms
+                      if (_hasValue(details['rooms']))
+                        _buildDetailRow('Number of Rooms', details['rooms']),
+
+                      // UPDATED: Max Occupancy
+                      if (_hasValue(details['occupancy']))
+                        _buildDetailRow('Max Occupancy', details['occupancy']),
+
+                      // AC/Non-AC
+                      if (details['ac'] != null)
+                        _buildDetailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
+
+                      // UPDATED: Price per Night
+                      if (_hasValue(details['price']))
+                        _buildDetailRow('Price per Night', details['price']),
+
+                      // Extra Bed
+                      if (details['extraBed'] != null)
+                        _buildDetailRow('Extra Bed', details['extraBed'] == true ? 'Yes' : 'No'),
+
+                      // UPDATED: Extra Bed Price
+                      if (details['extraBed'] == true && _hasValue(details['extraBedPrice']))
+                        _buildDetailRow('Extra Bed Price', details['extraBedPrice']),
+                    ],
+                  ),
+                ),
+              );
+            }
+          }
+        }
+      });
+    }
+    return widgets;
+  }
+
+// Add this helper method to check if a value exists and is not empty
+  bool _hasValue(dynamic value) {
+    if (value == null) return false;
+    if (value is String && value.isEmpty) return false;
+    if (value is num && value == 0) return true; // Zero is still a valid value
+    return true;
+  }
+  // Widget _buildDetailRow(String label, String value) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(
+  //           label,
+  //           style: TextStyle(
+  //             fontSize: 12,
+  //             color: lightText,
+  //           ),
+  //         ),
+  //         Text(
+  //           value,
+  //           style: TextStyle(
+  //             fontSize: 12,
+  //             fontWeight: FontWeight.w600,
+  //             color: darkText,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Widget _buildDetailRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    // Check the label to determine formatting
+    if (label.contains('Rooms') || label.contains('Occupancy')) {
+      displayValue = _formatInteger(value);
+    } else if (label.contains('Price') || label.contains('Tariff')) {
+      displayValue = '₹${_formatPrice(value)}';
+    } else if (label == 'AC' || label == 'Extra Bed') {
+      displayValue = value == true ? 'Yes' : 'No';
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              color: lightText,
+            ),
+          ),
+          Text(
+            displayValue,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: darkText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmenityCard(String title, dynamic amenities) {
+    if (amenities is! Map) return const SizedBox.shrink();
+
+    final selected = amenities.entries
+        .where((e) => e.value == true)
+        .map((e) => e.key)
+        .toList();
+
+    if (selected.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(Icons.star, size: 16, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: selected.map((item) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(
+                color: primarySoft,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: primaryColor.withOpacity(0.15)),
+              ),
+              child: Text(
+                item.toString(),
+                style: TextStyle(
+                  fontSize: 11,
+                  color: primaryColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            )).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCustomAmenitiesCard(dynamic customAmenities) {
+    if (customAmenities is! List || customAmenities.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [primarySoft, primaryMedium],
+        ),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: primaryColor.withOpacity(0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(Icons.stars, size: 16, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Custom Amenities',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: primaryColor,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: customAmenities.map((item) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+              decoration: BoxDecoration(
+                color: cardColor,
+                borderRadius: BorderRadius.circular(25),
+                border: Border.all(color: primaryColor.withOpacity(0.3)),
+                boxShadow: [
+                  BoxShadow(
+                    color: primaryColor.withOpacity(0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Text(
+                item.toString(),
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  color: primaryColor,
+                ),
+              ),
+            )).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildUploadedDocuments() {
+    List<Widget> widgets = [];
+    final uploadedFiles = _data['uploadedFiles'];
+
+    if (uploadedFiles is Map) {
+      uploadedFiles.forEach((key, value) {
+        if (value is Map && value['uploaded'] == true) {
+          widgets.add(
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: primarySoft,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: primaryColor.withOpacity(0.15)),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.check_circle, size: 16, color: primaryColor),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          key,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: darkText,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Uploaded successfully',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: lightText,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+      });
+    }
+
+    return widgets;
+  }
+
+  Widget _buildPhotoTile(Map<String, dynamic> photoInfo) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: borderColor),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [primaryColor, primaryColor.withOpacity(0.7)],
+              ),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Center(
+              child: Icon(Icons.photo_camera, color: Colors.white, size: 24),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  photoInfo['name'] ?? 'Uploaded successfully',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: lightText,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: primarySoft,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDigitalSignatureTile() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: primaryColor.withOpacity(0.2)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.draw, size: 20, color: primaryColor),
+          ),
+          const SizedBox(width: 16),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Digital Signature',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  'Saved successfully',
+                  style: TextStyle(fontSize: 12),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _maskAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) return accountNumber;
+    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  }
+}
+
+
+class HotelListScreen extends StatefulWidget {
+  final Map<String, dynamic> userData;
+  final String userEmail;
+
+  const HotelListScreen({
+    Key? key,
+    required this.userData,
+    required this.userEmail,
+  }) : super(key: key);
+
+  @override
+  State<HotelListScreen> createState() => _HotelListScreenState();
+}
+
+class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProviderStateMixin {
+  List<Map<String, dynamic>> _registeredHotels = [];
+  bool _isLoading = true;
+
+  final Color primaryColor = const Color(0xFFFF5F6D);
+  final Color accentColor = const Color(0xFF8B5CF6);
+  final Color successColor = const Color(0xFF10B981);
+  final Color warningColor = const Color(0xFFF59E0B);
+  final Color darkText = const Color(0xFF1F2937);
+  final Color lightText = const Color(0xFF6B7280);
+
+  @override
+  void initState() {
+    super.initState();
+    _extractHotels();
+  }
+
+  // void _extractHotels() {
+  //   setState(() => _isLoading = true);
+  //
+  //   try {
+  //     print('Extracting hotels from user data: ${widget.userData.keys}');
+  //
+  //     // Clear existing list
+  //     _registeredHotels.clear();
+  //
+  //     // Check if this is a single hotel registration (data directly in userData)
+  //     if (widget.userData.containsKey('hotelName') &&
+  //         widget.userData['hotelName'] != null &&
+  //         widget.userData['hotelName'].toString().isNotEmpty) {
+  //
+  //       print('Found single hotel with name: ${widget.userData['hotelName']}');
+  //
+  //       String hotelCategory = widget.userData['hotelCategory']?.toString() ?? 'Normal';
+  //
+  //       // Create a clean hotel data map
+  //       Map<String, dynamic> hotelData = Map<String, dynamic>.from(widget.userData);
+  //
+  //       _registeredHotels.add({
+  //         'id': _generateHotelId(hotelData),
+  //         'name': hotelData['hotelName'].toString(),
+  //         'category': hotelCategory,
+  //         'type': hotelData['hotelType']?.toString() ?? 'Hotel',
+  //         'data': hotelData,
+  //         'registrationDate': hotelData['registeredAt']?.toString() ??
+  //             DateTime.now().toIso8601String(),
+  //       });
+  //     }
+  //
+  //     // Check if there are multiple hotels in hotels list
+  //     if (widget.userData.containsKey('hotels') &&
+  //         widget.userData['hotels'] is List) {
+  //
+  //       final hotels = widget.userData['hotels'] as List;
+  //       print('Found ${hotels.length} hotels in list');
+  //
+  //       for (var hotel in hotels) {
+  //         if (hotel is Map) {
+  //           Map<String, dynamic> typedHotel = Map<String, dynamic>.from(hotel);
+  //
+  //           String hotelCategory = typedHotel['hotelCategory']?.toString() ?? 'Normal';
+  //
+  //           _registeredHotels.add({
+  //             'id': _generateHotelId(typedHotel),
+  //             'name': typedHotel['hotelName']?.toString() ?? 'Unknown Hotel',
+  //             'category': hotelCategory,
+  //             'type': typedHotel['hotelType']?.toString() ?? 'Hotel',
+  //             'data': typedHotel,
+  //             'registrationDate': typedHotel['registeredAt']?.toString() ??
+  //                 DateTime.now().toIso8601String(),
+  //           });
+  //         }
+  //       }
+  //     }
+  //
+  //     // If still no hotels found, try to extract from registrationData
+  //     if (_registeredHotels.isEmpty && widget.userData.containsKey('registrationData')) {
+  //       final regData = widget.userData['registrationData'];
+  //       if (regData is Map) {
+  //         Map<String, dynamic> typedRegData = Map<String, dynamic>.from(regData);
+  //
+  //         if (typedRegData.containsKey('hotelName') &&
+  //             typedRegData['hotelName'].toString().isNotEmpty) {
+  //
+  //           print('Found hotel in registrationData');
+  //
+  //           String hotelCategory = typedRegData['hotelCategory']?.toString() ?? 'Normal';
+  //
+  //           _registeredHotels.add({
+  //             'id': _generateHotelId(typedRegData),
+  //             'name': typedRegData['hotelName'].toString(),
+  //             'category': hotelCategory,
+  //             'type': typedRegData['hotelType']?.toString() ?? 'Hotel',
+  //             'data': typedRegData,
+  //             'registrationDate': typedRegData['registeredAt']?.toString() ??
+  //                 DateTime.now().toIso8601String(),
+  //           });
+  //         }
+  //       }
+  //     }
+  //
+  //     print('Found ${_registeredHotels.length} registered hotels');
+  //
+  //     // Print each hotel for debugging
+  //     for (var i = 0; i < _registeredHotels.length; i++) {
+  //       print('Hotel $i: ${_registeredHotels[i]['name']} (${_registeredHotels[i]['category']})');
+  //     }
+  //
+  //   } catch (e) {
+  //     print('Error extracting hotels: $e');
+  //   } finally {
+  //     setState(() => _isLoading = false);
+  //   }
+  // }
+  void _extractHotels() {
+    setState(() => _isLoading = true);
+
+    try {
+      print('=== EXTRACTING HOTELS ===');
+      print('User data keys: ${widget.userData.keys.toList()}');
+
+      _registeredHotels.clear();
+
+      // Check for hotels list (multiple hotels)
+      if (widget.userData.containsKey('hotels') &&
+          widget.userData['hotels'] is List) {
+
+        List<dynamic> hotelsList = widget.userData['hotels'] as List;
+        print('Found hotels list with ${hotelsList.length} hotels');
+
+        for (var hotel in hotelsList) {
+          if (hotel is Map) {
+            Map<String, dynamic> hotelMap = Map<String, dynamic>.from(hotel);
+
+            String hotelName = hotelMap['hotelName']?.toString() ??
+                hotelMap['businessName']?.toString() ??
+                'Unknown Hotel';
+
+            String hotelCategory = hotelMap['hotelCategory']?.toString() ??
+                hotelMap['hotelType']?.toString() ??
+                'Normal Hotel';
+
+            print('Adding hotel: $hotelName ($hotelCategory)');
+
+            _registeredHotels.add({
+              'id': hotelMap['id'] ?? 'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
+              'name': hotelName,
+              'category': hotelCategory,
+              'type': hotelMap['hotelType']?.toString() ?? 'Hotel',
+              'data': hotelMap,
+              'registrationDate': hotelMap['registeredAt']?.toString() ??
+                  DateTime.now().toIso8601String(),
+            });
+          }
+        }
+      }
+
+      // If no hotels list, check for single hotel data
+      if (_registeredHotels.isEmpty) {
+        if (widget.userData.containsKey('hotelName') &&
+            widget.userData['hotelName'] != null &&
+            widget.userData['hotelName'].toString().isNotEmpty) {
+
+          print('Found single hotel with name: ${widget.userData['hotelName']}');
+
+          String hotelCategory = widget.userData['hotelCategory']?.toString() ??
+              widget.userData['hotelType']?.toString() ??
+              'Normal Hotel';
+
+          _registeredHotels.add({
+            'id': widget.userData['id'] ?? 'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
+            'name': widget.userData['hotelName'].toString(),
+            'category': hotelCategory,
+            'type': widget.userData['hotelType']?.toString() ?? 'Hotel',
+            'data': Map<String, dynamic>.from(widget.userData),
+            'registrationDate': widget.userData['registeredAt']?.toString() ??
+                DateTime.now().toIso8601String(),
+          });
+        }
+      }
+
+      print('Total hotels extracted: ${_registeredHotels.length}');
+
+    } catch (e) {
+      print('Error extracting hotels: $e');
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+  String _generateHotelId(Map<String, dynamic> hotelData) {
+    final name = hotelData['hotelName']?.toString() ?? 'HTL';
+    final prefix = name.length >= 3 ? name.substring(0, 3).toUpperCase() : name.toUpperCase();
+    final timestamp = DateTime.now().millisecondsSinceEpoch.toString().substring(8);
+    return '$prefix-$timestamp';
+  }
+
+
+
+  Color _getCategoryColor(String category) {
+    switch(category) {
+      case '2-Star':
+        return const Color(0xFF6B8E23);
+      case '3-Star':
+        return const Color(0xFFDAA520);
+      case '4-Star':
+        return const Color(0xFF4F46E5);
+      case '5-Star':
+        return const Color(0xFFFB717D);
+      case '6-Star Ultra-Luxury':
+        return const Color(0xFFD4AF37);
+      default:
+        return primaryColor;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('HotelListScreen building with ${_registeredHotels.length} hotels');
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9FAFB),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(Icons.arrow_back, color: Color(0xFF1F2937), size: 20),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'My Hotels',
+          style: TextStyle(
+            color: Color(0xFF1F2937),
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          // New Register Button inside Hotel List
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WelcomeScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.add, size: 18),
+              label: const Text('New Register'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _registeredHotels.isEmpty
+          ? _buildEmptyState()
+          : ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: _registeredHotels.length,
+        itemBuilder: (context, index) {
+          final hotel = _registeredHotels[index];
+          return _buildHotelCard(hotel);
+        },
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              color: primaryColor.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.hotel,
+              size: 50,
+              color: primaryColor.withOpacity(0.5),
+            ),
+          ),
+          const SizedBox(height: 24),
+          const Text(
+            'No Hotels Registered',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF1F2937),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Register your first hotel to get started',
+            style: TextStyle(
+              fontSize: 14,
+              color: lightText,
+            ),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WelcomeScreen(),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: primaryColor,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: const Text('Register Hotel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHotelCard(Map<String, dynamic> hotel) {
+    final category = hotel['category'] as String;
+    final categoryColor = _getCategoryColor(category);
+
+    return GestureDetector(
+      // onTap: () {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => HotelRegistrationDetailsScreen(
+      //         registrationData: hotel['data'],
+      //       ),
+      //     ),
+      //   );
+      // },
+      onTap: () {
+
+        if (category == '2-Star') {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => TwoStarHotelDetailsScreen(
+          //       registrationData: hotel['data'],
+          //     ),
+          //   ),
+          // );
+        } else if (category == '3-Star') {
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => ThreeStarHotelDetailsScreen(
+          //       registrationData: hotel['data'],
+          //     ),
+          //   ),
+          // );
+        } else {
+          // For Normal hotel, use the existing details screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HotelRegistrationDetailsScreen(
+                registrationData: hotel['data'],
+              ),
+            ),
+          );
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Hotel Icon with Category Color
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [categoryColor, categoryColor.withOpacity(0.7)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Center(
+                child: Icon(
+                  Icons.hotel,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            // Hotel Details
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          hotel['name'],
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF1F2937),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: categoryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(color: categoryColor.withOpacity(0.3)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (category.contains('Star'))
+                              ...List.generate(
+                                _getStarCount(category),
+                                    (index) => Icon(Icons.star, size: 10, color: categoryColor),
+                              ),
+                            if (!category.contains('Star'))
+                              Text(
+                                category,
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w600,
+                                  color: categoryColor,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    hotel['type'],
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: lightText,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          'ID: ${hotel['id']}',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: lightText,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(Icons.calendar_today, size: 12, color: lightText),
+                      const SizedBox(width: 4),
+                      Text(
+                        _formatDate(hotel['registrationDate']),
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: lightText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            // Arrow Icon
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: categoryColor.withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_forward_rounded,
+                color: categoryColor,
+                size: 20,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  int _getStarCount(String category) {
+    if (category.contains('2')) return 2;
+    if (category.contains('3')) return 3;
+    if (category.contains('4')) return 4;
+    if (category.contains('5')) return 5;
+    if (category.contains('6')) return 6;
+    return 0;
+  }
+
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return dateString;
+    }
+  }
+}
+
+
+
+
+class PropertiesScreen extends StatefulWidget {
+  final Map<String, dynamic> userData;
+  final String userEmail;
+
+  const PropertiesScreen({
+    Key? key,
+    required this.userData,
+    required this.userEmail,
+  }) : super(key: key);
+
+  @override
+  State<PropertiesScreen> createState() => _PropertiesScreenState();
+}
+
+
+
+class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerProviderStateMixin {
+  Map<String, dynamic> _userData = {};
+  Map<String, bool> _registeredProperties = {};
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+
+  final Color primaryRed = const Color(0xFFFF5F6D);
+  final Color primaryOrange = const Color(0xFFFFC371);
+  final Color lightText = const Color(0xFF6B7280);
+  final Color bgColor = const Color(0xFFF8FAFF);
+
+
+  @override
+  void initState() {
+    super.initState();
+    print('PropertiesScreen initState - received userData keys: ${widget.userData.keys.toList()}');
+    print('PropertiesScreen initState - propertyType: ${widget.userData['propertyType']}');
+
+    // Create a deep copy of the data
+    _userData = Map<String, dynamic>.from(widget.userData);
+
+    // FORCE propertyType to be set if hotel data exists
+    if (_userData.containsKey('hotelName') &&
+        _userData['hotelName'] != null &&
+        _userData['hotelName'].toString().isNotEmpty) {
+      _userData['propertyType'] = 'hotel';
+      print('Forced propertyType to hotel based on hotelName');
+    }
+
+    _checkRegisteredProperties();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeIn,
+      ),
+    );
+
+    _animationController.forward();
+  }
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+
+  // void _checkRegisteredProperties() {
+  //   print('=== CHECKING REGISTERED PROPERTIES IN PropertiesScreen ===');
+  //   print('User data keys: ${_userData.keys.toList()}');
+  //   print('propertyType value: ${_userData['propertyType']}');
+  //
+  //   bool isHotelRegistered = false;
+  //   bool isVillaRegistered = false;
+  //   bool isApartmentRegistered = false;
+  //   bool isResortRegistered = false;
+  //
+  //   // CRITICAL: First check propertyType - this should be the PRIMARY indicator
+  //   if (_userData.containsKey('propertyType') && _userData['propertyType'] != null) {
+  //     String propertyType = _userData['propertyType'].toString().toLowerCase();
+  //     print('Found propertyType: "$propertyType"');
+  //
+  //     if (propertyType == 'hotel') {
+  //       isHotelRegistered = true;
+  //       print('Setting isHotelRegistered = true based on propertyType');
+  //     } else if (propertyType == 'villa') {
+  //       isVillaRegistered = true;
+  //     } else if (propertyType == 'apartment') {
+  //       isApartmentRegistered = true;
+  //     } else if (propertyType == 'resort') {
+  //       isResortRegistered = true;
+  //     }
+  //   }
+  //
+  //   // Check for hotel registration - ONLY set hotel to true
+  //   if (_userData.containsKey('hotelName') &&
+  //       _userData['hotelName'] != null &&
+  //       _userData['hotelName'].toString().isNotEmpty) {
+  //     isHotelRegistered = true;
+  //     print('Found hotelName: ${_userData['hotelName']}');
+  //   }
+  //
+  //   if (_userData.containsKey('hotels') &&
+  //       _userData['hotels'] is List &&
+  //       (_userData['hotels'] as List).isNotEmpty) {
+  //     isHotelRegistered = true;
+  //     print('Found hotels list with ${(_userData['hotels'] as List).length} hotels');
+  //   }
+  //
+  //   // Check for hotel-specific fields
+  //   if (_userData.containsKey('totalRooms') ||
+  //       _userData.containsKey('roomDetails') ||
+  //       _userData.containsKey('selectedRoomTypes')) {
+  //     isHotelRegistered = true;
+  //     print('Found hotel-specific fields');
+  //   }
+  //
+  //   // DO NOT check for other property types unless propertyType indicates them
+  //   // Only check for villa if propertyType is villa
+  //   if (_userData['propertyType']?.toString().toLowerCase() == 'villa') {
+  //     isVillaRegistered = true;
+  //   }
+  //
+  //   // Only check for apartment if propertyType is apartment
+  //   if (_userData['propertyType']?.toString().toLowerCase() == 'apartment') {
+  //     isApartmentRegistered = true;
+  //   }
+  //
+  //   // Only check for resort if propertyType is resort
+  //   if (_userData['propertyType']?.toString().toLowerCase() == 'resort') {
+  //     isResortRegistered = true;
+  //   }
+  //
+  //   setState(() {
+  //     _registeredProperties = {
+  //       'hotel': isHotelRegistered,
+  //       'villa': isVillaRegistered,
+  //       'apartment': isApartmentRegistered,
+  //       'resort': isResortRegistered,
+  //     };
+  //   });
+  //
+  //   print('PropertiesScreen registered properties result: $_registeredProperties');
+  // }
+
+  void _checkRegisteredProperties() {
+    print('=== CHECKING REGISTERED PROPERTIES IN PropertiesScreen ===');
+    print('User data keys: ${_userData.keys.toList()}');
+    print('propertyType value: ${_userData['propertyType']}');
+
+    bool isHotelRegistered = false;
+    bool isVillaRegistered = false;
+    bool isApartmentRegistered = false;
+    bool isResortRegistered = false;
+
+    // CRITICAL FIX: Only mark hotel as registered if there's ACTUAL hotel data
+    // Check for hotel registration data - not just propertyType
+
+    // Check if there's actual hotel data in the user object
+    if (_userData.containsKey('hotelName') &&
+        _userData['hotelName'] != null &&
+        _userData['hotelName'].toString().isNotEmpty) {
+      isHotelRegistered = true;
+      print('Found hotelName: ${_userData['hotelName']}');
+    }
+
+    if (_userData.containsKey('hotels') &&
+        _userData['hotels'] is List &&
+        (_userData['hotels'] as List).isNotEmpty) {
+      isHotelRegistered = true;
+      print('Found hotels list with ${(_userData['hotels'] as List).length} hotels');
+    }
+
+    // Check for hotel-specific fields
+    if (_userData.containsKey('totalRooms') ||
+        _userData.containsKey('roomDetails') ||
+        _userData.containsKey('selectedRoomTypes') ||
+        _userData.containsKey('basicAmenities')) {
+      isHotelRegistered = true;
+      print('Found hotel-specific fields');
+    }
+
+    // Check registrationData if it exists
+    if (_userData.containsKey('registrationData') &&
+        _userData['registrationData'] != null) {
+      final regData = _userData['registrationData'] as Map;
+      if (regData.containsKey('hotelName') &&
+          regData['hotelName']?.toString().isNotEmpty == true) {
+        isHotelRegistered = true;
+        print('Found hotel in registrationData');
+      }
+    }
+
+    // DO NOT use propertyType alone to determine registration
+    // Only use propertyType if there's also corresponding data
+    if (_userData.containsKey('propertyType') &&
+        _userData['propertyType'] != null) {
+      String propertyType = _userData['propertyType'].toString().toLowerCase();
+
+      // Only trust propertyType if there's actual data to back it up
+      if (propertyType == 'hotel' && isHotelRegistered) {
+        print('propertyType matches hotel data');
+      } else if (propertyType == 'hotel' && !isHotelRegistered) {
+        // This is the bug - propertyType says hotel but no data
+        print('WARNING: propertyType is hotel but no hotel data found - ignoring');
+        // Do NOT set isHotelRegistered based on propertyType alone
+      }
+    }
+
+    setState(() {
+      _registeredProperties = {
+        'hotel': isHotelRegistered,
+        'villa': isVillaRegistered,
+        'apartment': isApartmentRegistered,
+        'resort': isResortRegistered,
+      };
+    });
+
+    print('PropertiesScreen registered properties result: $_registeredProperties');
+  }
+  void _navigateToPropertyDetails(String propertyType) {
+    if (!_registeredProperties[propertyType]!) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('You have not registered for $propertyType yet'),
+          backgroundColor: Colors.orange,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    // For hotel, navigate to the list screen
+    if (propertyType == 'hotel') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HotelListScreen(
+            userData: _userData,
+            userEmail: widget.userEmail,
+          ),
+        ),
+      );
+      return;
+    }
+
+    // For other property types, extract the data
+    Map<String, dynamic> propertyData = {};
+
+    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+      propertyData = Map<String, dynamic>.from(_userData['registrationData']);
+    } else {
+      propertyData = Map<String, dynamic>.from(_userData);
+    }
+
+    Widget screen;
+    switch (propertyType) {
+      case 'villa':
+        screen = VillaRegistrationDetailsScreen(registrationData: propertyData);
+        break;
+      case 'apartment':
+        screen = ApartmentRegistrationDetailsScreen(registrationData: propertyData);
+        break;
+      case 'resort':
+        screen = ResortRegistrationDetailsScreen(registrationData: propertyData);
+        break;
+      default:
+        return;
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => screen),
+    );
+  }
+
+  int _getRegisteredCount() {
+    return _registeredProperties.values.where((value) => value).length;
+  }
+
+  String _getUserFullName() {
+    print('Getting full name from: ${_userData.keys}');
+
+    if (_userData.containsKey('fullName') &&
+        _userData['fullName'] != null &&
+        _userData['fullName'].toString().isNotEmpty) {
+      return _userData['fullName'].toString();
+    }
+    if (_userData.containsKey('ownerName') &&
+        _userData['ownerName'] != null &&
+        _userData['ownerName'].toString().isNotEmpty) {
+      return _userData['ownerName'].toString();
+    }
+    if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+      final basicInfo = _userData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerName') &&
+          basicInfo['ownerName'].toString().isNotEmpty) {
+        return basicInfo['ownerName'].toString();
+      }
+    }
+    return 'User';
+  }
+
+  String _getUserEmail() {
+    print('Getting email from: ${_userData.keys}');
+
+    if (_userData.containsKey('email') &&
+        _userData['email'] != null &&
+        _userData['email'].toString().isNotEmpty) {
+      return _userData['email'].toString();
+    }
+    if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+      final basicInfo = _userData['basicInfo'] as Map;
+      if (basicInfo.containsKey('email') &&
+          basicInfo['email'].toString().isNotEmpty) {
+        return basicInfo['email'].toString();
+      }
+    }
+    return widget.userEmail;
+  }
+
+  String _getUserPhone() {
+    print('Getting phone from: ${_userData.keys}');
+
+    if (_userData.containsKey('phone') &&
+        _userData['phone'] != null &&
+        _userData['phone'].toString().isNotEmpty) {
+      return _userData['phone'].toString();
+    }
+    if (_userData.containsKey('mobileNumber') &&
+        _userData['mobileNumber'] != null &&
+        _userData['mobileNumber'].toString().isNotEmpty) {
+      return _userData['mobileNumber'].toString();
+    }
+    if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+      final basicInfo = _userData['basicInfo'] as Map;
+      if (basicInfo.containsKey('mobile') &&
+          basicInfo['mobile'].toString().isNotEmpty) {
+        return basicInfo['mobile'].toString();
+      }
+    }
+    return 'Not provided';
+  }
+
+  String _getRegisteredPropertyType() {
+    if (_userData.containsKey('propertyType') &&
+        _userData['propertyType'] != null) {
+      return _userData['propertyType'].toString();
+    }
+    if (_userData.containsKey('hotelName')) return 'hotel';
+    if (_userData.containsKey('villaName')) return 'villa';
+    if (_userData.containsKey('apartmentName')) return 'apartment';
+    if (_userData.containsKey('resortName')) return 'resort';
+    if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+      final basicInfo = _userData['basicInfo'] as Map;
+      if (basicInfo.containsKey('hotelName')) return 'hotel';
+      if (basicInfo.containsKey('villaName')) return 'villa';
+      if (basicInfo.containsKey('apartmentName')) return 'apartment';
+      if (basicInfo.containsKey('resortName')) return 'resort';
+    }
+    return 'none';
+  }
+
+  String _getBusinessName() {
+    if (_userData.containsKey('businessName') &&
+        _userData['businessName'] != null &&
+        _userData['businessName'].toString().isNotEmpty) {
+      return _userData['businessName'].toString();
+    }
+    if (_userData.containsKey('hotelName') &&
+        _userData['hotelName'] != null &&
+        _userData['hotelName'].toString().isNotEmpty) {
+      return _userData['hotelName'].toString();
+    }
+    if (_userData.containsKey('villaName') &&
+        _userData['villaName'] != null &&
+        _userData['villaName'].toString().isNotEmpty) {
+      return _userData['villaName'].toString();
+    }
+    if (_userData.containsKey('apartmentName') &&
+        _userData['apartmentName'] != null &&
+        _userData['apartmentName'].toString().isNotEmpty) {
+      return _userData['apartmentName'].toString();
+    }
+    if (_userData.containsKey('resortName') &&
+        _userData['resortName'] != null &&
+        _userData['resortName'].toString().isNotEmpty) {
+      return _userData['resortName'].toString();
+    }
+    return 'Not specified';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: bgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 2,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF1F2937)),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'My Profile',
+          style: TextStyle(
+            color: Color(0xFF1F2937),
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: primaryRed.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  '${_getRegisteredCount()}/4',
+                  style: TextStyle(
+                    color: primaryRed,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: FadeTransition(
+        opacity: _fadeAnimation,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Profile Details Card
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    // Profile Header
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+                              ),
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: const Center(
+                              child: Icon(
+                                Icons.person,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _getUserFullName(),
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF1F2937),
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  _getUserEmail(),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0xFF6B7280),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Personal Details Summary
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                      child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF9FAFB),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Personal Details',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF374151),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildDetailItem(
+                                    icon: Icons.phone,
+                                    label: 'Phone',
+                                    value: _getUserPhone(),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: _buildDetailItem(
+                                    icon: Icons.email,
+                                    label: 'Email',
+                                    value: _getUserEmail(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            if (_getRegisteredPropertyType() != 'none')
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8),
+                                child: _buildDetailItem(
+                                  icon: Icons.business,
+                                  label: 'Registered As',
+                                  value: _getRegisteredPropertyType().toUpperCase(),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 24),
+
+              // Section Header
+              Row(
+                children: [
+                  Container(
+                    width: 4,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  const Text(
+                    'Available Properties',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF1F2937),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 8),
+
+              const Text(
+                'Select a property to view details',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF6B7280),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // 4 Property Boxes Grid
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 1.1,
+                children: [
+                  _buildPropertyBox(
+                    propertyType: 'Hotel',
+                    icon: Icons.hotel,
+                    color: Colors.blue,
+                    isRegistered: _registeredProperties['hotel'] ?? false,
+                  ),
+                  _buildPropertyBox(
+                    propertyType: 'Villa',
+                    icon: Icons.villa,
+                    color: Colors.green,
+                    isRegistered: _registeredProperties['villa'] ?? false,
+                  ),
+                  _buildPropertyBox(
+                    propertyType: 'Apartment',
+                    icon: Icons.apartment,
+                    color: Colors.orange,
+                    isRegistered: _registeredProperties['apartment'] ?? false,
+                  ),
+                  _buildPropertyBox(
+                    propertyType: 'Resort',
+                    icon: Icons.beach_access,
+                    color: Colors.purple,
+                    isRegistered: _registeredProperties['resort'] ?? false,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailItem({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: const Color(0xFF6B7280)),
+        const SizedBox(width: 4),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 10,
+                  color: Color(0xFF6B7280),
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF1F2937),
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPropertyBox({
+    required String propertyType,
+    required IconData icon,
+    required Color color,
+    required bool isRegistered,
+  }) {
+    return GestureDetector(
+      onTap: isRegistered ? () => _navigateToPropertyDetails(propertyType.toLowerCase()) : null,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.white,
+              isRegistered ? color.withOpacity(0.05) : Colors.grey.shade50,
+            ],
+          ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: isRegistered ? color.withOpacity(0.3) : Colors.grey.shade300,
+            width: isRegistered ? 2 : 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: isRegistered ? color.withOpacity(0.1) : Colors.grey.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            // Background Pattern
+            Positioned(
+              bottom: -10,
+              right: -10,
+              child: Opacity(
+                opacity: 0.1,
+                child: Icon(
+                  icon,
+                  size: 80,
+                  color: isRegistered ? color : Colors.grey,
+                ),
+              ),
+            ),
+
+            // Content
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Icon
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: isRegistered ? color.withOpacity(0.1) : Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Icon(
+                      icon,
+                      color: isRegistered ? color : Colors.grey.shade500,
+                      size: 28,
+                    ),
+                  ),
+
+                  // Text
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        propertyType,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: isRegistered ? color : Colors.grey.shade500,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: isRegistered ? color.withOpacity(0.1) : Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              isRegistered ? Icons.check_circle : Icons.lock_outline,
+                              size: 12,
+                              color: isRegistered ? color : Colors.grey.shade500,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              isRegistered ? 'Registered' : 'Not Registered',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: isRegistered ? color : Colors.grey.shade500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 
