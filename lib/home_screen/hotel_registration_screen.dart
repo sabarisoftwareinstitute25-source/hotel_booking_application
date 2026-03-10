@@ -1497,7 +1497,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     );
   }
 
-  Widget _buildStep5() {
+  Widget _buildStep5(){
     return Column(
       children: [
         _buildCard(
@@ -3377,16 +3377,26 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       'registeredAt': DateTime.now().toIso8601String(),
     };
 
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => RegistrationSummaryScreen(
+    //       registrationData: hotelData,
+    //       hotelCategory: 'Normal',
+    //       declarationAccepted: _declarationAccepted,
+    //     ),
+    //   ),
+    // );
+
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
-          registrationData: hotelData,
-          hotelCategory: 'Normal',
-          declarationAccepted: _declarationAccepted,
-        ),
-      ),
-    );
+  context,
+  MaterialPageRoute(
+    builder: (context) => NormalHotelSummaryScreen(
+      registrationData: hotelData,
+      declarationAccepted: _declarationAccepted,
+    ),
+  ),
+);
   }
 
 
@@ -3930,6 +3940,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     if (personPhoto != null && personPhoto['uploaded'] == true) {
       children.add(_buildPhotoInfo('Profile Photo', personPhoto));
     }
+
 
     return _buildSectionCard(
       title: 'Contact Information',
@@ -6181,6 +6192,6422 @@ class RegistrationSummaryScreen extends StatelessWidget {
 }
 
 
+class NormalHotelSummaryScreen extends StatelessWidget {
+  final Map<String, dynamic> registrationData;
+  final bool declarationAccepted;
+
+   NormalHotelSummaryScreen({
+    super.key,
+    required this.registrationData,
+    this.declarationAccepted = false,
+  });
+
+  // Helper method to safely get values
+  dynamic _get(String key, [dynamic defaultValue]) {
+    return registrationData[key] ?? defaultValue;
+  }
+
+  // Color scheme for Normal hotels
+  final Color _primaryColor = const Color(0xFFFF5F6D);
+  final Color _primaryLight =  Color(0xFFFF5F6D).withOpacity(0.1);
+  final Color _bgColor = const Color(0xFFFAFAFA);
+  final Color _cardColor = Colors.white;
+  final Color _borderColor = const Color(0xFFE5E7EB);
+  final Color _textDark = const Color(0xFF111827);
+  final Color _textLight = const Color(0xFF6B7280);
+  final Color _successColor = const Color(0xFF10B981);
+  final Color _dangerColor = const Color(0xFFEF4444);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: _bgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: _textDark),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          'Hotel Registration Summary',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: _textDark,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: _primaryColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                const Text(
+                  'Standard Hotel',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            _buildSuccessHeader(),
+            _buildHotelBasicInfo(),
+            _buildContactInfo(),
+            _buildAddressInfo(),
+            _buildRoomConfiguration(),
+            _buildAmenitiesSection(),
+            _buildLegalCompliance(),
+            _buildBankDetails(),
+            _buildDocumentsSection(),
+            _buildDeclarationSection(),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildFinishButton(context),
+    );
+  }
+
+  Widget _buildSuccessHeader() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: _primaryColor.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Registration Submitted Successfully!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHotelBasicInfo() {
+    return _buildSectionCard(
+      title: 'Hotel Information',
+      icon: Icons.business,
+      children: [
+        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
+        _infoRow('Hotel Category', 'Standard Hotel'),
+        if (_get('hotelType') != null)
+          _infoRow('Hotel Type', _get('hotelType')),
+
+        // Year of Establishment as integer
+        if (_get('yearOfEstablishment') != null &&
+            _get('yearOfEstablishment').toString().isNotEmpty)
+          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
+
+        // Total Rooms as integer
+        if (_get('totalRooms') != null &&
+            _get('totalRooms').toString().isNotEmpty)
+          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
+      ],
+    );
+  }
+
+  Widget _buildContactInfo() {
+    final List<Widget> children = [
+      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
+      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
+    ];
+
+    // Alternate Contact
+    if (_get('alternateContact') != null &&
+        _get('alternateContact').toString().isNotEmpty) {
+      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
+    }
+
+    // Landline Numbers
+    final landlineNumbers = _get('landlineNumbers', []);
+    if (landlineNumbers is List && landlineNumbers.isNotEmpty) {
+      children.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Landline Numbers', style: _labelStyle),
+            const SizedBox(height: 8),
+            ...landlineNumbers
+                .map(
+                  (number) => Container(
+                    margin: const EdgeInsets.only(bottom: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _borderColor),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.phone, size: 16, color: _textLight),
+                        const SizedBox(width: 8),
+                        Text(number.toString(), style: _valueStyle),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          ],
+        ),
+      );
+    }
+
+    // Email
+    if (_get('email') != null && _get('email').toString().isNotEmpty) {
+      children.add(_infoRow('Email', _get('email')));
+    }
+
+    // Website
+    if (_get('website') != null && _get('website').toString().isNotEmpty) {
+      children.add(_infoRow('Website', _get('website')));
+    }
+
+    // Profile Photo
+    final profilePhoto = _get('personPhotoInfo');
+    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
+      children.add(_buildProfilePhotoInfo(profilePhoto));
+    }
+
+    return _buildSectionCard(
+      title: 'Contact Information',
+      icon: Icons.contact_phone,
+      children: children,
+    );
+  }
+
+  Widget _buildAddressInfo() {
+    final List<Widget> children = [
+      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
+    ];
+
+    if (_get('addressLine2') != null &&
+        _get('addressLine2').toString().isNotEmpty) {
+      children.add(_infoRow('Address Line 2', _get('addressLine2')));
+    }
+
+    children.addAll([
+      _infoRow('City', _get('city', 'Not Provided')),
+      _infoRow('District', _get('district', 'Not Provided')),
+      _infoRow('State', _get('state', 'Not Provided')),
+      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
+    ]);
+
+    // Country
+    if (_get('country') != null && _get('country').toString().isNotEmpty) {
+      children.add(_infoRow('Country', _get('country')));
+    }
+
+    // Landmark
+    if (_get('landmark') != null && _get('landmark').toString().isNotEmpty) {
+      children.add(_infoRow('Landmark', _get('landmark')));
+    }
+
+    return _buildSectionCard(
+      title: 'Address Details',
+      icon: Icons.location_on,
+      children: children,
+    );
+  }
+
+  Widget _buildRoomConfiguration() {
+    final selectedRoomTypes = _get('selectedRoomTypes', {});
+    final roomDetails = _get('roomDetails', {});
+
+    // Check if any rooms are selected
+    bool hasRooms = false;
+    if (selectedRoomTypes is Map) {
+      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
+    }
+
+    if (!hasRooms) return const SizedBox.shrink();
+
+    final selectedTypes = (selectedRoomTypes as Map).entries
+        .where((entry) => entry.value == true)
+        .map((entry) => entry.key.toString())
+        .toList();
+
+    final List<Widget> children = [];
+
+    // Room Type Chips
+    children.add(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Room Types Available', style: _labelStyle),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: selectedTypes
+                .map(
+                  (type) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _primaryLight,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Text(
+                      type,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+
+    children.add(const SizedBox(height: 16));
+
+    // Room Details for each type
+    for (var roomType in selectedTypes) {
+      final details = roomDetails[roomType] ?? {};
+
+      children.add(
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _borderColor),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: _primaryLight,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    roomType,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Number of Rooms (integer)
+              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
+                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
+
+              // Max Occupancy (integer)
+              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
+                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
+
+              // AC/Non-AC
+              if (details['ac'] != null)
+                _detailRow(
+                  'AC/Non-AC',
+                  details['ac'] == true ? 'AC' : 'Non-AC',
+                ),
+
+              // Price per Night (double)
+              if (details['price'] != null && details['price'].toString().isNotEmpty)
+                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
+
+              // Extra Bed
+              if (details['extraBed'] != null)
+                _detailRow(
+                  'Extra Bed',
+                  details['extraBed'] == true ? 'Yes' : 'No',
+                ),
+
+              // Extra Bed Price (double)
+              if (details['extraBed'] == true &&
+                  details['extraBedPrice'] != null &&
+                  details['extraBedPrice'].toString().isNotEmpty)
+                _detailRow('Extra Bed Price', '₹${_formatPrice(details['extraBedPrice'])}'),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Overall pricing
+    final minTariff = _get('minTariff', '');
+    final maxTariff = _get('maxTariff', '');
+
+    if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _successColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _successColor.withOpacity(0.3)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Room Tariff Range',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: _textLight,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '₹${_formatPrice(minTariff)} - ₹${_formatPrice(maxTariff)}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: _successColor,
+                    ),
+                  ),
+                ],
+              ),
+              if (_get('extraBedAvailable') != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: _successColor),
+                  ),
+                  child: Text(
+                    _get('extraBedAvailable') == true
+                        ? 'Extra Bed Available'
+                        : 'No Extra Bed',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: _successColor,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Room Configuration',
+      icon: Icons.meeting_room,
+      children: children,
+    );
+  }
+
+  Widget _buildAmenitiesSection() {
+    final List<Widget> amenitySections = [];
+
+    // Basic Amenities
+    final basicAmenities = _getAmenities('basicAmenities');
+    if (basicAmenities != null && basicAmenities.entries.any((e) => e.value)) {
+      amenitySections.add(
+        _buildAmenityCategory('Basic Amenities', basicAmenities),
+      );
+    }
+
+    // Hotel Facilities
+    final hotelFacilities = _getAmenities('hotelFacilities');
+    if (hotelFacilities != null &&
+        hotelFacilities.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
+    }
+
+    // Food Services
+    final foodServices = _getAmenities('foodServices');
+    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
+    }
+
+    // Additional Amenities
+    final additionalAmenities = _getAmenities('additionalAmenities');
+    if (additionalAmenities != null &&
+        additionalAmenities.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Additional Amenities', additionalAmenities));
+    }
+
+    // Custom Amenities
+    final customAmenities = _get('customAmenities', []);
+    if (customAmenities is List && customAmenities.isNotEmpty) {
+      amenitySections.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Custom Amenities', style: _labelStyle),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: customAmenities
+                  .map(
+                    (amenity) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            _primaryColor,
+                            _primaryColor.withOpacity(0.8),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        amenity.toString(),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (amenitySections.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Amenities & Facilities',
+      icon: Icons.workspaces_filled,
+      children: amenitySections,
+    );
+  }
+
+  Widget _buildLegalCompliance() {
+    final List<Widget> children = [];
+
+    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
+      children.add(_infoRow('GST Number', _get('gstNumber')));
+    }
+
+    if (_get('fssaiLicense') != null &&
+        _get('fssaiLicense').toString().isNotEmpty) {
+      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
+    }
+
+    if (_get('tradeLicense') != null &&
+        _get('tradeLicense').toString().isNotEmpty) {
+      children.add(_infoRow('Trade License', _get('tradeLicense')));
+    }
+
+    if (_get('aadharNumber') != null &&
+        _get('aadharNumber').toString().isNotEmpty) {
+      children.add(_infoRow('Aadhaar Number', _get('aadharNumber')));
+    }
+
+    if (_get('panNumber') != null &&
+        _get('panNumber').toString().isNotEmpty) {
+      children.add(_infoRow('PAN Number', _get('panNumber')));
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Legal & Compliance',
+      icon: Icons.gavel,
+      children: children,
+    );
+  }
+
+  Widget _buildBankDetails() {
+    final List<Widget> children = [];
+
+    if (_get('accountHolderName') != null &&
+        _get('accountHolderName').toString().isNotEmpty) {
+      children.add(_infoRow('Account Holder', _get('accountHolderName')));
+    }
+
+    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
+      children.add(_infoRow('Bank Name', _get('bankName')));
+    }
+
+    if (_get('accountNumber') != null &&
+        _get('accountNumber').toString().isNotEmpty) {
+      children.add(
+        _infoRow(
+          'Account Number',
+          _maskAccountNumber(_get('accountNumber').toString()),
+        ),
+      );
+    }
+
+    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
+      children.add(_infoRow('IFSC Code', _get('ifscCode')));
+    }
+
+    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
+      children.add(_infoRow('Branch', _get('branch')));
+    }
+
+    // Account Type
+    if (_get('accountType') != null &&
+        _get('accountType').toString().isNotEmpty) {
+      String accountType = _get('accountType').toString();
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
+              Expanded(
+                flex: 6,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: accountType == 'Savings'
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: accountType == 'Savings'
+                          ? Colors.green.withOpacity(0.3)
+                          : Colors.blue.withOpacity(0.3),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        accountType == 'Savings'
+                            ? Icons.savings
+                            : Icons.account_balance,
+                        size: 14,
+                        color: accountType == 'Savings'
+                            ? Colors.green
+                            : Colors.blue,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        accountType,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: accountType == 'Savings'
+                              ? Colors.green[700]
+                              : Colors.blue[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Bank Details',
+      icon: Icons.account_balance,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentsSection() {
+    final uploadedFiles = _get('uploadedFiles', {});
+
+    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final uploadedDocs = uploadedFiles.entries
+        .where((entry) => entry.value['uploaded'] == true)
+        .toList();
+
+    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
+
+    final List<Widget> children = [];
+
+    for (var entry in uploadedDocs) {
+      children.add(_buildDocumentItem(entry.key, entry.value));
+    }
+
+    // Digital Signature
+    if (_get('hasDigitalSignature') == true) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.purple.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.purple.withOpacity(0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.purple.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Digital Signature',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Saved successfully',
+                      style: TextStyle(fontSize: 12, color: _textLight),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.check_circle, size: 20, color: _successColor),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Uploaded Documents',
+      icon: Icons.folder,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
+    IconData getIcon() {
+      if (docName.contains('Signature')) return Icons.draw;
+      if (docName.contains('GST')) return Icons.receipt;
+      if (docName.contains('FSSAI')) return Icons.restaurant;
+      if (docName.contains('License')) return Icons.badge;
+      if (docName.contains('Cheque')) return Icons.account_balance;
+      if (docName.contains('Photos')) return Icons.photo_library;
+      if (docName.contains('Proof')) return Icons.perm_identity;
+      if (docName.contains('PAN')) return Icons.credit_card;
+      return Icons.description;
+    }
+
+    Color getColor() {
+      if (docName.contains('Signature')) return Colors.purple;
+      if (docName.contains('FSSAI')) return Colors.green;
+      if (docName.contains('GST')) return _primaryColor;
+      if (docName.contains('PAN')) return Colors.orange;
+      return _primaryColor;
+    }
+
+    final fileName = fileInfo['name']?.toString() ?? 'Document';
+    final fileSize = fileInfo['size'] ?? 0;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _borderColor),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: getColor().withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(getIcon(), size: 24, color: getColor()),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  docName,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _textDark,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  fileName,
+                  style: TextStyle(fontSize: 12, color: _textLight),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                  style: TextStyle(fontSize: 11, color: _textLight),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: _successColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.check_circle, size: 14, color: _successColor),
+                const SizedBox(width: 4),
+                Text(
+                  'Uploaded',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _successColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDeclarationSection() {
+    final List<Widget> children = [];
+
+    if (_get('declarationName') != null &&
+        _get('declarationName').toString().isNotEmpty) {
+      children.add(_infoRow('Name', _get('declarationName')));
+    }
+
+    final declarationDate = _get('declarationDate');
+    if (declarationDate != null) {
+      String dateStr = '';
+      if (declarationDate is DateTime) {
+        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
+      } else if (declarationDate is String) {
+        try {
+          DateTime parsedDate = DateTime.parse(declarationDate);
+          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
+        } catch (e) {
+          dateStr = declarationDate;
+        }
+      }
+      if (dateStr.isNotEmpty) {
+        children.add(_infoRow('Date', dateStr));
+      }
+    }
+
+    children.add(
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: _get('declarationAccepted', false) == true
+              ? _successColor.withOpacity(0.1)
+              : _dangerColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: _get('declarationAccepted', false) == true
+                ? _successColor.withOpacity(0.3)
+                : _dangerColor.withOpacity(0.3),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              _get('declarationAccepted', false) == true
+                  ? Icons.check_circle
+                  : Icons.error,
+              color: _get('declarationAccepted', false) == true
+                  ? _successColor
+                  : _dangerColor,
+              size: 24,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _get('declarationAccepted', false) == true
+                        ? 'Declaration Accepted'
+                        : 'Declaration Not Accepted',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: _get('declarationAccepted', false) == true
+                          ? _successColor
+                          : _dangerColor,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'I hereby declare that the information provided above is true and correct to the best of my knowledge.',
+                    style: TextStyle(fontSize: 12, color: _textLight),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return _buildSectionCard(
+      title: 'Declaration',
+      icon: Icons.verified_user,
+      children: children,
+    );
+  }
+
+  Widget _buildFinishButton(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: _borderColor)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () => _showSuccessDialogAndNavigate(context),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Finish',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.check_circle,
+                      size: 18,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessDialogAndNavigate(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registration Complete'),
+          content: const Text(
+            'Your hotel has been registered successfully!',
+          ),
+          actions: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  try {
+                    final prefs = await SharedPreferences.getInstance();
+                    final String usersJson = prefs.getString('registered_users') ?? '[]';
+                    final List<dynamic> usersList = jsonDecode(usersJson);
+
+                    List<Map<String, dynamic>> users = [];
+                    for (var user in usersList) {
+                      if (user is Map) {
+                        Map<String, dynamic> safeUserMap = {};
+                        user.forEach((key, value) {
+                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
+                        });
+                        users.add(safeUserMap);
+                      }
+                    }
+
+                    String userEmail = registrationData['email']?.toString() ?? '';
+
+                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
+
+                    int userIndex = -1;
+                    for (int i = 0; i < users.length; i++) {
+                      if (users[i]['email'] == userEmail) {
+                        userIndex = i;
+                        break;
+                      }
+                    }
+
+                    Map<String, dynamic> userData;
+
+                    if (userIndex >= 0) {
+                      userData = Map<String, dynamic>.from(users[userIndex]);
+
+                      if (!userData.containsKey('hotels')) {
+                        userData['hotels'] = [];
+                      }
+
+                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
+                      hotels.add(safeRegistrationData);
+                      userData['hotels'] = hotels;
+                      userData['propertyType'] = 'hotel';
+
+                      users[userIndex] = userData;
+                    } else {
+                      userData = {
+                        'email': userEmail,
+                        'fullName': registrationData['fullName']?.toString() ??
+                            registrationData['ownerName']?.toString() ?? '',
+                        'phone': registrationData['phone']?.toString() ??
+                            registrationData['mobileNumber']?.toString() ?? '',
+                        'propertyType': 'hotel',
+                        'hotels': [safeRegistrationData],
+                        'registeredAt': DateTime.now().toIso8601String(),
+                      };
+
+                      users.add(userData);
+                    }
+
+                    await prefs.setString('registered_users', jsonEncode(users));
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => OwnerDashboardScreen(
+                          userData: userData,
+                          userEmail: userEmail,
+                        ),
+                      ),
+                          (Route<dynamic> route) => false,
+                    );
+                  } catch (e) {
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error: ${e.toString()}'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Go to Dashboard',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // ==================== HELPER METHODS ====================
+
+  Map<String, bool>? _getAmenities(String key) {
+    final value = _get(key);
+    if (value is Map) {
+      return Map<String, bool>.from(
+        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
+      );
+    }
+    return null;
+  }
+
+  String _formatPrice(dynamic price) {
+    if (price == null) return '0';
+    if (price is double) {
+      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
+    }
+    if (price is int) {
+      return price.toString();
+    }
+    if (price is String) {
+      if (price.isEmpty) return '0';
+      double? parsed = double.tryParse(price);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+      }
+    }
+    return price.toString();
+  }
+
+  String _formatInteger(dynamic value) {
+    if (value == null) return '0';
+    if (value is int) {
+      return value.toString();
+    }
+    if (value is double) {
+      return value.toInt().toString();
+    }
+    if (value is String) {
+      if (value.isEmpty) return '0';
+      int? parsed = int.tryParse(value);
+      if (parsed != null) {
+        return parsed.toString();
+      }
+      double? parsedDouble = double.tryParse(value);
+      if (parsedDouble != null) {
+        return parsedDouble.toInt().toString();
+      }
+    }
+    return value.toString();
+  }
+
+  String _maskAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) return accountNumber;
+    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  }
+
+  dynamic _convertToJsonSafe(dynamic obj) {
+    if (obj == null) return null;
+    if (obj is DateTime) {
+      return obj.toIso8601String();
+    }
+    if (obj is Uint8List) {
+      return base64Encode(obj);
+    }
+    if (obj is Map) {
+      Map<String, dynamic> result = {};
+      obj.forEach((key, value) {
+        result[key.toString()] = _convertToJsonSafe(value);
+      });
+      return result;
+    }
+    if (obj is List) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is Set) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is String || obj is num || obj is bool) {
+      return obj;
+    }
+    try {
+      return obj.toString();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Widget _buildSectionCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _primaryLight,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, size: 20, color: _primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: _textDark,
+                ),
+              ),
+            ],
+          ),
+          Divider(height: 24, color: _borderColor),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
+    final selectedAmenities = amenities.entries
+        .where((e) => e.value)
+        .map((e) => e.key)
+        .toList();
+
+    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: _subSectionStyle),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: selectedAmenities
+              .map(
+                (amenity) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _primaryLight,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: _primaryColor.withOpacity(0.2)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.check_circle, size: 14, color: _primaryColor),
+                      const SizedBox(width: 6),
+                      Text(
+                        amenity,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: _primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _infoRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    if (displayValue.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
+          Expanded(
+            flex: 6,
+            child: Text(
+              displayValue,
+              style: _valueStyle,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _detailRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
+          Text(
+            displayValue,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: _textDark,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Profile Photo', style: _labelStyle),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: _borderColor),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: _primaryLight,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(Icons.person, size: 24, color: _primaryColor),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        photoInfo['name'] ?? 'Profile Photo',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: _textDark,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
+                        style: TextStyle(fontSize: 12, color: _textLight),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.check_circle, size: 20, color: _successColor),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle get _labelStyle =>
+      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
+
+  TextStyle get _valueStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+
+  TextStyle get _subSectionStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+}
+
+class TwoStarHotelSummaryScreen extends StatelessWidget {
+  final Map<String, dynamic> registrationData;
+  final bool declarationAccepted;
+
+   TwoStarHotelSummaryScreen({
+    super.key,
+    required this.registrationData,
+    this.declarationAccepted = false,
+  });
+
+  // Helper method to safely get values
+  dynamic _get(String key, [dynamic defaultValue]) {
+    return registrationData[key] ?? defaultValue;
+  }
+
+  // Color scheme for 2-Star hotels
+  final Color _primaryColor = const Color(0xFF6B8E23); // Olive Green
+  final Color _primaryLight =  Color(0xFF6B8E23).withOpacity(0.1);
+  final Color _bgColor = const Color(0xFFFAFAFA);
+  final Color _cardColor = Colors.white;
+  final Color _borderColor = const Color(0xFFE5E7EB);
+  final Color _textDark = const Color(0xFF111827);
+  final Color _textLight = const Color(0xFF6B7280);
+  final Color _successColor = const Color(0xFF10B981);
+  final Color _dangerColor = const Color(0xFFEF4444);
+  final Color _starColor = const Color(0xFFFFD700);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: _bgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: _textDark),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          '2-Star Hotel Registration Summary',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: _textDark,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: _primaryColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                ...List.generate(2, (index) =>
+                    Icon(Icons.star, size: 12, color: Colors.white)
+                ),
+                const SizedBox(width: 4),
+                const Text(
+                  '2-Star',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            _buildSuccessHeader(),
+            _buildHotelBasicInfo(),
+            _buildContactInfo(),
+            _buildAddressInfo(),
+            _buildRoomConfiguration(),
+            _buildAmenitiesSection(),
+            _buildPoliciesSection(),
+            _buildLegalCompliance(),
+            _buildBankDetails(),
+            _buildDocumentsSection(),
+            _buildDeclarationSection(),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildFinishButton(context),
+    );
+  }
+
+  Widget _buildSuccessHeader() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: _primaryColor.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Registration Submitted Successfully!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: List.generate(2, (index) =>
+                Icon(Icons.star, size: 16, color: _starColor)
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHotelBasicInfo() {
+    return _buildSectionCard(
+      title: 'Hotel Information',
+      icon: Icons.business,
+      children: [
+        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
+        _infoRow('Hotel Category', '2-Star Hotel'),
+        if (_get('hotelType') != null)
+          _infoRow('Hotel Type', _get('hotelType')),
+
+        // Year of Establishment as integer
+        if (_get('yearOfEstablishment') != null &&
+            _get('yearOfEstablishment').toString().isNotEmpty)
+          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
+
+        // Total Rooms as integer
+        if (_get('totalRooms') != null &&
+            _get('totalRooms').toString().isNotEmpty)
+          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
+
+        // Designation (2-Star specific)
+        if (_get('designation') != null &&
+            _get('designation').toString().isNotEmpty)
+          _infoRow('Designation', _get('designation')),
+      ],
+    );
+  }
+
+  Widget _buildContactInfo() {
+    final List<Widget> children = [
+      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
+      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
+    ];
+
+    // Alternate Contact
+    if (_get('alternateContact') != null &&
+        _get('alternateContact').toString().isNotEmpty) {
+      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
+    }
+
+    // Email
+    if (_get('email') != null && _get('email').toString().isNotEmpty) {
+      children.add(_infoRow('Email', _get('email')));
+    }
+
+    // Website
+    if (_get('website') != null && _get('website').toString().isNotEmpty) {
+      children.add(_infoRow('Website', _get('website')));
+    }
+
+    // Profile Photo
+    final profilePhoto = _get('profilePhoto');
+    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
+      children.add(_buildProfilePhotoInfo(profilePhoto));
+    }
+
+    return _buildSectionCard(
+      title: 'Contact Information',
+      icon: Icons.contact_phone,
+      children: children,
+    );
+  }
+
+  Widget _buildAddressInfo() {
+    final List<Widget> children = [
+      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
+    ];
+
+    if (_get('addressLine2') != null &&
+        _get('addressLine2').toString().isNotEmpty) {
+      children.add(_infoRow('Address Line 2', _get('addressLine2')));
+    }
+
+    children.addAll([
+      _infoRow('City', _get('city', 'Not Provided')),
+      _infoRow('District', _get('district', 'Not Provided')),
+      _infoRow('State', _get('state', 'Not Provided')),
+      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
+    ]);
+
+    // Country
+    if (_get('country') != null && _get('country').toString().isNotEmpty) {
+      children.add(_infoRow('Country', _get('country')));
+    }
+
+    // Additional Addresses
+    final additionalAddresses = _get('additionalAddresses', []);
+    if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
+      children.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Additional Addresses', style: _labelStyle),
+            const SizedBox(height: 8),
+            ...additionalAddresses.asMap().entries.map((entry) {
+              int index = entry.key + 1;
+              dynamic addr = entry.value;
+              String addressText = '';
+
+              if (addr is Map) {
+                addressText = addr['address']?.toString() ?? '';
+              } else if (addr is String) {
+                addressText = addr;
+              }
+
+              return Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: _borderColor),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: _primaryColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '$index',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: _primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        addressText.isNotEmpty
+                            ? addressText
+                            : 'Additional Address',
+                        style: _valueStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ],
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Address Details',
+      icon: Icons.location_on,
+      children: children,
+    );
+  }
+
+  Widget _buildRoomConfiguration() {
+    final selectedRoomTypes = _get('selectedRoomTypes', {});
+    final roomDetails = _get('roomDetails', {});
+
+    // Check if any rooms are selected
+    bool hasRooms = false;
+    if (selectedRoomTypes is Map) {
+      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
+    }
+
+    if (!hasRooms) return const SizedBox.shrink();
+
+    final selectedTypes = (selectedRoomTypes as Map).entries
+        .where((entry) => entry.value == true)
+        .map((entry) => entry.key.toString())
+        .toList();
+
+    final List<Widget> children = [];
+
+    // Room Type Chips
+    children.add(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Room Types Available', style: _labelStyle),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: selectedTypes
+                .map(
+                  (type) => Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: _primaryLight,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                ),
+                child: Text(
+                  type,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: _primaryColor,
+                  ),
+                ),
+              ),
+            )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+
+    children.add(const SizedBox(height: 16));
+
+    // Room Details for each type
+    for (var roomType in selectedTypes) {
+      final details = roomDetails[roomType] ?? {};
+
+      children.add(
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _borderColor),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: _primaryLight,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    roomType,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Number of Rooms (integer)
+              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
+                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
+
+              // Max Occupancy (integer)
+              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
+                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
+
+              // AC/Non-AC
+              if (details['ac'] != null)
+                _detailRow(
+                  'AC/Non-AC',
+                  details['ac'] == true ? 'AC' : 'Non-AC',
+                ),
+
+              // Price per Night (double)
+              if (details['price'] != null && details['price'].toString().isNotEmpty)
+                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Overall pricing
+    final minTariff = _get('minTariff', '');
+    final maxTariff = _get('maxTariff', '');
+
+    if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _successColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _successColor.withOpacity(0.3)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Room Tariff Range',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: _textLight,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '₹${_formatPrice(minTariff)} - ₹${_formatPrice(maxTariff)}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: _successColor,
+                    ),
+                  ),
+                ],
+              ),
+              if (_get('extraBedAvailable') != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: _successColor),
+                  ),
+                  child: Text(
+                    _get('extraBedAvailable') == true
+                        ? 'Extra Bed Available'
+                        : 'No Extra Bed',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: _successColor,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Room Configuration',
+      icon: Icons.meeting_room,
+      children: children,
+    );
+  }
+
+  Widget _buildAmenitiesSection() {
+    final List<Widget> amenitySections = [];
+
+    // Room Amenities
+    final roomAmenities = _getAmenities('roomAmenities');
+    if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
+      amenitySections.add(
+        _buildAmenityCategory('Room Amenities', roomAmenities),
+      );
+    }
+
+    // Hotel Facilities
+    final hotelFacilities = _getAmenities('hotelFacilities');
+    if (hotelFacilities != null &&
+        hotelFacilities.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
+    }
+
+    // Food Services
+    final foodServices = _getAmenities('foodServices');
+    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
+    }
+
+    // Guest Services
+    final guestServices = _getAmenities('guestServices');
+    if (guestServices != null && guestServices.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Guest Services', guestServices));
+    }
+
+    if (amenitySections.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Amenities & Facilities',
+      icon: Icons.workspaces_filled,
+      children: amenitySections,
+    );
+  }
+
+  Widget _buildPoliciesSection() {
+    final List<Widget> children = [];
+
+    // Check-in/Check-out times
+    final checkIn = _get('checkInTime', '');
+    final checkOut = _get('checkOutTime', '');
+
+    if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
+      children.add(
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Check-in Time', style: _labelStyle),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _borderColor),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time, size: 14, color: _primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          _formatTime(checkIn.toString()),
+                          style: _valueStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Check-out Time', style: _labelStyle),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _borderColor),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time, size: 14, color: _primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          _formatTime(checkOut.toString()),
+                          style: _valueStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Couple Friendly
+    if (_get('coupleFriendly') != null) {
+      children.add(
+        _infoRow(
+          'Couple Friendly',
+          _get('coupleFriendly') == true ? 'Yes' : 'No',
+        ),
+      );
+    }
+
+    // Pets Allowed
+    if (_get('petsAllowed') != null) {
+      children.add(
+        _infoRow('Pets Allowed', _get('petsAllowed') == true ? 'Yes' : 'No'),
+      );
+    }
+
+    // ID Proof Required
+    final idProof = _get('idProofRequired', '');
+    if (idProof.toString().isNotEmpty) {
+      children.add(_infoRow('ID Proof Required', idProof));
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Policies & Timings',
+      icon: Icons.policy,
+      children: children,
+    );
+  }
+
+  Widget _buildLegalCompliance() {
+    final List<Widget> children = [];
+
+    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
+      children.add(_infoRow('GST Number', _get('gstNumber')));
+    }
+
+    if (_get('tradeLicense') != null &&
+        _get('tradeLicense').toString().isNotEmpty) {
+      children.add(_infoRow('Trade License', _get('tradeLicense')));
+    }
+
+    if (_get('fssaiLicense') != null &&
+        _get('fssaiLicense').toString().isNotEmpty) {
+      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
+    }
+
+    if (_get('panNumber') != null &&
+        _get('panNumber').toString().isNotEmpty) {
+      children.add(_infoRow('PAN Number', _get('panNumber')));
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Legal & Compliance',
+      icon: Icons.gavel,
+      children: children,
+    );
+  }
+
+  Widget _buildBankDetails() {
+    final List<Widget> children = [];
+
+    if (_get('accountHolderName') != null &&
+        _get('accountHolderName').toString().isNotEmpty) {
+      children.add(_infoRow('Account Holder', _get('accountHolderName')));
+    }
+
+    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
+      children.add(_infoRow('Bank Name', _get('bankName')));
+    }
+
+    if (_get('accountNumber') != null &&
+        _get('accountNumber').toString().isNotEmpty) {
+      children.add(
+        _infoRow(
+          'Account Number',
+          _maskAccountNumber(_get('accountNumber').toString()),
+        ),
+      );
+    }
+
+    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
+      children.add(_infoRow('IFSC Code', _get('ifscCode')));
+    }
+
+    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
+      children.add(_infoRow('Branch', _get('branch')));
+    }
+
+    // Account Type
+    if (_get('accountType') != null &&
+        _get('accountType').toString().isNotEmpty) {
+      String accountType = _get('accountType').toString();
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
+              Expanded(
+                flex: 6,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: accountType == 'Savings'
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: accountType == 'Savings'
+                          ? Colors.green.withOpacity(0.3)
+                          : Colors.blue.withOpacity(0.3),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        accountType == 'Savings'
+                            ? Icons.savings
+                            : Icons.account_balance,
+                        size: 14,
+                        color: accountType == 'Savings'
+                            ? Colors.green
+                            : Colors.blue,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        accountType,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: accountType == 'Savings'
+                              ? Colors.green[700]
+                              : Colors.blue[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Bank Details',
+      icon: Icons.account_balance,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentsSection() {
+    final uploadedFiles = _get('uploadedFiles', {});
+
+    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final uploadedDocs = uploadedFiles.entries
+        .where((entry) => entry.value['uploaded'] == true)
+        .toList();
+
+    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
+
+    final List<Widget> children = [];
+
+    for (var entry in uploadedDocs) {
+      children.add(_buildDocumentItem(entry.key, entry.value));
+    }
+
+    // Digital Signature
+    if (_get('hasDigitalSignature') == true) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.purple.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.purple.withOpacity(0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.purple.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Digital Signature',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Saved successfully',
+                      style: TextStyle(fontSize: 12, color: _textLight),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.check_circle, size: 20, color: _successColor),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Uploaded Documents',
+      icon: Icons.folder,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
+    IconData getIcon() {
+      if (docName.contains('Signature')) return Icons.draw;
+      if (docName.contains('GST')) return Icons.receipt;
+      if (docName.contains('FSSAI')) return Icons.restaurant;
+      if (docName.contains('License')) return Icons.badge;
+      if (docName.contains('Cheque')) return Icons.account_balance;
+      if (docName.contains('Photos')) return Icons.photo_library;
+      if (docName.contains('Proof')) return Icons.perm_identity;
+      if (docName.contains('PAN')) return Icons.credit_card;
+      if (docName.contains('Registration')) return Icons.assignment;
+      return Icons.description;
+    }
+
+    Color getColor() {
+      if (docName.contains('Signature')) return Colors.purple;
+      if (docName.contains('FSSAI')) return Colors.green;
+      if (docName.contains('GST')) return _primaryColor;
+      if (docName.contains('PAN')) return Colors.orange;
+      return _primaryColor;
+    }
+
+    final fileName = fileInfo['name']?.toString() ?? 'Document';
+    final fileSize = fileInfo['size'] ?? 0;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _borderColor),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: getColor().withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(getIcon(), size: 24, color: getColor()),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  docName,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _textDark,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  fileName,
+                  style: TextStyle(fontSize: 12, color: _textLight),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                  style: TextStyle(fontSize: 11, color: _textLight),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: _successColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.check_circle, size: 14, color: _successColor),
+                const SizedBox(width: 4),
+                Text(
+                  'Uploaded',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _successColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDeclarationSection() {
+    final List<Widget> children = [];
+
+    if (_get('declarationName') != null &&
+        _get('declarationName').toString().isNotEmpty) {
+      children.add(_infoRow('Name', _get('declarationName')));
+    }
+
+    final declarationDate = _get('declarationDate');
+    if (declarationDate != null) {
+      String dateStr = '';
+      if (declarationDate is DateTime) {
+        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
+      } else if (declarationDate is String) {
+        try {
+          DateTime parsedDate = DateTime.parse(declarationDate);
+          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
+        } catch (e) {
+          dateStr = declarationDate;
+        }
+      }
+      if (dateStr.isNotEmpty) {
+        children.add(_infoRow('Date', dateStr));
+      }
+    }
+
+    children.add(
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: _get('declarationAccepted', false) == true
+              ? _successColor.withOpacity(0.1)
+              : _dangerColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: _get('declarationAccepted', false) == true
+                ? _successColor.withOpacity(0.3)
+                : _dangerColor.withOpacity(0.3),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              _get('declarationAccepted', false) == true
+                  ? Icons.check_circle
+                  : Icons.error,
+              color: _get('declarationAccepted', false) == true
+                  ? _successColor
+                  : _dangerColor,
+              size: 24,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _get('declarationAccepted', false) == true
+                        ? 'Declaration Accepted'
+                        : 'Declaration Not Accepted',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: _get('declarationAccepted', false) == true
+                          ? _successColor
+                          : _dangerColor,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  const Text(
+                    'I hereby confirm that all the information provided above is true and accurate.',
+                    style: TextStyle(fontSize: 12),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return _buildSectionCard(
+      title: 'Declaration',
+      icon: Icons.verified_user,
+      children: children,
+    );
+  }
+
+  Widget _buildFinishButton(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: _borderColor)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () => _showSuccessDialogAndNavigate(context),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Finish',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.check_circle,
+                      size: 18,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessDialogAndNavigate(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registration Complete'),
+          content: const Text(
+            'Your 2-Star hotel has been registered successfully!',
+          ),
+          actions: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  try {
+                    final prefs = await SharedPreferences.getInstance();
+                    final String usersJson = prefs.getString('registered_users') ?? '[]';
+                    final List<dynamic> usersList = jsonDecode(usersJson);
+
+                    List<Map<String, dynamic>> users = [];
+                    for (var user in usersList) {
+                      if (user is Map) {
+                        Map<String, dynamic> safeUserMap = {};
+                        user.forEach((key, value) {
+                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
+                        });
+                        users.add(safeUserMap);
+                      }
+                    }
+
+                    String userEmail = registrationData['email']?.toString() ?? '';
+
+                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
+
+                    int userIndex = -1;
+                    for (int i = 0; i < users.length; i++) {
+                      if (users[i]['email'] == userEmail) {
+                        userIndex = i;
+                        break;
+                      }
+                    }
+
+                    Map<String, dynamic> userData;
+
+                    if (userIndex >= 0) {
+                      userData = Map<String, dynamic>.from(users[userIndex]);
+
+                      if (!userData.containsKey('hotels')) {
+                        userData['hotels'] = [];
+                      }
+
+                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
+                      hotels.add(safeRegistrationData);
+                      userData['hotels'] = hotels;
+                      userData['propertyType'] = 'hotel';
+
+                      users[userIndex] = userData;
+                    } else {
+                      userData = {
+                        'email': userEmail,
+                        'fullName': registrationData['fullName']?.toString() ??
+                            registrationData['ownerName']?.toString() ?? '',
+                        'phone': registrationData['phone']?.toString() ??
+                            registrationData['mobileNumber']?.toString() ?? '',
+                        'propertyType': 'hotel',
+                        'hotels': [safeRegistrationData],
+                        'registeredAt': DateTime.now().toIso8601String(),
+                      };
+
+                      users.add(userData);
+                    }
+
+                    await prefs.setString('registered_users', jsonEncode(users));
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => OwnerDashboardScreen(
+                          userData: userData,
+                          userEmail: userEmail,
+                        ),
+                      ),
+                          (Route<dynamic> route) => false,
+                    );
+                  } catch (e) {
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error: ${e.toString()}'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Go to Dashboard',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // ==================== HELPER METHODS ====================
+
+  Map<String, bool>? _getAmenities(String key) {
+    final value = _get(key);
+    if (value is Map) {
+      return Map<String, bool>.from(
+        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
+      );
+    }
+    return null;
+  }
+
+  String _formatPrice(dynamic price) {
+    if (price == null) return '0';
+    if (price is double) {
+      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
+    }
+    if (price is int) {
+      return price.toString();
+    }
+    if (price is String) {
+      if (price.isEmpty) return '0';
+      double? parsed = double.tryParse(price);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+      }
+    }
+    return price.toString();
+  }
+
+  String _formatInteger(dynamic value) {
+    if (value == null) return '0';
+    if (value is int) {
+      return value.toString();
+    }
+    if (value is double) {
+      return value.toInt().toString();
+    }
+    if (value is String) {
+      if (value.isEmpty) return '0';
+      int? parsed = int.tryParse(value);
+      if (parsed != null) {
+        return parsed.toString();
+      }
+      double? parsedDouble = double.tryParse(value);
+      if (parsedDouble != null) {
+        return parsedDouble.toInt().toString();
+      }
+    }
+    return value.toString();
+  }
+
+  String _formatTime(String time) {
+    if (time.isEmpty) return 'Not set';
+
+    try {
+      if (time.contains(':')) {
+        List<String> parts = time.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+
+          String period = hour >= 12 ? 'PM' : 'AM';
+          int hour12 = hour % 12;
+          if (hour12 == 0) hour12 = 12;
+
+          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+        }
+      }
+    } catch (e) {
+      // Return as is if parsing fails
+    }
+    return time;
+  }
+
+  String _maskAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) return accountNumber;
+    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  }
+
+  dynamic _convertToJsonSafe(dynamic obj) {
+    if (obj == null) return null;
+    if (obj is DateTime) {
+      return obj.toIso8601String();
+    }
+    if (obj is Uint8List) {
+      return base64Encode(obj);
+    }
+    if (obj is Map) {
+      Map<String, dynamic> result = {};
+      obj.forEach((key, value) {
+        result[key.toString()] = _convertToJsonSafe(value);
+      });
+      return result;
+    }
+    if (obj is List) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is Set) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is String || obj is num || obj is bool) {
+      return obj;
+    }
+    try {
+      return obj.toString();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Widget _buildSectionCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _primaryLight,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, size: 20, color: _primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: _textDark,
+                ),
+              ),
+            ],
+          ),
+          Divider(height: 24, color: _borderColor),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
+    final selectedAmenities = amenities.entries
+        .where((e) => e.value)
+        .map((e) => e.key)
+        .toList();
+
+    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: _subSectionStyle),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: selectedAmenities
+              .map(
+                (amenity) => Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+                vertical: 8,
+              ),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: _primaryColor.withOpacity(0.2)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.check_circle, size: 14, color: _primaryColor),
+                  const SizedBox(width: 6),
+                  Text(
+                    amenity,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: _primaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+              .toList(),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _infoRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    if (displayValue.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
+          Expanded(
+            flex: 6,
+            child: Text(
+              displayValue,
+              style: _valueStyle,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _detailRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
+          Text(
+            displayValue,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: _textDark,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Profile Photo', style: _labelStyle),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: _borderColor),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: _primaryLight,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(Icons.person, size: 24, color: _primaryColor),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        photoInfo['name'] ?? 'Profile Photo',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: _textDark,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
+                        style: TextStyle(fontSize: 12, color: _textLight),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.check_circle, size: 20, color: _successColor),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle get _labelStyle =>
+      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
+
+  TextStyle get _valueStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+
+  TextStyle get _subSectionStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+}
+
+
+class ThreeStarHotelSummaryScreen extends StatelessWidget {
+  final Map<String, dynamic> registrationData;
+  final bool declarationAccepted;
+
+   ThreeStarHotelSummaryScreen({
+    super.key,
+    required this.registrationData,
+    this.declarationAccepted = false,
+  });
+
+  // Helper method to safely get values
+  dynamic _get(String key, [dynamic defaultValue]) {
+    return registrationData[key] ?? defaultValue;
+  }
+
+  // Color scheme for 3-Star hotels (Gold)
+  final Color _primaryColor = const Color(0xFFDAA520);
+  final Color _primaryLight =  Color(0xFFDAA520).withOpacity(0.1);
+  final Color _bgColor = const Color(0xFFFAFAFA);
+  final Color _cardColor = Colors.white;
+  final Color _borderColor = const Color(0xFFE5E7EB);
+  final Color _textDark = const Color(0xFF111827);
+  final Color _textLight = const Color(0xFF6B7280);
+  final Color _successColor = const Color(0xFF10B981);
+  final Color _dangerColor = const Color(0xFFEF4444);
+  final Color _starColor = const Color(0xFFFFD700);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: _bgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: _textDark),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          '3-Star Hotel Registration Summary',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: _textDark,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: _primaryColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                ...List.generate(3, (index) =>
+                    Icon(Icons.star, size: 12, color: Colors.white)
+                ),
+                const SizedBox(width: 4),
+                const Text(
+                  '3-Star',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            _buildSuccessHeader(),
+            _buildHotelBasicInfo(),
+            _buildContactInfo(),
+            _buildAddressInfo(),
+            _buildRoomConfiguration(),
+            _buildAmenitiesSection(),
+            _buildPoliciesSection(),
+            _buildLegalCompliance(),
+            _buildBankDetails(),
+            _buildDocumentsSection(),
+            _buildDeclarationSection(),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildFinishButton(context),
+    );
+  }
+
+  Widget _buildSuccessHeader() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: _primaryColor.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Registration Submitted Successfully!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: List.generate(3, (index) =>
+                Icon(Icons.star, size: 16, color: _starColor)
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHotelBasicInfo() {
+    return _buildSectionCard(
+      title: 'Hotel Information',
+      icon: Icons.business,
+      children: [
+        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
+        _infoRow('Hotel Category', '3-Star Hotel'),
+        if (_get('hotelType') != null)
+          _infoRow('Hotel Type', _get('hotelType')),
+
+        // Year of Establishment as integer
+        if (_get('yearOfEstablishment') != null &&
+            _get('yearOfEstablishment').toString().isNotEmpty)
+          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
+
+        // Total Rooms as integer
+        if (_get('totalRooms') != null &&
+            _get('totalRooms').toString().isNotEmpty)
+          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
+
+        // Registration Number (3-Star specific)
+        if (_get('registrationNumber') != null &&
+            _get('registrationNumber').toString().isNotEmpty)
+          _infoRow('Registration Number', _get('registrationNumber')),
+
+        // Designation
+        if (_get('designation') != null &&
+            _get('designation').toString().isNotEmpty)
+          _infoRow('Designation', _get('designation')),
+      ],
+    );
+  }
+
+  Widget _buildContactInfo() {
+    final List<Widget> children = [
+      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
+      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
+    ];
+
+    // Alternate Contact
+    if (_get('alternateContact') != null &&
+        _get('alternateContact').toString().isNotEmpty) {
+      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
+    }
+
+    // Email
+    if (_get('email') != null && _get('email').toString().isNotEmpty) {
+      children.add(_infoRow('Email', _get('email')));
+    }
+
+    // Website
+    if (_get('website') != null && _get('website').toString().isNotEmpty) {
+      children.add(_infoRow('Website', _get('website')));
+    }
+
+    // Profile Photo
+    final profilePhoto = _get('profilePhoto');
+    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
+      children.add(_buildProfilePhotoInfo(profilePhoto));
+    }
+
+    return _buildSectionCard(
+      title: 'Contact Information',
+      icon: Icons.contact_phone,
+      children: children,
+    );
+  }
+
+  Widget _buildAddressInfo() {
+    final List<Widget> children = [
+      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
+    ];
+
+    if (_get('addressLine2') != null &&
+        _get('addressLine2').toString().isNotEmpty) {
+      children.add(_infoRow('Address Line 2', _get('addressLine2')));
+    }
+
+    children.addAll([
+      _infoRow('City', _get('city', 'Not Provided')),
+      _infoRow('District', _get('district', 'Not Provided')),
+      _infoRow('State', _get('state', 'Not Provided')),
+      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
+    ]);
+
+    // Country
+    if (_get('country') != null && _get('country').toString().isNotEmpty) {
+      children.add(_infoRow('Country', _get('country')));
+    }
+
+    // Additional Addresses
+    final additionalAddresses = _get('additionalAddresses', []);
+    if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
+      children.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Additional Addresses', style: _labelStyle),
+            const SizedBox(height: 8),
+            ...additionalAddresses.asMap().entries.map((entry) {
+              int index = entry.key + 1;
+              dynamic addr = entry.value;
+              String addressText = '';
+
+              if (addr is Map) {
+                addressText = addr['address']?.toString() ?? '';
+              } else if (addr is String) {
+                addressText = addr;
+              }
+
+              return Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: _borderColor),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: _primaryColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '$index',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: _primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        addressText.isNotEmpty
+                            ? addressText
+                            : 'Additional Address',
+                        style: _valueStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ],
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Address Details',
+      icon: Icons.location_on,
+      children: children,
+    );
+  }
+
+  Widget _buildRoomConfiguration() {
+    final selectedRoomTypes = _get('selectedRoomTypes', {});
+    final roomDetails = _get('roomDetails', {});
+
+    // Check if any rooms are selected
+    bool hasRooms = false;
+    if (selectedRoomTypes is Map) {
+      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
+    }
+
+    if (!hasRooms) return const SizedBox.shrink();
+
+    final selectedTypes = (selectedRoomTypes as Map).entries
+        .where((entry) => entry.value == true)
+        .map((entry) => entry.key.toString())
+        .toList();
+
+    final List<Widget> children = [];
+
+    // Room Type Chips
+    children.add(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Room Types Available', style: _labelStyle),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: selectedTypes
+                .map(
+                  (type) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _primaryLight,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Text(
+                      type,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+
+    children.add(const SizedBox(height: 16));
+
+    // Room Details for each type
+    for (var roomType in selectedTypes) {
+      final details = roomDetails[roomType] ?? {};
+
+      children.add(
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _borderColor),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: _primaryLight,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    roomType,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Number of Rooms (integer)
+              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
+                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
+
+              // Max Occupancy (integer)
+              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
+                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
+
+              // AC
+              if (details['ac'] != null)
+                _detailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
+
+              // Bed Type (3-Star specific)
+              if (details['bedType'] != null &&
+                  details['bedType'].toString().isNotEmpty)
+                _detailRow('Bed Type', details['bedType']),
+
+              // Price per Night (double)
+              if (details['price'] != null && details['price'].toString().isNotEmpty)
+                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Overall pricing (not applicable for 3-Star as they have individual room prices)
+    // But we can show seasonal pricing if available
+    if (_get('seasonalPricing') != null) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _successColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _successColor.withOpacity(0.3)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Seasonal Pricing',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: _textLight,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _get('seasonalPricing') == true ? 'Available' : 'Not Available',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: _get('seasonalPricing') == true ? _successColor : _textLight,
+                    ),
+                  ),
+                ],
+              ),
+              if (_get('extraBedAvailable') != null)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: _successColor),
+                  ),
+                  child: Text(
+                    _get('extraBedAvailable') == true
+                        ? 'Extra Bed Available'
+                        : 'No Extra Bed',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: _successColor,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Room Configuration',
+      icon: Icons.meeting_room,
+      children: children,
+    );
+  }
+
+  Widget _buildAmenitiesSection() {
+    final List<Widget> amenitySections = [];
+
+    // Room Amenities
+    final roomAmenities = _getAmenities('roomAmenities');
+    if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
+      amenitySections.add(
+        _buildAmenityCategory('Room Amenities', roomAmenities),
+      );
+    }
+
+    // Hotel Facilities
+    final hotelFacilities = _getAmenities('hotelFacilities');
+    if (hotelFacilities != null &&
+        hotelFacilities.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
+    }
+
+    // Food Services
+    final foodServices = _getAmenities('foodServices');
+    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
+    }
+
+    // Business Services (3-Star specific)
+    final businessServices = _getAmenities('businessServices');
+    if (businessServices != null && businessServices.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Business Services', businessServices));
+    }
+
+    if (amenitySections.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Amenities & Facilities',
+      icon: Icons.workspaces_filled,
+      children: amenitySections,
+    );
+  }
+
+  Widget _buildPoliciesSection() {
+    final List<Widget> children = [];
+
+    // Check-in/Check-out times
+    final checkIn = _get('checkInTime', '');
+    final checkOut = _get('checkOutTime', '');
+
+    if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
+      children.add(
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Check-in Time', style: _labelStyle),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _borderColor),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time, size: 14, color: _primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          _formatTime(checkIn.toString()),
+                          style: _valueStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Check-out Time', style: _labelStyle),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _borderColor),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time, size: 14, color: _primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          _formatTime(checkOut.toString()),
+                          style: _valueStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Early Check-in / Late Check-out (3-Star specific)
+    if (_get('earlyCheckinAllowed') != null) {
+      children.add(
+        _infoRow(
+          'Early Check-in / Late Check-out',
+          _get('earlyCheckinAllowed') == true
+              ? (_get('earlyCheckinChargeable') == true
+                  ? 'Chargeable'
+                  : 'Complimentary')
+              : 'Not Available',
+        ),
+      );
+    }
+
+    // Pets Allowed
+    if (_get('petsAllowed') != null) {
+      children.add(
+        _infoRow('Pets Allowed', _get('petsAllowed') == true ? 'Yes' : 'No'),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Policies & Timings',
+      icon: Icons.policy,
+      children: children,
+    );
+  }
+
+  Widget _buildLegalCompliance() {
+    final List<Widget> children = [];
+
+    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
+      children.add(_infoRow('GST Number', _get('gstNumber')));
+    }
+
+    if (_get('panNumber') != null && _get('panNumber').toString().isNotEmpty) {
+      children.add(_infoRow('PAN Number', _get('panNumber')));
+    }
+
+    if (_get('tradeLicense') != null &&
+        _get('tradeLicense').toString().isNotEmpty) {
+      children.add(_infoRow('Trade License', _get('tradeLicense')));
+    }
+
+    if (_get('fssaiLicense') != null &&
+        _get('fssaiLicense').toString().isNotEmpty) {
+      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
+    }
+
+    // Fire Safety Certificate (3-Star specific)
+    if (_get('fireSafetyCertificate') != null) {
+      children.add(
+        _infoRow(
+          'Fire Safety Certificate',
+          _get('fireSafetyCertificate') == true ? 'Available' : 'Not Available',
+        ),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Legal & Compliance',
+      icon: Icons.gavel,
+      children: children,
+    );
+  }
+
+  Widget _buildBankDetails() {
+    final List<Widget> children = [];
+
+    if (_get('accountHolderName') != null &&
+        _get('accountHolderName').toString().isNotEmpty) {
+      children.add(_infoRow('Account Holder', _get('accountHolderName')));
+    }
+
+    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
+      children.add(_infoRow('Bank Name', _get('bankName')));
+    }
+
+    if (_get('accountNumber') != null &&
+        _get('accountNumber').toString().isNotEmpty) {
+      children.add(
+        _infoRow(
+          'Account Number',
+          _maskAccountNumber(_get('accountNumber').toString()),
+        ),
+      );
+    }
+
+    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
+      children.add(_infoRow('IFSC Code', _get('ifscCode')));
+    }
+
+    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
+      children.add(_infoRow('Branch', _get('branch')));
+    }
+
+    // Account Type
+    if (_get('accountType') != null &&
+        _get('accountType').toString().isNotEmpty) {
+      String accountType = _get('accountType').toString();
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
+              Expanded(
+                flex: 6,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: accountType == 'Savings'
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: accountType == 'Savings'
+                          ? Colors.green.withOpacity(0.3)
+                          : Colors.blue.withOpacity(0.3),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        accountType == 'Savings'
+                            ? Icons.savings
+                            : Icons.account_balance,
+                        size: 14,
+                        color: accountType == 'Savings'
+                            ? Colors.green
+                            : Colors.blue,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        accountType,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: accountType == 'Savings'
+                              ? Colors.green[700]
+                              : Colors.blue[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Bank Details',
+      icon: Icons.account_balance,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentsSection() {
+    final uploadedFiles = _get('uploadedFiles', {});
+
+    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final uploadedDocs = uploadedFiles.entries
+        .where((entry) => entry.value['uploaded'] == true)
+        .toList();
+
+    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
+
+    final List<Widget> children = [];
+
+    for (var entry in uploadedDocs) {
+      // Skip Digital Signature as it's handled separately
+      if (entry.key == 'Digital Signature') continue;
+      children.add(_buildDocumentItem(entry.key, entry.value));
+    }
+
+    // Digital Signature
+    if (_get('hasDigitalSignature') == true) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.purple.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.purple.withOpacity(0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.purple.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Digital Signature',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Saved successfully',
+                      style: TextStyle(fontSize: 12, color: _textLight),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.check_circle, size: 20, color: _successColor),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Uploaded Signature File
+    final signatureFile = _get('signatureFile');
+    if (signatureFile != null && signatureFile['uploaded'] == true) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.blue.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.blue.withOpacity(0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.note_alt_outlined, size: 20, color: Colors.blue),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Uploaded Signature',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      signatureFile['name'] ?? 'Signature uploaded',
+                      style: TextStyle(fontSize: 12, color: _textLight),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.check_circle, size: 20, color: _successColor),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Uploaded Documents',
+      icon: Icons.folder,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
+    IconData getIcon() {
+      if (docName.contains('Signature')) return Icons.draw;
+      if (docName.contains('GST')) return Icons.receipt;
+      if (docName.contains('PAN')) return Icons.credit_card;
+      if (docName.contains('FSSAI')) return Icons.restaurant;
+      if (docName.contains('License')) return Icons.badge;
+      if (docName.contains('Cheque')) return Icons.account_balance;
+      if (docName.contains('Photos')) return Icons.photo_library;
+      if (docName.contains('Fire')) return Icons.fire_extinguisher;
+      return Icons.description;
+    }
+
+    Color getColor() {
+      if (docName.contains('Signature')) return Colors.purple;
+      if (docName.contains('FSSAI')) return Colors.green;
+      if (docName.contains('Fire')) return Colors.red;
+      if (docName.contains('GST')) return _primaryColor;
+      if (docName.contains('PAN')) return Colors.orange;
+      return _primaryColor;
+    }
+
+    final fileName = fileInfo['name']?.toString() ?? 'Document';
+    final fileSize = fileInfo['size'] ?? 0;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _borderColor),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: getColor().withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(getIcon(), size: 24, color: getColor()),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  docName,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _textDark,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  fileName,
+                  style: TextStyle(fontSize: 12, color: _textLight),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                  style: TextStyle(fontSize: 11, color: _textLight),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: _successColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.check_circle, size: 14, color: _successColor),
+                const SizedBox(width: 4),
+                Text(
+                  'Uploaded',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _successColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDeclarationSection() {
+    final List<Widget> children = [];
+
+    // Signatory Name
+    if (_get('signatoryName') != null &&
+        _get('signatoryName').toString().isNotEmpty) {
+      children.add(_infoRow('Signatory Name', _get('signatoryName')));
+    }
+
+    // Declaration Date
+    final declarationDate = _get('declarationDate');
+    if (declarationDate != null) {
+      String dateStr = '';
+      if (declarationDate is DateTime) {
+        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
+      } else if (declarationDate is String) {
+        try {
+          DateTime parsedDate = DateTime.parse(declarationDate);
+          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
+        } catch (e) {
+          dateStr = declarationDate;
+        }
+      }
+      if (dateStr.isNotEmpty) {
+        children.add(_infoRow('Date', dateStr));
+      }
+    }
+
+    // Declaration Status
+    children.add(
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: _get('declarationAccepted', false) == true
+              ? _successColor.withOpacity(0.1)
+              : _dangerColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: _get('declarationAccepted', false) == true
+                ? _successColor.withOpacity(0.3)
+                : _dangerColor.withOpacity(0.3),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              _get('declarationAccepted', false) == true
+                  ? Icons.check_circle
+                  : Icons.error,
+              color: _get('declarationAccepted', false) == true
+                  ? _successColor
+                  : _dangerColor,
+              size: 24,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _get('declarationAccepted', false) == true
+                        ? 'Declaration Accepted'
+                        : 'Declaration Not Accepted',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: _get('declarationAccepted', false) == true
+                          ? _successColor
+                          : _dangerColor,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  const Text(
+                    'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
+                    style: TextStyle(fontSize: 12),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return _buildSectionCard(
+      title: 'Declaration',
+      icon: Icons.verified_user,
+      children: children,
+    );
+  }
+
+  Widget _buildFinishButton(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: _borderColor)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () => _showSuccessDialogAndNavigate(context),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Finish',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.check_circle,
+                      size: 18,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessDialogAndNavigate(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registration Complete'),
+          content: const Text(
+            'Your 3-Star hotel has been registered successfully!',
+          ),
+          actions: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  try {
+                    final prefs = await SharedPreferences.getInstance();
+                    final String usersJson = prefs.getString('registered_users') ?? '[]';
+                    final List<dynamic> usersList = jsonDecode(usersJson);
+
+                    List<Map<String, dynamic>> users = [];
+                    for (var user in usersList) {
+                      if (user is Map) {
+                        Map<String, dynamic> safeUserMap = {};
+                        user.forEach((key, value) {
+                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
+                        });
+                        users.add(safeUserMap);
+                      }
+                    }
+
+                    String userEmail = registrationData['email']?.toString() ?? '';
+
+                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
+
+                    int userIndex = -1;
+                    for (int i = 0; i < users.length; i++) {
+                      if (users[i]['email'] == userEmail) {
+                        userIndex = i;
+                        break;
+                      }
+                    }
+
+                    Map<String, dynamic> userData;
+
+                    if (userIndex >= 0) {
+                      userData = Map<String, dynamic>.from(users[userIndex]);
+
+                      if (!userData.containsKey('hotels')) {
+                        userData['hotels'] = [];
+                      }
+
+                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
+                      hotels.add(safeRegistrationData);
+                      userData['hotels'] = hotels;
+                      userData['propertyType'] = 'hotel';
+
+                      users[userIndex] = userData;
+                    } else {
+                      userData = {
+                        'email': userEmail,
+                        'fullName': registrationData['fullName']?.toString() ??
+                            registrationData['ownerName']?.toString() ?? '',
+                        'phone': registrationData['phone']?.toString() ??
+                            registrationData['mobileNumber']?.toString() ?? '',
+                        'propertyType': 'hotel',
+                        'hotels': [safeRegistrationData],
+                        'registeredAt': DateTime.now().toIso8601String(),
+                      };
+
+                      users.add(userData);
+                    }
+
+                    await prefs.setString('registered_users', jsonEncode(users));
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => OwnerDashboardScreen(
+                          userData: userData,
+                          userEmail: userEmail,
+                        ),
+                      ),
+                          (Route<dynamic> route) => false,
+                    );
+                  } catch (e) {
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error: ${e.toString()}'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Go to Dashboard',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // ==================== HELPER METHODS ====================
+
+  Map<String, bool>? _getAmenities(String key) {
+    final value = _get(key);
+    if (value is Map) {
+      return Map<String, bool>.from(
+        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
+      );
+    }
+    return null;
+  }
+
+  String _formatPrice(dynamic price) {
+    if (price == null) return '0';
+    if (price is double) {
+      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
+    }
+    if (price is int) {
+      return price.toString();
+    }
+    if (price is String) {
+      if (price.isEmpty) return '0';
+      double? parsed = double.tryParse(price);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+      }
+    }
+    return price.toString();
+  }
+
+  String _formatInteger(dynamic value) {
+    if (value == null) return '0';
+    if (value is int) {
+      return value.toString();
+    }
+    if (value is double) {
+      return value.toInt().toString();
+    }
+    if (value is String) {
+      if (value.isEmpty) return '0';
+      int? parsed = int.tryParse(value);
+      if (parsed != null) {
+        return parsed.toString();
+      }
+      double? parsedDouble = double.tryParse(value);
+      if (parsedDouble != null) {
+        return parsedDouble.toInt().toString();
+      }
+    }
+    return value.toString();
+  }
+
+  String _formatTime(String time) {
+    if (time.isEmpty) return 'Not set';
+
+    try {
+      if (time.contains(':')) {
+        List<String> parts = time.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+
+          String period = hour >= 12 ? 'PM' : 'AM';
+          int hour12 = hour % 12;
+          if (hour12 == 0) hour12 = 12;
+
+          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+        }
+      }
+    } catch (e) {
+      // Return as is if parsing fails
+    }
+    return time;
+  }
+
+  String _maskAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) return accountNumber;
+    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  }
+
+  dynamic _convertToJsonSafe(dynamic obj) {
+    if (obj == null) return null;
+    if (obj is DateTime) {
+      return obj.toIso8601String();
+    }
+    if (obj is Uint8List) {
+      return base64Encode(obj);
+    }
+    if (obj is Map) {
+      Map<String, dynamic> result = {};
+      obj.forEach((key, value) {
+        result[key.toString()] = _convertToJsonSafe(value);
+      });
+      return result;
+    }
+    if (obj is List) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is Set) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is String || obj is num || obj is bool) {
+      return obj;
+    }
+    try {
+      return obj.toString();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Widget _buildSectionCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _primaryLight,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, size: 20, color: _primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: _textDark,
+                ),
+              ),
+            ],
+          ),
+          Divider(height: 24, color: _borderColor),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
+    final selectedAmenities = amenities.entries
+        .where((e) => e.value)
+        .map((e) => e.key)
+        .toList();
+
+    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: _subSectionStyle),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: selectedAmenities
+              .map(
+                (amenity) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _primaryLight,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: _primaryColor.withOpacity(0.2)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.check_circle, size: 14, color: _primaryColor),
+                      const SizedBox(width: 6),
+                      Text(
+                        amenity,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: _primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _infoRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    if (displayValue.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
+          Expanded(
+            flex: 6,
+            child: Text(
+              displayValue,
+              style: _valueStyle,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _detailRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
+          Text(
+            displayValue,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: _textDark,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Profile Photo', style: _labelStyle),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: _borderColor),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: _primaryLight,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(Icons.person, size: 24, color: _primaryColor),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        photoInfo['name'] ?? 'Profile Photo',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: _textDark,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
+                        style: TextStyle(fontSize: 12, color: _textLight),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.check_circle, size: 20, color: _successColor),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle get _labelStyle =>
+      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
+
+  TextStyle get _valueStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+
+  TextStyle get _subSectionStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+}
+
+class FourStarHotelSummaryScreen extends StatelessWidget {
+  final Map<String, dynamic> registrationData;
+  final bool declarationAccepted;
+
+   FourStarHotelSummaryScreen({
+    super.key,
+    required this.registrationData,
+    this.declarationAccepted = false,
+  });
+
+  // Helper method to safely get values
+  dynamic _get(String key, [dynamic defaultValue]) {
+    return registrationData[key] ?? defaultValue;
+  }
+
+  // Color scheme for 4-Star hotels (Indigo/Purple)
+  final Color _primaryColor = const Color(0xFF4F46E5);
+  final Color _primaryLight =  Color(0xFF4F46E5).withOpacity(0.1);
+  final Color _bgColor = const Color(0xFFFAFAFA);
+  final Color _cardColor = Colors.white;
+  final Color _borderColor = const Color(0xFFE5E7EB);
+  final Color _textDark = const Color(0xFF111827);
+  final Color _textLight = const Color(0xFF6B7280);
+  final Color _successColor = const Color(0xFF10B981);
+  final Color _dangerColor = const Color(0xFFEF4444);
+  final Color _starColor = const Color(0xFFFFD700);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: _bgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: _textDark),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          '4-Star Hotel Registration Summary',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: _textDark,
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: _primaryColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                ...List.generate(4, (index) =>
+                    Icon(Icons.star, size: 12, color: Colors.white)
+                ),
+                const SizedBox(width: 4),
+                const Text(
+                  '4-Star',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            _buildSuccessHeader(),
+            _buildHotelBasicInfo(),
+            _buildContactInfo(),
+            _buildAddressInfo(),
+            _buildRoomConfiguration(),
+            _buildAmenitiesSection(),
+            _buildPoliciesSection(),
+            _buildLegalCompliance(),
+            _buildBankDetails(),
+            _buildDocumentsSection(),
+            _buildDeclarationSection(),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _buildFinishButton(context),
+    );
+  }
+
+  Widget _buildSuccessHeader() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: _primaryColor.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Registration Submitted Successfully!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.9),
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.7),
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            children: List.generate(4, (index) =>
+                Icon(Icons.star, size: 16, color: _starColor)
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHotelBasicInfo() {
+    return _buildSectionCard(
+      title: 'Hotel Information',
+      icon: Icons.business,
+      children: [
+        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
+        _infoRow('Hotel Category', '4-Star Hotel'),
+        if (_get('hotelType') != null)
+          _infoRow('Hotel Type', _get('hotelType')),
+
+        // Year of Establishment as integer
+        if (_get('yearOfEstablishment') != null &&
+            _get('yearOfEstablishment').toString().isNotEmpty)
+          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
+
+        // Total Rooms as integer
+        if (_get('totalRooms') != null &&
+            _get('totalRooms').toString().isNotEmpty)
+          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
+
+        // Registration Number (4-Star specific)
+        if (_get('registrationNumber') != null &&
+            _get('registrationNumber').toString().isNotEmpty)
+          _infoRow('Registration Number', _get('registrationNumber')),
+
+        // Designation
+        if (_get('designation') != null &&
+            _get('designation').toString().isNotEmpty)
+          _infoRow('Designation', _get('designation')),
+      ],
+    );
+  }
+
+  Widget _buildContactInfo() {
+    final List<Widget> children = [
+      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
+      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
+    ];
+
+    // Alternate Contact
+    if (_get('alternateContact') != null &&
+        _get('alternateContact').toString().isNotEmpty) {
+      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
+    }
+
+    // Email
+    if (_get('email') != null && _get('email').toString().isNotEmpty) {
+      children.add(_infoRow('Email', _get('email')));
+    }
+
+    // Website
+    if (_get('website') != null && _get('website').toString().isNotEmpty) {
+      children.add(_infoRow('Website', _get('website')));
+    }
+
+    // Profile Photo
+    final profilePhoto = _get('profilePhoto');
+    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
+      children.add(_buildProfilePhotoInfo(profilePhoto));
+    }
+
+    return _buildSectionCard(
+      title: 'Contact Information',
+      icon: Icons.contact_phone,
+      children: children,
+    );
+  }
+
+  Widget _buildAddressInfo() {
+    final List<Widget> children = [
+      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
+    ];
+
+    if (_get('addressLine2') != null &&
+        _get('addressLine2').toString().isNotEmpty) {
+      children.add(_infoRow('Address Line 2', _get('addressLine2')));
+    }
+
+    children.addAll([
+      _infoRow('City', _get('city', 'Not Provided')),
+      _infoRow('District', _get('district', 'Not Provided')),
+      _infoRow('State', _get('state', 'Not Provided')),
+      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
+    ]);
+
+    // Country
+    if (_get('country') != null && _get('country').toString().isNotEmpty) {
+      children.add(_infoRow('Country', _get('country')));
+    }
+
+    // Additional Addresses
+    final additionalAddresses = _get('additionalAddresses', []);
+    if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
+      children.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Additional Addresses', style: _labelStyle),
+            const SizedBox(height: 8),
+            ...additionalAddresses.asMap().entries.map((entry) {
+              int index = entry.key + 1;
+              dynamic addr = entry.value;
+              String addressText = '';
+
+              if (addr is Map) {
+                addressText = addr['address']?.toString() ?? '';
+              } else if (addr is String) {
+                addressText = addr;
+              }
+
+              return Container(
+                margin: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: _borderColor),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 24,
+                      height: 24,
+                      decoration: BoxDecoration(
+                        color: _primaryColor.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '$index',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: _primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        addressText.isNotEmpty
+                            ? addressText
+                            : 'Additional Address',
+                        style: _valueStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ],
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Address Details',
+      icon: Icons.location_on,
+      children: children,
+    );
+  }
+
+  Widget _buildRoomConfiguration() {
+    final selectedRoomTypes = _get('selectedRoomTypes', {});
+    final roomDetails = _get('roomDetails', {});
+
+    // Check if any rooms are selected
+    bool hasRooms = false;
+    if (selectedRoomTypes is Map) {
+      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
+    }
+
+    if (!hasRooms) return const SizedBox.shrink();
+
+    final selectedTypes = (selectedRoomTypes as Map).entries
+        .where((entry) => entry.value == true)
+        .map((entry) => entry.key.toString())
+        .toList();
+
+    final List<Widget> children = [];
+
+    // Room Type Chips
+    children.add(
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Room Types Available', style: _labelStyle),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: selectedTypes
+                .map(
+                  (type) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: _primaryLight,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Text(
+                      type,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+
+    children.add(const SizedBox(height: 16));
+
+    // Room Details for each type
+    for (var roomType in selectedTypes) {
+      final details = roomDetails[roomType] ?? {};
+
+      children.add(
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _borderColor),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: _primaryLight,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    roomType,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: _textDark,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              // Number of Rooms (integer)
+              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
+                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
+
+              // Max Occupancy (integer)
+              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
+                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
+
+              // AC
+              if (details['ac'] != null)
+                _detailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
+
+              // Bed Type (4-Star specific)
+              if (details['bedType'] != null &&
+                  details['bedType'].toString().isNotEmpty)
+                _detailRow('Bed Type', details['bedType']),
+
+              // Price per Night (double)
+              if (details['price'] != null && details['price'].toString().isNotEmpty)
+                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Extra Bed and Seasonal Pricing
+    if (_get('extraBedAvailable') != null || _get('seasonalPricing') != null) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: _successColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _successColor.withOpacity(0.3)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (_get('seasonalPricing') != null)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Row(
+                        children: [
+                          Icon(Icons.calendar_month, size: 16, color: _successColor),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Seasonal Pricing',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: _textLight,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            _get('seasonalPricing') == true ? 'Yes' : 'No',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: _get('seasonalPricing') == true ? _successColor : _textLight,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  if (_get('extraBedAvailable') != null)
+                    Row(
+                      children: [
+                        Icon(Icons.bed, size: 16, color: _successColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Extra Bed Available',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: _textLight,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          _get('extraBedAvailable') == true ? 'Yes' : 'No',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: _get('extraBedAvailable') == true ? _successColor : _textLight,
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Room Configuration',
+      icon: Icons.meeting_room,
+      children: children,
+    );
+  }
+
+  Widget _buildAmenitiesSection() {
+    final List<Widget> amenitySections = [];
+
+    // Room Amenities
+    final roomAmenities = _getAmenities('roomAmenities');
+    if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
+      amenitySections.add(
+        _buildAmenityCategory('Room Amenities', roomAmenities),
+      );
+    }
+
+    // Hotel Facilities
+    final hotelFacilities = _getAmenities('hotelFacilities');
+    if (hotelFacilities != null &&
+        hotelFacilities.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
+    }
+
+    // Food Services
+    final foodServices = _getAmenities('foodServices');
+    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
+    }
+
+    // Business Services (4-Star specific)
+    final businessServices = _getAmenities('businessServices');
+    if (businessServices != null && businessServices.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Business Services', businessServices));
+    }
+
+    // Wellness & Recreation (4-Star specific)
+    final wellnessRecreation = _getAmenities('wellnessRecreation');
+    if (wellnessRecreation != null && wellnessRecreation.entries.any((e) => e.value)) {
+      amenitySections.add(_buildAmenityCategory('Wellness & Recreation', wellnessRecreation));
+    }
+
+    if (amenitySections.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Amenities & Facilities',
+      icon: Icons.workspaces_filled,
+      children: amenitySections,
+    );
+  }
+
+  Widget _buildPoliciesSection() {
+    final List<Widget> children = [];
+
+    // Check-in/Check-out times
+    final checkIn = _get('checkInTime', '');
+    final checkOut = _get('checkOutTime', '');
+
+    if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
+      children.add(
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Check-in Time', style: _labelStyle),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _borderColor),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time, size: 14, color: _primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          _formatTime(checkIn.toString()),
+                          style: _valueStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Check-out Time', style: _labelStyle),
+                  const SizedBox(height: 4),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _borderColor),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.access_time, size: 14, color: _primaryColor),
+                        const SizedBox(width: 8),
+                        Text(
+                          _formatTime(checkOut.toString()),
+                          style: _valueStyle,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    // Early Check-in / Late Check-out (4-Star specific)
+    if (_get('earlyCheckinAllowed') != null) {
+      children.add(
+        _infoRow(
+          'Early Check-in / Late Check-out',
+          _get('earlyCheckinAllowed') == true
+              ? (_get('earlyCheckinChargeable') == true
+                  ? 'Chargeable'
+                  : 'Complimentary')
+              : 'Not Available',
+        ),
+      );
+    }
+
+    // Pets Allowed
+    if (_get('petsAllowed') != null) {
+      children.add(
+        _infoRow('Pets Allowed', _get('petsAllowed') == true ? 'Yes' : 'No'),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Policies & Timings',
+      icon: Icons.policy,
+      children: children,
+    );
+  }
+
+  Widget _buildLegalCompliance() {
+    final List<Widget> children = [];
+
+    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
+      children.add(_infoRow('GST Number', _get('gstNumber')));
+    }
+
+    if (_get('panNumber') != null && _get('panNumber').toString().isNotEmpty) {
+      children.add(_infoRow('PAN Number', _get('panNumber')));
+    }
+
+    if (_get('tradeLicense') != null &&
+        _get('tradeLicense').toString().isNotEmpty) {
+      children.add(_infoRow('Trade License', _get('tradeLicense')));
+    }
+
+    if (_get('fssaiLicense') != null &&
+        _get('fssaiLicense').toString().isNotEmpty) {
+      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
+    }
+
+    // Fire Safety Certificate (4-Star specific)
+    if (_get('fireSafetyCertificate') != null) {
+      children.add(
+        _infoRow(
+          'Fire Safety Certificate',
+          _get('fireSafetyCertificate') == true ? 'Available' : 'Not Available',
+        ),
+      );
+    }
+
+    // Star Certificate (4-Star specific)
+    if (_get('starCertificate') != null) {
+      children.add(
+        _infoRow(
+          'Star Classification Certificate',
+          _get('starCertificate') == true ? 'Available' : 'Not Available',
+        ),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Legal & Compliance',
+      icon: Icons.gavel,
+      children: children,
+    );
+  }
+
+  Widget _buildBankDetails() {
+    final List<Widget> children = [];
+
+    if (_get('accountHolderName') != null &&
+        _get('accountHolderName').toString().isNotEmpty) {
+      children.add(_infoRow('Account Holder', _get('accountHolderName')));
+    }
+
+    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
+      children.add(_infoRow('Bank Name', _get('bankName')));
+    }
+
+    if (_get('accountNumber') != null &&
+        _get('accountNumber').toString().isNotEmpty) {
+      children.add(
+        _infoRow(
+          'Account Number',
+          _maskAccountNumber(_get('accountNumber').toString()),
+        ),
+      );
+    }
+
+    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
+      children.add(_infoRow('IFSC Code', _get('ifscCode')));
+    }
+
+    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
+      children.add(_infoRow('Branch', _get('branch')));
+    }
+
+    // Account Type
+    if (_get('accountType') != null &&
+        _get('accountType').toString().isNotEmpty) {
+      String accountType = _get('accountType').toString();
+      children.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
+              Expanded(
+                flex: 6,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: accountType == 'Savings'
+                        ? Colors.green.withOpacity(0.1)
+                        : Colors.blue.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: accountType == 'Savings'
+                          ? Colors.green.withOpacity(0.3)
+                          : Colors.blue.withOpacity(0.3),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        accountType == 'Savings'
+                            ? Icons.savings
+                            : Icons.account_balance,
+                        size: 14,
+                        color: accountType == 'Savings'
+                            ? Colors.green
+                            : Colors.blue,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        accountType,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: accountType == 'Savings'
+                              ? Colors.green[700]
+                              : Colors.blue[700],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return _buildSectionCard(
+      title: 'Bank Details',
+      icon: Icons.account_balance,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentsSection() {
+    final uploadedFiles = _get('uploadedFiles', {});
+
+    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final uploadedDocs = uploadedFiles.entries
+        .where((entry) => entry.value['uploaded'] == true)
+        .toList();
+
+    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
+
+    final List<Widget> children = [];
+
+    for (var entry in uploadedDocs) {
+      // Skip Digital Signature as it's handled separately
+      if (entry.key == 'Digital Signature') continue;
+      children.add(_buildDocumentItem(entry.key, entry.value));
+    }
+
+    // Digital Signature
+    if (_get('hasDigitalSignature') == true) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.purple.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.purple.withOpacity(0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.purple.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Digital Signature',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      'Saved successfully',
+                      style: TextStyle(fontSize: 12, color: _textLight),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.check_circle, size: 20, color: _successColor),
+            ],
+          ),
+        ),
+      );
+    }
+
+    // Uploaded Signature File
+    final signatureFile = _get('signatureFile');
+    if (signatureFile != null && signatureFile['uploaded'] == true) {
+      children.add(
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.blue.withOpacity(0.05),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.blue.withOpacity(0.3)),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Icon(Icons.note_alt_outlined, size: 20, color: Colors.blue),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Uploaded Signature',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      signatureFile['name'] ?? 'Signature uploaded',
+                      style: TextStyle(fontSize: 12, color: _textLight),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.check_circle, size: 20, color: _successColor),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return _buildSectionCard(
+      title: 'Uploaded Documents',
+      icon: Icons.folder,
+      children: children,
+    );
+  }
+
+  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
+    IconData getIcon() {
+      if (docName.contains('Signature')) return Icons.draw;
+      if (docName.contains('GST')) return Icons.receipt;
+      if (docName.contains('PAN')) return Icons.credit_card;
+      if (docName.contains('FSSAI')) return Icons.restaurant;
+      if (docName.contains('License')) return Icons.badge;
+      if (docName.contains('Cheque')) return Icons.account_balance;
+      if (docName.contains('Photos')) return Icons.photo_library;
+      if (docName.contains('Fire')) return Icons.fire_extinguisher;
+      if (docName.contains('Star')) return Icons.star;
+      return Icons.description;
+    }
+
+    Color getColor() {
+      if (docName.contains('Signature')) return Colors.purple;
+      if (docName.contains('FSSAI')) return Colors.green;
+      if (docName.contains('Fire')) return Colors.red;
+      if (docName.contains('GST')) return _primaryColor;
+      if (docName.contains('PAN')) return Colors.orange;
+      if (docName.contains('Star')) return _starColor;
+      return _primaryColor;
+    }
+
+    final fileName = fileInfo['name']?.toString() ?? 'Document';
+    final fileSize = fileInfo['size'] ?? 0;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.grey[50],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _borderColor),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: getColor().withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(getIcon(), size: 24, color: getColor()),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  docName,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _textDark,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  fileName,
+                  style: TextStyle(fontSize: 12, color: _textLight),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                  style: TextStyle(fontSize: 11, color: _textLight),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: _successColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.check_circle, size: 14, color: _successColor),
+                const SizedBox(width: 4),
+                Text(
+                  'Uploaded',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: _successColor,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDeclarationSection() {
+    final List<Widget> children = [];
+
+    // Signatory Name
+    if (_get('signatoryName') != null &&
+        _get('signatoryName').toString().isNotEmpty) {
+      children.add(_infoRow('Signatory Name', _get('signatoryName')));
+    }
+
+    // Declaration Date
+    final declarationDate = _get('declarationDate');
+    if (declarationDate != null) {
+      String dateStr = '';
+      if (declarationDate is DateTime) {
+        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
+      } else if (declarationDate is String) {
+        try {
+          DateTime parsedDate = DateTime.parse(declarationDate);
+          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
+        } catch (e) {
+          dateStr = declarationDate;
+        }
+      }
+      if (dateStr.isNotEmpty) {
+        children.add(_infoRow('Date', dateStr));
+      }
+    }
+
+    // Declaration Status
+    children.add(
+      Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: _get('declarationAccepted', false) == true
+              ? _successColor.withOpacity(0.1)
+              : _dangerColor.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: _get('declarationAccepted', false) == true
+                ? _successColor.withOpacity(0.3)
+                : _dangerColor.withOpacity(0.3),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              _get('declarationAccepted', false) == true
+                  ? Icons.check_circle
+                  : Icons.error,
+              color: _get('declarationAccepted', false) == true
+                  ? _successColor
+                  : _dangerColor,
+              size: 24,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    _get('declarationAccepted', false) == true
+                        ? 'Declaration Accepted'
+                        : 'Declaration Not Accepted',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: _get('declarationAccepted', false) == true
+                          ? _successColor
+                          : _dangerColor,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  const Text(
+                    'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
+                    style: TextStyle(fontSize: 12),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    return _buildSectionCard(
+      title: 'Declaration',
+      icon: Icons.verified_user,
+      children: children,
+    );
+  }
+
+  Widget _buildFinishButton(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: _borderColor)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, -4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () => _showSuccessDialogAndNavigate(context),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Finish',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Icon(
+                      Icons.check_circle,
+                      size: 18,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showSuccessDialogAndNavigate(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Registration Complete'),
+          content: const Text(
+            'Your 4-Star hotel has been registered successfully!',
+          ),
+          actions: [
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  try {
+                    final prefs = await SharedPreferences.getInstance();
+                    final String usersJson = prefs.getString('registered_users') ?? '[]';
+                    final List<dynamic> usersList = jsonDecode(usersJson);
+
+                    List<Map<String, dynamic>> users = [];
+                    for (var user in usersList) {
+                      if (user is Map) {
+                        Map<String, dynamic> safeUserMap = {};
+                        user.forEach((key, value) {
+                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
+                        });
+                        users.add(safeUserMap);
+                      }
+                    }
+
+                    String userEmail = registrationData['email']?.toString() ?? '';
+
+                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
+
+                    int userIndex = -1;
+                    for (int i = 0; i < users.length; i++) {
+                      if (users[i]['email'] == userEmail) {
+                        userIndex = i;
+                        break;
+                      }
+                    }
+
+                    Map<String, dynamic> userData;
+
+                    if (userIndex >= 0) {
+                      userData = Map<String, dynamic>.from(users[userIndex]);
+
+                      if (!userData.containsKey('hotels')) {
+                        userData['hotels'] = [];
+                      }
+
+                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
+                      hotels.add(safeRegistrationData);
+                      userData['hotels'] = hotels;
+                      userData['propertyType'] = 'hotel';
+
+                      users[userIndex] = userData;
+                    } else {
+                      userData = {
+                        'email': userEmail,
+                        'fullName': registrationData['fullName']?.toString() ??
+                            registrationData['ownerName']?.toString() ?? '',
+                        'phone': registrationData['phone']?.toString() ??
+                            registrationData['mobileNumber']?.toString() ?? '',
+                        'propertyType': 'hotel',
+                        'hotels': [safeRegistrationData],
+                        'registeredAt': DateTime.now().toIso8601String(),
+                      };
+
+                      users.add(userData);
+                    }
+
+                    await prefs.setString('registered_users', jsonEncode(users));
+
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => OwnerDashboardScreen(
+                          userData: userData,
+                          userEmail: userEmail,
+                        ),
+                      ),
+                          (Route<dynamic> route) => false,
+                    );
+                  } catch (e) {
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error: ${e.toString()}'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Go to Dashboard',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // ==================== HELPER METHODS ====================
+
+  Map<String, bool>? _getAmenities(String key) {
+    final value = _get(key);
+    if (value is Map) {
+      return Map<String, bool>.from(
+        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
+      );
+    }
+    return null;
+  }
+
+  String _formatPrice(dynamic price) {
+    if (price == null) return '0';
+    if (price is double) {
+      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
+    }
+    if (price is int) {
+      return price.toString();
+    }
+    if (price is String) {
+      if (price.isEmpty) return '0';
+      double? parsed = double.tryParse(price);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+      }
+    }
+    return price.toString();
+  }
+
+  String _formatInteger(dynamic value) {
+    if (value == null) return '0';
+    if (value is int) {
+      return value.toString();
+    }
+    if (value is double) {
+      return value.toInt().toString();
+    }
+    if (value is String) {
+      if (value.isEmpty) return '0';
+      int? parsed = int.tryParse(value);
+      if (parsed != null) {
+        return parsed.toString();
+      }
+      double? parsedDouble = double.tryParse(value);
+      if (parsedDouble != null) {
+        return parsedDouble.toInt().toString();
+      }
+    }
+    return value.toString();
+  }
+
+  String _formatTime(String time) {
+    if (time.isEmpty) return 'Not set';
+
+    try {
+      if (time.contains(':')) {
+        List<String> parts = time.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+
+          String period = hour >= 12 ? 'PM' : 'AM';
+          int hour12 = hour % 12;
+          if (hour12 == 0) hour12 = 12;
+
+          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+        }
+      }
+    } catch (e) {
+      // Return as is if parsing fails
+    }
+    return time;
+  }
+
+  String _maskAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) return accountNumber;
+    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  }
+
+  dynamic _convertToJsonSafe(dynamic obj) {
+    if (obj == null) return null;
+    if (obj is DateTime) {
+      return obj.toIso8601String();
+    }
+    if (obj is Uint8List) {
+      return base64Encode(obj);
+    }
+    if (obj is Map) {
+      Map<String, dynamic> result = {};
+      obj.forEach((key, value) {
+        result[key.toString()] = _convertToJsonSafe(value);
+      });
+      return result;
+    }
+    if (obj is List) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is Set) {
+      return obj.map((item) => _convertToJsonSafe(item)).toList();
+    }
+    if (obj is String || obj is num || obj is bool) {
+      return obj;
+    }
+    try {
+      return obj.toString();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Widget _buildSectionCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    if (children.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _primaryLight,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(icon, size: 20, color: _primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: _textDark,
+                ),
+              ),
+            ],
+          ),
+          Divider(height: 24, color: _borderColor),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
+    final selectedAmenities = amenities.entries
+        .where((e) => e.value)
+        .map((e) => e.key)
+        .toList();
+
+    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: _subSectionStyle),
+        const SizedBox(height: 8),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: selectedAmenities
+              .map(
+                (amenity) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    color: _primaryLight,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: _primaryColor.withOpacity(0.2)),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.check_circle, size: 14, color: _primaryColor),
+                      const SizedBox(width: 6),
+                      Text(
+                        amenity,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: _primaryColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+        const SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _infoRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    if (displayValue.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
+          Expanded(
+            flex: 6,
+            child: Text(
+              displayValue,
+              style: _valueStyle,
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _detailRow(String label, dynamic value) {
+    if (value == null) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (value is int) {
+      displayValue = value.toString();
+    } else if (value is double) {
+      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
+          Text(
+            displayValue,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: _textDark,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Profile Photo', style: _labelStyle),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[50],
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: _borderColor),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: _primaryLight,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(Icons.person, size: 24, color: _primaryColor),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        photoInfo['name'] ?? 'Profile Photo',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: _textDark,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
+                        style: TextStyle(fontSize: 12, color: _textLight),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.check_circle, size: 20, color: _successColor),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextStyle get _labelStyle =>
+      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
+
+  TextStyle get _valueStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+
+  TextStyle get _subSectionStyle =>
+      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
+}
+
 class HotelOwnerDashboard extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
@@ -6428,6 +12855,7 @@ class HotelOwnerDashboard extends StatefulWidget {
   @override
   State<HotelOwnerDashboard> createState() => _HotelOwnerDashboardState();
 }
+
 class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
   int _selectedIndex = 0;
   final Color _primaryColor = Color(0xFFFF5F6D);
@@ -9511,6 +15939,7 @@ class HotelOwnerProfilePage extends StatefulWidget {
   @override
   State<HotelOwnerProfilePage> createState() => _HotelOwnerProfilePageState();
 }
+
 class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
@@ -18257,12 +24686,15 @@ class _TwoStarHotelRegistrationScreenState
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
-  final TextEditingController _checkInController = TextEditingController(
-    text: '14:00',
-  );
-  final TextEditingController _checkOutController = TextEditingController(
-    text: '12:00',
-  );
+  // final TextEditingController _checkInController = TextEditingController(
+  //   text: '14:00',
+  // );
+  // final TextEditingController _checkOutController = TextEditingController(
+  //   text: '12:00',
+  // );
+
+  final TextEditingController _checkInController = TextEditingController();
+  final TextEditingController _checkOutController = TextEditingController();
   final TextEditingController _minTariffController = TextEditingController();
   final TextEditingController _maxTariffController = TextEditingController();
   final TextEditingController _gstController = TextEditingController();
@@ -18277,7 +24709,7 @@ class _TwoStarHotelRegistrationScreenState
   final TextEditingController _branchController = TextEditingController();
   final TextEditingController _declarationNameController =
       TextEditingController();
-
+  final TextEditingController _countryController = TextEditingController();
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Single Room': {'rooms': '', 'occupancy': '', 'ac': true, 'price': ''},
     'Double Room': {'rooms': '', 'occupancy': '', 'ac': true, 'price': ''},
@@ -18289,7 +24721,7 @@ class _TwoStarHotelRegistrationScreenState
     'Double Room': false,
     'Deluxe Room': false,
   };
-
+  String? _selectedAccountType; // 'Savings' or 'Current'
   String? _selectedHotelType;
 
   bool _extraBedAvailable = false;
@@ -18326,6 +24758,13 @@ class _TwoStarHotelRegistrationScreenState
     'Wake-up Call Service': false,
     'Travel Desk / Taxi Assistance': false,
     'Doctor on Call': false,
+  };
+
+  final Map<String, dynamic> _profilePhoto = {
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
   };
 
   String? _selectedIdProof;
@@ -18446,6 +24885,20 @@ class _TwoStarHotelRegistrationScreenState
   );
   bool _hasDigitalSignature = false;
   Uint8List? _digitalSignatureImage;
+  String _getCurrentLocalTime() {
+    final now = DateTime.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with current local time
+    _checkInController.text = _getCurrentLocalTime();
+    _checkOutController.text = _getCurrentLocalTime();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18777,7 +25230,7 @@ class _TwoStarHotelRegistrationScreenState
           title: '1. Hotel Information',
           children: [
             _buildInputField(
-              label: 'Hotel Name *',
+              label: 'Hotel Name',
               controller: _hotelNameController,
               hint: 'Enter hotel name',
             ),
@@ -18836,7 +25289,7 @@ class _TwoStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hotel Type *',
+                  'Hotel Type',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: _textPrimary,
@@ -18857,6 +25310,29 @@ class _TwoStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: _buildInputField(
+            //         label: 'Year of Establishment',
+            //         controller: _yearController,
+            //         hint: 'YYYY',
+            //         keyboardType: TextInputType.number,
+            //       ),
+            //     ),
+            //     SizedBox(width: 16),
+            //     Expanded(
+            //       child: _buildInputField(
+            //         label: 'Total Number of Rooms',
+            //         controller: _roomsController,
+            //         hint: '0',
+            //         keyboardType: TextInputType.number,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
+            // In _buildStep1() - modify the year and rooms input fields
             Row(
               children: [
                 Expanded(
@@ -18865,6 +25341,10 @@ class _TwoStarHotelRegistrationScreenState
                     controller: _yearController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -18874,6 +25354,9 @@ class _TwoStarHotelRegistrationScreenState
                     controller: _roomsController,
                     hint: '0',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
                 ),
               ],
@@ -18884,14 +25367,183 @@ class _TwoStarHotelRegistrationScreenState
     );
   }
 
+  // Widget _buildStep2() {
+  //   return Column(
+  //     children: [
+  //       _buildCard(
+  //         title: '2. Contact Details',
+  //         children: [
+  //           _buildInputField(
+  //             label: 'Owner Name ',
+  //             controller: _ownerNameController,
+  //             hint: 'Enter full name',
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Designation',
+  //             controller: _designationController,
+  //             hint: 'e.g., Owner, Manager',
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Mobile Number',
+  //             controller: _mobileController,
+  //             hint: 'Enter 10-digit mobile number',
+  //             keyboardType: TextInputType.phone,
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Alternate Contact Number',
+  //             controller: _altMobileController,
+  //             hint: 'Optional',
+  //             keyboardType: TextInputType.phone,
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Email ID',
+  //             controller: _emailController,
+  //             hint: 'example@email.com',
+  //             keyboardType: TextInputType.emailAddress,
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Website (if any)',
+  //             controller: _websiteController,
+  //             hint: 'https://example.com',
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(height: 16),
+  //
+  //       _buildCard(
+  //         title: '3. Hotel Address',
+  //         children: [
+  //           _buildInputField(
+  //             label: 'Primary Address Line 1',
+  //             controller: _address1Controller,
+  //             hint: 'Street address',
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Address Line 2',
+  //             controller: _address2Controller,
+  //             hint: 'Apartment, suite, etc.',
+  //           ),
+  //           SizedBox(height: 16),
+  //
+  //           if (_additionalAddresses.isNotEmpty)
+  //             ..._additionalAddresses.asMap().entries.map((entry) {
+  //               int index = entry.key;
+  //               Map<String, TextEditingController> address = entry.value;
+  //
+  //               TextEditingController? addressController = address['address'];
+  //
+  //               if (addressController == null) {
+  //                 addressController = TextEditingController();
+  //                 address['address'] = addressController;
+  //               }
+  //
+  //               return Column(
+  //                 children: [
+  //                   Row(
+  //                     children: [
+  //                       Expanded(
+  //                         child: _buildInputField(
+  //                           label: 'Additional Address ${index + 1}',
+  //                           controller: addressController,
+  //                           hint: 'Enter additional address',
+  //                         ),
+  //                       ),
+  //                       SizedBox(width: 8),
+  //                       IconButton(
+  //                         icon: Icon(Icons.remove_circle, color: Colors.red),
+  //                         onPressed: () => _removeAdditionalAddress(index),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                   SizedBox(height: 16),
+  //                 ],
+  //               );
+  //             }).toList(),
+  //
+  //           SizedBox(height: 16),
+  //           ElevatedButton.icon(
+  //             onPressed: _addAdditionalAddress,
+  //             style: ElevatedButton.styleFrom(
+  //               backgroundColor: _primaryColor,
+  //               shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(8),
+  //               ),
+  //             ),
+  //             icon: Icon(Icons.add_location, size: 18, color: Colors.white),
+  //             label: Text(
+  //               'Add Additional Address',
+  //               style: TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.w500,
+  //                 color: Colors.white,
+  //               ),
+  //             ),
+  //           ),
+  //           SizedBox(height: 16),
+  //
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'City',
+  //                   controller: _cityController,
+  //                   hint: 'Enter city',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'District',
+  //                   controller: _districtController,
+  //                   hint: 'Enter district',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'State',
+  //                   controller: _stateController,
+  //                   hint: 'Enter state',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'PIN Code',
+  //                   controller: _pinController,
+  //                   hint: '6-digit PIN',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildStep2() {
     return Column(
       children: [
         _buildCard(
           title: '2. Contact Details',
           children: [
+
+        _buildProfilePhotoUploadItem(),
+    SizedBox(height: 16),
             _buildInputField(
-              label: 'Owner / Authorized Person Name *',
+              label: 'Owner Name ',
               controller: _ownerNameController,
               hint: 'Enter full name',
             ),
@@ -18903,7 +25555,7 @@ class _TwoStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Mobile Number *',
+              label: 'Mobile Number',
               controller: _mobileController,
               hint: 'Enter 10-digit mobile number',
               keyboardType: TextInputType.phone,
@@ -18928,6 +25580,8 @@ class _TwoStarHotelRegistrationScreenState
               controller: _websiteController,
               hint: 'https://example.com',
             ),
+            SizedBox(height: 16),
+
           ],
         ),
         SizedBox(height: 16),
@@ -18936,7 +25590,7 @@ class _TwoStarHotelRegistrationScreenState
           title: '3. Hotel Address',
           children: [
             _buildInputField(
-              label: 'Primary Address Line 1 *',
+              label: 'Primary Address Line 1',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -19004,11 +25658,13 @@ class _TwoStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
+            // Add Country field here
             Row(
               children: [
+
                 Expanded(
                   child: _buildInputField(
-                    label: 'City *',
+                    label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
                   ),
@@ -19016,19 +25672,21 @@ class _TwoStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'District *',
+                    label: 'District',
                     controller: _districtController,
                     hint: 'Enter district',
                   ),
                 ),
+
               ],
             ),
             SizedBox(height: 16),
             Row(
               children: [
+
                 Expanded(
                   child: _buildInputField(
-                    label: 'State *',
+                    label: 'State',
                     controller: _stateController,
                     hint: 'Enter state',
                   ),
@@ -19036,12 +25694,27 @@ class _TwoStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'PIN Code *',
+                    label: 'Country',
+                    controller: TextEditingController(), // You'll need to add this controller
+                    hint: 'Enter country',
+                  ),
+                ),
+
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'PIN Code',
                     controller: _pinController,
                     hint: '6-digit PIN',
                     keyboardType: TextInputType.number,
                   ),
                 ),
+                SizedBox(width: 16),
+                Expanded(child: Container()),
               ],
             ),
           ],
@@ -19050,6 +25723,289 @@ class _TwoStarHotelRegistrationScreenState
     );
   }
 
+  Widget _buildProfilePhotoUploadItem() {
+    final fileName = _profilePhoto['name'] as String? ?? '';
+    final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
+    final fileSize = (_profilePhoto['size'] as int?) ?? 0;
+
+    Future<void> _pickProfilePhoto() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a profile photo smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _profilePhoto['name'] = file.name;
+            _profilePhoto['size'] = file.size;
+            _profilePhoto['path'] = file.path ?? '';
+            _profilePhoto['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Profile photo uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload profile photo: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewProfilePhoto() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Profile Photo'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('File: $fileName'),
+                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    void _removeProfilePhoto() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Remove Profile Photo'),
+          content: const Text('Are you sure you want to remove this profile photo?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _profilePhoto['name'] = '';
+                  _profilePhoto['size'] = 0;
+                  _profilePhoto['path'] = '';
+                  _profilePhoto['uploaded'] = false;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Profile photo removed'),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile Photo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'JPG, PNG format (Max 2MB)',
+                        style: TextStyle(fontSize: 11, color: _textSecondary),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickProfilePhoto,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(fontSize: 11, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewProfilePhoto,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview',
+                      ),
+                      IconButton(
+                        onPressed: _removeProfilePhoto,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
   Widget _buildStep3() {
     return Column(
       children: [
@@ -19184,6 +26140,78 @@ class _TwoStarHotelRegistrationScreenState
 
             SizedBox(height: 20),
 
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(
+            //       'Select Price Per Day:',
+            //       style: TextStyle(
+            //         fontSize: 13,
+            //         fontWeight: FontWeight.w500,
+            //         color: _textPrimary,
+            //       ),
+            //     ),
+            //     SizedBox(height: 8),
+            //     Row(
+            //       children: [
+            //         Expanded(
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               TextFormField(
+            //                 controller: _minTariffController,
+            //                 keyboardType: TextInputType.number,
+            //                 decoration: InputDecoration(
+            //                   hintText: 'Rs',
+            //                   prefixText: '₹ ',
+            //                   contentPadding: EdgeInsets.symmetric(
+            //                     horizontal: 12,
+            //                     vertical: 10,
+            //                   ),
+            //                   border: OutlineInputBorder(
+            //                     borderRadius: BorderRadius.circular(8),
+            //                     borderSide: BorderSide(color: _borderColor),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //         Padding(
+            //           padding: EdgeInsets.symmetric(horizontal: 8),
+            //           child: Text(
+            //             'to',
+            //             style: TextStyle(color: _textSecondary),
+            //           ),
+            //         ),
+            //         Expanded(
+            //           child: Column(
+            //             crossAxisAlignment: CrossAxisAlignment.start,
+            //             children: [
+            //               TextFormField(
+            //                 controller: _maxTariffController,
+            //                 keyboardType: TextInputType.number,
+            //                 decoration: InputDecoration(
+            //                   hintText: 'Rs',
+            //                   prefixText: '₹ ',
+            //                   contentPadding: EdgeInsets.symmetric(
+            //                     horizontal: 12,
+            //                     vertical: 10,
+            //                   ),
+            //                   border: OutlineInputBorder(
+            //                     borderRadius: BorderRadius.circular(8),
+            //                     borderSide: BorderSide(color: _borderColor),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
+            // In _buildStep3(), update the price range section
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -19204,7 +26232,10 @@ class _TwoStarHotelRegistrationScreenState
                         children: [
                           TextFormField(
                             controller: _minTariffController,
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                            ],
                             decoration: InputDecoration(
                               hintText: 'Rs',
                               prefixText: '₹ ',
@@ -19234,7 +26265,10 @@ class _TwoStarHotelRegistrationScreenState
                         children: [
                           TextFormField(
                             controller: _maxTariffController,
-                            keyboardType: TextInputType.number,
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                            ],
                             decoration: InputDecoration(
                               hintText: 'Rs',
                               prefixText: '₹ ',
@@ -19283,21 +26317,39 @@ class _TwoStarHotelRegistrationScreenState
         _buildCard(
           title: '6. Check-in & Policies',
           children: [
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: _buildTimeDropdown(
+            //         label: 'Standard Check-in Time',
+            //         controller: _checkInController,
+            //         onChanged: (value) {},
+            //       ),
+            //     ),
+            //     SizedBox(width: 16),
+            //     Expanded(
+            //       child: _buildTimeDropdown(
+            //         label: 'Standard Check-out Time',
+            //         controller: _checkOutController,
+            //         onChanged: (value) {},
+            //       ),
+            //     ),
+            //   ],
+            // ),
+
             Row(
               children: [
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-in Time',
                     controller: _checkInController,
-                    onChanged: (value) {},
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-out Time',
                     controller: _checkOutController,
-                    onChanged: (value) {},
                   ),
                 ),
               ],
@@ -19308,7 +26360,7 @@ class _TwoStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'ID Proof Required: *',
+                  'ID Proof Required:',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -19533,7 +26585,95 @@ class _TwoStarHotelRegistrationScreenState
       ],
     );
   }
+  Widget _buildTimePickerField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectTime(context, controller),
+          child: Container(
+            height: 48,
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isNotEmpty
+                      ? _formatTimeForDisplay(controller.text)
+                      : 'Select time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: controller.text.isNotEmpty
+                        ? _textPrimary
+                        : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                  color: _primaryColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    // Parse current time or use current local time as default
+    TimeOfDay initialTime = TimeOfDay.now();
 
+    if (controller.text.isNotEmpty) {
+      try {
+        List<String> parts = controller.text.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          initialTime = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e) {
+        // Use current time if parsing fails
+        initialTime = TimeOfDay.now();
+      }
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        // Store in 24-hour format
+        String hour = pickedTime.hour.toString().padLeft(2, '0');
+        String minute = pickedTime.minute.toString().padLeft(2, '0');
+        controller.text = '$hour:$minute';
+      });
+    }
+  }
   Widget _buildStep5() {
     return Column(
       children: [
@@ -19566,17 +26706,60 @@ class _TwoStarHotelRegistrationScreenState
           ],
         ),
         SizedBox(height: 16),
+        // _buildCard(
+        //   title: '8. Bank Details (Payment Settlement)',
+        //   children: [
+        //     _buildInputField(
+        //       label: 'Account Holder Name *',
+        //       controller: _accountNameController,
+        //       hint: 'Enter name as per bank',
+        //     ),
+        //     SizedBox(height: 16),
+        //     _buildInputField(
+        //       label: 'Bank Name',
+        //       controller: _bankNameController,
+        //       hint: 'Enter bank name',
+        //     ),
+        //     SizedBox(height: 16),
+        //     Row(
+        //       children: [
+        //         Expanded(
+        //           child: _buildInputField(
+        //             label: 'Account Number',
+        //             controller: _accountNumberController,
+        //             hint: 'Enter account number',
+        //             keyboardType: TextInputType.number,
+        //           ),
+        //         ),
+        //         SizedBox(width: 16),
+        //         Expanded(
+        //           child: _buildInputField(
+        //             label: 'IFSC Code',
+        //             controller: _ifscController,
+        //             hint: 'Enter IFSC code',
+        //           ),
+        //         ),
+        //       ],
+        //     ),
+        //     SizedBox(height: 16),
+        //     _buildInputField(
+        //       label: 'Branch',
+        //       controller: _branchController,
+        //       hint: 'Enter branch name',
+        //     ),
+        //   ],
+        // ),
         _buildCard(
-          title: '8. Bank Details (Payment Settlement)',
+          title: '8. Bank Details',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountNameController,
               hint: 'Enter name as per bank',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Bank Name *',
+              label: 'Bank Name',
               controller: _bankNameController,
               hint: 'Enter bank name',
             ),
@@ -19585,7 +26768,7 @@ class _TwoStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
@@ -19594,7 +26777,7 @@ class _TwoStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscController,
                     hint: 'Enter IFSC code',
                   ),
@@ -19606,6 +26789,57 @@ class _TwoStarHotelRegistrationScreenState
               label: 'Branch',
               controller: _branchController,
               hint: 'Enter branch name',
+            ),
+            SizedBox(height: 16),
+
+            // Add Account Type Radio Buttons here
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Account Type',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Savings'),
+                        value: 'Savings',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Current'),
+                        value: 'Current',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -19910,7 +27144,7 @@ class _TwoStarHotelRegistrationScreenState
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'Date *',
+                      'Date',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
@@ -20737,12 +27971,61 @@ class _TwoStarHotelRegistrationScreenState
     );
   }
 
+  // Widget _buildInputField({
+  //   required String label,
+  //   required TextEditingController controller,
+  //   required String hint,
+  //   TextInputType? keyboardType,
+  //   bool isRequired = true,
+  // }) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Row(
+  //         children: [
+  //           Text(
+  //             label,
+  //             style: TextStyle(
+  //               fontSize: 13,
+  //               fontWeight: FontWeight.w500,
+  //               color: _textPrimary,
+  //             ),
+  //           ),
+  //           if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
+  //         ],
+  //       ),
+  //       SizedBox(height: 8),
+  //       TextFormField(
+  //         controller: controller,
+  //         keyboardType: keyboardType,
+  //         decoration: InputDecoration(
+  //           hintText: hint,
+  //           contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+  //           border: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: BorderSide(color: _borderColor),
+  //           ),
+  //           enabledBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: BorderSide(color: _borderColor),
+  //           ),
+  //           focusedBorder: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(8),
+  //             borderSide: BorderSide(color: _primaryColor),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    bool isRequired = true,
+    // bool isRequired = true,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -20757,13 +28040,14 @@ class _TwoStarHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
+            // if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
           ],
         ),
         SizedBox(height: 8),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -20784,7 +28068,6 @@ class _TwoStarHotelRegistrationScreenState
       ],
     );
   }
-
   Widget _buildHotelTypeChip(String type) {
     bool isSelected = _selectedHotelType == type;
     return GestureDetector(
@@ -20815,6 +28098,93 @@ class _TwoStarHotelRegistrationScreenState
     );
   }
 
+  // Widget _buildRoomConfigurationCard(String roomType) {
+  //   final details = _roomDetails[roomType]!;
+  //
+  //   return Container(
+  //     padding: EdgeInsets.all(12),
+  //     decoration: BoxDecoration(
+  //       color: Colors.grey[50],
+  //       borderRadius: BorderRadius.circular(8),
+  //       border: Border.all(color: _borderColor),
+  //     ),
+  //     child: Column(
+  //       children: [
+  //         Text(
+  //           roomType,
+  //           style: TextStyle(
+  //             fontSize: 14,
+  //             fontWeight: FontWeight.w600,
+  //             color: _primaryColor,
+  //           ),
+  //         ),
+  //         SizedBox(height: 12),
+  //         Row(
+  //           children: [
+  //             Expanded(
+  //               child: _buildSmallInput(
+  //                 label: 'No. of Rooms',
+  //                 controller: TextEditingController(text: details['rooms']),
+  //                 onChanged: (value) => details['rooms'] = value,
+  //                 hint: '0',
+  //                 keyboardType: TextInputType.number,
+  //               ),
+  //             ),
+  //             SizedBox(width: 12),
+  //             Expanded(
+  //               child: _buildSmallInput(
+  //                 label: 'Max Occupancy',
+  //                 controller: TextEditingController(text: details['occupancy']),
+  //                 onChanged: (value) => details['occupancy'] = value,
+  //                 hint: 'Persons',
+  //                 keyboardType: TextInputType.number,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 12),
+  //         Row(
+  //           children: [
+  //             Expanded(
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   Text(
+  //                     'AC / Non-AC',
+  //                     style: TextStyle(
+  //                       fontSize: 12,
+  //                       fontWeight: FontWeight.w500,
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: 8),
+  //                   Row(
+  //                     children: [
+  //                       _buildToggleChip('AC', details['ac'], () {
+  //                         setState(() => details['ac'] = true);
+  //                       }),
+  //                       SizedBox(width: 8),
+  //                       _buildToggleChip('Non-AC', !details['ac'], () {
+  //                         setState(() => details['ac'] = false);
+  //                       }),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 12),
+  //         _buildSmallInput(
+  //           label: 'Price per Night (₹)',
+  //           controller: TextEditingController(text: details['price']),
+  //           onChanged: (value) => details['price'] = value,
+  //           hint: '0',
+  //           keyboardType: TextInputType.number,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -20845,6 +28215,7 @@ class _TwoStarHotelRegistrationScreenState
                   onChanged: (value) => details['rooms'] = value,
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
@@ -20855,6 +28226,7 @@ class _TwoStarHotelRegistrationScreenState
                   onChanged: (value) => details['occupancy'] = value,
                   hint: 'Persons',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
             ],
@@ -20895,20 +28267,63 @@ class _TwoStarHotelRegistrationScreenState
             label: 'Price per Night (₹)',
             controller: TextEditingController(text: details['price']),
             onChanged: (value) => details['price'] = value,
-            hint: '0',
-            keyboardType: TextInputType.number,
+            hint: '0.00',
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+            ],
           ),
         ],
       ),
     );
   }
-
+  // Widget _buildSmallInput({
+  //   required String label,
+  //   required TextEditingController controller,
+  //   required ValueChanged<String> onChanged,
+  //   required String hint,
+  //   TextInputType? keyboardType,
+  // }) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         label,
+  //         style: TextStyle(
+  //           fontSize: 12,
+  //           fontWeight: FontWeight.w500,
+  //           color: _textPrimary,
+  //         ),
+  //       ),
+  //       SizedBox(height: 8),
+  //       SizedBox(
+  //         height: 40,
+  //         child: TextFormField(
+  //           controller: controller,
+  //           onChanged: onChanged,
+  //           keyboardType: keyboardType,
+  //           textAlign: TextAlign.center,
+  //           decoration: InputDecoration(
+  //             hintText: hint,
+  //             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+  //             border: OutlineInputBorder(
+  //               borderRadius: BorderRadius.circular(6),
+  //               borderSide: BorderSide(color: _borderColor),
+  //             ),
+  //             isDense: true,
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -20928,6 +28343,7 @@ class _TwoStarHotelRegistrationScreenState
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: hint,
@@ -20943,7 +28359,6 @@ class _TwoStarHotelRegistrationScreenState
       ],
     );
   }
-
   Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
@@ -21562,40 +28977,40 @@ class _TwoStarHotelRegistrationScreenState
   // }
 
   void _submitForm() {
-    if (!(_signatureFile['uploaded'] ?? false)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please upload Digital Signature'),
-          backgroundColor: Colors.red,
-        ),
-      );
+    // if (!(_signatureFile['uploaded'] ?? false)) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Please upload Digital Signature'),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //
+    //   setState(() => _currentStep = 4);
+    //   return;
+    // }
 
-      setState(() => _currentStep = 4);
-      return;
-    }
+    // final requiredDocuments = [
+    //   'GST Certificate',
+    //   'Trade License',
+    //   'Cancelled Cheque',
+    //   'Hotel Registration Certificate',
+    //   'Room & Property Photos',
+    // ];
 
-    final requiredDocuments = [
-      'GST Certificate',
-      'Trade License',
-      'Cancelled Cheque',
-      'Hotel Registration Certificate',
-      'Room & Property Photos',
-    ];
-
-    for (var doc in requiredDocuments) {
-      final fileInfo = _uploadedFiles[doc];
-      if (!(fileInfo?['uploaded'] ?? false)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please upload $doc'),
-            backgroundColor: Colors.red,
-          ),
-        );
-
-        setState(() => _currentStep = 4);
-        return;
-      }
-    }
+    // for (var doc in requiredDocuments) {
+    //   final fileInfo = _uploadedFiles[doc];
+    //   if (!(fileInfo?['uploaded'] ?? false)) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text('Please upload $doc'),
+    //         backgroundColor: Colors.red,
+    //       ),
+    //     );
+    //
+    //     setState(() => _currentStep = 4);
+    //     return;
+    //   }
+    // }
 
     if (!_declarationAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -21606,35 +29021,35 @@ class _TwoStarHotelRegistrationScreenState
       );
       return;
     }
-
-    if (_selectedIdProof != null) {
-      final idProofFile = _idProofFiles[_selectedIdProof!];
-      if (!(idProofFile?['uploaded'] ?? false)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please upload a sample for $_selectedIdProof'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        setState(() => _currentStep = 3);
-        return;
-      }
-    }
+    //
+    // if (_selectedIdProof != null) {
+    //   final idProofFile = _idProofFiles[_selectedIdProof!];
+    //   if (!(idProofFile?['uploaded'] ?? false)) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text('Please upload a sample for $_selectedIdProof'),
+    //         backgroundColor: Colors.red,
+    //       ),
+    //     );
+    //     setState(() => _currentStep = 3);
+    //     return;
+    //   }
+    // }
     final hasDigitalSignature = _hasDigitalSignature;
     final hasUploadedSignature = (_signatureFile['uploaded'] ?? false);
 
-    if (!hasDigitalSignature && !hasUploadedSignature) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Please either draw a digital signature or upload a signature file.',
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
-      setState(() => _currentStep = 4);
-      return;
-    }
+    // if (!hasDigitalSignature && !hasUploadedSignature) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text(
+    //         'Please either draw a digital signature or upload a signature file.',
+    //       ),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //   setState(() => _currentStep = 4);
+    //   return;
+    // }
 
     Map<String, dynamic> formData = {
       'hotelName': _hotelNameController.text,
@@ -21654,6 +29069,9 @@ class _TwoStarHotelRegistrationScreenState
       'district': _districtController.text,
       'state': _stateController.text,
       'pinCode': _pinController.text,
+      'country': _countryController.text, // Add this
+      'profilePhoto': _profilePhoto, // Add this
+      'accountType': _selectedAccountType,
       'selectedRoomTypes': _selectedRoomTypes,
       'roomDetails': _roomDetails,
       'extraBedAvailable': _extraBedAvailable,
@@ -21692,16 +29110,26 @@ class _TwoStarHotelRegistrationScreenState
       }).toList(),
     };
 
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => RegistrationSummaryScreen(
+    //       registrationData: formData,
+    //       hotelCategory: '2-Star',
+    //       declarationAccepted: _declarationAccepted,
+    //     ),
+    //   ),
+    // );
+
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
-          registrationData: formData,
-          hotelCategory: '2-Star',
-          declarationAccepted: _declarationAccepted,
-        ),
-      ),
-    );
+  context,
+  MaterialPageRoute(
+    builder: (context) => TwoStarHotelSummaryScreen(
+      registrationData: formData,
+      declarationAccepted: _declarationAccepted,
+    ),
+  ),
+);
   }
 
   void _addAdditionalAddress() {
@@ -21768,6 +29196,73 @@ class _TwoStarHotelRegistrationScreenState
     }
   }
 
+  // Widget _buildTimeDropdown({
+  //   required String label,
+  //   required TextEditingController controller,
+  //   required ValueChanged<String> onChanged,
+  // }) {
+  //   String currentValue = controller.text;
+  //   String displayValue = '';
+  //
+  //   if (currentValue.isNotEmpty) {
+  //     for (var option in _timeOptions24Hour) {
+  //       if (option['value'] == currentValue) {
+  //         displayValue = option['value']!;
+  //         break;
+  //       }
+  //     }
+  //
+  //     if (displayValue.isEmpty) {
+  //       displayValue = _convertTo24HourFormat(currentValue);
+  //     }
+  //   }
+  //
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         label,
+  //         style: TextStyle(
+  //           fontSize: 13,
+  //           fontWeight: FontWeight.w500,
+  //           color: _textPrimary,
+  //         ),
+  //       ),
+  //       SizedBox(height: 8),
+  //       Container(
+  //         height: 48,
+  //         padding: EdgeInsets.symmetric(horizontal: 12),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(color: _borderColor),
+  //           borderRadius: BorderRadius.circular(8),
+  //         ),
+  //         child: DropdownButtonHideUnderline(
+  //           child: DropdownButton<String>(
+  //             value: displayValue.isNotEmpty ? displayValue : null,
+  //             isExpanded: true,
+  //             icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
+  //             hint: Text('Select time'),
+  //             items: _timeOptions24Hour.map((option) {
+  //               return DropdownMenuItem<String>(
+  //                 value: option['value'],
+  //                 child: Text(option['display']!),
+  //               );
+  //             }).toList(),
+  //             onChanged: (value) {
+  //               if (value != null) {
+  //                 setState(() {
+  //                   controller.text = value;
+  //                 });
+  //                 onChanged(value);
+  //               }
+  //             },
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildTimeDropdown({
     required String label,
     required TextEditingController controller,
@@ -21775,17 +29270,42 @@ class _TwoStarHotelRegistrationScreenState
   }) {
     String currentValue = controller.text;
     String displayValue = '';
+    String displayText = '';
 
     if (currentValue.isNotEmpty) {
+
       for (var option in _timeOptions24Hour) {
         if (option['value'] == currentValue) {
           displayValue = option['value']!;
+          displayText = option['display']!;
           break;
         }
       }
 
+
       if (displayValue.isEmpty) {
-        displayValue = _convertTo24HourFormat(currentValue);
+
+        try {
+          List<String> parts = currentValue.split(':');
+          if (parts.length >= 2) {
+            int hour = int.parse(parts[0]);
+            int minute = int.parse(parts[1].substring(0, 2));
+
+            // Format as 24-hour with leading zeros
+            String hour24 = hour.toString().padLeft(2, '0');
+            String minuteStr = minute.toString().padLeft(2, '0');
+            displayValue = '$hour24:$minuteStr';
+
+            // Convert to 12-hour format for display
+            String period = hour >= 12 ? 'PM' : 'AM';
+            int hour12 = hour % 12;
+            if (hour12 == 0) hour12 = 12;
+            displayText = '${hour12.toString().padLeft(2, '0')}:$minuteStr $period';
+          }
+        } catch (e) {
+          displayValue = currentValue;
+          displayText = currentValue;
+        }
       }
     }
 
@@ -21812,12 +29332,38 @@ class _TwoStarHotelRegistrationScreenState
             child: DropdownButton<String>(
               value: displayValue.isNotEmpty ? displayValue : null,
               isExpanded: true,
-              icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
-              hint: Text('Select time'),
+              icon: Icon(Icons.access_time, color: _textSecondary, size: 20),
+              hint: Text(
+                displayText.isNotEmpty ? displayText : 'Select time',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: displayText.isNotEmpty ? _textPrimary : _textSecondary,
+                ),
+              ),
               items: _timeOptions24Hour.map((option) {
                 return DropdownMenuItem<String>(
                   value: option['value'],
-                  child: Text(option['display']!),
+                  child: Row(
+                    children: [
+                      Icon(Icons.access_time, size: 16, color: _primaryColor),
+                      SizedBox(width: 8),
+                      Text(
+                        option['display']!,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: _textPrimary,
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        '(${option['value']})',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: _textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               }).toList(),
               onChanged: (value) {
@@ -21834,7 +29380,25 @@ class _TwoStarHotelRegistrationScreenState
       ],
     );
   }
+  String _formatTimeForDisplay(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length >= 2) {
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1].substring(0, 2));
 
+        String period = hour >= 12 ? 'PM' : 'AM';
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+      }
+    } catch (e) {
+      return time24;
+    }
+    return time24;
+  }
   @override
   void dispose() {
     _hotelNameController.dispose();
@@ -21845,6 +29409,7 @@ class _TwoStarHotelRegistrationScreenState
     _mobileController.dispose();
     // _checkInTimeController.dispose();
     // _checkOutTimeController.dispose();
+    _countryController.dispose();
     _altMobileController.dispose();
     _emailController.dispose();
     _websiteController.dispose();
@@ -21887,6 +29452,7 @@ class ThreeStarHotelRegistrationScreen extends StatefulWidget {
       _ThreeStarHotelRegistrationScreenState();
 }
 
+
 class _ThreeStarHotelRegistrationScreenState
     extends State<ThreeStarHotelRegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
@@ -21904,7 +29470,7 @@ class _ThreeStarHotelRegistrationScreenState
   final TextEditingController _hotelNameController = TextEditingController();
   final TextEditingController _yearController = TextEditingController();
   final TextEditingController _registrationNumberController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _roomsController = TextEditingController();
   final TextEditingController _ownerNameController = TextEditingController();
   final TextEditingController _designationController = TextEditingController();
@@ -21918,6 +29484,7 @@ class _ThreeStarHotelRegistrationScreenState
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController(); // NEW: Country field
   final TextEditingController _checkInController = TextEditingController();
   final TextEditingController _checkOutController = TextEditingController();
   final TextEditingController _gstController = TextEditingController();
@@ -21927,33 +29494,44 @@ class _ThreeStarHotelRegistrationScreenState
   final TextEditingController _accountNameController = TextEditingController();
   final TextEditingController _bankNameController = TextEditingController();
   final TextEditingController _accountNumberController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _ifscController = TextEditingController();
   final TextEditingController _branchController = TextEditingController();
   final TextEditingController _signatoryNameController =
-      TextEditingController();
+  TextEditingController();
+
+  // NEW: Account Type
+  String? _selectedAccountType; // 'Savings' or 'Current'
+
+  // NEW: Profile Photo
+  final Map<String, dynamic> _profilePhoto = {
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
+  };
 
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Standard': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0, // Changed from '' to 0
+      'occupancy': 0, // Changed from '' to 0
       'ac': true,
       'bedType': 'Queen',
-      'price': '',
+      'price': 0.0, // Changed from '' to 0.0
     },
     'Deluxe': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'price': '',
+      'price': 0.0,
     },
     'Suite': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'price': '',
+      'price': 0.0,
     },
   };
 
@@ -22099,7 +29677,29 @@ class _ThreeStarHotelRegistrationScreenState
   bool _hasDigitalSignature = false;
   Uint8List? _digitalSignatureImage;
 
+  // NEW: Helper method to get current local time
+  String _getCurrentLocalTime() {
+    final now = DateTime.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  // NEW: Helper method to get initial text for numeric fields
+  String _getInitialText(dynamic value) {
+    if (value == null) return '';
+    if (value is num && value == 0) return '';
+    return value.toString();
+  }
+
   @override
+  void initState() {
+    super.initState();
+    // Initialize with current local time
+    _checkInController.text = _getCurrentLocalTime();
+    _checkOutController.text = _getCurrentLocalTime();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22170,20 +29770,20 @@ class _ThreeStarHotelRegistrationScreenState
                                   child: Center(
                                     child: isCompleted
                                         ? Icon(
-                                            Icons.check,
-                                            size: 18,
-                                            color: Colors.white,
-                                          )
+                                      Icons.check,
+                                      size: 18,
+                                      color: Colors.white,
+                                    )
                                         : Text(
-                                            '${index + 1}',
-                                            style: TextStyle(
-                                              color: isActive || isCompleted
-                                                  ? Colors.white
-                                                  : _textSecondary,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                            ),
-                                          ),
+                                      '${index + 1}',
+                                      style: TextStyle(
+                                        color: isActive || isCompleted
+                                            ? Colors.white
+                                            : _textSecondary,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 4),
@@ -22223,7 +29823,8 @@ class _ThreeStarHotelRegistrationScreenState
                         style: TextStyle(fontSize: 12, color: _textSecondary),
                       ),
                       Text(
-                        '${((_currentStep + 1) / _steps.length * 100).toInt()}% Complete',
+                        '${((_currentStep + 1) / _steps.length * 100)
+                            .toInt()}% Complete',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -22433,7 +30034,7 @@ class _ThreeStarHotelRegistrationScreenState
           title: '1. Hotel Information',
           children: [
             _buildInputField(
-              label: 'Hotel Name *',
+              label: 'Hotel Name',
               controller: _hotelNameController,
               hint: 'Enter hotel name',
             ),
@@ -22499,7 +30100,7 @@ class _ThreeStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hotel Type *',
+                  'Hotel Type',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: _textPrimary,
@@ -22520,6 +30121,7 @@ class _ThreeStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
+            // UPDATED: Year and Rooms with integer input formatting
             Row(
               children: [
                 Expanded(
@@ -22528,6 +30130,10 @@ class _ThreeStarHotelRegistrationScreenState
                     controller: _yearController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -22537,11 +30143,21 @@ class _ThreeStarHotelRegistrationScreenState
                     controller: _roomsController,
                     hint: '0',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
                 ),
               ],
             ),
             SizedBox(height: 16),
+
+            // NEW: Registration Number field (3-Star specific)
+            _buildInputField(
+              label: 'Registration Number',
+              controller: _registrationNumberController,
+              hint: 'Enter registration number',
+            ),
           ],
         ),
       ],
@@ -22554,8 +30170,12 @@ class _ThreeStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Contact Details',
           children: [
+            // NEW: Profile Photo Upload
+            _buildProfilePhotoUploadItem(),
+            SizedBox(height: 16),
+
             _buildInputField(
-              label: 'Owner / Authorized Person Name *',
+              label: 'Owner Name',
               controller: _ownerNameController,
               hint: 'Enter full name',
             ),
@@ -22571,6 +30191,7 @@ class _ThreeStarHotelRegistrationScreenState
               controller: _mobileController,
               hint: 'Enter 10-digit mobile number',
               keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -22578,6 +30199,7 @@ class _ThreeStarHotelRegistrationScreenState
               controller: _altMobileController,
               hint: 'Optional',
               keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -22600,7 +30222,7 @@ class _ThreeStarHotelRegistrationScreenState
           title: '3. Hotel Address',
           children: [
             _buildInputField(
-              label: 'Primary Address Line 1 *',
+              label: 'Primary Address Line 1',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -22613,7 +30235,10 @@ class _ThreeStarHotelRegistrationScreenState
             SizedBox(height: 16),
 
             if (_additionalAddresses.isNotEmpty)
-              ..._additionalAddresses.asMap().entries.map((entry) {
+              ..._additionalAddresses
+                  .asMap()
+                  .entries
+                  .map((entry) {
                 int index = entry.key;
                 Map<String, TextEditingController> address = entry.value;
                 TextEditingController? addressController = address['address'];
@@ -22671,7 +30296,7 @@ class _ThreeStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'City *',
+                    label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
                   ),
@@ -22679,7 +30304,7 @@ class _ThreeStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'District *',
+                    label: 'District',
                     controller: _districtController,
                     hint: 'Enter district',
                   ),
@@ -22691,7 +30316,7 @@ class _ThreeStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'State *',
+                    label: 'State',
                     controller: _stateController,
                     hint: 'Enter state',
                   ),
@@ -22699,12 +30324,29 @@ class _ThreeStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'PIN Code *',
+                    label: 'PIN Code',
                     controller: _pinController,
                     hint: '6-digit PIN',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
+              ],
+            ),
+            SizedBox(height: 16),
+
+            // NEW: Country field
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Country',
+                    controller: _countryController,
+                    hint: 'Enter country',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(child: Container()), // Empty space for balance
               ],
             ),
           ],
@@ -22805,12 +30447,12 @@ class _ThreeStarHotelRegistrationScreenState
                   ..._selectedRoomTypes.entries
                       .where((entry) => entry.value)
                       .map((entry) {
-                        String roomType = entry.key;
-                        return Container(
-                          margin: EdgeInsets.only(bottom: 16),
-                          child: _buildRoomConfigurationCard(roomType),
-                        );
-                      })
+                    String roomType = entry.key;
+                    return Container(
+                      margin: EdgeInsets.only(bottom: 16),
+                      child: _buildRoomConfigurationCard(roomType),
+                    );
+                  })
                       .toList(),
                 ],
               ),
@@ -22907,21 +30549,20 @@ class _ThreeStarHotelRegistrationScreenState
         _buildCard(
           title: '6. Check-in Policies',
           children: [
+            // UPDATED: Time picker fields with clock icon
             Row(
               children: [
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-in Time',
                     controller: _checkInController,
-                    onChanged: (value) {},
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-out Time',
                     controller: _checkOutController,
-                    onChanged: (value) {},
                   ),
                 ),
               ],
@@ -22946,7 +30587,7 @@ class _ThreeStarHotelRegistrationScreenState
                             _buildToggleChip(
                               'Allowed',
                               _earlyCheckinAllowed,
-                              () {
+                                  () {
                                 setState(() => _earlyCheckinAllowed = true);
                               },
                             ),
@@ -22954,7 +30595,7 @@ class _ThreeStarHotelRegistrationScreenState
                             _buildToggleChip(
                               'Not Allowed',
                               !_earlyCheckinAllowed,
-                              () {
+                                  () {
                                 setState(() {
                                   _earlyCheckinAllowed = false;
                                   _earlyCheckinChargeable = false;
@@ -22970,9 +30611,9 @@ class _ThreeStarHotelRegistrationScreenState
                               _buildToggleChip(
                                 'Chargeable',
                                 _earlyCheckinChargeable,
-                                () {
+                                    () {
                                   setState(
-                                    () => _earlyCheckinChargeable = true,
+                                        () => _earlyCheckinChargeable = true,
                                   );
                                 },
                               ),
@@ -22980,9 +30621,9 @@ class _ThreeStarHotelRegistrationScreenState
                               _buildToggleChip(
                                 'Free',
                                 !_earlyCheckinChargeable,
-                                () {
+                                    () {
                                   setState(
-                                    () => _earlyCheckinChargeable = false,
+                                        () => _earlyCheckinChargeable = false,
                                   );
                                 },
                               ),
@@ -23030,13 +30671,13 @@ class _ThreeStarHotelRegistrationScreenState
           title: '7. Legal & Compliance Details',
           children: [
             _buildInputField(
-              label: 'GST Number *',
+              label: 'GST Number',
               controller: _gstController,
               hint: 'Enter GST number',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'PAN Number *',
+              label: 'PAN Number',
               controller: _panController,
               hint: 'Enter PAN number',
             ),
@@ -23089,13 +30730,13 @@ class _ThreeStarHotelRegistrationScreenState
           title: '8. Bank Details (Payment Settlement)',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountNameController,
               hint: 'Enter name as per bank',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Bank Name *',
+              label: 'Bank Name',
               controller: _bankNameController,
               hint: 'Enter bank name',
             ),
@@ -23104,16 +30745,17 @@ class _ThreeStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscController,
                     hint: 'Enter IFSC code',
                   ),
@@ -23125,6 +30767,57 @@ class _ThreeStarHotelRegistrationScreenState
               label: 'Branch',
               controller: _branchController,
               hint: 'Enter branch name',
+            ),
+            SizedBox(height: 16),
+
+            // NEW: Account Type Radio Buttons
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Account Type',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Savings'),
+                        value: 'Savings',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Current'),
+                        value: 'Current',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -23423,7 +31116,7 @@ class _ThreeStarHotelRegistrationScreenState
                 SizedBox(height: 20),
 
                 _buildInputField(
-                  label: 'Signatory Name *',
+                  label: 'Signatory Name',
                   controller: _signatoryNameController,
                   hint: 'Enter name of person signing',
                 ),
@@ -23433,7 +31126,7 @@ class _ThreeStarHotelRegistrationScreenState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Date *',
+                      'Date',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 13,
@@ -23454,7 +31147,8 @@ class _ThreeStarHotelRegistrationScreenState
                           children: [
                             Text(
                               _selectedDate != null
-                                  ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                                  ? '${_selectedDate!.day}/${_selectedDate!
+                                  .month}/${_selectedDate!.year}'
                                   : 'Select date',
                               style: TextStyle(
                                 fontSize: 14,
@@ -23482,6 +31176,409 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
+  // NEW: Profile Photo Upload Widget
+  Widget _buildProfilePhotoUploadItem() {
+    final fileName = _profilePhoto['name'] as String? ?? '';
+    final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
+    final fileSize = (_profilePhoto['size'] as int?) ?? 0;
+
+    Future<void> _pickProfilePhoto() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a profile photo smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _profilePhoto['name'] = file.name;
+            _profilePhoto['size'] = file.size;
+            _profilePhoto['path'] = file.path ?? '';
+            _profilePhoto['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Profile photo uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload profile photo: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewProfilePhoto() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              AlertDialog(
+                title: const Text('Profile Photo'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 200,
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.grey[300]!),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.person,
+                          size: 80,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    Text('File: $fileName'),
+                    Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+                  ],
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Close'),
+                  ),
+                ],
+              ),
+        );
+      }
+    }
+
+    void _removeProfilePhoto() {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(
+              title: const Text('Remove Profile Photo'),
+              content: const Text(
+                  'Are you sure you want to remove this profile photo?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _profilePhoto['name'] = '';
+                      _profilePhoto['size'] = 0;
+                      _profilePhoto['path'] = '';
+                      _profilePhoto['uploaded'] = false;
+                    });
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text('Profile photo removed'),
+                        backgroundColor: Colors.orange,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                      'Remove', style: TextStyle(color: Colors.red)),
+                ),
+              ],
+            ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile Photo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'JPG, PNG format (Max 2MB)',
+                        style: TextStyle(fontSize: 11, color: _textSecondary),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickProfilePhoto,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(fontSize: 11, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewProfilePhoto,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview',
+                      ),
+                      IconButton(
+                        onPressed: _removeProfilePhoto,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // UPDATED: Time Picker Field with clock icon
+  Widget _buildTimePickerField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectTime(context, controller),
+          child: Container(
+            height: 48,
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isNotEmpty
+                      ? _formatTimeForDisplay(controller.text)
+                      : 'Select time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: controller.text.isNotEmpty
+                        ? _textPrimary
+                        : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                  color: _primaryColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // NEW: Time selection method
+  Future<void> _selectTime(BuildContext context,
+      TextEditingController controller) async {
+    TimeOfDay initialTime = TimeOfDay.now();
+
+    if (controller.text.isNotEmpty) {
+      try {
+        List<String> parts = controller.text.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          initialTime = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e) {
+        initialTime = TimeOfDay.now();
+      }
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        String hour = pickedTime.hour.toString().padLeft(2, '0');
+        String minute = pickedTime.minute.toString().padLeft(2, '0');
+        controller.text = '$hour:$minute';
+      });
+    }
+  }
+
+  // NEW: Format time for display
+  String _formatTimeForDisplay(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length >= 2) {
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1].substring(0, 2));
+
+        String period = hour >= 12 ? 'PM' : 'AM';
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return '${hour12.toString().padLeft(2, '0')}:${minute
+            .toString()
+            .padLeft(2, '0')} $period';
+      }
+    } catch (e) {
+      return time24;
+    }
+    return time24;
+  }
+
   Future<void> _saveDigitalSignature() async {
     if (_signatureController.isEmpty) {
       _showErrorDialog(
@@ -23500,7 +31597,6 @@ class _ThreeStarHotelRegistrationScreenState
           _hasDigitalSignature = true;
         });
 
-        // Update the uploaded files for consistency
         _uploadedFiles['Digital Signature'] = {
           'name': 'digital_signature.png',
           'size': signatureData.length,
@@ -23530,28 +31626,29 @@ class _ThreeStarHotelRegistrationScreenState
     if (_hasDigitalSignature) {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Clear Signature'),
-          content: Text(
-            'You have a saved digital signature. Clearing the canvas will not remove the saved signature. Do you want to continue?',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                _signatureController.clear();
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Clear Canvas',
-                style: TextStyle(color: Colors.orange),
+        builder: (context) =>
+            AlertDialog(
+              title: Text('Clear Signature'),
+              content: Text(
+                'You have a saved digital signature. Clearing the canvas will not remove the saved signature. Do you want to continue?',
               ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    _signatureController.clear();
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Clear Canvas',
+                    style: TextStyle(color: Colors.orange),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
       );
     } else {
       _signatureController.clear();
@@ -23562,46 +31659,47 @@ class _ThreeStarHotelRegistrationScreenState
     if (_digitalSignatureImage != null) {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Row(
-            children: [
-              Icon(Icons.draw, color: Colors.purple),
-              SizedBox(width: 8),
-              Text('Digital Signature'),
-            ],
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 300,
-                height: 150,
-                decoration: BoxDecoration(
-                  border: Border.all(color: _borderColor),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.memory(
-                    _digitalSignatureImage!,
-                    fit: BoxFit.contain,
+        builder: (context) =>
+            AlertDialog(
+              title: Row(
+                children: [
+                  Icon(Icons.draw, color: Colors.purple),
+                  SizedBox(width: 8),
+                  Text('Digital Signature'),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 300,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: _borderColor),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.memory(
+                        _digitalSignatureImage!,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Digital Signature',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Close'),
                 ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Digital Signature',
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Close'),
+              ],
             ),
-          ],
-        ),
       );
     }
   }
@@ -23609,35 +31707,37 @@ class _ThreeStarHotelRegistrationScreenState
   void _removeDigitalSignature() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Remove Digital Signature'),
-        content: Text('Are you sure you want to remove the digital signature?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+      builder: (context) =>
+          AlertDialog(
+            title: Text('Remove Digital Signature'),
+            content: Text(
+                'Are you sure you want to remove the digital signature?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _digitalSignatureImage = null;
+                    _hasDigitalSignature = false;
+                    _signatureController.clear();
+                    _uploadedFiles.remove('Digital Signature');
+                  });
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Digital signature removed'),
+                      backgroundColor: Colors.orange,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                child: Text('Remove', style: TextStyle(color: Colors.red)),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _digitalSignatureImage = null;
-                _hasDigitalSignature = false;
-                _signatureController.clear();
-                _uploadedFiles.remove('Digital Signature');
-              });
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Digital signature removed'),
-                  backgroundColor: Colors.orange,
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            },
-            child: Text('Remove', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
     );
   }
 
@@ -23668,12 +31768,14 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Input field with inputFormatters
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    bool isRequired = true,
+    // bool isRequired = true,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -23688,13 +31790,14 @@ class _ThreeStarHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
+            // if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
           ],
         ),
         SizedBox(height: 8),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -23746,6 +31849,7 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Room Configuration Card with integer and double handling
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -23772,20 +31876,32 @@ class _ThreeStarHotelRegistrationScreenState
               Expanded(
                 child: _buildSmallInput(
                   label: 'No. of Rooms',
-                  controller: TextEditingController(text: details['rooms']),
-                  onChanged: (value) => details['rooms'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['rooms']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['rooms'] = intValue;
+                  },
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
               Expanded(
                 child: _buildSmallInput(
                   label: 'Max Occupancy',
-                  controller: TextEditingController(text: details['occupancy']),
-                  onChanged: (value) => details['occupancy'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['occupancy']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['occupancy'] = intValue;
+                  },
                   hint: 'Persons',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
             ],
@@ -23869,23 +31985,33 @@ class _ThreeStarHotelRegistrationScreenState
           SizedBox(height: 12),
 
           _buildSmallInput(
-            label: 'Select Price Per Day (₹)',
-            controller: TextEditingController(text: details['price']),
-            onChanged: (value) => details['price'] = value,
-            hint: 'Rs',
-            keyboardType: TextInputType.number,
+            label: 'Price Per Night (₹)',
+            controller: TextEditingController(
+              text: _getInitialText(details['price']),
+            ),
+            onChanged: (value) {
+              final doubleValue = double.tryParse(value) ?? 0.0;
+              details['price'] = doubleValue;
+            },
+            hint: '0.00',
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+            ],
           ),
         ],
       ),
     );
   }
 
+  // UPDATED: Small input with inputFormatters
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -23905,6 +32031,7 @@ class _ThreeStarHotelRegistrationScreenState
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             decoration: InputDecoration(
               hintText: hint,
               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -24004,6 +32131,7 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
+  // Keep the original time dropdown for backward compatibility
   Widget _buildTimeDropdown({
     required String label,
     required TextEditingController controller,
@@ -24202,7 +32330,9 @@ class _ThreeStarHotelRegistrationScreenState
                         ),
                         SizedBox(height: 2),
                         Text(
-                          '${(fileSize / 1024).toStringAsFixed(1)} KB • ${_getFileExtension(fileName).toUpperCase()}',
+                          '${(fileSize / 1024).toStringAsFixed(
+                              1)} KB • ${_getFileExtension(fileName)
+                              .toUpperCase()}',
                           style: TextStyle(fontSize: 10, color: _textSecondary),
                         ),
                       ],
@@ -24288,42 +32418,43 @@ class _ThreeStarHotelRegistrationScreenState
       if (fileName.isNotEmpty) {
         showDialog(
           context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Signature'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 200,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey[300]!),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Signature Preview',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.grey[600],
+          builder: (context) =>
+              AlertDialog(
+                title: Text('Signature'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 200,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[100],
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.grey[300]!),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Signature Preview',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontStyle: FontStyle.italic,
+                            color: Colors.grey[600],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(height: 16),
+                    Text('File: $fileName'),
+                    Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+                  ],
                 ),
-                SizedBox(height: 16),
-                Text('File: $fileName'),
-                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('Close'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('Close'),
+                  ),
+                ],
               ),
-            ],
-          ),
         );
       }
     }
@@ -24331,35 +32462,36 @@ class _ThreeStarHotelRegistrationScreenState
     void _removeSignature() {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Remove Signature'),
-          content: Text('Are you sure you want to remove this signature?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
+        builder: (context) =>
+            AlertDialog(
+              title: Text('Remove Signature'),
+              content: Text('Are you sure you want to remove this signature?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _signatureFile['name'] = '';
+                      _signatureFile['size'] = 0;
+                      _signatureFile['path'] = '';
+                      _signatureFile['uploaded'] = false;
+                    });
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Signature removed'),
+                        backgroundColor: Colors.orange,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  },
+                  child: Text('Remove', style: TextStyle(color: Colors.red)),
+                ),
+              ],
             ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _signatureFile['name'] = '';
-                  _signatureFile['size'] = 0;
-                  _signatureFile['path'] = '';
-                  _signatureFile['uploaded'] = false;
-                });
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Signature removed'),
-                    backgroundColor: Colors.orange,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              },
-              child: Text('Remove', style: TextStyle(color: Colors.red)),
-            ),
-          ],
-        ),
       );
     }
 
@@ -24606,60 +32738,61 @@ class _ThreeStarHotelRegistrationScreenState
     if (fileName.isNotEmpty) {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Row(
-            children: [
-              Icon(_getDocumentIcon(documentType), color: _primaryColor),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(documentType, overflow: TextOverflow.ellipsis),
-              ),
-            ],
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: 200,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey[300]!),
-                ),
-                child: Center(child: _getFileIcon(fileName)),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'File Details:',
-                style: TextStyle(fontWeight: FontWeight.w500),
-              ),
-              SizedBox(height: 8),
-              Text('Name: $fileName'),
-              Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
-              Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
-              if (documentType == 'FSSAI Certificate')
-                Padding(
-                  padding: EdgeInsets.only(top: 8),
-                  child: Text(
-                    'Required for hotels with restaurant facilities',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.orange[700],
-                      fontStyle: FontStyle.italic,
-                    ),
+        builder: (context) =>
+            AlertDialog(
+              title: Row(
+                children: [
+                  Icon(_getDocumentIcon(documentType), color: _primaryColor),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Text(documentType, overflow: TextOverflow.ellipsis),
                   ),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 200,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.grey[300]!),
+                    ),
+                    child: Center(child: _getFileIcon(fileName)),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'File Details:',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 8),
+                  Text('Name: $fileName'),
+                  Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+                  Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
+                  if (documentType == 'FSSAI Certificate')
+                    Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Text(
+                        'Required for hotels with restaurant facilities',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.orange[700],
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text('Close'),
                 ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Close'),
+              ],
             ),
-          ],
-        ),
       );
     }
   }
@@ -24667,37 +32800,38 @@ class _ThreeStarHotelRegistrationScreenState
   void _removeDocument(String documentType) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Remove Document'),
-        content: Text('Are you sure you want to remove this document?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
+      builder: (context) =>
+          AlertDialog(
+            title: Text('Remove Document'),
+            content: Text('Are you sure you want to remove this document?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _uploadedFiles[documentType] = {
+                      'name': '',
+                      'size': 0,
+                      'path': '',
+                      'uploaded': false,
+                    };
+                  });
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Document removed'),
+                      backgroundColor: Colors.orange,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                child: Text('Remove', style: TextStyle(color: Colors.red)),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                _uploadedFiles[documentType] = {
-                  'name': '',
-                  'size': 0,
-                  'path': '',
-                  'uploaded': false,
-                };
-              });
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Document removed'),
-                  backgroundColor: Colors.orange,
-                  duration: Duration(seconds: 2),
-                ),
-              );
-            },
-            child: Text('Remove', style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
     );
   }
 
@@ -24751,16 +32885,17 @@ class _ThreeStarHotelRegistrationScreenState
   void _showErrorDialog(String title, String message) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('OK'),
+      builder: (context) =>
+          AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
@@ -24768,40 +32903,42 @@ class _ThreeStarHotelRegistrationScreenState
     final hasDigitalSignature = _hasDigitalSignature;
     final hasUploadedSignature = (_signatureFile['uploaded'] ?? false);
 
-    if (!hasDigitalSignature && !hasUploadedSignature) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Please either draw a digital signature or upload a signature file.',
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
-      setState(() => _currentStep = 4);
-      return;
-    }
+    // if (!hasDigitalSignature && !hasUploadedSignature) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text(
+    //         'Please either draw a digital signature or upload a signature file.',
+    //       ),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //   setState(() => _currentStep = 4);
+    //   return;
+    // }
 
-    if (_hotelNameController.text.isEmpty ||
-        _ownerNameController.text.isEmpty ||
-        _mobileController.text.isEmpty ||
-        _address1Controller.text.isEmpty ||
-        _cityController.text.isEmpty ||
-        _stateController.text.isEmpty ||
-        _pinController.text.isEmpty ||
-        _gstController.text.isEmpty ||
-        _panController.text.isEmpty ||
-        _accountNameController.text.isEmpty ||
-        _bankNameController.text.isEmpty ||
-        _accountNumberController.text.isEmpty ||
-        _ifscController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please fill all required fields marked with *'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
+    // if (_hotelNameController.text.isEmpty ||
+    //     _ownerNameController.text.isEmpty ||
+    //     _mobileController.text.isEmpty ||
+    //     _address1Controller.text.isEmpty ||
+    //     _cityController.text.isEmpty ||
+    //     _stateController.text.isEmpty ||
+    //     _countryController.text.isEmpty ||
+    //     _pinController.text.isEmpty ||
+    //     _gstController.text.isEmpty ||
+    //     _panController.text.isEmpty ||
+    //     _accountNameController.text.isEmpty ||
+    //     _bankNameController.text.isEmpty ||
+    //     _accountNumberController.text.isEmpty ||
+    //     _ifscController.text.isEmpty ||
+    //     _selectedAccountType == null) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Please fill all required fields marked with *'),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //   return;
+    // }
 
     if (!_declarationAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -24813,45 +32950,49 @@ class _ThreeStarHotelRegistrationScreenState
       return;
     }
 
-    if (!(_signatureFile['uploaded'] ?? false)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please upload Digital Signature'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      setState(() => _currentStep = 4);
-      return;
-    }
+    // final requiredDocs = [
+    //   'GST Certificate',
+    //   'PAN Card',
+    //   'Trade License',
+    //   'Cancelled Cheque',
+    //   'Hotel & Room Photos',
+    // ];
+    //
+    // for (var doc in requiredDocs) {
+    //   if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text('Please upload $doc'),
+    //         backgroundColor: Colors.red,
+    //       ),
+    //     );
+    //     setState(() => _currentStep = 4);
+    //     return;
+    //   }
+    // }
 
-    final requiredDocs = [
-      'GST Certificate',
-      'PAN Card',
-      'Trade License',
-      'Cancelled Cheque',
-      'Hotel & Room Photos',
-    ];
-
-    for (var doc in requiredDocs) {
-      if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please upload $doc'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        setState(() => _currentStep = 4);
-        return;
-      }
-    }
+    // Process room details to ensure proper types
+    Map<String, Map<String, dynamic>> processedRoomDetails = {};
+    _roomDetails.forEach((key, value) {
+      processedRoomDetails[key] = {
+        'rooms': value['rooms'] is int ? value['rooms'] : int.tryParse(
+            value['rooms'].toString()) ?? 0,
+        'occupancy': value['occupancy'] is int ? value['occupancy'] : int
+            .tryParse(value['occupancy'].toString()) ?? 0,
+        'ac': value['ac'] ?? true,
+        'bedType': value['bedType'] ?? 'Queen',
+        'price': value['price'] is double ? value['price'] : double.tryParse(
+            value['price'].toString()) ?? 0.0,
+      };
+    });
 
     Map<String, dynamic> formData = {
       'hotelName': _hotelNameController.text,
       'hotelCategory': '3-Star',
       'hotelType': _selectedHotelType,
-      'yearOfEstablishment': _yearController.text,
+      'yearOfEstablishment': int.tryParse(_yearController.text) ?? 0,
       'registrationNumber': _registrationNumberController.text,
-      'totalRooms': _roomsController.text,
+      'totalRooms': int.tryParse(_roomsController.text) ?? 0,
       'ownerName': _ownerNameController.text,
       'designation': _designationController.text,
       'mobileNumber': _mobileController.text,
@@ -24863,9 +33004,11 @@ class _ThreeStarHotelRegistrationScreenState
       'city': _cityController.text,
       'district': _districtController.text,
       'state': _stateController.text,
+      'country': _countryController.text,
       'pinCode': _pinController.text,
+      'profilePhoto': _profilePhoto,
       'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
-      'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
+      'roomDetails': processedRoomDetails,
       'extraBedAvailable': _extraBedAvailable,
       'seasonalPricing': _seasonalPricing,
       'checkInTime': _checkInController.text,
@@ -24887,6 +33030,7 @@ class _ThreeStarHotelRegistrationScreenState
       'accountNumber': _accountNumberController.text,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
+      'accountType': _selectedAccountType,
       'uploadedFiles': _uploadedFiles,
       'signatureFile': _signatureFile,
       'signatoryName': _signatoryNameController.text,
@@ -24906,14 +33050,15 @@ class _ThreeStarHotelRegistrationScreenState
       }).toList(),
     };
 
+    // Navigate to ThreeStarHotelSummaryScreen
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
-          registrationData: formData,
-          hotelCategory: '3-Star',
-          declarationAccepted: _declarationAccepted,
-        ),
+        builder: (context) =>
+            ThreeStarHotelSummaryScreen(
+              registrationData: formData,
+              declarationAccepted: _declarationAccepted,
+            ),
       ),
     );
   }
@@ -24936,6 +33081,7 @@ class _ThreeStarHotelRegistrationScreenState
     _districtController.dispose();
     _stateController.dispose();
     _pinController.dispose();
+    _countryController.dispose();
     _checkInController.dispose();
     _checkOutController.dispose();
     _gstController.dispose();
@@ -24966,6 +33112,3204 @@ class FourStarHotelRegistrationScreen extends StatefulWidget {
   State<FourStarHotelRegistrationScreen> createState() =>
       _FourStarHotelRegistrationScreenState();
 }
+
+// class _FourStarHotelRegistrationScreenState
+//     extends State<FourStarHotelRegistrationScreen> {
+//   final _formKey = GlobalKey<FormState>();
+//   int _currentStep = 0;
+//
+//   final Color _primaryColor = Color(0xFF4F46E5);
+//   final Color _primaryLight = Color(0xFFEEF2FF);
+//   final Color _bgColor = Color(0xFFFAFAFA);
+//   final Color _cardColor = Colors.white;
+//   final Color _borderColor = Color(0xFFE5E7EB);
+//   final Color _textPrimary = Color(0xFF111827);
+//   final Color _textSecondary = Color(0xFF6B7280);
+//   final Color _successColor = Color(0xFF4F46E5);
+//   final Color _goldColor = Color(0xFFFFD700);
+//
+//   final TextEditingController _hotelNameController = TextEditingController();
+//   final TextEditingController _registrationNumberController =
+//       TextEditingController();
+//   final TextEditingController _yearController = TextEditingController();
+//   final TextEditingController _roomsController = TextEditingController();
+//   final TextEditingController _ownerNameController = TextEditingController();
+//   final TextEditingController _designationController = TextEditingController();
+//   final TextEditingController _mobileController = TextEditingController();
+//   final TextEditingController _altMobileController = TextEditingController();
+//   final TextEditingController _emailController = TextEditingController();
+//   final TextEditingController _websiteController = TextEditingController();
+//   final TextEditingController _address1Controller = TextEditingController();
+//   final TextEditingController _address2Controller = TextEditingController();
+//   final TextEditingController _cityController = TextEditingController();
+//   final TextEditingController _districtController = TextEditingController();
+//   final TextEditingController _stateController = TextEditingController();
+//   final TextEditingController _pinController = TextEditingController();
+//   final TextEditingController _checkInController = TextEditingController();
+//   final TextEditingController _checkOutController = TextEditingController();
+//   final TextEditingController _gstController = TextEditingController();
+//   final TextEditingController _panController = TextEditingController();
+//   final TextEditingController _tradeLicenseController = TextEditingController();
+//   final TextEditingController _fssaiController = TextEditingController();
+//   final TextEditingController _fireSafetyController = TextEditingController();
+//   final TextEditingController _starCertController = TextEditingController();
+//   final TextEditingController _accountNameController = TextEditingController();
+//   final TextEditingController _bankNameController = TextEditingController();
+//   final TextEditingController _accountNumberController =
+//       TextEditingController();
+//   final TextEditingController _ifscController = TextEditingController();
+//   final TextEditingController _branchController = TextEditingController();
+//   final TextEditingController _signatoryNameController =
+//       TextEditingController();
+//
+//   final Map<String, Map<String, dynamic>> _roomDetails = {
+//     'Superior Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'ac': true,
+//       'bedType': 'Queen',
+//       'price': '',
+//     },
+//     'Deluxe Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'ac': true,
+//       'bedType': 'King',
+//       'price': '',
+//     },
+//     'Executive Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'ac': true,
+//       'bedType': 'King',
+//       'price': '',
+//     },
+//     'Suite Room': {
+//       'rooms': '',
+//       'occupancy': '',
+//       'ac': true,
+//       'bedType': 'King',
+//       'price': '',
+//     },
+//   };
+//
+//   Map<String, bool> _selectedRoomTypes = {
+//     'Superior Room': true,
+//     'Deluxe Room': false,
+//     'Executive Room': false,
+//     'Suite Room': false,
+//   };
+//
+//   String? _selectedHotelType;
+//
+//   bool _extraBedAvailable = false;
+//   bool _seasonalPricing = false;
+//   bool _earlyCheckinAllowed = false;
+//   bool _earlyCheckinChargeable = true;
+//   bool _petsAllowed = false;
+//   bool _fireSafetyCertificate = false;
+//   bool _starCertificate = false;
+//
+//   Map<String, bool> _roomAmenities = {
+//     'Central Air Conditioning': false,
+//     'High-Speed Wi-Fi': false,
+//     'Smart / LED TV': false,
+//     'Work Desk & Ergonomic Chair': false,
+//     'Mini Bar': false,
+//     'Tea & Coffee Maker': false,
+//     'In-Room Safe': false,
+//     'Premium Toiletries': false,
+//     'Bath Tub / Rain Shower': false,
+//     'Hair Dryer & Shaving Kit': false,
+//     '24-Hour Room Service': false,
+//   };
+//
+//   Map<String, bool> _hotelFacilities = {
+//     '24-Hour Front Desk & Concierge': false,
+//     'Valet Parking': false,
+//     'Lift / Elevator': false,
+//     'Power Backup': false,
+//     'Daily Housekeeping (2×)': false,
+//     'Luggage Storage': false,
+//     'CCTV & Access Control': false,
+//     'Fire Detection & Sprinkler System': false,
+//     'Wheelchair-Friendly Access': false,
+//   };
+//
+//   Map<String, bool> _foodServices = {
+//     'Multi-Cuisine Fine Dining Restaurant': false,
+//     'All-Day Dining Café': false,
+//     'Complimentary Breakfast Buffet': false,
+//     'Bar / Lounge': false,
+//     'Banquet Hall': false,
+//   };
+//
+//   Map<String, bool> _businessServices = {
+//     'Conference & Meeting Rooms': false,
+//     'Business Center': false,
+//     'Secretarial Services': false,
+//     'Airport Transfers': false,
+//     'Travel Desk': false,
+//     'Laundry & Dry Cleaning': false,
+//     'Doctor on Call': false,
+//     'Childcare / Babysitting': false,
+//     'Currency Exchange': false,
+//   };
+//
+//   Map<String, bool> _wellnessRecreation = {
+//     'Fitness Center / Gym': false,
+//     'Spa & Wellness Center': false,
+//     'Swimming Pool': false,
+//     'Yoga / Wellness Programs': false,
+//   };
+//
+//   final List<String> _bedTypes = ['Single', 'Double', 'Queen', 'King', 'Twin'];
+//
+//   final Map<String, Map<String, dynamic>> _uploadedFiles = {
+//     'GST Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'PAN Card': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Trade License': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'FSSAI Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Fire Safety Certificate': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Star Classification Certificate': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Cancelled Cheque': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Hotel & Room Photos': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Signature': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+//     'Digital Signature': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//       'isDigital': false,
+//       'imageData': null,
+//     },
+//   };
+//
+//   final Map<String, dynamic> _signatureFile = {
+//     'name': '',
+//     'size': 0,
+//     'path': '',
+//     'uploaded': false,
+//   };
+//
+//   bool _declarationAccepted = false;
+//   DateTime? _selectedDate;
+//
+//   final List<Map<String, dynamic>> _steps = [
+//     {'title': 'Hotel Info', 'subtitle': 'Basic hotel details'},
+//     {'title': 'Contact & Address', 'subtitle': 'Contact and location'},
+//     {'title': 'Room Configuration', 'subtitle': 'Room types and rates'},
+//     {'title': 'Amenities & Policies', 'subtitle': 'Facilities and rules'},
+//     {'title': 'Legal & Documents', 'subtitle': 'Compliance and files'},
+//   ];
+//
+//   List<Map<String, TextEditingController>> _additionalAddresses = [];
+//
+//   final List<Map<String, String>> _timeOptions24Hour = [
+//     {'value': '00:00', 'display': '12:00 AM'},
+//     {'value': '01:00', 'display': '01:00 AM'},
+//     {'value': '02:00', 'display': '02:00 AM'},
+//     {'value': '03:00', 'display': '03:00 AM'},
+//     {'value': '04:00', 'display': '04:00 AM'},
+//     {'value': '05:00', 'display': '05:00 AM'},
+//     {'value': '06:00', 'display': '06:00 AM'},
+//     {'value': '07:00', 'display': '07:00 AM'},
+//     {'value': '08:00', 'display': '08:00 AM'},
+//     {'value': '09:00', 'display': '09:00 AM'},
+//     {'value': '10:00', 'display': '10:00 AM'},
+//     {'value': '11:00', 'display': '11:00 AM'},
+//     {'value': '12:00', 'display': '12:00 PM'},
+//     {'value': '13:00', 'display': '01:00 PM'},
+//     {'value': '14:00', 'display': '02:00 PM'},
+//     {'value': '15:00', 'display': '03:00 PM'},
+//     {'value': '16:00', 'display': '04:00 PM'},
+//     {'value': '17:00', 'display': '05:00 PM'},
+//     {'value': '18:00', 'display': '06:00 PM'},
+//     {'value': '19:00', 'display': '07:00 PM'},
+//     {'value': '20:00', 'display': '08:00 PM'},
+//     {'value': '21:00', 'display': '09:00 PM'},
+//     {'value': '22:00', 'display': '10:00 PM'},
+//     {'value': '23:00', 'display': '11:00 PM'},
+//   ];
+//   final SignatureController _signatureController = SignatureController(
+//     penStrokeWidth: 3,
+//     penColor: Colors.black,
+//     exportBackgroundColor: Colors.white,
+//   );
+//   bool _hasDigitalSignature = false;
+//   Uint8List? _digitalSignatureImage;
+//   @override
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: _bgColor,
+//       appBar: AppBar(
+//         backgroundColor: Colors.white,
+//         elevation: 0,
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back, color: _textPrimary),
+//           onPressed: () => Navigator.pop(context),
+//         ),
+//         title: Text(
+//           '4-Star Hotel Vendor Registration Form',
+//           style: TextStyle(
+//             fontSize: 17.5,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         centerTitle: true,
+//       ),
+//       body: Form(
+//         key: _formKey,
+//         child: Column(
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black.withOpacity(0.05),
+//                     blurRadius: 3,
+//                     offset: Offset(0, 1),
+//                   ),
+//                 ],
+//               ),
+//               child: Column(
+//                 children: [
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: List.generate(_steps.length, (index) {
+//                         bool isActive = index == _currentStep;
+//                         bool isCompleted = index < _currentStep;
+//
+//                         return GestureDetector(
+//                           onTap: () {
+//                             if (index <= _currentStep) {
+//                               setState(() {
+//                                 _currentStep = index;
+//                               });
+//                             }
+//                           },
+//                           child: Container(
+//                             margin: EdgeInsets.symmetric(horizontal: 8),
+//                             child: Column(
+//                               children: [
+//                                 Container(
+//                                   width: 36,
+//                                   height: 36,
+//                                   decoration: BoxDecoration(
+//                                     shape: BoxShape.circle,
+//                                     color: isActive
+//                                         ? _primaryColor
+//                                         : isCompleted
+//                                         ? _successColor
+//                                         : Colors.white,
+//                                     border: Border.all(
+//                                       color: isActive || isCompleted
+//                                           ? Colors.transparent
+//                                           : _borderColor,
+//                                       width: 2,
+//                                     ),
+//                                   ),
+//                                   child: Center(
+//                                     child: isCompleted
+//                                         ? Icon(
+//                                             Icons.check,
+//                                             size: 18,
+//                                             color: Colors.white,
+//                                           )
+//                                         : Text(
+//                                             '${index + 1}',
+//                                             style: TextStyle(
+//                                               color: isActive || isCompleted
+//                                                   ? Colors.white
+//                                                   : _textSecondary,
+//                                               fontWeight: FontWeight.w600,
+//                                               fontSize: 14,
+//                                             ),
+//                                           ),
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 4),
+//                                 SizedBox(
+//                                   width: 70,
+//                                   child: Text(
+//                                     _steps[index]['title'],
+//                                     style: TextStyle(
+//                                       fontSize: 10,
+//                                       fontWeight: FontWeight.w500,
+//                                       color: isActive || isCompleted
+//                                           ? _textPrimary
+//                                           : _textSecondary,
+//                                     ),
+//                                     textAlign: TextAlign.center,
+//                                     maxLines: 2,
+//                                     overflow: TextOverflow.ellipsis,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       }),
+//                     ),
+//                   ),
+//                   SizedBox(height: 12),
+//
+//                   LinearProgressIndicator(
+//                     value: (_currentStep + 1) / _steps.length,
+//                     backgroundColor: _borderColor,
+//                     color: _primaryColor,
+//                     minHeight: 3,
+//                     borderRadius: BorderRadius.circular(2),
+//                   ),
+//                   SizedBox(height: 8),
+//
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Text(
+//                         'Step ${_currentStep + 1} of ${_steps.length}: ${_steps[_currentStep]['title']}',
+//                         style: TextStyle(
+//                           fontSize: 12,
+//                           color: _textPrimary,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       Text(
+//                         '${((_currentStep + 1) / _steps.length * 100).toInt()}% Complete',
+//                         style: TextStyle(
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w600,
+//                           color: _primaryColor,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             Container(
+//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight.withOpacity(0.3),
+//                 border: Border(
+//                   top: BorderSide(color: _borderColor, width: 1),
+//                   bottom: BorderSide(color: _borderColor, width: 1),
+//                 ),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 32,
+//                     height: 32,
+//                     decoration: BoxDecoration(
+//                       color: _primaryColor,
+//                       borderRadius: BorderRadius.circular(6),
+//                     ),
+//                     child: Center(
+//                       child: Text(
+//                         '${_currentStep + 1}',
+//                         style: TextStyle(
+//                           fontSize: 14,
+//                           fontWeight: FontWeight.w700,
+//                           color: Colors.white,
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           _steps[_currentStep]['title'],
+//                           style: TextStyle(
+//                             fontSize: 15,
+//                             fontWeight: FontWeight.w600,
+//                             color: _textPrimary,
+//                           ),
+//                         ),
+//                         SizedBox(height: 2),
+//                         Text(
+//                           _steps[_currentStep]['subtitle'],
+//                           style: TextStyle(fontSize: 12, color: _textSecondary),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   Container(
+//                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+//                     decoration: BoxDecoration(
+//                       color: _primaryColor,
+//                       borderRadius: BorderRadius.circular(12),
+//                     ),
+//                     child: Row(
+//                       children: [
+//                         Icon(Icons.star, size: 12, color: Colors.white),
+//                         Icon(Icons.star, size: 12, color: Colors.white),
+//                         Icon(Icons.star, size: 12, color: Colors.white),
+//                         Icon(Icons.star, size: 12, color: Colors.white),
+//                         SizedBox(width: 4),
+//                         Text(
+//                           '4-Star',
+//                           style: TextStyle(
+//                             fontSize: 11,
+//                             color: Colors.white,
+//                             fontWeight: FontWeight.w600,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             Expanded(
+//               child: SingleChildScrollView(
+//                 primary: true,
+//                 padding: EdgeInsets.all(16),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [_buildStepContent(), SizedBox(height: 60)],
+//                 ),
+//               ),
+//             ),
+//
+//             Container(
+//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 border: Border(top: BorderSide(color: _borderColor)),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black.withOpacity(0.1),
+//                     blurRadius: 4,
+//                     offset: Offset(0, -2),
+//                   ),
+//                 ],
+//               ),
+//               child: Row(
+//                 children: [
+//                   if (_currentStep > 0)
+//                     Expanded(
+//                       child: SizedBox(
+//                         height: 48,
+//                         child: OutlinedButton(
+//                           onPressed: _previousStep,
+//                           style: OutlinedButton.styleFrom(
+//                             side: BorderSide(color: _borderColor),
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             children: [
+//                               Icon(Icons.arrow_back, size: 16),
+//                               SizedBox(width: 6),
+//                               Text(
+//                                 'Back',
+//                                 style: TextStyle(
+//                                   fontSize: 14,
+//                                   fontWeight: FontWeight.w500,
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   if (_currentStep > 0) SizedBox(width: 12),
+//                   Expanded(
+//                     child: SizedBox(
+//                       height: 48,
+//                       child: ElevatedButton(
+//                         onPressed: _nextStep,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: _primaryColor,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           elevation: 0,
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Text(
+//                               _currentStep == _steps.length - 1
+//                                   ? 'Submit Registration'
+//                                   : 'Continue',
+//                               style: TextStyle(
+//                                 fontSize: 14,
+//                                 fontWeight: FontWeight.w500,
+//                                 color: Colors.white,
+//                               ),
+//                             ),
+//                             if (_currentStep < _steps.length - 1)
+//                               SizedBox(width: 6),
+//                             if (_currentStep < _steps.length - 1)
+//                               Icon(
+//                                 Icons.arrow_forward,
+//                                 size: 16,
+//                                 color: Colors.white,
+//                               ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildStepContent() {
+//     switch (_currentStep) {
+//       case 0:
+//         return _buildStep1();
+//       case 1:
+//         return _buildStep2();
+//       case 2:
+//         return _buildStep3();
+//       case 3:
+//         return _buildStep4();
+//       case 4:
+//         return _buildStep5();
+//       default:
+//         return Container();
+//     }
+//   }
+//
+//   Widget _buildStep1() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '1. Hotel Information',
+//           children: [
+//             _buildInputField(
+//               label: 'Hotel Name *',
+//               controller: _hotelNameController,
+//               hint: 'Enter hotel name',
+//             ),
+//             SizedBox(height: 16),
+//
+//             Container(
+//               padding: EdgeInsets.all(10),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(color: _primaryColor.withOpacity(0.3)),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 50,
+//                     height: 50,
+//                     decoration: BoxDecoration(
+//                       color: _primaryColor,
+//                       borderRadius: BorderRadius.circular(6),
+//                     ),
+//                     child: Center(
+//                       child: Wrap(
+//                         spacing: 1,
+//                         children: List.generate(
+//                           4,
+//                           (index) =>
+//                               Icon(Icons.star, size: 10, color: Colors.white),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(width: 15),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           'Hotel Category',
+//                           style: TextStyle(
+//                             fontSize: 13,
+//                             fontWeight: FontWeight.w500,
+//                             color: _textSecondary,
+//                           ),
+//                         ),
+//                         Text(
+//                           '4-Star Hotel',
+//                           style: TextStyle(
+//                             fontSize: 15,
+//                             fontWeight: FontWeight.w600,
+//                             color: _primaryColor,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Hotel Type *',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w500,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Wrap(
+//                   spacing: 8,
+//                   runSpacing: 8,
+//                   children: [
+//                     'Business',
+//                     'Leisure',
+//                     'Resort',
+//                     'Boutique',
+//                   ].map((type) => _buildHotelTypeChip(type)).toList(),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Year of Establishment',
+//                     controller: _yearController,
+//                     hint: 'YYYY',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Total Number of Rooms',
+//                     controller: _roomsController,
+//                     hint: '0',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep2() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '2. Contact Details',
+//           children: [
+//             _buildInputField(
+//               label: 'Owner / Authorized Person Name *',
+//               controller: _ownerNameController,
+//               hint: 'Enter full name',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Designation',
+//               controller: _designationController,
+//               hint: 'e.g., Owner, Manager, Director',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Mobile Number *',
+//               controller: _mobileController,
+//               hint: 'Enter 10-digit mobile number',
+//               keyboardType: TextInputType.phone,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Alternate Contact Number',
+//               controller: _altMobileController,
+//               hint: 'Optional',
+//               keyboardType: TextInputType.phone,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Email ID',
+//               controller: _emailController,
+//               hint: 'example@email.com',
+//               keyboardType: TextInputType.emailAddress,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Website / Booking Link',
+//               controller: _websiteController,
+//               hint: 'https://example.com',
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '3. Hotel Address',
+//           children: [
+//             _buildInputField(
+//               label: 'Primary Address Line 1 *',
+//               controller: _address1Controller,
+//               hint: 'Street address',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Address Line 2',
+//               controller: _address2Controller,
+//               hint: 'Apartment, suite, etc.',
+//             ),
+//             SizedBox(height: 16),
+//
+//             if (_additionalAddresses.isNotEmpty)
+//               ..._additionalAddresses.asMap().entries.map((entry) {
+//                 int index = entry.key;
+//                 Map<String, TextEditingController> address = entry.value;
+//                 TextEditingController? addressController = address['address'];
+//
+//                 if (addressController == null) {
+//                   addressController = TextEditingController();
+//                   address['address'] = addressController;
+//                 }
+//
+//                 return Column(
+//                   children: [
+//                     Row(
+//                       children: [
+//                         Expanded(
+//                           child: _buildInputField(
+//                             label: 'Additional Address ${index + 1}',
+//                             controller: addressController,
+//                             hint: 'Enter additional address',
+//                           ),
+//                         ),
+//                         SizedBox(width: 8),
+//                         IconButton(
+//                           icon: Icon(Icons.remove_circle, color: Colors.red),
+//                           onPressed: () => _removeAdditionalAddress(index),
+//                         ),
+//                       ],
+//                     ),
+//                     SizedBox(height: 16),
+//                   ],
+//                 );
+//               }).toList(),
+//
+//             SizedBox(height: 16),
+//             ElevatedButton.icon(
+//               onPressed: _addAdditionalAddress,
+//               style: ElevatedButton.styleFrom(
+//                 backgroundColor: _primaryColor,
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//               ),
+//               icon: Icon(Icons.add_location, size: 18, color: Colors.white),
+//               label: Text(
+//                 'Add Additional Address',
+//                 style: TextStyle(
+//                   fontSize: 14,
+//                   fontWeight: FontWeight.w500,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'City *',
+//                     controller: _cityController,
+//                     hint: 'Enter city',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'District *',
+//                     controller: _districtController,
+//                     hint: 'Enter district',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'State *',
+//                     controller: _stateController,
+//                     hint: 'Enter state',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'PIN Code *',
+//                     controller: _pinController,
+//                     hint: '6-digit PIN',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep3() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '4. Room Inventory & Tariff',
+//           children: [
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Select Room Types Available:',
+//                   style: TextStyle(
+//                     fontSize: 13,
+//                     fontWeight: FontWeight.w500,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 12),
+//                 Wrap(
+//                   spacing: 8,
+//                   runSpacing: 8,
+//                   children: _selectedRoomTypes.entries.map((entry) {
+//                     bool isSelected = entry.value;
+//                     return GestureDetector(
+//                       onTap: () {
+//                         setState(() {
+//                           _selectedRoomTypes[entry.key] = !isSelected;
+//                         });
+//                       },
+//                       child: Container(
+//                         padding: EdgeInsets.symmetric(
+//                           horizontal: 14,
+//                           vertical: 8,
+//                         ),
+//                         decoration: BoxDecoration(
+//                           color: isSelected ? _primaryLight : Colors.white,
+//                           borderRadius: BorderRadius.circular(20),
+//                           border: Border.all(
+//                             color: isSelected ? _primaryColor : _borderColor,
+//                             width: isSelected ? 2 : 1,
+//                           ),
+//                         ),
+//                         child: Row(
+//                           mainAxisSize: MainAxisSize.min,
+//                           children: [
+//                             Icon(
+//                               isSelected
+//                                   ? Icons.check_circle
+//                                   : Icons.circle_outlined,
+//                               size: 16,
+//                               color: isSelected
+//                                   ? _primaryColor
+//                                   : _textSecondary,
+//                             ),
+//                             SizedBox(width: 6),
+//                             Text(
+//                               entry.key,
+//                               style: TextStyle(
+//                                 fontSize: 13,
+//                                 color: isSelected
+//                                     ? _primaryColor
+//                                     : _textSecondary,
+//                                 fontWeight: isSelected
+//                                     ? FontWeight.w600
+//                                     : FontWeight.w500,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     );
+//                   }).toList(),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 20),
+//
+//             if (_selectedRoomTypes.entries.any((entry) => entry.value))
+//               Column(
+//                 children: [
+//                   Text(
+//                     'Configure selected room types:',
+//                     style: TextStyle(
+//                       fontSize: 14,
+//                       fontWeight: FontWeight.w600,
+//                       color: _textPrimary,
+//                     ),
+//                   ),
+//                   SizedBox(height: 16),
+//                   ..._selectedRoomTypes.entries
+//                       .where((entry) => entry.value)
+//                       .map((entry) {
+//                         String roomType = entry.key;
+//                         return Container(
+//                           margin: EdgeInsets.only(bottom: 16),
+//                           child: _buildRoomConfigurationCard(roomType),
+//                         );
+//                       })
+//                       .toList(),
+//                 ],
+//               ),
+//
+//             SizedBox(height: 20),
+//             Divider(color: _borderColor),
+//             SizedBox(height: 20),
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Extra Bed Available:',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_extraBedAvailable, () {
+//                             setState(() => _extraBedAvailable = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 20),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Seasonal Pricing:',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _seasonalPricing, () {
+//                             setState(() => _seasonalPricing = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_seasonalPricing, () {
+//                             setState(() => _seasonalPricing = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep4() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '5. Amenities Available',
+//           children: [
+//             _buildAmenitiesSection('Room Amenities', _roomAmenities),
+//             SizedBox(height: 20),
+//
+//             _buildAmenitiesSection('Hotel Facilities', _hotelFacilities),
+//             SizedBox(height: 20),
+//
+//             _buildAmenitiesSection('Food & Beverage', _foodServices),
+//             SizedBox(height: 20),
+//
+//             _buildAmenitiesSection(
+//               'Business & Guest Services',
+//               _businessServices,
+//             ),
+//             SizedBox(height: 20),
+//
+//             _buildAmenitiesSection(
+//               'Wellness & Recreation',
+//               _wellnessRecreation,
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '6. Check-in Policies',
+//           children: [
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildTimeDropdown(
+//                     label: 'Standard Check-in Time',
+//                     controller: _checkInController,
+//                     onChanged: (value) {},
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildTimeDropdown(
+//                     label: 'Standard Check-out Time',
+//                     controller: _checkOutController,
+//                     onChanged: (value) {},
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 20),
+//
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Early Check-in / Late Check-out:',
+//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Row(
+//                           children: [
+//                             _buildToggleChip(
+//                               'Allowed',
+//                               _earlyCheckinAllowed,
+//                               () {
+//                                 setState(() => _earlyCheckinAllowed = true);
+//                               },
+//                             ),
+//                             SizedBox(width: 8),
+//                             _buildToggleChip(
+//                               'Not Allowed',
+//                               !_earlyCheckinAllowed,
+//                               () {
+//                                 setState(() {
+//                                   _earlyCheckinAllowed = false;
+//                                   _earlyCheckinChargeable = false;
+//                                 });
+//                               },
+//                             ),
+//                           ],
+//                         ),
+//                         SizedBox(height: 8),
+//                         if (_earlyCheckinAllowed)
+//                           Row(
+//                             children: [
+//                               _buildToggleChip(
+//                                 'Chargeable',
+//                                 _earlyCheckinChargeable,
+//                                 () {
+//                                   setState(
+//                                     () => _earlyCheckinChargeable = true,
+//                                   );
+//                                 },
+//                               ),
+//                               SizedBox(width: 8),
+//                               _buildToggleChip(
+//                                 'Free',
+//                                 !_earlyCheckinChargeable,
+//                                 () {
+//                                   setState(
+//                                     () => _earlyCheckinChargeable = false,
+//                                   );
+//                                 },
+//                               ),
+//                             ],
+//                           ),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 20),
+//
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Pets Allowed:',
+//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     _buildToggleChip('Yes', _petsAllowed, () {
+//                       setState(() => _petsAllowed = true);
+//                     }),
+//                     SizedBox(width: 8),
+//                     _buildToggleChip('No', !_petsAllowed, () {
+//                       setState(() => _petsAllowed = false);
+//                     }),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep5() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '7. Legal & Compliance Details',
+//           children: [
+//             _buildInputField(
+//               label: 'GST Number *',
+//               controller: _gstController,
+//               hint: 'Enter GST number',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'PAN Number *',
+//               controller: _panController,
+//               hint: 'Enter PAN number',
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Trade License Number',
+//                     controller: _tradeLicenseController,
+//                     hint: 'Enter license number',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'FSSAI License',
+//                     controller: _fssaiController,
+//                     hint: 'If restaurant',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Fire Safety Certificate:',
+//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     _buildToggleChip('Yes', _fireSafetyCertificate, () {
+//                       setState(() => _fireSafetyCertificate = true);
+//                     }),
+//                     SizedBox(width: 12),
+//                     _buildToggleChip('No', !_fireSafetyCertificate, () {
+//                       setState(() => _fireSafetyCertificate = false);
+//                     }),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Star Classification Certificate:',
+//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     _buildToggleChip('Yes', _starCertificate, () {
+//                       setState(() => _starCertificate = true);
+//                     }),
+//                     SizedBox(width: 12),
+//                     _buildToggleChip('No', !_starCertificate, () {
+//                       setState(() => _starCertificate = false);
+//                     }),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '8. Bank Details (Payment Settlement)',
+//           children: [
+//             _buildInputField(
+//               label: 'Account Holder Name *',
+//               controller: _accountNameController,
+//               hint: 'Enter name as per bank',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Bank Name *',
+//               controller: _bankNameController,
+//               hint: 'Enter bank name',
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Account Number *',
+//                     controller: _accountNumberController,
+//                     hint: 'Enter account number',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'IFSC Code *',
+//                     controller: _ifscController,
+//                     hint: 'Enter IFSC code',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Branch',
+//               controller: _branchController,
+//               hint: 'Enter branch name',
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '9. Documents Required',
+//           children: [
+//             Text(
+//               'Please upload clear scanned copies of the following documents:',
+//               style: TextStyle(fontSize: 12, color: _textSecondary),
+//             ),
+//             SizedBox(height: 16),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'GST Certificate',
+//               fileInfo: _uploadedFiles['GST Certificate']!,
+//               onUploadPressed: () => _pickDocument('GST Certificate'),
+//               onViewPressed: () => _viewDocument('GST Certificate'),
+//               onRemovePressed: () => _removeDocument('GST Certificate'),
+//               isOptional: false,
+//             ),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'PAN Card',
+//               fileInfo: _uploadedFiles['PAN Card']!,
+//               onUploadPressed: () => _pickDocument('PAN Card'),
+//               onViewPressed: () => _viewDocument('PAN Card'),
+//               onRemovePressed: () => _removeDocument('PAN Card'),
+//               isOptional: false,
+//             ),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'Trade License',
+//               fileInfo: _uploadedFiles['Trade License']!,
+//               onUploadPressed: () => _pickDocument('Trade License'),
+//               onViewPressed: () => _viewDocument('Trade License'),
+//               onRemovePressed: () => _removeDocument('Trade License'),
+//               isOptional: false,
+//             ),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'FSSAI Certificate',
+//               fileInfo: _uploadedFiles['FSSAI Certificate']!,
+//               onUploadPressed: () => _pickDocument('FSSAI Certificate'),
+//               onViewPressed: () => _viewDocument('FSSAI Certificate'),
+//               onRemovePressed: () => _removeDocument('FSSAI Certificate'),
+//               isOptional: true,
+//             ),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'Fire Safety Certificate',
+//               fileInfo: _uploadedFiles['Fire Safety Certificate']!,
+//               onUploadPressed: () => _pickDocument('Fire Safety Certificate'),
+//               onViewPressed: () => _viewDocument('Fire Safety Certificate'),
+//               onRemovePressed: () => _removeDocument('Fire Safety Certificate'),
+//               isOptional: false,
+//               optionalText: 'Required if available',
+//             ),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'Star Classification Certificate',
+//               fileInfo: _uploadedFiles['Star Classification Certificate']!,
+//               onUploadPressed: () =>
+//                   _pickDocument('Star Classification Certificate'),
+//               onViewPressed: () =>
+//                   _viewDocument('Star Classification Certificate'),
+//               onRemovePressed: () =>
+//                   _removeDocument('Star Classification Certificate'),
+//               isOptional: false,
+//             ),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'Cancelled Cheque',
+//               fileInfo: _uploadedFiles['Cancelled Cheque']!,
+//               onUploadPressed: () => _pickDocument('Cancelled Cheque'),
+//               onViewPressed: () => _viewDocument('Cancelled Cheque'),
+//               onRemovePressed: () => _removeDocument('Cancelled Cheque'),
+//               isOptional: false,
+//             ),
+//
+//             _buildDocumentUploadItem(
+//               documentName: 'Hotel & Room Photos',
+//               fileInfo: _uploadedFiles['Hotel & Room Photos']!,
+//               onUploadPressed: () => _pickDocument('Hotel & Room Photos'),
+//               onViewPressed: () => _viewDocument('Hotel & Room Photos'),
+//               onRemovePressed: () => _removeDocument('Hotel & Room Photos'),
+//               isOptional: false,
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//         _buildCard(
+//           title: '10. Declaration',
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _declarationAccepted
+//                     ? _successColor.withOpacity(0.05)
+//                     : Colors.white,
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(
+//                   color: _declarationAccepted ? _successColor : _borderColor,
+//                   width: _declarationAccepted ? 1.5 : 1,
+//                 ),
+//               ),
+//               child: Row(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Checkbox(
+//                     value: _declarationAccepted,
+//                     onChanged: (value) {
+//                       setState(() {
+//                         _declarationAccepted = value ?? false;
+//                       });
+//                     },
+//                     activeColor: _primaryColor,
+//                     shape: RoundedRectangleBorder(
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                   ),
+//                   SizedBox(width: 8),
+//                   Expanded(
+//                     child: Text(
+//                       'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: Color(0xFF0C4A6E),
+//                         height: 1.5,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             SizedBox(height: 16),
+//
+//             SizedBox(height: 16),
+//
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Digital Signature',
+//                   style: TextStyle(
+//                     fontWeight: FontWeight.w600,
+//                     fontSize: 14,
+//                     color: _textPrimary,
+//                   ),
+//                 ),
+//                 SizedBox(height: 4),
+//                 Text(
+//                   'Draw your signature below',
+//                   style: TextStyle(fontSize: 12, color: _textSecondary),
+//                 ),
+//                 SizedBox(height: 12),
+//
+//                 Container(
+//                   height: 200,
+//                   decoration: BoxDecoration(
+//                     border: Border.all(color: _borderColor),
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                   child: Signature(
+//                     controller: _signatureController,
+//                     backgroundColor: Colors.white,
+//                     height: 200,
+//                   ),
+//                 ),
+//                 SizedBox(height: 12),
+//
+//                 Row(
+//                   children: [
+//                     Expanded(
+//                       child: OutlinedButton(
+//                         onPressed: _clearDigitalSignature,
+//                         style: OutlinedButton.styleFrom(
+//                           side: BorderSide(color: Colors.red),
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(6),
+//                           ),
+//                           padding: EdgeInsets.symmetric(vertical: 10),
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Icon(Icons.delete, size: 16, color: Colors.red),
+//                             SizedBox(width: 6),
+//                             Text('Clear', style: TextStyle(color: Colors.red)),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                     SizedBox(width: 8),
+//                     Expanded(
+//                       child: ElevatedButton(
+//                         onPressed: _saveDigitalSignature,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: _primaryColor,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(6),
+//                           ),
+//                           padding: EdgeInsets.symmetric(vertical: 10),
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Icon(Icons.check, size: 16, color: Colors.white),
+//                             SizedBox(width: 6),
+//                             Text(
+//                               'Save Signature',
+//                               style: TextStyle(color: Colors.white),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//
+//                 if (_hasDigitalSignature && _digitalSignatureImage != null)
+//                   Padding(
+//                     padding: EdgeInsets.only(top: 16),
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           'Saved Digital Signature:',
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 13,
+//                             color: _textPrimary,
+//                           ),
+//                         ),
+//                         SizedBox(height: 8),
+//                         Container(
+//                           padding: EdgeInsets.all(12),
+//                           decoration: BoxDecoration(
+//                             color: _primaryLight,
+//                             borderRadius: BorderRadius.circular(8),
+//                             border: Border.all(color: _primaryColor),
+//                           ),
+//                           child: Row(
+//                             children: [
+//                               Container(
+//                                 width: 60,
+//                                 height: 40,
+//                                 decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(4),
+//                                   border: Border.all(color: _borderColor),
+//                                 ),
+//                                 child: ClipRRect(
+//                                   borderRadius: BorderRadius.circular(4),
+//                                   child: Image.memory(
+//                                     _digitalSignatureImage!,
+//                                     fit: BoxFit.contain,
+//                                   ),
+//                                 ),
+//                               ),
+//                               SizedBox(width: 12),
+//                               Expanded(
+//                                 child: Column(
+//                                   crossAxisAlignment: CrossAxisAlignment.start,
+//                                   children: [
+//                                     Text(
+//                                       'Digital Signature',
+//                                       style: TextStyle(
+//                                         fontWeight: FontWeight.w500,
+//                                         fontSize: 12,
+//                                         color: _textPrimary,
+//                                       ),
+//                                     ),
+//                                     SizedBox(height: 2),
+//                                     Text(
+//                                       'Saved successfully',
+//                                       style: TextStyle(
+//                                         fontSize: 10,
+//                                         color: _textSecondary,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               IconButton(
+//                                 onPressed: _viewDigitalSignature,
+//                                 icon: Icon(
+//                                   Icons.remove_red_eye,
+//                                   size: 18,
+//                                   color: _primaryColor,
+//                                 ),
+//                                 tooltip: 'View',
+//                               ),
+//                               IconButton(
+//                                 onPressed: _removeDigitalSignature,
+//                                 icon: Icon(
+//                                   Icons.delete,
+//                                   size: 18,
+//                                   color: Colors.red,
+//                                 ),
+//                                 tooltip: 'Remove',
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//
+//                 SizedBox(height: 20),
+//                 Divider(color: _borderColor),
+//                 SizedBox(height: 20),
+//
+//                 _buildDocumentUploadItem(
+//                   documentName: 'Signature (Upload)',
+//                   fileInfo: _uploadedFiles['Signature']!,
+//                   onUploadPressed: () => _pickDocument('Signature'),
+//                   onViewPressed: () => _viewDocument('Signature'),
+//                   onRemovePressed: () => _removeDocument('Signature'),
+//                   isOptional: false,
+//                 ),
+//
+//                 SizedBox(height: 12),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Signatory Name *',
+//               controller: _signatoryNameController,
+//               hint: 'Enter name of person signing',
+//             ),
+//             SizedBox(height: 16),
+//
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Date *',
+//                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+//                 ),
+//                 SizedBox(height: 8),
+//                 GestureDetector(
+//                   onTap: () => _selectDate(context),
+//                   child: Container(
+//                     height: 48,
+//                     padding: EdgeInsets.symmetric(horizontal: 12),
+//                     decoration: BoxDecoration(
+//                       border: Border.all(color: _borderColor),
+//                       borderRadius: BorderRadius.circular(8),
+//                     ),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         Text(
+//                           _selectedDate != null
+//                               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+//                               : 'Select date',
+//                           style: TextStyle(
+//                             fontSize: 14,
+//                             color: _selectedDate != null
+//                                 ? _textPrimary
+//                                 : _textSecondary,
+//                           ),
+//                         ),
+//                         Icon(
+//                           Icons.calendar_today,
+//                           size: 18,
+//                           color: _textSecondary,
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Future<void> _saveDigitalSignature() async {
+//     if (_signatureController.isEmpty) {
+//       _showErrorDialog(
+//         'No Signature',
+//         'Please draw your signature before saving.',
+//       );
+//       return;
+//     }
+//
+//     try {
+//       final Uint8List? signatureData = await _signatureController.toPngBytes();
+//
+//       if (signatureData != null) {
+//         setState(() {
+//           _digitalSignatureImage = signatureData;
+//           _hasDigitalSignature = true;
+//         });
+//
+//         _uploadedFiles['Digital Signature'] = {
+//           'name': 'digital_signature.png',
+//           'size': signatureData.length,
+//           'path': '',
+//           'uploaded': true,
+//           'isDigital': true,
+//           'imageData': signatureData,
+//         };
+//
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Digital signature saved successfully'),
+//             backgroundColor: _successColor,
+//             duration: Duration(seconds: 2),
+//           ),
+//         );
+//       }
+//     } catch (e) {
+//       _showErrorDialog(
+//         'Save Error',
+//         'Failed to save digital signature: ${e.toString()}',
+//       );
+//     }
+//   }
+//
+//   void _clearDigitalSignature() {
+//     if (_hasDigitalSignature) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Text('Clear Signature'),
+//           content: Text(
+//             'You have a saved digital signature. Clearing the canvas will not remove the saved signature. Do you want to continue?',
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Cancel'),
+//             ),
+//             TextButton(
+//               onPressed: () {
+//                 _signatureController.clear();
+//                 Navigator.pop(context);
+//               },
+//               child: Text(
+//                 'Clear Canvas',
+//                 style: TextStyle(color: Colors.orange),
+//               ),
+//             ),
+//           ],
+//         ),
+//       );
+//     } else {
+//       _signatureController.clear();
+//     }
+//   }
+//
+//   void _viewDigitalSignature() {
+//     if (_digitalSignatureImage != null) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Row(
+//             children: [
+//               Icon(Icons.draw, color: Colors.purple),
+//               SizedBox(width: 8),
+//               Text('Digital Signature'),
+//             ],
+//           ),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               Container(
+//                 width: 300,
+//                 height: 150,
+//                 decoration: BoxDecoration(
+//                   border: Border.all(color: _borderColor),
+//                   borderRadius: BorderRadius.circular(8),
+//                 ),
+//                 child: ClipRRect(
+//                   borderRadius: BorderRadius.circular(8),
+//                   child: Image.memory(
+//                     _digitalSignatureImage!,
+//                     fit: BoxFit.contain,
+//                   ),
+//                 ),
+//               ),
+//               SizedBox(height: 16),
+//               Text(
+//                 'Digital Signature',
+//                 style: TextStyle(fontWeight: FontWeight.w500),
+//               ),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Close'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   }
+//
+//   void _removeDigitalSignature() {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text('Remove Digital Signature'),
+//         content: Text('Are you sure you want to remove the digital signature?'),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('Cancel'),
+//           ),
+//           TextButton(
+//             onPressed: () {
+//               setState(() {
+//                 _digitalSignatureImage = null;
+//                 _hasDigitalSignature = false;
+//                 _signatureController.clear();
+//                 _uploadedFiles.remove('Digital Signature');
+//               });
+//               Navigator.pop(context);
+//               ScaffoldMessenger.of(context).showSnackBar(
+//                 SnackBar(
+//                   content: Text('Digital signature removed'),
+//                   backgroundColor: Colors.orange,
+//                   duration: Duration(seconds: 2),
+//                 ),
+//               );
+//             },
+//             child: Text('Remove', style: TextStyle(color: Colors.red)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildCard({required String title, required List<Widget> children}) {
+//     return Container(
+//       width: double.infinity,
+//       padding: EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//         color: _cardColor,
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: _borderColor),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             title,
+//             style: TextStyle(
+//               fontSize: 15,
+//               fontWeight: FontWeight.w600,
+//               color: _textPrimary,
+//             ),
+//           ),
+//           SizedBox(height: 16),
+//           ...children,
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildInputField({
+//     required String label,
+//     required TextEditingController controller,
+//     required String hint,
+//     TextInputType? keyboardType,
+//     bool isRequired = true,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Row(
+//           children: [
+//             Text(
+//               label,
+//               style: TextStyle(
+//                 fontSize: 13,
+//                 fontWeight: FontWeight.w500,
+//                 color: _textPrimary,
+//               ),
+//             ),
+//             if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
+//           ],
+//         ),
+//         SizedBox(height: 8),
+//         TextFormField(
+//           controller: controller,
+//           keyboardType: keyboardType,
+//           decoration: InputDecoration(
+//             hintText: hint,
+//             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _primaryColor),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildHotelTypeChip(String type) {
+//     bool isSelected = _selectedHotelType == type;
+//     return GestureDetector(
+//       onTap: () {
+//         setState(() {
+//           _selectedHotelType = isSelected ? null : type;
+//         });
+//       },
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(
+//             color: isSelected ? _primaryColor : _borderColor,
+//             width: isSelected ? 2 : 1,
+//           ),
+//         ),
+//         child: Text(
+//           type,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildRoomConfigurationCard(String roomType) {
+//     final details = _roomDetails[roomType]!;
+//
+//     return Container(
+//       padding: EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//         color: Colors.grey[50],
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(color: _borderColor),
+//       ),
+//       child: Column(
+//         children: [
+//           Text(
+//             roomType,
+//             style: TextStyle(
+//               fontSize: 14,
+//               fontWeight: FontWeight.w600,
+//               color: _primaryColor,
+//             ),
+//           ),
+//           SizedBox(height: 12),
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'No. of Rooms',
+//                   controller: TextEditingController(text: details['rooms']),
+//                   onChanged: (value) => details['rooms'] = value,
+//                   hint: '0',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'Max Occupancy',
+//                   controller: TextEditingController(text: details['occupancy']),
+//                   onChanged: (value) => details['occupancy'] = value,
+//                   hint: 'Persons',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'AC',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                     SizedBox(height: 8),
+//                     Row(
+//                       children: [
+//                         _buildToggleChip('Yes', details['ac'], () {
+//                           setState(() => details['ac'] = true);
+//                         }),
+//                         SizedBox(width: 8),
+//                         _buildToggleChip('No', !details['ac'], () {
+//                           setState(() => details['ac'] = false);
+//                         }),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'Bed Type',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                     SizedBox(height: 8),
+//                     Container(
+//                       height: 35,
+//                       padding: EdgeInsets.symmetric(horizontal: 8),
+//                       decoration: BoxDecoration(
+//                         border: Border.all(color: _borderColor),
+//                         borderRadius: BorderRadius.circular(6),
+//                       ),
+//                       child: DropdownButtonHideUnderline(
+//                         child: DropdownButton<String>(
+//                           value: details['bedType'],
+//                           isExpanded: true,
+//                           icon: Icon(Icons.arrow_drop_down, size: 20),
+//                           items: _bedTypes.map((String value) {
+//                             return DropdownMenuItem<String>(
+//                               value: value,
+//                               child: Text(
+//                                 value,
+//                                 style: TextStyle(fontSize: 12),
+//                               ),
+//                             );
+//                           }).toList(),
+//                           onChanged: (String? newValue) {
+//                             setState(() {
+//                               details['bedType'] = newValue!;
+//                             });
+//                           },
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//
+//           _buildSmallInput(
+//             label: 'Select Price Per Day (₹)',
+//             controller: TextEditingController(text: details['price']),
+//             onChanged: (value) => details['price'] = value,
+//             hint: 'Rs',
+//             keyboardType: TextInputType.number,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildSmallInput({
+//     required String label,
+//     required TextEditingController controller,
+//     required ValueChanged<String> onChanged,
+//     required String hint,
+//     TextInputType? keyboardType,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             fontWeight: FontWeight.w500,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         SizedBox(
+//           height: 40,
+//           child: TextFormField(
+//             controller: controller,
+//             onChanged: onChanged,
+//             keyboardType: keyboardType,
+//             decoration: InputDecoration(
+//               hintText: hint,
+//               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(6),
+//                 borderSide: BorderSide(color: _borderColor),
+//               ),
+//               isDense: true,
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(
+//             color: isSelected ? _primaryColor : _borderColor,
+//             width: isSelected ? 2 : 1,
+//           ),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildAmenitiesSection(String title, Map<String, bool> amenities) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           title,
+//           style: TextStyle(
+//             fontSize: 13,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: amenities.entries.map((entry) {
+//             bool isSelected = entry.value;
+//             return GestureDetector(
+//               onTap: () {
+//                 setState(() {
+//                   amenities[entry.key] = !isSelected;
+//                 });
+//               },
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+//                 decoration: BoxDecoration(
+//                   color: isSelected ? _primaryLight : Colors.white,
+//                   borderRadius: BorderRadius.circular(16),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Icon(
+//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
+//                       size: 14,
+//                       color: isSelected ? _primaryColor : _textSecondary,
+//                     ),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       entry.key,
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: isSelected ? _primaryColor : _textSecondary,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildTimeDropdown({
+//     required String label,
+//     required TextEditingController controller,
+//     required ValueChanged<String> onChanged,
+//   }) {
+//     String currentValue = controller.text;
+//     String displayValue = '';
+//
+//     if (currentValue.isNotEmpty) {
+//       for (var option in _timeOptions24Hour) {
+//         if (option['value'] == currentValue) {
+//           displayValue = option['value']!;
+//           break;
+//         }
+//       }
+//     }
+//
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 13,
+//             fontWeight: FontWeight.w500,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Container(
+//           height: 48,
+//           padding: EdgeInsets.symmetric(horizontal: 12),
+//           decoration: BoxDecoration(
+//             border: Border.all(color: _borderColor),
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           child: DropdownButtonHideUnderline(
+//             child: DropdownButton<String>(
+//               value: displayValue.isNotEmpty ? displayValue : null,
+//               isExpanded: true,
+//               icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
+//               hint: Text('Select time'),
+//               items: _timeOptions24Hour.map((option) {
+//                 return DropdownMenuItem<String>(
+//                   value: option['value'],
+//                   child: Text(option['display']!),
+//                 );
+//               }).toList(),
+//               onChanged: (value) {
+//                 if (value != null) {
+//                   setState(() {
+//                     controller.text = value;
+//                   });
+//                   onChanged(value);
+//                 }
+//               },
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildDocumentUploadItem({
+//     required String documentName,
+//     required Map<String, dynamic> fileInfo,
+//     required VoidCallback onUploadPressed,
+//     required VoidCallback onViewPressed,
+//     required VoidCallback onRemovePressed,
+//     bool isOptional = false,
+//     String? optionalText,
+//   }) {
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final isUploaded = (fileInfo['uploaded'] as bool?) ?? false;
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     return Container(
+//       margin: EdgeInsets.only(bottom: 12),
+//       padding: EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(
+//           color: isUploaded ? _successColor : _borderColor,
+//           width: isUploaded ? 1.5 : 1,
+//         ),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   Icon(
+//                     _getDocumentIcon(documentName),
+//                     size: 18,
+//                     color: isUploaded ? _successColor : _primaryColor,
+//                   ),
+//                   SizedBox(width: 8),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         documentName,
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w500,
+//                           fontSize: 13,
+//                           color: isUploaded ? _successColor : _textPrimary,
+//                         ),
+//                       ),
+//                       if (isOptional && optionalText != null)
+//                         Text(
+//                           optionalText,
+//                           style: TextStyle(
+//                             fontSize: 10,
+//                             color: Colors.orange,
+//                             fontStyle: FontStyle.italic,
+//                           ),
+//                         ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//               if (isUploaded)
+//                 Row(
+//                   children: [
+//                     Icon(Icons.check_circle, color: _successColor, size: 16),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       'Uploaded',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         color: _successColor,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//             ],
+//           ),
+//           SizedBox(height: 8),
+//
+//           if (!isUploaded)
+//             SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 onPressed: onUploadPressed,
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: _primaryColor,
+//                   padding: EdgeInsets.symmetric(vertical: 10),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                 ),
+//                 child: Text(
+//                   'Upload $documentName',
+//                   style: TextStyle(color: Colors.white),
+//                 ),
+//               ),
+//             ),
+//
+//           if (isUploaded && fileName.isNotEmpty)
+//             Container(
+//               padding: EdgeInsets.all(10),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(6),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 40,
+//                     height: 40,
+//                     decoration: BoxDecoration(
+//                       color: _primaryColor.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                     child: Center(child: _getFileIcon(fileName)),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           fileName,
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 12,
+//                             color: _textPrimary,
+//                           ),
+//                           overflow: TextOverflow.ellipsis,
+//                           maxLines: 1,
+//                         ),
+//                         SizedBox(height: 2),
+//                         Text(
+//                           '${(fileSize / 1024).toStringAsFixed(1)} KB • ${_getFileExtension(fileName).toUpperCase()}',
+//                           style: TextStyle(fontSize: 10, color: _textSecondary),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: onViewPressed,
+//                         icon: Icon(
+//                           Icons.remove_red_eye,
+//                           size: 18,
+//                           color: _primaryColor,
+//                         ),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'View',
+//                       ),
+//                       IconButton(
+//                         onPressed: onRemovePressed,
+//                         icon: Icon(Icons.delete, size: 18, color: Colors.red),
+//                         padding: EdgeInsets.all(4),
+//                         tooltip: 'Remove',
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildSignatureUploadItem() {
+//     final fileName = _signatureFile['name'] as String? ?? '';
+//     final isUploaded = (_signatureFile['uploaded'] as bool?) ?? false;
+//     final fileSize = (_signatureFile['size'] as int?) ?? 0;
+//
+//     Future<void> _pickSignature() async {
+//       try {
+//         FilePickerResult? result = await FilePicker.platform.pickFiles(
+//           type: FileType.custom,
+//           allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+//           allowMultiple: false,
+//         );
+//
+//         if (result != null && result.files.isNotEmpty) {
+//           final file = result.files.first;
+//
+//           if (file.size > 2 * 1024 * 1024) {
+//             _showErrorDialog(
+//               'File too large',
+//               'Please select a signature file smaller than 2MB',
+//             );
+//             return;
+//           }
+//
+//           setState(() {
+//             _signatureFile['name'] = file.name;
+//             _signatureFile['size'] = file.size;
+//             _signatureFile['path'] = file.path ?? '';
+//             _signatureFile['uploaded'] = true;
+//           });
+//
+//           ScaffoldMessenger.of(context).showSnackBar(
+//             SnackBar(
+//               content: Text('Signature uploaded successfully'),
+//               backgroundColor: _successColor,
+//               duration: Duration(seconds: 2),
+//             ),
+//           );
+//         }
+//       } catch (e) {
+//         _showErrorDialog(
+//           'Upload Error',
+//           'Failed to upload signature: ${e.toString()}',
+//         );
+//       }
+//     }
+//
+//     void _viewSignature() {
+//       if (fileName.isNotEmpty) {
+//         showDialog(
+//           context: context,
+//           builder: (context) => AlertDialog(
+//             title: Text('Signature'),
+//             content: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: [
+//                 Container(
+//                   width: 200,
+//                   height: 100,
+//                   decoration: BoxDecoration(
+//                     color: Colors.grey[100],
+//                     borderRadius: BorderRadius.circular(8),
+//                     border: Border.all(color: Colors.grey[300]!),
+//                   ),
+//                   child: Center(
+//                     child: Text(
+//                       'Signature Preview',
+//                       style: TextStyle(
+//                         fontSize: 16,
+//                         fontStyle: FontStyle.italic,
+//                         color: Colors.grey[600],
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 SizedBox(height: 16),
+//                 Text('File: $fileName'),
+//                 Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+//               ],
+//             ),
+//             actions: [
+//               TextButton(
+//                 onPressed: () => Navigator.pop(context),
+//                 child: Text('Close'),
+//               ),
+//             ],
+//           ),
+//         );
+//       }
+//     }
+//
+//     void _removeSignature() {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Text('Remove Signature'),
+//           content: Text('Are you sure you want to remove this signature?'),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Cancel'),
+//             ),
+//             TextButton(
+//               onPressed: () {
+//                 setState(() {
+//                   _signatureFile['name'] = '';
+//                   _signatureFile['size'] = 0;
+//                   _signatureFile['path'] = '';
+//                   _signatureFile['uploaded'] = false;
+//                 });
+//                 Navigator.pop(context);
+//                 ScaffoldMessenger.of(context).showSnackBar(
+//                   SnackBar(
+//                     content: Text('Signature removed'),
+//                     backgroundColor: Colors.orange,
+//                     duration: Duration(seconds: 2),
+//                   ),
+//                 );
+//               },
+//               child: Text('Remove', style: TextStyle(color: Colors.red)),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//
+//     return Container(
+//       padding: EdgeInsets.all(10),
+//       decoration: BoxDecoration(
+//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(
+//           color: isUploaded ? _successColor : _borderColor,
+//           width: isUploaded ? 1.5 : 1,
+//         ),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   Icon(
+//                     Icons.note_alt_outlined,
+//                     size: 20,
+//                     color: isUploaded ? _successColor : _primaryColor,
+//                   ),
+//                   SizedBox(width: 10),
+//                   Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Digital Signature',
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.w600,
+//                           fontSize: 14,
+//                           color: isUploaded ? _successColor : _textPrimary,
+//                         ),
+//                       ),
+//                       Text(
+//                         'PNG or JPG format',
+//                         style: TextStyle(fontSize: 11, color: _textSecondary),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//               if (isUploaded)
+//                 Row(
+//                   children: [
+//                     Icon(Icons.check_circle, color: _successColor, size: 16),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       'Uploaded',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         color: _successColor,
+//                         fontWeight: FontWeight.w500,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//
+//           if (!isUploaded)
+//             SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton.icon(
+//                 onPressed: _pickSignature,
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: _primaryColor,
+//                   padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                 ),
+//                 icon: Icon(Icons.upload, size: 18, color: Colors.white),
+//                 label: Text(
+//                   'Upload Signature',
+//                   style: TextStyle(
+//                     fontSize: 14,
+//                     fontWeight: FontWeight.w500,
+//                     color: Colors.white,
+//                   ),
+//                 ),
+//               ),
+//             ),
+//
+//           if (isUploaded && fileName.isNotEmpty)
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(8),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 50,
+//                     height: 50,
+//                     decoration: BoxDecoration(
+//                       color: _successColor.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(6),
+//                       border: Border.all(color: _successColor.withOpacity(0.3)),
+//                     ),
+//                     child: Center(
+//                       child: Icon(
+//                         Icons.note_alt_outlined,
+//                         size: 24,
+//                         color: _successColor,
+//                       ),
+//                     ),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           fileName,
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 13,
+//                             color: _textPrimary,
+//                           ),
+//                           overflow: TextOverflow.ellipsis,
+//                           maxLines: 1,
+//                         ),
+//                         SizedBox(height: 4),
+//                         Text(
+//                           '${(fileSize / 1024).toStringAsFixed(1)} KB',
+//                           style: TextStyle(fontSize: 11, color: _textSecondary),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   SizedBox(width: 8),
+//                   Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: _viewSignature,
+//                         icon: Icon(
+//                           Icons.remove_red_eye,
+//                           size: 20,
+//                           color: _primaryColor,
+//                         ),
+//                         tooltip: 'Preview Signature',
+//                       ),
+//                       IconButton(
+//                         onPressed: _removeSignature,
+//                         icon: Icon(Icons.delete, size: 20, color: Colors.red),
+//                         tooltip: 'Remove Signature',
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _getFileIcon(String fileName) {
+//     final ext = _getFileExtension(fileName).toLowerCase();
+//
+//     if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
+//       return Icon(Icons.image, size: 20, color: _primaryColor);
+//     } else if (['pdf'].contains(ext)) {
+//       return Icon(Icons.picture_as_pdf, size: 20, color: Colors.red);
+//     } else if (['doc', 'docx'].contains(ext)) {
+//       return Icon(Icons.description, size: 20, color: Colors.blue);
+//     } else {
+//       return Icon(Icons.insert_drive_file, size: 20, color: _primaryColor);
+//     }
+//   }
+//
+//   String _getFileExtension(String fileName) {
+//     final dotIndex = fileName.lastIndexOf('.');
+//     return dotIndex != -1 ? fileName.substring(dotIndex + 1) : '';
+//   }
+//
+//   IconData _getDocumentIcon(String documentName) {
+//     if (documentName.contains('GST')) return Icons.receipt;
+//     if (documentName.contains('PAN')) return Icons.credit_card;
+//     if (documentName.contains('License')) return Icons.badge;
+//     if (documentName.contains('FSSAI')) return Icons.restaurant;
+//     if (documentName.contains('Fire')) return Icons.fire_extinguisher;
+//     if (documentName.contains('Star')) return Icons.star;
+//     if (documentName.contains('Cheque')) return Icons.account_balance;
+//     if (documentName.contains('Photos')) return Icons.photo_library;
+//     return Icons.description;
+//   }
+//
+//   Future<void> _pickDocument(String documentType) async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         type: FileType.custom,
+//         allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
+//         allowMultiple: false,
+//       );
+//
+//       if (result != null && result.files.isNotEmpty) {
+//         final file = result.files.first;
+//
+//         if (file.size > 5 * 1024 * 1024) {
+//           _showErrorDialog(
+//             'File too large',
+//             'Please select a file smaller than 5MB',
+//           );
+//           return;
+//         }
+//
+//         setState(() {
+//           _uploadedFiles[documentType] = {
+//             'name': file.name,
+//             'size': file.size,
+//             'path': file.path ?? '',
+//             'uploaded': true,
+//           };
+//         });
+//
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('${file.name} uploaded successfully'),
+//             backgroundColor: _successColor,
+//             duration: Duration(seconds: 2),
+//           ),
+//         );
+//       }
+//     } catch (e) {
+//       _showErrorDialog(
+//         'Upload Error',
+//         'Failed to upload file: ${e.toString()}',
+//       );
+//     }
+//   }
+//
+//   void _viewDocument(String documentType) {
+//     final fileInfo = _uploadedFiles[documentType]!;
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     if (fileName.isNotEmpty) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Row(
+//             children: [
+//               Icon(_getDocumentIcon(documentType), color: _primaryColor),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Text(documentType, overflow: TextOverflow.ellipsis),
+//               ),
+//             ],
+//           ),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Container(
+//                 width: 200,
+//                 height: 100,
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey[100],
+//                   borderRadius: BorderRadius.circular(8),
+//                   border: Border.all(color: Colors.grey[300]!),
+//                 ),
+//                 child: Center(child: _getFileIcon(fileName)),
+//               ),
+//               SizedBox(height: 16),
+//               Text(
+//                 'File Details:',
+//                 style: TextStyle(fontWeight: FontWeight.w500),
+//               ),
+//               SizedBox(height: 8),
+//               Text('Name: $fileName'),
+//               Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+//               Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
+//               if (documentType == 'FSSAI Certificate')
+//                 Padding(
+//                   padding: EdgeInsets.only(top: 8),
+//                   child: Text(
+//                     'Required for hotels with restaurant facilities',
+//                     style: TextStyle(
+//                       fontSize: 12,
+//                       color: Colors.orange[700],
+//                       fontStyle: FontStyle.italic,
+//                     ),
+//                   ),
+//                 ),
+//             ],
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Close'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   }
+//
+//   void _removeDocument(String documentType) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text('Remove Document'),
+//         content: Text('Are you sure you want to remove this document?'),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('Cancel'),
+//           ),
+//           TextButton(
+//             onPressed: () {
+//               setState(() {
+//                 _uploadedFiles[documentType] = {
+//                   'name': '',
+//                   'size': 0,
+//                   'path': '',
+//                   'uploaded': false,
+//                 };
+//               });
+//               Navigator.pop(context);
+//               ScaffoldMessenger.of(context).showSnackBar(
+//                 SnackBar(
+//                   content: Text('Document removed'),
+//                   backgroundColor: Colors.orange,
+//                   duration: Duration(seconds: 2),
+//                 ),
+//               );
+//             },
+//             child: Text('Remove', style: TextStyle(color: Colors.red)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   void _addAdditionalAddress() {
+//     setState(() {
+//       _additionalAddresses.add({'address': TextEditingController()});
+//     });
+//   }
+//
+//   void _removeAdditionalAddress(int index) {
+//     if (index >= 0 && index < _additionalAddresses.length) {
+//       setState(() {
+//         _additionalAddresses[index]['address']?.dispose();
+//         _additionalAddresses.removeAt(index);
+//       });
+//     }
+//   }
+//
+//   void _nextStep() {
+//     // Validate current step before proceeding
+//     // if (!_validateCurrentStep()) {
+//     //   return;
+//     // }
+//
+//     if (_currentStep < _steps.length - 1) {
+//       setState(() {
+//         _currentStep++;
+//       });
+//
+//       // Scroll to top when moving to next step
+//       WidgetsBinding.instance.addPostFrameCallback((_) {
+//         _scrollToTop();
+//       });
+//     } else {
+//       _submitForm();
+//     }
+//   }
+//
+//   void _previousStep() {
+//     if (_currentStep > 0) {
+//       setState(() {
+//         _currentStep--;
+//       });
+//
+//       WidgetsBinding.instance.addPostFrameCallback((_) {
+//         _scrollToTop();
+//       });
+//     }
+//   }
+//
+//   void _scrollToTop() {
+//     final scrollController = PrimaryScrollController.of(context);
+//     if (scrollController != null && scrollController.hasClients) {
+//       scrollController.animateTo(
+//         0,
+//         duration: Duration(milliseconds: 300),
+//         curve: Curves.easeInOut,
+//       );
+//     }
+//   }
+//
+//   Future<void> _selectDate(BuildContext context) async {
+//     final DateTime? picked = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(2000),
+//       lastDate: DateTime.now(),
+//     );
+//     if (picked != null && picked != _selectedDate) {
+//       setState(() {
+//         _selectedDate = picked;
+//       });
+//     }
+//   }
+//
+//   void _showErrorDialog(String title, String message) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text(title),
+//         content: Text(message),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('OK'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   void _submitForm() {
+//     if (_hotelNameController.text.isEmpty ||
+//         _ownerNameController.text.isEmpty ||
+//         _mobileController.text.isEmpty ||
+//         _address1Controller.text.isEmpty ||
+//         _cityController.text.isEmpty ||
+//         _stateController.text.isEmpty ||
+//         _pinController.text.isEmpty ||
+//         _gstController.text.isEmpty ||
+//         _panController.text.isEmpty ||
+//         _accountNameController.text.isEmpty ||
+//         _bankNameController.text.isEmpty ||
+//         _accountNumberController.text.isEmpty ||
+//         _ifscController.text.isEmpty) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please fill all required fields marked with *'),
+//           backgroundColor: Colors.red,
+//         ),
+//       );
+//       return;
+//     }
+//
+//     if (!_declarationAccepted) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please accept the declaration to proceed'),
+//           backgroundColor: Colors.orange,
+//         ),
+//       );
+//       return;
+//     }
+//
+//     if (!(_signatureFile['uploaded'] ?? false)) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Please upload Digital Signature'),
+//           backgroundColor: Colors.red,
+//         ),
+//       );
+//       setState(() => _currentStep = 4);
+//       return;
+//     }
+//
+//     final requiredDocs = [
+//       'GST Certificate',
+//       'PAN Card',
+//       'Trade License',
+//       'Star Classification Certificate',
+//       'Cancelled Cheque',
+//       'Hotel & Room Photos',
+//     ];
+//
+//     for (var doc in requiredDocs) {
+//       if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Please upload $doc'),
+//             backgroundColor: Colors.red,
+//           ),
+//         );
+//         setState(() => _currentStep = 4);
+//         return;
+//       }
+//     }
+//     final hasSignature =
+//         _hasDigitalSignature ||
+//         (_uploadedFiles['Signature']?['uploaded'] ?? false);
+//
+//     if (!hasSignature) {
+//       _showErrorDialog(
+//         'Signature Required',
+//         'Please either draw a digital signature or upload a signature file.',
+//       );
+//       setState(() => _currentStep = 4);
+//       return;
+//     }
+//
+//     Map<String, dynamic> formData = {
+//       'hotelName': _hotelNameController.text,
+//       'hotelCategory': '4-Star',
+//       'hotelType': _selectedHotelType,
+//       'yearOfEstablishment': _yearController.text,
+//       'registrationNumber': _registrationNumberController.text,
+//       'totalRooms': _roomsController.text,
+//       'ownerName': _ownerNameController.text,
+//       'designation': _designationController.text,
+//       'mobileNumber': _mobileController.text,
+//       'alternateContact': _altMobileController.text,
+//       'email': _emailController.text,
+//       'website': _websiteController.text,
+//       'addressLine1': _address1Controller.text,
+//       'addressLine2': _address2Controller.text,
+//       'city': _cityController.text,
+//       'district': _districtController.text,
+//       'state': _stateController.text,
+//       'pinCode': _pinController.text,
+//       'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
+//       'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
+//       'extraBedAvailable': _extraBedAvailable,
+//       'seasonalPricing': _seasonalPricing,
+//       'checkInTime': _checkInController.text,
+//       'checkOutTime': _checkOutController.text,
+//       'earlyCheckinAllowed': _earlyCheckinAllowed,
+//       'earlyCheckinChargeable': _earlyCheckinChargeable,
+//       'petsAllowed': _petsAllowed,
+//       'roomAmenities': Map<String, bool>.from(_roomAmenities),
+//       'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
+//       'foodServices': Map<String, bool>.from(_foodServices),
+//       'businessServices': Map<String, bool>.from(_businessServices),
+//       'wellnessRecreation': Map<String, bool>.from(_wellnessRecreation),
+//       'gstNumber': _gstController.text,
+//       'panNumber': _panController.text,
+//       'tradeLicense': _tradeLicenseController.text,
+//       'fssaiLicense': _fssaiController.text,
+//       'fireSafetyCertificate': _fireSafetyCertificate,
+//       'starCertificate': _starCertificate,
+//       'accountHolderName': _accountNameController.text,
+//       'bankName': _bankNameController.text,
+//       'accountNumber': _accountNumberController.text,
+//       'ifscCode': _ifscController.text,
+//       'branch': _branchController.text,
+//       'uploadedFiles': _uploadedFiles,
+//       'signatureFile': _signatureFile,
+//       'signatoryName': _signatoryNameController.text,
+//       'declarationDate': _selectedDate,
+//       'declarationAccepted': _declarationAccepted,
+//
+//       'additionalAddresses': _additionalAddresses.map((addr) {
+//         return {'address': addr['address']?.text ?? ''};
+//       }).toList(),
+//     };
+//
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => RegistrationSummaryScreen(
+//           registrationData: formData,
+//           hotelCategory: '4-Star',
+//           declarationAccepted: _declarationAccepted,
+//         ),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     _hotelNameController.dispose();
+//     _yearController.dispose();
+//     _registrationNumberController.dispose();
+//     _roomsController.dispose();
+//     _ownerNameController.dispose();
+//     _designationController.dispose();
+//     _mobileController.dispose();
+//     _altMobileController.dispose();
+//     _emailController.dispose();
+//     _websiteController.dispose();
+//     _address1Controller.dispose();
+//     _address2Controller.dispose();
+//     _cityController.dispose();
+//     _districtController.dispose();
+//     _stateController.dispose();
+//     _pinController.dispose();
+//     _checkInController.dispose();
+//     _checkOutController.dispose();
+//     _gstController.dispose();
+//     _panController.dispose();
+//     _tradeLicenseController.dispose();
+//     _fssaiController.dispose();
+//     _fireSafetyController.dispose();
+//     _starCertController.dispose();
+//     _accountNameController.dispose();
+//     _bankNameController.dispose();
+//     _accountNumberController.dispose();
+//     _ifscController.dispose();
+//     _branchController.dispose();
+//     _signatoryNameController.dispose();
+//     _signatureController.dispose();
+//
+//     for (var address in _additionalAddresses) {
+//       address['address']?.dispose();
+//     }
+//     _additionalAddresses.clear();
+//
+//     super.dispose();
+//   }
+// }
 
 class _FourStarHotelRegistrationScreenState
     extends State<FourStarHotelRegistrationScreen> {
@@ -24999,6 +36343,7 @@ class _FourStarHotelRegistrationScreenState
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController(); // NEW: Country field
   final TextEditingController _checkInController = TextEditingController();
   final TextEditingController _checkOutController = TextEditingController();
   final TextEditingController _gstController = TextEditingController();
@@ -25016,34 +36361,45 @@ class _FourStarHotelRegistrationScreenState
   final TextEditingController _signatoryNameController =
       TextEditingController();
 
+  // NEW: Profile Photo
+  final Map<String, dynamic> _profilePhoto = {
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
+  };
+
+  // NEW: Account Type
+  String? _selectedAccountType; // 'Savings' or 'Current'
+
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Superior Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0, // Changed from '' to 0
+      'occupancy': 0, // Changed from '' to 0
       'ac': true,
       'bedType': 'Queen',
-      'price': '',
+      'price': 0.0, // Changed from '' to 0.0
     },
     'Deluxe Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'price': '',
+      'price': 0.0,
     },
     'Executive Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'price': '',
+      'price': 0.0,
     },
     'Suite Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'price': '',
+      'price': 0.0,
     },
   };
 
@@ -25200,6 +36556,7 @@ class _FourStarHotelRegistrationScreenState
     {'value': '22:00', 'display': '10:00 PM'},
     {'value': '23:00', 'display': '11:00 PM'},
   ];
+
   final SignatureController _signatureController = SignatureController(
     penStrokeWidth: 3,
     penColor: Colors.black,
@@ -25207,7 +36564,30 @@ class _FourStarHotelRegistrationScreenState
   );
   bool _hasDigitalSignature = false;
   Uint8List? _digitalSignatureImage;
+
+  // NEW: Helper method to get current local time
+  String _getCurrentLocalTime() {
+    final now = DateTime.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  // NEW: Helper method to get initial text for numeric fields
+  String _getInitialText(dynamic value) {
+    if (value == null) return '';
+    if (value is num && value == 0) return '';
+    return value.toString();
+  }
+
   @override
+  void initState() {
+    super.initState();
+    // Initialize with current local time
+    _checkInController.text = _getCurrentLocalTime();
+    _checkOutController.text = _getCurrentLocalTime();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25568,7 +36948,7 @@ class _FourStarHotelRegistrationScreenState
           title: '1. Hotel Information',
           children: [
             _buildInputField(
-              label: 'Hotel Name *',
+              label: 'Hotel Name',
               controller: _hotelNameController,
               hint: 'Enter hotel name',
             ),
@@ -25634,7 +37014,7 @@ class _FourStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hotel Type *',
+                  'Hotel Type',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: _textPrimary,
@@ -25655,6 +37035,7 @@ class _FourStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
+            // UPDATED: Year and Rooms with integer input formatting
             Row(
               children: [
                 Expanded(
@@ -25663,6 +37044,10 @@ class _FourStarHotelRegistrationScreenState
                     controller: _yearController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -25672,6 +37057,9 @@ class _FourStarHotelRegistrationScreenState
                     controller: _roomsController,
                     hint: '0',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
                 ),
               ],
@@ -25689,8 +37077,12 @@ class _FourStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Contact Details',
           children: [
+            // NEW: Profile Photo Upload
+            _buildProfilePhotoUploadItem(),
+            SizedBox(height: 16),
+
             _buildInputField(
-              label: 'Owner / Authorized Person Name *',
+              label: 'Owner Name',
               controller: _ownerNameController,
               hint: 'Enter full name',
             ),
@@ -25702,10 +37094,11 @@ class _FourStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Mobile Number *',
+              label: 'Mobile Number',
               controller: _mobileController,
               hint: 'Enter 10-digit mobile number',
               keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -25713,6 +37106,7 @@ class _FourStarHotelRegistrationScreenState
               controller: _altMobileController,
               hint: 'Optional',
               keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -25735,7 +37129,7 @@ class _FourStarHotelRegistrationScreenState
           title: '3. Hotel Address',
           children: [
             _buildInputField(
-              label: 'Primary Address Line 1 *',
+              label: 'Primary Address Line 1',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -25806,7 +37200,7 @@ class _FourStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'City *',
+                    label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
                   ),
@@ -25814,7 +37208,7 @@ class _FourStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'District *',
+                    label: 'District',
                     controller: _districtController,
                     hint: 'Enter district',
                   ),
@@ -25826,7 +37220,7 @@ class _FourStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'State *',
+                    label: 'State',
                     controller: _stateController,
                     hint: 'Enter state',
                   ),
@@ -25834,12 +37228,29 @@ class _FourStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'PIN Code *',
+                    label: 'PIN Code',
                     controller: _pinController,
                     hint: '6-digit PIN',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
+              ],
+            ),
+            SizedBox(height: 16),
+
+            // NEW: Country field
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Country',
+                    controller: _countryController,
+                    hint: 'Enter country',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(child: Container()), // Empty space for balance
               ],
             ),
           ],
@@ -26048,21 +37459,20 @@ class _FourStarHotelRegistrationScreenState
         _buildCard(
           title: '6. Check-in Policies',
           children: [
+            // UPDATED: Time picker fields with clock icon
             Row(
               children: [
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-in Time',
                     controller: _checkInController,
-                    onChanged: (value) {},
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-out Time',
                     controller: _checkOutController,
-                    onChanged: (value) {},
                   ),
                 ),
               ],
@@ -26171,13 +37581,13 @@ class _FourStarHotelRegistrationScreenState
           title: '7. Legal & Compliance Details',
           children: [
             _buildInputField(
-              label: 'GST Number *',
+              label: 'GST Number',
               controller: _gstController,
               hint: 'Enter GST number',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'PAN Number *',
+              label: 'PAN Number',
               controller: _panController,
               hint: 'Enter PAN number',
             ),
@@ -26249,16 +37659,16 @@ class _FourStarHotelRegistrationScreenState
         ),
         SizedBox(height: 16),
         _buildCard(
-          title: '8. Bank Details (Payment Settlement)',
+          title: '8. Bank Details',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountNameController,
               hint: 'Enter name as per bank',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Bank Name *',
+              label: 'Bank Name',
               controller: _bankNameController,
               hint: 'Enter bank name',
             ),
@@ -26267,16 +37677,17 @@ class _FourStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscController,
                     hint: 'Enter IFSC code',
                   ),
@@ -26288,6 +37699,57 @@ class _FourStarHotelRegistrationScreenState
               label: 'Branch',
               controller: _branchController,
               hint: 'Enter branch name',
+            ),
+            SizedBox(height: 16),
+
+            // NEW: Account Type Radio Buttons
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Account Type',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Savings'),
+                        value: 'Savings',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Current'),
+                        value: 'Current',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -26423,8 +37885,6 @@ class _FourStarHotelRegistrationScreenState
                 ],
               ),
             ),
-
-            SizedBox(height: 16),
 
             SizedBox(height: 16),
 
@@ -26616,7 +38076,7 @@ class _FourStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Signatory Name *',
+              label: 'Signatory Name',
               controller: _signatoryNameController,
               hint: 'Enter name of person signing',
             ),
@@ -26626,7 +38086,7 @@ class _FourStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Date *',
+                  'Date',
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
                 ),
                 SizedBox(height: 8),
@@ -26668,6 +38128,404 @@ class _FourStarHotelRegistrationScreenState
         ),
       ],
     );
+  }
+
+  // NEW: Profile Photo Upload Widget
+  Widget _buildProfilePhotoUploadItem() {
+    final fileName = _profilePhoto['name'] as String? ?? '';
+    final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
+    final fileSize = (_profilePhoto['size'] as int?) ?? 0;
+
+    Future<void> _pickProfilePhoto() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a profile photo smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _profilePhoto['name'] = file.name;
+            _profilePhoto['size'] = file.size;
+            _profilePhoto['path'] = file.path ?? '';
+            _profilePhoto['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Profile photo uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload profile photo: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewProfilePhoto() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Profile Photo'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('File: $fileName'),
+                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    void _removeProfilePhoto() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Remove Profile Photo'),
+          content: const Text('Are you sure you want to remove this profile photo?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _profilePhoto['name'] = '';
+                  _profilePhoto['size'] = 0;
+                  _profilePhoto['path'] = '';
+                  _profilePhoto['uploaded'] = false;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Profile photo removed'),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile Photo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'JPG, PNG format (Max 2MB)',
+                        style: TextStyle(fontSize: 11, color: _textSecondary),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickProfilePhoto,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(fontSize: 11, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewProfilePhoto,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview',
+                      ),
+                      IconButton(
+                        onPressed: _removeProfilePhoto,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // UPDATED: Time Picker Field with clock icon
+  Widget _buildTimePickerField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectTime(context, controller),
+          child: Container(
+            height: 48,
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isNotEmpty
+                      ? _formatTimeForDisplay(controller.text)
+                      : 'Select time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: controller.text.isNotEmpty
+                        ? _textPrimary
+                        : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                  color: _primaryColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // NEW: Time selection method
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    TimeOfDay initialTime = TimeOfDay.now();
+
+    if (controller.text.isNotEmpty) {
+      try {
+        List<String> parts = controller.text.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          initialTime = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e) {
+        initialTime = TimeOfDay.now();
+      }
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        String hour = pickedTime.hour.toString().padLeft(2, '0');
+        String minute = pickedTime.minute.toString().padLeft(2, '0');
+        controller.text = '$hour:$minute';
+      });
+    }
+  }
+
+  // NEW: Format time for display
+  String _formatTimeForDisplay(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length >= 2) {
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1].substring(0, 2));
+
+        String period = hour >= 12 ? 'PM' : 'AM';
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return '${hour12.toString().padLeft(2, '0')}:${minute
+            .toString()
+            .padLeft(2, '0')} $period';
+      }
+    } catch (e) {
+      return time24;
+    }
+    return time24;
   }
 
   Future<void> _saveDigitalSignature() async {
@@ -26855,12 +38713,14 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Input field with inputFormatters
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    bool isRequired = true,
+    // bool isRequired = true,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26875,13 +38735,14 @@ class _FourStarHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
+            // if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
           ],
         ),
         SizedBox(height: 8),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -26933,6 +38794,7 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Room Configuration Card with integer and double handling
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -26959,20 +38821,32 @@ class _FourStarHotelRegistrationScreenState
               Expanded(
                 child: _buildSmallInput(
                   label: 'No. of Rooms',
-                  controller: TextEditingController(text: details['rooms']),
-                  onChanged: (value) => details['rooms'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['rooms']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['rooms'] = intValue;
+                  },
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
               Expanded(
                 child: _buildSmallInput(
                   label: 'Max Occupancy',
-                  controller: TextEditingController(text: details['occupancy']),
-                  onChanged: (value) => details['occupancy'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['occupancy']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['occupancy'] = intValue;
+                  },
                   hint: 'Persons',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
             ],
@@ -27057,22 +38931,32 @@ class _FourStarHotelRegistrationScreenState
 
           _buildSmallInput(
             label: 'Select Price Per Day (₹)',
-            controller: TextEditingController(text: details['price']),
-            onChanged: (value) => details['price'] = value,
+            controller: TextEditingController(
+              text: _getInitialText(details['price']),
+            ),
+            onChanged: (value) {
+              final doubleValue = double.tryParse(value) ?? 0.0;
+              details['price'] = doubleValue;
+            },
             hint: 'Rs',
-            keyboardType: TextInputType.number,
+            keyboardType: const TextInputType.numberWithOptions(decimal: true),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+            ],
           ),
         ],
       ),
     );
   }
 
+  // UPDATED: Small input with inputFormatters
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27092,6 +38976,7 @@ class _FourStarHotelRegistrationScreenState
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             decoration: InputDecoration(
               hintText: hint,
               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -27191,6 +39076,7 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
+  // Keep the original time dropdown for backward compatibility
   Widget _buildTimeDropdown({
     required String label,
     required TextEditingController controller,
@@ -27905,11 +39791,6 @@ class _FourStarHotelRegistrationScreenState
   }
 
   void _nextStep() {
-    // Validate current step before proceeding
-    // if (!_validateCurrentStep()) {
-    //   return;
-    // }
-
     if (_currentStep < _steps.length - 1) {
       setState(() {
         _currentStep++;
@@ -27978,27 +39859,27 @@ class _FourStarHotelRegistrationScreenState
   }
 
   void _submitForm() {
-    if (_hotelNameController.text.isEmpty ||
-        _ownerNameController.text.isEmpty ||
-        _mobileController.text.isEmpty ||
-        _address1Controller.text.isEmpty ||
-        _cityController.text.isEmpty ||
-        _stateController.text.isEmpty ||
-        _pinController.text.isEmpty ||
-        _gstController.text.isEmpty ||
-        _panController.text.isEmpty ||
-        _accountNameController.text.isEmpty ||
-        _bankNameController.text.isEmpty ||
-        _accountNumberController.text.isEmpty ||
-        _ifscController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please fill all required fields marked with *'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
+    // if (_hotelNameController.text.isEmpty ||
+    //     _ownerNameController.text.isEmpty ||
+    //     _mobileController.text.isEmpty ||
+    //     _address1Controller.text.isEmpty ||
+    //     _cityController.text.isEmpty ||
+    //     _stateController.text.isEmpty ||
+    //     _pinController.text.isEmpty ||
+    //     _gstController.text.isEmpty ||
+    //     _panController.text.isEmpty ||
+    //     _accountNameController.text.isEmpty ||
+    //     _bankNameController.text.isEmpty ||
+    //     _accountNumberController.text.isEmpty ||
+    //     _ifscController.text.isEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Please fill all required fields marked with *'),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //   return;
+    // }
 
     if (!_declarationAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -28010,58 +39891,73 @@ class _FourStarHotelRegistrationScreenState
       return;
     }
 
-    if (!(_signatureFile['uploaded'] ?? false)) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please upload Digital Signature'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      setState(() => _currentStep = 4);
-      return;
-    }
+    // if (!(_signatureFile['uploaded'] ?? false)) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Please upload Digital Signature'),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //   setState(() => _currentStep = 4);
+    //   return;
+    // }
 
-    final requiredDocs = [
-      'GST Certificate',
-      'PAN Card',
-      'Trade License',
-      'Star Classification Certificate',
-      'Cancelled Cheque',
-      'Hotel & Room Photos',
-    ];
+    // final requiredDocs = [
+    //   'GST Certificate',
+    //   'PAN Card',
+    //   'Trade License',
+    //   'Star Classification Certificate',
+    //   'Cancelled Cheque',
+    //   'Hotel & Room Photos',
+    // ];
 
-    for (var doc in requiredDocs) {
-      if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please upload $doc'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        setState(() => _currentStep = 4);
-        return;
-      }
-    }
-    final hasSignature =
-        _hasDigitalSignature ||
-        (_uploadedFiles['Signature']?['uploaded'] ?? false);
+    // for (var doc in requiredDocs) {
+    //   if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text('Please upload $doc'),
+    //         backgroundColor: Colors.red,
+    //       ),
+    //     );
+    //     setState(() => _currentStep = 4);
+    //     return;
+    //   }
+    // }
+    // final hasSignature =
+    //     _hasDigitalSignature ||
+    //     (_uploadedFiles['Signature']?['uploaded'] ?? false);
 
-    if (!hasSignature) {
-      _showErrorDialog(
-        'Signature Required',
-        'Please either draw a digital signature or upload a signature file.',
-      );
-      setState(() => _currentStep = 4);
-      return;
-    }
+    // if (!hasSignature) {
+    //   _showErrorDialog(
+    //     'Signature Required',
+    //     'Please either draw a digital signature or upload a signature file.',
+    //   );
+    //   setState(() => _currentStep = 4);
+    //   return;
+    // }
+
+    // Process room details to ensure proper types
+    Map<String, Map<String, dynamic>> processedRoomDetails = {};
+    _roomDetails.forEach((key, value) {
+      processedRoomDetails[key] = {
+        'rooms': value['rooms'] is int ? value['rooms'] : int.tryParse(
+            value['rooms'].toString()) ?? 0,
+        'occupancy': value['occupancy'] is int ? value['occupancy'] : int
+            .tryParse(value['occupancy'].toString()) ?? 0,
+        'ac': value['ac'] ?? true,
+        'bedType': value['bedType'] ?? 'Queen',
+        'price': value['price'] is double ? value['price'] : double.tryParse(
+            value['price'].toString()) ?? 0.0,
+      };
+    });
 
     Map<String, dynamic> formData = {
       'hotelName': _hotelNameController.text,
       'hotelCategory': '4-Star',
       'hotelType': _selectedHotelType,
-      'yearOfEstablishment': _yearController.text,
+      'yearOfEstablishment': int.tryParse(_yearController.text) ?? 0,
       'registrationNumber': _registrationNumberController.text,
-      'totalRooms': _roomsController.text,
+      'totalRooms': int.tryParse(_roomsController.text) ?? 0,
       'ownerName': _ownerNameController.text,
       'designation': _designationController.text,
       'mobileNumber': _mobileController.text,
@@ -28074,8 +39970,11 @@ class _FourStarHotelRegistrationScreenState
       'district': _districtController.text,
       'state': _stateController.text,
       'pinCode': _pinController.text,
+      'country': _countryController.text, // Add this
+      'profilePhoto': _profilePhoto, // Add this
+      'accountType': _selectedAccountType, // Add this
       'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
-      'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
+      'roomDetails': processedRoomDetails,
       'extraBedAvailable': _extraBedAvailable,
       'seasonalPricing': _seasonalPricing,
       'checkInTime': _checkInController.text,
@@ -28104,18 +40003,19 @@ class _FourStarHotelRegistrationScreenState
       'signatoryName': _signatoryNameController.text,
       'declarationDate': _selectedDate,
       'declarationAccepted': _declarationAccepted,
-
+      'hasDigitalSignature': _hasDigitalSignature,
+      'digitalSignatureImage': _digitalSignatureImage,
       'additionalAddresses': _additionalAddresses.map((addr) {
         return {'address': addr['address']?.text ?? ''};
       }).toList(),
     };
 
+    // Navigate to FourStarHotelSummaryScreen (you'll need to create this)
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
+        builder: (context) => FourStarHotelSummaryScreen(
           registrationData: formData,
-          hotelCategory: '4-Star',
           declarationAccepted: _declarationAccepted,
         ),
       ),
@@ -28140,6 +40040,7 @@ class _FourStarHotelRegistrationScreenState
     _districtController.dispose();
     _stateController.dispose();
     _pinController.dispose();
+    _countryController.dispose();
     _checkInController.dispose();
     _checkOutController.dispose();
     _gstController.dispose();
@@ -31354,7 +43255,6 @@ class SixStarHotelRegistrationScreen extends StatefulWidget {
   State<SixStarHotelRegistrationScreen> createState() =>
       _SixStarHotelRegistrationScreenState();
 }
-
 class _SixStarHotelRegistrationScreenState
     extends State<SixStarHotelRegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
@@ -70755,4 +82655,6 @@ class _ResortEditProfileScreenState extends State<ResortEditProfileScreen>
     return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
   }
 }
+
+
 
