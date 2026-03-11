@@ -23,6 +23,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart' show Clipboard, ClipboardData;
 
+import 'hotel_summary_screen/hotel_summary_screen.dart';
+
 class HotelRegistrationScreen extends StatefulWidget {
   const HotelRegistrationScreen({super.key});
 
@@ -38,7 +40,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
   final Color _primaryLight = Color(0xFFEEF2FF);
   final Color _bgColor = Color(0xFFFAFAFA);
   final Color _cardColor = Colors.white;
-  final Color _borderColor = Color(0xFFE5E7EB);
+  final Color _borderColor = Color (0xFFE5E7EB);
   final Color _textPrimary = Color(0xFF111827);
   final Color _textSecondary = Color(0xFF6B7280);
   final Color _successColor = Color(0xFFFB717D);
@@ -88,56 +90,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     'uploaded': false,
   };
 
-  // final Map<String, Map<String, dynamic>> _roomDetails = {
-  //   'Single Room': {
-  //     'rooms': '',
-  //     'occupancy': '',
-  //     'ac': true,
-  //     'price': '',
-  //     'extraBed': false,
-  //     'extraBedPrice': '',
-  //   },
-  //   'Double Room': {
-  //     'rooms': '',
-  //     'occupancy': '',
-  //     'ac': true,
-  //     'price': '',
-  //     'extraBed': false,
-  //     'extraBedPrice': '',
-  //   },
-  //   'Deluxe Room': {
-  //     'rooms': '',
-  //     'occupancy': '',
-  //     'ac': true,
-  //     'price': '',
-  //     'extraBed': false,
-  //     'extraBedPrice': '',
-  //   },
-  //   'Suite Room': {
-  //     'rooms': '',
-  //     'occupancy': '',
-  //     'ac': true,
-  //     'price': '',
-  //     'extraBed': false,
-  //     'extraBedPrice': '',
-  //   },
-  //   'Family Room': {
-  //     'rooms': '',
-  //     'occupancy': '',
-  //     'ac': true,
-  //     'price': '',
-  //     'extraBed': false,
-  //     'extraBedPrice': '',
-  //   },
-  //   'Executive Room': {
-  //     'rooms': '',
-  //     'occupancy': '',
-  //     'ac': true,
-  //     'price': '',
-  //     'extraBed': false,
-  //     'extraBedPrice': '',
-  //   },
-  // };
+
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Single Room': {
       'rooms': 0,           // Changed from '' to 0
@@ -558,27 +511,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               ],
             ),
             SizedBox(height: 16),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: _buildInputField(
-            //         label: 'Year of Establishment',
-            //         controller: _yearController,
-            //         hint: 'YYYY',
-            //         keyboardType: TextInputType.number,
-            //       ),
-            //     ),
-            //     SizedBox(width: 16),
-            //     Expanded(
-            //       child: _buildInputField(
-            //         label: 'Total Number of Rooms',
-            //         controller: _roomsController,
-            //         hint: '0',
-            //         keyboardType: TextInputType.number,
-            //       ),
-            //     ),
-            //   ],
-            // ),
+
             Row(
               children: [
                 Expanded(
@@ -761,75 +694,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     );
   }
 
-  // Widget _buildStep2() {
-  //   return Column(
-  //     children: [
-  //       _buildCard(
-  //         title: 'Hotel Address',
-  //         children: [
-  //           _buildInputField(
-  //             label: 'Address Line 1',
-  //             controller: _address1Controller,
-  //             hint: 'Street address',
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildInputField(
-  //             label: 'Address Line 2',
-  //             controller: _address2Controller,
-  //             hint: 'Apartment, suite, etc.',
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'City',
-  //                   controller: _cityController,
-  //                   hint: 'Enter city',
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'District',
-  //                   controller: _districtController,
-  //                   hint: 'Enter district',
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'State',
-  //                   controller: _stateController,
-  //                   hint: 'Enter state',
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'PIN Code',
-  //                   controller: _pinController,
-  //                   hint: '6-digit PIN',
-  //                   keyboardType: TextInputType.number,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildInputField(
-  //             label: 'Landmark',
-  //             controller: _landmarkController,
-  //             hint: 'Nearby place',
-  //           ),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
+
   Widget _buildStep2() {
     return Column(
       children: [
@@ -998,19 +863,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               children: [
                 Row(
                   children: [
-                    // Expanded(
-                    //   child: _buildSmallInput(
-                    //     label: 'Number of Rooms',
-                    //     controller: TextEditingController(
-                    //       text: _roomDetails[roomType]!['rooms'],
-                    //
-                    //     ),
-                    //     onChanged: (value) =>
-                    //         _roomDetails[roomType]!['rooms'] = value,
-                    //     hint: '0',
-                    //     keyboardType: TextInputType.number,
-                    //   ),
-                    // ),
+
                     Expanded(
                       child: _buildSmallInput(
                         label: 'Number of Rooms',
@@ -1029,18 +882,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                     ),
 
                     SizedBox(width: 12),
-                    // Expanded(
-                    //   child: _buildSmallInput(
-                    //     label: 'Max Occupancy',
-                    //     controller: TextEditingController(
-                    //       text: _roomDetails[roomType]!['occupancy'],
-                    //     ),
-                    //     onChanged: (value) =>
-                    //         _roomDetails[roomType]!['occupancy'] = value,
-                    //     hint: 'Persons',
-                    //     keyboardType: TextInputType.number,
-                    //   ),
-                    // ),
+
                     Expanded(
                       child: _buildSmallInput(
                         label: 'Max Occupancy',
@@ -1063,18 +905,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                 SizedBox(height: 12),
                 Row(
                   children: [
-                    // Expanded(
-                    //   child: _buildSmallInput(
-                    //     label: 'Price per Night (₹)',
-                    //     controller: TextEditingController(
-                    //       text: _roomDetails[roomType]!['price'],
-                    //     ),
-                    //     onChanged: (value) =>
-                    //         _roomDetails[roomType]!['price'] = value,
-                    //     hint: '0',
-                    //     keyboardType: TextInputType.number,
-                    //   ),
-                    // ),
+
                     Expanded(
                       child: _buildSmallInput(
                         label: 'Price per Night (₹)',
@@ -1181,18 +1012,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                     ),
                     SizedBox(width: 12),
                     if (_roomDetails[roomType]!['extraBed'])
-                      // Expanded(
-                      //   child: _buildSmallInput(
-                      //     label: 'Extra Bed Price (₹)',
-                      //     controller: TextEditingController(
-                      //       text: _roomDetails[roomType]!['extraBedPrice'],
-                      //     ),
-                      //     onChanged: (value) =>
-                      //         _roomDetails[roomType]!['extraBedPrice'] = value,
-                      //     hint: '0',
-                      //     keyboardType: TextInputType.number,
-                      //   ),
-                      // ),
+
                       Expanded(
                         child: _buildSmallInput(
                           label: 'Extra Bed Price (₹)',
@@ -1542,11 +1362,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               hint: 'Enter branch name',
             ),
             SizedBox(height: 16),
-            // _buildInputField(
-            //   label: 'Account Type',
-            //   controller: _accountTypeController,
-            //   hint: 'Savings / Current',
-            // ),
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -2000,48 +1816,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     );
   }
 
-  // Widget _buildInputField({
-  //   required String label,
-  //   required TextEditingController controller,
-  //   required String hint,
-  //   TextInputType? keyboardType,
-  //
-  // }) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         label,
-  //         style: TextStyle(
-  //           fontSize: 13,
-  //           fontWeight: FontWeight.w500,
-  //           color: _textPrimary,
-  //         ),
-  //       ),
-  //       SizedBox(height: 8),
-  //       TextFormField(
-  //         controller: controller,
-  //         keyboardType: keyboardType,
-  //         decoration: InputDecoration(
-  //           hintText: hint,
-  //           contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-  //           border: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //             borderSide: BorderSide(color: _borderColor),
-  //           ),
-  //           enabledBorder: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //             borderSide: BorderSide(color: _borderColor),
-  //           ),
-  //           focusedBorder: OutlineInputBorder(
-  //             borderRadius: BorderRadius.circular(8),
-  //             borderSide: BorderSide(color: _primaryColor),
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+
 
   Widget _buildInputField({
     required String label,
@@ -2086,46 +1861,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       ],
     );
   }
-  // Widget _buildSmallInput({
-  //   required String label,
-  //   required TextEditingController controller,
-  //   required ValueChanged<String> onChanged,
-  //   required String hint,
-  //   TextInputType? keyboardType,
-  // }) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         label,
-  //         style: TextStyle(
-  //           fontSize: 12,
-  //           fontWeight: FontWeight.w500,
-  //           color: _textPrimary,
-  //         ),
-  //       ),
-  //       SizedBox(height: 8),
-  //       SizedBox(
-  //         height: 40,
-  //         child: TextFormField(
-  //           controller: controller,
-  //           onChanged: onChanged,
-  //           keyboardType: keyboardType,
-  //           textAlign: TextAlign.center,
-  //           decoration: InputDecoration(
-  //             hintText: hint,
-  //             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-  //             border: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(6),
-  //               borderSide: BorderSide(color: _borderColor),
-  //             ),
-  //             isDense: true,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+
 
   Widget _buildSmallInput({
     required String label,
@@ -3377,16 +3113,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       'registeredAt': DateTime.now().toIso8601String(),
     };
 
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => RegistrationSummaryScreen(
-    //       registrationData: hotelData,
-    //       hotelCategory: 'Normal',
-    //       declarationAccepted: _declarationAccepted,
-    //     ),
-    //   ),
-    // );
+
 
     Navigator.push(
   context,
@@ -3401,108 +3128,6 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
 
 
 
-  // void _submitForm() {
-  //   if (!_declarationAccepted) {
-  //     _showErrorDialog(
-  //       'Declaration Required',
-  //       'Please accept the declaration to proceed.',
-  //     );
-  //     return;
-  //   }
-  //
-  //   // Create a complete data map with ALL fields including personal info
-  //   Map<String, dynamic> formData = {
-  //     // Personal Information (from PropertyAuthScreen prefill)
-  //     'fullName': _ownerNameController.text,
-  //     'email': _emailController.text,
-  //     'phone': _mobileController.text,
-  //
-  //     // Basic Information
-  //     'hotelName': _hotelNameController.text,
-  //     'hotelType': _selectedHotelType ?? '',
-  //     'yearOfEstablishment': _yearController.text,
-  //     'totalRooms': int.tryParse(_roomsController.text) ?? 0,
-  //
-  //     // Contact Information
-  //     'ownerName': _ownerNameController.text,
-  //     'mobileNumber': _mobileController.text,
-  //     'alternateContact': _altMobileController.text,
-  //     'landlineNumbers': _landlineControllers
-  //         .map((c) => c.text)
-  //         .where((text) => text.isNotEmpty)
-  //         .toList(),
-  //     'email': _emailController.text,
-  //     'website': _websiteController.text,
-  //
-  //     // Address Information
-  //     'addressLine1': _address1Controller.text,
-  //     'addressLine2': _address2Controller.text,
-  //     'city': _cityController.text,
-  //     'district': _districtController.text,
-  //     'state': _stateController.text,
-  //     'pinCode': _pinController.text,
-  //     'landmark': _landmarkController.text,
-  //
-  //     // Room Configuration
-  //     'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
-  //     'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
-  //     'minTariff': _minTariffController.text,
-  //     'maxTariff': _maxTariffController.text,
-  //     'extraBedAvailable': _extraBedAvailable,
-  //
-  //     // Amenities
-  //     'basicAmenities': Map<String, bool>.from(_basicAmenities),
-  //     'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
-  //     'foodServices': Map<String, bool>.from(_foodServices),
-  //     'additionalAmenities': Map<String, bool>.from(_additionalAmenities),
-  //     'customAmenities': List<String>.from(_customAmenities),
-  //
-  //     // Legal Details
-  //     'gstNumber': _gstController.text,
-  //     'fssaiLicense': _fssaiController.text,
-  //     'tradeLicense': _tradeLicenseController.text,
-  //     'aadharNumber': _aadharController.text,
-  //     'panNumber': _panController.text,
-  //
-  //     // Bank Details
-  //     'accountHolderName': _accountNameController.text,
-  //     'bankName': _bankNameController.text,
-  //     'accountNumber': _accountNumberController.text,
-  //     'ifscCode': _ifscController.text,
-  //     'branch': _branchController.text,
-  //     'accountType': _accountTypeController.text,
-  //
-  //     // Uploaded Files
-  //     'uploadedFiles': Map<String, Map<String, dynamic>>.from(_uploadedFiles),
-  //     'personPhotoInfo': Map<String, dynamic>.from(_personPhotoInfo),
-  //
-  //     // Signature & Declaration
-  //     'signatureName': _signatureNameController.text,
-  //     'declarationName': _declarationNameController.text,
-  //     'declarationDate': _selectedDate?.toIso8601String(),
-  //     'declarationAccepted': _declarationAccepted,
-  //     'hasDigitalSignature': _hasDigitalSignature,
-  //     'digitalSignatureImage': _digitalSignatureImage,
-  //
-  //     // Hotel Category
-  //     'hotelCategory': 'Normal',
-  //
-  //     // CRITICAL: Add propertyType for detection
-  //     'propertyType': 'hotel',
-  //   };
-  //
-  //   // Navigate to RegistrationSummaryScreen with all data
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => RegistrationSummaryScreen(
-  //         registrationData: formData,
-  //         hotelCategory: 'Normal',
-  //         declarationAccepted: _declarationAccepted,
-  //       ),
-  //     ),
-  //   );
-  // }
 
 
 
@@ -3554,7 +3179,6 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     super.dispose();
   }
 }
-
 
 class RegistrationSummaryScreen extends StatelessWidget {
   final Map<String, dynamic> registrationData;
@@ -3821,12 +3445,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
         _infoRow('Hotel Category', hotelCategory),
         if (_get('hotelType') != null)
           _infoRow('Hotel Type', _get('hotelType')),
-        // if (_get('yearOfEstablishment') != null &&
-        //     _get('yearOfEstablishment').toString().isNotEmpty)
-        //   _infoRow('Year Established', _get('yearOfEstablishment')),
-        // if (_get('totalRooms') != null &&
-        //     _get('totalRooms').toString().isNotEmpty)
-        //   _infoRow('Total Rooms', _get('totalRooms')),
+
 
         // UPDATED: Year of Establishment as integer
         if (_get('yearOfEstablishment') != null)
@@ -4110,114 +3729,6 @@ class RegistrationSummaryScreen extends StatelessWidget {
 
     children.add(const SizedBox(height: 16));
 
-    // // Room Details for each type
-    // for (var roomType in selectedTypes) {
-    //   final details = roomDetails[roomType] ?? {};
-    //
-    //   children.add(
-    //     Container(
-    //       margin: const EdgeInsets.only(bottom: 16),
-    //       padding: const EdgeInsets.all(16),
-    //       decoration: BoxDecoration(
-    //         color: Colors.white,
-    //         borderRadius: BorderRadius.circular(12),
-    //         border: Border.all(color: _borderColor),
-    //         boxShadow: [
-    //           BoxShadow(
-    //             color: Colors.black.withOpacity(0.02),
-    //             blurRadius: 4,
-    //             offset: const Offset(0, 2),
-    //           ),
-    //         ],
-    //       ),
-    //       child: Column(
-    //         crossAxisAlignment: CrossAxisAlignment.start,
-    //         children: [
-    //           Row(
-    //             children: [
-    //               Container(
-    //                 padding: const EdgeInsets.all(8),
-    //                 decoration: BoxDecoration(
-    //                   color: _primaryLight,
-    //                   borderRadius: BorderRadius.circular(8),
-    //                 ),
-    //                 child: Icon(Icons.hotel, size: 18, color: _primaryColor),
-    //               ),
-    //               const SizedBox(width: 12),
-    //               Text(
-    //                 roomType,
-    //                 style: TextStyle(
-    //                   fontSize: 15,
-    //                   fontWeight: FontWeight.w700,
-    //                   color: _textDark,
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //           const SizedBox(height: 12),
-    //
-    //           Common fields for all categories
-    //           if (details['rooms'] != null &&
-    //               details['rooms'].toString().isNotEmpty)
-    //             _detailRow('Number of Rooms', details['rooms'].toString()),
-    //
-    //           if (details['occupancy'] != null &&
-    //               details['occupancy'].toString().isNotEmpty)
-    //             _detailRow('Max Occupancy', '${details['occupancy']} Persons'),
-    //
-    //          
-    //
-    //           // AC/Non-AC (all except 6-Star which uses Climate Control)
-    //           if (details['ac'] != null)
-    //             _detailRow(
-    //               _isSixStar() ? 'Climate Control' : 'AC/Non-AC',
-    //               details['ac'] == true
-    //                   ? (_isSixStar() ? 'Available' : 'AC')
-    //                   : (_isSixStar() ? 'Not Available' : 'Non-AC'),
-    //             ),
-    //
-    //           // Bed Type (2-Star+)
-    //           if (details['bedType'] != null &&
-    //               details['bedType'].toString().isNotEmpty)
-    //             _detailRow('Bed Type', details['bedType']),
-    //
-    //           // Price formats based on category
-    //           if (_isFiveStar() || _isSixStar()) ...[
-    //             if (details['minPrice'] != null &&
-    //                 details['minPrice'].toString().isNotEmpty)
-    //               _detailRow('Minimum Price', '₹${details['minPrice']}'),
-    //             if (details['maxPrice'] != null &&
-    //                 details['maxPrice'].toString().isNotEmpty)
-    //               _detailRow('Maximum Price', '₹${details['maxPrice']}'),
-    //           ] else if (details['price'] != null &&
-    //               details['price'].toString().isNotEmpty)
-    //             _detailRow('Price per Night', '₹${details['price']}'),
-    //
-    //         
-    //
-    //
-    //           Extra Bed (Normal, 2-Star, 3-Star, 4-Star)
-    //           if (!_isFiveStar() && !_isSixStar()) ...[
-    //             if (details['extraBed'] != null)
-    //               _detailRow(
-    //                 'Extra Bed',
-    //                 details['extraBed'] == true ? 'Yes' : 'No',
-    //               ),
-    //             if (details['extraBed'] == true &&
-    //                 details['extraBedPrice'] != null &&
-    //                 details['extraBedPrice'].toString().isNotEmpty)
-    //               _detailRow('Extra Bed Price', '₹${details['extraBedPrice']}'),
-    //           ],
-    //
-    //           Extra Bed (Normal, 2-Star, 3-Star, 4-Star)
-    //
-    //
-    //          
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // }
 
     for (var roomType in selectedTypes) {
       final details = roomDetails[roomType] ?? {};
@@ -4324,67 +3835,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     final minTariff = _get('minTariff', '');
     final maxTariff = _get('maxTariff', '');
 
-    // if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
-    //   children.add(
-    //     Container(
-    //       padding: const EdgeInsets.all(16),
-    //       decoration: BoxDecoration(
-    //         color: _successColor.withOpacity(0.1),
-    //         borderRadius: BorderRadius.circular(12),
-    //         border: Border.all(color: _successColor.withOpacity(0.3)),
-    //       ),
-    //       child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //         children: [
-    //           Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Text(
-    //                 'Room Tariff Range',
-    //                 style: TextStyle(
-    //                   fontSize: 13,
-    //                   color: _textLight,
-    //                   fontWeight: FontWeight.w500,
-    //                 ),
-    //               ),
-    //               const SizedBox(height: 4),
-    //               Text(
-    //                 '₹${minTariff.toString().isNotEmpty ? minTariff : '0'} - ₹${maxTariff.toString().isNotEmpty ? maxTariff : '0'}',
-    //                 style: TextStyle(
-    //                   fontSize: 18,
-    //                   fontWeight: FontWeight.w700,
-    //                   color: _successColor,
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //           if (_get('extraBedAvailable') != null)
-    //             Container(
-    //               padding: const EdgeInsets.symmetric(
-    //                 horizontal: 12,
-    //                 vertical: 6,
-    //               ),
-    //               decoration: BoxDecoration(
-    //                 color: Colors.white,
-    //                 borderRadius: BorderRadius.circular(20),
-    //                 border: Border.all(color: _successColor),
-    //               ),
-    //               child: Text(
-    //                 _get('extraBedAvailable') == true
-    //                     ? 'Extra Bed Available'
-    //                     : 'No Extra Bed',
-    //                 style: TextStyle(
-    //                   fontSize: 11,
-    //                   fontWeight: FontWeight.w600,
-    //                   color: _successColor,
-    //                 ),
-    //               ),
-    //             ),
-    //         ],
-    //       ),
-    //     ),
-    //   );
-    // }
+
 
     if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
       // Parse to double if needed
@@ -5052,50 +4503,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // ==================== BANK DETAILS ====================
-  // Widget _buildBankDetails() {
-  //   final List<Widget> children = [];
-  //
-  //   if (_get('accountHolderName') != null &&
-  //       _get('accountHolderName').toString().isNotEmpty) {
-  //     children.add(_infoRow('Account Holder', _get('accountHolderName')));
-  //   }
-  //
-  //   if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
-  //     children.add(_infoRow('Bank Name', _get('bankName')));
-  //   }
-  //
-  //   if (_get('accountNumber') != null &&
-  //       _get('accountNumber').toString().isNotEmpty) {
-  //     children.add(
-  //       _infoRow(
-  //         'Account Number',
-  //         _maskAccountNumber(_get('accountNumber').toString()),
-  //       ),
-  //     );
-  //   }
-  //
-  //   if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
-  //     children.add(_infoRow('IFSC Code', _get('ifscCode')));
-  //   }
-  //
-  //   if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
-  //     children.add(_infoRow('Branch', _get('branch')));
-  //   }
-  //
-  //   if (_get('accountType') != null &&
-  //       _get('accountType').toString().isNotEmpty) {
-  //     children.add(_infoRow('Account Type', _get('accountType')));
-  //   }
-  //
-  //   if (children.isEmpty) return const SizedBox.shrink();
-  //
-  //   return _buildSectionCard(
-  //     title: 'Bank Details',
-  //     icon: Icons.account_balance,
-  //     children: children,
-  //   );
-  // }
+
 // ==================== BANK DETAILS ====================
   Widget _buildBankDetails() {
     final List<Widget> children = [];
@@ -5381,103 +4789,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // // ==================== DECLARATION SECTION ====================
-  // Widget _buildDeclarationSection() {
-  //   final List<Widget> children = [];
-  //
-  //   // Signatory Name
-  //   if (_get('signatoryName') != null &&
-  //       _get('signatoryName').toString().isNotEmpty) {
-  //     children.add(_infoRow('Signatory Name', _get('signatoryName')));
-  //   }
-  //
-  //   // Declaration Name (Normal hotels)
-  //   if (_isNormal()) {
-  //     if (_get('declarationName') != null &&
-  //         _get('declarationName').toString().isNotEmpty) {
-  //       children.add(_infoRow('Name', _get('declarationName')));
-  //     }
-  //   }
-  //
-  //   // Declaration Date
-  //   final declarationDate = _get('declarationDate');
-  //   if (declarationDate != null) {
-  //     String dateStr = '';
-  //     if (declarationDate is DateTime) {
-  //       dateStr =
-  //           '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-  //     } else if (declarationDate is String) {
-  //       dateStr = declarationDate;
-  //     }
-  //     if (dateStr.isNotEmpty) {
-  //       children.add(_infoRow('Date', dateStr));
-  //     }
-  //   }
-  //
-  //   // Declaration Status
-  //   children.add(
-  //     Container(
-  //       padding: const EdgeInsets.all(16),
-  //       decoration: BoxDecoration(
-  //         color: _get('declarationAccepted', false) == true
-  //             ? _successColor.withOpacity(0.1)
-  //             : _dangerColor.withOpacity(0.1),
-  //         borderRadius: BorderRadius.circular(12),
-  //         border: Border.all(
-  //           color: _get('declarationAccepted', false) == true
-  //               ? _successColor.withOpacity(0.3)
-  //               : _dangerColor.withOpacity(0.3),
-  //         ),
-  //       ),
-  //       child: Row(
-  //         children: [
-  //           Icon(
-  //             _get('declarationAccepted', false) == true
-  //                 ? Icons.check_circle
-  //                 : Icons.error,
-  //             color: _get('declarationAccepted', false) == true
-  //                 ? _successColor
-  //                 : _dangerColor,
-  //             size: 24,
-  //           ),
-  //           const SizedBox(width: 12),
-  //           Expanded(
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Text(
-  //                   _get('declarationAccepted', false) == true
-  //                       ? 'Declaration Accepted'
-  //                       : 'Declaration Not Accepted',
-  //                   style: TextStyle(
-  //                     fontSize: 14,
-  //                     fontWeight: FontWeight.w600,
-  //                     color: _get('declarationAccepted', false) == true
-  //                         ? _successColor
-  //                         : _dangerColor,
-  //                   ),
-  //                 ),
-  //                 const SizedBox(height: 2),
-  //                 Text(
-  //                   _getDeclarationText(),
-  //                   style: TextStyle(fontSize: 12, color: _textLight),
-  //                   maxLines: 2,
-  //                   overflow: TextOverflow.ellipsis,
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  //
-  //   return _buildSectionCard(
-  //     title: 'Declaration',
-  //     icon: Icons.verified_user,
-  //     children: children,
-  //   );
-  // }
+
   Widget _buildDeclarationSection() {
     final List<Widget> children = [];
 
@@ -5637,67 +4949,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
   }
 
 
-  // void _showSuccessDialogAndNavigate(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Registration Complete'),
-  //         content: const Text(
-  //           'Your hotel has been registered successfully!',
-  //         ),
-  //         actions: [
-  //           SizedBox(
-  //             width: double.infinity,
-  //             child: ElevatedButton(
-  //               style: ElevatedButton.styleFrom(
-  //                 backgroundColor: Colors.blue,
-  //                 padding: const EdgeInsets.symmetric(vertical: 14),
-  //                 shape: RoundedRectangleBorder(
-  //                   borderRadius: BorderRadius.circular(12),
-  //                 ),
-  //               ),
-  //               onPressed: () {
-  //                 // Create FINAL data with ALL hotel information
-  //                 Map<String, dynamic> finalData = Map<String, dynamic>.from(registrationData);
-  //
-  //                 // Ensure propertyType is set
-  //                 finalData['propertyType'] = 'hotel';
-  //
-  //                 // Ensure hotelName is present
-  //                 if (!finalData.containsKey('hotelName')) {
-  //                   finalData['hotelName'] = registrationData['hotelName'];
-  //                 }
-  //
-  //                 print('Final data keys: ${finalData.keys}');
-  //                 print('HotelName: ${finalData['hotelName']}');
-  //
-  //                 Navigator.of(context).pushAndRemoveUntil(
-  //                   MaterialPageRoute(
-  //                     builder: (context) => OwnerDashboardScreen(
-  //                       userData: finalData,
-  //                       userEmail: registrationData['email']?.toString() ?? '',
-  //                     ),
-  //                   ),
-  //                       (Route<dynamic> route) => false,
-  //                 );
-  //               },
-  //               child: const Text(
-  //                 'Go to Dashboard',
-  //                 style: TextStyle(
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w600,
-  //                   color: Colors.white,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+
   void _showSuccessDialogAndNavigate(BuildContext context) {
     showDialog(
       context: context,
@@ -6009,48 +5261,9 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // Widget _infoRow(String label, dynamic value) {
-  //   if (value == null || value.toString().isEmpty)
-  //     return const SizedBox.shrink();
-  //
-  //   return Padding(
-  //     padding: const EdgeInsets.only(bottom: 12),
-  //     child: Row(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Expanded(flex: 4, child: Text(label, style: _labelStyle)),
-  //         Expanded(
-  //           flex: 6,
-  //           child: Text(
-  //             value.toString(),
-  //             style: _valueStyle,
-  //             textAlign: TextAlign.right,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 
-  // Widget _detailRow(String label, String value) {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(bottom: 8),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //       children: [
-  //         Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
-  //         Text(
-  //           value,
-  //           style: TextStyle(
-  //             fontSize: 13,
-  //             fontWeight: FontWeight.w600,
-  //             color: _textDark,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+
+
 
   Widget _infoRow(String label, dynamic value) {
     if (value == null) return const SizedBox.shrink();
@@ -6148,6423 +5361,6 @@ class RegistrationSummaryScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(Icons.photo, size: 24, color: _primaryColor),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        photoInfo['name'] ?? 'Profile Photo',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: _textDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
-                        style: TextStyle(fontSize: 12, color: _textLight),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.check_circle, size: 20, color: _successColor),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  TextStyle get _labelStyle =>
-      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
-
-  TextStyle get _valueStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-
-  TextStyle get _subSectionStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-}
-
-
-class NormalHotelSummaryScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-  final bool declarationAccepted;
-
-   NormalHotelSummaryScreen({
-    super.key,
-    required this.registrationData,
-    this.declarationAccepted = false,
-  });
-
-  // Helper method to safely get values
-  dynamic _get(String key, [dynamic defaultValue]) {
-    return registrationData[key] ?? defaultValue;
-  }
-
-  // Color scheme for Normal hotels
-  final Color _primaryColor = const Color(0xFFFF5F6D);
-  final Color _primaryLight =  Color(0xFFFF5F6D).withOpacity(0.1);
-  final Color _bgColor = const Color(0xFFFAFAFA);
-  final Color _cardColor = Colors.white;
-  final Color _borderColor = const Color(0xFFE5E7EB);
-  final Color _textDark = const Color(0xFF111827);
-  final Color _textLight = const Color(0xFF6B7280);
-  final Color _successColor = const Color(0xFF10B981);
-  final Color _dangerColor = const Color(0xFFEF4444);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: _textDark),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Hotel Registration Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: _textDark,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: _primaryColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-                const SizedBox(width: 6),
-                const Text(
-                  'Standard Hotel',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSuccessHeader(),
-            _buildHotelBasicInfo(),
-            _buildContactInfo(),
-            _buildAddressInfo(),
-            _buildRoomConfiguration(),
-            _buildAmenitiesSection(),
-            _buildLegalCompliance(),
-            _buildBankDetails(),
-            _buildDocumentsSection(),
-            _buildDeclarationSection(),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildFinishButton(context),
-    );
-  }
-
-  Widget _buildSuccessHeader() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Registration Submitted Successfully!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHotelBasicInfo() {
-    return _buildSectionCard(
-      title: 'Hotel Information',
-      icon: Icons.business,
-      children: [
-        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
-        _infoRow('Hotel Category', 'Standard Hotel'),
-        if (_get('hotelType') != null)
-          _infoRow('Hotel Type', _get('hotelType')),
-
-        // Year of Establishment as integer
-        if (_get('yearOfEstablishment') != null &&
-            _get('yearOfEstablishment').toString().isNotEmpty)
-          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
-
-        // Total Rooms as integer
-        if (_get('totalRooms') != null &&
-            _get('totalRooms').toString().isNotEmpty)
-          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
-      ],
-    );
-  }
-
-  Widget _buildContactInfo() {
-    final List<Widget> children = [
-      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
-      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
-    ];
-
-    // Alternate Contact
-    if (_get('alternateContact') != null &&
-        _get('alternateContact').toString().isNotEmpty) {
-      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
-    }
-
-    // Landline Numbers
-    final landlineNumbers = _get('landlineNumbers', []);
-    if (landlineNumbers is List && landlineNumbers.isNotEmpty) {
-      children.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Landline Numbers', style: _labelStyle),
-            const SizedBox(height: 8),
-            ...landlineNumbers
-                .map(
-                  (number) => Container(
-                    margin: const EdgeInsets.only(bottom: 6),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _borderColor),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.phone, size: 16, color: _textLight),
-                        const SizedBox(width: 8),
-                        Text(number.toString(), style: _valueStyle),
-                      ],
-                    ),
-                  ),
-                )
-                .toList(),
-          ],
-        ),
-      );
-    }
-
-    // Email
-    if (_get('email') != null && _get('email').toString().isNotEmpty) {
-      children.add(_infoRow('Email', _get('email')));
-    }
-
-    // Website
-    if (_get('website') != null && _get('website').toString().isNotEmpty) {
-      children.add(_infoRow('Website', _get('website')));
-    }
-
-    // Profile Photo
-    final profilePhoto = _get('personPhotoInfo');
-    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
-      children.add(_buildProfilePhotoInfo(profilePhoto));
-    }
-
-    return _buildSectionCard(
-      title: 'Contact Information',
-      icon: Icons.contact_phone,
-      children: children,
-    );
-  }
-
-  Widget _buildAddressInfo() {
-    final List<Widget> children = [
-      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
-    ];
-
-    if (_get('addressLine2') != null &&
-        _get('addressLine2').toString().isNotEmpty) {
-      children.add(_infoRow('Address Line 2', _get('addressLine2')));
-    }
-
-    children.addAll([
-      _infoRow('City', _get('city', 'Not Provided')),
-      _infoRow('District', _get('district', 'Not Provided')),
-      _infoRow('State', _get('state', 'Not Provided')),
-      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
-    ]);
-
-    // Country
-    if (_get('country') != null && _get('country').toString().isNotEmpty) {
-      children.add(_infoRow('Country', _get('country')));
-    }
-
-    // Landmark
-    if (_get('landmark') != null && _get('landmark').toString().isNotEmpty) {
-      children.add(_infoRow('Landmark', _get('landmark')));
-    }
-
-    return _buildSectionCard(
-      title: 'Address Details',
-      icon: Icons.location_on,
-      children: children,
-    );
-  }
-
-  Widget _buildRoomConfiguration() {
-    final selectedRoomTypes = _get('selectedRoomTypes', {});
-    final roomDetails = _get('roomDetails', {});
-
-    // Check if any rooms are selected
-    bool hasRooms = false;
-    if (selectedRoomTypes is Map) {
-      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
-    }
-
-    if (!hasRooms) return const SizedBox.shrink();
-
-    final selectedTypes = (selectedRoomTypes as Map).entries
-        .where((entry) => entry.value == true)
-        .map((entry) => entry.key.toString())
-        .toList();
-
-    final List<Widget> children = [];
-
-    // Room Type Chips
-    children.add(
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Room Types Available', style: _labelStyle),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: selectedTypes
-                .map(
-                  (type) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _primaryLight,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
-                    ),
-                    child: Text(
-                      type,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: _primaryColor,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ],
-      ),
-    );
-
-    children.add(const SizedBox(height: 16));
-
-    // Room Details for each type
-    for (var roomType in selectedTypes) {
-      final details = roomDetails[roomType] ?? {};
-
-      children.add(
-        Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _borderColor),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: _primaryLight,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    roomType,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: _textDark,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-
-              // Number of Rooms (integer)
-              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
-                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
-
-              // Max Occupancy (integer)
-              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
-                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
-
-              // AC/Non-AC
-              if (details['ac'] != null)
-                _detailRow(
-                  'AC/Non-AC',
-                  details['ac'] == true ? 'AC' : 'Non-AC',
-                ),
-
-              // Price per Night (double)
-              if (details['price'] != null && details['price'].toString().isNotEmpty)
-                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
-
-              // Extra Bed
-              if (details['extraBed'] != null)
-                _detailRow(
-                  'Extra Bed',
-                  details['extraBed'] == true ? 'Yes' : 'No',
-                ),
-
-              // Extra Bed Price (double)
-              if (details['extraBed'] == true &&
-                  details['extraBedPrice'] != null &&
-                  details['extraBedPrice'].toString().isNotEmpty)
-                _detailRow('Extra Bed Price', '₹${_formatPrice(details['extraBedPrice'])}'),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Overall pricing
-    final minTariff = _get('minTariff', '');
-    final maxTariff = _get('maxTariff', '');
-
-    if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _successColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _successColor.withOpacity(0.3)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Room Tariff Range',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: _textLight,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '₹${_formatPrice(minTariff)} - ₹${_formatPrice(maxTariff)}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: _successColor,
-                    ),
-                  ),
-                ],
-              ),
-              if (_get('extraBedAvailable') != null)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: _successColor),
-                  ),
-                  child: Text(
-                    _get('extraBedAvailable') == true
-                        ? 'Extra Bed Available'
-                        : 'No Extra Bed',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _successColor,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Room Configuration',
-      icon: Icons.meeting_room,
-      children: children,
-    );
-  }
-
-  Widget _buildAmenitiesSection() {
-    final List<Widget> amenitySections = [];
-
-    // Basic Amenities
-    final basicAmenities = _getAmenities('basicAmenities');
-    if (basicAmenities != null && basicAmenities.entries.any((e) => e.value)) {
-      amenitySections.add(
-        _buildAmenityCategory('Basic Amenities', basicAmenities),
-      );
-    }
-
-    // Hotel Facilities
-    final hotelFacilities = _getAmenities('hotelFacilities');
-    if (hotelFacilities != null &&
-        hotelFacilities.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
-    }
-
-    // Food Services
-    final foodServices = _getAmenities('foodServices');
-    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
-    }
-
-    // Additional Amenities
-    final additionalAmenities = _getAmenities('additionalAmenities');
-    if (additionalAmenities != null &&
-        additionalAmenities.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Additional Amenities', additionalAmenities));
-    }
-
-    // Custom Amenities
-    final customAmenities = _get('customAmenities', []);
-    if (customAmenities is List && customAmenities.isNotEmpty) {
-      amenitySections.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Custom Amenities', style: _labelStyle),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: customAmenities
-                  .map(
-                    (amenity) => Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            _primaryColor,
-                            _primaryColor.withOpacity(0.8),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        amenity.toString(),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (amenitySections.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Amenities & Facilities',
-      icon: Icons.workspaces_filled,
-      children: amenitySections,
-    );
-  }
-
-  Widget _buildLegalCompliance() {
-    final List<Widget> children = [];
-
-    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
-      children.add(_infoRow('GST Number', _get('gstNumber')));
-    }
-
-    if (_get('fssaiLicense') != null &&
-        _get('fssaiLicense').toString().isNotEmpty) {
-      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
-    }
-
-    if (_get('tradeLicense') != null &&
-        _get('tradeLicense').toString().isNotEmpty) {
-      children.add(_infoRow('Trade License', _get('tradeLicense')));
-    }
-
-    if (_get('aadharNumber') != null &&
-        _get('aadharNumber').toString().isNotEmpty) {
-      children.add(_infoRow('Aadhaar Number', _get('aadharNumber')));
-    }
-
-    if (_get('panNumber') != null &&
-        _get('panNumber').toString().isNotEmpty) {
-      children.add(_infoRow('PAN Number', _get('panNumber')));
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Legal & Compliance',
-      icon: Icons.gavel,
-      children: children,
-    );
-  }
-
-  Widget _buildBankDetails() {
-    final List<Widget> children = [];
-
-    if (_get('accountHolderName') != null &&
-        _get('accountHolderName').toString().isNotEmpty) {
-      children.add(_infoRow('Account Holder', _get('accountHolderName')));
-    }
-
-    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
-      children.add(_infoRow('Bank Name', _get('bankName')));
-    }
-
-    if (_get('accountNumber') != null &&
-        _get('accountNumber').toString().isNotEmpty) {
-      children.add(
-        _infoRow(
-          'Account Number',
-          _maskAccountNumber(_get('accountNumber').toString()),
-        ),
-      );
-    }
-
-    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
-      children.add(_infoRow('IFSC Code', _get('ifscCode')));
-    }
-
-    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
-      children.add(_infoRow('Branch', _get('branch')));
-    }
-
-    // Account Type
-    if (_get('accountType') != null &&
-        _get('accountType').toString().isNotEmpty) {
-      String accountType = _get('accountType').toString();
-      children.add(
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
-              Expanded(
-                flex: 6,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: accountType == 'Savings'
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.blue.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: accountType == 'Savings'
-                          ? Colors.green.withOpacity(0.3)
-                          : Colors.blue.withOpacity(0.3),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        accountType == 'Savings'
-                            ? Icons.savings
-                            : Icons.account_balance,
-                        size: 14,
-                        color: accountType == 'Savings'
-                            ? Colors.green
-                            : Colors.blue,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        accountType,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: accountType == 'Savings'
-                              ? Colors.green[700]
-                              : Colors.blue[700],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Bank Details',
-      icon: Icons.account_balance,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentsSection() {
-    final uploadedFiles = _get('uploadedFiles', {});
-
-    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final uploadedDocs = uploadedFiles.entries
-        .where((entry) => entry.value['uploaded'] == true)
-        .toList();
-
-    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
-
-    final List<Widget> children = [];
-
-    for (var entry in uploadedDocs) {
-      children.add(_buildDocumentItem(entry.key, entry.value));
-    }
-
-    // Digital Signature
-    if (_get('hasDigitalSignature') == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.purple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.purple.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Digital Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Saved successfully',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Uploaded Documents',
-      icon: Icons.folder,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
-    IconData getIcon() {
-      if (docName.contains('Signature')) return Icons.draw;
-      if (docName.contains('GST')) return Icons.receipt;
-      if (docName.contains('FSSAI')) return Icons.restaurant;
-      if (docName.contains('License')) return Icons.badge;
-      if (docName.contains('Cheque')) return Icons.account_balance;
-      if (docName.contains('Photos')) return Icons.photo_library;
-      if (docName.contains('Proof')) return Icons.perm_identity;
-      if (docName.contains('PAN')) return Icons.credit_card;
-      return Icons.description;
-    }
-
-    Color getColor() {
-      if (docName.contains('Signature')) return Colors.purple;
-      if (docName.contains('FSSAI')) return Colors.green;
-      if (docName.contains('GST')) return _primaryColor;
-      if (docName.contains('PAN')) return Colors.orange;
-      return _primaryColor;
-    }
-
-    final fileName = fileInfo['name']?.toString() ?? 'Document';
-    final fileSize = fileInfo['size'] ?? 0;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: getColor().withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(getIcon(), size: 24, color: getColor()),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  docName,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: _textDark,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  fileName,
-                  style: TextStyle(fontSize: 12, color: _textLight),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                  style: TextStyle(fontSize: 11, color: _textLight),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: _successColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.check_circle, size: 14, color: _successColor),
-                const SizedBox(width: 4),
-                Text(
-                  'Uploaded',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _successColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDeclarationSection() {
-    final List<Widget> children = [];
-
-    if (_get('declarationName') != null &&
-        _get('declarationName').toString().isNotEmpty) {
-      children.add(_infoRow('Name', _get('declarationName')));
-    }
-
-    final declarationDate = _get('declarationDate');
-    if (declarationDate != null) {
-      String dateStr = '';
-      if (declarationDate is DateTime) {
-        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-      } else if (declarationDate is String) {
-        try {
-          DateTime parsedDate = DateTime.parse(declarationDate);
-          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
-        } catch (e) {
-          dateStr = declarationDate;
-        }
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Date', dateStr));
-      }
-    }
-
-    children.add(
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _get('declarationAccepted', false) == true
-              ? _successColor.withOpacity(0.1)
-              : _dangerColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: _get('declarationAccepted', false) == true
-                ? _successColor.withOpacity(0.3)
-                : _dangerColor.withOpacity(0.3),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              _get('declarationAccepted', false) == true
-                  ? Icons.check_circle
-                  : Icons.error,
-              color: _get('declarationAccepted', false) == true
-                  ? _successColor
-                  : _dangerColor,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _get('declarationAccepted', false) == true
-                        ? 'Declaration Accepted'
-                        : 'Declaration Not Accepted',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _get('declarationAccepted', false) == true
-                          ? _successColor
-                          : _dangerColor,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'I hereby declare that the information provided above is true and correct to the best of my knowledge.',
-                    style: TextStyle(fontSize: 12, color: _textLight),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: children,
-    );
-  }
-
-  Widget _buildFinishButton(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: _borderColor)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () => _showSuccessDialogAndNavigate(context),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Finish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.check_circle,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text(
-            'Your hotel has been registered successfully!',
-          ),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () async {
-                  try {
-                    final prefs = await SharedPreferences.getInstance();
-                    final String usersJson = prefs.getString('registered_users') ?? '[]';
-                    final List<dynamic> usersList = jsonDecode(usersJson);
-
-                    List<Map<String, dynamic>> users = [];
-                    for (var user in usersList) {
-                      if (user is Map) {
-                        Map<String, dynamic> safeUserMap = {};
-                        user.forEach((key, value) {
-                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
-                        });
-                        users.add(safeUserMap);
-                      }
-                    }
-
-                    String userEmail = registrationData['email']?.toString() ?? '';
-
-                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
-
-                    int userIndex = -1;
-                    for (int i = 0; i < users.length; i++) {
-                      if (users[i]['email'] == userEmail) {
-                        userIndex = i;
-                        break;
-                      }
-                    }
-
-                    Map<String, dynamic> userData;
-
-                    if (userIndex >= 0) {
-                      userData = Map<String, dynamic>.from(users[userIndex]);
-
-                      if (!userData.containsKey('hotels')) {
-                        userData['hotels'] = [];
-                      }
-
-                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
-                      hotels.add(safeRegistrationData);
-                      userData['hotels'] = hotels;
-                      userData['propertyType'] = 'hotel';
-
-                      users[userIndex] = userData;
-                    } else {
-                      userData = {
-                        'email': userEmail,
-                        'fullName': registrationData['fullName']?.toString() ??
-                            registrationData['ownerName']?.toString() ?? '',
-                        'phone': registrationData['phone']?.toString() ??
-                            registrationData['mobileNumber']?.toString() ?? '',
-                        'propertyType': 'hotel',
-                        'hotels': [safeRegistrationData],
-                        'registeredAt': DateTime.now().toIso8601String(),
-                      };
-
-                      users.add(userData);
-                    }
-
-                    await prefs.setString('registered_users', jsonEncode(users));
-
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => OwnerDashboardScreen(
-                          userData: userData,
-                          userEmail: userEmail,
-                        ),
-                      ),
-                          (Route<dynamic> route) => false,
-                    );
-                  } catch (e) {
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error: ${e.toString()}'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                child: const Text(
-                  'Go to Dashboard',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // ==================== HELPER METHODS ====================
-
-  Map<String, bool>? _getAmenities(String key) {
-    final value = _get(key);
-    if (value is Map) {
-      return Map<String, bool>.from(
-        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
-      );
-    }
-    return null;
-  }
-
-  String _formatPrice(dynamic price) {
-    if (price == null) return '0';
-    if (price is double) {
-      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
-    }
-    if (price is int) {
-      return price.toString();
-    }
-    if (price is String) {
-      if (price.isEmpty) return '0';
-      double? parsed = double.tryParse(price);
-      if (parsed != null) {
-        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
-      }
-    }
-    return price.toString();
-  }
-
-  String _formatInteger(dynamic value) {
-    if (value == null) return '0';
-    if (value is int) {
-      return value.toString();
-    }
-    if (value is double) {
-      return value.toInt().toString();
-    }
-    if (value is String) {
-      if (value.isEmpty) return '0';
-      int? parsed = int.tryParse(value);
-      if (parsed != null) {
-        return parsed.toString();
-      }
-      double? parsedDouble = double.tryParse(value);
-      if (parsedDouble != null) {
-        return parsedDouble.toInt().toString();
-      }
-    }
-    return value.toString();
-  }
-
-  String _maskAccountNumber(String accountNumber) {
-    if (accountNumber.length <= 4) return accountNumber;
-    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
-  }
-
-  dynamic _convertToJsonSafe(dynamic obj) {
-    if (obj == null) return null;
-    if (obj is DateTime) {
-      return obj.toIso8601String();
-    }
-    if (obj is Uint8List) {
-      return base64Encode(obj);
-    }
-    if (obj is Map) {
-      Map<String, dynamic> result = {};
-      obj.forEach((key, value) {
-        result[key.toString()] = _convertToJsonSafe(value);
-      });
-      return result;
-    }
-    if (obj is List) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is Set) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is String || obj is num || obj is bool) {
-      return obj;
-    }
-    try {
-      return obj.toString();
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Widget _buildSectionCard({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, size: 20, color: _primaryColor),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: _textDark,
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 24, color: _borderColor),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
-    final selectedAmenities = amenities.entries
-        .where((e) => e.value)
-        .map((e) => e.key)
-        .toList();
-
-    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: _subSectionStyle),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: selectedAmenities
-              .map(
-                (amenity) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: _primaryColor.withOpacity(0.2)),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.check_circle, size: 14, color: _primaryColor),
-                      const SizedBox(width: 6),
-                      Text(
-                        amenity,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: _primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-        const SizedBox(height: 16),
-      ],
-    );
-  }
-
-  Widget _infoRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    if (displayValue.isEmpty) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
-          Expanded(
-            flex: 6,
-            child: Text(
-              displayValue,
-              style: _valueStyle,
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _detailRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
-          Text(
-            displayValue,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: _textDark,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Profile Photo', style: _labelStyle),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _borderColor),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(Icons.person, size: 24, color: _primaryColor),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        photoInfo['name'] ?? 'Profile Photo',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: _textDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
-                        style: TextStyle(fontSize: 12, color: _textLight),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.check_circle, size: 20, color: _successColor),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  TextStyle get _labelStyle =>
-      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
-
-  TextStyle get _valueStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-
-  TextStyle get _subSectionStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-}
-
-class TwoStarHotelSummaryScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-  final bool declarationAccepted;
-
-   TwoStarHotelSummaryScreen({
-    super.key,
-    required this.registrationData,
-    this.declarationAccepted = false,
-  });
-
-  // Helper method to safely get values
-  dynamic _get(String key, [dynamic defaultValue]) {
-    return registrationData[key] ?? defaultValue;
-  }
-
-  // Color scheme for 2-Star hotels
-  final Color _primaryColor = const Color(0xFF6B8E23); // Olive Green
-  final Color _primaryLight =  Color(0xFF6B8E23).withOpacity(0.1);
-  final Color _bgColor = const Color(0xFFFAFAFA);
-  final Color _cardColor = Colors.white;
-  final Color _borderColor = const Color(0xFFE5E7EB);
-  final Color _textDark = const Color(0xFF111827);
-  final Color _textLight = const Color(0xFF6B7280);
-  final Color _successColor = const Color(0xFF10B981);
-  final Color _dangerColor = const Color(0xFFEF4444);
-  final Color _starColor = const Color(0xFFFFD700);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: _textDark),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          '2-Star Hotel Registration Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: _textDark,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: _primaryColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                ...List.generate(2, (index) =>
-                    Icon(Icons.star, size: 12, color: Colors.white)
-                ),
-                const SizedBox(width: 4),
-                const Text(
-                  '2-Star',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSuccessHeader(),
-            _buildHotelBasicInfo(),
-            _buildContactInfo(),
-            _buildAddressInfo(),
-            _buildRoomConfiguration(),
-            _buildAmenitiesSection(),
-            _buildPoliciesSection(),
-            _buildLegalCompliance(),
-            _buildBankDetails(),
-            _buildDocumentsSection(),
-            _buildDeclarationSection(),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildFinishButton(context),
-    );
-  }
-
-  Widget _buildSuccessHeader() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Registration Submitted Successfully!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            children: List.generate(2, (index) =>
-                Icon(Icons.star, size: 16, color: _starColor)
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHotelBasicInfo() {
-    return _buildSectionCard(
-      title: 'Hotel Information',
-      icon: Icons.business,
-      children: [
-        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
-        _infoRow('Hotel Category', '2-Star Hotel'),
-        if (_get('hotelType') != null)
-          _infoRow('Hotel Type', _get('hotelType')),
-
-        // Year of Establishment as integer
-        if (_get('yearOfEstablishment') != null &&
-            _get('yearOfEstablishment').toString().isNotEmpty)
-          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
-
-        // Total Rooms as integer
-        if (_get('totalRooms') != null &&
-            _get('totalRooms').toString().isNotEmpty)
-          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
-
-        // Designation (2-Star specific)
-        if (_get('designation') != null &&
-            _get('designation').toString().isNotEmpty)
-          _infoRow('Designation', _get('designation')),
-      ],
-    );
-  }
-
-  Widget _buildContactInfo() {
-    final List<Widget> children = [
-      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
-      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
-    ];
-
-    // Alternate Contact
-    if (_get('alternateContact') != null &&
-        _get('alternateContact').toString().isNotEmpty) {
-      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
-    }
-
-    // Email
-    if (_get('email') != null && _get('email').toString().isNotEmpty) {
-      children.add(_infoRow('Email', _get('email')));
-    }
-
-    // Website
-    if (_get('website') != null && _get('website').toString().isNotEmpty) {
-      children.add(_infoRow('Website', _get('website')));
-    }
-
-    // Profile Photo
-    final profilePhoto = _get('profilePhoto');
-    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
-      children.add(_buildProfilePhotoInfo(profilePhoto));
-    }
-
-    return _buildSectionCard(
-      title: 'Contact Information',
-      icon: Icons.contact_phone,
-      children: children,
-    );
-  }
-
-  Widget _buildAddressInfo() {
-    final List<Widget> children = [
-      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
-    ];
-
-    if (_get('addressLine2') != null &&
-        _get('addressLine2').toString().isNotEmpty) {
-      children.add(_infoRow('Address Line 2', _get('addressLine2')));
-    }
-
-    children.addAll([
-      _infoRow('City', _get('city', 'Not Provided')),
-      _infoRow('District', _get('district', 'Not Provided')),
-      _infoRow('State', _get('state', 'Not Provided')),
-      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
-    ]);
-
-    // Country
-    if (_get('country') != null && _get('country').toString().isNotEmpty) {
-      children.add(_infoRow('Country', _get('country')));
-    }
-
-    // Additional Addresses
-    final additionalAddresses = _get('additionalAddresses', []);
-    if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
-      children.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Additional Addresses', style: _labelStyle),
-            const SizedBox(height: 8),
-            ...additionalAddresses.asMap().entries.map((entry) {
-              int index = entry.key + 1;
-              dynamic addr = entry.value;
-              String addressText = '';
-
-              if (addr is Map) {
-                addressText = addr['address']?.toString() ?? '';
-              } else if (addr is String) {
-                addressText = addr;
-              }
-
-              return Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _borderColor),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: _primaryColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '$index',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: _primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        addressText.isNotEmpty
-                            ? addressText
-                            : 'Additional Address',
-                        style: _valueStyle,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ],
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Address Details',
-      icon: Icons.location_on,
-      children: children,
-    );
-  }
-
-  Widget _buildRoomConfiguration() {
-    final selectedRoomTypes = _get('selectedRoomTypes', {});
-    final roomDetails = _get('roomDetails', {});
-
-    // Check if any rooms are selected
-    bool hasRooms = false;
-    if (selectedRoomTypes is Map) {
-      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
-    }
-
-    if (!hasRooms) return const SizedBox.shrink();
-
-    final selectedTypes = (selectedRoomTypes as Map).entries
-        .where((entry) => entry.value == true)
-        .map((entry) => entry.key.toString())
-        .toList();
-
-    final List<Widget> children = [];
-
-    // Room Type Chips
-    children.add(
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Room Types Available', style: _labelStyle),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: selectedTypes
-                .map(
-                  (type) => Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 14,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: _primaryColor.withOpacity(0.3)),
-                ),
-                child: Text(
-                  type,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: _primaryColor,
-                  ),
-                ),
-              ),
-            )
-                .toList(),
-          ),
-        ],
-      ),
-    );
-
-    children.add(const SizedBox(height: 16));
-
-    // Room Details for each type
-    for (var roomType in selectedTypes) {
-      final details = roomDetails[roomType] ?? {};
-
-      children.add(
-        Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _borderColor),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: _primaryLight,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    roomType,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: _textDark,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-
-              // Number of Rooms (integer)
-              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
-                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
-
-              // Max Occupancy (integer)
-              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
-                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
-
-              // AC/Non-AC
-              if (details['ac'] != null)
-                _detailRow(
-                  'AC/Non-AC',
-                  details['ac'] == true ? 'AC' : 'Non-AC',
-                ),
-
-              // Price per Night (double)
-              if (details['price'] != null && details['price'].toString().isNotEmpty)
-                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Overall pricing
-    final minTariff = _get('minTariff', '');
-    final maxTariff = _get('maxTariff', '');
-
-    if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _successColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _successColor.withOpacity(0.3)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Room Tariff Range',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: _textLight,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    '₹${_formatPrice(minTariff)} - ₹${_formatPrice(maxTariff)}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: _successColor,
-                    ),
-                  ),
-                ],
-              ),
-              if (_get('extraBedAvailable') != null)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: _successColor),
-                  ),
-                  child: Text(
-                    _get('extraBedAvailable') == true
-                        ? 'Extra Bed Available'
-                        : 'No Extra Bed',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _successColor,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Room Configuration',
-      icon: Icons.meeting_room,
-      children: children,
-    );
-  }
-
-  Widget _buildAmenitiesSection() {
-    final List<Widget> amenitySections = [];
-
-    // Room Amenities
-    final roomAmenities = _getAmenities('roomAmenities');
-    if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
-      amenitySections.add(
-        _buildAmenityCategory('Room Amenities', roomAmenities),
-      );
-    }
-
-    // Hotel Facilities
-    final hotelFacilities = _getAmenities('hotelFacilities');
-    if (hotelFacilities != null &&
-        hotelFacilities.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
-    }
-
-    // Food Services
-    final foodServices = _getAmenities('foodServices');
-    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
-    }
-
-    // Guest Services
-    final guestServices = _getAmenities('guestServices');
-    if (guestServices != null && guestServices.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Guest Services', guestServices));
-    }
-
-    if (amenitySections.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Amenities & Facilities',
-      icon: Icons.workspaces_filled,
-      children: amenitySections,
-    );
-  }
-
-  Widget _buildPoliciesSection() {
-    final List<Widget> children = [];
-
-    // Check-in/Check-out times
-    final checkIn = _get('checkInTime', '');
-    final checkOut = _get('checkOutTime', '');
-
-    if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
-      children.add(
-        Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Check-in Time', style: _labelStyle),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _borderColor),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.access_time, size: 14, color: _primaryColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          _formatTime(checkIn.toString()),
-                          style: _valueStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Check-out Time', style: _labelStyle),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _borderColor),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.access_time, size: 14, color: _primaryColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          _formatTime(checkOut.toString()),
-                          style: _valueStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    // Couple Friendly
-    if (_get('coupleFriendly') != null) {
-      children.add(
-        _infoRow(
-          'Couple Friendly',
-          _get('coupleFriendly') == true ? 'Yes' : 'No',
-        ),
-      );
-    }
-
-    // Pets Allowed
-    if (_get('petsAllowed') != null) {
-      children.add(
-        _infoRow('Pets Allowed', _get('petsAllowed') == true ? 'Yes' : 'No'),
-      );
-    }
-
-    // ID Proof Required
-    final idProof = _get('idProofRequired', '');
-    if (idProof.toString().isNotEmpty) {
-      children.add(_infoRow('ID Proof Required', idProof));
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Policies & Timings',
-      icon: Icons.policy,
-      children: children,
-    );
-  }
-
-  Widget _buildLegalCompliance() {
-    final List<Widget> children = [];
-
-    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
-      children.add(_infoRow('GST Number', _get('gstNumber')));
-    }
-
-    if (_get('tradeLicense') != null &&
-        _get('tradeLicense').toString().isNotEmpty) {
-      children.add(_infoRow('Trade License', _get('tradeLicense')));
-    }
-
-    if (_get('fssaiLicense') != null &&
-        _get('fssaiLicense').toString().isNotEmpty) {
-      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
-    }
-
-    if (_get('panNumber') != null &&
-        _get('panNumber').toString().isNotEmpty) {
-      children.add(_infoRow('PAN Number', _get('panNumber')));
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Legal & Compliance',
-      icon: Icons.gavel,
-      children: children,
-    );
-  }
-
-  Widget _buildBankDetails() {
-    final List<Widget> children = [];
-
-    if (_get('accountHolderName') != null &&
-        _get('accountHolderName').toString().isNotEmpty) {
-      children.add(_infoRow('Account Holder', _get('accountHolderName')));
-    }
-
-    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
-      children.add(_infoRow('Bank Name', _get('bankName')));
-    }
-
-    if (_get('accountNumber') != null &&
-        _get('accountNumber').toString().isNotEmpty) {
-      children.add(
-        _infoRow(
-          'Account Number',
-          _maskAccountNumber(_get('accountNumber').toString()),
-        ),
-      );
-    }
-
-    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
-      children.add(_infoRow('IFSC Code', _get('ifscCode')));
-    }
-
-    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
-      children.add(_infoRow('Branch', _get('branch')));
-    }
-
-    // Account Type
-    if (_get('accountType') != null &&
-        _get('accountType').toString().isNotEmpty) {
-      String accountType = _get('accountType').toString();
-      children.add(
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
-              Expanded(
-                flex: 6,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: accountType == 'Savings'
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.blue.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: accountType == 'Savings'
-                          ? Colors.green.withOpacity(0.3)
-                          : Colors.blue.withOpacity(0.3),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        accountType == 'Savings'
-                            ? Icons.savings
-                            : Icons.account_balance,
-                        size: 14,
-                        color: accountType == 'Savings'
-                            ? Colors.green
-                            : Colors.blue,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        accountType,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: accountType == 'Savings'
-                              ? Colors.green[700]
-                              : Colors.blue[700],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Bank Details',
-      icon: Icons.account_balance,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentsSection() {
-    final uploadedFiles = _get('uploadedFiles', {});
-
-    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final uploadedDocs = uploadedFiles.entries
-        .where((entry) => entry.value['uploaded'] == true)
-        .toList();
-
-    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
-
-    final List<Widget> children = [];
-
-    for (var entry in uploadedDocs) {
-      children.add(_buildDocumentItem(entry.key, entry.value));
-    }
-
-    // Digital Signature
-    if (_get('hasDigitalSignature') == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.purple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.purple.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Digital Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Saved successfully',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Uploaded Documents',
-      icon: Icons.folder,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
-    IconData getIcon() {
-      if (docName.contains('Signature')) return Icons.draw;
-      if (docName.contains('GST')) return Icons.receipt;
-      if (docName.contains('FSSAI')) return Icons.restaurant;
-      if (docName.contains('License')) return Icons.badge;
-      if (docName.contains('Cheque')) return Icons.account_balance;
-      if (docName.contains('Photos')) return Icons.photo_library;
-      if (docName.contains('Proof')) return Icons.perm_identity;
-      if (docName.contains('PAN')) return Icons.credit_card;
-      if (docName.contains('Registration')) return Icons.assignment;
-      return Icons.description;
-    }
-
-    Color getColor() {
-      if (docName.contains('Signature')) return Colors.purple;
-      if (docName.contains('FSSAI')) return Colors.green;
-      if (docName.contains('GST')) return _primaryColor;
-      if (docName.contains('PAN')) return Colors.orange;
-      return _primaryColor;
-    }
-
-    final fileName = fileInfo['name']?.toString() ?? 'Document';
-    final fileSize = fileInfo['size'] ?? 0;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: getColor().withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(getIcon(), size: 24, color: getColor()),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  docName,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: _textDark,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  fileName,
-                  style: TextStyle(fontSize: 12, color: _textLight),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                  style: TextStyle(fontSize: 11, color: _textLight),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: _successColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.check_circle, size: 14, color: _successColor),
-                const SizedBox(width: 4),
-                Text(
-                  'Uploaded',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _successColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDeclarationSection() {
-    final List<Widget> children = [];
-
-    if (_get('declarationName') != null &&
-        _get('declarationName').toString().isNotEmpty) {
-      children.add(_infoRow('Name', _get('declarationName')));
-    }
-
-    final declarationDate = _get('declarationDate');
-    if (declarationDate != null) {
-      String dateStr = '';
-      if (declarationDate is DateTime) {
-        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-      } else if (declarationDate is String) {
-        try {
-          DateTime parsedDate = DateTime.parse(declarationDate);
-          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
-        } catch (e) {
-          dateStr = declarationDate;
-        }
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Date', dateStr));
-      }
-    }
-
-    children.add(
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _get('declarationAccepted', false) == true
-              ? _successColor.withOpacity(0.1)
-              : _dangerColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: _get('declarationAccepted', false) == true
-                ? _successColor.withOpacity(0.3)
-                : _dangerColor.withOpacity(0.3),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              _get('declarationAccepted', false) == true
-                  ? Icons.check_circle
-                  : Icons.error,
-              color: _get('declarationAccepted', false) == true
-                  ? _successColor
-                  : _dangerColor,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _get('declarationAccepted', false) == true
-                        ? 'Declaration Accepted'
-                        : 'Declaration Not Accepted',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _get('declarationAccepted', false) == true
-                          ? _successColor
-                          : _dangerColor,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  const Text(
-                    'I hereby confirm that all the information provided above is true and accurate.',
-                    style: TextStyle(fontSize: 12),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: children,
-    );
-  }
-
-  Widget _buildFinishButton(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: _borderColor)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () => _showSuccessDialogAndNavigate(context),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Finish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.check_circle,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text(
-            'Your 2-Star hotel has been registered successfully!',
-          ),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () async {
-                  try {
-                    final prefs = await SharedPreferences.getInstance();
-                    final String usersJson = prefs.getString('registered_users') ?? '[]';
-                    final List<dynamic> usersList = jsonDecode(usersJson);
-
-                    List<Map<String, dynamic>> users = [];
-                    for (var user in usersList) {
-                      if (user is Map) {
-                        Map<String, dynamic> safeUserMap = {};
-                        user.forEach((key, value) {
-                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
-                        });
-                        users.add(safeUserMap);
-                      }
-                    }
-
-                    String userEmail = registrationData['email']?.toString() ?? '';
-
-                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
-
-                    int userIndex = -1;
-                    for (int i = 0; i < users.length; i++) {
-                      if (users[i]['email'] == userEmail) {
-                        userIndex = i;
-                        break;
-                      }
-                    }
-
-                    Map<String, dynamic> userData;
-
-                    if (userIndex >= 0) {
-                      userData = Map<String, dynamic>.from(users[userIndex]);
-
-                      if (!userData.containsKey('hotels')) {
-                        userData['hotels'] = [];
-                      }
-
-                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
-                      hotels.add(safeRegistrationData);
-                      userData['hotels'] = hotels;
-                      userData['propertyType'] = 'hotel';
-
-                      users[userIndex] = userData;
-                    } else {
-                      userData = {
-                        'email': userEmail,
-                        'fullName': registrationData['fullName']?.toString() ??
-                            registrationData['ownerName']?.toString() ?? '',
-                        'phone': registrationData['phone']?.toString() ??
-                            registrationData['mobileNumber']?.toString() ?? '',
-                        'propertyType': 'hotel',
-                        'hotels': [safeRegistrationData],
-                        'registeredAt': DateTime.now().toIso8601String(),
-                      };
-
-                      users.add(userData);
-                    }
-
-                    await prefs.setString('registered_users', jsonEncode(users));
-
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => OwnerDashboardScreen(
-                          userData: userData,
-                          userEmail: userEmail,
-                        ),
-                      ),
-                          (Route<dynamic> route) => false,
-                    );
-                  } catch (e) {
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error: ${e.toString()}'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                child: const Text(
-                  'Go to Dashboard',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // ==================== HELPER METHODS ====================
-
-  Map<String, bool>? _getAmenities(String key) {
-    final value = _get(key);
-    if (value is Map) {
-      return Map<String, bool>.from(
-        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
-      );
-    }
-    return null;
-  }
-
-  String _formatPrice(dynamic price) {
-    if (price == null) return '0';
-    if (price is double) {
-      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
-    }
-    if (price is int) {
-      return price.toString();
-    }
-    if (price is String) {
-      if (price.isEmpty) return '0';
-      double? parsed = double.tryParse(price);
-      if (parsed != null) {
-        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
-      }
-    }
-    return price.toString();
-  }
-
-  String _formatInteger(dynamic value) {
-    if (value == null) return '0';
-    if (value is int) {
-      return value.toString();
-    }
-    if (value is double) {
-      return value.toInt().toString();
-    }
-    if (value is String) {
-      if (value.isEmpty) return '0';
-      int? parsed = int.tryParse(value);
-      if (parsed != null) {
-        return parsed.toString();
-      }
-      double? parsedDouble = double.tryParse(value);
-      if (parsedDouble != null) {
-        return parsedDouble.toInt().toString();
-      }
-    }
-    return value.toString();
-  }
-
-  String _formatTime(String time) {
-    if (time.isEmpty) return 'Not set';
-
-    try {
-      if (time.contains(':')) {
-        List<String> parts = time.split(':');
-        if (parts.length >= 2) {
-          int hour = int.parse(parts[0]);
-          int minute = int.parse(parts[1].substring(0, 2));
-
-          String period = hour >= 12 ? 'PM' : 'AM';
-          int hour12 = hour % 12;
-          if (hour12 == 0) hour12 = 12;
-
-          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
-        }
-      }
-    } catch (e) {
-      // Return as is if parsing fails
-    }
-    return time;
-  }
-
-  String _maskAccountNumber(String accountNumber) {
-    if (accountNumber.length <= 4) return accountNumber;
-    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
-  }
-
-  dynamic _convertToJsonSafe(dynamic obj) {
-    if (obj == null) return null;
-    if (obj is DateTime) {
-      return obj.toIso8601String();
-    }
-    if (obj is Uint8List) {
-      return base64Encode(obj);
-    }
-    if (obj is Map) {
-      Map<String, dynamic> result = {};
-      obj.forEach((key, value) {
-        result[key.toString()] = _convertToJsonSafe(value);
-      });
-      return result;
-    }
-    if (obj is List) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is Set) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is String || obj is num || obj is bool) {
-      return obj;
-    }
-    try {
-      return obj.toString();
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Widget _buildSectionCard({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, size: 20, color: _primaryColor),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: _textDark,
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 24, color: _borderColor),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
-    final selectedAmenities = amenities.entries
-        .where((e) => e.value)
-        .map((e) => e.key)
-        .toList();
-
-    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: _subSectionStyle),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: selectedAmenities
-              .map(
-                (amenity) => Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-                vertical: 8,
-              ),
-              decoration: BoxDecoration(
-                color: _primaryLight,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: _primaryColor.withOpacity(0.2)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.check_circle, size: 14, color: _primaryColor),
-                  const SizedBox(width: 6),
-                  Text(
-                    amenity,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: _primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-              .toList(),
-        ),
-        const SizedBox(height: 16),
-      ],
-    );
-  }
-
-  Widget _infoRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    if (displayValue.isEmpty) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
-          Expanded(
-            flex: 6,
-            child: Text(
-              displayValue,
-              style: _valueStyle,
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _detailRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
-          Text(
-            displayValue,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: _textDark,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Profile Photo', style: _labelStyle),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _borderColor),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(Icons.person, size: 24, color: _primaryColor),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        photoInfo['name'] ?? 'Profile Photo',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: _textDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
-                        style: TextStyle(fontSize: 12, color: _textLight),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.check_circle, size: 20, color: _successColor),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  TextStyle get _labelStyle =>
-      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
-
-  TextStyle get _valueStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-
-  TextStyle get _subSectionStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-}
-
-
-class ThreeStarHotelSummaryScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-  final bool declarationAccepted;
-
-   ThreeStarHotelSummaryScreen({
-    super.key,
-    required this.registrationData,
-    this.declarationAccepted = false,
-  });
-
-  // Helper method to safely get values
-  dynamic _get(String key, [dynamic defaultValue]) {
-    return registrationData[key] ?? defaultValue;
-  }
-
-  // Color scheme for 3-Star hotels (Gold)
-  final Color _primaryColor = const Color(0xFFDAA520);
-  final Color _primaryLight =  Color(0xFFDAA520).withOpacity(0.1);
-  final Color _bgColor = const Color(0xFFFAFAFA);
-  final Color _cardColor = Colors.white;
-  final Color _borderColor = const Color(0xFFE5E7EB);
-  final Color _textDark = const Color(0xFF111827);
-  final Color _textLight = const Color(0xFF6B7280);
-  final Color _successColor = const Color(0xFF10B981);
-  final Color _dangerColor = const Color(0xFFEF4444);
-  final Color _starColor = const Color(0xFFFFD700);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: _textDark),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          '3-Star Hotel Registration Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: _textDark,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: _primaryColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                ...List.generate(3, (index) =>
-                    Icon(Icons.star, size: 12, color: Colors.white)
-                ),
-                const SizedBox(width: 4),
-                const Text(
-                  '3-Star',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSuccessHeader(),
-            _buildHotelBasicInfo(),
-            _buildContactInfo(),
-            _buildAddressInfo(),
-            _buildRoomConfiguration(),
-            _buildAmenitiesSection(),
-            _buildPoliciesSection(),
-            _buildLegalCompliance(),
-            _buildBankDetails(),
-            _buildDocumentsSection(),
-            _buildDeclarationSection(),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildFinishButton(context),
-    );
-  }
-
-  Widget _buildSuccessHeader() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Registration Submitted Successfully!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            children: List.generate(3, (index) =>
-                Icon(Icons.star, size: 16, color: _starColor)
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHotelBasicInfo() {
-    return _buildSectionCard(
-      title: 'Hotel Information',
-      icon: Icons.business,
-      children: [
-        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
-        _infoRow('Hotel Category', '3-Star Hotel'),
-        if (_get('hotelType') != null)
-          _infoRow('Hotel Type', _get('hotelType')),
-
-        // Year of Establishment as integer
-        if (_get('yearOfEstablishment') != null &&
-            _get('yearOfEstablishment').toString().isNotEmpty)
-          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
-
-        // Total Rooms as integer
-        if (_get('totalRooms') != null &&
-            _get('totalRooms').toString().isNotEmpty)
-          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
-
-        // Registration Number (3-Star specific)
-        if (_get('registrationNumber') != null &&
-            _get('registrationNumber').toString().isNotEmpty)
-          _infoRow('Registration Number', _get('registrationNumber')),
-
-        // Designation
-        if (_get('designation') != null &&
-            _get('designation').toString().isNotEmpty)
-          _infoRow('Designation', _get('designation')),
-      ],
-    );
-  }
-
-  Widget _buildContactInfo() {
-    final List<Widget> children = [
-      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
-      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
-    ];
-
-    // Alternate Contact
-    if (_get('alternateContact') != null &&
-        _get('alternateContact').toString().isNotEmpty) {
-      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
-    }
-
-    // Email
-    if (_get('email') != null && _get('email').toString().isNotEmpty) {
-      children.add(_infoRow('Email', _get('email')));
-    }
-
-    // Website
-    if (_get('website') != null && _get('website').toString().isNotEmpty) {
-      children.add(_infoRow('Website', _get('website')));
-    }
-
-    // Profile Photo
-    final profilePhoto = _get('profilePhoto');
-    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
-      children.add(_buildProfilePhotoInfo(profilePhoto));
-    }
-
-    return _buildSectionCard(
-      title: 'Contact Information',
-      icon: Icons.contact_phone,
-      children: children,
-    );
-  }
-
-  Widget _buildAddressInfo() {
-    final List<Widget> children = [
-      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
-    ];
-
-    if (_get('addressLine2') != null &&
-        _get('addressLine2').toString().isNotEmpty) {
-      children.add(_infoRow('Address Line 2', _get('addressLine2')));
-    }
-
-    children.addAll([
-      _infoRow('City', _get('city', 'Not Provided')),
-      _infoRow('District', _get('district', 'Not Provided')),
-      _infoRow('State', _get('state', 'Not Provided')),
-      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
-    ]);
-
-    // Country
-    if (_get('country') != null && _get('country').toString().isNotEmpty) {
-      children.add(_infoRow('Country', _get('country')));
-    }
-
-    // Additional Addresses
-    final additionalAddresses = _get('additionalAddresses', []);
-    if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
-      children.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Additional Addresses', style: _labelStyle),
-            const SizedBox(height: 8),
-            ...additionalAddresses.asMap().entries.map((entry) {
-              int index = entry.key + 1;
-              dynamic addr = entry.value;
-              String addressText = '';
-
-              if (addr is Map) {
-                addressText = addr['address']?.toString() ?? '';
-              } else if (addr is String) {
-                addressText = addr;
-              }
-
-              return Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _borderColor),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: _primaryColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '$index',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: _primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        addressText.isNotEmpty
-                            ? addressText
-                            : 'Additional Address',
-                        style: _valueStyle,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ],
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Address Details',
-      icon: Icons.location_on,
-      children: children,
-    );
-  }
-
-  Widget _buildRoomConfiguration() {
-    final selectedRoomTypes = _get('selectedRoomTypes', {});
-    final roomDetails = _get('roomDetails', {});
-
-    // Check if any rooms are selected
-    bool hasRooms = false;
-    if (selectedRoomTypes is Map) {
-      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
-    }
-
-    if (!hasRooms) return const SizedBox.shrink();
-
-    final selectedTypes = (selectedRoomTypes as Map).entries
-        .where((entry) => entry.value == true)
-        .map((entry) => entry.key.toString())
-        .toList();
-
-    final List<Widget> children = [];
-
-    // Room Type Chips
-    children.add(
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Room Types Available', style: _labelStyle),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: selectedTypes
-                .map(
-                  (type) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _primaryLight,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
-                    ),
-                    child: Text(
-                      type,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: _primaryColor,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ],
-      ),
-    );
-
-    children.add(const SizedBox(height: 16));
-
-    // Room Details for each type
-    for (var roomType in selectedTypes) {
-      final details = roomDetails[roomType] ?? {};
-
-      children.add(
-        Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _borderColor),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: _primaryLight,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    roomType,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: _textDark,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-
-              // Number of Rooms (integer)
-              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
-                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
-
-              // Max Occupancy (integer)
-              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
-                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
-
-              // AC
-              if (details['ac'] != null)
-                _detailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
-
-              // Bed Type (3-Star specific)
-              if (details['bedType'] != null &&
-                  details['bedType'].toString().isNotEmpty)
-                _detailRow('Bed Type', details['bedType']),
-
-              // Price per Night (double)
-              if (details['price'] != null && details['price'].toString().isNotEmpty)
-                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Overall pricing (not applicable for 3-Star as they have individual room prices)
-    // But we can show seasonal pricing if available
-    if (_get('seasonalPricing') != null) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _successColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _successColor.withOpacity(0.3)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Seasonal Pricing',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: _textLight,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    _get('seasonalPricing') == true ? 'Available' : 'Not Available',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: _get('seasonalPricing') == true ? _successColor : _textLight,
-                    ),
-                  ),
-                ],
-              ),
-              if (_get('extraBedAvailable') != null)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: _successColor),
-                  ),
-                  child: Text(
-                    _get('extraBedAvailable') == true
-                        ? 'Extra Bed Available'
-                        : 'No Extra Bed',
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600,
-                      color: _successColor,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Room Configuration',
-      icon: Icons.meeting_room,
-      children: children,
-    );
-  }
-
-  Widget _buildAmenitiesSection() {
-    final List<Widget> amenitySections = [];
-
-    // Room Amenities
-    final roomAmenities = _getAmenities('roomAmenities');
-    if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
-      amenitySections.add(
-        _buildAmenityCategory('Room Amenities', roomAmenities),
-      );
-    }
-
-    // Hotel Facilities
-    final hotelFacilities = _getAmenities('hotelFacilities');
-    if (hotelFacilities != null &&
-        hotelFacilities.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
-    }
-
-    // Food Services
-    final foodServices = _getAmenities('foodServices');
-    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
-    }
-
-    // Business Services (3-Star specific)
-    final businessServices = _getAmenities('businessServices');
-    if (businessServices != null && businessServices.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Business Services', businessServices));
-    }
-
-    if (amenitySections.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Amenities & Facilities',
-      icon: Icons.workspaces_filled,
-      children: amenitySections,
-    );
-  }
-
-  Widget _buildPoliciesSection() {
-    final List<Widget> children = [];
-
-    // Check-in/Check-out times
-    final checkIn = _get('checkInTime', '');
-    final checkOut = _get('checkOutTime', '');
-
-    if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
-      children.add(
-        Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Check-in Time', style: _labelStyle),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _borderColor),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.access_time, size: 14, color: _primaryColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          _formatTime(checkIn.toString()),
-                          style: _valueStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Check-out Time', style: _labelStyle),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _borderColor),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.access_time, size: 14, color: _primaryColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          _formatTime(checkOut.toString()),
-                          style: _valueStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    // Early Check-in / Late Check-out (3-Star specific)
-    if (_get('earlyCheckinAllowed') != null) {
-      children.add(
-        _infoRow(
-          'Early Check-in / Late Check-out',
-          _get('earlyCheckinAllowed') == true
-              ? (_get('earlyCheckinChargeable') == true
-                  ? 'Chargeable'
-                  : 'Complimentary')
-              : 'Not Available',
-        ),
-      );
-    }
-
-    // Pets Allowed
-    if (_get('petsAllowed') != null) {
-      children.add(
-        _infoRow('Pets Allowed', _get('petsAllowed') == true ? 'Yes' : 'No'),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Policies & Timings',
-      icon: Icons.policy,
-      children: children,
-    );
-  }
-
-  Widget _buildLegalCompliance() {
-    final List<Widget> children = [];
-
-    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
-      children.add(_infoRow('GST Number', _get('gstNumber')));
-    }
-
-    if (_get('panNumber') != null && _get('panNumber').toString().isNotEmpty) {
-      children.add(_infoRow('PAN Number', _get('panNumber')));
-    }
-
-    if (_get('tradeLicense') != null &&
-        _get('tradeLicense').toString().isNotEmpty) {
-      children.add(_infoRow('Trade License', _get('tradeLicense')));
-    }
-
-    if (_get('fssaiLicense') != null &&
-        _get('fssaiLicense').toString().isNotEmpty) {
-      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
-    }
-
-    // Fire Safety Certificate (3-Star specific)
-    if (_get('fireSafetyCertificate') != null) {
-      children.add(
-        _infoRow(
-          'Fire Safety Certificate',
-          _get('fireSafetyCertificate') == true ? 'Available' : 'Not Available',
-        ),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Legal & Compliance',
-      icon: Icons.gavel,
-      children: children,
-    );
-  }
-
-  Widget _buildBankDetails() {
-    final List<Widget> children = [];
-
-    if (_get('accountHolderName') != null &&
-        _get('accountHolderName').toString().isNotEmpty) {
-      children.add(_infoRow('Account Holder', _get('accountHolderName')));
-    }
-
-    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
-      children.add(_infoRow('Bank Name', _get('bankName')));
-    }
-
-    if (_get('accountNumber') != null &&
-        _get('accountNumber').toString().isNotEmpty) {
-      children.add(
-        _infoRow(
-          'Account Number',
-          _maskAccountNumber(_get('accountNumber').toString()),
-        ),
-      );
-    }
-
-    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
-      children.add(_infoRow('IFSC Code', _get('ifscCode')));
-    }
-
-    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
-      children.add(_infoRow('Branch', _get('branch')));
-    }
-
-    // Account Type
-    if (_get('accountType') != null &&
-        _get('accountType').toString().isNotEmpty) {
-      String accountType = _get('accountType').toString();
-      children.add(
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
-              Expanded(
-                flex: 6,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: accountType == 'Savings'
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.blue.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: accountType == 'Savings'
-                          ? Colors.green.withOpacity(0.3)
-                          : Colors.blue.withOpacity(0.3),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        accountType == 'Savings'
-                            ? Icons.savings
-                            : Icons.account_balance,
-                        size: 14,
-                        color: accountType == 'Savings'
-                            ? Colors.green
-                            : Colors.blue,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        accountType,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: accountType == 'Savings'
-                              ? Colors.green[700]
-                              : Colors.blue[700],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Bank Details',
-      icon: Icons.account_balance,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentsSection() {
-    final uploadedFiles = _get('uploadedFiles', {});
-
-    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final uploadedDocs = uploadedFiles.entries
-        .where((entry) => entry.value['uploaded'] == true)
-        .toList();
-
-    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
-
-    final List<Widget> children = [];
-
-    for (var entry in uploadedDocs) {
-      // Skip Digital Signature as it's handled separately
-      if (entry.key == 'Digital Signature') continue;
-      children.add(_buildDocumentItem(entry.key, entry.value));
-    }
-
-    // Digital Signature
-    if (_get('hasDigitalSignature') == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.purple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.purple.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Digital Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Saved successfully',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Uploaded Signature File
-    final signatureFile = _get('signatureFile');
-    if (signatureFile != null && signatureFile['uploaded'] == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.blue.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.note_alt_outlined, size: 20, color: Colors.blue),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Uploaded Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      signatureFile['name'] ?? 'Signature uploaded',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Uploaded Documents',
-      icon: Icons.folder,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
-    IconData getIcon() {
-      if (docName.contains('Signature')) return Icons.draw;
-      if (docName.contains('GST')) return Icons.receipt;
-      if (docName.contains('PAN')) return Icons.credit_card;
-      if (docName.contains('FSSAI')) return Icons.restaurant;
-      if (docName.contains('License')) return Icons.badge;
-      if (docName.contains('Cheque')) return Icons.account_balance;
-      if (docName.contains('Photos')) return Icons.photo_library;
-      if (docName.contains('Fire')) return Icons.fire_extinguisher;
-      return Icons.description;
-    }
-
-    Color getColor() {
-      if (docName.contains('Signature')) return Colors.purple;
-      if (docName.contains('FSSAI')) return Colors.green;
-      if (docName.contains('Fire')) return Colors.red;
-      if (docName.contains('GST')) return _primaryColor;
-      if (docName.contains('PAN')) return Colors.orange;
-      return _primaryColor;
-    }
-
-    final fileName = fileInfo['name']?.toString() ?? 'Document';
-    final fileSize = fileInfo['size'] ?? 0;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: getColor().withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(getIcon(), size: 24, color: getColor()),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  docName,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: _textDark,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  fileName,
-                  style: TextStyle(fontSize: 12, color: _textLight),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                  style: TextStyle(fontSize: 11, color: _textLight),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: _successColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.check_circle, size: 14, color: _successColor),
-                const SizedBox(width: 4),
-                Text(
-                  'Uploaded',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _successColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDeclarationSection() {
-    final List<Widget> children = [];
-
-    // Signatory Name
-    if (_get('signatoryName') != null &&
-        _get('signatoryName').toString().isNotEmpty) {
-      children.add(_infoRow('Signatory Name', _get('signatoryName')));
-    }
-
-    // Declaration Date
-    final declarationDate = _get('declarationDate');
-    if (declarationDate != null) {
-      String dateStr = '';
-      if (declarationDate is DateTime) {
-        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-      } else if (declarationDate is String) {
-        try {
-          DateTime parsedDate = DateTime.parse(declarationDate);
-          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
-        } catch (e) {
-          dateStr = declarationDate;
-        }
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Date', dateStr));
-      }
-    }
-
-    // Declaration Status
-    children.add(
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _get('declarationAccepted', false) == true
-              ? _successColor.withOpacity(0.1)
-              : _dangerColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: _get('declarationAccepted', false) == true
-                ? _successColor.withOpacity(0.3)
-                : _dangerColor.withOpacity(0.3),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              _get('declarationAccepted', false) == true
-                  ? Icons.check_circle
-                  : Icons.error,
-              color: _get('declarationAccepted', false) == true
-                  ? _successColor
-                  : _dangerColor,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _get('declarationAccepted', false) == true
-                        ? 'Declaration Accepted'
-                        : 'Declaration Not Accepted',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _get('declarationAccepted', false) == true
-                          ? _successColor
-                          : _dangerColor,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  const Text(
-                    'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
-                    style: TextStyle(fontSize: 12),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: children,
-    );
-  }
-
-  Widget _buildFinishButton(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: _borderColor)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () => _showSuccessDialogAndNavigate(context),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Finish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.check_circle,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text(
-            'Your 3-Star hotel has been registered successfully!',
-          ),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () async {
-                  try {
-                    final prefs = await SharedPreferences.getInstance();
-                    final String usersJson = prefs.getString('registered_users') ?? '[]';
-                    final List<dynamic> usersList = jsonDecode(usersJson);
-
-                    List<Map<String, dynamic>> users = [];
-                    for (var user in usersList) {
-                      if (user is Map) {
-                        Map<String, dynamic> safeUserMap = {};
-                        user.forEach((key, value) {
-                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
-                        });
-                        users.add(safeUserMap);
-                      }
-                    }
-
-                    String userEmail = registrationData['email']?.toString() ?? '';
-
-                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
-
-                    int userIndex = -1;
-                    for (int i = 0; i < users.length; i++) {
-                      if (users[i]['email'] == userEmail) {
-                        userIndex = i;
-                        break;
-                      }
-                    }
-
-                    Map<String, dynamic> userData;
-
-                    if (userIndex >= 0) {
-                      userData = Map<String, dynamic>.from(users[userIndex]);
-
-                      if (!userData.containsKey('hotels')) {
-                        userData['hotels'] = [];
-                      }
-
-                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
-                      hotels.add(safeRegistrationData);
-                      userData['hotels'] = hotels;
-                      userData['propertyType'] = 'hotel';
-
-                      users[userIndex] = userData;
-                    } else {
-                      userData = {
-                        'email': userEmail,
-                        'fullName': registrationData['fullName']?.toString() ??
-                            registrationData['ownerName']?.toString() ?? '',
-                        'phone': registrationData['phone']?.toString() ??
-                            registrationData['mobileNumber']?.toString() ?? '',
-                        'propertyType': 'hotel',
-                        'hotels': [safeRegistrationData],
-                        'registeredAt': DateTime.now().toIso8601String(),
-                      };
-
-                      users.add(userData);
-                    }
-
-                    await prefs.setString('registered_users', jsonEncode(users));
-
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => OwnerDashboardScreen(
-                          userData: userData,
-                          userEmail: userEmail,
-                        ),
-                      ),
-                          (Route<dynamic> route) => false,
-                    );
-                  } catch (e) {
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error: ${e.toString()}'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                child: const Text(
-                  'Go to Dashboard',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // ==================== HELPER METHODS ====================
-
-  Map<String, bool>? _getAmenities(String key) {
-    final value = _get(key);
-    if (value is Map) {
-      return Map<String, bool>.from(
-        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
-      );
-    }
-    return null;
-  }
-
-  String _formatPrice(dynamic price) {
-    if (price == null) return '0';
-    if (price is double) {
-      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
-    }
-    if (price is int) {
-      return price.toString();
-    }
-    if (price is String) {
-      if (price.isEmpty) return '0';
-      double? parsed = double.tryParse(price);
-      if (parsed != null) {
-        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
-      }
-    }
-    return price.toString();
-  }
-
-  String _formatInteger(dynamic value) {
-    if (value == null) return '0';
-    if (value is int) {
-      return value.toString();
-    }
-    if (value is double) {
-      return value.toInt().toString();
-    }
-    if (value is String) {
-      if (value.isEmpty) return '0';
-      int? parsed = int.tryParse(value);
-      if (parsed != null) {
-        return parsed.toString();
-      }
-      double? parsedDouble = double.tryParse(value);
-      if (parsedDouble != null) {
-        return parsedDouble.toInt().toString();
-      }
-    }
-    return value.toString();
-  }
-
-  String _formatTime(String time) {
-    if (time.isEmpty) return 'Not set';
-
-    try {
-      if (time.contains(':')) {
-        List<String> parts = time.split(':');
-        if (parts.length >= 2) {
-          int hour = int.parse(parts[0]);
-          int minute = int.parse(parts[1].substring(0, 2));
-
-          String period = hour >= 12 ? 'PM' : 'AM';
-          int hour12 = hour % 12;
-          if (hour12 == 0) hour12 = 12;
-
-          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
-        }
-      }
-    } catch (e) {
-      // Return as is if parsing fails
-    }
-    return time;
-  }
-
-  String _maskAccountNumber(String accountNumber) {
-    if (accountNumber.length <= 4) return accountNumber;
-    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
-  }
-
-  dynamic _convertToJsonSafe(dynamic obj) {
-    if (obj == null) return null;
-    if (obj is DateTime) {
-      return obj.toIso8601String();
-    }
-    if (obj is Uint8List) {
-      return base64Encode(obj);
-    }
-    if (obj is Map) {
-      Map<String, dynamic> result = {};
-      obj.forEach((key, value) {
-        result[key.toString()] = _convertToJsonSafe(value);
-      });
-      return result;
-    }
-    if (obj is List) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is Set) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is String || obj is num || obj is bool) {
-      return obj;
-    }
-    try {
-      return obj.toString();
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Widget _buildSectionCard({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, size: 20, color: _primaryColor),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: _textDark,
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 24, color: _borderColor),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
-    final selectedAmenities = amenities.entries
-        .where((e) => e.value)
-        .map((e) => e.key)
-        .toList();
-
-    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: _subSectionStyle),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: selectedAmenities
-              .map(
-                (amenity) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: _primaryColor.withOpacity(0.2)),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.check_circle, size: 14, color: _primaryColor),
-                      const SizedBox(width: 6),
-                      Text(
-                        amenity,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: _primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-        const SizedBox(height: 16),
-      ],
-    );
-  }
-
-  Widget _infoRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    if (displayValue.isEmpty) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
-          Expanded(
-            flex: 6,
-            child: Text(
-              displayValue,
-              style: _valueStyle,
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _detailRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
-          Text(
-            displayValue,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: _textDark,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Profile Photo', style: _labelStyle),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _borderColor),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(Icons.person, size: 24, color: _primaryColor),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        photoInfo['name'] ?? 'Profile Photo',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: _textDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
-                        style: TextStyle(fontSize: 12, color: _textLight),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.check_circle, size: 20, color: _successColor),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  TextStyle get _labelStyle =>
-      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
-
-  TextStyle get _valueStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-
-  TextStyle get _subSectionStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-}
-
-class FourStarHotelSummaryScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-  final bool declarationAccepted;
-
-   FourStarHotelSummaryScreen({
-    super.key,
-    required this.registrationData,
-    this.declarationAccepted = false,
-  });
-
-  // Helper method to safely get values
-  dynamic _get(String key, [dynamic defaultValue]) {
-    return registrationData[key] ?? defaultValue;
-  }
-
-  // Color scheme for 4-Star hotels (Indigo/Purple)
-  final Color _primaryColor = const Color(0xFF4F46E5);
-  final Color _primaryLight =  Color(0xFF4F46E5).withOpacity(0.1);
-  final Color _bgColor = const Color(0xFFFAFAFA);
-  final Color _cardColor = Colors.white;
-  final Color _borderColor = const Color(0xFFE5E7EB);
-  final Color _textDark = const Color(0xFF111827);
-  final Color _textLight = const Color(0xFF6B7280);
-  final Color _successColor = const Color(0xFF10B981);
-  final Color _dangerColor = const Color(0xFFEF4444);
-  final Color _starColor = const Color(0xFFFFD700);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: _textDark),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          '4-Star Hotel Registration Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: _textDark,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: _primaryColor,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Row(
-              children: [
-                ...List.generate(4, (index) =>
-                    Icon(Icons.star, size: 12, color: Colors.white)
-                ),
-                const SizedBox(width: 4),
-                const Text(
-                  '4-Star',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSuccessHeader(),
-            _buildHotelBasicInfo(),
-            _buildContactInfo(),
-            _buildAddressInfo(),
-            _buildRoomConfiguration(),
-            _buildAmenitiesSection(),
-            _buildPoliciesSection(),
-            _buildLegalCompliance(),
-            _buildBankDetails(),
-            _buildDocumentsSection(),
-            _buildDeclarationSection(),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildFinishButton(context),
-    );
-  }
-
-  Widget _buildSuccessHeader() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Registration Submitted Successfully!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _get('hotelName', 'Hotel Name') ?? 'Hotel',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Reference ID: ${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            children: List.generate(4, (index) =>
-                Icon(Icons.star, size: 16, color: _starColor)
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildHotelBasicInfo() {
-    return _buildSectionCard(
-      title: 'Hotel Information',
-      icon: Icons.business,
-      children: [
-        _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
-        _infoRow('Hotel Category', '4-Star Hotel'),
-        if (_get('hotelType') != null)
-          _infoRow('Hotel Type', _get('hotelType')),
-
-        // Year of Establishment as integer
-        if (_get('yearOfEstablishment') != null &&
-            _get('yearOfEstablishment').toString().isNotEmpty)
-          _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
-
-        // Total Rooms as integer
-        if (_get('totalRooms') != null &&
-            _get('totalRooms').toString().isNotEmpty)
-          _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
-
-        // Registration Number (4-Star specific)
-        if (_get('registrationNumber') != null &&
-            _get('registrationNumber').toString().isNotEmpty)
-          _infoRow('Registration Number', _get('registrationNumber')),
-
-        // Designation
-        if (_get('designation') != null &&
-            _get('designation').toString().isNotEmpty)
-          _infoRow('Designation', _get('designation')),
-      ],
-    );
-  }
-
-  Widget _buildContactInfo() {
-    final List<Widget> children = [
-      _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
-      _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
-    ];
-
-    // Alternate Contact
-    if (_get('alternateContact') != null &&
-        _get('alternateContact').toString().isNotEmpty) {
-      children.add(_infoRow('Alternate Contact', _get('alternateContact')));
-    }
-
-    // Email
-    if (_get('email') != null && _get('email').toString().isNotEmpty) {
-      children.add(_infoRow('Email', _get('email')));
-    }
-
-    // Website
-    if (_get('website') != null && _get('website').toString().isNotEmpty) {
-      children.add(_infoRow('Website', _get('website')));
-    }
-
-    // Profile Photo
-    final profilePhoto = _get('profilePhoto');
-    if (profilePhoto != null && profilePhoto['uploaded'] == true) {
-      children.add(_buildProfilePhotoInfo(profilePhoto));
-    }
-
-    return _buildSectionCard(
-      title: 'Contact Information',
-      icon: Icons.contact_phone,
-      children: children,
-    );
-  }
-
-  Widget _buildAddressInfo() {
-    final List<Widget> children = [
-      _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
-    ];
-
-    if (_get('addressLine2') != null &&
-        _get('addressLine2').toString().isNotEmpty) {
-      children.add(_infoRow('Address Line 2', _get('addressLine2')));
-    }
-
-    children.addAll([
-      _infoRow('City', _get('city', 'Not Provided')),
-      _infoRow('District', _get('district', 'Not Provided')),
-      _infoRow('State', _get('state', 'Not Provided')),
-      _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
-    ]);
-
-    // Country
-    if (_get('country') != null && _get('country').toString().isNotEmpty) {
-      children.add(_infoRow('Country', _get('country')));
-    }
-
-    // Additional Addresses
-    final additionalAddresses = _get('additionalAddresses', []);
-    if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
-      children.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Additional Addresses', style: _labelStyle),
-            const SizedBox(height: 8),
-            ...additionalAddresses.asMap().entries.map((entry) {
-              int index = entry.key + 1;
-              dynamic addr = entry.value;
-              String addressText = '';
-
-              if (addr is Map) {
-                addressText = addr['address']?.toString() ?? '';
-              } else if (addr is String) {
-                addressText = addr;
-              }
-
-              return Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey[50],
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: _borderColor),
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: _primaryColor.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '$index',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: _primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        addressText.isNotEmpty
-                            ? addressText
-                            : 'Additional Address',
-                        style: _valueStyle,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
-          ],
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Address Details',
-      icon: Icons.location_on,
-      children: children,
-    );
-  }
-
-  Widget _buildRoomConfiguration() {
-    final selectedRoomTypes = _get('selectedRoomTypes', {});
-    final roomDetails = _get('roomDetails', {});
-
-    // Check if any rooms are selected
-    bool hasRooms = false;
-    if (selectedRoomTypes is Map) {
-      hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
-    }
-
-    if (!hasRooms) return const SizedBox.shrink();
-
-    final selectedTypes = (selectedRoomTypes as Map).entries
-        .where((entry) => entry.value == true)
-        .map((entry) => entry.key.toString())
-        .toList();
-
-    final List<Widget> children = [];
-
-    // Room Type Chips
-    children.add(
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Room Types Available', style: _labelStyle),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: selectedTypes
-                .map(
-                  (type) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _primaryLight,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
-                    ),
-                    child: Text(
-                      type,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: _primaryColor,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ],
-      ),
-    );
-
-    children.add(const SizedBox(height: 16));
-
-    // Room Details for each type
-    for (var roomType in selectedTypes) {
-      final details = roomDetails[roomType] ?? {};
-
-      children.add(
-        Container(
-          margin: const EdgeInsets.only(bottom: 16),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _borderColor),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: _primaryLight,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(Icons.hotel, size: 18, color: _primaryColor),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    roomType,
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: _textDark,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-
-              // Number of Rooms (integer)
-              if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
-                _detailRow('Number of Rooms', _formatInteger(details['rooms'])),
-
-              // Max Occupancy (integer)
-              if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
-                _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
-
-              // AC
-              if (details['ac'] != null)
-                _detailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
-
-              // Bed Type (4-Star specific)
-              if (details['bedType'] != null &&
-                  details['bedType'].toString().isNotEmpty)
-                _detailRow('Bed Type', details['bedType']),
-
-              // Price per Night (double)
-              if (details['price'] != null && details['price'].toString().isNotEmpty)
-                _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Extra Bed and Seasonal Pricing
-    if (_get('extraBedAvailable') != null || _get('seasonalPricing') != null) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: _successColor.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: _successColor.withOpacity(0.3)),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (_get('seasonalPricing') != null)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Row(
-                        children: [
-                          Icon(Icons.calendar_month, size: 16, color: _successColor),
-                          const SizedBox(width: 8),
-                          Text(
-                            'Seasonal Pricing',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: _textLight,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            _get('seasonalPricing') == true ? 'Yes' : 'No',
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w600,
-                              color: _get('seasonalPricing') == true ? _successColor : _textLight,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  if (_get('extraBedAvailable') != null)
-                    Row(
-                      children: [
-                        Icon(Icons.bed, size: 16, color: _successColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          'Extra Bed Available',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: _textLight,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          _get('extraBedAvailable') == true ? 'Yes' : 'No',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: _get('extraBedAvailable') == true ? _successColor : _textLight,
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Room Configuration',
-      icon: Icons.meeting_room,
-      children: children,
-    );
-  }
-
-  Widget _buildAmenitiesSection() {
-    final List<Widget> amenitySections = [];
-
-    // Room Amenities
-    final roomAmenities = _getAmenities('roomAmenities');
-    if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
-      amenitySections.add(
-        _buildAmenityCategory('Room Amenities', roomAmenities),
-      );
-    }
-
-    // Hotel Facilities
-    final hotelFacilities = _getAmenities('hotelFacilities');
-    if (hotelFacilities != null &&
-        hotelFacilities.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Hotel Facilities', hotelFacilities));
-    }
-
-    // Food Services
-    final foodServices = _getAmenities('foodServices');
-    if (foodServices != null && foodServices.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Food Services', foodServices));
-    }
-
-    // Business Services (4-Star specific)
-    final businessServices = _getAmenities('businessServices');
-    if (businessServices != null && businessServices.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Business Services', businessServices));
-    }
-
-    // Wellness & Recreation (4-Star specific)
-    final wellnessRecreation = _getAmenities('wellnessRecreation');
-    if (wellnessRecreation != null && wellnessRecreation.entries.any((e) => e.value)) {
-      amenitySections.add(_buildAmenityCategory('Wellness & Recreation', wellnessRecreation));
-    }
-
-    if (amenitySections.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Amenities & Facilities',
-      icon: Icons.workspaces_filled,
-      children: amenitySections,
-    );
-  }
-
-  Widget _buildPoliciesSection() {
-    final List<Widget> children = [];
-
-    // Check-in/Check-out times
-    final checkIn = _get('checkInTime', '');
-    final checkOut = _get('checkOutTime', '');
-
-    if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
-      children.add(
-        Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Check-in Time', style: _labelStyle),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _borderColor),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.access_time, size: 14, color: _primaryColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          _formatTime(checkIn.toString()),
-                          style: _valueStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Check-out Time', style: _labelStyle),
-                  const SizedBox(height: 4),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[50],
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: _borderColor),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.access_time, size: 14, color: _primaryColor),
-                        const SizedBox(width: 8),
-                        Text(
-                          _formatTime(checkOut.toString()),
-                          style: _valueStyle,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    // Early Check-in / Late Check-out (4-Star specific)
-    if (_get('earlyCheckinAllowed') != null) {
-      children.add(
-        _infoRow(
-          'Early Check-in / Late Check-out',
-          _get('earlyCheckinAllowed') == true
-              ? (_get('earlyCheckinChargeable') == true
-                  ? 'Chargeable'
-                  : 'Complimentary')
-              : 'Not Available',
-        ),
-      );
-    }
-
-    // Pets Allowed
-    if (_get('petsAllowed') != null) {
-      children.add(
-        _infoRow('Pets Allowed', _get('petsAllowed') == true ? 'Yes' : 'No'),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Policies & Timings',
-      icon: Icons.policy,
-      children: children,
-    );
-  }
-
-  Widget _buildLegalCompliance() {
-    final List<Widget> children = [];
-
-    if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
-      children.add(_infoRow('GST Number', _get('gstNumber')));
-    }
-
-    if (_get('panNumber') != null && _get('panNumber').toString().isNotEmpty) {
-      children.add(_infoRow('PAN Number', _get('panNumber')));
-    }
-
-    if (_get('tradeLicense') != null &&
-        _get('tradeLicense').toString().isNotEmpty) {
-      children.add(_infoRow('Trade License', _get('tradeLicense')));
-    }
-
-    if (_get('fssaiLicense') != null &&
-        _get('fssaiLicense').toString().isNotEmpty) {
-      children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
-    }
-
-    // Fire Safety Certificate (4-Star specific)
-    if (_get('fireSafetyCertificate') != null) {
-      children.add(
-        _infoRow(
-          'Fire Safety Certificate',
-          _get('fireSafetyCertificate') == true ? 'Available' : 'Not Available',
-        ),
-      );
-    }
-
-    // Star Certificate (4-Star specific)
-    if (_get('starCertificate') != null) {
-      children.add(
-        _infoRow(
-          'Star Classification Certificate',
-          _get('starCertificate') == true ? 'Available' : 'Not Available',
-        ),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Legal & Compliance',
-      icon: Icons.gavel,
-      children: children,
-    );
-  }
-
-  Widget _buildBankDetails() {
-    final List<Widget> children = [];
-
-    if (_get('accountHolderName') != null &&
-        _get('accountHolderName').toString().isNotEmpty) {
-      children.add(_infoRow('Account Holder', _get('accountHolderName')));
-    }
-
-    if (_get('bankName') != null && _get('bankName').toString().isNotEmpty) {
-      children.add(_infoRow('Bank Name', _get('bankName')));
-    }
-
-    if (_get('accountNumber') != null &&
-        _get('accountNumber').toString().isNotEmpty) {
-      children.add(
-        _infoRow(
-          'Account Number',
-          _maskAccountNumber(_get('accountNumber').toString()),
-        ),
-      );
-    }
-
-    if (_get('ifscCode') != null && _get('ifscCode').toString().isNotEmpty) {
-      children.add(_infoRow('IFSC Code', _get('ifscCode')));
-    }
-
-    if (_get('branch') != null && _get('branch').toString().isNotEmpty) {
-      children.add(_infoRow('Branch', _get('branch')));
-    }
-
-    // Account Type
-    if (_get('accountType') != null &&
-        _get('accountType').toString().isNotEmpty) {
-      String accountType = _get('accountType').toString();
-      children.add(
-        Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(flex: 4, child: Text('Account Type', style: _labelStyle)),
-              Expanded(
-                flex: 6,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: accountType == 'Savings'
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.blue.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: accountType == 'Savings'
-                          ? Colors.green.withOpacity(0.3)
-                          : Colors.blue.withOpacity(0.3),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        accountType == 'Savings'
-                            ? Icons.savings
-                            : Icons.account_balance,
-                        size: 14,
-                        color: accountType == 'Savings'
-                            ? Colors.green
-                            : Colors.blue,
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        accountType,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: accountType == 'Savings'
-                              ? Colors.green[700]
-                              : Colors.blue[700],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Bank Details',
-      icon: Icons.account_balance,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentsSection() {
-    final uploadedFiles = _get('uploadedFiles', {});
-
-    if (uploadedFiles is! Map || uploadedFiles.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final uploadedDocs = uploadedFiles.entries
-        .where((entry) => entry.value['uploaded'] == true)
-        .toList();
-
-    if (uploadedDocs.isEmpty) return const SizedBox.shrink();
-
-    final List<Widget> children = [];
-
-    for (var entry in uploadedDocs) {
-      // Skip Digital Signature as it's handled separately
-      if (entry.key == 'Digital Signature') continue;
-      children.add(_buildDocumentItem(entry.key, entry.value));
-    }
-
-    // Digital Signature
-    if (_get('hasDigitalSignature') == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.purple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.purple.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Digital Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Saved successfully',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Uploaded Signature File
-    final signatureFile = _get('signatureFile');
-    if (signatureFile != null && signatureFile['uploaded'] == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.blue.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.note_alt_outlined, size: 20, color: Colors.blue),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Uploaded Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      signatureFile['name'] ?? 'Signature uploaded',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Uploaded Documents',
-      icon: Icons.folder,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
-    IconData getIcon() {
-      if (docName.contains('Signature')) return Icons.draw;
-      if (docName.contains('GST')) return Icons.receipt;
-      if (docName.contains('PAN')) return Icons.credit_card;
-      if (docName.contains('FSSAI')) return Icons.restaurant;
-      if (docName.contains('License')) return Icons.badge;
-      if (docName.contains('Cheque')) return Icons.account_balance;
-      if (docName.contains('Photos')) return Icons.photo_library;
-      if (docName.contains('Fire')) return Icons.fire_extinguisher;
-      if (docName.contains('Star')) return Icons.star;
-      return Icons.description;
-    }
-
-    Color getColor() {
-      if (docName.contains('Signature')) return Colors.purple;
-      if (docName.contains('FSSAI')) return Colors.green;
-      if (docName.contains('Fire')) return Colors.red;
-      if (docName.contains('GST')) return _primaryColor;
-      if (docName.contains('PAN')) return Colors.orange;
-      if (docName.contains('Star')) return _starColor;
-      return _primaryColor;
-    }
-
-    final fileName = fileInfo['name']?.toString() ?? 'Document';
-    final fileSize = fileInfo['size'] ?? 0;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: getColor().withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(getIcon(), size: 24, color: getColor()),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  docName,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: _textDark,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  fileName,
-                  style: TextStyle(fontSize: 12, color: _textLight),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                  style: TextStyle(fontSize: 11, color: _textLight),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: _successColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.check_circle, size: 14, color: _successColor),
-                const SizedBox(width: 4),
-                Text(
-                  'Uploaded',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _successColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDeclarationSection() {
-    final List<Widget> children = [];
-
-    // Signatory Name
-    if (_get('signatoryName') != null &&
-        _get('signatoryName').toString().isNotEmpty) {
-      children.add(_infoRow('Signatory Name', _get('signatoryName')));
-    }
-
-    // Declaration Date
-    final declarationDate = _get('declarationDate');
-    if (declarationDate != null) {
-      String dateStr = '';
-      if (declarationDate is DateTime) {
-        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-      } else if (declarationDate is String) {
-        try {
-          DateTime parsedDate = DateTime.parse(declarationDate);
-          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
-        } catch (e) {
-          dateStr = declarationDate;
-        }
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Date', dateStr));
-      }
-    }
-
-    // Declaration Status
-    children.add(
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _get('declarationAccepted', false) == true
-              ? _successColor.withOpacity(0.1)
-              : _dangerColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: _get('declarationAccepted', false) == true
-                ? _successColor.withOpacity(0.3)
-                : _dangerColor.withOpacity(0.3),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              _get('declarationAccepted', false) == true
-                  ? Icons.check_circle
-                  : Icons.error,
-              color: _get('declarationAccepted', false) == true
-                  ? _successColor
-                  : _dangerColor,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _get('declarationAccepted', false) == true
-                        ? 'Declaration Accepted'
-                        : 'Declaration Not Accepted',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _get('declarationAccepted', false) == true
-                          ? _successColor
-                          : _dangerColor,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  const Text(
-                    'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
-                    style: TextStyle(fontSize: 12),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: children,
-    );
-  }
-
-  Widget _buildFinishButton(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: _borderColor)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () => _showSuccessDialogAndNavigate(context),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Finish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Icon(
-                      Icons.check_circle,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text(
-            'Your 4-Star hotel has been registered successfully!',
-          ),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () async {
-                  try {
-                    final prefs = await SharedPreferences.getInstance();
-                    final String usersJson = prefs.getString('registered_users') ?? '[]';
-                    final List<dynamic> usersList = jsonDecode(usersJson);
-
-                    List<Map<String, dynamic>> users = [];
-                    for (var user in usersList) {
-                      if (user is Map) {
-                        Map<String, dynamic> safeUserMap = {};
-                        user.forEach((key, value) {
-                          safeUserMap[key.toString()] = _convertToJsonSafe(value);
-                        });
-                        users.add(safeUserMap);
-                      }
-                    }
-
-                    String userEmail = registrationData['email']?.toString() ?? '';
-
-                    Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
-
-                    int userIndex = -1;
-                    for (int i = 0; i < users.length; i++) {
-                      if (users[i]['email'] == userEmail) {
-                        userIndex = i;
-                        break;
-                      }
-                    }
-
-                    Map<String, dynamic> userData;
-
-                    if (userIndex >= 0) {
-                      userData = Map<String, dynamic>.from(users[userIndex]);
-
-                      if (!userData.containsKey('hotels')) {
-                        userData['hotels'] = [];
-                      }
-
-                      List<dynamic> hotels = List.from(userData['hotels'] ?? []);
-                      hotels.add(safeRegistrationData);
-                      userData['hotels'] = hotels;
-                      userData['propertyType'] = 'hotel';
-
-                      users[userIndex] = userData;
-                    } else {
-                      userData = {
-                        'email': userEmail,
-                        'fullName': registrationData['fullName']?.toString() ??
-                            registrationData['ownerName']?.toString() ?? '',
-                        'phone': registrationData['phone']?.toString() ??
-                            registrationData['mobileNumber']?.toString() ?? '',
-                        'propertyType': 'hotel',
-                        'hotels': [safeRegistrationData],
-                        'registeredAt': DateTime.now().toIso8601String(),
-                      };
-
-                      users.add(userData);
-                    }
-
-                    await prefs.setString('registered_users', jsonEncode(users));
-
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => OwnerDashboardScreen(
-                          userData: userData,
-                          userEmail: userEmail,
-                        ),
-                      ),
-                          (Route<dynamic> route) => false,
-                    );
-                  } catch (e) {
-                    Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error: ${e.toString()}'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  }
-                },
-                child: const Text(
-                  'Go to Dashboard',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  // ==================== HELPER METHODS ====================
-
-  Map<String, bool>? _getAmenities(String key) {
-    final value = _get(key);
-    if (value is Map) {
-      return Map<String, bool>.from(
-        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
-      );
-    }
-    return null;
-  }
-
-  String _formatPrice(dynamic price) {
-    if (price == null) return '0';
-    if (price is double) {
-      return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
-    }
-    if (price is int) {
-      return price.toString();
-    }
-    if (price is String) {
-      if (price.isEmpty) return '0';
-      double? parsed = double.tryParse(price);
-      if (parsed != null) {
-        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
-      }
-    }
-    return price.toString();
-  }
-
-  String _formatInteger(dynamic value) {
-    if (value == null) return '0';
-    if (value is int) {
-      return value.toString();
-    }
-    if (value is double) {
-      return value.toInt().toString();
-    }
-    if (value is String) {
-      if (value.isEmpty) return '0';
-      int? parsed = int.tryParse(value);
-      if (parsed != null) {
-        return parsed.toString();
-      }
-      double? parsedDouble = double.tryParse(value);
-      if (parsedDouble != null) {
-        return parsedDouble.toInt().toString();
-      }
-    }
-    return value.toString();
-  }
-
-  String _formatTime(String time) {
-    if (time.isEmpty) return 'Not set';
-
-    try {
-      if (time.contains(':')) {
-        List<String> parts = time.split(':');
-        if (parts.length >= 2) {
-          int hour = int.parse(parts[0]);
-          int minute = int.parse(parts[1].substring(0, 2));
-
-          String period = hour >= 12 ? 'PM' : 'AM';
-          int hour12 = hour % 12;
-          if (hour12 == 0) hour12 = 12;
-
-          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
-        }
-      }
-    } catch (e) {
-      // Return as is if parsing fails
-    }
-    return time;
-  }
-
-  String _maskAccountNumber(String accountNumber) {
-    if (accountNumber.length <= 4) return accountNumber;
-    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
-  }
-
-  dynamic _convertToJsonSafe(dynamic obj) {
-    if (obj == null) return null;
-    if (obj is DateTime) {
-      return obj.toIso8601String();
-    }
-    if (obj is Uint8List) {
-      return base64Encode(obj);
-    }
-    if (obj is Map) {
-      Map<String, dynamic> result = {};
-      obj.forEach((key, value) {
-        result[key.toString()] = _convertToJsonSafe(value);
-      });
-      return result;
-    }
-    if (obj is List) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is Set) {
-      return obj.map((item) => _convertToJsonSafe(item)).toList();
-    }
-    if (obj is String || obj is num || obj is bool) {
-      return obj;
-    }
-    try {
-      return obj.toString();
-    } catch (e) {
-      return null;
-    }
-  }
-
-  Widget _buildSectionCard({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, size: 20, color: _primaryColor),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: _textDark,
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 24, color: _borderColor),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAmenityCategory(String title, Map<String, bool> amenities) {
-    final selectedAmenities = amenities.entries
-        .where((e) => e.value)
-        .map((e) => e.key)
-        .toList();
-
-    if (selectedAmenities.isEmpty) return const SizedBox.shrink();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: _subSectionStyle),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: selectedAmenities
-              .map(
-                (amenity) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: _primaryColor.withOpacity(0.2)),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.check_circle, size: 14, color: _primaryColor),
-                      const SizedBox(width: 6),
-                      Text(
-                        amenity,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: _primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-        const SizedBox(height: 16),
-      ],
-    );
-  }
-
-  Widget _infoRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    if (displayValue.isEmpty) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
-          Expanded(
-            flex: 6,
-            child: Text(
-              displayValue,
-              style: _valueStyle,
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _detailRow(String label, dynamic value) {
-    if (value == null) return const SizedBox.shrink();
-
-    String displayValue;
-
-    if (value is int) {
-      displayValue = value.toString();
-    } else if (value is double) {
-      displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-    } else {
-      displayValue = value.toString();
-    }
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: TextStyle(fontSize: 13, color: _textLight)),
-          Text(
-            displayValue,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: _textDark,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfilePhotoInfo(Map<String, dynamic> photoInfo) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Profile Photo', style: _labelStyle),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _borderColor),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(Icons.person, size: 24, color: _primaryColor),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -15722,8 +8518,6 @@ class _BookingTrendGraphPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
-
-
 class HotelOwnerProfilePage extends StatefulWidget {
   // Common fields for all categories
   final String hotelName;
@@ -18520,77 +11314,7 @@ class _RoomAvailabilityTab extends StatelessWidget {
   }
 
   @override
-  // Widget build(BuildContext context) {
-  //   // DEBUG: Print to verify data is received
-  //   print('=== ROOM AVAILABILITY TAB ===');
-  //   print('Hotel Category: $hotelCategory');
-  //   print('Selected Room Types: ${selectedRoomTypes.length}');
-  //   print('Room Details: ${roomDetails.length}');
-  //   print('Min Tariff: $minTariff');
-  //   print('Max Tariff: $maxTariff');
-  //
-  //   final availableRoomTypes = selectedRoomTypes.entries
-  //       .where((entry) => entry.value == true)
-  //       .map((entry) => entry.key)
-  //       .toList();
-  //
-  //   return SingleChildScrollView(
-  //     padding: const EdgeInsets.all(20),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         // Check-in/Check-out times (2-Star and above)
-  //         if (_isTwoStarOrAbove &&
-  //             (checkInTime != null || checkOutTime != null)) ...[
-  //           _buildSectionHeader('Check-in/Check-out Times'),
-  //           const SizedBox(height: 16),
-  //           _buildTimeCard(),
-  //           const SizedBox(height: 32),
-  //         ],
-  //
-  //         // Room Types & Availability
-  //         _buildSectionHeader('Room Types & Availability'),
-  //         const SizedBox(height: 16),
-  //
-  //         if (availableRoomTypes.isEmpty)
-  //           _buildNoRoomsCard()
-  //         else ...[
-  //           Text(
-  //             '${availableRoomTypes.length} Room Type${availableRoomTypes.length > 1 ? 's' : ''} Available',
-  //             style: TextStyle(
-  //               fontSize: 14,
-  //               color: Colors.grey[600],
-  //               fontWeight: FontWeight.w500,
-  //             ),
-  //           ),
-  //           const SizedBox(height: 12),
-  //           ...availableRoomTypes.map((roomType) {
-  //             return Container(
-  //               margin: const EdgeInsets.only(bottom: 20),
-  //               child: _buildRoomTypeDetailCard(roomType),
-  //             );
-  //           }).toList(),
-  //         ],
-  //
-  //         const SizedBox(height: 32),
-  //
-  //         // Price Range
-  //         _buildSectionHeader('Price Range'),
-  //         const SizedBox(height: 16),
-  //         _buildPriceRangeCard(),
-  //
-  //         const SizedBox(height: 32),
-  //
-  //         // Room Policies based on category
-  //         _buildSectionHeader('Room Policies'),
-  //         const SizedBox(height: 16),
-  //         _buildPoliciesCard(),
-  //
-  //         const SizedBox(height: 40),
-  //       ],
-  //     ),
-  //   );
-  // }
+
   @override
   Widget build(BuildContext context) {
     // DEBUG: Print to verify data is received
@@ -21464,203 +14188,7 @@ class _EditHotelProfileScreenState extends State<EditHotelProfileScreen> {
     _initializeDataFromRegistration();
   }
 
-  // void _initializeDataFromRegistration() {
-  //   final data = widget.registrationData;
-  //   _uploadedFiles = Map<String, Map<String, dynamic>>.from(data['uploadedFiles'] ?? {});
-  //
-  //   List<String> requiredDocuments = [
-  //     'GST Certificate',
-  //     'FSSAI Certificate',
-  //     'Trade License',
-  //     'Cancelled Cheque',
-  //     'Hotel Photos',
-  //     'Owner ID Proof',
-  //     'Signature'
-  //   ];
-  //
-  //   for (var doc in requiredDocuments) {
-  //     if (!_uploadedFiles.containsKey(doc)) {
-  //       _uploadedFiles[doc] = {
-  //         'name': '',
-  //         'size': 0,
-  //         'path': '',
-  //         'uploaded': false,
-  //       };
-  //     }
-  //   }
-  //
-  //   // // Initialize controllers with existing data
-  //   // _hotelNameController = TextEditingController(text: data['hotelName'] ?? '');
-  //   // _yearController = TextEditingController(text: data['yearOfEstablishment'] ?? '');
-  //   // _roomsController = TextEditingController(text: data['totalRooms']?.toString() ?? '');
-  //   // _ownerNameController = TextEditingController(text: data['ownerName'] ?? '');
-  //   // _mobileController = TextEditingController(text: data['mobileNumber'] ?? '');
-  //   // _altMobileController = TextEditingController(text: data['alternateContact'] ?? '');
-  //   // _emailController = TextEditingController(text: data['email'] ?? '');
-  //   // _websiteController = TextEditingController(text: data['website'] ?? '');
-  //   // _address1Controller = TextEditingController(text: data['addressLine1'] ?? '');
-  //   // _address2Controller = TextEditingController(text: data['addressLine2'] ?? '');
-  //   // _cityController = TextEditingController(text: data['city'] ?? '');
-  //   // _districtController = TextEditingController(text: data['district'] ?? '');
-  //   // _stateController = TextEditingController(text: data['state'] ?? '');
-  //   // _pinController = TextEditingController(text: data['pinCode'] ?? '');
-  //   // _minTariffController = TextEditingController(text: data['minTariff'] ?? '');
-  //   // _maxTariffController = TextEditingController(text: data['maxTariff'] ?? '');
-  //   // _gstController = TextEditingController(text: data['gstNumber'] ?? '');
-  //   // _fssaiController = TextEditingController(text: data['fssaiLicense'] ?? '');
-  //   // _tradeLicenseController = TextEditingController(text: data['tradeLicense'] ?? '');
-  //   // _accountNameController = TextEditingController(text: data['accountHolderName'] ?? '');
-  //   // _bankNameController = TextEditingController(text: data['bankName'] ?? '');
-  //   // _accountNumberController = TextEditingController(text: data['accountNumber'] ?? '');
-  //   // _ifscController = TextEditingController(text: data['ifscCode'] ?? '');
-  //   // _branchController = TextEditingController(text: data['branch'] ?? '');
-  //   // _extraAmenitiesController = TextEditingController();
-  //   // _landmarkController = TextEditingController(text: data['landmark'] ?? '');
-  //   // _aadharController = TextEditingController(text: data['aadharNumber'] ?? '');
-  //   // _accountTypeController = TextEditingController(text: data['accountType'] ?? '');
-  //   // _declarationNameController = TextEditingController(text: data['declarationName'] ?? '');
-  //   // _signatureNameController = TextEditingController(text: data['signatureName'] ?? '');
-  //
-  //   // Initialize other state variables
-  //
-  //   _hotelNameController = TextEditingController(text: data['hotelName']?.toString() ?? '');
-  //   _yearController = TextEditingController(text: data['yearOfEstablishment']?.toString() ?? '');
-  //   _roomsController = TextEditingController(text: data['totalRooms']?.toString() ?? '');
-  //   _ownerNameController = TextEditingController(text: data['ownerName']?.toString() ?? '');
-  //   _mobileController = TextEditingController(text: data['mobileNumber']?.toString() ?? '');
-  //   _altMobileController = TextEditingController(text: data['alternateContact']?.toString() ?? '');
-  //   _emailController = TextEditingController(text: data['email']?.toString() ?? '');
-  //   _websiteController = TextEditingController(text: data['website']?.toString() ?? '');
-  //   _address1Controller = TextEditingController(text: data['addressLine1']?.toString() ?? '');
-  //   _address2Controller = TextEditingController(text: data['addressLine2']?.toString() ?? '');
-  //   _cityController = TextEditingController(text: data['city']?.toString() ?? '');
-  //   _districtController = TextEditingController(text: data['district']?.toString() ?? '');
-  //   _stateController = TextEditingController(text: data['state']?.toString() ?? '');
-  //   _pinController = TextEditingController(text: data['pinCode']?.toString() ?? '');
-  //   _minTariffController = TextEditingController(text: data['minTariff']?.toString() ?? '');
-  //   _maxTariffController = TextEditingController(text: data['maxTariff']?.toString() ?? '');
-  //   _gstController = TextEditingController(text: data['gstNumber']?.toString() ?? '');
-  //   _fssaiController = TextEditingController(text: data['fssaiLicense']?.toString() ?? '');
-  //   _tradeLicenseController = TextEditingController(text: data['tradeLicense']?.toString() ?? '');
-  //   _accountNameController = TextEditingController(text: data['accountHolderName']?.toString() ?? '');
-  //   _bankNameController = TextEditingController(text: data['bankName']?.toString() ?? '');
-  //   _accountNumberController = TextEditingController(text: data['accountNumber']?.toString() ?? '');
-  //   _ifscController = TextEditingController(text: data['ifscCode']?.toString() ?? '');
-  //   _branchController = TextEditingController(text: data['branch']?.toString() ?? '');
-  //   _extraAmenitiesController = TextEditingController();
-  //   _landmarkController = TextEditingController(text: data['landmark']?.toString() ?? '');
-  //   _aadharController = TextEditingController(text: data['aadharNumber']?.toString() ?? '');
-  //   _accountTypeController = TextEditingController(text: data['accountType']?.toString() ?? '');
-  //   _declarationNameController = TextEditingController(text: data['declarationName']?.toString() ?? '');
-  //   _signatureNameController = TextEditingController(text: data['signatureName']?.toString() ?? '');
-  //
-  //   // _selectedHotelType = data['hotelType'] ?? '';
-  //   // _extraBedAvailable = data['extraBedAvailable'] ?? false;
-  //   // _selectedDate = data['declarationDate'];
-  //   // _declarationAccepted = data['declarationAccepted'] ?? false;
-  //
-  //   // Initialize state variables with proper type checking
-  //   _selectedHotelType = data['hotelType']?.toString() ?? '';
-  //   _extraBedAvailable = data['extraBedAvailable'] == true;
-  //   _selectedDate = data['declarationDate'] is DateTime ? data['declarationDate'] : null;
-  //   _declarationAccepted = data['declarationAccepted'] == true;
-  //
-  //   // Initialize landline controllers
-  //   final landlineNumbers = (data['landlineNumbers'] as List<dynamic>? ?? [])
-  //       .map((e) => e.toString())
-  //       .toList();
-  //   _landlineControllers = landlineNumbers.isEmpty
-  //       ? [TextEditingController()]
-  //       : landlineNumbers.map((num) => TextEditingController(text: num)).toList();
-  //
-  //   // Initialize room details - ensure all room types have entries
-  //   _roomDetails = Map<String, Map<String, dynamic>>.from(data['roomDetails'] ?? {});
-  //
-  //   // Ensure all possible room types have entries
-  //   List<String> allRoomTypes = [
-  //     'Single Room', 'Double Room', 'Deluxe Room',
-  //     'Suite Room', 'Family Room', 'Executive Room'
-  //   ];
-  //
-  //   for (var roomType in allRoomTypes) {
-  //     if (!_roomDetails.containsKey(roomType)) {
-  //       _roomDetails[roomType] = {
-  //         'rooms': '',
-  //         'occupancy': '',
-  //         'ac': true,
-  //         'price': '',
-  //         'extraBed': false,
-  //         'extraBedPrice': '',
-  //       };
-  //     }
-  //   }
-  //
-  //
-  //   Map<String, bool> savedSelections = Map<String, bool>.from(data['selectedRoomTypes'] ?? {});
-  //   _selectedRoomTypes = {
-  //     'Single Room': savedSelections['Single Room'] ?? false,
-  //     'Double Room': savedSelections['Double Room'] ?? false,
-  //     'Deluxe Room': savedSelections['Deluxe Room'] ?? false,
-  //     'Suite Room': savedSelections['Suite Room'] ?? false,
-  //     'Family Room': savedSelections['Family Room'] ?? false,
-  //     'Executive Room': savedSelections['Executive Room'] ?? false,
-  //   };
-  //
-  //
-  //   Map<String, bool> savedBasicAmenities = Map<String, bool>.from(data['basicAmenities'] ?? {});
-  //   _basicAmenities = {
-  //     'Free Wi-Fi': savedBasicAmenities['Free Wi-Fi'] ?? false,
-  //     'Television': savedBasicAmenities['Television'] ?? false,
-  //     'Air Conditioning': savedBasicAmenities['Air Conditioning'] ?? false,
-  //     'Attached Bathroom': savedBasicAmenities['Attached Bathroom'] ?? false,
-  //     'Hot Water': savedBasicAmenities['Hot Water'] ?? false,
-  //     'Room Service': savedBasicAmenities['Room Service'] ?? false,
-  //   };
-  //
-  //   Map<String, bool> savedHotelFacilities = Map<String, bool>.from(data['hotelFacilities'] ?? {});
-  //   _hotelFacilities = {
-  //     '24-Hour Front Desk': savedHotelFacilities['24-Hour Front Desk'] ?? false,
-  //     'Power Backup': savedHotelFacilities['Power Backup'] ?? false,
-  //     'Lift / Elevator': savedHotelFacilities['Lift / Elevator'] ?? false,
-  //     'Parking Facility': savedHotelFacilities['Parking Facility'] ?? false,
-  //     'CCTV Security': savedHotelFacilities['CCTV Security'] ?? false,
-  //   };
-  //
-  //   Map<String, bool> savedFoodServices = Map<String, bool>.from(data['foodServices'] ?? {});
-  //   _foodServices = {
-  //     'Restaurant': savedFoodServices['Restaurant'] ?? false,
-  //     'Complimentary Breakfast': savedFoodServices['Complimentary Breakfast'] ?? false,
-  //     'In-Room Dining': savedFoodServices['In-Room Dining'] ?? false,
-  //     'Tea / Coffee Maker': savedFoodServices['Tea / Coffee Maker'] ?? false,
-  //   };
-  //
-  //   Map<String, bool> savedAdditionalAmenities = Map<String, bool>.from(data['additionalAmenities'] ?? {});
-  //   _additionalAmenities = {
-  //     'Laundry Service': savedAdditionalAmenities['Laundry Service'] ?? false,
-  //     'Travel Desk': savedAdditionalAmenities['Travel Desk'] ?? false,
-  //     'Conference / Meeting Room': savedAdditionalAmenities['Conference / Meeting Room'] ?? false,
-  //     'Wheelchair Access': savedAdditionalAmenities['Wheelchair Access'] ?? false,
-  //   };
-  //
-  //
-  //   _customAmenities = List<String>.from(data['customAmenities'] ?? []);
-  //
-  //
-  //   Map<String, bool> savedDocuments = Map<String, bool>.from(data['documents'] ?? {});
-  //   _documents = {
-  //     'GST Certificate': savedDocuments['GST Certificate'] ?? false,
-  //     'FSSAI Certificate': savedDocuments['FSSAI Certificate'] ?? false,
-  //     'Trade License': savedDocuments['Trade License'] ?? false,
-  //     'Cancelled Cheque': savedDocuments['Cancelled Cheque'] ?? false,
-  //     'Hotel Photos': savedDocuments['Hotel Photos'] ?? false,
-  //     'Owner ID Proof': savedDocuments['Owner ID Proof'] ?? false,
-  //     'Signature': savedDocuments['Signature'] ?? false,
-  //   };
-  //
-  //   _personPhotoInfo = Map<String, dynamic>.from(data['personPhotoInfo'] ?? {
-  //     'name': '', 'size': 0, 'path': '', 'uploaded': false,
-  //   });
-  // }
+
   void _initializeDataFromRegistration() {
     final data = widget.registrationData;
 
@@ -24407,83 +16935,7 @@ class _EditHotelProfileScreenState extends State<EditHotelProfileScreen> {
     }
   }
 
-  // void _updateProfile() {
-  //   // Collect all updated data
-  //   Map<String, dynamic> updatedData = {
-  //     'hotelName': _hotelNameController.text,
-  //     'hotelType': _selectedHotelType,
-  //     'yearOfEstablishment': _yearController.text,
-  //     'totalRooms': int.tryParse(_roomsController.text) ?? 0,
-  //     'ownerName': _ownerNameController.text,
-  //     'mobileNumber': _mobileController.text,
-  //     'alternateContact': _altMobileController.text,
-  //     'landlineNumbers': _landlineControllers
-  //         .map((c) => c.text)
-  //         .where((text) => text.isNotEmpty)
-  //         .toList(),
-  //     'email': _emailController.text,
-  //     'website': _websiteController.text,
-  //     'addressLine1': _address1Controller.text,
-  //     'addressLine2': _address2Controller.text,
-  //     'city': _cityController.text,
-  //     'district': _districtController.text,
-  //     'state': _stateController.text,
-  //     'pinCode': _pinController.text,
-  //     'landmark': _landmarkController.text,
-  //     'selectedRoomTypes': _selectedRoomTypes,
-  //     'roomDetails': _roomDetails,
-  //     'minTariff': _minTariffController.text,
-  //     'maxTariff': _maxTariffController.text,
-  //     'extraBedAvailable': _extraBedAvailable,
-  //     'basicAmenities': _basicAmenities,
-  //     'hotelFacilities': _hotelFacilities,
-  //     'foodServices': _foodServices,
-  //     'additionalAmenities': _additionalAmenities,
-  //     'customAmenities': _customAmenities,
-  //     'gstNumber': _gstController.text,
-  //     'fssaiLicense': _fssaiController.text,
-  //     'tradeLicense': _tradeLicenseController.text,
-  //     'aadharNumber': _aadharController.text,
-  //     'accountHolderName': _accountNameController.text,
-  //     'bankName': _bankNameController.text,
-  //     'accountNumber': _accountNumberController.text,
-  //     'ifscCode': _ifscController.text,
-  //     'branch': _branchController.text,
-  //     'accountType': _accountTypeController.text,
-  //     'uploadedFiles': _uploadedFiles,
-  //     'signatureName': _signatureNameController.text,
-  //     'declarationName': _declarationNameController.text,
-  //     'declarationDate': _selectedDate,
-  //     'personPhotoInfo': _personPhotoInfo,
-  //     'declarationAccepted': _declarationAccepted,
-  //   };
-  //
-  //   // Merge with existing registration data
-  //   Map<String, dynamic> finalData = {
-  //     ...widget.registrationData,
-  //     ...updatedData,
-  //   };
-  //
-  //   // Show success message
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text('Profile updated successfully!'),
-  //       backgroundColor: _successColor,
-  //       duration: Duration(seconds: 2),
-  //     ),
-  //   );
-  //
-  //   // Option 1: If you want to pass the data back to MyProfileScreen
-  //   Navigator.pushAndRemoveUntil(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => HotelOwnerProfilePage(hotelName: '', ownerName: '', mobileNumber: '', email: '', addressLine1: '', addressLine2: '', city: '', district: '', state: '', pinCode: '', gstNumber: '', fssaiLicense: '', tradeLicense: '', aadharNumber: '', accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', branch: '', accountType: '', totalRooms: 0, personPhotoInfo: {}, selectedRoomTypes: {}, roomDetails: {}, basicAmenities: {}, hotelFacilities: {}, foodServices: {}, additionalAmenities: {}, customAmenities: []),
-  //     ),
-  //         (route) => false, // Remove all previous routes
-  //   );
-  //
-  //
-  // }
+
 
   void _updateProfile() {
     // Collect all updated data
@@ -24686,12 +17138,7 @@ class _TwoStarHotelRegistrationScreenState
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
-  // final TextEditingController _checkInController = TextEditingController(
-  //   text: '14:00',
-  // );
-  // final TextEditingController _checkOutController = TextEditingController(
-  //   text: '12:00',
-  // );
+
 
   final TextEditingController _checkInController = TextEditingController();
   final TextEditingController _checkOutController = TextEditingController();
@@ -28098,93 +20545,7 @@ class _TwoStarHotelRegistrationScreenState
     );
   }
 
-  // Widget _buildRoomConfigurationCard(String roomType) {
-  //   final details = _roomDetails[roomType]!;
-  //
-  //   return Container(
-  //     padding: EdgeInsets.all(12),
-  //     decoration: BoxDecoration(
-  //       color: Colors.grey[50],
-  //       borderRadius: BorderRadius.circular(8),
-  //       border: Border.all(color: _borderColor),
-  //     ),
-  //     child: Column(
-  //       children: [
-  //         Text(
-  //           roomType,
-  //           style: TextStyle(
-  //             fontSize: 14,
-  //             fontWeight: FontWeight.w600,
-  //             color: _primaryColor,
-  //           ),
-  //         ),
-  //         SizedBox(height: 12),
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'No. of Rooms',
-  //                 controller: TextEditingController(text: details['rooms']),
-  //                 onChanged: (value) => details['rooms'] = value,
-  //                 hint: '0',
-  //                 keyboardType: TextInputType.number,
-  //               ),
-  //             ),
-  //             SizedBox(width: 12),
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Max Occupancy',
-  //                 controller: TextEditingController(text: details['occupancy']),
-  //                 onChanged: (value) => details['occupancy'] = value,
-  //                 hint: 'Persons',
-  //                 keyboardType: TextInputType.number,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12),
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     'AC / Non-AC',
-  //                     style: TextStyle(
-  //                       fontSize: 12,
-  //                       fontWeight: FontWeight.w500,
-  //                     ),
-  //                   ),
-  //                   SizedBox(height: 8),
-  //                   Row(
-  //                     children: [
-  //                       _buildToggleChip('AC', details['ac'], () {
-  //                         setState(() => details['ac'] = true);
-  //                       }),
-  //                       SizedBox(width: 8),
-  //                       _buildToggleChip('Non-AC', !details['ac'], () {
-  //                         setState(() => details['ac'] = false);
-  //                       }),
-  //                     ],
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12),
-  //         _buildSmallInput(
-  //           label: 'Price per Night (₹)',
-  //           controller: TextEditingController(text: details['price']),
-  //           onChanged: (value) => details['price'] = value,
-  //           hint: '0',
-  //           keyboardType: TextInputType.number,
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -28277,46 +20638,7 @@ class _TwoStarHotelRegistrationScreenState
       ),
     );
   }
-  // Widget _buildSmallInput({
-  //   required String label,
-  //   required TextEditingController controller,
-  //   required ValueChanged<String> onChanged,
-  //   required String hint,
-  //   TextInputType? keyboardType,
-  // }) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         label,
-  //         style: TextStyle(
-  //           fontSize: 12,
-  //           fontWeight: FontWeight.w500,
-  //           color: _textPrimary,
-  //         ),
-  //       ),
-  //       SizedBox(height: 8),
-  //       SizedBox(
-  //         height: 40,
-  //         child: TextFormField(
-  //           controller: controller,
-  //           onChanged: onChanged,
-  //           keyboardType: keyboardType,
-  //           textAlign: TextAlign.center,
-  //           decoration: InputDecoration(
-  //             hintText: hint,
-  //             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-  //             border: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(6),
-  //               borderSide: BorderSide(color: _borderColor),
-  //             ),
-  //             isDense: true,
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
@@ -28877,104 +21199,7 @@ class _TwoStarHotelRegistrationScreenState
     );
   }
 
-  // void _submitForm() {
-  //   if (!_formKey.currentState!.validate()) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Please fill all required fields correctly'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //     return;
-  //   }
-  //
-  //   if (!_declarationAccepted) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Please accept the declaration to proceed'),
-  //         backgroundColor: Colors.orange,
-  //       ),
-  //     );
-  //     return;
-  //   }
-  //
-  //
-  //
-  //      final signatureInfo = _uploadedFiles['Signature of Authorized Person']!;
-  //   final isSignatureUploaded = (signatureInfo['uploaded'] as bool?) ?? false;
-  //
-  //   if (!isSignatureUploaded) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Please upload signature of authorized person'),
-  //         backgroundColor: Colors.orange,
-  //       ),
-  //     );
-  //     return;
-  //   }
-  //
-  //
-  //   // Collect form data
-  //   Map<String, dynamic> formData = {
-  //     'hotelName': _hotelNameController.text,
-  //     'hotelCategory': '2-Star',
-  //     'hotelType': _selectedHotelType,
-  //     'yearOfEstablishment': _yearController.text,
-  //     'totalRooms': _roomsController.text,
-  //     'ownerName': _ownerNameController.text,
-  //     'designation': _designationController.text,
-  //     'mobileNumber': _mobileController.text,
-  //     'alternateContact': _altMobileController.text,
-  //     'email': _emailController.text,
-  //     'website': _websiteController.text,
-  //     'addressLine1': _address1Controller.text,
-  //     'addressLine2': _address2Controller.text,
-  //     'city': _cityController.text,
-  //     'district': _districtController.text,
-  //     'state': _stateController.text,
-  //     'pinCode': _pinController.text,
-  //     'selectedRoomTypes': _selectedRoomTypes,
-  //     'roomDetails': _roomDetails,
-  //     'extraBedAvailable': _extraBedAvailable,
-  //     'roomTariff': {
-  //       'min': _minTariffController.text,
-  //       'max': _maxTariffController.text,
-  //     },
-  //     'checkInTime': _checkInController.text,
-  //     'checkOutTime': _checkOutController.text,
-  //     'roomAmenities': _roomAmenities,
-  //     'hotelFacilities': _hotelFacilities,
-  //     'foodServices': _foodServices,
-  //     'guestServices': _guestServices,
-  //     'idProofRequired': _selectedIdProof,
-  //     'coupleFriendly': _coupleFriendly,
-  //     'petsAllowed': _petsAllowed,
-  //     'gstNumber': _gstController.text,
-  //     'tradeLicense': _tradeLicenseController.text,
-  //     'fssaiLicense': _fssaiController.text,
-  //     'panNumber': _panController.text,
-  //     'bankDetails': {
-  //       'accountHolderName': _accountNameController.text,
-  //       'bankName': _bankNameController.text,
-  //       'accountNumber': _accountNumberController.text,
-  //       'ifscCode': _ifscController.text,
-  //       'branch': _branchController.text,
-  //     },
-  //     'uploadedFiles': _uploadedFiles,
-  //     'declarationDate': _selectedDate,
-  //     'declarationAccepted': _declarationAccepted,
-  //   };
-  //
-  //   // Navigate to summary or submit
-  //   print('Form submitted: $formData');
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text('Registration submitted successfully!'),
-  //       backgroundColor: _successColor,
-  //     ),
-  //   );
-  //
-  // }
+
 
   void _submitForm() {
     // if (!(_signatureFile['uploaded'] ?? false)) {
@@ -29110,16 +21335,7 @@ class _TwoStarHotelRegistrationScreenState
       }).toList(),
     };
 
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => RegistrationSummaryScreen(
-    //       registrationData: formData,
-    //       hotelCategory: '2-Star',
-    //       declarationAccepted: _declarationAccepted,
-    //     ),
-    //   ),
-    // );
+
 
     Navigator.push(
   context,
@@ -29196,72 +21412,7 @@ class _TwoStarHotelRegistrationScreenState
     }
   }
 
-  // Widget _buildTimeDropdown({
-  //   required String label,
-  //   required TextEditingController controller,
-  //   required ValueChanged<String> onChanged,
-  // }) {
-  //   String currentValue = controller.text;
-  //   String displayValue = '';
-  //
-  //   if (currentValue.isNotEmpty) {
-  //     for (var option in _timeOptions24Hour) {
-  //       if (option['value'] == currentValue) {
-  //         displayValue = option['value']!;
-  //         break;
-  //       }
-  //     }
-  //
-  //     if (displayValue.isEmpty) {
-  //       displayValue = _convertTo24HourFormat(currentValue);
-  //     }
-  //   }
-  //
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         label,
-  //         style: TextStyle(
-  //           fontSize: 13,
-  //           fontWeight: FontWeight.w500,
-  //           color: _textPrimary,
-  //         ),
-  //       ),
-  //       SizedBox(height: 8),
-  //       Container(
-  //         height: 48,
-  //         padding: EdgeInsets.symmetric(horizontal: 12),
-  //         decoration: BoxDecoration(
-  //           border: Border.all(color: _borderColor),
-  //           borderRadius: BorderRadius.circular(8),
-  //         ),
-  //         child: DropdownButtonHideUnderline(
-  //           child: DropdownButton<String>(
-  //             value: displayValue.isNotEmpty ? displayValue : null,
-  //             isExpanded: true,
-  //             icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
-  //             hint: Text('Select time'),
-  //             items: _timeOptions24Hour.map((option) {
-  //               return DropdownMenuItem<String>(
-  //                 value: option['value'],
-  //                 child: Text(option['display']!),
-  //               );
-  //             }).toList(),
-  //             onChanged: (value) {
-  //               if (value != null) {
-  //                 setState(() {
-  //                   controller.text = value;
-  //                 });
-  //                 onChanged(value);
-  //               }
-  //             },
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+
 
   Widget _buildTimeDropdown({
     required String label,
@@ -29407,8 +21558,7 @@ class _TwoStarHotelRegistrationScreenState
     _ownerNameController.dispose();
     _designationController.dispose();
     _mobileController.dispose();
-    // _checkInTimeController.dispose();
-    // _checkOutTimeController.dispose();
+
     _countryController.dispose();
     _altMobileController.dispose();
     _emailController.dispose();
@@ -29451,7 +21601,6 @@ class ThreeStarHotelRegistrationScreen extends StatefulWidget {
   State<ThreeStarHotelRegistrationScreen> createState() =>
       _ThreeStarHotelRegistrationScreenState();
 }
-
 
 class _ThreeStarHotelRegistrationScreenState
     extends State<ThreeStarHotelRegistrationScreen> {
@@ -33113,3203 +25262,6 @@ class FourStarHotelRegistrationScreen extends StatefulWidget {
       _FourStarHotelRegistrationScreenState();
 }
 
-// class _FourStarHotelRegistrationScreenState
-//     extends State<FourStarHotelRegistrationScreen> {
-//   final _formKey = GlobalKey<FormState>();
-//   int _currentStep = 0;
-//
-//   final Color _primaryColor = Color(0xFF4F46E5);
-//   final Color _primaryLight = Color(0xFFEEF2FF);
-//   final Color _bgColor = Color(0xFFFAFAFA);
-//   final Color _cardColor = Colors.white;
-//   final Color _borderColor = Color(0xFFE5E7EB);
-//   final Color _textPrimary = Color(0xFF111827);
-//   final Color _textSecondary = Color(0xFF6B7280);
-//   final Color _successColor = Color(0xFF4F46E5);
-//   final Color _goldColor = Color(0xFFFFD700);
-//
-//   final TextEditingController _hotelNameController = TextEditingController();
-//   final TextEditingController _registrationNumberController =
-//       TextEditingController();
-//   final TextEditingController _yearController = TextEditingController();
-//   final TextEditingController _roomsController = TextEditingController();
-//   final TextEditingController _ownerNameController = TextEditingController();
-//   final TextEditingController _designationController = TextEditingController();
-//   final TextEditingController _mobileController = TextEditingController();
-//   final TextEditingController _altMobileController = TextEditingController();
-//   final TextEditingController _emailController = TextEditingController();
-//   final TextEditingController _websiteController = TextEditingController();
-//   final TextEditingController _address1Controller = TextEditingController();
-//   final TextEditingController _address2Controller = TextEditingController();
-//   final TextEditingController _cityController = TextEditingController();
-//   final TextEditingController _districtController = TextEditingController();
-//   final TextEditingController _stateController = TextEditingController();
-//   final TextEditingController _pinController = TextEditingController();
-//   final TextEditingController _checkInController = TextEditingController();
-//   final TextEditingController _checkOutController = TextEditingController();
-//   final TextEditingController _gstController = TextEditingController();
-//   final TextEditingController _panController = TextEditingController();
-//   final TextEditingController _tradeLicenseController = TextEditingController();
-//   final TextEditingController _fssaiController = TextEditingController();
-//   final TextEditingController _fireSafetyController = TextEditingController();
-//   final TextEditingController _starCertController = TextEditingController();
-//   final TextEditingController _accountNameController = TextEditingController();
-//   final TextEditingController _bankNameController = TextEditingController();
-//   final TextEditingController _accountNumberController =
-//       TextEditingController();
-//   final TextEditingController _ifscController = TextEditingController();
-//   final TextEditingController _branchController = TextEditingController();
-//   final TextEditingController _signatoryNameController =
-//       TextEditingController();
-//
-//   final Map<String, Map<String, dynamic>> _roomDetails = {
-//     'Superior Room': {
-//       'rooms': '',
-//       'occupancy': '',
-//       'ac': true,
-//       'bedType': 'Queen',
-//       'price': '',
-//     },
-//     'Deluxe Room': {
-//       'rooms': '',
-//       'occupancy': '',
-//       'ac': true,
-//       'bedType': 'King',
-//       'price': '',
-//     },
-//     'Executive Room': {
-//       'rooms': '',
-//       'occupancy': '',
-//       'ac': true,
-//       'bedType': 'King',
-//       'price': '',
-//     },
-//     'Suite Room': {
-//       'rooms': '',
-//       'occupancy': '',
-//       'ac': true,
-//       'bedType': 'King',
-//       'price': '',
-//     },
-//   };
-//
-//   Map<String, bool> _selectedRoomTypes = {
-//     'Superior Room': true,
-//     'Deluxe Room': false,
-//     'Executive Room': false,
-//     'Suite Room': false,
-//   };
-//
-//   String? _selectedHotelType;
-//
-//   bool _extraBedAvailable = false;
-//   bool _seasonalPricing = false;
-//   bool _earlyCheckinAllowed = false;
-//   bool _earlyCheckinChargeable = true;
-//   bool _petsAllowed = false;
-//   bool _fireSafetyCertificate = false;
-//   bool _starCertificate = false;
-//
-//   Map<String, bool> _roomAmenities = {
-//     'Central Air Conditioning': false,
-//     'High-Speed Wi-Fi': false,
-//     'Smart / LED TV': false,
-//     'Work Desk & Ergonomic Chair': false,
-//     'Mini Bar': false,
-//     'Tea & Coffee Maker': false,
-//     'In-Room Safe': false,
-//     'Premium Toiletries': false,
-//     'Bath Tub / Rain Shower': false,
-//     'Hair Dryer & Shaving Kit': false,
-//     '24-Hour Room Service': false,
-//   };
-//
-//   Map<String, bool> _hotelFacilities = {
-//     '24-Hour Front Desk & Concierge': false,
-//     'Valet Parking': false,
-//     'Lift / Elevator': false,
-//     'Power Backup': false,
-//     'Daily Housekeeping (2×)': false,
-//     'Luggage Storage': false,
-//     'CCTV & Access Control': false,
-//     'Fire Detection & Sprinkler System': false,
-//     'Wheelchair-Friendly Access': false,
-//   };
-//
-//   Map<String, bool> _foodServices = {
-//     'Multi-Cuisine Fine Dining Restaurant': false,
-//     'All-Day Dining Café': false,
-//     'Complimentary Breakfast Buffet': false,
-//     'Bar / Lounge': false,
-//     'Banquet Hall': false,
-//   };
-//
-//   Map<String, bool> _businessServices = {
-//     'Conference & Meeting Rooms': false,
-//     'Business Center': false,
-//     'Secretarial Services': false,
-//     'Airport Transfers': false,
-//     'Travel Desk': false,
-//     'Laundry & Dry Cleaning': false,
-//     'Doctor on Call': false,
-//     'Childcare / Babysitting': false,
-//     'Currency Exchange': false,
-//   };
-//
-//   Map<String, bool> _wellnessRecreation = {
-//     'Fitness Center / Gym': false,
-//     'Spa & Wellness Center': false,
-//     'Swimming Pool': false,
-//     'Yoga / Wellness Programs': false,
-//   };
-//
-//   final List<String> _bedTypes = ['Single', 'Double', 'Queen', 'King', 'Twin'];
-//
-//   final Map<String, Map<String, dynamic>> _uploadedFiles = {
-//     'GST Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
-//     'PAN Card': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
-//     'Trade License': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
-//     'FSSAI Certificate': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
-//     'Fire Safety Certificate': {
-//       'name': '',
-//       'size': 0,
-//       'path': '',
-//       'uploaded': false,
-//     },
-//     'Star Classification Certificate': {
-//       'name': '',
-//       'size': 0,
-//       'path': '',
-//       'uploaded': false,
-//     },
-//     'Cancelled Cheque': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
-//     'Hotel & Room Photos': {
-//       'name': '',
-//       'size': 0,
-//       'path': '',
-//       'uploaded': false,
-//     },
-//     'Signature': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
-//     'Digital Signature': {
-//       'name': '',
-//       'size': 0,
-//       'path': '',
-//       'uploaded': false,
-//       'isDigital': false,
-//       'imageData': null,
-//     },
-//   };
-//
-//   final Map<String, dynamic> _signatureFile = {
-//     'name': '',
-//     'size': 0,
-//     'path': '',
-//     'uploaded': false,
-//   };
-//
-//   bool _declarationAccepted = false;
-//   DateTime? _selectedDate;
-//
-//   final List<Map<String, dynamic>> _steps = [
-//     {'title': 'Hotel Info', 'subtitle': 'Basic hotel details'},
-//     {'title': 'Contact & Address', 'subtitle': 'Contact and location'},
-//     {'title': 'Room Configuration', 'subtitle': 'Room types and rates'},
-//     {'title': 'Amenities & Policies', 'subtitle': 'Facilities and rules'},
-//     {'title': 'Legal & Documents', 'subtitle': 'Compliance and files'},
-//   ];
-//
-//   List<Map<String, TextEditingController>> _additionalAddresses = [];
-//
-//   final List<Map<String, String>> _timeOptions24Hour = [
-//     {'value': '00:00', 'display': '12:00 AM'},
-//     {'value': '01:00', 'display': '01:00 AM'},
-//     {'value': '02:00', 'display': '02:00 AM'},
-//     {'value': '03:00', 'display': '03:00 AM'},
-//     {'value': '04:00', 'display': '04:00 AM'},
-//     {'value': '05:00', 'display': '05:00 AM'},
-//     {'value': '06:00', 'display': '06:00 AM'},
-//     {'value': '07:00', 'display': '07:00 AM'},
-//     {'value': '08:00', 'display': '08:00 AM'},
-//     {'value': '09:00', 'display': '09:00 AM'},
-//     {'value': '10:00', 'display': '10:00 AM'},
-//     {'value': '11:00', 'display': '11:00 AM'},
-//     {'value': '12:00', 'display': '12:00 PM'},
-//     {'value': '13:00', 'display': '01:00 PM'},
-//     {'value': '14:00', 'display': '02:00 PM'},
-//     {'value': '15:00', 'display': '03:00 PM'},
-//     {'value': '16:00', 'display': '04:00 PM'},
-//     {'value': '17:00', 'display': '05:00 PM'},
-//     {'value': '18:00', 'display': '06:00 PM'},
-//     {'value': '19:00', 'display': '07:00 PM'},
-//     {'value': '20:00', 'display': '08:00 PM'},
-//     {'value': '21:00', 'display': '09:00 PM'},
-//     {'value': '22:00', 'display': '10:00 PM'},
-//     {'value': '23:00', 'display': '11:00 PM'},
-//   ];
-//   final SignatureController _signatureController = SignatureController(
-//     penStrokeWidth: 3,
-//     penColor: Colors.black,
-//     exportBackgroundColor: Colors.white,
-//   );
-//   bool _hasDigitalSignature = false;
-//   Uint8List? _digitalSignatureImage;
-//   @override
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: _bgColor,
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         leading: IconButton(
-//           icon: Icon(Icons.arrow_back, color: _textPrimary),
-//           onPressed: () => Navigator.pop(context),
-//         ),
-//         title: Text(
-//           '4-Star Hotel Vendor Registration Form',
-//           style: TextStyle(
-//             fontSize: 17.5,
-//             fontWeight: FontWeight.w600,
-//             color: _textPrimary,
-//           ),
-//         ),
-//         centerTitle: true,
-//       ),
-//       body: Form(
-//         key: _formKey,
-//         child: Column(
-//           children: [
-//             Container(
-//               padding: EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 boxShadow: [
-//                   BoxShadow(
-//                     color: Colors.black.withOpacity(0.05),
-//                     blurRadius: 3,
-//                     offset: Offset(0, 1),
-//                   ),
-//                 ],
-//               ),
-//               child: Column(
-//                 children: [
-//                   SingleChildScrollView(
-//                     scrollDirection: Axis.horizontal,
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: List.generate(_steps.length, (index) {
-//                         bool isActive = index == _currentStep;
-//                         bool isCompleted = index < _currentStep;
-//
-//                         return GestureDetector(
-//                           onTap: () {
-//                             if (index <= _currentStep) {
-//                               setState(() {
-//                                 _currentStep = index;
-//                               });
-//                             }
-//                           },
-//                           child: Container(
-//                             margin: EdgeInsets.symmetric(horizontal: 8),
-//                             child: Column(
-//                               children: [
-//                                 Container(
-//                                   width: 36,
-//                                   height: 36,
-//                                   decoration: BoxDecoration(
-//                                     shape: BoxShape.circle,
-//                                     color: isActive
-//                                         ? _primaryColor
-//                                         : isCompleted
-//                                         ? _successColor
-//                                         : Colors.white,
-//                                     border: Border.all(
-//                                       color: isActive || isCompleted
-//                                           ? Colors.transparent
-//                                           : _borderColor,
-//                                       width: 2,
-//                                     ),
-//                                   ),
-//                                   child: Center(
-//                                     child: isCompleted
-//                                         ? Icon(
-//                                             Icons.check,
-//                                             size: 18,
-//                                             color: Colors.white,
-//                                           )
-//                                         : Text(
-//                                             '${index + 1}',
-//                                             style: TextStyle(
-//                                               color: isActive || isCompleted
-//                                                   ? Colors.white
-//                                                   : _textSecondary,
-//                                               fontWeight: FontWeight.w600,
-//                                               fontSize: 14,
-//                                             ),
-//                                           ),
-//                                   ),
-//                                 ),
-//                                 SizedBox(height: 4),
-//                                 SizedBox(
-//                                   width: 70,
-//                                   child: Text(
-//                                     _steps[index]['title'],
-//                                     style: TextStyle(
-//                                       fontSize: 10,
-//                                       fontWeight: FontWeight.w500,
-//                                       color: isActive || isCompleted
-//                                           ? _textPrimary
-//                                           : _textSecondary,
-//                                     ),
-//                                     textAlign: TextAlign.center,
-//                                     maxLines: 2,
-//                                     overflow: TextOverflow.ellipsis,
-//                                   ),
-//                                 ),
-//                               ],
-//                             ),
-//                           ),
-//                         );
-//                       }),
-//                     ),
-//                   ),
-//                   SizedBox(height: 12),
-//
-//                   LinearProgressIndicator(
-//                     value: (_currentStep + 1) / _steps.length,
-//                     backgroundColor: _borderColor,
-//                     color: _primaryColor,
-//                     minHeight: 3,
-//                     borderRadius: BorderRadius.circular(2),
-//                   ),
-//                   SizedBox(height: 8),
-//
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       Text(
-//                         'Step ${_currentStep + 1} of ${_steps.length}: ${_steps[_currentStep]['title']}',
-//                         style: TextStyle(
-//                           fontSize: 12,
-//                           color: _textPrimary,
-//                           fontWeight: FontWeight.w500,
-//                         ),
-//                       ),
-//                       Text(
-//                         '${((_currentStep + 1) / _steps.length * 100).toInt()}% Complete',
-//                         style: TextStyle(
-//                           fontSize: 12,
-//                           fontWeight: FontWeight.w600,
-//                           color: _primaryColor,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//
-//             Container(
-//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-//               decoration: BoxDecoration(
-//                 color: _primaryLight.withOpacity(0.3),
-//                 border: Border(
-//                   top: BorderSide(color: _borderColor, width: 1),
-//                   bottom: BorderSide(color: _borderColor, width: 1),
-//                 ),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Container(
-//                     width: 32,
-//                     height: 32,
-//                     decoration: BoxDecoration(
-//                       color: _primaryColor,
-//                       borderRadius: BorderRadius.circular(6),
-//                     ),
-//                     child: Center(
-//                       child: Text(
-//                         '${_currentStep + 1}',
-//                         style: TextStyle(
-//                           fontSize: 14,
-//                           fontWeight: FontWeight.w700,
-//                           color: Colors.white,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(width: 12),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           _steps[_currentStep]['title'],
-//                           style: TextStyle(
-//                             fontSize: 15,
-//                             fontWeight: FontWeight.w600,
-//                             color: _textPrimary,
-//                           ),
-//                         ),
-//                         SizedBox(height: 2),
-//                         Text(
-//                           _steps[_currentStep]['subtitle'],
-//                           style: TextStyle(fontSize: 12, color: _textSecondary),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   Container(
-//                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-//                     decoration: BoxDecoration(
-//                       color: _primaryColor,
-//                       borderRadius: BorderRadius.circular(12),
-//                     ),
-//                     child: Row(
-//                       children: [
-//                         Icon(Icons.star, size: 12, color: Colors.white),
-//                         Icon(Icons.star, size: 12, color: Colors.white),
-//                         Icon(Icons.star, size: 12, color: Colors.white),
-//                         Icon(Icons.star, size: 12, color: Colors.white),
-//                         SizedBox(width: 4),
-//                         Text(
-//                           '4-Star',
-//                           style: TextStyle(
-//                             fontSize: 11,
-//                             color: Colors.white,
-//                             fontWeight: FontWeight.w600,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//
-//             Expanded(
-//               child: SingleChildScrollView(
-//                 primary: true,
-//                 padding: EdgeInsets.all(16),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [_buildStepContent(), SizedBox(height: 60)],
-//                 ),
-//               ),
-//             ),
-//
-//             Container(
-//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 border: Border(top: BorderSide(color: _borderColor)),
-//                 boxShadow: [
-//                   BoxShadow(
-//                     color: Colors.black.withOpacity(0.1),
-//                     blurRadius: 4,
-//                     offset: Offset(0, -2),
-//                   ),
-//                 ],
-//               ),
-//               child: Row(
-//                 children: [
-//                   if (_currentStep > 0)
-//                     Expanded(
-//                       child: SizedBox(
-//                         height: 48,
-//                         child: OutlinedButton(
-//                           onPressed: _previousStep,
-//                           style: OutlinedButton.styleFrom(
-//                             side: BorderSide(color: _borderColor),
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(8),
-//                             ),
-//                           ),
-//                           child: Row(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               Icon(Icons.arrow_back, size: 16),
-//                               SizedBox(width: 6),
-//                               Text(
-//                                 'Back',
-//                                 style: TextStyle(
-//                                   fontSize: 14,
-//                                   fontWeight: FontWeight.w500,
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   if (_currentStep > 0) SizedBox(width: 12),
-//                   Expanded(
-//                     child: SizedBox(
-//                       height: 48,
-//                       child: ElevatedButton(
-//                         onPressed: _nextStep,
-//                         style: ElevatedButton.styleFrom(
-//                           backgroundColor: _primaryColor,
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(8),
-//                           ),
-//                           elevation: 0,
-//                         ),
-//                         child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           children: [
-//                             Text(
-//                               _currentStep == _steps.length - 1
-//                                   ? 'Submit Registration'
-//                                   : 'Continue',
-//                               style: TextStyle(
-//                                 fontSize: 14,
-//                                 fontWeight: FontWeight.w500,
-//                                 color: Colors.white,
-//                               ),
-//                             ),
-//                             if (_currentStep < _steps.length - 1)
-//                               SizedBox(width: 6),
-//                             if (_currentStep < _steps.length - 1)
-//                               Icon(
-//                                 Icons.arrow_forward,
-//                                 size: 16,
-//                                 color: Colors.white,
-//                               ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildStepContent() {
-//     switch (_currentStep) {
-//       case 0:
-//         return _buildStep1();
-//       case 1:
-//         return _buildStep2();
-//       case 2:
-//         return _buildStep3();
-//       case 3:
-//         return _buildStep4();
-//       case 4:
-//         return _buildStep5();
-//       default:
-//         return Container();
-//     }
-//   }
-//
-//   Widget _buildStep1() {
-//     return Column(
-//       children: [
-//         _buildCard(
-//           title: '1. Hotel Information',
-//           children: [
-//             _buildInputField(
-//               label: 'Hotel Name *',
-//               controller: _hotelNameController,
-//               hint: 'Enter hotel name',
-//             ),
-//             SizedBox(height: 16),
-//
-//             Container(
-//               padding: EdgeInsets.all(10),
-//               decoration: BoxDecoration(
-//                 color: _primaryLight,
-//                 borderRadius: BorderRadius.circular(8),
-//                 border: Border.all(color: _primaryColor.withOpacity(0.3)),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Container(
-//                     width: 50,
-//                     height: 50,
-//                     decoration: BoxDecoration(
-//                       color: _primaryColor,
-//                       borderRadius: BorderRadius.circular(6),
-//                     ),
-//                     child: Center(
-//                       child: Wrap(
-//                         spacing: 1,
-//                         children: List.generate(
-//                           4,
-//                           (index) =>
-//                               Icon(Icons.star, size: 10, color: Colors.white),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(width: 15),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           'Hotel Category',
-//                           style: TextStyle(
-//                             fontSize: 13,
-//                             fontWeight: FontWeight.w500,
-//                             color: _textSecondary,
-//                           ),
-//                         ),
-//                         Text(
-//                           '4-Star Hotel',
-//                           style: TextStyle(
-//                             fontSize: 15,
-//                             fontWeight: FontWeight.w600,
-//                             color: _primaryColor,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             SizedBox(height: 16),
-//
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Hotel Type *',
-//                   style: TextStyle(
-//                     fontWeight: FontWeight.w500,
-//                     color: _textPrimary,
-//                   ),
-//                 ),
-//                 SizedBox(height: 8),
-//                 Wrap(
-//                   spacing: 8,
-//                   runSpacing: 8,
-//                   children: [
-//                     'Business',
-//                     'Leisure',
-//                     'Resort',
-//                     'Boutique',
-//                   ].map((type) => _buildHotelTypeChip(type)).toList(),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 16),
-//
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'Year of Establishment',
-//                     controller: _yearController,
-//                     hint: 'YYYY',
-//                     keyboardType: TextInputType.number,
-//                   ),
-//                 ),
-//                 SizedBox(width: 16),
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'Total Number of Rooms',
-//                     controller: _roomsController,
-//                     hint: '0',
-//                     keyboardType: TextInputType.number,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 16),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildStep2() {
-//     return Column(
-//       children: [
-//         _buildCard(
-//           title: '2. Contact Details',
-//           children: [
-//             _buildInputField(
-//               label: 'Owner / Authorized Person Name *',
-//               controller: _ownerNameController,
-//               hint: 'Enter full name',
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Designation',
-//               controller: _designationController,
-//               hint: 'e.g., Owner, Manager, Director',
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Mobile Number *',
-//               controller: _mobileController,
-//               hint: 'Enter 10-digit mobile number',
-//               keyboardType: TextInputType.phone,
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Alternate Contact Number',
-//               controller: _altMobileController,
-//               hint: 'Optional',
-//               keyboardType: TextInputType.phone,
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Email ID',
-//               controller: _emailController,
-//               hint: 'example@email.com',
-//               keyboardType: TextInputType.emailAddress,
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Website / Booking Link',
-//               controller: _websiteController,
-//               hint: 'https://example.com',
-//             ),
-//           ],
-//         ),
-//         SizedBox(height: 16),
-//
-//         _buildCard(
-//           title: '3. Hotel Address',
-//           children: [
-//             _buildInputField(
-//               label: 'Primary Address Line 1 *',
-//               controller: _address1Controller,
-//               hint: 'Street address',
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Address Line 2',
-//               controller: _address2Controller,
-//               hint: 'Apartment, suite, etc.',
-//             ),
-//             SizedBox(height: 16),
-//
-//             if (_additionalAddresses.isNotEmpty)
-//               ..._additionalAddresses.asMap().entries.map((entry) {
-//                 int index = entry.key;
-//                 Map<String, TextEditingController> address = entry.value;
-//                 TextEditingController? addressController = address['address'];
-//
-//                 if (addressController == null) {
-//                   addressController = TextEditingController();
-//                   address['address'] = addressController;
-//                 }
-//
-//                 return Column(
-//                   children: [
-//                     Row(
-//                       children: [
-//                         Expanded(
-//                           child: _buildInputField(
-//                             label: 'Additional Address ${index + 1}',
-//                             controller: addressController,
-//                             hint: 'Enter additional address',
-//                           ),
-//                         ),
-//                         SizedBox(width: 8),
-//                         IconButton(
-//                           icon: Icon(Icons.remove_circle, color: Colors.red),
-//                           onPressed: () => _removeAdditionalAddress(index),
-//                         ),
-//                       ],
-//                     ),
-//                     SizedBox(height: 16),
-//                   ],
-//                 );
-//               }).toList(),
-//
-//             SizedBox(height: 16),
-//             ElevatedButton.icon(
-//               onPressed: _addAdditionalAddress,
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: _primaryColor,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//               ),
-//               icon: Icon(Icons.add_location, size: 18, color: Colors.white),
-//               label: Text(
-//                 'Add Additional Address',
-//                 style: TextStyle(
-//                   fontSize: 14,
-//                   fontWeight: FontWeight.w500,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//             ),
-//             SizedBox(height: 16),
-//
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'City *',
-//                     controller: _cityController,
-//                     hint: 'Enter city',
-//                   ),
-//                 ),
-//                 SizedBox(width: 16),
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'District *',
-//                     controller: _districtController,
-//                     hint: 'Enter district',
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 16),
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'State *',
-//                     controller: _stateController,
-//                     hint: 'Enter state',
-//                   ),
-//                 ),
-//                 SizedBox(width: 16),
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'PIN Code *',
-//                     controller: _pinController,
-//                     hint: '6-digit PIN',
-//                     keyboardType: TextInputType.number,
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildStep3() {
-//     return Column(
-//       children: [
-//         _buildCard(
-//           title: '4. Room Inventory & Tariff',
-//           children: [
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Select Room Types Available:',
-//                   style: TextStyle(
-//                     fontSize: 13,
-//                     fontWeight: FontWeight.w500,
-//                     color: _textPrimary,
-//                   ),
-//                 ),
-//                 SizedBox(height: 12),
-//                 Wrap(
-//                   spacing: 8,
-//                   runSpacing: 8,
-//                   children: _selectedRoomTypes.entries.map((entry) {
-//                     bool isSelected = entry.value;
-//                     return GestureDetector(
-//                       onTap: () {
-//                         setState(() {
-//                           _selectedRoomTypes[entry.key] = !isSelected;
-//                         });
-//                       },
-//                       child: Container(
-//                         padding: EdgeInsets.symmetric(
-//                           horizontal: 14,
-//                           vertical: 8,
-//                         ),
-//                         decoration: BoxDecoration(
-//                           color: isSelected ? _primaryLight : Colors.white,
-//                           borderRadius: BorderRadius.circular(20),
-//                           border: Border.all(
-//                             color: isSelected ? _primaryColor : _borderColor,
-//                             width: isSelected ? 2 : 1,
-//                           ),
-//                         ),
-//                         child: Row(
-//                           mainAxisSize: MainAxisSize.min,
-//                           children: [
-//                             Icon(
-//                               isSelected
-//                                   ? Icons.check_circle
-//                                   : Icons.circle_outlined,
-//                               size: 16,
-//                               color: isSelected
-//                                   ? _primaryColor
-//                                   : _textSecondary,
-//                             ),
-//                             SizedBox(width: 6),
-//                             Text(
-//                               entry.key,
-//                               style: TextStyle(
-//                                 fontSize: 13,
-//                                 color: isSelected
-//                                     ? _primaryColor
-//                                     : _textSecondary,
-//                                 fontWeight: isSelected
-//                                     ? FontWeight.w600
-//                                     : FontWeight.w500,
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     );
-//                   }).toList(),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 20),
-//
-//             if (_selectedRoomTypes.entries.any((entry) => entry.value))
-//               Column(
-//                 children: [
-//                   Text(
-//                     'Configure selected room types:',
-//                     style: TextStyle(
-//                       fontSize: 14,
-//                       fontWeight: FontWeight.w600,
-//                       color: _textPrimary,
-//                     ),
-//                   ),
-//                   SizedBox(height: 16),
-//                   ..._selectedRoomTypes.entries
-//                       .where((entry) => entry.value)
-//                       .map((entry) {
-//                         String roomType = entry.key;
-//                         return Container(
-//                           margin: EdgeInsets.only(bottom: 16),
-//                           child: _buildRoomConfigurationCard(roomType),
-//                         );
-//                       })
-//                       .toList(),
-//                 ],
-//               ),
-//
-//             SizedBox(height: 20),
-//             Divider(color: _borderColor),
-//             SizedBox(height: 20),
-//
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         'Extra Bed Available:',
-//                         style: TextStyle(
-//                           fontSize: 13,
-//                           fontWeight: FontWeight.w500,
-//                         ),
-//                       ),
-//                       SizedBox(height: 8),
-//                       Row(
-//                         children: [
-//                           _buildToggleChip('Yes', _extraBedAvailable, () {
-//                             setState(() => _extraBedAvailable = true);
-//                           }),
-//                           SizedBox(width: 8),
-//                           _buildToggleChip('No', !_extraBedAvailable, () {
-//                             setState(() => _extraBedAvailable = false);
-//                           }),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 SizedBox(width: 20),
-//                 Expanded(
-//                   child: Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         'Seasonal Pricing:',
-//                         style: TextStyle(
-//                           fontSize: 13,
-//                           fontWeight: FontWeight.w500,
-//                         ),
-//                       ),
-//                       SizedBox(height: 8),
-//                       Row(
-//                         children: [
-//                           _buildToggleChip('Yes', _seasonalPricing, () {
-//                             setState(() => _seasonalPricing = true);
-//                           }),
-//                           SizedBox(width: 8),
-//                           _buildToggleChip('No', !_seasonalPricing, () {
-//                             setState(() => _seasonalPricing = false);
-//                           }),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildStep4() {
-//     return Column(
-//       children: [
-//         _buildCard(
-//           title: '5. Amenities Available',
-//           children: [
-//             _buildAmenitiesSection('Room Amenities', _roomAmenities),
-//             SizedBox(height: 20),
-//
-//             _buildAmenitiesSection('Hotel Facilities', _hotelFacilities),
-//             SizedBox(height: 20),
-//
-//             _buildAmenitiesSection('Food & Beverage', _foodServices),
-//             SizedBox(height: 20),
-//
-//             _buildAmenitiesSection(
-//               'Business & Guest Services',
-//               _businessServices,
-//             ),
-//             SizedBox(height: 20),
-//
-//             _buildAmenitiesSection(
-//               'Wellness & Recreation',
-//               _wellnessRecreation,
-//             ),
-//           ],
-//         ),
-//         SizedBox(height: 16),
-//         _buildCard(
-//           title: '6. Check-in Policies',
-//           children: [
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: _buildTimeDropdown(
-//                     label: 'Standard Check-in Time',
-//                     controller: _checkInController,
-//                     onChanged: (value) {},
-//                   ),
-//                 ),
-//                 SizedBox(width: 16),
-//                 Expanded(
-//                   child: _buildTimeDropdown(
-//                     label: 'Standard Check-out Time',
-//                     controller: _checkOutController,
-//                     onChanged: (value) {},
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 20),
-//
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Early Check-in / Late Check-out:',
-//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-//                 ),
-//                 SizedBox(height: 8),
-//                 Row(
-//                   children: [
-//                     Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Row(
-//                           children: [
-//                             _buildToggleChip(
-//                               'Allowed',
-//                               _earlyCheckinAllowed,
-//                               () {
-//                                 setState(() => _earlyCheckinAllowed = true);
-//                               },
-//                             ),
-//                             SizedBox(width: 8),
-//                             _buildToggleChip(
-//                               'Not Allowed',
-//                               !_earlyCheckinAllowed,
-//                               () {
-//                                 setState(() {
-//                                   _earlyCheckinAllowed = false;
-//                                   _earlyCheckinChargeable = false;
-//                                 });
-//                               },
-//                             ),
-//                           ],
-//                         ),
-//                         SizedBox(height: 8),
-//                         if (_earlyCheckinAllowed)
-//                           Row(
-//                             children: [
-//                               _buildToggleChip(
-//                                 'Chargeable',
-//                                 _earlyCheckinChargeable,
-//                                 () {
-//                                   setState(
-//                                     () => _earlyCheckinChargeable = true,
-//                                   );
-//                                 },
-//                               ),
-//                               SizedBox(width: 8),
-//                               _buildToggleChip(
-//                                 'Free',
-//                                 !_earlyCheckinChargeable,
-//                                 () {
-//                                   setState(
-//                                     () => _earlyCheckinChargeable = false,
-//                                   );
-//                                 },
-//                               ),
-//                             ],
-//                           ),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 20),
-//
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Pets Allowed:',
-//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-//                 ),
-//                 SizedBox(height: 8),
-//                 Row(
-//                   children: [
-//                     _buildToggleChip('Yes', _petsAllowed, () {
-//                       setState(() => _petsAllowed = true);
-//                     }),
-//                     SizedBox(width: 8),
-//                     _buildToggleChip('No', !_petsAllowed, () {
-//                       setState(() => _petsAllowed = false);
-//                     }),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildStep5() {
-//     return Column(
-//       children: [
-//         _buildCard(
-//           title: '7. Legal & Compliance Details',
-//           children: [
-//             _buildInputField(
-//               label: 'GST Number *',
-//               controller: _gstController,
-//               hint: 'Enter GST number',
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'PAN Number *',
-//               controller: _panController,
-//               hint: 'Enter PAN number',
-//             ),
-//             SizedBox(height: 16),
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'Trade License Number',
-//                     controller: _tradeLicenseController,
-//                     hint: 'Enter license number',
-//                   ),
-//                 ),
-//                 SizedBox(width: 16),
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'FSSAI License',
-//                     controller: _fssaiController,
-//                     hint: 'If restaurant',
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 16),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Fire Safety Certificate:',
-//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-//                 ),
-//                 SizedBox(height: 8),
-//                 Row(
-//                   children: [
-//                     _buildToggleChip('Yes', _fireSafetyCertificate, () {
-//                       setState(() => _fireSafetyCertificate = true);
-//                     }),
-//                     SizedBox(width: 12),
-//                     _buildToggleChip('No', !_fireSafetyCertificate, () {
-//                       setState(() => _fireSafetyCertificate = false);
-//                     }),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 16),
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Star Classification Certificate:',
-//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-//                 ),
-//                 SizedBox(height: 8),
-//                 Row(
-//                   children: [
-//                     _buildToggleChip('Yes', _starCertificate, () {
-//                       setState(() => _starCertificate = true);
-//                     }),
-//                     SizedBox(width: 12),
-//                     _buildToggleChip('No', !_starCertificate, () {
-//                       setState(() => _starCertificate = false);
-//                     }),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//         SizedBox(height: 16),
-//         _buildCard(
-//           title: '8. Bank Details (Payment Settlement)',
-//           children: [
-//             _buildInputField(
-//               label: 'Account Holder Name *',
-//               controller: _accountNameController,
-//               hint: 'Enter name as per bank',
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Bank Name *',
-//               controller: _bankNameController,
-//               hint: 'Enter bank name',
-//             ),
-//             SizedBox(height: 16),
-//             Row(
-//               children: [
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'Account Number *',
-//                     controller: _accountNumberController,
-//                     hint: 'Enter account number',
-//                     keyboardType: TextInputType.number,
-//                   ),
-//                 ),
-//                 SizedBox(width: 16),
-//                 Expanded(
-//                   child: _buildInputField(
-//                     label: 'IFSC Code *',
-//                     controller: _ifscController,
-//                     hint: 'Enter IFSC code',
-//                   ),
-//                 ),
-//               ],
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Branch',
-//               controller: _branchController,
-//               hint: 'Enter branch name',
-//             ),
-//           ],
-//         ),
-//         SizedBox(height: 16),
-//         _buildCard(
-//           title: '9. Documents Required',
-//           children: [
-//             Text(
-//               'Please upload clear scanned copies of the following documents:',
-//               style: TextStyle(fontSize: 12, color: _textSecondary),
-//             ),
-//             SizedBox(height: 16),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'GST Certificate',
-//               fileInfo: _uploadedFiles['GST Certificate']!,
-//               onUploadPressed: () => _pickDocument('GST Certificate'),
-//               onViewPressed: () => _viewDocument('GST Certificate'),
-//               onRemovePressed: () => _removeDocument('GST Certificate'),
-//               isOptional: false,
-//             ),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'PAN Card',
-//               fileInfo: _uploadedFiles['PAN Card']!,
-//               onUploadPressed: () => _pickDocument('PAN Card'),
-//               onViewPressed: () => _viewDocument('PAN Card'),
-//               onRemovePressed: () => _removeDocument('PAN Card'),
-//               isOptional: false,
-//             ),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'Trade License',
-//               fileInfo: _uploadedFiles['Trade License']!,
-//               onUploadPressed: () => _pickDocument('Trade License'),
-//               onViewPressed: () => _viewDocument('Trade License'),
-//               onRemovePressed: () => _removeDocument('Trade License'),
-//               isOptional: false,
-//             ),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'FSSAI Certificate',
-//               fileInfo: _uploadedFiles['FSSAI Certificate']!,
-//               onUploadPressed: () => _pickDocument('FSSAI Certificate'),
-//               onViewPressed: () => _viewDocument('FSSAI Certificate'),
-//               onRemovePressed: () => _removeDocument('FSSAI Certificate'),
-//               isOptional: true,
-//             ),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'Fire Safety Certificate',
-//               fileInfo: _uploadedFiles['Fire Safety Certificate']!,
-//               onUploadPressed: () => _pickDocument('Fire Safety Certificate'),
-//               onViewPressed: () => _viewDocument('Fire Safety Certificate'),
-//               onRemovePressed: () => _removeDocument('Fire Safety Certificate'),
-//               isOptional: false,
-//               optionalText: 'Required if available',
-//             ),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'Star Classification Certificate',
-//               fileInfo: _uploadedFiles['Star Classification Certificate']!,
-//               onUploadPressed: () =>
-//                   _pickDocument('Star Classification Certificate'),
-//               onViewPressed: () =>
-//                   _viewDocument('Star Classification Certificate'),
-//               onRemovePressed: () =>
-//                   _removeDocument('Star Classification Certificate'),
-//               isOptional: false,
-//             ),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'Cancelled Cheque',
-//               fileInfo: _uploadedFiles['Cancelled Cheque']!,
-//               onUploadPressed: () => _pickDocument('Cancelled Cheque'),
-//               onViewPressed: () => _viewDocument('Cancelled Cheque'),
-//               onRemovePressed: () => _removeDocument('Cancelled Cheque'),
-//               isOptional: false,
-//             ),
-//
-//             _buildDocumentUploadItem(
-//               documentName: 'Hotel & Room Photos',
-//               fileInfo: _uploadedFiles['Hotel & Room Photos']!,
-//               onUploadPressed: () => _pickDocument('Hotel & Room Photos'),
-//               onViewPressed: () => _viewDocument('Hotel & Room Photos'),
-//               onRemovePressed: () => _removeDocument('Hotel & Room Photos'),
-//               isOptional: false,
-//             ),
-//           ],
-//         ),
-//         SizedBox(height: 16),
-//         _buildCard(
-//           title: '10. Declaration',
-//           children: [
-//             Container(
-//               padding: EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: _declarationAccepted
-//                     ? _successColor.withOpacity(0.05)
-//                     : Colors.white,
-//                 borderRadius: BorderRadius.circular(8),
-//                 border: Border.all(
-//                   color: _declarationAccepted ? _successColor : _borderColor,
-//                   width: _declarationAccepted ? 1.5 : 1,
-//                 ),
-//               ),
-//               child: Row(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Checkbox(
-//                     value: _declarationAccepted,
-//                     onChanged: (value) {
-//                       setState(() {
-//                         _declarationAccepted = value ?? false;
-//                       });
-//                     },
-//                     activeColor: _primaryColor,
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(4),
-//                     ),
-//                   ),
-//                   SizedBox(width: 8),
-//                   Expanded(
-//                     child: Text(
-//                       'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms, service standards, and policies.',
-//                       style: TextStyle(
-//                         fontSize: 12,
-//                         color: Color(0xFF0C4A6E),
-//                         height: 1.5,
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//
-//             SizedBox(height: 16),
-//
-//             SizedBox(height: 16),
-//
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Digital Signature',
-//                   style: TextStyle(
-//                     fontWeight: FontWeight.w600,
-//                     fontSize: 14,
-//                     color: _textPrimary,
-//                   ),
-//                 ),
-//                 SizedBox(height: 4),
-//                 Text(
-//                   'Draw your signature below',
-//                   style: TextStyle(fontSize: 12, color: _textSecondary),
-//                 ),
-//                 SizedBox(height: 12),
-//
-//                 Container(
-//                   height: 200,
-//                   decoration: BoxDecoration(
-//                     border: Border.all(color: _borderColor),
-//                     borderRadius: BorderRadius.circular(8),
-//                   ),
-//                   child: Signature(
-//                     controller: _signatureController,
-//                     backgroundColor: Colors.white,
-//                     height: 200,
-//                   ),
-//                 ),
-//                 SizedBox(height: 12),
-//
-//                 Row(
-//                   children: [
-//                     Expanded(
-//                       child: OutlinedButton(
-//                         onPressed: _clearDigitalSignature,
-//                         style: OutlinedButton.styleFrom(
-//                           side: BorderSide(color: Colors.red),
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(6),
-//                           ),
-//                           padding: EdgeInsets.symmetric(vertical: 10),
-//                         ),
-//                         child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           children: [
-//                             Icon(Icons.delete, size: 16, color: Colors.red),
-//                             SizedBox(width: 6),
-//                             Text('Clear', style: TextStyle(color: Colors.red)),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(width: 8),
-//                     Expanded(
-//                       child: ElevatedButton(
-//                         onPressed: _saveDigitalSignature,
-//                         style: ElevatedButton.styleFrom(
-//                           backgroundColor: _primaryColor,
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(6),
-//                           ),
-//                           padding: EdgeInsets.symmetric(vertical: 10),
-//                         ),
-//                         child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           children: [
-//                             Icon(Icons.check, size: 16, color: Colors.white),
-//                             SizedBox(width: 6),
-//                             Text(
-//                               'Save Signature',
-//                               style: TextStyle(color: Colors.white),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//
-//                 if (_hasDigitalSignature && _digitalSignatureImage != null)
-//                   Padding(
-//                     padding: EdgeInsets.only(top: 16),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           'Saved Digital Signature:',
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w500,
-//                             fontSize: 13,
-//                             color: _textPrimary,
-//                           ),
-//                         ),
-//                         SizedBox(height: 8),
-//                         Container(
-//                           padding: EdgeInsets.all(12),
-//                           decoration: BoxDecoration(
-//                             color: _primaryLight,
-//                             borderRadius: BorderRadius.circular(8),
-//                             border: Border.all(color: _primaryColor),
-//                           ),
-//                           child: Row(
-//                             children: [
-//                               Container(
-//                                 width: 60,
-//                                 height: 40,
-//                                 decoration: BoxDecoration(
-//                                   color: Colors.white,
-//                                   borderRadius: BorderRadius.circular(4),
-//                                   border: Border.all(color: _borderColor),
-//                                 ),
-//                                 child: ClipRRect(
-//                                   borderRadius: BorderRadius.circular(4),
-//                                   child: Image.memory(
-//                                     _digitalSignatureImage!,
-//                                     fit: BoxFit.contain,
-//                                   ),
-//                                 ),
-//                               ),
-//                               SizedBox(width: 12),
-//                               Expanded(
-//                                 child: Column(
-//                                   crossAxisAlignment: CrossAxisAlignment.start,
-//                                   children: [
-//                                     Text(
-//                                       'Digital Signature',
-//                                       style: TextStyle(
-//                                         fontWeight: FontWeight.w500,
-//                                         fontSize: 12,
-//                                         color: _textPrimary,
-//                                       ),
-//                                     ),
-//                                     SizedBox(height: 2),
-//                                     Text(
-//                                       'Saved successfully',
-//                                       style: TextStyle(
-//                                         fontSize: 10,
-//                                         color: _textSecondary,
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                               IconButton(
-//                                 onPressed: _viewDigitalSignature,
-//                                 icon: Icon(
-//                                   Icons.remove_red_eye,
-//                                   size: 18,
-//                                   color: _primaryColor,
-//                                 ),
-//                                 tooltip: 'View',
-//                               ),
-//                               IconButton(
-//                                 onPressed: _removeDigitalSignature,
-//                                 icon: Icon(
-//                                   Icons.delete,
-//                                   size: 18,
-//                                   color: Colors.red,
-//                                 ),
-//                                 tooltip: 'Remove',
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//
-//                 SizedBox(height: 20),
-//                 Divider(color: _borderColor),
-//                 SizedBox(height: 20),
-//
-//                 _buildDocumentUploadItem(
-//                   documentName: 'Signature (Upload)',
-//                   fileInfo: _uploadedFiles['Signature']!,
-//                   onUploadPressed: () => _pickDocument('Signature'),
-//                   onViewPressed: () => _viewDocument('Signature'),
-//                   onRemovePressed: () => _removeDocument('Signature'),
-//                   isOptional: false,
-//                 ),
-//
-//                 SizedBox(height: 12),
-//               ],
-//             ),
-//             SizedBox(height: 16),
-//             _buildInputField(
-//               label: 'Signatory Name *',
-//               controller: _signatoryNameController,
-//               hint: 'Enter name of person signing',
-//             ),
-//             SizedBox(height: 16),
-//
-//             Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Date *',
-//                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-//                 ),
-//                 SizedBox(height: 8),
-//                 GestureDetector(
-//                   onTap: () => _selectDate(context),
-//                   child: Container(
-//                     height: 48,
-//                     padding: EdgeInsets.symmetric(horizontal: 12),
-//                     decoration: BoxDecoration(
-//                       border: Border.all(color: _borderColor),
-//                       borderRadius: BorderRadius.circular(8),
-//                     ),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Text(
-//                           _selectedDate != null
-//                               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-//                               : 'Select date',
-//                           style: TextStyle(
-//                             fontSize: 14,
-//                             color: _selectedDate != null
-//                                 ? _textPrimary
-//                                 : _textSecondary,
-//                           ),
-//                         ),
-//                         Icon(
-//                           Icons.calendar_today,
-//                           size: 18,
-//                           color: _textSecondary,
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Future<void> _saveDigitalSignature() async {
-//     if (_signatureController.isEmpty) {
-//       _showErrorDialog(
-//         'No Signature',
-//         'Please draw your signature before saving.',
-//       );
-//       return;
-//     }
-//
-//     try {
-//       final Uint8List? signatureData = await _signatureController.toPngBytes();
-//
-//       if (signatureData != null) {
-//         setState(() {
-//           _digitalSignatureImage = signatureData;
-//           _hasDigitalSignature = true;
-//         });
-//
-//         _uploadedFiles['Digital Signature'] = {
-//           'name': 'digital_signature.png',
-//           'size': signatureData.length,
-//           'path': '',
-//           'uploaded': true,
-//           'isDigital': true,
-//           'imageData': signatureData,
-//         };
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('Digital signature saved successfully'),
-//             backgroundColor: _successColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       }
-//     } catch (e) {
-//       _showErrorDialog(
-//         'Save Error',
-//         'Failed to save digital signature: ${e.toString()}',
-//       );
-//     }
-//   }
-//
-//   void _clearDigitalSignature() {
-//     if (_hasDigitalSignature) {
-//       showDialog(
-//         context: context,
-//         builder: (context) => AlertDialog(
-//           title: Text('Clear Signature'),
-//           content: Text(
-//             'You have a saved digital signature. Clearing the canvas will not remove the saved signature. Do you want to continue?',
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: Text('Cancel'),
-//             ),
-//             TextButton(
-//               onPressed: () {
-//                 _signatureController.clear();
-//                 Navigator.pop(context);
-//               },
-//               child: Text(
-//                 'Clear Canvas',
-//                 style: TextStyle(color: Colors.orange),
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-//     } else {
-//       _signatureController.clear();
-//     }
-//   }
-//
-//   void _viewDigitalSignature() {
-//     if (_digitalSignatureImage != null) {
-//       showDialog(
-//         context: context,
-//         builder: (context) => AlertDialog(
-//           title: Row(
-//             children: [
-//               Icon(Icons.draw, color: Colors.purple),
-//               SizedBox(width: 8),
-//               Text('Digital Signature'),
-//             ],
-//           ),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Container(
-//                 width: 300,
-//                 height: 150,
-//                 decoration: BoxDecoration(
-//                   border: Border.all(color: _borderColor),
-//                   borderRadius: BorderRadius.circular(8),
-//                 ),
-//                 child: ClipRRect(
-//                   borderRadius: BorderRadius.circular(8),
-//                   child: Image.memory(
-//                     _digitalSignatureImage!,
-//                     fit: BoxFit.contain,
-//                   ),
-//                 ),
-//               ),
-//               SizedBox(height: 16),
-//               Text(
-//                 'Digital Signature',
-//                 style: TextStyle(fontWeight: FontWeight.w500),
-//               ),
-//             ],
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: Text('Close'),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-//   }
-//
-//   void _removeDigitalSignature() {
-//     showDialog(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         title: Text('Remove Digital Signature'),
-//         content: Text('Are you sure you want to remove the digital signature?'),
-//         actions: [
-//           TextButton(
-//             onPressed: () => Navigator.pop(context),
-//             child: Text('Cancel'),
-//           ),
-//           TextButton(
-//             onPressed: () {
-//               setState(() {
-//                 _digitalSignatureImage = null;
-//                 _hasDigitalSignature = false;
-//                 _signatureController.clear();
-//                 _uploadedFiles.remove('Digital Signature');
-//               });
-//               Navigator.pop(context);
-//               ScaffoldMessenger.of(context).showSnackBar(
-//                 SnackBar(
-//                   content: Text('Digital signature removed'),
-//                   backgroundColor: Colors.orange,
-//                   duration: Duration(seconds: 2),
-//                 ),
-//               );
-//             },
-//             child: Text('Remove', style: TextStyle(color: Colors.red)),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildCard({required String title, required List<Widget> children}) {
-//     return Container(
-//       width: double.infinity,
-//       padding: EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: _cardColor,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: _borderColor),
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             title,
-//             style: TextStyle(
-//               fontSize: 15,
-//               fontWeight: FontWeight.w600,
-//               color: _textPrimary,
-//             ),
-//           ),
-//           SizedBox(height: 16),
-//           ...children,
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildInputField({
-//     required String label,
-//     required TextEditingController controller,
-//     required String hint,
-//     TextInputType? keyboardType,
-//     bool isRequired = true,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Row(
-//           children: [
-//             Text(
-//               label,
-//               style: TextStyle(
-//                 fontSize: 13,
-//                 fontWeight: FontWeight.w500,
-//                 color: _textPrimary,
-//               ),
-//             ),
-//             if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
-//           ],
-//         ),
-//         SizedBox(height: 8),
-//         TextFormField(
-//           controller: controller,
-//           keyboardType: keyboardType,
-//           decoration: InputDecoration(
-//             hintText: hint,
-//             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-//             border: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: BorderSide(color: _borderColor),
-//             ),
-//             enabledBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: BorderSide(color: _borderColor),
-//             ),
-//             focusedBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(8),
-//               borderSide: BorderSide(color: _primaryColor),
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildHotelTypeChip(String type) {
-//     bool isSelected = _selectedHotelType == type;
-//     return GestureDetector(
-//       onTap: () {
-//         setState(() {
-//           _selectedHotelType = isSelected ? null : type;
-//         });
-//       },
-//       child: Container(
-//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//         decoration: BoxDecoration(
-//           color: isSelected ? _primaryLight : Colors.white,
-//           borderRadius: BorderRadius.circular(16),
-//           border: Border.all(
-//             color: isSelected ? _primaryColor : _borderColor,
-//             width: isSelected ? 2 : 1,
-//           ),
-//         ),
-//         child: Text(
-//           type,
-//           style: TextStyle(
-//             fontSize: 12,
-//             color: isSelected ? _primaryColor : _textSecondary,
-//             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildRoomConfigurationCard(String roomType) {
-//     final details = _roomDetails[roomType]!;
-//
-//     return Container(
-//       padding: EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: Colors.grey[50],
-//         borderRadius: BorderRadius.circular(8),
-//         border: Border.all(color: _borderColor),
-//       ),
-//       child: Column(
-//         children: [
-//           Text(
-//             roomType,
-//             style: TextStyle(
-//               fontSize: 14,
-//               fontWeight: FontWeight.w600,
-//               color: _primaryColor,
-//             ),
-//           ),
-//           SizedBox(height: 12),
-//           Row(
-//             children: [
-//               Expanded(
-//                 child: _buildSmallInput(
-//                   label: 'No. of Rooms',
-//                   controller: TextEditingController(text: details['rooms']),
-//                   onChanged: (value) => details['rooms'] = value,
-//                   hint: '0',
-//                   keyboardType: TextInputType.number,
-//                 ),
-//               ),
-//               SizedBox(width: 12),
-//               Expanded(
-//                 child: _buildSmallInput(
-//                   label: 'Max Occupancy',
-//                   controller: TextEditingController(text: details['occupancy']),
-//                   onChanged: (value) => details['occupancy'] = value,
-//                   hint: 'Persons',
-//                   keyboardType: TextInputType.number,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 12),
-//           Row(
-//             children: [
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'AC',
-//                       style: TextStyle(
-//                         fontSize: 12,
-//                         fontWeight: FontWeight.w500,
-//                       ),
-//                     ),
-//                     SizedBox(height: 8),
-//                     Row(
-//                       children: [
-//                         _buildToggleChip('Yes', details['ac'], () {
-//                           setState(() => details['ac'] = true);
-//                         }),
-//                         SizedBox(width: 8),
-//                         _buildToggleChip('No', !details['ac'], () {
-//                           setState(() => details['ac'] = false);
-//                         }),
-//                       ],
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               SizedBox(width: 12),
-//               Expanded(
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   children: [
-//                     Text(
-//                       'Bed Type',
-//                       style: TextStyle(
-//                         fontSize: 12,
-//                         fontWeight: FontWeight.w500,
-//                       ),
-//                     ),
-//                     SizedBox(height: 8),
-//                     Container(
-//                       height: 35,
-//                       padding: EdgeInsets.symmetric(horizontal: 8),
-//                       decoration: BoxDecoration(
-//                         border: Border.all(color: _borderColor),
-//                         borderRadius: BorderRadius.circular(6),
-//                       ),
-//                       child: DropdownButtonHideUnderline(
-//                         child: DropdownButton<String>(
-//                           value: details['bedType'],
-//                           isExpanded: true,
-//                           icon: Icon(Icons.arrow_drop_down, size: 20),
-//                           items: _bedTypes.map((String value) {
-//                             return DropdownMenuItem<String>(
-//                               value: value,
-//                               child: Text(
-//                                 value,
-//                                 style: TextStyle(fontSize: 12),
-//                               ),
-//                             );
-//                           }).toList(),
-//                           onChanged: (String? newValue) {
-//                             setState(() {
-//                               details['bedType'] = newValue!;
-//                             });
-//                           },
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           SizedBox(height: 12),
-//
-//           _buildSmallInput(
-//             label: 'Select Price Per Day (₹)',
-//             controller: TextEditingController(text: details['price']),
-//             onChanged: (value) => details['price'] = value,
-//             hint: 'Rs',
-//             keyboardType: TextInputType.number,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildSmallInput({
-//     required String label,
-//     required TextEditingController controller,
-//     required ValueChanged<String> onChanged,
-//     required String hint,
-//     TextInputType? keyboardType,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           label,
-//           style: TextStyle(
-//             fontSize: 12,
-//             fontWeight: FontWeight.w500,
-//             color: _textPrimary,
-//           ),
-//         ),
-//         SizedBox(height: 8),
-//         SizedBox(
-//           height: 40,
-//           child: TextFormField(
-//             controller: controller,
-//             onChanged: onChanged,
-//             keyboardType: keyboardType,
-//             decoration: InputDecoration(
-//               hintText: hint,
-//               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-//               border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(6),
-//                 borderSide: BorderSide(color: _borderColor),
-//               ),
-//               isDense: true,
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//         decoration: BoxDecoration(
-//           color: isSelected ? _primaryLight : Colors.white,
-//           borderRadius: BorderRadius.circular(16),
-//           border: Border.all(
-//             color: isSelected ? _primaryColor : _borderColor,
-//             width: isSelected ? 2 : 1,
-//           ),
-//         ),
-//         child: Text(
-//           label,
-//           style: TextStyle(
-//             fontSize: 12,
-//             color: isSelected ? _primaryColor : _textSecondary,
-//             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildAmenitiesSection(String title, Map<String, bool> amenities) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           title,
-//           style: TextStyle(
-//             fontSize: 13,
-//             fontWeight: FontWeight.w600,
-//             color: _textPrimary,
-//           ),
-//         ),
-//         SizedBox(height: 8),
-//         Wrap(
-//           spacing: 8,
-//           runSpacing: 8,
-//           children: amenities.entries.map((entry) {
-//             bool isSelected = entry.value;
-//             return GestureDetector(
-//               onTap: () {
-//                 setState(() {
-//                   amenities[entry.key] = !isSelected;
-//                 });
-//               },
-//               child: Container(
-//                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                 decoration: BoxDecoration(
-//                   color: isSelected ? _primaryLight : Colors.white,
-//                   borderRadius: BorderRadius.circular(16),
-//                   border: Border.all(
-//                     color: isSelected ? _primaryColor : _borderColor,
-//                   ),
-//                 ),
-//                 child: Row(
-//                   mainAxisSize: MainAxisSize.min,
-//                   children: [
-//                     Icon(
-//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
-//                       size: 14,
-//                       color: isSelected ? _primaryColor : _textSecondary,
-//                     ),
-//                     SizedBox(width: 4),
-//                     Text(
-//                       entry.key,
-//                       style: TextStyle(
-//                         fontSize: 12,
-//                         color: isSelected ? _primaryColor : _textSecondary,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             );
-//           }).toList(),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildTimeDropdown({
-//     required String label,
-//     required TextEditingController controller,
-//     required ValueChanged<String> onChanged,
-//   }) {
-//     String currentValue = controller.text;
-//     String displayValue = '';
-//
-//     if (currentValue.isNotEmpty) {
-//       for (var option in _timeOptions24Hour) {
-//         if (option['value'] == currentValue) {
-//           displayValue = option['value']!;
-//           break;
-//         }
-//       }
-//     }
-//
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           label,
-//           style: TextStyle(
-//             fontSize: 13,
-//             fontWeight: FontWeight.w500,
-//             color: _textPrimary,
-//           ),
-//         ),
-//         SizedBox(height: 8),
-//         Container(
-//           height: 48,
-//           padding: EdgeInsets.symmetric(horizontal: 12),
-//           decoration: BoxDecoration(
-//             border: Border.all(color: _borderColor),
-//             borderRadius: BorderRadius.circular(8),
-//           ),
-//           child: DropdownButtonHideUnderline(
-//             child: DropdownButton<String>(
-//               value: displayValue.isNotEmpty ? displayValue : null,
-//               isExpanded: true,
-//               icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
-//               hint: Text('Select time'),
-//               items: _timeOptions24Hour.map((option) {
-//                 return DropdownMenuItem<String>(
-//                   value: option['value'],
-//                   child: Text(option['display']!),
-//                 );
-//               }).toList(),
-//               onChanged: (value) {
-//                 if (value != null) {
-//                   setState(() {
-//                     controller.text = value;
-//                   });
-//                   onChanged(value);
-//                 }
-//               },
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildDocumentUploadItem({
-//     required String documentName,
-//     required Map<String, dynamic> fileInfo,
-//     required VoidCallback onUploadPressed,
-//     required VoidCallback onViewPressed,
-//     required VoidCallback onRemovePressed,
-//     bool isOptional = false,
-//     String? optionalText,
-//   }) {
-//     final fileName = fileInfo['name'] as String? ?? '';
-//     final isUploaded = (fileInfo['uploaded'] as bool?) ?? false;
-//     final fileSize = (fileInfo['size'] as int?) ?? 0;
-//
-//     return Container(
-//       margin: EdgeInsets.only(bottom: 12),
-//       padding: EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
-//         borderRadius: BorderRadius.circular(8),
-//         border: Border.all(
-//           color: isUploaded ? _successColor : _borderColor,
-//           width: isUploaded ? 1.5 : 1,
-//         ),
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Row(
-//                 children: [
-//                   Icon(
-//                     _getDocumentIcon(documentName),
-//                     size: 18,
-//                     color: isUploaded ? _successColor : _primaryColor,
-//                   ),
-//                   SizedBox(width: 8),
-//                   Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         documentName,
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.w500,
-//                           fontSize: 13,
-//                           color: isUploaded ? _successColor : _textPrimary,
-//                         ),
-//                       ),
-//                       if (isOptional && optionalText != null)
-//                         Text(
-//                           optionalText,
-//                           style: TextStyle(
-//                             fontSize: 10,
-//                             color: Colors.orange,
-//                             fontStyle: FontStyle.italic,
-//                           ),
-//                         ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               if (isUploaded)
-//                 Row(
-//                   children: [
-//                     Icon(Icons.check_circle, color: _successColor, size: 16),
-//                     SizedBox(width: 4),
-//                     Text(
-//                       'Uploaded',
-//                       style: TextStyle(
-//                         fontSize: 11,
-//                         color: _successColor,
-//                         fontWeight: FontWeight.w500,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//             ],
-//           ),
-//           SizedBox(height: 8),
-//
-//           if (!isUploaded)
-//             SizedBox(
-//               width: double.infinity,
-//               child: ElevatedButton(
-//                 onPressed: onUploadPressed,
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: _primaryColor,
-//                   padding: EdgeInsets.symmetric(vertical: 10),
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(6),
-//                   ),
-//                 ),
-//                 child: Text(
-//                   'Upload $documentName',
-//                   style: TextStyle(color: Colors.white),
-//                 ),
-//               ),
-//             ),
-//
-//           if (isUploaded && fileName.isNotEmpty)
-//             Container(
-//               padding: EdgeInsets.all(10),
-//               decoration: BoxDecoration(
-//                 color: _primaryLight,
-//                 borderRadius: BorderRadius.circular(6),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Container(
-//                     width: 40,
-//                     height: 40,
-//                     decoration: BoxDecoration(
-//                       color: _primaryColor.withOpacity(0.1),
-//                       borderRadius: BorderRadius.circular(4),
-//                     ),
-//                     child: Center(child: _getFileIcon(fileName)),
-//                   ),
-//                   SizedBox(width: 12),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           fileName,
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w500,
-//                             fontSize: 12,
-//                             color: _textPrimary,
-//                           ),
-//                           overflow: TextOverflow.ellipsis,
-//                           maxLines: 1,
-//                         ),
-//                         SizedBox(height: 2),
-//                         Text(
-//                           '${(fileSize / 1024).toStringAsFixed(1)} KB • ${_getFileExtension(fileName).toUpperCase()}',
-//                           style: TextStyle(fontSize: 10, color: _textSecondary),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   SizedBox(width: 12),
-//                   Row(
-//                     children: [
-//                       IconButton(
-//                         onPressed: onViewPressed,
-//                         icon: Icon(
-//                           Icons.remove_red_eye,
-//                           size: 18,
-//                           color: _primaryColor,
-//                         ),
-//                         padding: EdgeInsets.all(4),
-//                         tooltip: 'View',
-//                       ),
-//                       IconButton(
-//                         onPressed: onRemovePressed,
-//                         icon: Icon(Icons.delete, size: 18, color: Colors.red),
-//                         padding: EdgeInsets.all(4),
-//                         tooltip: 'Remove',
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildSignatureUploadItem() {
-//     final fileName = _signatureFile['name'] as String? ?? '';
-//     final isUploaded = (_signatureFile['uploaded'] as bool?) ?? false;
-//     final fileSize = (_signatureFile['size'] as int?) ?? 0;
-//
-//     Future<void> _pickSignature() async {
-//       try {
-//         FilePickerResult? result = await FilePicker.platform.pickFiles(
-//           type: FileType.custom,
-//           allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
-//           allowMultiple: false,
-//         );
-//
-//         if (result != null && result.files.isNotEmpty) {
-//           final file = result.files.first;
-//
-//           if (file.size > 2 * 1024 * 1024) {
-//             _showErrorDialog(
-//               'File too large',
-//               'Please select a signature file smaller than 2MB',
-//             );
-//             return;
-//           }
-//
-//           setState(() {
-//             _signatureFile['name'] = file.name;
-//             _signatureFile['size'] = file.size;
-//             _signatureFile['path'] = file.path ?? '';
-//             _signatureFile['uploaded'] = true;
-//           });
-//
-//           ScaffoldMessenger.of(context).showSnackBar(
-//             SnackBar(
-//               content: Text('Signature uploaded successfully'),
-//               backgroundColor: _successColor,
-//               duration: Duration(seconds: 2),
-//             ),
-//           );
-//         }
-//       } catch (e) {
-//         _showErrorDialog(
-//           'Upload Error',
-//           'Failed to upload signature: ${e.toString()}',
-//         );
-//       }
-//     }
-//
-//     void _viewSignature() {
-//       if (fileName.isNotEmpty) {
-//         showDialog(
-//           context: context,
-//           builder: (context) => AlertDialog(
-//             title: Text('Signature'),
-//             content: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 Container(
-//                   width: 200,
-//                   height: 100,
-//                   decoration: BoxDecoration(
-//                     color: Colors.grey[100],
-//                     borderRadius: BorderRadius.circular(8),
-//                     border: Border.all(color: Colors.grey[300]!),
-//                   ),
-//                   child: Center(
-//                     child: Text(
-//                       'Signature Preview',
-//                       style: TextStyle(
-//                         fontSize: 16,
-//                         fontStyle: FontStyle.italic,
-//                         color: Colors.grey[600],
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(height: 16),
-//                 Text('File: $fileName'),
-//                 Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
-//               ],
-//             ),
-//             actions: [
-//               TextButton(
-//                 onPressed: () => Navigator.pop(context),
-//                 child: Text('Close'),
-//               ),
-//             ],
-//           ),
-//         );
-//       }
-//     }
-//
-//     void _removeSignature() {
-//       showDialog(
-//         context: context,
-//         builder: (context) => AlertDialog(
-//           title: Text('Remove Signature'),
-//           content: Text('Are you sure you want to remove this signature?'),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: Text('Cancel'),
-//             ),
-//             TextButton(
-//               onPressed: () {
-//                 setState(() {
-//                   _signatureFile['name'] = '';
-//                   _signatureFile['size'] = 0;
-//                   _signatureFile['path'] = '';
-//                   _signatureFile['uploaded'] = false;
-//                 });
-//                 Navigator.pop(context);
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   SnackBar(
-//                     content: Text('Signature removed'),
-//                     backgroundColor: Colors.orange,
-//                     duration: Duration(seconds: 2),
-//                   ),
-//                 );
-//               },
-//               child: Text('Remove', style: TextStyle(color: Colors.red)),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-//
-//     return Container(
-//       padding: EdgeInsets.all(10),
-//       decoration: BoxDecoration(
-//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
-//         borderRadius: BorderRadius.circular(8),
-//         border: Border.all(
-//           color: isUploaded ? _successColor : _borderColor,
-//           width: isUploaded ? 1.5 : 1,
-//         ),
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Row(
-//                 children: [
-//                   Icon(
-//                     Icons.note_alt_outlined,
-//                     size: 20,
-//                     color: isUploaded ? _successColor : _primaryColor,
-//                   ),
-//                   SizedBox(width: 10),
-//                   Column(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Text(
-//                         'Digital Signature',
-//                         style: TextStyle(
-//                           fontWeight: FontWeight.w600,
-//                           fontSize: 14,
-//                           color: isUploaded ? _successColor : _textPrimary,
-//                         ),
-//                       ),
-//                       Text(
-//                         'PNG or JPG format',
-//                         style: TextStyle(fontSize: 11, color: _textSecondary),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//               if (isUploaded)
-//                 Row(
-//                   children: [
-//                     Icon(Icons.check_circle, color: _successColor, size: 16),
-//                     SizedBox(width: 4),
-//                     Text(
-//                       'Uploaded',
-//                       style: TextStyle(
-//                         fontSize: 11,
-//                         color: _successColor,
-//                         fontWeight: FontWeight.w500,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//             ],
-//           ),
-//           SizedBox(height: 12),
-//
-//           if (!isUploaded)
-//             SizedBox(
-//               width: double.infinity,
-//               child: ElevatedButton.icon(
-//                 onPressed: _pickSignature,
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: _primaryColor,
-//                   padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(8),
-//                   ),
-//                 ),
-//                 icon: Icon(Icons.upload, size: 18, color: Colors.white),
-//                 label: Text(
-//                   'Upload Signature',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     fontWeight: FontWeight.w500,
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//
-//           if (isUploaded && fileName.isNotEmpty)
-//             Container(
-//               padding: EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: _primaryLight,
-//                 borderRadius: BorderRadius.circular(8),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Container(
-//                     width: 50,
-//                     height: 50,
-//                     decoration: BoxDecoration(
-//                       color: _successColor.withOpacity(0.1),
-//                       borderRadius: BorderRadius.circular(6),
-//                       border: Border.all(color: _successColor.withOpacity(0.3)),
-//                     ),
-//                     child: Center(
-//                       child: Icon(
-//                         Icons.note_alt_outlined,
-//                         size: 24,
-//                         color: _successColor,
-//                       ),
-//                     ),
-//                   ),
-//                   SizedBox(width: 12),
-//                   Expanded(
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         Text(
-//                           fileName,
-//                           style: TextStyle(
-//                             fontWeight: FontWeight.w500,
-//                             fontSize: 13,
-//                             color: _textPrimary,
-//                           ),
-//                           overflow: TextOverflow.ellipsis,
-//                           maxLines: 1,
-//                         ),
-//                         SizedBox(height: 4),
-//                         Text(
-//                           '${(fileSize / 1024).toStringAsFixed(1)} KB',
-//                           style: TextStyle(fontSize: 11, color: _textSecondary),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   SizedBox(width: 8),
-//                   Row(
-//                     children: [
-//                       IconButton(
-//                         onPressed: _viewSignature,
-//                         icon: Icon(
-//                           Icons.remove_red_eye,
-//                           size: 20,
-//                           color: _primaryColor,
-//                         ),
-//                         tooltip: 'Preview Signature',
-//                       ),
-//                       IconButton(
-//                         onPressed: _removeSignature,
-//                         icon: Icon(Icons.delete, size: 20, color: Colors.red),
-//                         tooltip: 'Remove Signature',
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _getFileIcon(String fileName) {
-//     final ext = _getFileExtension(fileName).toLowerCase();
-//
-//     if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
-//       return Icon(Icons.image, size: 20, color: _primaryColor);
-//     } else if (['pdf'].contains(ext)) {
-//       return Icon(Icons.picture_as_pdf, size: 20, color: Colors.red);
-//     } else if (['doc', 'docx'].contains(ext)) {
-//       return Icon(Icons.description, size: 20, color: Colors.blue);
-//     } else {
-//       return Icon(Icons.insert_drive_file, size: 20, color: _primaryColor);
-//     }
-//   }
-//
-//   String _getFileExtension(String fileName) {
-//     final dotIndex = fileName.lastIndexOf('.');
-//     return dotIndex != -1 ? fileName.substring(dotIndex + 1) : '';
-//   }
-//
-//   IconData _getDocumentIcon(String documentName) {
-//     if (documentName.contains('GST')) return Icons.receipt;
-//     if (documentName.contains('PAN')) return Icons.credit_card;
-//     if (documentName.contains('License')) return Icons.badge;
-//     if (documentName.contains('FSSAI')) return Icons.restaurant;
-//     if (documentName.contains('Fire')) return Icons.fire_extinguisher;
-//     if (documentName.contains('Star')) return Icons.star;
-//     if (documentName.contains('Cheque')) return Icons.account_balance;
-//     if (documentName.contains('Photos')) return Icons.photo_library;
-//     return Icons.description;
-//   }
-//
-//   Future<void> _pickDocument(String documentType) async {
-//     try {
-//       FilePickerResult? result = await FilePicker.platform.pickFiles(
-//         type: FileType.custom,
-//         allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
-//         allowMultiple: false,
-//       );
-//
-//       if (result != null && result.files.isNotEmpty) {
-//         final file = result.files.first;
-//
-//         if (file.size > 5 * 1024 * 1024) {
-//           _showErrorDialog(
-//             'File too large',
-//             'Please select a file smaller than 5MB',
-//           );
-//           return;
-//         }
-//
-//         setState(() {
-//           _uploadedFiles[documentType] = {
-//             'name': file.name,
-//             'size': file.size,
-//             'path': file.path ?? '',
-//             'uploaded': true,
-//           };
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('${file.name} uploaded successfully'),
-//             backgroundColor: _successColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       }
-//     } catch (e) {
-//       _showErrorDialog(
-//         'Upload Error',
-//         'Failed to upload file: ${e.toString()}',
-//       );
-//     }
-//   }
-//
-//   void _viewDocument(String documentType) {
-//     final fileInfo = _uploadedFiles[documentType]!;
-//     final fileName = fileInfo['name'] as String? ?? '';
-//     final fileSize = (fileInfo['size'] as int?) ?? 0;
-//
-//     if (fileName.isNotEmpty) {
-//       showDialog(
-//         context: context,
-//         builder: (context) => AlertDialog(
-//           title: Row(
-//             children: [
-//               Icon(_getDocumentIcon(documentType), color: _primaryColor),
-//               SizedBox(width: 12),
-//               Expanded(
-//                 child: Text(documentType, overflow: TextOverflow.ellipsis),
-//               ),
-//             ],
-//           ),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Container(
-//                 width: 200,
-//                 height: 100,
-//                 decoration: BoxDecoration(
-//                   color: Colors.grey[100],
-//                   borderRadius: BorderRadius.circular(8),
-//                   border: Border.all(color: Colors.grey[300]!),
-//                 ),
-//                 child: Center(child: _getFileIcon(fileName)),
-//               ),
-//               SizedBox(height: 16),
-//               Text(
-//                 'File Details:',
-//                 style: TextStyle(fontWeight: FontWeight.w500),
-//               ),
-//               SizedBox(height: 8),
-//               Text('Name: $fileName'),
-//               Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
-//               Text('Type: ${_getFileExtension(fileName).toUpperCase()}'),
-//               if (documentType == 'FSSAI Certificate')
-//                 Padding(
-//                   padding: EdgeInsets.only(top: 8),
-//                   child: Text(
-//                     'Required for hotels with restaurant facilities',
-//                     style: TextStyle(
-//                       fontSize: 12,
-//                       color: Colors.orange[700],
-//                       fontStyle: FontStyle.italic,
-//                     ),
-//                   ),
-//                 ),
-//             ],
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: Text('Close'),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-//   }
-//
-//   void _removeDocument(String documentType) {
-//     showDialog(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         title: Text('Remove Document'),
-//         content: Text('Are you sure you want to remove this document?'),
-//         actions: [
-//           TextButton(
-//             onPressed: () => Navigator.pop(context),
-//             child: Text('Cancel'),
-//           ),
-//           TextButton(
-//             onPressed: () {
-//               setState(() {
-//                 _uploadedFiles[documentType] = {
-//                   'name': '',
-//                   'size': 0,
-//                   'path': '',
-//                   'uploaded': false,
-//                 };
-//               });
-//               Navigator.pop(context);
-//               ScaffoldMessenger.of(context).showSnackBar(
-//                 SnackBar(
-//                   content: Text('Document removed'),
-//                   backgroundColor: Colors.orange,
-//                   duration: Duration(seconds: 2),
-//                 ),
-//               );
-//             },
-//             child: Text('Remove', style: TextStyle(color: Colors.red)),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   void _addAdditionalAddress() {
-//     setState(() {
-//       _additionalAddresses.add({'address': TextEditingController()});
-//     });
-//   }
-//
-//   void _removeAdditionalAddress(int index) {
-//     if (index >= 0 && index < _additionalAddresses.length) {
-//       setState(() {
-//         _additionalAddresses[index]['address']?.dispose();
-//         _additionalAddresses.removeAt(index);
-//       });
-//     }
-//   }
-//
-//   void _nextStep() {
-//     // Validate current step before proceeding
-//     // if (!_validateCurrentStep()) {
-//     //   return;
-//     // }
-//
-//     if (_currentStep < _steps.length - 1) {
-//       setState(() {
-//         _currentStep++;
-//       });
-//
-//       // Scroll to top when moving to next step
-//       WidgetsBinding.instance.addPostFrameCallback((_) {
-//         _scrollToTop();
-//       });
-//     } else {
-//       _submitForm();
-//     }
-//   }
-//
-//   void _previousStep() {
-//     if (_currentStep > 0) {
-//       setState(() {
-//         _currentStep--;
-//       });
-//
-//       WidgetsBinding.instance.addPostFrameCallback((_) {
-//         _scrollToTop();
-//       });
-//     }
-//   }
-//
-//   void _scrollToTop() {
-//     final scrollController = PrimaryScrollController.of(context);
-//     if (scrollController != null && scrollController.hasClients) {
-//       scrollController.animateTo(
-//         0,
-//         duration: Duration(milliseconds: 300),
-//         curve: Curves.easeInOut,
-//       );
-//     }
-//   }
-//
-//   Future<void> _selectDate(BuildContext context) async {
-//     final DateTime? picked = await showDatePicker(
-//       context: context,
-//       initialDate: DateTime.now(),
-//       firstDate: DateTime(2000),
-//       lastDate: DateTime.now(),
-//     );
-//     if (picked != null && picked != _selectedDate) {
-//       setState(() {
-//         _selectedDate = picked;
-//       });
-//     }
-//   }
-//
-//   void _showErrorDialog(String title, String message) {
-//     showDialog(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         title: Text(title),
-//         content: Text(message),
-//         actions: [
-//           TextButton(
-//             onPressed: () => Navigator.pop(context),
-//             child: Text('OK'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   void _submitForm() {
-//     if (_hotelNameController.text.isEmpty ||
-//         _ownerNameController.text.isEmpty ||
-//         _mobileController.text.isEmpty ||
-//         _address1Controller.text.isEmpty ||
-//         _cityController.text.isEmpty ||
-//         _stateController.text.isEmpty ||
-//         _pinController.text.isEmpty ||
-//         _gstController.text.isEmpty ||
-//         _panController.text.isEmpty ||
-//         _accountNameController.text.isEmpty ||
-//         _bankNameController.text.isEmpty ||
-//         _accountNumberController.text.isEmpty ||
-//         _ifscController.text.isEmpty) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Please fill all required fields marked with *'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//       return;
-//     }
-//
-//     if (!_declarationAccepted) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Please accept the declaration to proceed'),
-//           backgroundColor: Colors.orange,
-//         ),
-//       );
-//       return;
-//     }
-//
-//     if (!(_signatureFile['uploaded'] ?? false)) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Please upload Digital Signature'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//       setState(() => _currentStep = 4);
-//       return;
-//     }
-//
-//     final requiredDocs = [
-//       'GST Certificate',
-//       'PAN Card',
-//       'Trade License',
-//       'Star Classification Certificate',
-//       'Cancelled Cheque',
-//       'Hotel & Room Photos',
-//     ];
-//
-//     for (var doc in requiredDocs) {
-//       if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('Please upload $doc'),
-//             backgroundColor: Colors.red,
-//           ),
-//         );
-//         setState(() => _currentStep = 4);
-//         return;
-//       }
-//     }
-//     final hasSignature =
-//         _hasDigitalSignature ||
-//         (_uploadedFiles['Signature']?['uploaded'] ?? false);
-//
-//     if (!hasSignature) {
-//       _showErrorDialog(
-//         'Signature Required',
-//         'Please either draw a digital signature or upload a signature file.',
-//       );
-//       setState(() => _currentStep = 4);
-//       return;
-//     }
-//
-//     Map<String, dynamic> formData = {
-//       'hotelName': _hotelNameController.text,
-//       'hotelCategory': '4-Star',
-//       'hotelType': _selectedHotelType,
-//       'yearOfEstablishment': _yearController.text,
-//       'registrationNumber': _registrationNumberController.text,
-//       'totalRooms': _roomsController.text,
-//       'ownerName': _ownerNameController.text,
-//       'designation': _designationController.text,
-//       'mobileNumber': _mobileController.text,
-//       'alternateContact': _altMobileController.text,
-//       'email': _emailController.text,
-//       'website': _websiteController.text,
-//       'addressLine1': _address1Controller.text,
-//       'addressLine2': _address2Controller.text,
-//       'city': _cityController.text,
-//       'district': _districtController.text,
-//       'state': _stateController.text,
-//       'pinCode': _pinController.text,
-//       'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
-//       'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
-//       'extraBedAvailable': _extraBedAvailable,
-//       'seasonalPricing': _seasonalPricing,
-//       'checkInTime': _checkInController.text,
-//       'checkOutTime': _checkOutController.text,
-//       'earlyCheckinAllowed': _earlyCheckinAllowed,
-//       'earlyCheckinChargeable': _earlyCheckinChargeable,
-//       'petsAllowed': _petsAllowed,
-//       'roomAmenities': Map<String, bool>.from(_roomAmenities),
-//       'hotelFacilities': Map<String, bool>.from(_hotelFacilities),
-//       'foodServices': Map<String, bool>.from(_foodServices),
-//       'businessServices': Map<String, bool>.from(_businessServices),
-//       'wellnessRecreation': Map<String, bool>.from(_wellnessRecreation),
-//       'gstNumber': _gstController.text,
-//       'panNumber': _panController.text,
-//       'tradeLicense': _tradeLicenseController.text,
-//       'fssaiLicense': _fssaiController.text,
-//       'fireSafetyCertificate': _fireSafetyCertificate,
-//       'starCertificate': _starCertificate,
-//       'accountHolderName': _accountNameController.text,
-//       'bankName': _bankNameController.text,
-//       'accountNumber': _accountNumberController.text,
-//       'ifscCode': _ifscController.text,
-//       'branch': _branchController.text,
-//       'uploadedFiles': _uploadedFiles,
-//       'signatureFile': _signatureFile,
-//       'signatoryName': _signatoryNameController.text,
-//       'declarationDate': _selectedDate,
-//       'declarationAccepted': _declarationAccepted,
-//
-//       'additionalAddresses': _additionalAddresses.map((addr) {
-//         return {'address': addr['address']?.text ?? ''};
-//       }).toList(),
-//     };
-//
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => RegistrationSummaryScreen(
-//           registrationData: formData,
-//           hotelCategory: '4-Star',
-//           declarationAccepted: _declarationAccepted,
-//         ),
-//       ),
-//     );
-//   }
-//
-//   @override
-//   void dispose() {
-//     _hotelNameController.dispose();
-//     _yearController.dispose();
-//     _registrationNumberController.dispose();
-//     _roomsController.dispose();
-//     _ownerNameController.dispose();
-//     _designationController.dispose();
-//     _mobileController.dispose();
-//     _altMobileController.dispose();
-//     _emailController.dispose();
-//     _websiteController.dispose();
-//     _address1Controller.dispose();
-//     _address2Controller.dispose();
-//     _cityController.dispose();
-//     _districtController.dispose();
-//     _stateController.dispose();
-//     _pinController.dispose();
-//     _checkInController.dispose();
-//     _checkOutController.dispose();
-//     _gstController.dispose();
-//     _panController.dispose();
-//     _tradeLicenseController.dispose();
-//     _fssaiController.dispose();
-//     _fireSafetyController.dispose();
-//     _starCertController.dispose();
-//     _accountNameController.dispose();
-//     _bankNameController.dispose();
-//     _accountNumberController.dispose();
-//     _ifscController.dispose();
-//     _branchController.dispose();
-//     _signatoryNameController.dispose();
-//     _signatureController.dispose();
-//
-//     for (var address in _additionalAddresses) {
-//       address['address']?.dispose();
-//     }
-//     _additionalAddresses.clear();
-//
-//     super.dispose();
-//   }
-// }
 
 class _FourStarHotelRegistrationScreenState
     extends State<FourStarHotelRegistrationScreen> {
@@ -40074,6 +29026,7 @@ class FiveStarHotelRegistrationScreen extends StatefulWidget {
       _FiveStarHotelRegistrationScreenState();
 }
 
+
 class _FiveStarHotelRegistrationScreenState
     extends State<FiveStarHotelRegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
@@ -40114,6 +29067,7 @@ class _FiveStarHotelRegistrationScreenState
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController(); // NEW: Country field
   final TextEditingController _checkInController = TextEditingController();
   final TextEditingController _checkOutController = TextEditingController();
   final TextEditingController _gstController = TextEditingController();
@@ -40133,48 +29087,59 @@ class _FiveStarHotelRegistrationScreenState
   final TextEditingController _signatoryDesignationController =
       TextEditingController();
 
+  // NEW: Profile Photo
+  final Map<String, dynamic> _profilePhoto = {
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
+  };
+
+  // NEW: Account Type
+  String? _selectedAccountType; // 'Savings' or 'Current'
+
   List<Map<String, TextEditingController>> _additionalAddresses = [];
 
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Deluxe Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0, // Changed from '' to 0
+      'occupancy': 0, // Changed from '' to 0
       'ac': true,
       'bedType': 'King',
-      'minPrice': '',
-      'maxPrice': '',
+      'minPrice': 0.0, // Changed from '' to 0.0
+      'maxPrice': 0.0, // Changed from '' to 0.0
     },
     'Club Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'minPrice': '',
-      'maxPrice': '',
+      'minPrice': 0.0,
+      'maxPrice': 0.0,
     },
     'Executive Room': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'minPrice': '',
-      'maxPrice': '',
+      'minPrice': 0.0,
+      'maxPrice': 0.0,
     },
     'Suite': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'minPrice': '',
-      'maxPrice': '',
+      'minPrice': 0.0,
+      'maxPrice': 0.0,
     },
     'Presidential Suite': {
-      'rooms': '',
-      'occupancy': '',
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'minPrice': '',
-      'maxPrice': '',
+      'minPrice': 0.0,
+      'maxPrice': 0.0,
     },
   };
 
@@ -40283,7 +29248,14 @@ class _FiveStarHotelRegistrationScreenState
       'path': '',
       'uploaded': false,
     },
-    // 'Signature': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
+    'Digital Signature': {
+      'name': '',
+      'size': 0,
+      'path': '',
+      'uploaded': false,
+      'isDigital': false,
+      'imageData': null,
+    },
   };
 
   final Map<String, dynamic> _signatureFile = {
@@ -40336,6 +29308,29 @@ class _FiveStarHotelRegistrationScreenState
     {'value': '22:00', 'display': '10:00 PM'},
     {'value': '23:00', 'display': '11:00 PM'},
   ];
+
+  // NEW: Helper method to get current local time
+  String _getCurrentLocalTime() {
+    final now = DateTime.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  // NEW: Helper method to get initial text for numeric fields
+  String _getInitialText(dynamic value) {
+    if (value == null) return '';
+    if (value is num && value == 0) return '';
+    return value.toString();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with current local time
+    _checkInController.text = _getCurrentLocalTime();
+    _checkOutController.text = _getCurrentLocalTime();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40669,7 +29664,7 @@ class _FiveStarHotelRegistrationScreenState
           title: '1. Hotel Profile',
           children: [
             _buildInputField(
-              label: 'Hotel Name *',
+              label: 'Hotel Name',
               controller: _hotelNameController,
               hint: 'Enter 5-star hotel name',
             ),
@@ -40735,7 +29730,7 @@ class _FiveStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hotel Type *',
+                  'Hotel Type',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: _textPrimary,
@@ -40758,6 +29753,7 @@ class _FiveStarHotelRegistrationScreenState
 
             SizedBox(height: 16),
 
+            // UPDATED: Year and Rooms with integer input formatting
             Row(
               children: [
                 Expanded(
@@ -40766,6 +29762,10 @@ class _FiveStarHotelRegistrationScreenState
                     controller: _yearController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -40775,6 +29775,9 @@ class _FiveStarHotelRegistrationScreenState
                     controller: _roomsController,
                     hint: 'Enter total rooms',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
                 ),
               ],
@@ -40798,8 +29801,12 @@ class _FiveStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Hotel Address',
           children: [
+            // NEW: Profile Photo Upload
+            _buildProfilePhotoUploadItem(),
+            SizedBox(height: 16),
+
             _buildInputField(
-              label: 'Primary Address Line 1 *',
+              label: 'Primary Address Line 1',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -40871,7 +29878,7 @@ class _FiveStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'City *',
+                    label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
                   ),
@@ -40879,7 +29886,7 @@ class _FiveStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'District *',
+                    label: 'District',
                     controller: _districtController,
                     hint: 'Enter district',
                   ),
@@ -40891,7 +29898,7 @@ class _FiveStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'State *',
+                    label: 'State',
                     controller: _stateController,
                     hint: 'Enter state',
                   ),
@@ -40899,12 +29906,29 @@ class _FiveStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'PIN Code *',
+                    label: 'PIN Code',
                     controller: _pinController,
                     hint: '6-digit PIN',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
+              ],
+            ),
+            SizedBox(height: 16),
+
+            // NEW: Country field
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Country',
+                    controller: _countryController,
+                    hint: 'Enter country',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(child: Container()), // Empty space for balance
               ],
             ),
           ],
@@ -40915,7 +29939,7 @@ class _FiveStarHotelRegistrationScreenState
           title: '3. Owner/Management Details',
           children: [
             _buildInputField(
-              label: 'Owner / Authorized Signatory *',
+              label: 'Owner Name',
               controller: _ownerNameController,
               hint: 'Enter full name',
             ),
@@ -40927,10 +29951,11 @@ class _FiveStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Mobile Number *',
+              label: 'Mobile Number',
               controller: _mobileController,
               hint: 'Enter 10-digit mobile number',
               keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -40938,6 +29963,7 @@ class _FiveStarHotelRegistrationScreenState
               controller: _altMobileController,
               hint: 'Optional',
               keyboardType: TextInputType.phone,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -41182,21 +30208,20 @@ class _FiveStarHotelRegistrationScreenState
         _buildCard(
           title: '6. Guest Policies',
           children: [
+            // UPDATED: Time picker fields with clock icon
             Row(
               children: [
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-In Time',
                     controller: _checkInController,
-                    onChanged: (value) {},
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Standard Check-Out Time',
                     controller: _checkOutController,
-                    onChanged: (value) {},
                   ),
                 ),
               ],
@@ -41276,13 +30301,13 @@ class _FiveStarHotelRegistrationScreenState
           title: '7. Legal, Safety & Compliance Details',
           children: [
             _buildInputField(
-              label: 'GST Number *',
+              label: 'GST Number',
               controller: _gstController,
               hint: 'Enter GST number',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'PAN Number *',
+              label: 'PAN Number',
               controller: _panController,
               hint: 'Enter PAN number',
             ),
@@ -41365,13 +30390,13 @@ class _FiveStarHotelRegistrationScreenState
           title: '8. Bank Details (Vendor Settlement)',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountNameController,
               hint: 'Enter name as per bank',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Bank Name *',
+              label: 'Bank Name',
               controller: _bankNameController,
               hint: 'Enter bank name',
             ),
@@ -41380,16 +30405,17 @@ class _FiveStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscController,
                     hint: 'Enter IFSC code',
                   ),
@@ -41401,6 +30427,57 @@ class _FiveStarHotelRegistrationScreenState
               label: 'Branch',
               controller: _branchController,
               hint: 'Enter branch name',
+            ),
+            SizedBox(height: 16),
+
+            // NEW: Account Type Radio Buttons
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Account Type',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Savings'),
+                        value: 'Savings',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Current'),
+                        value: 'Current',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -41475,8 +30552,6 @@ class _FiveStarHotelRegistrationScreenState
                 ],
               ),
             ),
-
-            SizedBox(height: 16),
 
             SizedBox(height: 16),
 
@@ -41670,7 +30745,7 @@ class _FiveStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Signatory Name *',
+              label: 'Signatory Name',
               controller: _signatoryNameController,
               hint: 'Enter name of person signing',
             ),
@@ -41680,7 +30755,7 @@ class _FiveStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Date *',
+                  'Date',
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
                 ),
                 SizedBox(height: 8),
@@ -41722,6 +30797,404 @@ class _FiveStarHotelRegistrationScreenState
         ),
       ],
     );
+  }
+
+  // NEW: Profile Photo Upload Widget
+  Widget _buildProfilePhotoUploadItem() {
+    final fileName = _profilePhoto['name'] as String? ?? '';
+    final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
+    final fileSize = (_profilePhoto['size'] as int?) ?? 0;
+
+    Future<void> _pickProfilePhoto() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a profile photo smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _profilePhoto['name'] = file.name;
+            _profilePhoto['size'] = file.size;
+            _profilePhoto['path'] = file.path ?? '';
+            _profilePhoto['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Profile photo uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload profile photo: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewProfilePhoto() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Profile Photo'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('File: $fileName'),
+                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    void _removeProfilePhoto() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Remove Profile Photo'),
+          content: const Text('Are you sure you want to remove this profile photo?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _profilePhoto['name'] = '';
+                  _profilePhoto['size'] = 0;
+                  _profilePhoto['path'] = '';
+                  _profilePhoto['uploaded'] = false;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Profile photo removed'),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile Photo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'JPG, PNG format (Max 2MB)',
+                        style: TextStyle(fontSize: 11, color: _textSecondary),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickProfilePhoto,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(fontSize: 11, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewProfilePhoto,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview',
+                      ),
+                      IconButton(
+                        onPressed: _removeProfilePhoto,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // UPDATED: Time Picker Field with clock icon
+  Widget _buildTimePickerField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectTime(context, controller),
+          child: Container(
+            height: 48,
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isNotEmpty
+                      ? _formatTimeForDisplay(controller.text)
+                      : 'Select time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: controller.text.isNotEmpty
+                        ? _textPrimary
+                        : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                  color: _primaryColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // NEW: Time selection method
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    TimeOfDay initialTime = TimeOfDay.now();
+
+    if (controller.text.isNotEmpty) {
+      try {
+        List<String> parts = controller.text.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          initialTime = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e) {
+        initialTime = TimeOfDay.now();
+      }
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        String hour = pickedTime.hour.toString().padLeft(2, '0');
+        String minute = pickedTime.minute.toString().padLeft(2, '0');
+        controller.text = '$hour:$minute';
+      });
+    }
+  }
+
+  // NEW: Format time for display
+  String _formatTimeForDisplay(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length >= 2) {
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1].substring(0, 2));
+
+        String period = hour >= 12 ? 'PM' : 'AM';
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return '${hour12.toString().padLeft(2, '0')}:${minute
+            .toString()
+            .padLeft(2, '0')} $period';
+      }
+    } catch (e) {
+      return time24;
+    }
+    return time24;
   }
 
   Future<void> _saveDigitalSignature() async {
@@ -41909,12 +31382,14 @@ class _FiveStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Input field with inputFormatters
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    bool isRequired = true,
+    // bool isRequired = true,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -41929,13 +31404,14 @@ class _FiveStarHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
+            // if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
           ],
         ),
         SizedBox(height: 8),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -41987,6 +31463,7 @@ class _FiveStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Room Configuration Card with integer and double handling
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -42013,20 +31490,32 @@ class _FiveStarHotelRegistrationScreenState
               Expanded(
                 child: _buildSmallInput(
                   label: 'No. of Units',
-                  controller: TextEditingController(text: details['rooms']),
-                  onChanged: (value) => details['rooms'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['rooms']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['rooms'] = intValue;
+                  },
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
               Expanded(
                 child: _buildSmallInput(
                   label: 'Max Occupancy',
-                  controller: TextEditingController(text: details['occupancy']),
-                  onChanged: (value) => details['occupancy'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['occupancy']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['occupancy'] = intValue;
+                  },
                   hint: 'Persons',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
             ],
@@ -42128,10 +31617,16 @@ class _FiveStarHotelRegistrationScreenState
                       children: [
                         TextFormField(
                           controller: TextEditingController(
-                            text: details['minPrice'] ?? '',
+                            text: _getInitialText(details['minPrice']),
                           ),
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) => details['minPrice'] = value,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          onChanged: (value) {
+                            final doubleValue = double.tryParse(value) ?? 0.0;
+                            details['minPrice'] = doubleValue;
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                          ],
                           decoration: InputDecoration(
                             hintText: 'Min Rs',
                             prefixText: '₹ ',
@@ -42158,10 +31653,16 @@ class _FiveStarHotelRegistrationScreenState
                       children: [
                         TextFormField(
                           controller: TextEditingController(
-                            text: details['maxPrice'] ?? '',
+                            text: _getInitialText(details['maxPrice']),
                           ),
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) => details['maxPrice'] = value,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          onChanged: (value) {
+                            final doubleValue = double.tryParse(value) ?? 0.0;
+                            details['maxPrice'] = doubleValue;
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                          ],
                           decoration: InputDecoration(
                             hintText: 'Max Rs',
                             prefixText: '₹ ',
@@ -42187,12 +31688,14 @@ class _FiveStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Small input with inputFormatters
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42212,6 +31715,7 @@ class _FiveStarHotelRegistrationScreenState
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             decoration: InputDecoration(
               hintText: hint,
               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -42311,6 +31815,7 @@ class _FiveStarHotelRegistrationScreenState
     );
   }
 
+  // Keep the original time dropdown for backward compatibility
   Widget _buildTimeDropdown({
     required String label,
     required TextEditingController controller,
@@ -43065,39 +32570,28 @@ class _FiveStarHotelRegistrationScreenState
   }
 
   void _submitForm() {
-    if (_hotelNameController.text.isEmpty ||
-        _ownerNameController.text.isEmpty ||
-        _mobileController.text.isEmpty ||
-        _address1Controller.text.isEmpty ||
-        _cityController.text.isEmpty ||
-        _stateController.text.isEmpty ||
-        _pinController.text.isEmpty ||
-        _gstController.text.isEmpty ||
-        _panController.text.isEmpty ||
-        _accountNameController.text.isEmpty ||
-        _bankNameController.text.isEmpty ||
-        _accountNumberController.text.isEmpty ||
-        _ifscController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please fill all required fields marked with *'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-    final hasSignature =
-        _hasDigitalSignature ||
-        (_uploadedFiles['Signature']?['uploaded'] ?? false);
+    // if (_hotelNameController.text.isEmpty ||
+    //     _ownerNameController.text.isEmpty ||
+    //     _mobileController.text.isEmpty ||
+    //     _address1Controller.text.isEmpty ||
+    //     _cityController.text.isEmpty ||
+    //     _stateController.text.isEmpty ||
+    //     _pinController.text.isEmpty ||
+    //     _gstController.text.isEmpty ||
+    //     _panController.text.isEmpty ||
+    //     _accountNameController.text.isEmpty ||
+    //     _bankNameController.text.isEmpty ||
+    //     _accountNumberController.text.isEmpty ||
+    //     _ifscController.text.isEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Please fill all required fields marked with *'),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //   return;
+    // }
 
-    if (!hasSignature) {
-      _showErrorDialog(
-        'Signature Required',
-        'Please either draw a digital signature or upload a signature file.',
-      );
-      setState(() => _currentStep = 4);
-      return;
-    }
     if (!_declarationAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -43108,37 +32602,31 @@ class _FiveStarHotelRegistrationScreenState
       return;
     }
 
-    final requiredDocs = [
-      'GST Certificate',
-      'PAN Card',
-      'Trade License',
-      'Star Classification Certificate',
-      'Fire Safety NOC',
-      'Cancelled Cheque',
-      'Property, Room & Facility Photographs',
-    ];
-
-    for (var doc in requiredDocs) {
-      if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please upload $doc'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        setState(() => _currentStep = 4);
-        return;
-      }
-    }
+    // Process room details to ensure proper types
+    Map<String, Map<String, dynamic>> processedRoomDetails = {};
+    _roomDetails.forEach((key, value) {
+      processedRoomDetails[key] = {
+        'rooms': value['rooms'] is int ? value['rooms'] : int.tryParse(
+            value['rooms'].toString()) ?? 0,
+        'occupancy': value['occupancy'] is int ? value['occupancy'] : int
+            .tryParse(value['occupancy'].toString()) ?? 0,
+        'ac': value['ac'] ?? true,
+        'bedType': value['bedType'] ?? 'King',
+        'minPrice': value['minPrice'] is double ? value['minPrice'] : double.tryParse(
+            value['minPrice'].toString()) ?? 0.0,
+        'maxPrice': value['maxPrice'] is double ? value['maxPrice'] : double.tryParse(
+            value['maxPrice'].toString()) ?? 0.0,
+      };
+    });
 
     Map<String, dynamic> formData = {
       'hotelName': _hotelNameController.text,
       'hotelCategory': '5-Star',
       'hotelType': _selectedHotelType,
       'brandName': _brandController.text,
-      'yearOfEstablishment': _yearController.text,
+      'yearOfEstablishment': int.tryParse(_yearController.text) ?? 0,
       'starCertNumber': _starCertNumberController.text,
-      'totalRooms': _roomsController.text,
+      'totalRooms': int.tryParse(_roomsController.text) ?? 0,
       'ownerName': _ownerNameController.text,
       'designation': _designationController.text,
       'mobileNumber': _mobileController.text,
@@ -43154,8 +32642,11 @@ class _FiveStarHotelRegistrationScreenState
       'district': _districtController.text,
       'state': _stateController.text,
       'pinCode': _pinController.text,
+      'country': _countryController.text, // Add this
+      'profilePhoto': _profilePhoto, // Add this
+      'accountType': _selectedAccountType, // Add this
       'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
-      'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
+      'roomDetails': processedRoomDetails,
       'extraBedAvailable': _extraBedAvailable,
       'seasonalPricing': _seasonalPricing,
       'checkInTime': _checkInController.text,
@@ -43190,14 +32681,15 @@ class _FiveStarHotelRegistrationScreenState
       'signatoryDesignation': _signatoryDesignationController.text,
       'declarationDate': _selectedDate,
       'declarationAccepted': _declarationAccepted,
+      'hasDigitalSignature': _hasDigitalSignature,
+      'digitalSignatureImage': _digitalSignatureImage,
     };
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
+        builder: (context) => FiveStarHotelSummaryScreen(
           registrationData: formData,
-          hotelCategory: '5-Star',
           declarationAccepted: _declarationAccepted,
         ),
       ),
@@ -43223,6 +32715,7 @@ class _FiveStarHotelRegistrationScreenState
     _districtController.dispose();
     _stateController.dispose();
     _pinController.dispose();
+    _countryController.dispose();
     _checkInController.dispose();
     _checkOutController.dispose();
     _gstController.dispose();
@@ -43248,6 +32741,7 @@ class _FiveStarHotelRegistrationScreenState
   }
 }
 
+
 class SixStarHotelRegistrationScreen extends StatefulWidget {
   const SixStarHotelRegistrationScreen({super.key});
 
@@ -43255,6 +32749,7 @@ class SixStarHotelRegistrationScreen extends StatefulWidget {
   State<SixStarHotelRegistrationScreen> createState() =>
       _SixStarHotelRegistrationScreenState();
 }
+
 class _SixStarHotelRegistrationScreenState
     extends State<SixStarHotelRegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
@@ -43304,13 +32799,15 @@ class _SixStarHotelRegistrationScreenState
   final TextEditingController _accountNameController = TextEditingController();
   final TextEditingController _bankNameController = TextEditingController();
   final TextEditingController _accountNumberController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _ifscController = TextEditingController();
   final TextEditingController _branchController = TextEditingController();
   final TextEditingController _signatoryNameController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _signatoryDesignationController =
-      TextEditingController();
+  TextEditingController();
+
+  String? _selectedAccountType;
 
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Luxury Room': {
@@ -43352,6 +32849,13 @@ class _SixStarHotelRegistrationScreenState
 
   String? _selectedHotelType;
 
+Map<String, bool> _selectedRoomTypes = {
+  'Luxury Room': false,
+  'Club Level Room': false,
+  'Executive Suite': false,
+  'Presidential Suite': false,
+  'Private Villa': false,
+};
   bool _personalButler = false;
   bool _aiPricing = false;
   bool _vipProtocols = false;
@@ -43361,6 +32865,13 @@ class _SixStarHotelRegistrationScreenState
   bool _fireSafetyNoc = false;
   bool _environmentalCert = false;
   bool _internationalCert = false;
+
+  final Map<String, dynamic> _profilePhoto = {
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
+  };
 
   Map<String, bool> _roomAmenities = {
     'Individual Climate Control': false,
@@ -43453,6 +32964,14 @@ class _SixStarHotelRegistrationScreenState
       'path': '',
       'uploaded': false,
     },
+    'Digital Signature': {
+      'name': '',
+      'size': 0,
+      'path': '',
+      'uploaded': false,
+      'isDigital': false,
+      'imageData': null,
+    },
   };
 
   final Map<String, dynamic> _signatureFile = {
@@ -43464,6 +32983,13 @@ class _SixStarHotelRegistrationScreenState
 
   bool _declarationAccepted = false;
   DateTime? _selectedDate;
+
+  String _getCurrentLocalTime() {
+    final now = DateTime.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
 
   final List<Map<String, dynamic>> _steps = [
     {'title': 'Hotel Profile', 'subtitle': 'Ultra-luxury hotel identity'},
@@ -43494,6 +33020,13 @@ class _SixStarHotelRegistrationScreenState
     'Twin',
     'Emperor',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _checkInController.text = _getCurrentLocalTime();
+    _checkOutController.text = _getCurrentLocalTime();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43565,20 +33098,20 @@ class _SixStarHotelRegistrationScreenState
                                   child: Center(
                                     child: isCompleted
                                         ? Icon(
-                                            Icons.check,
-                                            size: 18,
-                                            color: Colors.white,
-                                          )
+                                      Icons.check,
+                                      size: 18,
+                                      color: Colors.white,
+                                    )
                                         : Text(
-                                            '${index + 1}',
-                                            style: TextStyle(
-                                              color: isActive || isCompleted
-                                                  ? Colors.white
-                                                  : _textSecondary,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                            ),
-                                          ),
+                                      '${index + 1}',
+                                      style: TextStyle(
+                                        color: isActive || isCompleted
+                                            ? Colors.white
+                                            : _textSecondary,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 8),
@@ -43831,7 +33364,7 @@ class _SixStarHotelRegistrationScreenState
           title: '1. Hotel Identity & Profile',
           children: [
             _buildInputField(
-              label: 'Hotel Name *',
+              label: 'Hotel Name',
               controller: _hotelNameController,
               hint: 'Enter 6-star ultra-luxury hotel name',
             ),
@@ -43858,7 +33391,7 @@ class _SixStarHotelRegistrationScreenState
                         spacing: 1,
                         children: List.generate(
                           6,
-                          (index) =>
+                              (index) =>
                               Icon(Icons.star, size: 10, color: Colors.white),
                         ),
                       ),
@@ -43897,7 +33430,7 @@ class _SixStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hotel Type *',
+                  'Hotel Type',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: _textPrimary,
@@ -43927,6 +33460,10 @@ class _SixStarHotelRegistrationScreenState
                     controller: _yearController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -43936,6 +33473,9 @@ class _SixStarHotelRegistrationScreenState
                     controller: _roomsController,
                     hint: 'Enter total',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                   ),
                 ),
               ],
@@ -43959,8 +33499,11 @@ class _SixStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Ownership & Executive Management',
           children: [
+            _buildProfilePhotoUploadItem(),
+            SizedBox(height: 16),
+
             _buildInputField(
-              label: 'Owner / Authorized Signatory *',
+              label: 'Owner / Authorized Signatory',
               controller: _ownerNameController,
               hint: 'Enter full name',
             ),
@@ -43981,7 +33524,7 @@ class _SixStarHotelRegistrationScreenState
             SizedBox(height: 16),
 
             _buildInputField(
-              label: 'Mobile Number *',
+              label: 'Mobile Number',
               controller: _mobileController,
               hint: 'Enter 10-digit mobile number',
               keyboardType: TextInputType.phone,
@@ -44017,7 +33560,7 @@ class _SixStarHotelRegistrationScreenState
           title: '3. Hotel Address',
           children: [
             _buildInputField(
-              label: 'Primary Address Line 1 *',
+              label: 'Primary Address Line 1',
               controller: _address1Controller,
               hint: 'Street address',
             ),
@@ -44089,7 +33632,7 @@ class _SixStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'City *',
+                    label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
                   ),
@@ -44097,7 +33640,7 @@ class _SixStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'State *',
+                    label: 'State',
                     controller: _stateController,
                     hint: 'Enter state',
                   ),
@@ -44109,7 +33652,7 @@ class _SixStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Country *',
+                    label: 'Country',
                     controller: _countryController,
                     hint: 'Enter country',
                   ),
@@ -44117,7 +33660,7 @@ class _SixStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'PIN / ZIP Code *',
+                    label: 'PIN Code ',
                     controller: _pinController,
                     hint: '6-digit PIN',
                     keyboardType: TextInputType.number,
@@ -44131,6 +33674,290 @@ class _SixStarHotelRegistrationScreenState
     );
   }
 
+  Widget _buildProfilePhotoUploadItem() {
+    final fileName = _profilePhoto['name'] as String? ?? '';
+    final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
+    final fileSize = (_profilePhoto['size'] as int?) ?? 0;
+
+    Future<void> _pickProfilePhoto() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a profile photo smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _profilePhoto['name'] = file.name;
+            _profilePhoto['size'] = file.size;
+            _profilePhoto['path'] = file.path ?? '';
+            _profilePhoto['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Profile photo uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload profile photo: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewProfilePhoto() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Profile Photo'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('File: $fileName'),
+                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    void _removeProfilePhoto() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Remove Profile Photo'),
+          content: const Text('Are you sure you want to remove this profile photo?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _profilePhoto['name'] = '';
+                  _profilePhoto['size'] = 0;
+                  _profilePhoto['path'] = '';
+                  _profilePhoto['uploaded'] = false;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Profile photo removed'),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile Photo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'JPG, PNG format (Max 2MB)',
+                        style: TextStyle(fontSize: 11, color: _textSecondary),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickProfilePhoto,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(fontSize: 11, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewProfilePhoto,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview',
+                      ),
+                      IconButton(
+                        onPressed: _removeProfilePhoto,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildStep3() {
     return Column(
       children: [
@@ -44141,23 +33968,98 @@ class _SixStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Configure Luxury Accommodations:',
+                  'Select Room Types Available:',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: _textPrimary,
                   ),
                 ),
-                SizedBox(height: 16),
-                ..._roomDetails.entries.map((entry) {
-                  String roomType = entry.key;
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 16),
-                    child: _buildRoomConfigurationCard(roomType),
-                  );
-                }).toList(),
+                SizedBox(height: 12),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: _selectedRoomTypes.entries.map((entry) {
+                    bool isSelected = entry.value;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _selectedRoomTypes[entry.key] = !isSelected;
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isSelected ? _primaryLight : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: isSelected ? _primaryColor : _borderColor,
+                            width: isSelected ? 2 : 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              isSelected
+                                  ? Icons.check_circle
+                                  : Icons.circle_outlined,
+                              size: 16,
+                              color: isSelected
+                                  ? _primaryColor
+                                  : _textSecondary,
+                            ),
+                            SizedBox(width: 6),
+                            Text(
+                              entry.key,
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: isSelected
+                                    ? _primaryColor
+                                    : _textSecondary,
+                                fontWeight: isSelected
+                                    ? FontWeight.w600
+                                    : FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ],
             ),
+            SizedBox(height: 20),
+
+            if (_selectedRoomTypes.entries.any((entry) => entry.value))
+              Column(
+                children: [
+                  Text(
+                    'Configure selected room types:',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: _textPrimary,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  ..._selectedRoomTypes.entries
+                      .where((entry) => entry.value)
+                      .map((entry) {
+                        String roomType = entry.key;
+                        return Container(
+                          margin: EdgeInsets.only(bottom: 16),
+                          child: _buildRoomConfigurationCard(roomType),
+                        );
+                      })
+                      .toList(),
+                ],
+              ),
+
             SizedBox(height: 20),
             Divider(color: _borderColor),
             SizedBox(height: 20),
@@ -44274,18 +34176,16 @@ class _SixStarHotelRegistrationScreenState
             Row(
               children: [
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Check-In Time',
                     controller: _checkInController,
-                    onChanged: (value) {},
                   ),
                 ),
                 SizedBox(width: 16),
                 Expanded(
-                  child: _buildTimeDropdown(
+                  child: _buildTimePickerField(
                     label: 'Check-Out Time',
                     controller: _checkOutController,
-                    onChanged: (value) {},
                   ),
                 ),
               ],
@@ -44355,39 +34255,6 @@ class _SixStarHotelRegistrationScreenState
                 ),
               ],
             ),
-            SizedBox(height: 20),
-
-            // // Smoking Policy
-            // Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     Text(
-            //       'Smoking Policy:',
-            //       style: TextStyle(
-            //         fontSize: 13,
-            //         fontWeight: FontWeight.w500,
-            //       ),
-            //     ),
-            //     SizedBox(height: 8),
-            //     Row(
-            //       children: [
-            //         _buildToggleChip('Private Areas Only', _smokingPrivateAreas, () {
-            //           setState(() {
-            //             _smokingPrivateAreas = true;
-            //             _nonSmoking = false;
-            //           });
-            //         }),
-            //         SizedBox(width: 8),
-            //         _buildToggleChip('Non-Smoking', _nonSmoking, () {
-            //           setState(() {
-            //             _nonSmoking = true;
-            //             _smokingPrivateAreas = false;
-            //           });
-            //         }),
-            //       ],
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ],
@@ -44401,13 +34268,13 @@ class _SixStarHotelRegistrationScreenState
           title: '7. Legal, Safety & Global Compliance',
           children: [
             _buildInputField(
-              label: 'GST Number *',
+              label: 'GST Number',
               controller: _gstController,
               hint: 'Enter GST number',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'PAN Number *',
+              label: 'PAN Number',
               controller: _panController,
               hint: 'Enter PAN number',
             ),
@@ -44448,25 +34315,25 @@ class _SixStarHotelRegistrationScreenState
                     _buildToggleChip(
                       'Fire Safety & Disaster NOC',
                       _fireSafetyNoc,
-                      () {
+                          () {
                         setState(() => _fireSafetyNoc = !_fireSafetyNoc);
                       },
                     ),
                     _buildToggleChip(
                       'Environmental & Sustainability Certification',
                       _environmentalCert,
-                      () {
+                          () {
                         setState(
-                          () => _environmentalCert = !_environmentalCert,
+                              () => _environmentalCert = !_environmentalCert,
                         );
                       },
                     ),
                     _buildToggleChip(
                       'International Safety/Quality Certification',
                       _internationalCert,
-                      () {
+                          () {
                         setState(
-                          () => _internationalCert = !_internationalCert,
+                              () => _internationalCert = !_internationalCert,
                         );
                       },
                     ),
@@ -44482,13 +34349,13 @@ class _SixStarHotelRegistrationScreenState
           title: '8. Bank & Financial Details',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountNameController,
               hint: 'Enter name as per bank',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Bank Name *',
+              label: 'Bank Name',
               controller: _bankNameController,
               hint: 'Enter bank name',
             ),
@@ -44497,7 +34364,7 @@ class _SixStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
@@ -44506,7 +34373,7 @@ class _SixStarHotelRegistrationScreenState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC / SWIFT Code *',
+                    label: 'IFSC / SWIFT Code',
                     controller: _ifscController,
                     hint: 'Enter IFSC/SWIFT code',
                   ),
@@ -44518,6 +34385,56 @@ class _SixStarHotelRegistrationScreenState
               label: 'Branch / Country',
               controller: _branchController,
               hint: 'Enter branch and country',
+            ),
+            SizedBox(height: 16),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Account Type',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Savings'),
+                        value: 'Savings',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Current'),
+                        value: 'Current',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -44533,7 +34450,7 @@ class _SixStarHotelRegistrationScreenState
             SizedBox(height: 16),
 
             ..._uploadedFiles.entries.map(
-              (entry) => _buildDocumentUploadItem(
+                  (entry) => _buildDocumentUploadItem(
                 documentName: entry.key,
                 fileInfo: entry.value,
                 onUploadPressed: () => _pickDocument(entry.key),
@@ -44776,7 +34693,7 @@ class _SixStarHotelRegistrationScreenState
 
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Signatory Name *',
+              label: 'Signatory Name',
               controller: _signatoryNameController,
               hint: 'Enter name of person signing',
             ),
@@ -44785,7 +34702,7 @@ class _SixStarHotelRegistrationScreenState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Date *',
+                  'Date',
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
                 ),
                 SizedBox(height: 8),
@@ -44827,6 +34744,114 @@ class _SixStarHotelRegistrationScreenState
         ),
       ],
     );
+  }
+
+  Widget _buildTimePickerField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectTime(context, controller),
+          child: Container(
+            height: 48,
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isNotEmpty
+                      ? _formatTimeForDisplay(controller.text)
+                      : 'Select time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: controller.text.isNotEmpty
+                        ? _textPrimary
+                        : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                  color: _primaryColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    TimeOfDay initialTime = TimeOfDay.now();
+
+    if (controller.text.isNotEmpty) {
+      try {
+        List<String> parts = controller.text.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          initialTime = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e) {
+        initialTime = TimeOfDay.now();
+      }
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        String hour = pickedTime.hour.toString().padLeft(2, '0');
+        String minute = pickedTime.minute.toString().padLeft(2, '0');
+        controller.text = '$hour:$minute';
+      });
+    }
+  }
+
+  String _formatTimeForDisplay(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length >= 2) {
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1].substring(0, 2));
+
+        String period = hour >= 12 ? 'PM' : 'AM';
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+      }
+    } catch (e) {
+      return time24;
+    }
+    return time24;
   }
 
   void _addAdditionalAddress() {
@@ -44889,7 +34914,6 @@ class _SixStarHotelRegistrationScreenState
           _hasDigitalSignature = true;
         });
 
-        // Also update the uploaded files for consistency
         _uploadedFiles['Digital Signature'] = {
           'name': 'digital_signature.png',
           'size': signatureData.length,
@@ -44898,9 +34922,6 @@ class _SixStarHotelRegistrationScreenState
           'isDigital': true,
           'imageData': signatureData,
         };
-
-        // IMPORTANT: DO NOT clear the signature controller here
-        // The signature should remain visible on the canvas after saving
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -45014,7 +35035,7 @@ class _SixStarHotelRegistrationScreenState
               setState(() {
                 _digitalSignatureImage = null;
                 _hasDigitalSignature = false;
-                _signatureController.clear(); // Clear the canvas when removing
+                _signatureController.clear();
                 _uploadedFiles.remove('Digital Signature');
               });
               Navigator.pop(context);
@@ -45038,7 +35059,8 @@ class _SixStarHotelRegistrationScreenState
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    bool isRequired = true,
+    // bool isRequired = true,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45053,13 +35075,14 @@ class _SixStarHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
+            // if (isRequired) Text(' *', style: TextStyle(color: Colors.red)),
           ],
         ),
         SizedBox(height: 8),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -45111,6 +35134,186 @@ class _SixStarHotelRegistrationScreenState
     );
   }
 
+  // Widget _buildRoomConfigurationCard(String roomType) {
+  //   final details = _roomDetails[roomType]!;
+  //
+  //   return Container(
+  //     padding: EdgeInsets.all(12),
+  //     decoration: BoxDecoration(
+  //       color: Colors.grey[50],
+  //       borderRadius: BorderRadius.circular(8),
+  //       border: Border.all(color: _borderColor),
+  //     ),
+  //     child: Column(
+  //       children: [
+  //         Text(
+  //           roomType,
+  //           style: TextStyle(
+  //             fontSize: 14,
+  //             fontWeight: FontWeight.w600,
+  //             color: _primaryColor,
+  //           ),
+  //         ),
+  //         SizedBox(height: 12),
+  //         Row(
+  //           children: [
+  //             Expanded(
+  //               child: _buildSmallInput(
+  //                 label: 'Units',
+  //                 controller: TextEditingController(text: details['rooms']),
+  //                 onChanged: (value) => details['rooms'] = value,
+  //                 hint: '0',
+  //                 keyboardType: TextInputType.number,
+  //                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+  //               ),
+  //             ),
+  //             SizedBox(width: 12),
+  //             Expanded(
+  //               child: _buildSmallInput(
+  //                 label: 'Max Occupancy',
+  //                 controller: TextEditingController(text: details['occupancy']),
+  //                 onChanged: (value) => details['occupancy'] = value,
+  //                 hint: 'Persons',
+  //                 keyboardType: TextInputType.number,
+  //                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 12),
+  //         Row(
+  //           children: [
+  //             Expanded(
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   Text(
+  //                     'Bed Type',
+  //                     style: TextStyle(
+  //                       fontSize: 12,
+  //                       fontWeight: FontWeight.w500,
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: 8),
+  //                   Container(
+  //                     height: 35,
+  //                     padding: EdgeInsets.symmetric(horizontal: 8),
+  //                     decoration: BoxDecoration(
+  //                       border: Border.all(color: _borderColor),
+  //                       borderRadius: BorderRadius.circular(6),
+  //                     ),
+  //                     child: DropdownButtonHideUnderline(
+  //                       child: DropdownButton<String>(
+  //                         value: details['bedType'],
+  //                         isExpanded: true,
+  //                         icon: Icon(Icons.arrow_drop_down, size: 20),
+  //                         items: _bedTypes.map((String value) {
+  //                           return DropdownMenuItem<String>(
+  //                             value: value,
+  //                             child: Text(
+  //                               value,
+  //                               style: TextStyle(fontSize: 12),
+  //                             ),
+  //                           );
+  //                         }).toList(),
+  //                         onChanged: (String? newValue) {
+  //                           setState(() {
+  //                             details['bedType'] = newValue!;
+  //                           });
+  //                         },
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //             SizedBox(width: 12),
+  //             Expanded(
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   Text(
+  //                     'Select Price Per Day:',
+  //                     style: TextStyle(
+  //                       fontSize: 12,
+  //                       fontWeight: FontWeight.w500,
+  //                       color: _textPrimary,
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: 8),
+  //                   Row(
+  //                     children: [
+  //                       Expanded(
+  //                         child: TextFormField(
+  //                           controller: TextEditingController(
+  //                             text: details['minPrice'] ?? '',
+  //                           ),
+  //                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
+  //                           onChanged: (value) => details['minPrice'] = value,
+  //                           inputFormatters: [
+  //                             FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+  //                           ],
+  //                           decoration: InputDecoration(
+  //                             hintText: 'Rs',
+  //                             prefixText: '₹ ',
+  //                             contentPadding: EdgeInsets.symmetric(
+  //                               horizontal: 8,
+  //                               vertical: 6,
+  //                             ),
+  //                             border: OutlineInputBorder(
+  //                               borderRadius: BorderRadius.circular(6),
+  //                               borderSide: BorderSide(color: _borderColor),
+  //                             ),
+  //                             isDense: true,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       Padding(
+  //                         padding: EdgeInsets.symmetric(horizontal: 4),
+  //                         child: Text(
+  //                           'to',
+  //                           style: TextStyle(
+  //                             fontSize: 11,
+  //                             color: _textSecondary,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                       Expanded(
+  //                         child: TextFormField(
+  //                           controller: TextEditingController(
+  //                             text: details['maxPrice'] ?? '',
+  //                           ),
+  //                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
+  //                           onChanged: (value) => details['maxPrice'] = value,
+  //                           inputFormatters: [
+  //                             FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+  //                           ],
+  //                           decoration: InputDecoration(
+  //                             hintText: 'Rs',
+  //                             prefixText: '₹ ',
+  //                             contentPadding: EdgeInsets.symmetric(
+  //                               horizontal: 8,
+  //                               vertical: 6,
+  //                             ),
+  //                             border: OutlineInputBorder(
+  //                               borderRadius: BorderRadius.circular(6),
+  //                               borderSide: BorderSide(color: _borderColor),
+  //                             ),
+  //                             isDense: true,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -45141,6 +35344,7 @@ class _SixStarHotelRegistrationScreenState
                   onChanged: (value) => details['rooms'] = value,
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
@@ -45151,6 +35355,7 @@ class _SixStarHotelRegistrationScreenState
                   onChanged: (value) => details['occupancy'] = value,
                   hint: 'Persons',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
             ],
@@ -45171,7 +35376,7 @@ class _SixStarHotelRegistrationScreenState
                     ),
                     SizedBox(height: 8),
                     Container(
-                      height: 35,
+                      height: 40, // Slightly increased height
                       padding: EdgeInsets.symmetric(horizontal: 8),
                       decoration: BoxDecoration(
                         border: Border.all(color: _borderColor),
@@ -45202,80 +35407,115 @@ class _SixStarHotelRegistrationScreenState
                   ],
                 ),
               ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Select Price Per Day:',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: _textPrimary,
+            ],
+          ),
+          SizedBox(height: 16), // Increased spacing
+
+          // ENLARGED PRICE SECTION
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Select Price Per Day:',
+                style: TextStyle(
+                  fontSize: 13, // Slightly larger font
+                  fontWeight: FontWeight.w600,
+                  color: _textPrimary,
+                ),
+              ),
+              SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      height: 50, // Increased height for price fields
+                      child: TextFormField(
+                        controller: TextEditingController(
+                          text: details['minPrice'] ?? '',
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        onChanged: (value) => details['minPrice'] = value,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        style: TextStyle(fontSize: 14), // Larger text
+                        decoration: InputDecoration(
+                          hintText: 'Minimum price',
+                          labelText: 'Min Price',
+                          prefixText: '₹ ',
+                          prefixStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: _borderColor),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: _borderColor),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: _primaryColor, width: 2),
+                          ),
+                        ),
                       ),
                     ),
-                    SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: TextEditingController(
-                              text: details['minPrice'] ?? '',
-                            ),
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) => details['minPrice'] = value,
-                            decoration: InputDecoration(
-                              hintText: 'Rs',
-                              prefixText: '₹ ',
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 6,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6),
-                                borderSide: BorderSide(color: _borderColor),
-                              ),
-                              isDense: true,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 4),
-                          child: Text(
-                            'to',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: _textSecondary,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            controller: TextEditingController(
-                              text: details['maxPrice'] ?? '',
-                            ),
-                            keyboardType: TextInputType.number,
-                            onChanged: (value) => details['maxPrice'] = value,
-                            decoration: InputDecoration(
-                              hintText: 'Rs',
-                              prefixText: '₹ ',
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 8,
-                                vertical: 6,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6),
-                                borderSide: BorderSide(color: _borderColor),
-                              ),
-                              isDense: true,
-                            ),
-                          ),
-                        ),
-                      ],
+                  ),
+                  SizedBox(width: 12), // Increased spacing
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      'to',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: _textSecondary,
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  SizedBox(width: 12), // Increased spacing
+                  Expanded(
+                    child: Container(
+                      height: 50, // Increased height for price fields
+                      child: TextFormField(
+                        controller: TextEditingController(
+                          text: details['maxPrice'] ?? '',
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                        onChanged: (value) => details['maxPrice'] = value,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                        ],
+                        style: TextStyle(fontSize: 14), // Larger text
+                        decoration: InputDecoration(
+                          hintText: 'Maximum price',
+                          labelText: 'Max Price',
+                          prefixText: '₹ ',
+                          prefixStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: _borderColor),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: _borderColor),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: _primaryColor, width: 2),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -45283,13 +35523,13 @@ class _SixStarHotelRegistrationScreenState
       ),
     );
   }
-
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45309,6 +35549,7 @@ class _SixStarHotelRegistrationScreenState
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             decoration: InputDecoration(
               hintText: hint,
               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -45943,6 +36184,7 @@ class _SixStarHotelRegistrationScreenState
     if (documentName.contains('Luxury Brand')) return Icons.workspace_premium;
     if (documentName.contains('Cheque')) return Icons.account_balance;
     if (documentName.contains('Images')) return Icons.photo_library;
+    if (documentName.contains('Digital')) return Icons.draw;
     return Icons.description;
   }
 
@@ -46081,36 +36323,12 @@ class _SixStarHotelRegistrationScreenState
     );
   }
 
-  // void _nextStep() {
-  //   if (_currentStep < _steps.length - 1) {
-  //     setState(() {
-  //       _currentStep++;
-  //     });
-  //   } else {
-  //     _submitForm();
-  //   }
-  // }
-  //
-  // void _previousStep() {
-  //   if (_currentStep > 0) {
-  //     setState(() {
-  //       _currentStep--;
-  //     });
-  //   }
-  // }
-
   void _nextStep() {
-    // Validate current step before proceeding
-    // if (!_validateCurrentStep()) {
-    //   return;
-    // }
-
     if (_currentStep < _steps.length - 1) {
       setState(() {
         _currentStep++;
       });
 
-      // Scroll to top when moving to next step
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollToTop();
       });
@@ -46125,7 +36343,6 @@ class _SixStarHotelRegistrationScreenState
         _currentStep--;
       });
 
-      // Scroll to top when going back
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollToTop();
       });
@@ -46174,40 +36391,40 @@ class _SixStarHotelRegistrationScreenState
   }
 
   void _submitForm() {
-    if (_hotelNameController.text.isEmpty ||
-        _ownerNameController.text.isEmpty ||
-        _mobileController.text.isEmpty ||
-        _address1Controller.text.isEmpty ||
-        _cityController.text.isEmpty ||
-        _stateController.text.isEmpty ||
-        _countryController.text.isEmpty ||
-        _pinController.text.isEmpty ||
-        _gstController.text.isEmpty ||
-        _panController.text.isEmpty ||
-        _accountNameController.text.isEmpty ||
-        _bankNameController.text.isEmpty ||
-        _accountNumberController.text.isEmpty ||
-        _ifscController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Please fill all required fields marked with *'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-    final hasSignature =
-        _hasDigitalSignature ||
-        (_uploadedFiles['Signature']?['uploaded'] ?? false);
-
-    if (!hasSignature) {
-      _showErrorDialog(
-        'Signature Required',
-        'Please either draw a digital signature or upload a signature file.',
-      );
-      setState(() => _currentStep = 4);
-      return;
-    }
+    // if (_hotelNameController.text.isEmpty ||
+    //     _ownerNameController.text.isEmpty ||
+    //     _mobileController.text.isEmpty ||
+    //     _address1Controller.text.isEmpty ||
+    //     _cityController.text.isEmpty ||
+    //     _stateController.text.isEmpty ||
+    //     _countryController.text.isEmpty ||
+    //     _pinController.text.isEmpty ||
+    //     _gstController.text.isEmpty ||
+    //     _panController.text.isEmpty ||
+    //     _accountNameController.text.isEmpty ||
+    //     _bankNameController.text.isEmpty ||
+    //     _accountNumberController.text.isEmpty ||
+    //     _ifscController.text.isEmpty) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(
+    //       content: Text('Please fill all required fields marked with *'),
+    //       backgroundColor: Colors.red,
+    //     ),
+    //   );
+    //   return;
+    // }
+    // final hasSignature =
+    //     _hasDigitalSignature ||
+    //         (_uploadedFiles['Digital Signature']?['uploaded'] ?? false);
+    //
+    // if (!hasSignature) {
+    //   _showErrorDialog(
+    //     'Signature Required',
+    //     'Please either draw a digital signature or upload a signature file.',
+    //   );
+    //   setState(() => _currentStep = 4);
+    //   return;
+    // }
 
     if (!_declarationAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -46218,39 +36435,28 @@ class _SixStarHotelRegistrationScreenState
       );
       return;
     }
-
-    // if (!(_signatureFile['uploaded'] ?? false)) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(
-    //       content: Text('Please upload Digital Signature & Official Seal'),
-    //       backgroundColor: Colors.red,
-    //     ),
-    //   );
-    //   setState(() => _currentStep = 4);
-    //   return;
+    //
+    // final requiredDocs = [
+    //   'GST Certificate',
+    //   'PAN Card',
+    //   'Trade License',
+    //   'Fire Safety & Disaster NOC',
+    //   'Cancelled Cheque',
+    //   'High-Resolution Property & Suite Images',
+    // ];
+    //
+    // for (var doc in requiredDocs) {
+    //   if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       SnackBar(
+    //         content: Text('Please upload $doc'),
+    //         backgroundColor: Colors.red,
+    //       ),
+    //     );
+    //     setState(() => _currentStep = 4);
+    //     return;
+    //   }
     // }
-
-    final requiredDocs = [
-      'GST Certificate',
-      'PAN Card',
-      'Trade License',
-      'Fire Safety & Disaster NOC',
-      'Cancelled Cheque',
-      'High-Resolution Property & Suite Images',
-    ];
-
-    for (var doc in requiredDocs) {
-      if (!(_uploadedFiles[doc]?['uploaded'] ?? false)) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Please upload $doc'),
-            backgroundColor: Colors.red,
-          ),
-        );
-        setState(() => _currentStep = 4);
-        return;
-      }
-    }
 
     Map<String, dynamic> formData = {
       'hotelName': _hotelNameController.text,
@@ -46267,6 +36473,7 @@ class _SixStarHotelRegistrationScreenState
       'alternateContact': _altMobileController.text,
       'email': _emailController.text,
       'website': _websiteController.text,
+      'profilePhoto': _profilePhoto,
       'addressLine1': _address1Controller.text,
       'addressLine2': _address2Controller.text,
       'additionalAddresses': _additionalAddresses.map((addr) {
@@ -46302,20 +36509,23 @@ class _SixStarHotelRegistrationScreenState
       'accountNumber': _accountNumberController.text,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
+      'accountType': _selectedAccountType,
       'uploadedFiles': _uploadedFiles,
       'signatureFile': _signatureFile,
       'signatoryName': _signatoryNameController.text,
       'signatoryDesignation': _signatoryDesignationController.text,
       'declarationDate': _selectedDate,
       'declarationAccepted': _declarationAccepted,
+      'digitalSignature': _digitalSignatureImage != null
+          ? _digitalSignatureImage!.length
+          : 0,
     };
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
+        builder: (context) => SixStarHotelSummaryScreen(
           registrationData: formData,
-          hotelCategory: '6-Star Ultra-Luxury',
           declarationAccepted: _declarationAccepted,
         ),
       ),
@@ -46390,65 +36600,68 @@ class _SevenStarHotelRegistrationScreenState
   final TextEditingController _estateNameController = TextEditingController();
   final TextEditingController _yearOriginController = TextEditingController();
   final TextEditingController _historicSignificanceController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _globalPrestigeRankController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _totalGuestCapacityController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _estateSizeController = TextEditingController();
   final TextEditingController _staffToGuestRatioController =
-      TextEditingController();
+  TextEditingController();
 
   final TextEditingController _legalHoldingEntityController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _sovereignOwnerController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _chiefExecutiveCustodianController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _protocolAffairsDirectorController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _headOfGuestExperienceController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _eliteGuestLiaisonController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _directCommandContactController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _encryptedCommunicationController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _executiveEmailController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _officialPortfolioController =
-      TextEditingController();
+  TextEditingController();
 
   final TextEditingController _estateAddressController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController(); // NEW: Country field
   final TextEditingController _postalCodeController = TextEditingController();
   final TextEditingController _distanceFromHubController =
-      TextEditingController();
+  TextEditingController();
 
   final TextEditingController _internationalTaxIdController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _securityCertificationLevelController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _cyberIntelligenceProtectionController =
-      TextEditingController();
+  TextEditingController();
 
   final TextEditingController _treasuryAccountNameController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _globalBankInstitutionController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _accountNumberController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _swiftIbanController = TextEditingController();
   final TextEditingController _settlementCurrencyController =
-      TextEditingController();
+  TextEditingController();
 
   final TextEditingController _authorizedAuthorityController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _titleRankController = TextEditingController();
+
+  final TextEditingController _checkInController = TextEditingController(); // NEW: Check-in time
+  final TextEditingController _checkOutController = TextEditingController(); // NEW: Check-out time
 
   String? _selectedSovereignClassification;
   final List<String> _sovereignClassifications = [
@@ -46473,6 +36686,15 @@ class _SevenStarHotelRegistrationScreenState
     'Billionaire Private Holding',
     'Diplomatic Authority',
   ];
+
+  String? _selectedAccountType; // NEW: Account type
+
+  final Map<String, dynamic> _profilePhoto = { // NEW: Profile photo
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
+  };
 
   final Map<String, Map<String, dynamic>> _royalAccommodations = {
     'Imperial Chamber': {
@@ -46624,10 +36846,54 @@ class _SevenStarHotelRegistrationScreenState
     },
   ];
 
+  final List<Map<String, String>> _timeOptions24Hour = [ // NEW: Time options
+    {'value': '00:00', 'display': '12:00 AM'},
+    {'value': '01:00', 'display': '01:00 AM'},
+    {'value': '02:00', 'display': '02:00 AM'},
+    {'value': '03:00', 'display': '03:00 AM'},
+    {'value': '04:00', 'display': '04:00 AM'},
+    {'value': '05:00', 'display': '05:00 AM'},
+    {'value': '06:00', 'display': '06:00 AM'},
+    {'value': '07:00', 'display': '07:00 AM'},
+    {'value': '08:00', 'display': '08:00 AM'},
+    {'value': '09:00', 'display': '09:00 AM'},
+    {'value': '10:00', 'display': '10:00 AM'},
+    {'value': '11:00', 'display': '11:00 AM'},
+    {'value': '12:00', 'display': '12:00 PM'},
+    {'value': '13:00', 'display': '01:00 PM'},
+    {'value': '14:00', 'display': '02:00 PM'},
+    {'value': '15:00', 'display': '03:00 PM'},
+    {'value': '16:00', 'display': '04:00 PM'},
+    {'value': '17:00', 'display': '05:00 PM'},
+    {'value': '18:00', 'display': '06:00 PM'},
+    {'value': '19:00', 'display': '07:00 PM'},
+    {'value': '20:00', 'display': '08:00 PM'},
+    {'value': '21:00', 'display': '09:00 PM'},
+    {'value': '22:00', 'display': '10:00 PM'},
+    {'value': '23:00', 'display': '11:00 PM'},
+  ];
+
+  // NEW: Helper method to get current local time
+  String _getCurrentLocalTime() {
+    final now = DateTime.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  // NEW: Helper method to get initial text for numeric fields
+  String _getInitialText(dynamic value) {
+    if (value == null) return '';
+    if (value is num && value == 0) return '';
+    return value.toString();
+  }
+
   @override
   void initState() {
     super.initState();
     _initializeAmenities();
+    _checkInController.text = _getCurrentLocalTime(); // NEW: Initialize check-in time
+    _checkOutController.text = _getCurrentLocalTime(); // NEW: Initialize check-out time
   }
 
   void _initializeAmenities() {
@@ -46773,20 +37039,20 @@ class _SevenStarHotelRegistrationScreenState
                                   child: Center(
                                     child: isCompleted
                                         ? Icon(
-                                            Icons.check,
-                                            size: 18,
-                                            color: Colors.white,
-                                          )
+                                      Icons.check,
+                                      size: 18,
+                                      color: Colors.white,
+                                    )
                                         : Text(
-                                            '${index + 1}',
-                                            style: TextStyle(
-                                              color: isActive || isCompleted
-                                                  ? Colors.white
-                                                  : _textSecondary,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                            ),
-                                          ),
+                                      '${index + 1}',
+                                      style: TextStyle(
+                                        color: isActive || isCompleted
+                                            ? Colors.white
+                                            : _textSecondary,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 4),
@@ -47059,10 +37325,10 @@ class _SevenStarHotelRegistrationScreenState
           title: '1. Sovereign Property Identity',
           children: [
             _buildInputField(
-              label: 'Official Estate / Palace Name',
+              label: 'Official Estate Name',
               controller: _estateNameController,
               hint: 'Enter royal estate name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -47101,6 +37367,10 @@ class _SevenStarHotelRegistrationScreenState
                     controller: _yearOriginController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ], // UPDATED: Integer only
                   ),
                 ),
                 SizedBox(width: 16),
@@ -47110,6 +37380,9 @@ class _SevenStarHotelRegistrationScreenState
                     controller: _totalGuestCapacityController,
                     hint: 'Number of guests',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ], // UPDATED: Integer only
                   ),
                 ),
               ],
@@ -47162,11 +37435,14 @@ class _SevenStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Supreme Authority & Governance',
           children: [
+            _buildProfilePhotoUploadItem(), // NEW: Profile photo
+            SizedBox(height: 16),
+
             _buildInputField(
               label: 'Legal Holding Entity',
               controller: _legalHoldingEntityController,
               hint: 'Enter legal entity name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -47174,7 +37450,7 @@ class _SevenStarHotelRegistrationScreenState
               label: 'Sovereign Owner / Royal Patron',
               controller: _sovereignOwnerController,
               hint: 'Enter name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -47245,7 +37521,7 @@ class _SevenStarHotelRegistrationScreenState
               label: 'Estate Address',
               controller: _estateAddressController,
               hint: 'Full estate address',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -47256,7 +37532,7 @@ class _SevenStarHotelRegistrationScreenState
                     label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
-                    isRequired: true,
+                    // isRequired: true,
                   ),
                 ),
                 SizedBox(width: 16),
@@ -47275,10 +37551,10 @@ class _SevenStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Country',
+                    label: 'Country', // NEW: Country field
                     controller: _countryController,
                     hint: 'Enter country',
-                    isRequired: true,
+                    // isRequired: true,
                   ),
                 ),
                 SizedBox(width: 16),
@@ -47450,17 +37726,25 @@ class _SevenStarHotelRegistrationScreenState
               Expanded(
                 child: _buildSmallInput(
                   label: 'Units',
-                  controller: TextEditingController(text: details['units']),
-                  onChanged: (value) => details['units'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['units']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['units'] = intValue;
+                  }, // UPDATED: Integer
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
               Expanded(
                 child: _buildSmallInput(
                   label: 'Area (sq m)',
-                  controller: TextEditingController(text: details['area']),
+                  controller: TextEditingController(
+                    text: _getInitialText(details['area']),
+                  ),
                   onChanged: (value) => details['area'] = value,
                   hint: '0',
                   keyboardType: TextInputType.number,
@@ -47475,10 +37759,16 @@ class _SevenStarHotelRegistrationScreenState
               Expanded(
                 child: _buildSmallInput(
                   label: 'Max Guests',
-                  controller: TextEditingController(text: details['maxGuests']),
-                  onChanged: (value) => details['maxGuests'] = value,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['maxGuests']),
+                  ),
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['maxGuests'] = intValue;
+                  }, // UPDATED: Integer
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
@@ -47502,21 +37792,35 @@ class _SevenStarHotelRegistrationScreenState
                 child: _buildSmallInput(
                   label: 'Avg Nightly Rate (USD)',
                   controller: TextEditingController(
-                    text: details['avgNightlyRate'],
+                    text: _getInitialText(details['avgNightlyRate']),
                   ),
-                  onChanged: (value) => details['avgNightlyRate'] = value,
-                  hint: '0',
-                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    final doubleValue = double.tryParse(value) ?? 0.0;
+                    details['avgNightlyRate'] = doubleValue;
+                  }, // UPDATED: Double
+                  hint: '0.00',
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                  ],
                 ),
               ),
               SizedBox(width: 12),
               Expanded(
                 child: _buildSmallInput(
                   label: 'Peak Rate (USD)',
-                  controller: TextEditingController(text: details['peakRate']),
-                  onChanged: (value) => details['peakRate'] = value,
-                  hint: '0',
-                  keyboardType: TextInputType.number,
+                  controller: TextEditingController(
+                    text: _getInitialText(details['peakRate']),
+                  ),
+                  onChanged: (value) {
+                    final doubleValue = double.tryParse(value) ?? 0.0;
+                    details['peakRate'] = doubleValue;
+                  }, // UPDATED: Double
+                  hint: '0.00',
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                  ],
                 ),
               ),
             ],
@@ -47562,6 +37866,7 @@ class _SevenStarHotelRegistrationScreenState
               controller: TextEditingController(),
               hint: 'Number of seats',
               keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly], // UPDATED: Integer
             ),
           ],
         ),
@@ -47584,6 +37889,31 @@ class _SevenStarHotelRegistrationScreenState
             ),
           ],
         ),
+        SizedBox(height: 16),
+
+        // NEW: Check-in/Check-out section
+        _buildCard(
+          title: '9. Royal Arrival & Departure Protocols',
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: _buildTimePickerField(
+                    label: 'Arrival (Check-In) Time',
+                    controller: _checkInController,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildTimePickerField(
+                    label: 'Departure (Check-Out) Time',
+                    controller: _checkOutController,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -47592,13 +37922,13 @@ class _SevenStarHotelRegistrationScreenState
     return Column(
       children: [
         _buildCard(
-          title: '9. Sovereign Security & Compliance',
+          title: '10. Sovereign Security & Compliance',
           children: [
             _buildInputField(
               label: 'International Tax / Registry ID',
               controller: _internationalTaxIdController,
               hint: 'Enter ID',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -47655,10 +37985,10 @@ class _SevenStarHotelRegistrationScreenState
                           _buildToggleChip(
                             'Yes',
                             _environmentalSovereignCertification,
-                            () {
+                                () {
                               setState(
-                                () =>
-                                    _environmentalSovereignCertification = true,
+                                    () =>
+                                _environmentalSovereignCertification = true,
                               );
                             },
                           ),
@@ -47666,10 +37996,10 @@ class _SevenStarHotelRegistrationScreenState
                           _buildToggleChip(
                             'No',
                             !_environmentalSovereignCertification,
-                            () {
+                                () {
                               setState(
-                                () => _environmentalSovereignCertification =
-                                    false,
+                                    () => _environmentalSovereignCertification =
+                                false,
                               );
                             },
                           ),
@@ -47706,7 +38036,7 @@ class _SevenStarHotelRegistrationScreenState
                     _buildToggleChip(
                       'In Development',
                       !_crisisCommandSystem,
-                      () {
+                          () {
                         setState(() => _crisisCommandSystem = false);
                       },
                     ),
@@ -47719,13 +38049,13 @@ class _SevenStarHotelRegistrationScreenState
         SizedBox(height: 16),
 
         _buildCard(
-          title: '10. Treasury & Financial Protocol',
+          title: '11. Treasury & Financial Protocol',
           children: [
             _buildInputField(
               label: 'Treasury Account Name',
               controller: _treasuryAccountNameController,
               hint: 'Enter account name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -47733,7 +38063,7 @@ class _SevenStarHotelRegistrationScreenState
               label: 'Global Bank Institution',
               controller: _globalBankInstitutionController,
               hint: 'Enter bank name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -47772,6 +38102,57 @@ class _SevenStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
+            // NEW: Account Type Radio Buttons
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Account Type',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Savings'),
+                        value: 'Savings',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Current'),
+                        value: 'Current',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+
             _buildAmenitiesSection(
               'Alternative Settlement Options',
               _alternativeSettlementOptions,
@@ -47781,7 +38162,7 @@ class _SevenStarHotelRegistrationScreenState
         SizedBox(height: 16),
 
         _buildCard(
-          title: '11. Hyper-Digital Integration',
+          title: '12. Hyper-Digital Integration',
           children: [
             _buildAmenitiesSection(
               'Integration Capabilities',
@@ -47792,7 +38173,7 @@ class _SevenStarHotelRegistrationScreenState
         SizedBox(height: 16),
 
         _buildCard(
-          title: '12. Mandatory Credentials Upload',
+          title: '13. Mandatory Credentials Upload',
           children: [
             Text(
               'Upload sovereign-grade documentation',
@@ -47806,20 +38187,20 @@ class _SevenStarHotelRegistrationScreenState
             ..._sovereignCredentials.entries
                 .map(
                   (entry) => _buildDocumentUploadItem(
-                    documentName: entry.key,
-                    fileInfo: entry.value,
-                    onUploadPressed: () => _pickSovereignDocument(entry.key),
-                    onViewPressed: () => _viewSovereignDocument(entry.key),
-                    onRemovePressed: () => _removeSovereignDocument(entry.key),
-                  ),
-                )
+                documentName: entry.key,
+                fileInfo: entry.value,
+                onUploadPressed: () => _pickSovereignDocument(entry.key),
+                onViewPressed: () => _viewSovereignDocument(entry.key),
+                onRemovePressed: () => _removeSovereignDocument(entry.key),
+              ),
+            )
                 .toList(),
           ],
         ),
         SizedBox(height: 16),
 
         _buildCard(
-          title: '13. Sovereign Prestige Declaration',
+          title: '14. Sovereign Prestige Declaration',
           children: [
             Container(
               padding: EdgeInsets.all(12),
@@ -48006,12 +38387,12 @@ class _SevenStarHotelRegistrationScreenState
               label: 'Authorized Authority',
               controller: _authorizedAuthorityController,
               hint: 'Enter name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
             _buildInputField(
-              label: 'Title / Rank',
+              label: 'Title',
               controller: _titleRankController,
               hint: 'Enter title',
             ),
@@ -48065,6 +38446,402 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
+  // NEW: Profile Photo Upload Widget
+  Widget _buildProfilePhotoUploadItem() {
+    final fileName = _profilePhoto['name'] as String? ?? '';
+    final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
+    final fileSize = (_profilePhoto['size'] as int?) ?? 0;
+
+    Future<void> _pickProfilePhoto() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a profile photo smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _profilePhoto['name'] = file.name;
+            _profilePhoto['size'] = file.size;
+            _profilePhoto['path'] = file.path ?? '';
+            _profilePhoto['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Profile photo uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload profile photo: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewProfilePhoto() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Profile Photo'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('File: $fileName'),
+                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    void _removeProfilePhoto() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Remove Profile Photo'),
+          content: const Text('Are you sure you want to remove this profile photo?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _profilePhoto['name'] = '';
+                  _profilePhoto['size'] = 0;
+                  _profilePhoto['path'] = '';
+                  _profilePhoto['uploaded'] = false;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Profile photo removed'),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile Photo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'JPG, PNG format (Max 2MB)',
+                        style: TextStyle(fontSize: 11, color: _textSecondary),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickProfilePhoto,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(fontSize: 11, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewProfilePhoto,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview',
+                      ),
+                      IconButton(
+                        onPressed: _removeProfilePhoto,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // NEW: Time Picker Field
+  Widget _buildTimePickerField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectTime(context, controller),
+          child: Container(
+            height: 48,
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isNotEmpty
+                      ? _formatTimeForDisplay(controller.text)
+                      : 'Select time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: controller.text.isNotEmpty
+                        ? _textPrimary
+                        : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                  color: _primaryColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // NEW: Time selection method
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    TimeOfDay initialTime = TimeOfDay.now();
+
+    if (controller.text.isNotEmpty) {
+      try {
+        List<String> parts = controller.text.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          initialTime = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e) {
+        initialTime = TimeOfDay.now();
+      }
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        String hour = pickedTime.hour.toString().padLeft(2, '0');
+        String minute = pickedTime.minute.toString().padLeft(2, '0');
+        controller.text = '$hour:$minute';
+      });
+    }
+  }
+
+  // NEW: Format time for display
+  String _formatTimeForDisplay(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length >= 2) {
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1].substring(0, 2));
+
+        String period = hour >= 12 ? 'PM' : 'AM';
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+      }
+    } catch (e) {
+      return time24;
+    }
+    return time24;
+  }
+
   Widget _buildCard({required String title, required List<Widget> children}) {
     return Container(
       width: double.infinity,
@@ -48100,13 +38877,15 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Input field with inputFormatters
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    bool isRequired = false,
+    // bool isRequired = false,
     int maxLines = 1,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48121,17 +38900,17 @@ class _SevenStarHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            if (isRequired)
-              Padding(
-                padding: EdgeInsets.only(left: 4),
-                child: Text(
-                  '*',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            // if (isRequired)
+            //   Padding(
+            //     padding: EdgeInsets.only(left: 4),
+            //     child: Text(
+            //       '*',
+            //       style: TextStyle(
+            //         color: Colors.red,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
         SizedBox(height: 8),
@@ -48139,6 +38918,7 @@ class _SevenStarHotelRegistrationScreenState
           controller: controller,
           keyboardType: keyboardType,
           maxLines: maxLines,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(color: _textSecondary, fontSize: 13),
@@ -48161,12 +38941,14 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Small input with inputFormatters
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -48186,6 +38968,7 @@ class _SevenStarHotelRegistrationScreenState
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(fontSize: 11, color: _textSecondary),
@@ -48667,19 +39450,6 @@ class _SevenStarHotelRegistrationScreenState
     }
   }
 
-  // void _nextStep() {
-  //   if (_currentStep < _steps.length - 1) {
-  //     setState(() => _currentStep++);
-  //   } else {
-  //     _submitForm();
-  //   }
-  // }
-  //
-  // void _previousStep() {
-  //   if (_currentStep > 0) {
-  //     setState(() => _currentStep--);
-  //   }
-  // }
   void _nextStep() {
     // Validate current step before proceeding
     // if (!_validateCurrentStep()) {
@@ -48805,14 +39575,14 @@ class _SevenStarHotelRegistrationScreenState
     // }
 
     // Check required documents
-    final requiredDocs = [
-      'Royal Authorization Certificate',
-      'Estate Ownership Proof',
-      'International Security Clearance',
-      'Insurance Coverage Portfolio',
-      'Financial Verification Letter',
-      'Ultra-HD Estate Portfolio',
-    ];
+    // final requiredDocs = [
+    //   'Royal Authorization Certificate',
+    //   'Estate Ownership Proof',
+    //   'International Security Clearance',
+    //   'Insurance Coverage Portfolio',
+    //   'Financial Verification Letter',
+    //   'Ultra-HD Estate Portfolio',
+    // ];
 
     // for (var doc in requiredDocs) {
     //   if (!(_sovereignCredentials[doc]?['uploaded'] ?? false)) {
@@ -48822,18 +39592,42 @@ class _SevenStarHotelRegistrationScreenState
     //   }
     // }
 
+    // Process room details to ensure proper types
+    Map<String, Map<String, dynamic>> processedRoyalAccommodations = {};
+    _royalAccommodations.forEach((key, value) {
+      processedRoyalAccommodations[key] = {
+        'units': value['units'] is int ? value['units'] : int.tryParse(
+            value['units'].toString()) ?? 0,
+        'area': value['area'] is String ? value['area'] : value['area'].toString(),
+        'maxGuests': value['maxGuests'] is int ? value['maxGuests'] : int.tryParse(
+            value['maxGuests'].toString()) ?? 0,
+        'signatureFeatures': value['signatureFeatures'] is String
+            ? value['signatureFeatures']
+            : value['signatureFeatures'].toString(),
+        'avgNightlyRate': value['avgNightlyRate'] is double
+            ? value['avgNightlyRate']
+            : double.tryParse(value['avgNightlyRate'].toString()) ?? 0.0,
+        'peakRate': value['peakRate'] is double
+            ? value['peakRate']
+            : double.tryParse(value['peakRate'].toString()) ?? 0.0,
+      };
+    });
+
     // Build complete form data
     Map<String, dynamic> formData = {
       'estateName': _estateNameController.text,
       'sovereignClassification': _selectedSovereignClassification,
       'heritageStatus': _selectedHeritageStatus,
       'ownershipCategory': _selectedOwnershipCategory,
-      'yearOfOrigin': _yearOriginController.text,
+      'yearOfOrigin': int.tryParse(_yearOriginController.text) ?? 0, // UPDATED: Integer
       'historicSignificance': _historicSignificanceController.text,
       'globalPrestigeRank': _globalPrestigeRankController.text,
-      'totalGuestCapacity': _totalGuestCapacityController.text,
+      'totalGuestCapacity': int.tryParse(_totalGuestCapacityController.text) ?? 0, // UPDATED: Integer
       'estateSize': _estateSizeController.text,
       'staffToGuestRatio': _staffToGuestRatioController.text,
+
+      // Profile Photo
+      'profilePhoto': _profilePhoto, // NEW
 
       // 2. Supreme Authority & Governance
       'legalHoldingEntity': _legalHoldingEntityController.text,
@@ -48851,14 +39645,18 @@ class _SevenStarHotelRegistrationScreenState
       'estateAddress': _estateAddressController.text,
       'city': _cityController.text,
       'state': _stateController.text,
-      'country': _countryController.text,
+      'country': _countryController.text, // NEW
       'postalCode': _postalCodeController.text,
       'arrivalInfrastructure': _arrivalInfrastructure,
       'distanceFromHub': _distanceFromHubController.text,
 
+      // Check-in/Check-out times
+      'checkInTime': _checkInController.text, // NEW
+      'checkOutTime': _checkOutController.text, // NEW
+
       // 4. Royal Accommodation Intelligence Matrix
       'selectedRoyalAccommodations': _selectedRoyalAccommodations,
-      'royalAccommodations': _royalAccommodations,
+      'royalAccommodations': processedRoyalAccommodations, // UPDATED: With processed types
       'pricingEngine': _selectedPricingEngine,
 
       // 5. Supreme Experience Architecture
@@ -48880,9 +39678,9 @@ class _SevenStarHotelRegistrationScreenState
       'securityCertificationLevel': _securityCertificationLevelController.text,
       'fireDisasterClearance': _fireDisasterClearance,
       'environmentalSovereignCertification':
-          _environmentalSovereignCertification,
+      _environmentalSovereignCertification,
       'cyberIntelligenceProtection':
-          _cyberIntelligenceProtectionController.text,
+      _cyberIntelligenceProtectionController.text,
       'crisisCommandSystem': _crisisCommandSystem,
 
       // 10. Treasury & Financial Protocol
@@ -48891,6 +39689,7 @@ class _SevenStarHotelRegistrationScreenState
       'accountNumber': _accountNumberController.text,
       'swiftIban': _swiftIbanController.text,
       'settlementCurrency': _settlementCurrencyController.text,
+      'accountType': _selectedAccountType, // NEW
       'alternativeSettlementOptions': _alternativeSettlementOptions,
 
       // 11. Hyper-Digital Integration
@@ -48914,9 +39713,8 @@ class _SevenStarHotelRegistrationScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
+        builder: (context) => SevenStarHotelSummaryScreen(
           registrationData: formData,
-          hotelCategory: '7-Star Sovereign',
           declarationAccepted: _declarationAccepted,
         ),
       ),
@@ -48963,6 +39761,9 @@ class _SevenStarHotelRegistrationScreenState
     _authorizedAuthorityController.dispose();
     _titleRankController.dispose();
 
+    _checkInController.dispose(); // NEW
+    _checkOutController.dispose(); // NEW
+
     _signatureController.dispose();
 
     super.dispose();
@@ -48976,6 +39777,2685 @@ class GlobalEliteLuxuryHotelRegistrationScreen extends StatefulWidget {
   State<GlobalEliteLuxuryHotelRegistrationScreen> createState() =>
       _GlobalEliteLuxuryHotelRegistrationScreenState();
 }
+
+//
+// class _GlobalEliteLuxuryHotelRegistrationScreenState
+//     extends State<GlobalEliteLuxuryHotelRegistrationScreen> {
+//   final _formKey = GlobalKey<FormState>();
+//   int _currentStep = 0;
+//
+//   final Color _primaryColor = const Color(0xFF10B981);
+//   final Color _accentColor = const Color(0xFF10B981);
+//   final Color _primaryLight = const Color(0xFFF5F7FA);
+//   final Color _bgColor = const Color(0xFFFAFAFA);
+//   final Color _cardColor = Colors.white;
+//   final Color _borderColor = const Color(0xFFE5E7EB);
+//   final Color _textPrimary = const Color(0xFF111827);
+//   final Color _textSecondary = const Color(0xFF6B7280);
+//   final Color _successColor = const Color(0xFF10B981);
+//
+//   final TextEditingController _propertyNameController = TextEditingController();
+//   final TextEditingController _brandAffiliationController =
+//       TextEditingController();
+//   final TextEditingController _yearEstablishedController =
+//       TextEditingController();
+//   final TextEditingController _yearRenovatedController =
+//       TextEditingController();
+//   final TextEditingController _awardsRankingsController =
+//       TextEditingController();
+//   final TextEditingController _totalInventoryController =
+//       TextEditingController();
+//   final TextEditingController _staffToGuestRatioController =
+//       TextEditingController();
+//
+//   String? _selectedLuxuryClassification;
+//   final List<String> _luxuryClassifications = [
+//     '6★',
+//     '7★',
+//     'Palace',
+//     'Heritage Royal',
+//     'Private Estate',
+//     'Ultra-Exclusive',
+//   ];
+//
+//   String? _selectedPropertyPositioning;
+//   final List<String> _propertyPositionings = [
+//     'Ultra Luxury',
+//     'Royal Heritage',
+//     'Billionaire Retreat',
+//     'Diplomatic Residence',
+//   ];
+//
+//   String? _selectedRecognitionLevel;
+//   final List<String> _recognitionLevels = [
+//     'Global',
+//     'Continental',
+//     'National',
+//     'Invitation-Only',
+//   ];
+//
+//   final TextEditingController _legalEntityController = TextEditingController();
+//   final TextEditingController _uboController = TextEditingController();
+//   final TextEditingController _authorizedSignatoryController =
+//       TextEditingController();
+//   final TextEditingController _designationController = TextEditingController();
+//   final TextEditingController _generalManagerController =
+//       TextEditingController();
+//   final TextEditingController _vipRelationsDirectorController =
+//       TextEditingController();
+//   final TextEditingController _primaryContactController =
+//       TextEditingController();
+//   final TextEditingController _secondaryContactController =
+//       TextEditingController();
+//   final TextEditingController _executiveEmailController =
+//       TextEditingController();
+//   final TextEditingController _websitePortfolioController =
+//       TextEditingController();
+//
+//   final TextEditingController _addressLine1Controller = TextEditingController();
+//   final TextEditingController _addressLine2Controller = TextEditingController();
+//   final TextEditingController _cityController = TextEditingController();
+//   final TextEditingController _stateController = TextEditingController();
+//   final TextEditingController _countryController = TextEditingController();
+//   final TextEditingController _postalCodeController = TextEditingController();
+//   final TextEditingController _nearestAirportController =
+//       TextEditingController();
+//   final TextEditingController _distanceFromAirportController =
+//       TextEditingController();
+//
+//   late Map<String, bool> _privateAccessOptions;
+//
+//
+//
+//   String? _selectedRateEngineType;
+//   final List<String> _rateEngineTypes = [
+//     'AI Dynamic Pricing',
+//     'Predictive Demand Pricing',
+//     'Invite-Only Pricing Tier',
+//   ];
+//
+//   late Map<String, bool> _inSuiteTechnology;
+//   late Map<String, bool> _signatureLuxuryFeatures;
+//   late Map<String, bool> _arrivalExperience;
+//   late Map<String, bool> _gastronomyFeatures;
+//   late Map<String, bool> _wellnessFeatures;
+//   late Map<String, bool> _guestPrivileges;
+//
+//   final TextEditingController _luxuryLinenBrandController =
+//       TextEditingController();
+//   final TextEditingController _michelinCountController =
+//       TextEditingController();
+//   final TextEditingController _banquetHallCapacityController =
+//       TextEditingController();
+//   bool _globalEventHosting = false;
+//
+//   final TextEditingController _taxIdController = TextEditingController();
+//   final TextEditingController _complianceStandardController =
+//       TextEditingController();
+//
+//   bool _fireSafetyCertification = false;
+//   bool _environmentalCertification = false;
+//   bool _cybersecurityCertification = false;
+//   bool _crisisManagementProtocol = false;
+//
+//   final TextEditingController _accountNameController = TextEditingController();
+//   final TextEditingController _bankController = TextEditingController();
+//   final TextEditingController _accountNumberController =
+//       TextEditingController();
+//   final TextEditingController _swiftIfscController = TextEditingController();
+//   final TextEditingController _bankCountryController = TextEditingController();
+//   final TextEditingController _settlementCurrencyController =
+//       TextEditingController();
+//
+//   late Map<String, bool> _digitalIntegration;
+//
+//   final Map<String, Map<String, dynamic>> _requiredDocuments = {
+//     'Business Registration Certificates': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Luxury Accreditation Proof': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Insurance Coverage Documents': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Safety Certifications': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Bank Verification Letter': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'Property Portfolio & Media Kit': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//     'High-Resolution Property Visuals': {
+//       'name': '',
+//       'size': 0,
+//       'path': '',
+//       'uploaded': false,
+//     },
+//   };
+//
+//   final SignatureController _signatureController = SignatureController(
+//     penStrokeWidth: 3,
+//     penColor: Colors.black,
+//     exportBackgroundColor: Colors.white,
+//   );
+//   bool _hasDigitalSignature = false;
+//   Uint8List? _digitalSignatureImage;
+//
+//   final TextEditingController _authorizedSignatoryNameController =
+//       TextEditingController();
+//   final TextEditingController _nameTitleController = TextEditingController();
+//   DateTime? _selectedDate;
+//   bool _declarationAccepted = false;
+//
+//   final List<String> _bedTypeOptions = [
+//     'King',
+//     'Queen',
+//     'Twin',
+//     'Double',
+//     'California King',
+//     'Emperor',
+//     'Custom',
+//   ];
+//
+//   final Map<String, Map<String, dynamic>> _accommodationMatrix = {
+//     'Luxury Room': {
+//       'units': '',
+//       'size': '',
+//       'occupancy': '',
+//       'bedType': null,
+//       'avgNightlyRate': '',
+//       'peakRate': '',
+//     },
+//     'Club Suite': {
+//       'units': '',
+//       'size': '',
+//       'occupancy': '',
+//       'bedType': null,
+//       'avgNightlyRate': '',
+//       'peakRate': '',
+//     },
+//     'Royal Suite': {
+//       'units': '',
+//       'size': '',
+//       'occupancy': '',
+//       'bedType': null,
+//       'avgNightlyRate': '',
+//       'peakRate': '',
+//     },
+//     'Presidential Suite': {
+//       'units': '',
+//       'size': '',
+//       'occupancy': '',
+//       'bedType': null,
+//       'avgNightlyRate': '',
+//       'peakRate': '',
+//     },
+//     'Private Residence / Villa': {
+//       'units': '',
+//       'size': '',
+//       'occupancy': '',
+//       'bedType': null,
+//       'avgNightlyRate': '',
+//       'peakRate': '',
+//     },
+//   };
+//
+//   Map<String, bool> _selectedAccommodationTypes = {
+//     'Luxury Room': false,
+//     'Club Suite': false,
+//     'Royal Suite': false,
+//     'Presidential Suite': false,
+//     'Private Residence / Villa': false,
+//   };
+//
+//   final List<Map<String, dynamic>> _steps = [
+//     {
+//       'title': 'Prestige Identity',
+//       'subtitle': 'Hotel Classification & Heritage',
+//     },
+//     {'title': 'Executive Command', 'subtitle': 'Ownership & Authority'},
+//     {
+//       'title': 'Location & Matrix',
+//       'subtitle': 'Access & Accommodation Intelligence',
+//     },
+//     {
+//       'title': 'Ultra-Elite Facilities',
+//       'subtitle': 'Services & Guest Privileges',
+//     },
+//     {
+//       'title': 'Security & Treasury',
+//       'subtitle': 'Compliance & Final Declaration',
+//     },
+//   ];
+//
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _initializeAmenities();
+//   }
+//
+//   void _initializeAmenities() {
+//     _privateAccessOptions = {
+//       'Private Helipad': false,
+//       'Yacht Dock': false,
+//       'Private Runway': false,
+//       'Diplomatic Entry Route': false,
+//     };
+//
+//     _inSuiteTechnology = {
+//       'AI Voice Butler': false,
+//       'Biometric Room Access': false,
+//       'Mood-Based Environment Control': false,
+//       'Private Server Wi-Fi': false,
+//       'Hidden Staff Corridors': false,
+//     };
+//
+//     _signatureLuxuryFeatures = {
+//       'Personal Butler per Suite': false,
+//       'In-Room Spa Therapists': false,
+//       'Private Chef on Demand': false,
+//       'Luxury Linen Brand': false,
+//       'Rare Art Collection Display': false,
+//     };
+//
+//     _arrivalExperience = {
+//       'Chauffeur Rolls-Royce Fleet': false,
+//       'Armored Transport Available': false,
+//       'Red Carpet Protocol': false,
+//       'Royal Welcome Ceremony': false,
+//     };
+//
+//     _gastronomyFeatures = {
+//       'Michelin-Star Restaurants': false,
+//       'Celebrity Chef Residencies': false,
+//       'Private Dining Palaces': false,
+//       'Wine Library (>1000 labels)': false,
+//       'Royal Banquet Hall': false,
+//     };
+//
+//     _wellnessFeatures = {
+//       'Medical-Grade Wellness Clinic': false,
+//       'Longevity Programs': false,
+//       'Private Trainers': false,
+//       'Luxury Retail Arcade': false,
+//       'Private Beach Access': false,
+//       'Golf Estate': false,
+//     };
+//
+//     _guestPrivileges = {
+//       'Global Concierge Network': false,
+//       'Diplomatic Protocol': false,
+//       'Personal Security Teams': false,
+//       'Visa & Immigration Desk': false,
+//       'On-Site Medical Team': false,
+//       'Private Shopping Consultants': false,
+//     };
+//
+//     _digitalIntegration = {
+//       'API Connectivity': false,
+//       'Real-Time Inventory Sync': false,
+//       'AI Concierge Integration': false,
+//       'Blockchain Payment': false,
+//       'CRM Integration': false,
+//     };
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: _bgColor,
+//       appBar: AppBar(
+//         backgroundColor: Colors.white,
+//         elevation: 0,
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back, color: _textPrimary),
+//           onPressed: () => Navigator.pop(context),
+//         ),
+//         title: Text(
+//           'Global Elite Luxury Hotel Registration Form',
+//           style: TextStyle(
+//             fontSize: 17,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         centerTitle: true,
+//       ),
+//       body: Form(
+//         key: _formKey,
+//         child: Column(
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(8),
+//               color: Colors.white,
+//               child: Column(
+//                 children: [
+//                   SingleChildScrollView(
+//                     scrollDirection: Axis.horizontal,
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: List.generate(_steps.length, (index) {
+//                         bool isActive = index == _currentStep;
+//                         bool isCompleted = index < _currentStep;
+//
+//                         return GestureDetector(
+//                           onTap: () {
+//                             if (index <= _currentStep) {
+//                               setState(() => _currentStep = index);
+//                             }
+//                           },
+//                           child: Container(
+//                             // margin: EdgeInsets.symmetric(horizontal: 1),
+//                             child: Column(
+//                               children: [
+//                                 Container(
+//                                   width: 36,
+//                                   height: 36,
+//                                   decoration: BoxDecoration(
+//                                     shape: BoxShape.circle,
+//                                     color: isActive
+//                                         ? _primaryColor
+//                                         : isCompleted
+//                                         ? _successColor
+//                                         : Colors.white,
+//                                     border: Border.all(
+//                                       color: isActive || isCompleted
+//                                           ? Colors.transparent
+//                                           : _borderColor,
+//                                       width: 2,
+//                                     ),
+//                                   ),
+//                                   child: Center(
+//                                     child: isCompleted
+//                                         ? Icon(
+//                                             Icons.check,
+//                                             size: 18,
+//                                             color: Colors.white,
+//                                           )
+//                                         : Text(
+//                                             '${index + 1}',
+//                                             style: TextStyle(
+//                                               color: isActive || isCompleted
+//                                                   ? Colors.white
+//                                                   : _textSecondary,
+//                                               fontWeight: FontWeight.w600,
+//                                               fontSize: 14,
+//                                             ),
+//                                           ),
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 4),
+//                                 SizedBox(
+//                                   width: 80,
+//                                   child: Text(
+//                                     _steps[index]['title'],
+//                                     style: TextStyle(
+//                                       fontSize: 10,
+//                                       fontWeight: FontWeight.w500,
+//                                       color: isActive || isCompleted
+//                                           ? _textPrimary
+//                                           : _textSecondary,
+//                                     ),
+//                                     textAlign: TextAlign.center,
+//                                     maxLines: 2,
+//                                     overflow: TextOverflow.ellipsis,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       }),
+//                     ),
+//                   ),
+//                   SizedBox(height: 12),
+//                   LinearProgressIndicator(
+//                     value: (_currentStep + 1) / _steps.length,
+//                     backgroundColor: _borderColor,
+//                     color: _primaryColor,
+//                     minHeight: 4,
+//                     borderRadius: BorderRadius.circular(2),
+//                   ),
+//                   SizedBox(height: 8),
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: [
+//                       Text(
+//                         'Step ${_currentStep + 1} of ${_steps.length}',
+//                         style: TextStyle(fontSize: 12, color: _textSecondary),
+//                       ),
+//                       Text(
+//                         '${((_currentStep + 1) / _steps.length * 100).toInt()}%',
+//                         style: TextStyle(
+//                           fontSize: 12,
+//                           fontWeight: FontWeight.w600,
+//                           color: _primaryColor,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             // BODY
+//             Expanded(
+//               child: SingleChildScrollView(
+//                 padding: EdgeInsets.all(10),
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Container(
+//                       margin: EdgeInsets.only(bottom: 20),
+//                       padding: EdgeInsets.all(16),
+//                       decoration: BoxDecoration(
+//                         color: _cardColor,
+//                         borderRadius: BorderRadius.circular(12),
+//                         border: Border.all(color: _borderColor),
+//                       ),
+//                       child: Row(
+//                         children: [
+//                           Container(
+//                             width: 40,
+//                             height: 40,
+//                             decoration: BoxDecoration(
+//                               color: _primaryLight,
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                             child: Center(
+//                               child: Text(
+//                                 '${_currentStep + 1}',
+//                                 style: TextStyle(
+//                                   fontSize: 16,
+//                                   fontWeight: FontWeight.w700,
+//                                   color: _primaryColor,
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           SizedBox(width: 12),
+//                           Expanded(
+//                             child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               children: [
+//                                 Text(
+//                                   _steps[_currentStep]['title'],
+//                                   style: TextStyle(
+//                                     fontSize: 16,
+//                                     fontWeight: FontWeight.w600,
+//                                     color: _textPrimary,
+//                                   ),
+//                                 ),
+//                                 SizedBox(height: 4),
+//                                 Text(
+//                                   _steps[_currentStep]['subtitle'],
+//                                   style: TextStyle(
+//                                     fontSize: 12,
+//                                     color: _textSecondary,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                           Container(
+//                             padding: EdgeInsets.symmetric(
+//                               horizontal: 10,
+//                               vertical: 6,
+//                             ),
+//                             decoration: BoxDecoration(
+//                               color: _accentColor,
+//                               borderRadius: BorderRadius.circular(20),
+//                             ),
+//                             child: Row(
+//                               children: [
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 Icon(Icons.star, size: 14, color: Colors.white),
+//                                 SizedBox(width: 4),
+//                                 Text(
+//                                   'Global Elite',
+//                                   style: TextStyle(
+//                                     fontSize: 12,
+//                                     color: Colors.white,
+//                                     fontWeight: FontWeight.w600,
+//                                   ),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//
+//                     _buildStepContent(),
+//                     SizedBox(height: 32),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//
+//             Container(
+//               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+//               decoration: BoxDecoration(
+//                 color: Colors.white,
+//                 border: Border(top: BorderSide(color: _borderColor)),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black.withOpacity(0.1),
+//                     blurRadius: 4,
+//                     offset: Offset(0, -2),
+//                   ),
+//                 ],
+//               ),
+//               child: Row(
+//                 children: [
+//                   if (_currentStep > 0)
+//                     Expanded(
+//                       child: SizedBox(
+//                         height: 48,
+//                         child: OutlinedButton(
+//                           onPressed: _previousStep,
+//                           style: OutlinedButton.styleFrom(
+//                             side: BorderSide(color: _borderColor),
+//                             shape: RoundedRectangleBorder(
+//                               borderRadius: BorderRadius.circular(8),
+//                             ),
+//                           ),
+//                           child: Row(
+//                             mainAxisAlignment: MainAxisAlignment.center,
+//                             children: [
+//                               Icon(Icons.arrow_back, size: 16),
+//                               SizedBox(width: 6),
+//                               Text(
+//                                 'Back',
+//                                 style: TextStyle(
+//                                   fontSize: 14,
+//                                   fontWeight: FontWeight.w500,
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   if (_currentStep > 0) SizedBox(width: 12),
+//                   Expanded(
+//                     child: SizedBox(
+//                       height: 50,
+//                       child: ElevatedButton(
+//                         onPressed: _nextStep,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: _primaryColor,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(8),
+//                           ),
+//                           elevation: 0,
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Text(
+//                               _currentStep == _steps.length - 1
+//                                   ? 'Submit Registration'
+//                                   : 'Continue',
+//                               style: TextStyle(
+//                                 fontSize: 14,
+//                                 fontWeight: FontWeight.w500,
+//                                 color: Colors.white,
+//                               ),
+//                             ),
+//                             if (_currentStep < _steps.length - 1)
+//                               SizedBox(width: 6),
+//                             if (_currentStep < _steps.length - 1)
+//                               Icon(
+//                                 Icons.arrow_forward,
+//                                 size: 16,
+//                                 color: Colors.white,
+//                               ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildStepContent() {
+//     switch (_currentStep) {
+//       case 0:
+//         return _buildStep1();
+//       case 1:
+//         return _buildStep2();
+//       case 2:
+//         return _buildStep3();
+//       case 3:
+//         return _buildStep4();
+//       case 4:
+//         return _buildStep5();
+//       default:
+//         return Container();
+//     }
+//   }
+//
+//   // ============= STEP 1: Prestientge Hotel Idity =============
+//   Widget _buildStep1() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '1. Prestige Hotel Identity',
+//           children: [
+//             _buildInputField(
+//               label: 'Official Property Name',
+//               controller: _propertyNameController,
+//               hint: 'Enter official property name',
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Global Brand Affiliation / Ownership Group',
+//               controller: _brandAffiliationController,
+//               hint: 'Enter brand or ownership group',
+//             ),
+//             SizedBox(height: 16),
+//             _buildSelectionSection(
+//               label: 'Luxury Classification',
+//               options: _luxuryClassifications,
+//               selectedValue: _selectedLuxuryClassification,
+//               onSelected: (value) =>
+//                   setState(() => _selectedLuxuryClassification = value),
+//             ),
+//             SizedBox(height: 16),
+//             _buildSelectionSection(
+//               label: 'Property Positioning',
+//               options: _propertyPositionings,
+//               selectedValue: _selectedPropertyPositioning,
+//               onSelected: (value) =>
+//                   setState(() => _selectedPropertyPositioning = value),
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Year Established',
+//                     controller: _yearEstablishedController,
+//                     hint: 'YYYY',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Year Last Renovated',
+//                     controller: _yearRenovatedController,
+//                     hint: 'YYYY',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Global Awards & Rankings',
+//               controller: _awardsRankingsController,
+//               hint: 'Forbes, Michelin, etc.',
+//               maxLines: 2,
+//             ),
+//             SizedBox(height: 16),
+//             _buildSelectionSection(
+//               label: 'International Recognition Level',
+//               options: _recognitionLevels,
+//               selectedValue: _selectedRecognitionLevel,
+//               onSelected: (value) =>
+//                   setState(() => _selectedRecognitionLevel = value),
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Total Inventory',
+//                     controller: _totalInventoryController,
+//                     hint: 'Rooms + Suites + Villas',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Staff-to-Guest Ratio',
+//                     controller: _staffToGuestRatioController,
+//                     hint: 'e.g., 3:1',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   // ============= STEP 2: Ownership & Executive Command =============
+//   Widget _buildStep2() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '2. Ownership, Authority & Executive Command',
+//           children: [
+//             _buildInputField(
+//               label: 'Legal Entity Name',
+//               controller: _legalEntityController,
+//               hint: 'Enter legal entity name',
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Ultimate Beneficial Owner (UBO)',
+//               controller: _uboController,
+//               hint: 'Enter owner name',
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Authorized Signatory',
+//                     controller: _authorizedSignatoryController,
+//                     hint: 'Enter signatory name',
+//                     isRequired: true,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Designation',
+//                     controller: _designationController,
+//                     hint: 'Enter title',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'General Manager / Managing Director',
+//               controller: _generalManagerController,
+//               hint: 'Enter name',
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'VIP Relations Director',
+//               controller: _vipRelationsDirectorController,
+//               hint: 'Enter name',
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Primary Contact Number',
+//                     controller: _primaryContactController,
+//                     hint: 'Enter phone',
+//                     keyboardType: TextInputType.phone,
+//                     isRequired: true,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Secondary Contact',
+//                     controller: _secondaryContactController,
+//                     hint: 'Enter phone',
+//                     keyboardType: TextInputType.phone,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Executive Email',
+//               controller: _executiveEmailController,
+//               hint: 'Enter email',
+//               keyboardType: TextInputType.emailAddress,
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Website / Portfolio Link',
+//               controller: _websitePortfolioController,
+//               hint: 'URL',
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//
+//
+//   Widget _buildStep3() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '4. Accommodation Matrix & Rate Intelligence',
+//           children: [
+//             Text(
+//               'Select Accommodation Categories',
+//               style: TextStyle(
+//                 fontSize: 14,
+//                 fontWeight: FontWeight.w600,
+//                 color: _textPrimary,
+//               ),
+//             ),
+//             SizedBox(height: 12),
+//
+//             Wrap(
+//               spacing: 8,
+//               runSpacing: 8,
+//               children: _selectedAccommodationTypes.entries.map((entry) {
+//                 bool isSelected = entry.value;
+//                 return GestureDetector(
+//                   onTap: () {
+//                     setState(() {
+//                       _selectedAccommodationTypes[entry.key] = !isSelected;
+//                     });
+//                   },
+//                   child: Container(
+//                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+//                     decoration: BoxDecoration(
+//                       color: isSelected ? _primaryLight : Colors.white,
+//                       borderRadius: BorderRadius.circular(20),
+//                       border: Border.all(
+//                         color: isSelected ? _primaryColor : _borderColor,
+//                         width: isSelected ? 2 : 1,
+//                       ),
+//                     ),
+//                     child: Row(
+//                       mainAxisSize: MainAxisSize.min,
+//                       children: [
+//                         Icon(
+//                           isSelected
+//                               ? Icons.check_circle
+//                               : Icons.circle_outlined,
+//                           size: 16,
+//                           color: isSelected ? _primaryColor : _textSecondary,
+//                         ),
+//                         SizedBox(width: 8),
+//                         Text(
+//                           entry.key,
+//                           style: TextStyle(
+//                             fontSize: 13,
+//                             color: isSelected ? _primaryColor : _textSecondary,
+//                             fontWeight: isSelected
+//                                 ? FontWeight.w600
+//                                 : FontWeight.w500,
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 );
+//               }).toList(),
+//             ),
+//
+//             SizedBox(height: 20),
+//
+//             if (_selectedAccommodationTypes.entries.any((e) => e.value))
+//               Column(
+//                 children: [
+//                   Divider(color: _borderColor),
+//                   SizedBox(height: 16),
+//                   Text(
+//                     'Configure Selected Accommodations',
+//                     style: TextStyle(
+//                       fontSize: 15,
+//                       fontWeight: FontWeight.w700,
+//                       color: _primaryColor,
+//                     ),
+//                   ),
+//                   SizedBox(height: 16),
+//                   ..._selectedAccommodationTypes.entries
+//                       .where((e) => e.value)
+//                       .map((e) => _buildAccommodationDetailCard(e.key))
+//                       .toList(),
+//                 ],
+//               ),
+//
+//             SizedBox(height: 20),
+//             Divider(color: _borderColor),
+//             SizedBox(height: 16),
+//
+//             _buildSelectionSection(
+//               label: 'Rate Engine Type',
+//               options: _rateEngineTypes,
+//               selectedValue: _selectedRateEngineType,
+//               onSelected: (value) =>
+//                   setState(() => _selectedRateEngineType = value),
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildSmallInput({
+//     required String label,
+//     required TextEditingController controller,
+//     required ValueChanged<String> onChanged,
+//     required String hint,
+//     TextInputType? keyboardType,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 11,
+//             fontWeight: FontWeight.w500,
+//             color: _textSecondary,
+//           ),
+//         ),
+//         SizedBox(height: 4),
+//         SizedBox(
+//           height: 36,
+//           child: TextFormField(
+//             controller: controller,
+//             onChanged: onChanged,
+//             keyboardType: keyboardType,
+//             decoration: InputDecoration(
+//               hintText: hint,
+//               hintStyle: TextStyle(fontSize: 11, color: _textSecondary),
+//               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(6),
+//                 borderSide: BorderSide(color: _borderColor),
+//               ),
+//               isDense: true,
+//             ),
+//             style: TextStyle(fontSize: 12),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//
+//
+//   Widget _buildAccommodationDetailCard(String accommodationType) {
+//     final details = _accommodationMatrix[accommodationType];
+//     if (details == null) return SizedBox.shrink();
+//
+//     final unitsController = TextEditingController(
+//       text: details['units']?.toString() ?? '',
+//     );
+//     final sizeController = TextEditingController(
+//       text: details['size']?.toString() ?? '',
+//     );
+//     final occupancyController = TextEditingController(
+//       text: details['occupancy']?.toString() ?? '',
+//     );
+//     final avgRateController = TextEditingController(
+//       text: details['avgNightlyRate']?.toString() ?? '',
+//     );
+//     final peakRateController = TextEditingController(
+//       text: details['peakRate']?.toString() ?? '',
+//     );
+//
+//     return Container(
+//       margin: EdgeInsets.only(bottom: 16),
+//       padding: EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//         color: _primaryLight.withOpacity(0.3),
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: _primaryColor.withOpacity(0.3)),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             children: [
+//               Icon(Icons.hotel, size: 18, color: _primaryColor),
+//               SizedBox(width: 8),
+//               Text(
+//                 accommodationType,
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                   fontWeight: FontWeight.w700,
+//                   color: _primaryColor,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 16),
+//
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'Units',
+//                   controller: unitsController,
+//                   onChanged: (value) => details['units'] = value,
+//                   hint: '0',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'Size (sq ft)',
+//                   controller: sizeController,
+//                   onChanged: (value) => details['size'] = value,
+//                   hint: '0',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'Max Occupancy',
+//                   controller: occupancyController,
+//                   onChanged: (value) => details['occupancy'] = value,
+//                   hint: '2',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     Text(
+//                       'Bed Type',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         fontWeight: FontWeight.w500,
+//                         color: _textSecondary,
+//                       ),
+//                     ),
+//                     // SizedBox(height: 4),
+//                     Container(
+//                       height: 36,
+//                       decoration: BoxDecoration(
+//                         border: Border.all(color: _borderColor),
+//                         borderRadius: BorderRadius.circular(6),
+//                       ),
+//                       child: DropdownButtonFormField<String>(
+//                         value: details['bedType'] != null
+//                             ? details['bedType'] as String?
+//                             : null,
+//                         hint: Text(
+//                           'Select',
+//                           style: TextStyle(fontSize: 12, color: _textSecondary),
+//                         ),
+//                         isExpanded: true,
+//                         decoration: InputDecoration(
+//                           contentPadding: EdgeInsets.symmetric(
+//                             horizontal: 8,
+//                             vertical: 8,
+//                           ),
+//                           border: InputBorder.none,
+//                         ),
+//                         items: _bedTypeOptions.map((String option) {
+//                           return DropdownMenuItem<String>(
+//                             value: option,
+//                             child: Text(option, style: TextStyle(fontSize: 12)),
+//                           );
+//                         }).toList(),
+//                         onChanged: (String? newValue) {
+//                           setState(() {
+//                             details['bedType'] = newValue;
+//                           });
+//                         },
+//                         style: TextStyle(fontSize: 12, color: _textPrimary),
+//                         icon: Icon(
+//                           Icons.arrow_drop_down,
+//                           size: 18,
+//                           color: _textSecondary,
+//                         ),
+//                         dropdownColor: Colors.white,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SizedBox(height: 12),
+//
+//           Row(
+//             children: [
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'Avg Nightly Rate (USD)',
+//                   controller: avgRateController,
+//                   onChanged: (value) => details['avgNightlyRate'] = value,
+//                   hint: '0',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//               SizedBox(width: 12),
+//               Expanded(
+//                 child: _buildSmallInput(
+//                   label: 'Peak Rate (USD)',
+//                   controller: peakRateController,
+//                   onChanged: (value) => details['peakRate'] = value,
+//                   hint: '0',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildAccommodationRow(String category, Map<String, String> details) {
+//     return Container(
+//       margin: EdgeInsets.only(bottom: 8),
+//       padding: EdgeInsets.all(8),
+//       decoration: BoxDecoration(
+//         color: _primaryLight.withOpacity(0.3),
+//         borderRadius: BorderRadius.circular(8),
+//       ),
+//       child: SingleChildScrollView(
+//         scrollDirection: Axis.horizontal,
+//         child: Row(
+//           children: [
+//             SizedBox(
+//               width: 120,
+//               child: Text(
+//                 category,
+//                 style: TextStyle(fontWeight: FontWeight.w600),
+//               ),
+//             ),
+//             SizedBox(
+//               width: 70,
+//               child: _buildInlineInput(
+//                 controller: TextEditingController(text: details['units']),
+//                 onChanged: (value) => details['units'] = value,
+//                 hint: '0',
+//               ),
+//             ),
+//             SizedBox(
+//               width: 70,
+//               child: _buildInlineInput(
+//                 controller: TextEditingController(text: details['size']),
+//                 onChanged: (value) => details['size'] = value,
+//                 hint: 'sq ft',
+//               ),
+//             ),
+//             SizedBox(
+//               width: 80,
+//               child: _buildInlineInput(
+//                 controller: TextEditingController(text: details['occupancy']),
+//                 onChanged: (value) => details['occupancy'] = value,
+//                 hint: '2',
+//               ),
+//             ),
+//             SizedBox(
+//               width: 80,
+//               child: _buildInlineInput(
+//                 controller: TextEditingController(text: details['bedType']),
+//                 onChanged: (value) => details['bedType'] = value,
+//                 hint: 'King',
+//               ),
+//             ),
+//             SizedBox(
+//               width: 90,
+//               child: _buildInlineInput(
+//                 controller: TextEditingController(text: details['avgRate']),
+//                 onChanged: (value) => details['avgRate'] = value,
+//                 hint: 'USD',
+//               ),
+//             ),
+//             SizedBox(
+//               width: 90,
+//               child: _buildInlineInput(
+//                 controller: TextEditingController(text: details['peakRate']),
+//                 onChanged: (value) => details['peakRate'] = value,
+//                 hint: 'USD',
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildInlineInput({
+//     required TextEditingController controller,
+//     required ValueChanged<String> onChanged,
+//     required String hint,
+//   }) {
+//     return TextFormField(
+//       controller: controller,
+//       onChanged: onChanged,
+//       decoration: InputDecoration(
+//         hintText: hint,
+//         hintStyle: TextStyle(fontSize: 11, color: _textSecondary),
+//         contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(4),
+//           borderSide: BorderSide(color: _borderColor),
+//         ),
+//         isDense: true,
+//       ),
+//       style: TextStyle(fontSize: 12),
+//     );
+//   }
+//
+//   Widget _buildStep4() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '5. Ultra-Elite Facilities Index',
+//           children: [
+//             _buildAmenitiesSection('In-Suite Technology', _inSuiteTechnology),
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection(
+//               'Signature Luxury Features',
+//               _signatureLuxuryFeatures,
+//             ),
+//
+//             if (_signatureLuxuryFeatures['Luxury Linen Brand'] == true) ...[
+//               SizedBox(height: 12),
+//               Padding(
+//                 padding: EdgeInsets.only(left: 24),
+//                 child: _buildInputField(
+//                   label: 'Luxury Linen Brand (Specify)',
+//                   controller: _luxuryLinenBrandController,
+//                   hint: 'Enter brand name',
+//                 ),
+//               ),
+//             ],
+//
+//             SizedBox(height: 20),
+//             _buildAmenitiesSection('Arrival Experience', _arrivalExperience),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '6. Gastronomy & Culinary Prestige',
+//           children: [
+//             _buildAmenitiesSection('Gastronomy Features', _gastronomyFeatures),
+//
+//             if (_gastronomyFeatures['Michelin-Star Restaurants'] == true) ...[
+//               SizedBox(height: 12),
+//               Padding(
+//                 padding: EdgeInsets.only(left: 24),
+//                 child: _buildInputField(
+//                   label: 'Number of Michelin-Star Restaurants',
+//                   controller: _michelinCountController,
+//                   hint: 'Enter count',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//             ],
+//
+//             if (_gastronomyFeatures['Royal Banquet Hall'] == true) ...[
+//               SizedBox(height: 12),
+//               Padding(
+//                 padding: EdgeInsets.only(left: 24),
+//                 child: _buildInputField(
+//                   label: 'Royal Banquet Hall Capacity',
+//                   controller: _banquetHallCapacityController,
+//                   hint: 'Number of seats',
+//                   keyboardType: TextInputType.number,
+//                 ),
+//               ),
+//             ],
+//
+//             SizedBox(height: 16),
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Global Event Hosting Experience',
+//                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+//                 ),
+//                 SizedBox(height: 8),
+//                 Row(
+//                   children: [
+//                     _buildToggleChip('Yes', _globalEventHosting, () {
+//                       setState(() => _globalEventHosting = true);
+//                     }),
+//                     SizedBox(width: 8),
+//                     _buildToggleChip('No', !_globalEventHosting, () {
+//                       setState(() => _globalEventHosting = false);
+//                     }),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '7. Wellness, Lifestyle & Recreation',
+//           children: [
+//             _buildAmenitiesSection('Wellness Features', _wellnessFeatures),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '8. Guest Privilege Infrastructure',
+//           children: [
+//             _buildAmenitiesSection('Guest Privileges', _guestPrivileges),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildStep5() {
+//     return Column(
+//       children: [
+//         _buildCard(
+//           title: '9. Security, Compliance & Certifications',
+//           children: [
+//             _buildInputField(
+//               label: 'GST / Tax ID',
+//               controller: _taxIdController,
+//               hint: 'Enter tax ID',
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'International Compliance Standard',
+//               controller: _complianceStandardController,
+//               hint: 'e.g., ISO 9001',
+//             ),
+//             SizedBox(height: 16),
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Fire & Safety Certification',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip('Yes', _fireSafetyCertification, () {
+//                             setState(() => _fireSafetyCertification = true);
+//                           }),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip('No', !_fireSafetyCertification, () {
+//                             setState(() => _fireSafetyCertification = false);
+//                           }),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Environmental Certification',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip(
+//                             'Yes',
+//                             _environmentalCertification,
+//                             () {
+//                               setState(
+//                                 () => _environmentalCertification = true,
+//                               );
+//                             },
+//                           ),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip(
+//                             'No',
+//                             !_environmentalCertification,
+//                             () {
+//                               setState(
+//                                 () => _environmentalCertification = false,
+//                               );
+//                             },
+//                           ),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Cybersecurity Certification',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip(
+//                             'Yes',
+//                             _cybersecurityCertification,
+//                             () {
+//                               setState(
+//                                 () => _cybersecurityCertification = true,
+//                               );
+//                             },
+//                           ),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip(
+//                             'No',
+//                             !_cybersecurityCertification,
+//                             () {
+//                               setState(
+//                                 () => _cybersecurityCertification = false,
+//                               );
+//                             },
+//                           ),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Crisis Management Protocol',
+//                         style: TextStyle(
+//                           fontSize: 13,
+//                           fontWeight: FontWeight.w500,
+//                         ),
+//                       ),
+//                       SizedBox(height: 8),
+//                       Row(
+//                         children: [
+//                           _buildToggleChip(
+//                             'Yes',
+//                             _crisisManagementProtocol,
+//                             () {
+//                               setState(() => _crisisManagementProtocol = true);
+//                             },
+//                           ),
+//                           SizedBox(width: 8),
+//                           _buildToggleChip(
+//                             'No',
+//                             !_crisisManagementProtocol,
+//                             () {
+//                               setState(() => _crisisManagementProtocol = false);
+//                             },
+//                           ),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '10. Financial & Settlement Details',
+//           children: [
+//             _buildInputField(
+//               label: 'Account Name',
+//               controller: _accountNameController,
+//               hint: 'Enter account name',
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//             _buildInputField(
+//               label: 'Bank',
+//               controller: _bankController,
+//               hint: 'Enter bank name',
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Account Number',
+//                     controller: _accountNumberController,
+//                     hint: 'Enter account number',
+//                     keyboardType: TextInputType.number,
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'SWIFT / IFSC',
+//                     controller: _swiftIfscController,
+//                     hint: 'Enter SWIFT/IFSC',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Bank Country',
+//                     controller: _bankCountryController,
+//                     hint: 'Country',
+//                   ),
+//                 ),
+//                 SizedBox(width: 16),
+//                 Expanded(
+//                   child: _buildInputField(
+//                     label: 'Settlement Currency',
+//                     controller: _settlementCurrencyController,
+//                     hint: 'e.g., USD, EUR',
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '11. Digital Integration Capabilities',
+//           children: [
+//             _buildAmenitiesSection(
+//               'Integration Capabilities',
+//               _digitalIntegration,
+//             ),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '12. Required Documentation Upload',
+//           children: [
+//             Text(
+//               'Upload all required certification documents',
+//               style: TextStyle(
+//                 fontSize: 12,
+//                 color: _textSecondary,
+//                 fontStyle: FontStyle.italic,
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//             ..._requiredDocuments.entries
+//                 .map(
+//                   (entry) => _buildDocumentUploadItem(
+//                     documentName: entry.key,
+//                     fileInfo: entry.value,
+//                     onUploadPressed: () => _pickDocument(entry.key),
+//                     onViewPressed: () => _viewDocument(entry.key),
+//                     onRemovePressed: () => _removeDocument(entry.key),
+//                   ),
+//                 )
+//                 .toList(),
+//           ],
+//         ),
+//         SizedBox(height: 16),
+//
+//         _buildCard(
+//           title: '13. Brand Alignment Declaration',
+//           children: [
+//             Container(
+//               padding: EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: _declarationAccepted
+//                     ? _successColor.withOpacity(0.05)
+//                     : Colors.white,
+//                 borderRadius: BorderRadius.circular(8),
+//                 border: Border.all(
+//                   color: _declarationAccepted ? _successColor : _borderColor,
+//                   width: _declarationAccepted ? 1.5 : 1,
+//                 ),
+//               ),
+//               child: Row(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Checkbox(
+//                     value: _declarationAccepted,
+//                     onChanged: (value) =>
+//                         setState(() => _declarationAccepted = value ?? false),
+//                     activeColor: _primaryColor,
+//                   ),
+//                   SizedBox(width: 8),
+//                   Expanded(
+//                     child: Text(
+//                       'We certify that our property operates at globally recognized ultra-luxury standards and agrees to maintain elite-tier service quality, security, and guest experience at all times.',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: Color(0xFF0C4A6E),
+//                         height: 1.5,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//             SizedBox(height: 16),
+//
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Digital Signature',
+//                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+//                 ),
+//                 SizedBox(height: 4),
+//                 Text(
+//                   'Draw your signature below',
+//                   style: TextStyle(fontSize: 12, color: _textSecondary),
+//                 ),
+//                 SizedBox(height: 12),
+//                 Container(
+//                   height: 150,
+//                   decoration: BoxDecoration(
+//                     border: Border.all(color: _borderColor),
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                   child: Signature(
+//                     controller: _signatureController,
+//                     backgroundColor: Colors.white,
+//                     height: 150,
+//                   ),
+//                 ),
+//                 SizedBox(height: 12),
+//                 Row(
+//                   children: [
+//                     Expanded(
+//                       child: OutlinedButton(
+//                         onPressed: _clearDigitalSignature,
+//                         style: OutlinedButton.styleFrom(
+//                           side: BorderSide(color: Colors.red),
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(6),
+//                           ),
+//                           padding: EdgeInsets.symmetric(vertical: 10),
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Icon(Icons.delete, size: 16, color: Colors.red),
+//                             SizedBox(width: 6),
+//                             Text('Clear', style: TextStyle(color: Colors.red)),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                     SizedBox(width: 8),
+//                     Expanded(
+//                       child: ElevatedButton(
+//                         onPressed: _saveDigitalSignature,
+//                         style: ElevatedButton.styleFrom(
+//                           backgroundColor: _primaryColor,
+//                           shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(6),
+//                           ),
+//                           padding: EdgeInsets.symmetric(vertical: 10),
+//                         ),
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.center,
+//                           children: [
+//                             Icon(Icons.check, size: 16, color: Colors.white),
+//                             SizedBox(width: 6),
+//                             Text(
+//                               'Save Signature',
+//                               style: TextStyle(color: Colors.white),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//                 if (_hasDigitalSignature && _digitalSignatureImage != null) ...[
+//                   SizedBox(height: 16),
+//                   Container(
+//                     padding: EdgeInsets.all(12),
+//                     decoration: BoxDecoration(
+//                       color: _primaryLight,
+//                       borderRadius: BorderRadius.circular(8),
+//                       border: Border.all(color: _primaryColor),
+//                     ),
+//                     child: Row(
+//                       children: [
+//                         Container(
+//                           width: 60,
+//                           height: 40,
+//                           decoration: BoxDecoration(
+//                             color: Colors.white,
+//                             borderRadius: BorderRadius.circular(4),
+//                             border: Border.all(color: _borderColor),
+//                           ),
+//                           child: ClipRRect(
+//                             borderRadius: BorderRadius.circular(4),
+//                             child: Image.memory(
+//                               _digitalSignatureImage!,
+//                               fit: BoxFit.contain,
+//                             ),
+//                           ),
+//                         ),
+//                         SizedBox(width: 12),
+//                         Expanded(
+//                           child: Column(
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Text(
+//                                 'Digital Signature',
+//                                 style: TextStyle(
+//                                   fontWeight: FontWeight.w500,
+//                                   fontSize: 12,
+//                                 ),
+//                               ),
+//                               SizedBox(height: 2),
+//                               Text(
+//                                 'Saved successfully',
+//                                 style: TextStyle(
+//                                   fontSize: 10,
+//                                   color: _textSecondary,
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                         IconButton(
+//                           onPressed: _viewDigitalSignature,
+//                           icon: Icon(
+//                             Icons.remove_red_eye,
+//                             size: 18,
+//                             color: _primaryColor,
+//                           ),
+//                         ),
+//                         IconButton(
+//                           onPressed: _removeDigitalSignature,
+//                           icon: Icon(Icons.delete, size: 18, color: Colors.red),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ],
+//             ),
+//             SizedBox(height: 16),
+//
+//             _buildInputField(
+//               label: 'Authorized Signatory Name',
+//               controller: _authorizedSignatoryNameController,
+//               hint: 'Enter full name',
+//               isRequired: true,
+//             ),
+//             SizedBox(height: 16),
+//
+//             _buildInputField(
+//               label: 'Name & Title',
+//               controller: _nameTitleController,
+//               hint: 'Enter title',
+//             ),
+//             SizedBox(height: 16),
+//
+//             Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Date',
+//                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+//                 ),
+//                 SizedBox(height: 8),
+//                 GestureDetector(
+//                   onTap: () => _selectDate(context),
+//                   child: Container(
+//                     height: 48,
+//                     padding: EdgeInsets.symmetric(horizontal: 12),
+//                     decoration: BoxDecoration(
+//                       border: Border.all(color: _borderColor),
+//                       borderRadius: BorderRadius.circular(8),
+//                     ),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         Text(
+//                           _selectedDate != null
+//                               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+//                               : 'Select date',
+//                           style: TextStyle(
+//                             fontSize: 14,
+//                             color: _selectedDate != null
+//                                 ? _textPrimary
+//                                 : _textSecondary,
+//                           ),
+//                         ),
+//                         Icon(
+//                           Icons.calendar_today,
+//                           size: 18,
+//                           color: _textSecondary,
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildCard({required String title, required List<Widget> children}) {
+//     return Container(
+//       width: double.infinity,
+//       margin: EdgeInsets.only(bottom: 16),
+//       padding: EdgeInsets.all(16),
+//       decoration: BoxDecoration(
+//         color: _cardColor,
+//         borderRadius: BorderRadius.circular(12),
+//         border: Border.all(color: _borderColor),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.02),
+//             blurRadius: 8,
+//             offset: Offset(0, 2),
+//           ),
+//         ],
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             title,
+//             style: TextStyle(
+//               fontSize: 16,
+//               fontWeight: FontWeight.w700,
+//               color: _primaryColor,
+//             ),
+//           ),
+//           SizedBox(height: 16),
+//           ...children,
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildInputField({
+//     required String label,
+//     required TextEditingController controller,
+//     required String hint,
+//     TextInputType? keyboardType,
+//     bool isRequired = false,
+//     int maxLines = 1,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Row(
+//           children: [
+//             Text(
+//               label,
+//               style: TextStyle(
+//                 fontSize: 13,
+//                 fontWeight: FontWeight.w600,
+//                 color: _textPrimary,
+//               ),
+//             ),
+//             if (isRequired)
+//               Padding(
+//                 padding: EdgeInsets.only(left: 4),
+//                 child: Text(
+//                   '*',
+//                   style: TextStyle(
+//                     color: Colors.red,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//           ],
+//         ),
+//         SizedBox(height: 8),
+//         TextFormField(
+//           controller: controller,
+//           keyboardType: keyboardType,
+//           maxLines: maxLines,
+//           decoration: InputDecoration(
+//             hintText: hint,
+//             hintStyle: TextStyle(color: _textSecondary, fontSize: 13),
+//             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             enabledBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _borderColor),
+//             ),
+//             focusedBorder: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(8),
+//               borderSide: BorderSide(color: _primaryColor, width: 1.5),
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildSelectionSection({
+//     required String label,
+//     required List<String> options,
+//     required String? selectedValue,
+//     required ValueChanged<String> onSelected,
+//   }) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 13,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: options.map((option) {
+//             bool isSelected = selectedValue == option;
+//             return GestureDetector(
+//               onTap: () => onSelected(option),
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//                 decoration: BoxDecoration(
+//                   color: isSelected ? _primaryLight : Colors.white,
+//                   borderRadius: BorderRadius.circular(20),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                     width: isSelected ? 1.5 : 1,
+//                   ),
+//                 ),
+//                 child: Text(
+//                   option,
+//                   style: TextStyle(
+//                     fontSize: 12,
+//                     color: isSelected ? _primaryColor : _textSecondary,
+//                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+//                   ),
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildAmenitiesSection(String title, Map<String, bool> amenities) {
+//     return Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           title,
+//           style: TextStyle(
+//             fontSize: 14,
+//             fontWeight: FontWeight.w600,
+//             color: _textPrimary,
+//           ),
+//         ),
+//         SizedBox(height: 8),
+//         Wrap(
+//           spacing: 8,
+//           runSpacing: 8,
+//           children: amenities.entries.map((entry) {
+//             bool isSelected = entry.value;
+//             return GestureDetector(
+//               onTap: () {
+//                 setState(() {
+//                   amenities[entry.key] = !isSelected;
+//                 });
+//               },
+//               child: Container(
+//                 padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+//                 decoration: BoxDecoration(
+//                   color: isSelected
+//                       ? _primaryColor.withOpacity(0.1)
+//                       : Colors.white,
+//                   borderRadius: BorderRadius.circular(20),
+//                   border: Border.all(
+//                     color: isSelected ? _primaryColor : _borderColor,
+//                     width: isSelected ? 1.5 : 1,
+//                   ),
+//                 ),
+//                 child: Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     Icon(
+//                       isSelected ? Icons.check_circle : Icons.circle_outlined,
+//                       size: 14,
+//                       color: isSelected ? _primaryColor : _textSecondary,
+//                     ),
+//                     SizedBox(width: 6),
+//                     Text(
+//                       entry.key,
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         color: isSelected ? _primaryColor : _textSecondary,
+//                         fontWeight: isSelected
+//                             ? FontWeight.w600
+//                             : FontWeight.w500,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             );
+//           }).toList(),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildToggleChip(String label, bool isSelected, VoidCallback onTap) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//         decoration: BoxDecoration(
+//           color: isSelected ? _primaryLight : Colors.white,
+//           borderRadius: BorderRadius.circular(20),
+//           border: Border.all(
+//             color: isSelected ? _primaryColor : _borderColor,
+//             width: isSelected ? 1.5 : 1,
+//           ),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             color: isSelected ? _primaryColor : _textSecondary,
+//             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildDocumentUploadItem({
+//     required String documentName,
+//     required Map<String, dynamic> fileInfo,
+//     required VoidCallback onUploadPressed,
+//     required VoidCallback onViewPressed,
+//     required VoidCallback onRemovePressed,
+//   }) {
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     final isUploaded = (fileInfo['uploaded'] as bool?) ?? false;
+//     final fileSize = (fileInfo['size'] as int?) ?? 0;
+//
+//     return Container(
+//       margin: EdgeInsets.only(bottom: 12),
+//       padding: EdgeInsets.all(12),
+//       decoration: BoxDecoration(
+//         color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+//         borderRadius: BorderRadius.circular(8),
+//         border: Border.all(
+//           color: isUploaded ? _successColor : _borderColor,
+//           width: isUploaded ? 1.5 : 1,
+//         ),
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: [
+//               Row(
+//                 children: [
+//                   Icon(
+//                     _getDocumentIcon(documentName),
+//                     size: 18,
+//                     color: isUploaded ? _successColor : _primaryColor,
+//                   ),
+//                   SizedBox(width: 8),
+//                   Text(
+//                     documentName,
+//                     style: TextStyle(
+//                       fontWeight: FontWeight.w600,
+//                       fontSize: 13,
+//                       color: isUploaded ? _successColor : _textPrimary,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               if (isUploaded)
+//                 Row(
+//                   children: [
+//                     Icon(Icons.check_circle, color: _successColor, size: 16),
+//                     SizedBox(width: 4),
+//                     Text(
+//                       'Uploaded',
+//                       style: TextStyle(
+//                         fontSize: 11,
+//                         color: _successColor,
+//                         fontWeight: FontWeight.w600,
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//             ],
+//           ),
+//           SizedBox(height: 8),
+//           if (!isUploaded)
+//             SizedBox(
+//               width: double.infinity,
+//               child: ElevatedButton(
+//                 onPressed: onUploadPressed,
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: _primaryColor,
+//                   padding: EdgeInsets.symmetric(vertical: 10),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(6),
+//                   ),
+//                 ),
+//                 child: Text(
+//                   'Upload $documentName',
+//                   style: TextStyle(color: Colors.white, fontSize: 12),
+//                 ),
+//               ),
+//             ),
+//           if (isUploaded && fileName.isNotEmpty)
+//             Container(
+//               padding: EdgeInsets.all(10),
+//               decoration: BoxDecoration(
+//                 color: _primaryLight,
+//                 borderRadius: BorderRadius.circular(6),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     width: 36,
+//                     height: 36,
+//                     decoration: BoxDecoration(
+//                       color: _primaryColor.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                     child: Center(child: _getFileIcon(fileName)),
+//                   ),
+//                   SizedBox(width: 12),
+//                   Expanded(
+//                     child: Column(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         Text(
+//                           fileName,
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.w500,
+//                             fontSize: 12,
+//                           ),
+//                           maxLines: 1,
+//                           overflow: TextOverflow.ellipsis,
+//                         ),
+//                         Text(
+//                           '${(fileSize / 1024).toStringAsFixed(1)} KB',
+//                           style: TextStyle(fontSize: 10, color: _textSecondary),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   Row(
+//                     children: [
+//                       IconButton(
+//                         onPressed: onViewPressed,
+//                         icon: Icon(
+//                           Icons.remove_red_eye,
+//                           size: 18,
+//                           color: _primaryColor,
+//                         ),
+//                         padding: EdgeInsets.all(4),
+//                       ),
+//                       IconButton(
+//                         onPressed: onRemovePressed,
+//                         icon: Icon(Icons.delete, size: 18, color: Colors.red),
+//                         padding: EdgeInsets.all(4),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   void _nextStep() {
+//     if (_currentStep < _steps.length - 1) {
+//       setState(() {
+//         _currentStep++;
+//       });
+//       WidgetsBinding.instance.addPostFrameCallback((_) {
+//         _scrollToTop();
+//       });
+//     } else {
+//       _submitForm();
+//     }
+//   }
+//
+//   void _previousStep() {
+//     if (_currentStep > 0) {
+//       setState(() {
+//         _currentStep--;
+//       });
+//       WidgetsBinding.instance.addPostFrameCallback((_) {
+//         _scrollToTop();
+//       });
+//     }
+//   }
+//
+//   void _scrollToTop() {
+//     final scrollController = PrimaryScrollController.of(context);
+//     if (scrollController != null && scrollController.hasClients) {
+//       scrollController.animateTo(
+//         0,
+//         duration: Duration(milliseconds: 300),
+//         curve: Curves.easeInOut,
+//       );
+//     }
+//   }
+//
+//   Future<void> _selectDate(BuildContext context) async {
+//     final DateTime? picked = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(1800),
+//       lastDate: DateTime.now(),
+//     );
+//     if (picked != null && picked != _selectedDate) {
+//       setState(() {
+//         _selectedDate = picked;
+//       });
+//     }
+//   }
+//
+//   Future<void> _pickDocument(String documentType) async {
+//     try {
+//       FilePickerResult? result = await FilePicker.platform.pickFiles(
+//         type: FileType.custom,
+//         allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+//         allowMultiple: false,
+//       );
+//
+//       if (result != null && result.files.isNotEmpty) {
+//         final file = result.files.first;
+//         setState(() {
+//           _requiredDocuments[documentType] = {
+//             'name': file.name,
+//             'size': file.size,
+//             'path': file.path ?? '',
+//             'uploaded': true,
+//           };
+//         });
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('$documentType uploaded'),
+//             backgroundColor: _successColor,
+//           ),
+//         );
+//       }
+//     } catch (e) {
+//       _showErrorDialog('Upload Error', e.toString());
+//     }
+//   }
+//
+//   void _viewDocument(String documentType) {
+//     final fileInfo = _requiredDocuments[documentType]!;
+//     final fileName = fileInfo['name'] as String? ?? '';
+//     if (fileName.isNotEmpty) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Text(documentType),
+//           content: Column(
+//             mainAxisSize: MainAxisSize.min,
+//             children: [Text('File: $fileName')],
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Close'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   }
+//
+//   void _removeDocument(String documentType) {
+//     setState(() {
+//       _requiredDocuments[documentType] = {
+//         'name': '',
+//         'size': 0,
+//         'path': '',
+//         'uploaded': false,
+//       };
+//     });
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       SnackBar(
+//         content: Text('Document removed'),
+//         backgroundColor: Colors.orange,
+//       ),
+//     );
+//   }
+//
+//   Future<void> _saveDigitalSignature() async {
+//     if (_signatureController.isEmpty) {
+//       _showErrorDialog(
+//         'No Signature',
+//         'Please draw your signature before saving.',
+//       );
+//       return;
+//     }
+//     try {
+//       final Uint8List? signatureData = await _signatureController.toPngBytes();
+//       if (signatureData != null) {
+//         setState(() {
+//           _digitalSignatureImage = signatureData;
+//           _hasDigitalSignature = true;
+//         });
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Digital signature saved'),
+//             backgroundColor: _successColor,
+//           ),
+//         );
+//       }
+//     } catch (e) {
+//       _showErrorDialog('Save Error', e.toString());
+//     }
+//   }
+//
+//   void _clearDigitalSignature() {
+//     _signatureController.clear();
+//     setState(() {});
+//   }
+//
+//   void _viewDigitalSignature() {
+//     if (_digitalSignatureImage != null) {
+//       showDialog(
+//         context: context,
+//         builder: (context) => AlertDialog(
+//           title: Text('Digital Signature'),
+//           content: Container(
+//             width: 300,
+//             height: 150,
+//             child: Image.memory(_digitalSignatureImage!, fit: BoxFit.contain),
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Navigator.pop(context),
+//               child: Text('Close'),
+//             ),
+//           ],
+//         ),
+//       );
+//     }
+//   }
+//
+//   void _removeDigitalSignature() {
+//     setState(() {
+//       _digitalSignatureImage = null;
+//       _hasDigitalSignature = false;
+//       _signatureController.clear();
+//     });
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       SnackBar(
+//         content: Text('Digital signature removed'),
+//         backgroundColor: Colors.orange,
+//       ),
+//     );
+//   }
+//
+//   IconData _getDocumentIcon(String documentName) {
+//     if (documentName.contains('Business')) return Icons.business;
+//     if (documentName.contains('Luxury')) return Icons.star;
+//     if (documentName.contains('Insurance')) return Icons.security;
+//     if (documentName.contains('Safety')) return Icons.health_and_safety;
+//     if (documentName.contains('Bank')) return Icons.account_balance;
+//     if (documentName.contains('Portfolio')) return Icons.folder;
+//     if (documentName.contains('Visuals')) return Icons.image;
+//     return Icons.description;
+//   }
+//
+//   Widget _getFileIcon(String fileName) {
+//     final ext = fileName.split('.').last.toLowerCase();
+//     if (['jpg', 'jpeg', 'png', 'gif', 'heic'].contains(ext)) {
+//       return Icon(Icons.image, size: 20, color: _primaryColor);
+//     } else if (ext == 'pdf') {
+//       return Icon(Icons.picture_as_pdf, size: 20, color: Colors.red);
+//     } else {
+//       return Icon(Icons.insert_drive_file, size: 20, color: _primaryColor);
+//     }
+//   }
+//
+//   void _showErrorDialog(String title, String message) {
+//     showDialog(
+//       context: context,
+//       builder: (context) => AlertDialog(
+//         title: Text(title, style: TextStyle(fontWeight: FontWeight.w600)),
+//         content: Text(message),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: Text('OK', style: TextStyle(color: _primaryColor)),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   void _submitForm() {
+//     if (!_declarationAccepted) {
+//       _showErrorDialog(
+//         'Declaration Required',
+//         'Please accept the Brand Alignment Declaration',
+//       );
+//       return;
+//     }
+//
+//     Map<String, dynamic> formData = {
+//       'propertyName': _propertyNameController.text,
+//       'brandAffiliation': _brandAffiliationController.text,
+//       'luxuryClassification': _selectedLuxuryClassification,
+//       'propertyPositioning': _selectedPropertyPositioning,
+//       'yearEstablished': _yearEstablishedController.text,
+//       'yearRenovated': _yearRenovatedController.text,
+//       'awardsRankings': _awardsRankingsController.text,
+//       'recognitionLevel': _selectedRecognitionLevel,
+//       'totalInventory': _totalInventoryController.text,
+//       'staffToGuestRatio': _staffToGuestRatioController.text,
+//
+//       'legalEntity': _legalEntityController.text,
+//       'ubo': _uboController.text,
+//       'authorizedSignatory': _authorizedSignatoryController.text,
+//       'designation': _designationController.text,
+//       'generalManager': _generalManagerController.text,
+//       'vipRelationsDirector': _vipRelationsDirectorController.text,
+//       'primaryContact': _primaryContactController.text,
+//       'secondaryContact': _secondaryContactController.text,
+//       'executiveEmail': _executiveEmailController.text,
+//       'websitePortfolio': _websitePortfolioController.text,
+//
+//       'addressLine1': _addressLine1Controller.text,
+//       'addressLine2': _addressLine2Controller.text,
+//       'city': _cityController.text,
+//       'state': _stateController.text,
+//       'country': _countryController.text,
+//       'postalCode': _postalCodeController.text,
+//       'nearestAirport': _nearestAirportController.text,
+//       'distanceFromAirport': _distanceFromAirportController.text,
+//       'privateAccessOptions': _privateAccessOptions,
+//       'accommodationMatrix': _accommodationMatrix,
+//       'rateEngineType': _selectedRateEngineType,
+//
+//       'inSuiteTechnology': _inSuiteTechnology,
+//       'signatureLuxuryFeatures': _signatureLuxuryFeatures,
+//       'luxuryLinenBrand': _luxuryLinenBrandController.text,
+//       'arrivalExperience': _arrivalExperience,
+//       'gastronomyFeatures': _gastronomyFeatures,
+//       'michelinCount': _michelinCountController.text,
+//       'banquetHallCapacity': _banquetHallCapacityController.text,
+//       'globalEventHosting': _globalEventHosting,
+//       'wellnessFeatures': _wellnessFeatures,
+//       'guestPrivileges': _guestPrivileges,
+//
+//       'taxId': _taxIdController.text,
+//       'complianceStandard': _complianceStandardController.text,
+//       'fireSafetyCertification': _fireSafetyCertification,
+//       'environmentalCertification': _environmentalCertification,
+//       'cybersecurityCertification': _cybersecurityCertification,
+//       'crisisManagementProtocol': _crisisManagementProtocol,
+//       'accountName': _accountNameController.text,
+//       'bank': _bankController.text,
+//       'accountNumber': _accountNumberController.text,
+//       'swiftIfsc': _swiftIfscController.text,
+//       'bankCountry': _bankCountryController.text,
+//       'settlementCurrency': _settlementCurrencyController.text,
+//       'digitalIntegration': _digitalIntegration,
+//       'requiredDocuments': _requiredDocuments,
+//       'authorizedSignatoryName': _authorizedSignatoryNameController.text,
+//       'nameTitle': _nameTitleController.text,
+//       'declarationDate': _selectedDate?.toIso8601String(),
+//       'declarationAccepted': _declarationAccepted,
+//       'hasDigitalSignature': _hasDigitalSignature,
+//       'digitalSignatureImage': _digitalSignatureImage,
+//
+//       'hotelCategory': 'Global Elite Luxury',
+//     };
+//
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (context) => RegistrationSummaryScreen(
+//           registrationData: formData,
+//           hotelCategory: 'Global Elite Luxury',
+//           declarationAccepted: _declarationAccepted,
+//         ),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     _propertyNameController.dispose();
+//     _brandAffiliationController.dispose();
+//     _yearEstablishedController.dispose();
+//     _yearRenovatedController.dispose();
+//     _awardsRankingsController.dispose();
+//     _totalInventoryController.dispose();
+//     _staffToGuestRatioController.dispose();
+//
+//     _legalEntityController.dispose();
+//     _uboController.dispose();
+//     _authorizedSignatoryController.dispose();
+//     _designationController.dispose();
+//     _generalManagerController.dispose();
+//     _vipRelationsDirectorController.dispose();
+//     _primaryContactController.dispose();
+//     _secondaryContactController.dispose();
+//     _executiveEmailController.dispose();
+//     _websitePortfolioController.dispose();
+//
+//     _addressLine1Controller.dispose();
+//     _addressLine2Controller.dispose();
+//     _cityController.dispose();
+//     _stateController.dispose();
+//     _countryController.dispose();
+//     _postalCodeController.dispose();
+//     _nearestAirportController.dispose();
+//     _distanceFromAirportController.dispose();
+//
+//     _luxuryLinenBrandController.dispose();
+//     _michelinCountController.dispose();
+//     _banquetHallCapacityController.dispose();
+//
+//     _taxIdController.dispose();
+//     _complianceStandardController.dispose();
+//     _accountNameController.dispose();
+//     _bankController.dispose();
+//     _accountNumberController.dispose();
+//     _swiftIfscController.dispose();
+//     _bankCountryController.dispose();
+//     _settlementCurrencyController.dispose();
+//     _authorizedSignatoryNameController.dispose();
+//     _nameTitleController.dispose();
+//
+//     _signatureController.dispose();
+//     super.dispose();
+//   }
+// }
 
 class _GlobalEliteLuxuryHotelRegistrationScreenState
     extends State<GlobalEliteLuxuryHotelRegistrationScreen> {
@@ -48994,17 +42474,17 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
 
   final TextEditingController _propertyNameController = TextEditingController();
   final TextEditingController _brandAffiliationController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _yearEstablishedController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _yearRenovatedController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _awardsRankingsController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _totalInventoryController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _staffToGuestRatioController =
-      TextEditingController();
+  TextEditingController();
 
   String? _selectedLuxuryClassification;
   final List<String> _luxuryClassifications = [
@@ -49035,57 +42515,36 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
   final TextEditingController _legalEntityController = TextEditingController();
   final TextEditingController _uboController = TextEditingController();
   final TextEditingController _authorizedSignatoryController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _designationController = TextEditingController();
   final TextEditingController _generalManagerController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _vipRelationsDirectorController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _primaryContactController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _secondaryContactController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _executiveEmailController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _websitePortfolioController =
-      TextEditingController();
+  TextEditingController();
 
   final TextEditingController _addressLine1Controller = TextEditingController();
   final TextEditingController _addressLine2Controller = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController(); // NEW: Country field
   final TextEditingController _postalCodeController = TextEditingController();
   final TextEditingController _nearestAirportController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _distanceFromAirportController =
-      TextEditingController();
+  TextEditingController();
+
+  final TextEditingController _checkInController = TextEditingController(); // NEW: Check-in time
+  final TextEditingController _checkOutController = TextEditingController(); // NEW: Check-out time
 
   late Map<String, bool> _privateAccessOptions;
-
-  // // ============= STEP 3.5: Accommodation Matrix =============
-  // final Map<String, Map<String, String>> _accommodationMatrix = {
-  //   'Luxury Room': {
-  //     'units': '', 'size': '', 'occupancy': '', 'bedType': '',
-  //     'avgRate': '', 'peakRate': '',
-  //   },
-  //   'Club Suite': {
-  //     'units': '', 'size': '', 'occupancy': '', 'bedType': '',
-  //     'avgRate': '', 'peakRate': '',
-  //   },
-  //   'Royal Suite': {
-  //     'units': '', 'size': '', 'occupancy': '', 'bedType': '',
-  //     'avgRate': '', 'peakRate': '',
-  //   },
-  //   'Presidential Suite': {
-  //     'units': '', 'size': '', 'occupancy': '', 'bedType': '',
-  //     'avgRate': '', 'peakRate': '',
-  //   },
-  //   'Private Residence / Villa': {
-  //     'units': '', 'size': '', 'occupancy': '', 'bedType': '',
-  //     'avgRate': '', 'peakRate': '',
-  //   },
-  // };
 
   String? _selectedRateEngineType;
   final List<String> _rateEngineTypes = [
@@ -49102,16 +42561,16 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
   late Map<String, bool> _guestPrivileges;
 
   final TextEditingController _luxuryLinenBrandController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _michelinCountController =
-      TextEditingController();
+  TextEditingController(); // UPDATED: Will store integer
   final TextEditingController _banquetHallCapacityController =
-      TextEditingController();
+  TextEditingController(); // UPDATED: Will store integer
   bool _globalEventHosting = false;
 
   final TextEditingController _taxIdController = TextEditingController();
   final TextEditingController _complianceStandardController =
-      TextEditingController();
+  TextEditingController();
 
   bool _fireSafetyCertification = false;
   bool _environmentalCertification = false;
@@ -49121,11 +42580,20 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
   final TextEditingController _accountNameController = TextEditingController();
   final TextEditingController _bankController = TextEditingController();
   final TextEditingController _accountNumberController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _swiftIfscController = TextEditingController();
   final TextEditingController _bankCountryController = TextEditingController();
   final TextEditingController _settlementCurrencyController =
-      TextEditingController();
+  TextEditingController();
+
+  String? _selectedAccountType; // NEW: Account type
+
+  final Map<String, dynamic> _profilePhoto = { // NEW: Profile photo
+    'name': '',
+    'size': 0,
+    'path': '',
+    'uploaded': false,
+  };
 
   late Map<String, bool> _digitalIntegration;
 
@@ -49183,7 +42651,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
   Uint8List? _digitalSignatureImage;
 
   final TextEditingController _authorizedSignatoryNameController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _nameTitleController = TextEditingController();
   DateTime? _selectedDate;
   bool _declarationAccepted = false;
@@ -49269,53 +42737,54 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     },
   ];
 
-  // final Map<String, Map<String, dynamic>> _accommodationMatrix = {
-  //   'Luxury Room': {
-  //     'units': '',
-  //     'size': '',
-  //     'occupancy': '',
-  //     'bedType': '',
-  //     'avgNightlyRate': '',
-  //     'peakRate': '',
-  //   },
-  //   'Club Suite': {
-  //     'units': '',
-  //     'size': '',
-  //     'occupancy': '',
-  //     'bedType': '',
-  //     'avgNightlyRate': '',
-  //     'peakRate': '',
-  //   },
-  //   'Royal Suite': {
-  //     'units': '',
-  //     'size': '',
-  //     'occupancy': '',
-  //     'bedType': '',
-  //     'avgNightlyRate': '',
-  //     'peakRate': '',
-  //   },
-  //   'Presidential Suite': {
-  //     'units': '',
-  //     'size': '',
-  //     'occupancy': '',
-  //     'bedType': '',
-  //     'avgNightlyRate': '',
-  //     'peakRate': '',
-  //   },
-  //   'Private Residence / Villa': {
-  //     'units': '',
-  //     'size': '',
-  //     'occupancy': '',
-  //     'bedType': '',
-  //     'avgNightlyRate': '',
-  //     'peakRate': '',
-  //   },
-  // };
+  final List<Map<String, String>> _timeOptions24Hour = [ // NEW: Time options
+    {'value': '00:00', 'display': '12:00 AM'},
+    {'value': '01:00', 'display': '01:00 AM'},
+    {'value': '02:00', 'display': '02:00 AM'},
+    {'value': '03:00', 'display': '03:00 AM'},
+    {'value': '04:00', 'display': '04:00 AM'},
+    {'value': '05:00', 'display': '05:00 AM'},
+    {'value': '06:00', 'display': '06:00 AM'},
+    {'value': '07:00', 'display': '07:00 AM'},
+    {'value': '08:00', 'display': '08:00 AM'},
+    {'value': '09:00', 'display': '09:00 AM'},
+    {'value': '10:00', 'display': '10:00 AM'},
+    {'value': '11:00', 'display': '11:00 AM'},
+    {'value': '12:00', 'display': '12:00 PM'},
+    {'value': '13:00', 'display': '01:00 PM'},
+    {'value': '14:00', 'display': '02:00 PM'},
+    {'value': '15:00', 'display': '03:00 PM'},
+    {'value': '16:00', 'display': '04:00 PM'},
+    {'value': '17:00', 'display': '05:00 PM'},
+    {'value': '18:00', 'display': '06:00 PM'},
+    {'value': '19:00', 'display': '07:00 PM'},
+    {'value': '20:00', 'display': '08:00 PM'},
+    {'value': '21:00', 'display': '09:00 PM'},
+    {'value': '22:00', 'display': '10:00 PM'},
+    {'value': '23:00', 'display': '11:00 PM'},
+  ];
+
+  // NEW: Helper method to get current local time
+  String _getCurrentLocalTime() {
+    final now = DateTime.now();
+    final hour = now.hour.toString().padLeft(2, '0');
+    final minute = now.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  // NEW: Helper method to get initial text for numeric fields
+  String _getInitialText(dynamic value) {
+    if (value == null) return '';
+    if (value is num && value == 0) return '';
+    return value.toString();
+  }
 
   @override
   void initState() {
     super.initState();
     _initializeAmenities();
+    _checkInController.text = _getCurrentLocalTime(); // NEW: Initialize check-in time
+    _checkOutController.text = _getCurrentLocalTime(); // NEW: Initialize check-out time
   }
 
   void _initializeAmenities() {
@@ -49452,20 +42921,20 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                                   child: Center(
                                     child: isCompleted
                                         ? Icon(
-                                            Icons.check,
-                                            size: 18,
-                                            color: Colors.white,
-                                          )
+                                      Icons.check,
+                                      size: 18,
+                                      color: Colors.white,
+                                    )
                                         : Text(
-                                            '${index + 1}',
-                                            style: TextStyle(
-                                              color: isActive || isCompleted
-                                                  ? Colors.white
-                                                  : _textSecondary,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                            ),
-                                          ),
+                                      '${index + 1}',
+                                      style: TextStyle(
+                                        color: isActive || isCompleted
+                                            ? Colors.white
+                                            : _textSecondary,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 4),
@@ -49741,7 +43210,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               label: 'Official Property Name',
               controller: _propertyNameController,
               hint: 'Enter official property name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -49774,6 +43243,10 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                     controller: _yearEstablishedController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ], // UPDATED: Integer only
                   ),
                 ),
                 SizedBox(width: 16),
@@ -49783,6 +43256,10 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                     controller: _yearRenovatedController,
                     hint: 'YYYY',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(4),
+                    ], // UPDATED: Integer only
                   ),
                 ),
               ],
@@ -49811,6 +43288,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                     controller: _totalInventoryController,
                     hint: 'Rooms + Suites + Villas',
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ], // UPDATED: Integer only
                   ),
                 ),
                 SizedBox(width: 16),
@@ -49836,18 +43316,21 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
         _buildCard(
           title: '2. Ownership, Authority & Executive Command',
           children: [
+            _buildProfilePhotoUploadItem(), // NEW: Profile photo
+            SizedBox(height: 16),
+
             _buildInputField(
               label: 'Legal Entity Name',
               controller: _legalEntityController,
               hint: 'Enter legal entity name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
             _buildInputField(
               label: 'Ultimate Beneficial Owner (UBO)',
               controller: _uboController,
               hint: 'Enter owner name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
             Row(
@@ -49857,7 +43340,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                     label: 'Authorized Signatory',
                     controller: _authorizedSignatoryController,
                     hint: 'Enter signatory name',
-                    isRequired: true,
+                    // isRequired: true,
                   ),
                 ),
                 SizedBox(width: 16),
@@ -49891,7 +43374,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                     controller: _primaryContactController,
                     hint: 'Enter phone',
                     keyboardType: TextInputType.phone,
-                    isRequired: true,
+                    // isRequired: true,
                   ),
                 ),
                 SizedBox(width: 16),
@@ -49911,7 +43394,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               controller: _executiveEmailController,
               hint: 'Enter email',
               keyboardType: TextInputType.emailAddress,
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -49921,144 +43404,92 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
             ),
           ],
         ),
+        SizedBox(height: 16),
+
+        _buildCard(
+          title: '3. Estate Location & Access Matrix',
+          children: [
+            _buildInputField(
+              label: 'Address Line 1',
+              controller: _addressLine1Controller,
+              hint: 'Street address',
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Address Line 2',
+              controller: _addressLine2Controller,
+              hint: 'Apartment, suite, etc.',
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'City',
+                    controller: _cityController,
+                    hint: 'Enter city',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'State / Province',
+                    controller: _stateController,
+                    hint: 'Enter state',
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Country', // NEW: Country field
+                    controller: _countryController,
+                    hint: 'Enter country',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Postal Code',
+                    controller: _postalCodeController,
+                    hint: 'Enter code',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Near International Airport',
+                    controller: _nearestAirportController,
+                    hint: 'Airport name',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Distance from Airport',
+                    controller: _distanceFromAirportController,
+                    hint: 'km',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+
+            _buildAmenitiesSection('Private Access Options', _privateAccessOptions),
+          ],
+        ),
       ],
     );
   }
-
-  // // ============= STEP 3: Location, Access & Accommodation Matrix =============
-  // Widget _buildStep3() {
-  //   return Column(
-  //     children: [
-  //       _buildCard(
-  //         title: '3. Property Location & Access',
-  //         children: [
-  //           _buildInputField(
-  //             label: 'Address Line 1',
-  //             controller: _addressLine1Controller,
-  //             hint: 'Street address',
-  //             isRequired: true,
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildInputField(
-  //             label: 'Address Line 2',
-  //             controller: _addressLine2Controller,
-  //             hint: 'Suite, building, etc.',
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'City',
-  //                   controller: _cityController,
-  //                   hint: 'City',
-  //                   isRequired: true,
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'State',
-  //                   controller: _stateController,
-  //                   hint: 'State / Province',
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Country',
-  //                   controller: _countryController,
-  //                   hint: 'Country',
-  //                   isRequired: true,
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Postal Code',
-  //                   controller: _postalCodeController,
-  //                   hint: 'Postal code',
-  //                   keyboardType: TextInputType.number,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildInputField(
-  //             label: 'Nearest International Airport',
-  //             controller: _nearestAirportController,
-  //             hint: 'Airport name',
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Distance from Airport',
-  //                   controller: _distanceFromAirportController,
-  //                   hint: 'km',
-  //                   keyboardType: TextInputType.number,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildAmenitiesSection('Private Access Options', _privateAccessOptions),
-  //         ],
-  //       ),
-  //       SizedBox(height: 16),
-  //       _buildCard(
-  //         title: '4. Accommodation Matrix & Rate Intelligence',
-  //         children: [
-  //           Text(
-  //             'Accommodation Categories',
-  //             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textPrimary),
-  //           ),
-  //           SizedBox(height: 12),
-  //
-  //           // Header Row
-  //           Container(
-  //             padding: EdgeInsets.symmetric(vertical: 8),
-  //             child: SingleChildScrollView(
-  //               scrollDirection: Axis.horizontal,
-  //               child: Row(
-  //                 children: [
-  //                   SizedBox(width: 120, child: Text('Category', style: TextStyle(fontWeight: FontWeight.w600))),
-  //                   SizedBox(width: 70, child: Text('Units', style: TextStyle(fontWeight: FontWeight.w600))),
-  //                   SizedBox(width: 70, child: Text('Size', style: TextStyle(fontWeight: FontWeight.w600))),
-  //                   SizedBox(width: 80, child: Text('Occupancy', style: TextStyle(fontWeight: FontWeight.w600))),
-  //                   SizedBox(width: 80, child: Text('Bed Type', style: TextStyle(fontWeight: FontWeight.w600))),
-  //                   SizedBox(width: 90, child: Text('Avg Rate', style: TextStyle(fontWeight: FontWeight.w600))),
-  //                   SizedBox(width: 90, child: Text('Peak Rate', style: TextStyle(fontWeight: FontWeight.w600))),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //
-  //           // Accommodation Rows
-  //           ..._accommodationMatrix.entries.map((entry) =>
-  //               _buildAccommodationRow(entry.key, entry.value)
-  //           ),
-  //
-  //           SizedBox(height: 20),
-  //           Divider(color: _borderColor),
-  //           SizedBox(height: 16),
-  //
-  //           _buildSelectionSection(
-  //             label: 'Rate Engine Type',
-  //             options: _rateEngineTypes,
-  //             selectedValue: _selectedRateEngineType,
-  //             onSelected: (value) => setState(() => _selectedRateEngineType = value),
-  //           ),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _buildStep3() {
     return Column(
@@ -50159,18 +43590,43 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               onSelected: (value) =>
                   setState(() => _selectedRateEngineType = value),
             ),
+
+            SizedBox(height: 20),
+            Divider(color: _borderColor),
+            SizedBox(height: 16),
+
+            // NEW: Check-in/Check-out times
+            Row(
+              children: [
+                Expanded(
+                  child: _buildTimePickerField(
+                    label: 'Standard Check-In Time',
+                    controller: _checkInController,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildTimePickerField(
+                    label: 'Standard Check-Out Time',
+                    controller: _checkOutController,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ],
     );
   }
 
+  // UPDATED: Small input with inputFormatters
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50190,6 +43646,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: TextStyle(fontSize: 11, color: _textSecondary),
@@ -50207,133 +43664,25 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // Widget _buildAccommodationDetailCard(String accommodationType) {
-  //   final details = _accommodationMatrix[accommodationType]!;
-  //
-  //   return Container(
-  //     margin: EdgeInsets.only(bottom: 16),
-  //     padding: EdgeInsets.all(16),
-  //     decoration: BoxDecoration(
-  //       color: _primaryLight.withOpacity(0.3),
-  //       borderRadius: BorderRadius.circular(12),
-  //       border: Border.all(color: _primaryColor.withOpacity(0.3)),
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //
-  //         Row(
-  //           children: [
-  //             Icon(Icons.hotel, size: 18, color: _primaryColor),
-  //             SizedBox(width: 8),
-  //             Text(
-  //               accommodationType,
-  //               style: TextStyle(
-  //                 fontSize: 16,
-  //                 fontWeight: FontWeight.w700,
-  //                 color: _primaryColor,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 16),
-  //
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Units',
-  //                 controller: TextEditingController(text: details['units']),
-  //                 onChanged: (value) => details['units'] = value,
-  //                 hint: '0',
-  //                 keyboardType: TextInputType.number,
-  //               ),
-  //             ),
-  //             SizedBox(width: 12),
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Size (sq ft)',
-  //                 controller: TextEditingController(text: details['size']),
-  //                 onChanged: (value) => details['size'] = value,
-  //                 hint: '0',
-  //                 keyboardType: TextInputType.number,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12),
-  //
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Max Occupancy',
-  //                 controller: TextEditingController(text: details['occupancy']),
-  //                 onChanged: (value) => details['occupancy'] = value,
-  //                 hint: '2',
-  //                 keyboardType: TextInputType.number,
-  //               ),
-  //             ),
-  //             SizedBox(width: 12),
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Bed Type',
-  //                 controller: TextEditingController(text: details['bedType']),
-  //                 onChanged: (value) => details['bedType'] = value,
-  //                 hint: 'King/Queen/Twin',
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12),
-  //
-  //
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Avg Nightly Rate (USD)',
-  //                 controller: TextEditingController(text: details['avgNightlyRate']),
-  //                 onChanged: (value) => details['avgNightlyRate'] = value,
-  //                 hint: '0',
-  //                 keyboardType: TextInputType.number,
-  //               ),
-  //             ),
-  //             SizedBox(width: 12),
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Peak Rate (USD)',
-  //                 controller: TextEditingController(text: details['peakRate']),
-  //                 onChanged: (value) => details['peakRate'] = value,
-  //                 hint: '0',
-  //                 keyboardType: TextInputType.number,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
+  // UPDATED: Accommodation detail card with integer and double formatting
   Widget _buildAccommodationDetailCard(String accommodationType) {
     final details = _accommodationMatrix[accommodationType];
     if (details == null) return SizedBox.shrink();
 
     final unitsController = TextEditingController(
-      text: details['units']?.toString() ?? '',
+      text: _getInitialText(details['units']),
     );
     final sizeController = TextEditingController(
-      text: details['size']?.toString() ?? '',
+      text: _getInitialText(details['size']),
     );
     final occupancyController = TextEditingController(
-      text: details['occupancy']?.toString() ?? '',
+      text: _getInitialText(details['occupancy']),
     );
     final avgRateController = TextEditingController(
-      text: details['avgNightlyRate']?.toString() ?? '',
+      text: _getInitialText(details['avgNightlyRate']),
     );
     final peakRateController = TextEditingController(
-      text: details['peakRate']?.toString() ?? '',
+      text: _getInitialText(details['peakRate']),
     );
 
     return Container(
@@ -50369,9 +43718,13 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                 child: _buildSmallInput(
                   label: 'Units',
                   controller: unitsController,
-                  onChanged: (value) => details['units'] = value,
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['units'] = intValue;
+                  }, // UPDATED: Integer
                   hint: '0',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
@@ -50394,9 +43747,13 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                 child: _buildSmallInput(
                   label: 'Max Occupancy',
                   controller: occupancyController,
-                  onChanged: (value) => details['occupancy'] = value,
+                  onChanged: (value) {
+                    final intValue = int.tryParse(value) ?? 0;
+                    details['occupancy'] = intValue;
+                  }, // UPDATED: Integer
                   hint: '2',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
               SizedBox(width: 12),
@@ -50468,9 +43825,15 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                 child: _buildSmallInput(
                   label: 'Avg Nightly Rate (USD)',
                   controller: avgRateController,
-                  onChanged: (value) => details['avgNightlyRate'] = value,
-                  hint: '0',
-                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    final doubleValue = double.tryParse(value) ?? 0.0;
+                    details['avgNightlyRate'] = doubleValue;
+                  }, // UPDATED: Double
+                  hint: '0.00',
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                  ],
                 ),
               ),
               SizedBox(width: 12),
@@ -50478,9 +43841,15 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                 child: _buildSmallInput(
                   label: 'Peak Rate (USD)',
                   controller: peakRateController,
-                  onChanged: (value) => details['peakRate'] = value,
-                  hint: '0',
-                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    final doubleValue = double.tryParse(value) ?? 0.0;
+                    details['peakRate'] = doubleValue;
+                  }, // UPDATED: Double
+                  hint: '0.00',
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+                  ],
                 ),
               ),
             ],
@@ -50630,6 +43999,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   controller: _michelinCountController,
                   hint: 'Enter count',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ], // UPDATED: Integer only
                 ),
               ),
             ],
@@ -50643,6 +44015,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   controller: _banquetHallCapacityController,
                   hint: 'Number of seats',
                   keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ], // UPDATED: Integer only
                 ),
               ),
             ],
@@ -50701,7 +44076,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               label: 'GST / Tax ID',
               controller: _taxIdController,
               hint: 'Enter tax ID',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -50757,9 +44132,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                           _buildToggleChip(
                             'Yes',
                             _environmentalCertification,
-                            () {
+                                () {
                               setState(
-                                () => _environmentalCertification = true,
+                                    () => _environmentalCertification = true,
                               );
                             },
                           ),
@@ -50767,9 +44142,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                           _buildToggleChip(
                             'No',
                             !_environmentalCertification,
-                            () {
+                                () {
                               setState(
-                                () => _environmentalCertification = false,
+                                    () => _environmentalCertification = false,
                               );
                             },
                           ),
@@ -50801,9 +44176,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                           _buildToggleChip(
                             'Yes',
                             _cybersecurityCertification,
-                            () {
+                                () {
                               setState(
-                                () => _cybersecurityCertification = true,
+                                    () => _cybersecurityCertification = true,
                               );
                             },
                           ),
@@ -50811,9 +44186,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                           _buildToggleChip(
                             'No',
                             !_cybersecurityCertification,
-                            () {
+                                () {
                               setState(
-                                () => _cybersecurityCertification = false,
+                                    () => _cybersecurityCertification = false,
                               );
                             },
                           ),
@@ -50840,7 +44215,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                           _buildToggleChip(
                             'Yes',
                             _crisisManagementProtocol,
-                            () {
+                                () {
                               setState(() => _crisisManagementProtocol = true);
                             },
                           ),
@@ -50848,7 +44223,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                           _buildToggleChip(
                             'No',
                             !_crisisManagementProtocol,
-                            () {
+                                () {
                               setState(() => _crisisManagementProtocol = false);
                             },
                           ),
@@ -50870,14 +44245,14 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               label: 'Account Name',
               controller: _accountNameController,
               hint: 'Enter account name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
             _buildInputField(
               label: 'Bank',
               controller: _bankController,
               hint: 'Enter bank name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
             Row(
@@ -50920,6 +44295,57 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                 ),
               ],
             ),
+            SizedBox(height: 16),
+
+            // NEW: Account Type Radio Buttons
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Account Type',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: _textPrimary,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Savings'),
+                        value: 'Savings',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text('Current'),
+                        value: 'Current',
+                        groupValue: _selectedAccountType,
+                        onChanged: (value) {
+                          setState(() {
+                            _selectedAccountType = value;
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
         SizedBox(height: 16),
@@ -50950,13 +44376,13 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
             ..._requiredDocuments.entries
                 .map(
                   (entry) => _buildDocumentUploadItem(
-                    documentName: entry.key,
-                    fileInfo: entry.value,
-                    onUploadPressed: () => _pickDocument(entry.key),
-                    onViewPressed: () => _viewDocument(entry.key),
-                    onRemovePressed: () => _removeDocument(entry.key),
-                  ),
-                )
+                documentName: entry.key,
+                fileInfo: entry.value,
+                onUploadPressed: () => _pickDocument(entry.key),
+                onViewPressed: () => _viewDocument(entry.key),
+                onRemovePressed: () => _removeDocument(entry.key),
+              ),
+            )
                 .toList(),
           ],
         ),
@@ -51150,7 +44576,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               label: 'Authorized Signatory Name',
               controller: _authorizedSignatoryNameController,
               hint: 'Enter full name',
-              isRequired: true,
+              // isRequired: true,
             ),
             SizedBox(height: 16),
 
@@ -51209,6 +44635,402 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
+  // NEW: Profile Photo Upload Widget
+  Widget _buildProfilePhotoUploadItem() {
+    final fileName = _profilePhoto['name'] as String? ?? '';
+    final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
+    final fileSize = (_profilePhoto['size'] as int?) ?? 0;
+
+    Future<void> _pickProfilePhoto() async {
+      try {
+        FilePickerResult? result = await FilePicker.platform.pickFiles(
+          type: FileType.image,
+          allowMultiple: false,
+        );
+
+        if (result != null && result.files.isNotEmpty) {
+          final file = result.files.first;
+
+          if (file.size > 2 * 1024 * 1024) {
+            _showErrorDialog(
+              'File too large',
+              'Please select a profile photo smaller than 2MB',
+            );
+            return;
+          }
+
+          setState(() {
+            _profilePhoto['name'] = file.name;
+            _profilePhoto['size'] = file.size;
+            _profilePhoto['path'] = file.path ?? '';
+            _profilePhoto['uploaded'] = true;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Profile photo uploaded successfully'),
+              backgroundColor: _successColor,
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+      } catch (e) {
+        _showErrorDialog(
+          'Upload Error',
+          'Failed to upload profile photo: ${e.toString()}',
+        );
+      }
+    }
+
+    void _viewProfilePhoto() {
+      if (fileName.isNotEmpty) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Profile Photo'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.grey[300]!),
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.person,
+                      size: 80,
+                      color: Colors.grey[400],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text('File: $fileName'),
+                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
+
+    void _removeProfilePhoto() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Remove Profile Photo'),
+          content: const Text('Are you sure you want to remove this profile photo?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _profilePhoto['name'] = '';
+                  _profilePhoto['size'] = 0;
+                  _profilePhoto['path'] = '';
+                  _profilePhoto['uploaded'] = false;
+                });
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('Profile photo removed'),
+                    backgroundColor: Colors.orange,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              },
+              child: const Text('Remove', style: TextStyle(color: Colors.red)),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isUploaded ? _successColor : _borderColor,
+          width: isUploaded ? 1.5 : 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    Icons.person,
+                    size: 20,
+                    color: isUploaded ? _successColor : _primaryColor,
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Profile Photo',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: isUploaded ? _successColor : _textPrimary,
+                        ),
+                      ),
+                      Text(
+                        'JPG, PNG format (Max 2MB)',
+                        style: TextStyle(fontSize: 11, color: _textSecondary),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              if (isUploaded)
+                Row(
+                  children: [
+                    Icon(Icons.check_circle, color: _successColor, size: 16),
+                    SizedBox(width: 4),
+                    Text(
+                      'Uploaded',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: _successColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          SizedBox(height: 12),
+
+          if (!isUploaded)
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: _pickProfilePhoto,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: _primaryColor,
+                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                icon: Icon(Icons.upload, size: 18, color: Colors.white),
+                label: Text(
+                  'Upload Profile Photo',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+
+          if (isUploaded && fileName.isNotEmpty)
+            Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: _primaryLight,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: _primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: _primaryColor.withOpacity(0.3)),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                        color: _primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          fileName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 13,
+                            color: _textPrimary,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
+                          style: TextStyle(fontSize: 11, color: _textSecondary),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _viewProfilePhoto,
+                        icon: Icon(
+                          Icons.remove_red_eye,
+                          size: 20,
+                          color: _primaryColor,
+                        ),
+                        tooltip: 'Preview',
+                      ),
+                      IconButton(
+                        onPressed: _removeProfilePhoto,
+                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
+                        tooltip: 'Remove',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // NEW: Time Picker Field
+  Widget _buildTimePickerField({
+    required String label,
+    required TextEditingController controller,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectTime(context, controller),
+          child: Container(
+            height: 48,
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  controller.text.isNotEmpty
+                      ? _formatTimeForDisplay(controller.text)
+                      : 'Select time',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: controller.text.isNotEmpty
+                        ? _textPrimary
+                        : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.access_time,
+                  size: 20,
+                  color: _primaryColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // NEW: Time selection method
+  Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
+    TimeOfDay initialTime = TimeOfDay.now();
+
+    if (controller.text.isNotEmpty) {
+      try {
+        List<String> parts = controller.text.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          initialTime = TimeOfDay(hour: hour, minute: minute);
+        }
+      } catch (e) {
+        initialTime = TimeOfDay.now();
+      }
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        String hour = pickedTime.hour.toString().padLeft(2, '0');
+        String minute = pickedTime.minute.toString().padLeft(2, '0');
+        controller.text = '$hour:$minute';
+      });
+    }
+  }
+
+  // NEW: Format time for display
+  String _formatTimeForDisplay(String time24) {
+    if (time24.isEmpty) return '';
+    try {
+      List<String> parts = time24.split(':');
+      if (parts.length >= 2) {
+        int hour = int.parse(parts[0]);
+        int minute = int.parse(parts[1].substring(0, 2));
+
+        String period = hour >= 12 ? 'PM' : 'AM';
+        int hour12 = hour % 12;
+        if (hour12 == 0) hour12 = 12;
+
+        return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+      }
+    } catch (e) {
+      return time24;
+    }
+    return time24;
+  }
+
   Widget _buildCard({required String title, required List<Widget> children}) {
     return Container(
       width: double.infinity,
@@ -51244,13 +45066,15 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
+  // UPDATED: Input field with inputFormatters
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    bool isRequired = false,
+    // bool isRequired = false,
     int maxLines = 1,
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -51265,17 +45089,17 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            if (isRequired)
-              Padding(
-                padding: EdgeInsets.only(left: 4),
-                child: Text(
-                  '*',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            // if (isRequired)
+            //   Padding(
+            //     padding: EdgeInsets.only(left: 4),
+            //     child: Text(
+            //       '*',
+            //       style: TextStyle(
+            //         color: Colors.red,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
         SizedBox(height: 8),
@@ -51283,6 +45107,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
           controller: controller,
           keyboardType: keyboardType,
           maxLines: maxLines,
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(color: _textSecondary, fontSize: 13),
@@ -51827,17 +45652,39 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       return;
     }
 
+    // Process accommodation details to ensure proper types
+    Map<String, Map<String, dynamic>> processedAccommodationMatrix = {};
+    _accommodationMatrix.forEach((key, value) {
+      processedAccommodationMatrix[key] = {
+        'units': value['units'] is int ? value['units'] : int.tryParse(
+            value['units'].toString()) ?? 0,
+        'size': value['size'] is String ? value['size'] : value['size'].toString(),
+        'occupancy': value['occupancy'] is int ? value['occupancy'] : int.tryParse(
+            value['occupancy'].toString()) ?? 0,
+        'bedType': value['bedType'],
+        'avgNightlyRate': value['avgNightlyRate'] is double
+            ? value['avgNightlyRate']
+            : double.tryParse(value['avgNightlyRate'].toString()) ?? 0.0,
+        'peakRate': value['peakRate'] is double
+            ? value['peakRate']
+            : double.tryParse(value['peakRate'].toString()) ?? 0.0,
+      };
+    });
+
     Map<String, dynamic> formData = {
       'propertyName': _propertyNameController.text,
       'brandAffiliation': _brandAffiliationController.text,
       'luxuryClassification': _selectedLuxuryClassification,
       'propertyPositioning': _selectedPropertyPositioning,
-      'yearEstablished': _yearEstablishedController.text,
-      'yearRenovated': _yearRenovatedController.text,
+      'yearEstablished': int.tryParse(_yearEstablishedController.text) ?? 0, // UPDATED: Integer
+      'yearRenovated': int.tryParse(_yearRenovatedController.text) ?? 0, // UPDATED: Integer
       'awardsRankings': _awardsRankingsController.text,
       'recognitionLevel': _selectedRecognitionLevel,
-      'totalInventory': _totalInventoryController.text,
+      'totalInventory': int.tryParse(_totalInventoryController.text) ?? 0, // UPDATED: Integer
       'staffToGuestRatio': _staffToGuestRatioController.text,
+
+      // Profile Photo
+      'profilePhoto': _profilePhoto, // NEW
 
       'legalEntity': _legalEntityController.text,
       'ubo': _uboController.text,
@@ -51854,12 +45701,18 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       'addressLine2': _addressLine2Controller.text,
       'city': _cityController.text,
       'state': _stateController.text,
-      'country': _countryController.text,
+      'country': _countryController.text, // NEW
       'postalCode': _postalCodeController.text,
       'nearestAirport': _nearestAirportController.text,
       'distanceFromAirport': _distanceFromAirportController.text,
       'privateAccessOptions': _privateAccessOptions,
-      'accommodationMatrix': _accommodationMatrix,
+
+      // Check-in/Check-out times
+      'checkInTime': _checkInController.text, // NEW
+      'checkOutTime': _checkOutController.text, // NEW
+
+      'accommodationMatrix': processedAccommodationMatrix, // UPDATED: With processed types
+      'selectedAccommodationTypes': _selectedAccommodationTypes,
       'rateEngineType': _selectedRateEngineType,
 
       'inSuiteTechnology': _inSuiteTechnology,
@@ -51867,8 +45720,8 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       'luxuryLinenBrand': _luxuryLinenBrandController.text,
       'arrivalExperience': _arrivalExperience,
       'gastronomyFeatures': _gastronomyFeatures,
-      'michelinCount': _michelinCountController.text,
-      'banquetHallCapacity': _banquetHallCapacityController.text,
+      'michelinCount': int.tryParse(_michelinCountController.text) ?? 0, // UPDATED: Integer
+      'banquetHallCapacity': int.tryParse(_banquetHallCapacityController.text) ?? 0, // UPDATED: Integer
       'globalEventHosting': _globalEventHosting,
       'wellnessFeatures': _wellnessFeatures,
       'guestPrivileges': _guestPrivileges,
@@ -51885,6 +45738,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       'swiftIfsc': _swiftIfscController.text,
       'bankCountry': _bankCountryController.text,
       'settlementCurrency': _settlementCurrencyController.text,
+      'accountType': _selectedAccountType, // NEW
       'digitalIntegration': _digitalIntegration,
       'requiredDocuments': _requiredDocuments,
       'authorizedSignatoryName': _authorizedSignatoryNameController.text,
@@ -51900,9 +45754,8 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => RegistrationSummaryScreen(
+        builder: (context) => GlobalEliteLuxuryHotelSummaryScreen(
           registrationData: formData,
-          hotelCategory: 'Global Elite Luxury',
           declarationAccepted: _declarationAccepted,
         ),
       ),
@@ -51938,6 +45791,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     _postalCodeController.dispose();
     _nearestAirportController.dispose();
     _distanceFromAirportController.dispose();
+
+    _checkInController.dispose(); // NEW
+    _checkOutController.dispose(); // NEW
 
     _luxuryLinenBrandController.dispose();
     _michelinCountController.dispose();
@@ -55308,23 +49164,7 @@ class _VillaRegistrationVendorFormState
     );
   }
 
-  // void _nextStep() {
-  //   if (_currentStep < _steps.length - 1) {
-  //     setState(() {
-  //       _currentStep++;
-  //     });
-  //   } else {
-  //     _submitForm();
-  //   }
-  // }
-  //
-  // void _previousStep() {
-  //   if (_currentStep > 0) {
-  //     setState(() {
-  //       _currentStep--;
-  //     });
-  //   }
-  // }
+
 
   void _nextStep() {
     if (_currentStep < _steps.length - 1) {
@@ -55600,112 +49440,7 @@ class _VillaRegistrationVendorFormState
     );
   }
 
-  // void _submitForm() {
-  //   // ... existing validation code ...
-  //
-  //   if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-  //     _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
-  //     return;
-  //   }
-  //
-  //   final hasSignature = _hasDigitalSignature;
-  //   if (!hasSignature) {
-  //     _showErrorDialog('Signature Required', 'Please draw your digital signature.');
-  //     return;
-  //   }
-  //
-  //   // Get the property type value
-  //   String propertyTypeValue = _selectedPropertyType == 'Other'
-  //       ? _customPropertyType
-  //       : _selectedPropertyType ?? '';
-  //
-  //   Map<String, dynamic> formData = {
-  //     // CRITICAL: Add propertyType at root level
-  //     'propertyType': 'villa',
-  //     'selectedPropertyType': 'villa',
-  //     'propertyTypeValue': propertyTypeValue,
-  //
-  //     'basicInfo': {
-  //       'villaName': _villaNameController.text,
-  //       'ownerName': _ownerNameController.text,
-  //       'mobile': _mobileController.text,
-  //       'altMobile': _altMobileController.text,
-  //       'email': _emailController.text,
-  //       'website': _websiteController.text,
-  //       'ownerPhoto': _ownerPhotoInfo,
-  //     },
-  //     'location': {
-  //       'address': _addressController.text,
-  //       'area': _areaController.text,
-  //       'city': _cityController.text,
-  //       'state': _stateController.text,
-  //       'pincode': _pincodeController.text,
-  //       'googleMapLink': _googleMapLinkController.text,
-  //     },
-  //     'propertyDetails': {
-  //       'propertyType': propertyTypeValue,
-  //       'bedrooms': _bedroomsController.text,
-  //       'bathrooms': _bathroomsController.text,
-  //       'guestCapacity': _guestCapacityController.text,
-  //       'propertySize': _propertySizeController.text,
-  //       'yearConstruction': _yearConstructionController.text,
-  //       'description': _propertyDescriptionController.text,
-  //     },
-  //     'amenities': {
-  //       'selected': _villaAmenities,
-  //       'custom': _customAmenities,
-  //     },
-  //     'pricing': {
-  //       'basePrice': _basePriceController.text,
-  //       'weekendPrice': _weekendPriceController.text,
-  //       'peakPrice': _peakPriceController.text,
-  //       'securityDeposit': _securityDepositController.text,
-  //       'minimumStay': _minimumStayController.text,
-  //       'checkInTime': _selectedCheckInTime ?? _checkInTimeController.text,
-  //       'checkOutTime': _selectedCheckOutTime ?? _checkOutTimeController.text,
-  //       'cancellationPolicy': _cancellationPolicyInfo,
-  //       'availabilityCalendar': _availabilityCalendarInfo,
-  //     },
-  //     'legal': {
-  //       'ownershipProof': _ownershipProofInfo,
-  //       'idProof': _idProofInfo,
-  //       'gstNumber': _gstNumberController.text,
-  //       'tradeLicense': _tradeLicenseController.text,
-  //     },
-  //     'bank': {
-  //       'accountHolder': _accountHolderController.text,
-  //       'bankName': _bankNameController.text,
-  //       'accountNumber': _accountNumberController.text,
-  //       'ifscCode': _ifscCodeController.text,
-  //       'upiId': _upiIdController.text,
-  //       'cancelledCheque': _cancelledChequeInfo,
-  //     },
-  //     'media': _mediaFiles,
-  //     'signature': {
-  //       'hasDigital': _hasDigitalSignature,
-  //       'digitalSignature': _digitalSignatureImage,
-  //       'date': _selectedDate,
-  //     },
-  //     'declarationAccepted': _declarationAccepted,
-  //   };
-  //
-  //   print('=== SUBMIT FORM DEBUG ===');
-  //   print('Form data keys: ${formData.keys.toList()}');
-  //   print('PropertyType at root: ${formData['propertyType']}');
-  //   print('Contains basicInfo? ${formData.containsKey('basicInfo')}');
-  //   print('basicInfo keys: ${(formData['basicInfo'] as Map).keys.toList()}');
-  //
-  //   // Navigate to summary screen
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => VillaRegistrationSummaryScreen(
-  //         registrationData: formData,
-  //         declarationAccepted: _declarationAccepted,
-  //       ),
-  //     ),
-  //   );
-  // }
+
   @override
   void dispose() {
     _signatureController.dispose();
@@ -78511,7 +72246,6 @@ class _ResortOwnerDashboardState extends State<ResortOwnerDashboard> {
     );
   }
 }
-
 
 
 class ResortOwnerProfilePage extends StatefulWidget {

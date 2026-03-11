@@ -9,11 +9,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../home_screen/normal_hotel_dashboard_screen.dart';
+// import '../home_screen/normal_hotel_dashboard_screen.dart';
 import '../screens/dashboard_screen.dart';
 import '../screens/office_users_screen.dart';
-
-
 
 class ChooseRoleScreen extends StatelessWidget {
   const ChooseRoleScreen({super.key});
@@ -34,11 +32,9 @@ class ChooseRoleScreen extends StatelessWidget {
             padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -93,7 +89,6 @@ class ChooseRoleScreen extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 20),
-
 
                 Container(
                   width: 100,
@@ -200,7 +195,6 @@ class ChooseRoleScreen extends StatelessWidget {
 
                     const SizedBox(height: 26),
 
-
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -226,7 +220,6 @@ class ChooseRoleScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
 
                 Expanded(
                   child: Column(
@@ -257,7 +250,8 @@ class ChooseRoleScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PropertyAuthScreen(selectedPropertyType: '',),
+                              builder: (context) =>
+                                  PropertyAuthScreen(selectedPropertyType: ''),
                             ),
                           );
                         },
@@ -265,7 +259,6 @@ class ChooseRoleScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-
 
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20, top: 10),
@@ -537,10 +530,6 @@ class _OfficeLoginScreenState extends State<OfficeLoginScreen> {
   }
 }
 
-
-
-
-
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -566,9 +555,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-
-        ),
+        decoration: const BoxDecoration(),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -777,8 +764,6 @@ class PropertyTypeScreen extends StatefulWidget {
   State<PropertyTypeScreen> createState() => _PropertyTypeScreenState();
 }
 
-
-
 class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
   int _selectedIndex = -1;
 
@@ -947,19 +932,23 @@ class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
-                          childAspectRatio: 0.9,
-                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 12,
+                              mainAxisSpacing: 12,
+                              childAspectRatio: 0.9,
+                            ),
                         itemCount: _propertyTypes.length,
                         itemBuilder: (context, index) {
                           final property = _propertyTypes[index];
                           return GestureDetector(
                             onTap: () {
                               if (property.isAvailable) {
-                                _navigateToRegistration(context, property.title);
+                                _navigateToRegistration(
+                                  context,
+                                  property.title,
+                                );
                               } else {
                                 _showComingSoonDialog(context, property.title);
                               }
@@ -997,19 +986,25 @@ class _PropertyTypeScreenState extends State<PropertyTypeScreen> {
       case 'Villa':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => VillaRegistrationVendorForm()),
+          MaterialPageRoute(
+            builder: (context) => VillaRegistrationVendorForm(),
+          ),
         );
         break;
       case 'Apartment':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ApartmentRegistrationVendorForm()),
+          MaterialPageRoute(
+            builder: (context) => ApartmentRegistrationVendorForm(),
+          ),
         );
         break;
       case 'Resort':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ResortRegistrationVendorForm()),
+          MaterialPageRoute(
+            builder: (context) => ResortRegistrationVendorForm(),
+          ),
         );
         break;
     }
@@ -1942,7 +1937,6 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
   }
 }
 
-
 class PropertyAuthScreen extends StatefulWidget {
   final String selectedPropertyType;
   final Map<String, dynamic>? registrationData;
@@ -1963,14 +1957,16 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
   late String _propertyType;
 
   final TextEditingController _loginEmailController = TextEditingController();
-  final TextEditingController _loginPasswordController = TextEditingController();
+  final TextEditingController _loginPasswordController =
+      TextEditingController();
 
   final TextEditingController _regNameController = TextEditingController();
   final TextEditingController _regBusinessController = TextEditingController();
   final TextEditingController _regEmailController = TextEditingController();
   final TextEditingController _regPhoneController = TextEditingController();
   final TextEditingController _regPasswordController = TextEditingController();
-  final TextEditingController _regConfirmPasswordController = TextEditingController();
+  final TextEditingController _regConfirmPasswordController =
+      TextEditingController();
 
   final Map<String, String?> _loginErrors = {};
   final Map<String, String?> _regErrors = {};
@@ -1985,7 +1981,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
-//
+    //
     // Store property type directly from widget - SIMPLE AND RELIABLE
     _propertyType = widget.selectedPropertyType.toLowerCase().trim();
 
@@ -1997,7 +1993,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
   }
 
   void _prefillRegistrationData() {
-    if (widget.registrationData != null && widget.registrationData!.isNotEmpty) {
+    if (widget.registrationData != null &&
+        widget.registrationData!.isNotEmpty) {
       final data = widget.registrationData!;
 
       // Handle different property types
@@ -2005,7 +2002,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
         if (data['basicInfo'] != null) {
           final basicInfo = data['basicInfo'] as Map;
           _regNameController.text = basicInfo['ownerName']?.toString() ?? '';
-          _regBusinessController.text = basicInfo['villaName']?.toString() ?? '';
+          _regBusinessController.text =
+              basicInfo['villaName']?.toString() ?? '';
           _regEmailController.text = basicInfo['email']?.toString() ?? '';
           _regPhoneController.text = basicInfo['mobile']?.toString() ?? '';
         }
@@ -2016,14 +2014,16 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
         _regPhoneController.text = data['mobileNumber']?.toString() ?? '';
       } else {
         _regNameController.text = data['ownerName']?.toString() ?? '';
-        _regBusinessController.text = data['businessName']?.toString() ?? data['propertyName']?.toString() ?? '';
+        _regBusinessController.text =
+            data['businessName']?.toString() ??
+            data['propertyName']?.toString() ??
+            '';
         _regEmailController.text = data['email']?.toString() ?? '';
-        _regPhoneController.text = data['phone']?.toString() ?? data['mobileNumber']?.toString() ?? '';
+        _regPhoneController.text =
+            data['phone']?.toString() ?? data['mobileNumber']?.toString() ?? '';
       }
     }
   }
-
-
 
   Future<void> _saveUser(Map<String, dynamic> userData) async {
     try {
@@ -2048,14 +2048,19 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       // CRITICAL: Make sure all hotel data is preserved
       if (_propertyType == 'hotel') {
         print('Hotel data being saved:');
-        print('- selectedRoomTypes exists: ${userData.containsKey('selectedRoomTypes')}');
+        print(
+          '- selectedRoomTypes exists: ${userData.containsKey('selectedRoomTypes')}',
+        );
         print('- roomDetails exists: ${userData.containsKey('roomDetails')}');
-        print('- basicAmenities exists: ${userData.containsKey('basicAmenities')}');
+        print(
+          '- basicAmenities exists: ${userData.containsKey('basicAmenities')}',
+        );
       }
 
       bool userExists = false;
       for (int i = 0; i < users.length; i++) {
-        final existingEmail = users[i]['email']?.toString().toLowerCase().trim() ?? '';
+        final existingEmail =
+            users[i]['email']?.toString().toLowerCase().trim() ?? '';
         if (existingEmail == normalizedEmail) {
           users[i] = userData;
           userExists = true;
@@ -2075,6 +2080,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       print('Error saving user: $e');
     }
   }
+
   Future<Map<String, dynamic>?> _getUser(String email) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -2084,7 +2090,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       final normalizedEmail = email.toLowerCase().trim();
 
       for (var user in users) {
-        final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
+        final storedEmail =
+            user['email']?.toString().toLowerCase().trim() ?? '';
         if (storedEmail == normalizedEmail) {
           print('=== FOUND USER ===');
           print('User propertyType: "${user['propertyType']}"');
@@ -2093,9 +2100,13 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
           // CRITICAL: Check if hotel data exists
           if (user['propertyType'] == 'hotel') {
             print('Hotel data in user:');
-            print('- selectedRoomTypes exists: ${user.containsKey('selectedRoomTypes')}');
+            print(
+              '- selectedRoomTypes exists: ${user.containsKey('selectedRoomTypes')}',
+            );
             print('- roomDetails exists: ${user.containsKey('roomDetails')}');
-            print('- basicAmenities exists: ${user.containsKey('basicAmenities')}');
+            print(
+              '- basicAmenities exists: ${user.containsKey('basicAmenities')}',
+            );
           }
 
           return Map<String, dynamic>.from(user);
@@ -2107,8 +2118,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       return null;
     }
   }
-
-
 
   Future<bool> _validateCredentials(String email, String password) async {
     final user = await _getUser(email);
@@ -2146,7 +2155,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       _showConfirmPassword = false;
     });
   }
-
 
   // Future<void> _handleRegister() async {
   //   setState(() {
@@ -2385,9 +2393,10 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       if (widget.registrationData != null &&
           widget.registrationData!.isNotEmpty &&
           widget.registrationData!.containsKey('hotelName')) {
-
         userData['propertyType'] = 'hotel';
-        print('Setting propertyType to hotel because hotel registration data exists');
+        print(
+          'Setting propertyType to hotel because hotel registration data exists',
+        );
         userData.addAll(widget.registrationData!);
       } else {
         // This is just account creation, no property registered yet
@@ -2432,7 +2441,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
           ),
         ),
       );
-
     } catch (e) {
       setState(() => _isRegistering = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -2443,6 +2451,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       );
     }
   }
+
   Future<void> _handleLogin() async {
     setState(() {
       _loginErrors.clear();
@@ -2507,7 +2516,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       // SIMPLE: Get property type from userData or fallback to widget
       String propertyType = '';
 
-      if (userData.containsKey('propertyType') && userData['propertyType'] != null) {
+      if (userData.containsKey('propertyType') &&
+          userData['propertyType'] != null) {
         propertyType = userData['propertyType'].toString().toLowerCase().trim();
       }
 
@@ -2557,7 +2567,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
 
       await Future.delayed(const Duration(milliseconds: 500));
       _navigateToDashboard(userData, propertyType);
-
     } catch (e) {
       setState(() => _isLoggingIn = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -2569,9 +2578,10 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     }
   }
 
-
-
-  void _navigateToDashboard(Map<String, dynamic> userData, String propertyType) {
+  void _navigateToDashboard(
+    Map<String, dynamic> userData,
+    String propertyType,
+  ) {
     print('=== NAVIGATING TO DASHBOARD ===');
     print('Property Type: "$propertyType"');
 
@@ -2590,43 +2600,109 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
             city: _getNestedValue(userData, ['location', 'city'], ''),
             state: _getNestedValue(userData, ['location', 'state'], ''),
             pincode: _getNestedValue(userData, ['location', 'pincode'], ''),
-            propertyType: _getNestedValue(userData, ['propertyDetails', 'propertyType'], 'Villa'),
-            bedrooms: _getNestedInt(userData, ['propertyDetails', 'bedrooms'], 0),
-            bathrooms: _getNestedInt(userData, ['propertyDetails', 'bathrooms'], 0),
-            guestCapacity: _getNestedInt(userData, ['propertyDetails', 'guestCapacity'], 0),
-            propertySize: _getNestedValue(userData, ['propertyDetails', 'propertySize'], ''),
-            yearConstruction: _getNestedValue(userData, ['propertyDetails', 'yearConstruction'], ''),
-            description: _getNestedValue(userData, ['propertyDetails', 'description'], ''),
+            propertyType: _getNestedValue(userData, [
+              'propertyDetails',
+              'propertyType',
+            ], 'Villa'),
+            bedrooms: _getNestedInt(userData, [
+              'propertyDetails',
+              'bedrooms',
+            ], 0),
+            bathrooms: _getNestedInt(userData, [
+              'propertyDetails',
+              'bathrooms',
+            ], 0),
+            guestCapacity: _getNestedInt(userData, [
+              'propertyDetails',
+              'guestCapacity',
+            ], 0),
+            propertySize: _getNestedValue(userData, [
+              'propertyDetails',
+              'propertySize',
+            ], ''),
+            yearConstruction: _getNestedValue(userData, [
+              'propertyDetails',
+              'yearConstruction',
+            ], ''),
+            description: _getNestedValue(userData, [
+              'propertyDetails',
+              'description',
+            ], ''),
             villaAmenities: _getAmenities(userData),
             customAmenities: _getCustomAmenities(userData),
             basePrice: _getNestedValue(userData, ['pricing', 'basePrice'], ''),
-            weekendPrice: _getNestedValue(userData, ['pricing', 'weekendPrice'], ''),
+            weekendPrice: _getNestedValue(userData, [
+              'pricing',
+              'weekendPrice',
+            ], ''),
             peakPrice: _getNestedValue(userData, ['pricing', 'peakPrice'], ''),
-            securityDeposit: _getNestedValue(userData, ['pricing', 'securityDeposit'], ''),
-            minimumStay: _getNestedValue(userData, ['pricing', 'minimumStay'], ''),
-            checkInTime: _getNestedValue(userData, ['pricing', 'checkInTime'], ''),
-            checkOutTime: _getNestedValue(userData, ['pricing', 'checkOutTime'], ''),
-            cancellationPolicy: _getMapValue(userData, ['pricing', 'cancellationPolicy']),
-            availabilityCalendar: _getMapValue(userData, ['pricing', 'availabilityCalendar']),
+            securityDeposit: _getNestedValue(userData, [
+              'pricing',
+              'securityDeposit',
+            ], ''),
+            minimumStay: _getNestedValue(userData, [
+              'pricing',
+              'minimumStay',
+            ], ''),
+            checkInTime: _getNestedValue(userData, [
+              'pricing',
+              'checkInTime',
+            ], ''),
+            checkOutTime: _getNestedValue(userData, [
+              'pricing',
+              'checkOutTime',
+            ], ''),
+            cancellationPolicy: _getMapValue(userData, [
+              'pricing',
+              'cancellationPolicy',
+            ]),
+            availabilityCalendar: _getMapValue(userData, [
+              'pricing',
+              'availabilityCalendar',
+            ]),
             ownershipProof: _getMapValue(userData, ['legal', 'ownershipProof']),
             idProof: _getMapValue(userData, ['legal', 'idProof']),
             gstNumber: _getNestedValue(userData, ['legal', 'gstNumber'], ''),
-            tradeLicense: _getNestedValue(userData, ['legal', 'tradeLicense'], ''),
-            accountHolderName: _getNestedValue(userData, ['bank', 'accountHolder'], ''),
+            tradeLicense: _getNestedValue(userData, [
+              'legal',
+              'tradeLicense',
+            ], ''),
+            accountHolderName: _getNestedValue(userData, [
+              'bank',
+              'accountHolder',
+            ], ''),
             bankName: _getNestedValue(userData, ['bank', 'bankName'], ''),
-            accountNumber: _getNestedValue(userData, ['bank', 'accountNumber'], ''),
+            accountNumber: _getNestedValue(userData, [
+              'bank',
+              'accountNumber',
+            ], ''),
             ifscCode: _getNestedValue(userData, ['bank', 'ifscCode'], ''),
             upiId: _getNestedValue(userData, ['bank', 'upiId'], ''),
-            cancelledCheque: _getMapValue(userData, ['bank', 'cancelledCheque']),
+            cancelledCheque: _getMapValue(userData, [
+              'bank',
+              'cancelledCheque',
+            ]),
             mediaFiles: _getMediaFiles(userData),
             ownerPhoto: _getMapValue(userData, ['basicInfo', 'ownerPhoto']),
-            hasDigitalSignature: _getNestedBool(userData, ['signature', 'hasDigital'], false),
+            hasDigitalSignature: _getNestedBool(userData, [
+              'signature',
+              'hasDigital',
+            ], false),
             digitalSignatureImage: _getSignatureImage(userData),
             declarationDate: _getDeclarationDate(userData),
-            declarationAccepted: _getNestedBool(userData, ['signature', 'declarationAccepted'], false),
-            altMobile: _getNestedValue(userData, ['basicInfo', 'altMobile'], ''),
+            declarationAccepted: _getNestedBool(userData, [
+              'signature',
+              'declarationAccepted',
+            ], false),
+            altMobile: _getNestedValue(userData, [
+              'basicInfo',
+              'altMobile',
+            ], ''),
             website: _getNestedValue(userData, ['basicInfo', 'website'], ''),
-            googleMapLink: _getNestedValue(userData, ['location', 'googleMapLink'], ''),
+            googleMapLink: _getNestedValue(userData, [
+              'location',
+              'googleMapLink',
+            ], ''),
           ),
         ),
       );
@@ -2635,7 +2711,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
 
       // Get registration data
       Map<String, dynamic> regData = {};
-      if (userData.containsKey('registrationData') && userData['registrationData'] != null) {
+      if (userData.containsKey('registrationData') &&
+          userData['registrationData'] != null) {
         regData = Map<String, dynamic>.from(userData['registrationData']);
         print('Found registration data with keys: ${regData.keys.toList()}');
       } else {
@@ -2643,171 +2720,73 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
         regData = Map<String, dynamic>.from(userData);
       }
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => NormalHotelDashboard(
-            registrationData: regData,
-            hotelName: regData['hotelName']?.toString() ?? userData['businessName']?.toString() ?? '',
-            ownerName: regData['ownerName']?.toString() ?? userData['fullName']?.toString() ?? '',
-            mobileNumber: regData['mobileNumber']?.toString() ?? userData['phone']?.toString() ?? '',
-            email: regData['email']?.toString() ?? userData['email']?.toString() ?? '',
-            addressLine1: regData['addressLine1']?.toString() ?? '',
-            city: regData['city']?.toString() ?? '',
-            state: regData['state']?.toString() ?? '',
-            pinCode: regData['pinCode']?.toString() ?? '',
-            totalRooms: regData['totalRooms'] ?? 0,
-            hotelType: regData['hotelType']?.toString() ?? 'Normal',
-            selectedRoomTypes: Map<String, bool>.from(regData['selectedRoomTypes'] ?? {}),
-            roomDetails: Map<String, Map<String, dynamic>>.from(regData['roomDetails'] ?? {}),
-            basicAmenities: Map<String, bool>.from(regData['basicAmenities'] ?? {}),
-            hotelFacilities: Map<String, bool>.from(regData['hotelFacilities'] ?? {}),
-            foodServices: Map<String, bool>.from(regData['foodServices'] ?? {}),
-            additionalAmenities: Map<String, bool>.from(regData['additionalAmenities'] ?? {}),
-            customAmenities: List<String>.from(regData['customAmenities'] ?? []),
-            uploadedFiles: Map<String, Map<String, dynamic>>.from(regData['uploadedFiles'] ?? {}),
-            personPhotoInfo: Map<String, dynamic>.from(regData['personPhotoInfo'] ?? {}),
-            digitalSignatureImage: regData['digitalSignatureImage'] as Uint8List?,
-          ),
-        ),
-      );
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => VillaOwnerDashboard(
+      //       registrationData: regData,
+      //       hotelName:
+      //           regData['hotelName']?.toString() ??
+      //           userData['businessName']?.toString() ??
+      //           '',
+      //       ownerName:
+      //           regData['ownerName']?.toString() ??
+      //           userData['fullName']?.toString() ??
+      //           '',
+      //       mobileNumber:
+      //           regData['mobileNumber']?.toString() ??
+      //           userData['phone']?.toString() ??
+      //           '',
+      //       email:
+      //           regData['email']?.toString() ??
+      //           userData['email']?.toString() ??
+      //           '',
+      //       addressLine1: regData['addressLine1']?.toString() ?? '',
+      //       city: regData['city']?.toString() ?? '',
+      //       state: regData['state']?.toString() ?? '',
+      //       pinCode: regData['pinCode']?.toString() ?? '',
+      //       totalRooms: regData['totalRooms'] ?? 0,
+      //       hotelType: regData['hotelType']?.toString() ?? 'Normal',
+      //       selectedRoomTypes: Map<String, bool>.from(
+      //         regData['selectedRoomTypes'] ?? {},
+      //       ),
+      //       roomDetails: Map<String, Map<String, dynamic>>.from(
+      //         regData['roomDetails'] ?? {},
+      //       ),
+      //       basicAmenities: Map<String, bool>.from(
+      //         regData['basicAmenities'] ?? {},
+      //       ),
+      //       hotelFacilities: Map<String, bool>.from(
+      //         regData['hotelFacilities'] ?? {},
+      //       ),
+      //       foodServices: Map<String, bool>.from(regData['foodServices'] ?? {}),
+      //       additionalAmenities: Map<String, bool>.from(
+      //         regData['additionalAmenities'] ?? {},
+      //       ),
+      //       customAmenities: List<String>.from(
+      //         regData['customAmenities'] ?? [],
+      //       ),
+      //       uploadedFiles: Map<String, Map<String, dynamic>>.from(
+      //         regData['uploadedFiles'] ?? {},
+      //       ),
+      //       personPhotoInfo: Map<String, dynamic>.from(
+      //         regData['personPhotoInfo'] ?? {},
+      //       ),
+      //       digitalSignatureImage:
+      //           regData['digitalSignatureImage'] as Uint8List?,
+      //     ),
+      //   ),
+      // );
     }
-    // } else if (propertyType == 'hotel') {
-    //   print('=== Creating Hotel Profile Page ===');
-    //   print('Full userData keys: ${userData.keys.toList()}');
-    //
-    //   // Extract all hotel data from userData
-    //   Navigator.pushReplacement(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => HotelOwnerProfilePage(
-    //         // Basic Information
-    //         hotelName: userData['hotelName']?.toString() ?? userData['businessName']?.toString() ?? '',
-    //         hotelType: userData['hotelType']?.toString() ?? '',
-    //         yearOfEstablishment: userData['yearOfEstablishment']?.toString() ?? '',
-    //         totalRooms: int.tryParse(userData['totalRooms']?.toString() ?? '0') ?? 0,
-    //
-    //         // Contact Information
-    //         ownerName: userData['ownerName']?.toString() ?? userData['fullName']?.toString() ?? '',
-    //         mobileNumber: userData['mobileNumber']?.toString() ?? userData['phone']?.toString() ?? '',
-    //         alternateContact: userData['alternateContact']?.toString() ?? '',
-    //         landlineNumbers: List<String>.from(userData['landlineNumbers'] ?? []),
-    //         email: userData['email']?.toString() ?? '',
-    //         website: userData['website']?.toString() ?? '',
-    //
-    //         // Address Information
-    //         addressLine1: userData['addressLine1']?.toString() ?? '',
-    //         addressLine2: userData['addressLine2']?.toString() ?? '',
-    //         city: userData['city']?.toString() ?? '',
-    //         district: userData['district']?.toString() ?? '',
-    //         state: userData['state']?.toString() ?? '',
-    //         pinCode: userData['pinCode']?.toString() ?? '',
-    //         landmark: userData['landmark']?.toString() ?? '',
-    //
-    //         // Room Configuration
-    //         selectedRoomTypes: _getMapBool(userData, 'selectedRoomTypes'),
-    //         roomDetails: _getRoomDetailsMap(userData, 'roomDetails'),
-    //         minTariff: userData['minTariff']?.toString() ?? '',
-    //         maxTariff: userData['maxTariff']?.toString() ?? '',
-    //         extraBedAvailable: userData['extraBedAvailable'] ?? false,
-    //
-    //         // Amenities
-    //         basicAmenities: _getMapBool(userData, 'basicAmenities'),
-    //         hotelFacilities: _getMapBool(userData, 'hotelFacilities'),
-    //         foodServices: _getMapBool(userData, 'foodServices'),
-    //         additionalAmenities: _getMapBool(userData, 'additionalAmenities'),
-    //         customAmenities: List<String>.from(userData['customAmenities'] ?? []),
-    //
-    //         // Legal Details
-    //         gstNumber: userData['gstNumber']?.toString() ?? '',
-    //         fssaiLicense: userData['fssaiLicense']?.toString() ?? '',
-    //         tradeLicense: userData['tradeLicense']?.toString() ?? '',
-    //         aadharNumber: userData['aadharNumber']?.toString() ?? '',
-    //         panNumber: userData['panNumber']?.toString(),
-    //
-    //         // Bank Details
-    //         accountHolderName: userData['accountHolderName']?.toString() ?? '',
-    //         bankName: userData['bankName']?.toString() ?? '',
-    //         accountNumber: userData['accountNumber']?.toString() ?? '',
-    //         ifscCode: userData['ifscCode']?.toString() ?? '',
-    //         branch: userData['branch']?.toString() ?? '',
-    //         accountType: userData['accountType']?.toString() ?? '',
-    //
-    //         // Uploaded Files
-    //         uploadedFiles: _getUploadedFilesMap(userData, 'uploadedFiles'),
-    //         personPhotoInfo: _getMapDynamic(userData, 'personPhotoInfo'),
-    //
-    //         // Signature & Declaration
-    //         signatureName: userData['signatureName']?.toString() ?? '',
-    //         declarationName: userData['declarationName']?.toString() ?? '',
-    //         declarationDate: _getDateTime(userData['declarationDate']),
-    //         declarationAccepted: userData['declarationAccepted'] ?? false,
-    //
-    //         // Hotel Category
-    //         hotelCategory: userData['hotelCategory']?.toString() ?? 'Normal',
-    //
-    //         // Digital Signature
-    //         hasDigitalSignature: userData['hasDigitalSignature'] ?? false,
-    //         digitalSignatureImage: userData['digitalSignatureImage'] as Uint8List?,
-    //
-    //         // 2-Star+ fields
-    //         designation: userData['designation']?.toString(),
-    //         checkInTime: userData['checkInTime']?.toString(),
-    //         checkOutTime: userData['checkOutTime']?.toString(),
-    //         roomAmenities: _getMapBool(userData, 'roomAmenities'),
-    //         guestServices: _getMapBool(userData, 'guestServices'),
-    //         coupleFriendly: userData['coupleFriendly'] as bool?,
-    //         petsAllowed: userData['petsAllowed'] as bool?,
-    //         selectedIdProof: userData['selectedIdProof']?.toString(),
-    //         idProofFiles: _getIdProofFilesMap(userData, 'idProofFiles'),
-    //
-    //         // 3-Star+ fields
-    //         registrationNumber: userData['registrationNumber']?.toString(),
-    //         signatoryName: userData['signatoryName']?.toString(),
-    //         seasonalPricing: userData['seasonalPricing'] as bool?,
-    //         earlyCheckinAllowed: userData['earlyCheckinAllowed'] as bool?,
-    //         earlyCheckinChargeable: userData['earlyCheckinChargeable'] as bool?,
-    //         fireSafetyCertificate: userData['fireSafetyCertificate'] as bool?,
-    //         businessServices: _getMapBool(userData, 'businessServices'),
-    //
-    //         // 4-Star+ fields
-    //         starCertificate: userData['starCertificate'] as bool?,
-    //         wellnessRecreation: _getMapBool(userData, 'wellnessRecreation'),
-    //
-    //         // 5-Star+ fields
-    //         brandName: userData['brandName']?.toString(),
-    //         starCertNumber: userData['starCertNumber']?.toString(),
-    //         pollutionCertificate: userData['pollutionCertificate'] as bool?,
-    //         liftCertificate: userData['liftCertificate'] as bool?,
-    //         diningServices: _getMapBool(userData, 'diningServices'),
-    //         wellnessRecreation5Star: _getMapBool(userData, 'wellnessRecreation5Star'),
-    //
-    //         // 6-Star fields
-    //         globalRecognition: userData['globalRecognition']?.toString(),
-    //         gmName: userData['gmName']?.toString(),
-    //         country: userData['country']?.toString(),
-    //         personalButler: userData['personalButler'] as bool?,
-    //         aiPricing: userData['aiPricing'] as bool?,
-    //         vipProtocols: userData['vipProtocols'] as bool?,
-    //         petLuxuryServices: userData['petLuxuryServices'] as bool?,
-    //         fireSafetyNoc: userData['fireSafetyNoc'] as bool?,
-    //         environmentalCert: userData['environmentalCert'] as bool?,
-    //         internationalCert: userData['internationalCert'] as bool?,
-    //         hotelInfrastructure: _getMapBool(userData, 'hotelInfrastructure'),
-    //         diningExperiences: _getMapBool(userData, 'diningExperiences'),
-    //         wellnessLeisure: _getMapBool(userData, 'wellnessLeisure'),
-    //         guestPrivileges: _getMapBool(userData, 'guestPrivileges'),
-    //         additionalAddresses: userData['additionalAddresses'] as List?,
-    //       ),
-    //     ),
-    //   );
-    // }
+
     else if (propertyType == 'apartment') {
       print('=== Creating Apartment Dashboard ===');
       print('Full userData keys: ${userData.keys.toList()}');
 
       if (userData.containsKey('basicInfo')) {
-        print('basicInfo exists with keys: ${(userData['basicInfo'] as Map).keys.toList()}');
+        print(
+          'basicInfo exists with keys: ${(userData['basicInfo'] as Map).keys.toList()}',
+        );
         final basicInfo = userData['basicInfo'] as Map;
         print('basicInfo["apartmentName"] = "${basicInfo['apartmentName']}"');
         print('basicInfo["ownerName"] = "${basicInfo['ownerName']}"');
@@ -2835,54 +2814,167 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
             city: _getNestedValue(userData, ['location', 'city'], ''),
             state: _getNestedValue(userData, ['location', 'state'], ''),
             pincode: _getNestedValue(userData, ['location', 'pincode'], ''),
-            googleMapLink: _getNestedValue(userData, ['location', 'googleMapLink'], ''),
-            propertyType: _getNestedValue(userData, ['propertyDetails', 'propertyType'], 'Apartment'),
-            totalUnits: _getNestedValue(userData, ['propertyDetails', 'totalUnits'], '0'),
-            totalBedrooms: _getNestedValue(userData, ['propertyDetails', 'totalBedrooms'], '0'),
-            totalBathrooms: _getNestedValue(userData, ['propertyDetails', 'totalBathrooms'], '0'),
-            guestCapacity: _getNestedValue(userData, ['propertyDetails', 'guestCapacity'], '0'),
-            floorNumber: _getNestedValue(userData, ['propertyDetails', 'floorNumber'], ''),
-            totalFloors: _getNestedValue(userData, ['propertyDetails', 'totalFloors'], ''),
-            elevatorAvailable: _getNestedValue(userData, ['propertyDetails', 'elevatorAvailable'], ''),
-            propertySize: _getNestedValue(userData, ['propertyDetails', 'propertySize'], ''),
-            yearConstruction: _getNestedValue(userData, ['propertyDetails', 'yearConstruction'], ''),
-            description: _getNestedValue(userData, ['propertyDetails', 'description'], ''),
+            googleMapLink: _getNestedValue(userData, [
+              'location',
+              'googleMapLink',
+            ], ''),
+            propertyType: _getNestedValue(userData, [
+              'propertyDetails',
+              'propertyType',
+            ], 'Apartment'),
+            totalUnits: _getNestedValue(userData, [
+              'propertyDetails',
+              'totalUnits',
+            ], '0'),
+            totalBedrooms: _getNestedValue(userData, [
+              'propertyDetails',
+              'totalBedrooms',
+            ], '0'),
+            totalBathrooms: _getNestedValue(userData, [
+              'propertyDetails',
+              'totalBathrooms',
+            ], '0'),
+            guestCapacity: _getNestedValue(userData, [
+              'propertyDetails',
+              'guestCapacity',
+            ], '0'),
+            floorNumber: _getNestedValue(userData, [
+              'propertyDetails',
+              'floorNumber',
+            ], ''),
+            totalFloors: _getNestedValue(userData, [
+              'propertyDetails',
+              'totalFloors',
+            ], ''),
+            elevatorAvailable: _getNestedValue(userData, [
+              'propertyDetails',
+              'elevatorAvailable',
+            ], ''),
+            propertySize: _getNestedValue(userData, [
+              'propertyDetails',
+              'propertySize',
+            ], ''),
+            yearConstruction: _getNestedValue(userData, [
+              'propertyDetails',
+              'yearConstruction',
+            ], ''),
+            description: _getNestedValue(userData, [
+              'propertyDetails',
+              'description',
+            ], ''),
             apartmentAmenities: _getAmenities(userData),
             customAmenities: _getCustomAmenities(userData),
             basePrice: _getNestedValue(userData, ['pricing', 'basePrice'], ''),
-            weeklyPrice: _getNestedValue(userData, ['pricing', 'weeklyPrice'], ''),
-            monthlyPrice: _getNestedValue(userData, ['pricing', 'monthlyPrice'], ''),
-            weekendPrice: _getNestedValue(userData, ['pricing', 'weekendPrice'], ''),
+            weeklyPrice: _getNestedValue(userData, [
+              'pricing',
+              'weeklyPrice',
+            ], ''),
+            monthlyPrice: _getNestedValue(userData, [
+              'pricing',
+              'monthlyPrice',
+            ], ''),
+            weekendPrice: _getNestedValue(userData, [
+              'pricing',
+              'weekendPrice',
+            ], ''),
             peakPrice: _getNestedValue(userData, ['pricing', 'peakPrice'], ''),
-            securityDeposit: _getNestedValue(userData, ['pricing', 'securityDeposit'], ''),
-            minimumStay: _getNestedValue(userData, ['pricing', 'minimumStay'], ''),
-            advancePayment: _getNestedValue(userData, ['pricing', 'advancePayment'], ''),
-            checkInTime: _getNestedValue(userData, ['pricing', 'checkInTime'], ''),
-            checkOutTime: _getNestedValue(userData, ['pricing', 'checkOutTime'], ''),
-            cancellationPolicy: _getMapValue(userData, ['pricing', 'cancellationPolicy']),
+            securityDeposit: _getNestedValue(userData, [
+              'pricing',
+              'securityDeposit',
+            ], ''),
+            minimumStay: _getNestedValue(userData, [
+              'pricing',
+              'minimumStay',
+            ], ''),
+            advancePayment: _getNestedValue(userData, [
+              'pricing',
+              'advancePayment',
+            ], ''),
+            checkInTime: _getNestedValue(userData, [
+              'pricing',
+              'checkInTime',
+            ], ''),
+            checkOutTime: _getNestedValue(userData, [
+              'pricing',
+              'checkOutTime',
+            ], ''),
+            cancellationPolicy: _getMapValue(userData, [
+              'pricing',
+              'cancellationPolicy',
+            ]),
             ownershipProof: _getMapValue(userData, ['legal', 'ownershipProof']),
             idProof: _getMapValue(userData, ['legal', 'idProof']),
-            cancelledCheque: _getMapValue(userData, ['bank', 'cancelledCheque']),
-            calendarSync: _getMapValue(userData, ['availability', 'calendarSync']),
-            availableFromDate: _getDateTimeValue(userData, ['availability', 'availableFromDate']),
-            blackoutDates: _getNestedValue(userData, ['availability', 'blackoutDates'], ''),
-            instantBooking: _getNestedValue(userData, ['availability', 'instantBooking'], ''),
+            cancelledCheque: _getMapValue(userData, [
+              'bank',
+              'cancelledCheque',
+            ]),
+            calendarSync: _getMapValue(userData, [
+              'availability',
+              'calendarSync',
+            ]),
+            availableFromDate: _getDateTimeValue(userData, [
+              'availability',
+              'availableFromDate',
+            ]),
+            blackoutDates: _getNestedValue(userData, [
+              'availability',
+              'blackoutDates',
+            ], ''),
+            instantBooking: _getNestedValue(userData, [
+              'availability',
+              'instantBooking',
+            ], ''),
             mediaFiles: _getMediaFiles(userData),
             ownerPhoto: _getMapValue(userData, ['basicInfo', 'ownerPhoto']),
-            smokingPolicy: _getNestedValue(userData, ['houseRules', 'smokingPolicy'], ''),
-            petPolicy: _getNestedValue(userData, ['houseRules', 'petPolicy'], ''),
-            eventPolicy: _getNestedValue(userData, ['houseRules', 'eventPolicy'], ''),
-            visitorPolicy: _getNestedValue(userData, ['houseRules', 'visitorPolicy'], ''),
-            quietHours: _getNestedValue(userData, ['houseRules', 'quietHours'], ''),
-            additionalRules: _getNestedValue(userData, ['houseRules', 'additionalRules'], ''),
-            hasDigitalSignature: _getNestedBool(userData, ['signature', 'hasDigital'], false),
+            smokingPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'smokingPolicy',
+            ], ''),
+            petPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'petPolicy',
+            ], ''),
+            eventPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'eventPolicy',
+            ], ''),
+            visitorPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'visitorPolicy',
+            ], ''),
+            quietHours: _getNestedValue(userData, [
+              'houseRules',
+              'quietHours',
+            ], ''),
+            additionalRules: _getNestedValue(userData, [
+              'houseRules',
+              'additionalRules',
+            ], ''),
+            hasDigitalSignature: _getNestedBool(userData, [
+              'signature',
+              'hasDigital',
+            ], false),
             digitalSignatureImage: _getSignatureImage(userData),
             declarationDate: _getDeclarationDate(userData),
-            declarationAccepted: _getNestedBool(userData, ['declarationAccepted'], false),
-            vendorStatus: _getNestedValue(userData, ['adminFields', 'vendorStatus'], 'Pending'),
-            featuredListing: _getNestedBool(userData, ['adminFields', 'featuredListing'], false),
-            verifiedBadge: _getNestedBool(userData, ['adminFields', 'verifiedBadge'], false),
-            ratingScore: _getNestedDouble(userData, ['adminFields', 'ratingScore'], 0.0),
+            declarationAccepted: _getNestedBool(userData, [
+              'declarationAccepted',
+            ], false),
+            vendorStatus: _getNestedValue(userData, [
+              'adminFields',
+              'vendorStatus',
+            ], 'Pending'),
+            featuredListing: _getNestedBool(userData, [
+              'adminFields',
+              'featuredListing',
+            ], false),
+            verifiedBadge: _getNestedBool(userData, [
+              'adminFields',
+              'verifiedBadge',
+            ], false),
+            ratingScore: _getNestedDouble(userData, [
+              'adminFields',
+              'ratingScore',
+            ], 0.0),
             remarks: _getNestedValue(userData, ['adminFields', 'remarks'], ''),
           ),
         ),
@@ -2892,7 +2984,9 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       print('Full userData keys: ${userData.keys.toList()}');
 
       if (userData.containsKey('basicInfo')) {
-        print('basicInfo exists with keys: ${(userData['basicInfo'] as Map).keys.toList()}');
+        print(
+          'basicInfo exists with keys: ${(userData['basicInfo'] as Map).keys.toList()}',
+        );
         final basicInfo = userData['basicInfo'] as Map;
         print('basicInfo["resortName"] = "${basicInfo['resortName']}"');
         print('basicInfo["ownerName"] = "${basicInfo['ownerName']}"');
@@ -2922,72 +3016,196 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
             city: _getNestedValue(userData, ['location', 'city'], ''),
             state: _getNestedValue(userData, ['location', 'state'], ''),
             pincode: _getNestedValue(userData, ['location', 'pincode'], ''),
-            googleMapLink: _getNestedValue(userData, ['location', 'googleMapLink'], ''),
-            nearestAirport: _getNestedValue(userData, ['location', 'nearestAirport'], ''),
-            nearestRailway: _getNestedValue(userData, ['location', 'nearestRailway'], ''),
-            resortCategory: _getNestedValue(userData, ['propertyDetails', 'resortCategory'], ''),
-            totalRooms: _getNestedValue(userData, ['propertyDetails', 'totalRooms'], '0'),
-            totalCapacity: _getNestedValue(userData, ['propertyDetails', 'totalCapacity'], '0'),
+            googleMapLink: _getNestedValue(userData, [
+              'location',
+              'googleMapLink',
+            ], ''),
+            nearestAirport: _getNestedValue(userData, [
+              'location',
+              'nearestAirport',
+            ], ''),
+            nearestRailway: _getNestedValue(userData, [
+              'location',
+              'nearestRailway',
+            ], ''),
+            resortCategory: _getNestedValue(userData, [
+              'propertyDetails',
+              'resortCategory',
+            ], ''),
+            totalRooms: _getNestedValue(userData, [
+              'propertyDetails',
+              'totalRooms',
+            ], '0'),
+            totalCapacity: _getNestedValue(userData, [
+              'propertyDetails',
+              'totalCapacity',
+            ], '0'),
             roomTypes: _getRoomTypes(userData),
-            propertyArea: _getNestedValue(userData, ['propertyDetails', 'propertyArea'], ''),
-            yearEstablished: _getNestedValue(userData, ['propertyDetails', 'yearEstablished'], ''),
-            description: _getNestedValue(userData, ['propertyDetails', 'description'], ''),
+            propertyArea: _getNestedValue(userData, [
+              'propertyDetails',
+              'propertyArea',
+            ], ''),
+            yearEstablished: _getNestedValue(userData, [
+              'propertyDetails',
+              'yearEstablished',
+            ], ''),
+            description: _getNestedValue(userData, [
+              'propertyDetails',
+              'description',
+            ], ''),
             resortAmenities: _getAmenities(userData),
             customAmenities: _getCustomAmenities(userData),
             basePrice: _getNestedValue(userData, ['pricing', 'basePrice'], ''),
-            weekendPrice: _getNestedValue(userData, ['pricing', 'weekendPrice'], ''),
+            weekendPrice: _getNestedValue(userData, [
+              'pricing',
+              'weekendPrice',
+            ], ''),
             peakPrice: _getNestedValue(userData, ['pricing', 'peakPrice'], ''),
-            extraBedCharges: _getNestedValue(userData, ['pricing', 'extraBedCharges'], ''),
-            childPolicy: _getNestedValue(userData, ['pricing', 'childPolicy'], ''),
-            minimumStay: _getNestedValue(userData, ['pricing', 'minimumStay'], ''),
-            advancePayment: _getNestedValue(userData, ['pricing', 'advancePayment'], ''),
-            checkInTime: _getNestedValue(userData, ['pricing', 'checkInTime'], ''),
-            checkOutTime: _getNestedValue(userData, ['pricing', 'checkOutTime'], ''),
-            instantBooking: _getNestedValue(userData, ['availability', 'instantBooking'], ''),
-            manualApproval: _getNestedValue(userData, ['availability', 'manualApproval'], ''),
-            availableFromDate: _getDateTimeValue(userData, ['availability', 'availableFromDate']),
-            blackoutDates: _getNestedValue(userData, ['availability', 'blackoutDates'], ''),
-            seasonalPricing: _getNestedValue(userData, ['availability', 'seasonalPricing'], ''),
-            cancellationPolicy: _getMapValue(userData, ['pricing', 'cancellationPolicy']),
+            extraBedCharges: _getNestedValue(userData, [
+              'pricing',
+              'extraBedCharges',
+            ], ''),
+            childPolicy: _getNestedValue(userData, [
+              'pricing',
+              'childPolicy',
+            ], ''),
+            minimumStay: _getNestedValue(userData, [
+              'pricing',
+              'minimumStay',
+            ], ''),
+            advancePayment: _getNestedValue(userData, [
+              'pricing',
+              'advancePayment',
+            ], ''),
+            checkInTime: _getNestedValue(userData, [
+              'pricing',
+              'checkInTime',
+            ], ''),
+            checkOutTime: _getNestedValue(userData, [
+              'pricing',
+              'checkOutTime',
+            ], ''),
+            instantBooking: _getNestedValue(userData, [
+              'availability',
+              'instantBooking',
+            ], ''),
+            manualApproval: _getNestedValue(userData, [
+              'availability',
+              'manualApproval',
+            ], ''),
+            availableFromDate: _getDateTimeValue(userData, [
+              'availability',
+              'availableFromDate',
+            ]),
+            blackoutDates: _getNestedValue(userData, [
+              'availability',
+              'blackoutDates',
+            ], ''),
+            seasonalPricing: _getNestedValue(userData, [
+              'availability',
+              'seasonalPricing',
+            ], ''),
+            cancellationPolicy: _getMapValue(userData, [
+              'pricing',
+              'cancellationPolicy',
+            ]),
             businessReg: _getMapValue(userData, ['legal', 'businessReg']),
             ownershipProof: _getMapValue(userData, ['legal', 'ownershipProof']),
             idProof: _getMapValue(userData, ['legal', 'idProof']),
             fireSafety: _getMapValue(userData, ['legal', 'fireSafety']),
-            cancelledCheque: _getMapValue(userData, ['bank', 'cancelledCheque']),
+            cancelledCheque: _getMapValue(userData, [
+              'bank',
+              'cancelledCheque',
+            ]),
             mediaFiles: _getMediaFiles(userData),
             ownerPhoto: _getMapValue(userData, ['basicInfo', 'ownerPhoto']),
-            checkInRequirements: _getNestedValue(userData, ['houseRules', 'checkInRequirements'], ''),
-            idProofRequired: _getNestedValue(userData, ['houseRules', 'idProofRequired'], ''),
-            petPolicy: _getNestedValue(userData, ['houseRules', 'petPolicy'], ''),
-            smokingPolicy: _getNestedValue(userData, ['houseRules', 'smokingPolicy'], ''),
-            eventPolicy: _getNestedValue(userData, ['houseRules', 'eventPolicy'], ''),
-            damagePolicy: _getNestedValue(userData, ['houseRules', 'damagePolicy'], ''),
-            refundPolicy: _getNestedValue(userData, ['houseRules', 'refundPolicy'], ''),
+            checkInRequirements: _getNestedValue(userData, [
+              'houseRules',
+              'checkInRequirements',
+            ], ''),
+            idProofRequired: _getNestedValue(userData, [
+              'houseRules',
+              'idProofRequired',
+            ], ''),
+            petPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'petPolicy',
+            ], ''),
+            smokingPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'smokingPolicy',
+            ], ''),
+            eventPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'eventPolicy',
+            ], ''),
+            damagePolicy: _getNestedValue(userData, [
+              'houseRules',
+              'damagePolicy',
+            ], ''),
+            refundPolicy: _getNestedValue(userData, [
+              'houseRules',
+              'refundPolicy',
+            ], ''),
             gstNumber: _getNestedValue(userData, ['legal', 'gstNumber'], ''),
-            tradeLicense: _getNestedValue(userData, ['legal', 'tradeLicense'], ''),
-            fssaiLicense: _getNestedValue(userData, ['legal', 'fssaiLicense'], ''),
-            tourismApproval: _getNestedValue(userData, ['legal', 'tourismApproval'], ''),
-            accountHolderName: _getNestedValue(userData, ['bank', 'accountHolder'], ''),
+            tradeLicense: _getNestedValue(userData, [
+              'legal',
+              'tradeLicense',
+            ], ''),
+            fssaiLicense: _getNestedValue(userData, [
+              'legal',
+              'fssaiLicense',
+            ], ''),
+            tourismApproval: _getNestedValue(userData, [
+              'legal',
+              'tourismApproval',
+            ], ''),
+            accountHolderName: _getNestedValue(userData, [
+              'bank',
+              'accountHolder',
+            ], ''),
             bankName: _getNestedValue(userData, ['bank', 'bankName'], ''),
-            accountNumber: _getNestedValue(userData, ['bank', 'accountNumber'], ''),
+            accountNumber: _getNestedValue(userData, [
+              'bank',
+              'accountNumber',
+            ], ''),
             ifscCode: _getNestedValue(userData, ['bank', 'ifscCode'], ''),
             upiId: _getNestedValue(userData, ['bank', 'upiId'], ''),
             gstBilling: _getNestedValue(userData, ['bank', 'gstBilling'], ''),
-            hasDigitalSignature: _getNestedBool(userData, ['signature', 'hasDigital'], false),
+            hasDigitalSignature: _getNestedBool(userData, [
+              'signature',
+              'hasDigital',
+            ], false),
             digitalSignatureImage: _getSignatureImage(userData),
             declarationDate: _getDeclarationDate(userData),
-            declarationAccepted: _getNestedBool(userData, ['declarationAccepted'], false),
-            vendorStatus: _getNestedValue(userData, ['adminFields', 'vendorStatus'], 'Pending'),
-            featuredResort: _getNestedBool(userData, ['adminFields', 'featuredResort'], false),
-            verifiedBadge: _getNestedBool(userData, ['adminFields', 'verifiedBadge'], false),
-            ratingScore: _getNestedDouble(userData, ['adminFields', 'ratingScore'], 0.0),
-            priorityListingLevel: _getNestedValue(userData, ['adminFields', 'priorityListingLevel'], 'Standard'),
+            declarationAccepted: _getNestedBool(userData, [
+              'declarationAccepted',
+            ], false),
+            vendorStatus: _getNestedValue(userData, [
+              'adminFields',
+              'vendorStatus',
+            ], 'Pending'),
+            featuredResort: _getNestedBool(userData, [
+              'adminFields',
+              'featuredResort',
+            ], false),
+            verifiedBadge: _getNestedBool(userData, [
+              'adminFields',
+              'verifiedBadge',
+            ], false),
+            ratingScore: _getNestedDouble(userData, [
+              'adminFields',
+              'ratingScore',
+            ], 0.0),
+            priorityListingLevel: _getNestedValue(userData, [
+              'adminFields',
+              'priorityListingLevel',
+            ], 'Standard'),
             remarks: _getNestedValue(userData, ['adminFields', 'remarks'], ''),
           ),
         ),
       );
-    }
-    else {
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Unknown property type: $propertyType'),
@@ -3007,15 +3225,18 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       final value = data[key];
       if (value is Map) {
         return Map<String, bool>.from(
-            value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false))
+          value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
         );
       }
     }
     return {};
   }
 
-// Helper method to safely get Map<String, Map<String, dynamic>>
-  Map<String, Map<String, dynamic>> _getRoomDetailsMap(Map<String, dynamic> data, String key) {
+  // Helper method to safely get Map<String, Map<String, dynamic>>
+  Map<String, Map<String, dynamic>> _getRoomDetailsMap(
+    Map<String, dynamic> data,
+    String key,
+  ) {
     if (data.containsKey(key) && data[key] != null) {
       final value = data[key];
       if (value is Map) {
@@ -3035,7 +3256,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return {};
   }
 
-// Helper method to safely get Map<String, dynamic>
+  // Helper method to safely get Map<String, dynamic>
   Map<String, dynamic> _getMapDynamic(Map<String, dynamic> data, String key) {
     if (data.containsKey(key) && data[key] != null && data[key] is Map) {
       return Map<String, dynamic>.from(data[key] as Map);
@@ -3043,8 +3264,11 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return {};
   }
 
-// Helper method to safely get uploaded files map
-  Map<String, Map<String, dynamic>> _getUploadedFilesMap(Map<String, dynamic> data, String key) {
+  // Helper method to safely get uploaded files map
+  Map<String, Map<String, dynamic>> _getUploadedFilesMap(
+    Map<String, dynamic> data,
+    String key,
+  ) {
     if (data.containsKey(key) && data[key] != null) {
       final value = data[key];
       if (value is Map) {
@@ -3064,8 +3288,11 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return {};
   }
 
-// Helper method to safely get id proof files map
-  Map<String, Map<String, dynamic>>? _getIdProofFilesMap(Map<String, dynamic> data, String key) {
+  // Helper method to safely get id proof files map
+  Map<String, Map<String, dynamic>>? _getIdProofFilesMap(
+    Map<String, dynamic> data,
+    String key,
+  ) {
     if (data.containsKey(key) && data[key] != null) {
       final value = data[key];
       if (value is Map) {
@@ -3085,13 +3312,14 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return null;
   }
 
-// Helper method to safely get DateTime
+  // Helper method to safely get DateTime
   DateTime? _getDateTime(dynamic value) {
     if (value == null) return null;
     if (value is DateTime) return value;
     if (value is String) return DateTime.tryParse(value);
     return null;
   }
+
   String _getApartmentName(Map<String, dynamic> data) {
     print('=== _getApartmentName called ===');
     print('Data keys: ${data.keys.toList()}');
@@ -3121,7 +3349,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     }
 
     // Try from propertyDetails
-    if (data.containsKey('propertyDetails') && data['propertyDetails'] != null) {
+    if (data.containsKey('propertyDetails') &&
+        data['propertyDetails'] != null) {
       print('Found propertyDetails');
       final propertyDetails = data['propertyDetails'] as Map;
       print('propertyDetails keys: ${propertyDetails.keys.toList()}');
@@ -3179,7 +3408,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
   }
 
   Map<String, bool> _getRoomTypes(Map<String, dynamic> data) {
-    if (data.containsKey('propertyDetails') && data['propertyDetails'] != null) {
+    if (data.containsKey('propertyDetails') &&
+        data['propertyDetails'] != null) {
       final propertyDetails = data['propertyDetails'] as Map;
       if (propertyDetails.containsKey('roomTypes')) {
         return Map<String, bool>.from(propertyDetails['roomTypes']);
@@ -3223,7 +3453,11 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return null;
   }
 
-  double _getNestedDouble(Map<String, dynamic> data, List<String> keys, double defaultValue) {
+  double _getNestedDouble(
+    Map<String, dynamic> data,
+    List<String> keys,
+    double defaultValue,
+  ) {
     dynamic value = data;
     for (String key in keys) {
       if (value is Map && value.containsKey(key)) {
@@ -3237,6 +3471,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     if (value is String) return double.tryParse(value) ?? defaultValue;
     return defaultValue;
   }
+
   // Helper methods for data extraction
   String _getVillaName(Map<String, dynamic> data) {
     if (data.containsKey('basicInfo') && data['basicInfo'] != null) {
@@ -3244,7 +3479,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     }
     return data['villaName']?.toString() ?? '';
   }
-
 
   String _getMobileNumber(Map<String, dynamic> data) {
     if (data.containsKey('basicInfo') && data['basicInfo'] != null) {
@@ -3260,7 +3494,11 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return data['email']?.toString() ?? '';
   }
 
-  String _getNestedValue(Map<String, dynamic> map, List<String> keys, String defaultValue) {
+  String _getNestedValue(
+    Map<String, dynamic> map,
+    List<String> keys,
+    String defaultValue,
+  ) {
     dynamic value = map;
     for (String key in keys) {
       if (value is Map && value.containsKey(key)) {
@@ -3272,12 +3510,20 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return value?.toString() ?? defaultValue;
   }
 
-  int _getNestedInt(Map<String, dynamic> map, List<String> keys, int defaultValue) {
+  int _getNestedInt(
+    Map<String, dynamic> map,
+    List<String> keys,
+    int defaultValue,
+  ) {
     final value = _getNestedValue(map, keys, '');
     return int.tryParse(value) ?? defaultValue;
   }
 
-  bool _getNestedBool(Map<String, dynamic> map, List<String> keys, bool defaultValue) {
+  bool _getNestedBool(
+    Map<String, dynamic> map,
+    List<String> keys,
+    bool defaultValue,
+  ) {
     dynamic value = map;
     for (String key in keys) {
       if (value is Map && value.containsKey(key)) {
@@ -3291,7 +3537,10 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return defaultValue;
   }
 
-  Map<String, dynamic> _getMapValue(Map<String, dynamic> map, List<String> keys) {
+  Map<String, dynamic> _getMapValue(
+    Map<String, dynamic> map,
+    List<String> keys,
+  ) {
     dynamic value = map;
     for (String key in keys) {
       if (value is Map && value.containsKey(key)) {
@@ -3308,8 +3557,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
 
   Map<String, bool> _getAmenities(Map<String, dynamic> userData) {
     final amenities = _getMapValue(userData, ['amenities', 'selected']);
-    return amenities.map((key, value) =>
-        MapEntry(key.toString(), value is bool ? value : false)
+    return amenities.map(
+      (key, value) => MapEntry(key.toString(), value is bool ? value : false),
     );
   }
 
@@ -3318,7 +3567,9 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     return custom.values.map((e) => e.toString()).toList();
   }
 
-  Map<String, List<Map<String, dynamic>>> _getMediaFiles(Map<String, dynamic> userData) {
+  Map<String, List<Map<String, dynamic>>> _getMediaFiles(
+    Map<String, dynamic> userData,
+  ) {
     final media = _getMapValue(userData, ['media']);
     final result = <String, List<Map<String, dynamic>>>{};
 
@@ -3343,7 +3594,8 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
 
   Uint8List? _getSignatureImage(Map<String, dynamic> userData) {
     final signature = _getMapValue(userData, ['signature']);
-    if (signature.containsKey('digitalSignature') && signature['digitalSignature'] is Uint8List) {
+    if (signature.containsKey('digitalSignature') &&
+        signature['digitalSignature'] is Uint8List) {
       return signature['digitalSignature'];
     }
     return null;
@@ -3374,16 +3626,25 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Color(0xFF6B7280)),
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Color(0xFF6B7280),
+                      ),
                       onPressed: () => Navigator.pop(context),
                     ),
                     const Spacer(),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         color: _getPropertyTypeColor(),
                         borderRadius: BorderRadius.circular(20),
@@ -3635,7 +3896,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
                         color: const Color(0xFF6B7280),
                       ),
                       onPressed: () => setState(
-                            () => _showLoginPassword = !_showLoginPassword,
+                        () => _showLoginPassword = !_showLoginPassword,
                       ),
                     ),
                   ),
@@ -3666,21 +3927,21 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
               ),
               child: _isLoggingIn
                   ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                ),
-              )
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                    )
                   : const Text(
-                "Login",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
             ),
           ),
         ],
@@ -3810,7 +4071,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
                         controller: _regPasswordController,
                         obscure: !_showRegPassword,
                         onToggle: () => setState(
-                              () => _showRegPassword = !_showRegPassword,
+                          () => _showRegPassword = !_showRegPassword,
                         ),
                         error: _regErrors['password'],
                       ),
@@ -3822,7 +4083,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
                         controller: _regConfirmPasswordController,
                         obscure: !_showConfirmPassword,
                         onToggle: () => setState(
-                              () => _showConfirmPassword = !_showConfirmPassword,
+                          () => _showConfirmPassword = !_showConfirmPassword,
                         ),
                         error: _regErrors['confirmPassword'],
                       ),
@@ -3863,32 +4124,32 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
               ),
               child: _isRegistering
                   ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation(Colors.white),
-                ),
-              )
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation(Colors.white),
+                      ),
+                    )
                   : const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.rocket_launch_rounded,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    "Create Account",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.rocket_launch_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          "Create Account",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
             ),
           ),
         ],
@@ -4139,18 +4400,6 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 class OwnerDashboardScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
   final String userEmail;
@@ -4178,7 +4427,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     _checkRegisteredProperties();
     _loadUserData();
   }
-
 
   // Future<void> _loadUserData() async {
   //   setState(() => _isLoading = true);
@@ -4336,7 +4584,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
       for (var user in usersList) {
         if (user is Map) {
-          final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
+          final storedEmail =
+              user['email']?.toString().toLowerCase().trim() ?? '';
           if (storedEmail == normalizedEmail) {
             // Convert safely without casting
             Map<String, dynamic> safeUserData = {};
@@ -4486,9 +4735,12 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
     // DO NOT use propertyType alone to determine registration
     // Only use propertyType if we're confident it's correct
-    if (_userData.containsKey('propertyType') && _userData['propertyType'] != null) {
+    if (_userData.containsKey('propertyType') &&
+        _userData['propertyType'] != null) {
       String propertyType = _userData['propertyType'].toString().toLowerCase();
-      print('Found propertyType: "$propertyType" - but not using it alone for registration status');
+      print(
+        'Found propertyType: "$propertyType" - but not using it alone for registration status',
+      );
     }
 
     setState(() {
@@ -4502,6 +4754,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
     print('Final registered properties: $_registeredProperties');
   }
+
   void _navigateToWelcomeScreen() {
     Navigator.push(
       context,
@@ -4544,7 +4797,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     // Extract all hotel registration data
     Map<String, dynamic> hotelData = {};
 
-    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+    if (_userData.containsKey('registrationData') &&
+        _userData['registrationData'] != null) {
       hotelData = Map<String, dynamic>.from(_userData['registrationData']);
     } else {
       hotelData = Map<String, dynamic>.from(_userData);
@@ -4553,9 +4807,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HotelRegistrationDetailsScreen(
-          registrationData: hotelData,
-        ),
+        builder: (context) =>
+            HotelRegistrationDetailsScreen(registrationData: hotelData),
       ),
     );
   }
@@ -4565,7 +4818,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
     Map<String, dynamic> villaData = {};
 
-    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+    if (_userData.containsKey('registrationData') &&
+        _userData['registrationData'] != null) {
       villaData = Map<String, dynamic>.from(_userData['registrationData']);
     } else {
       villaData = Map<String, dynamic>.from(_userData);
@@ -4574,9 +4828,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VillaRegistrationDetailsScreen(
-          registrationData: villaData,
-        ),
+        builder: (context) =>
+            VillaRegistrationDetailsScreen(registrationData: villaData),
       ),
     );
   }
@@ -4586,7 +4839,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
     Map<String, dynamic> apartmentData = {};
 
-    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+    if (_userData.containsKey('registrationData') &&
+        _userData['registrationData'] != null) {
       apartmentData = Map<String, dynamic>.from(_userData['registrationData']);
     } else {
       apartmentData = Map<String, dynamic>.from(_userData);
@@ -4595,9 +4849,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ApartmentRegistrationDetailsScreen(
-          registrationData: apartmentData,
-        ),
+        builder: (context) =>
+            ApartmentRegistrationDetailsScreen(registrationData: apartmentData),
       ),
     );
   }
@@ -4607,7 +4860,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
     Map<String, dynamic> resortData = {};
 
-    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+    if (_userData.containsKey('registrationData') &&
+        _userData['registrationData'] != null) {
       resortData = Map<String, dynamic>.from(_userData['registrationData']);
     } else {
       resortData = Map<String, dynamic>.from(_userData);
@@ -4616,9 +4870,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ResortRegistrationDetailsScreen(
-          registrationData: resortData,
-        ),
+        builder: (context) =>
+            ResortRegistrationDetailsScreen(registrationData: resortData),
       ),
     );
   }
@@ -4807,11 +5060,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 18,
-              ),
+              child: Icon(icon, color: Colors.white, size: 18),
             ),
             const SizedBox(width: 8),
             // Text Column - Fixed height to ensure consistency
@@ -4846,6 +5095,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -4855,7 +5105,20 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF1F2937)),
-          onPressed: () => Navigator.pop(context),
+          // onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PropertyAuthScreen(
+                  selectedPropertyType:
+                      'hotel', // or whatever property type you want to pass
+                  registrationData:
+                      null, // or pass any existing registration data if needed
+                ),
+              ),
+            );
+          },
         ),
         title: const Text(
           'My Dashboard',
@@ -4865,204 +5128,215 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             fontWeight: FontWeight.w700,
           ),
         ),
-
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // My Profile Section
-            Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                  ),
-                ],
-              ),
+              padding: const EdgeInsets.all(16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Profile Header with Button
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
-                            ),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.person,
-                              size: 30,
-                              color: Colors.white,
-                            ),
-                          ),
+                  // My Profile Section
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 10,
                         ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        // Profile Header with Button
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
                             children: [
-                              Text(
-                                _getUserFullName(),
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF1F2937),
+                              Container(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Color(0xFFFF5F6D),
+                                      Color(0xFFFFC371),
+                                    ],
+                                  ),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                _getUserEmail(),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF6B7280),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      _getUserFullName(),
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                        color: Color(0xFF1F2937),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      _getUserEmail(),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: Color(0xFF6B7280),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                              // My Profile Button
+                              // ElevatedButton(
+                              //   onPressed: () {
+                              //     _showProfileDialog();
+                              //   },
+                              //   style: ElevatedButton.styleFrom(
+                              //     backgroundColor: const Color(0xFFFF5F6D),
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(20),
+                              //     ),
+                              //   ),
+                              //   child: const Text('My Profile'),
+                              // ),
                             ],
                           ),
                         ),
-                        // My Profile Button
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     _showProfileDialog();
-                        //   },
-                        //   style: ElevatedButton.styleFrom(
-                        //     backgroundColor: const Color(0xFFFF5F6D),
-                        //     shape: RoundedRectangleBorder(
-                        //       borderRadius: BorderRadius.circular(20),
-                        //     ),
-                        //   ),
-                        //   child: const Text('My Profile'),
-                        // ),
+
+                        // Personal Details Summary (First-time registered data)
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF9FAFB),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Personal Details',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF374151),
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: _buildDetailItem(
+                                        icon: Icons.phone,
+                                        label: 'Phone',
+                                        value: _getUserPhone(),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: _buildDetailItem(
+                                        icon: Icons.email,
+                                        label: 'Email',
+                                        value: _getUserEmail(),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                if (_getRegisteredPropertyType() != 'none')
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: _buildDetailItem(
+                                      icon: Icons.business,
+                                      label: 'Registered As',
+                                      value: _getRegisteredPropertyType()
+                                          .toUpperCase(),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
 
-                  // Personal Details Summary (First-time registered data)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF9FAFB),
-                        borderRadius: BorderRadius.circular(12),
+                  const SizedBox(height: 24),
+
+                  // In the build method, update the My Profile button:
+                  Row(
+                    children: [
+                      // New Register Button
+                      Expanded(
+                        child: _buildActionButton(
+                          onTap: _navigateToWelcomeScreen,
+                          icon: Icons.app_registration,
+                          title: 'New Register',
+                          subtitle: 'Add another property',
+                          gradientColors: [
+                            Colors.blue,
+                            Colors.lightBlue.shade300,
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Personal Details',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF374151),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: _buildDetailItem(
-                                  icon: Icons.phone,
-                                  label: 'Phone',
-                                  value: _getUserPhone(),
+                      const SizedBox(width: 10),
+                      // My Profile Button
+                      Expanded(
+                        child: _buildActionButton(
+                          onTap: () {
+                            print(
+                              'Navigating to PropertiesScreen with userData: ${_userData.keys}',
+                            );
+                            print('propertyType: ${_userData['propertyType']}');
+
+                            // Create a fresh copy with explicit propertyType
+                            Map<String, dynamic> dataToPass =
+                                Map<String, dynamic>.from(_userData);
+
+                            // Ensure propertyType has a value
+                            if (dataToPass['propertyType'] == null ||
+                                dataToPass['propertyType'].toString().isEmpty) {
+                              dataToPass['propertyType'] = 'hotel';
+                            }
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PropertiesScreen(
+                                  userData: dataToPass,
+                                  userEmail: widget.userEmail,
                                 ),
                               ),
-                              Expanded(
-                                child: _buildDetailItem(
-                                  icon: Icons.email,
-                                  label: 'Email',
-                                  value: _getUserEmail(),
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (_getRegisteredPropertyType() != 'none')
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: _buildDetailItem(
-                                icon: Icons.business,
-                                label: 'Registered As',
-                                value: _getRegisteredPropertyType().toUpperCase(),
-                              ),
-                            ),
-                        ],
+                            );
+                          },
+                          icon: Icons.person_rounded,
+                          title: 'My Profile',
+                          subtitle: 'View properties', // Static subtitle
+                          gradientColors: [
+                            const Color(0xFFFF5F6D),
+                            const Color(0xFFFFC371),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
             ),
-
-            const SizedBox(height: 24),
-
-            // In the build method, update the My Profile button:
-            Row(
-              children: [
-                // New Register Button
-                Expanded(
-                  child: _buildActionButton(
-                    onTap: _navigateToWelcomeScreen,
-                    icon: Icons.app_registration,
-                    title: 'New Register',
-                    subtitle: 'Add another property',
-                    gradientColors: [Colors.blue, Colors.lightBlue.shade300],
-                  ),
-                ),
-                const SizedBox(width: 10),
-                // My Profile Button
-                Expanded(
-                  child: _buildActionButton(
-                    onTap: () {
-                      print('Navigating to PropertiesScreen with userData: ${_userData.keys}');
-                      print('propertyType: ${_userData['propertyType']}');
-
-                      // Create a fresh copy with explicit propertyType
-                      Map<String, dynamic> dataToPass = Map<String, dynamic>.from(_userData);
-
-                      // Ensure propertyType has a value
-                      if (dataToPass['propertyType'] == null || dataToPass['propertyType'].toString().isEmpty) {
-                        dataToPass['propertyType'] = 'hotel';
-                      }
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PropertiesScreen(
-                            userData: dataToPass,
-                            userEmail: widget.userEmail,
-                          ),
-                        ),
-                      );
-                    },
-                    icon: Icons.person_rounded,
-                    title: 'My Profile',
-                    subtitle: 'View properties',  // Static subtitle
-                    gradientColors: [const Color(0xFFFF5F6D), const Color(0xFFFFC371)],
-                  ),
-                ),
-              ],
-            ),
-
-
-          ],
-        ),
-      ),
     );
   }
 
@@ -5189,10 +5463,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             children: [
               Text(
                 label,
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: Color(0xFF6B7280),
-                ),
+                style: const TextStyle(fontSize: 10, color: Color(0xFF6B7280)),
               ),
               Text(
                 value,
@@ -5217,7 +5488,9 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     required bool isRegistered,
   }) {
     return GestureDetector(
-      onTap: isRegistered ? () => _navigateToPropertyDetails(propertyType.toLowerCase()) : null,
+      onTap: isRegistered
+          ? () => _navigateToPropertyDetails(propertyType.toLowerCase())
+          : null,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -5228,12 +5501,12 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
           ),
           boxShadow: isRegistered
               ? [
-            BoxShadow(
-              color: color.withOpacity(0.2),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
-            )
-          ]
+                  BoxShadow(
+                    color: color.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ]
               : null,
         ),
         child: Stack(
@@ -5257,9 +5530,14 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
                 ),
                 const SizedBox(height: 4),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
-                    color: isRegistered ? color.withOpacity(0.1) : Colors.grey.shade100,
+                    color: isRegistered
+                        ? color.withOpacity(0.1)
+                        : Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -5299,9 +5577,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     showDialog(
       context: context,
       builder: (context) => Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           padding: const EdgeInsets.all(20),
           child: Column(
@@ -5325,15 +5601,19 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
               const Divider(),
               _buildProfileDetailRow('Phone', _getUserPhone()),
               const Divider(),
-              _buildProfileDetailRow('Registered Property',
-                  _getRegisteredPropertyType() != 'none'
-                      ? _getRegisteredPropertyType().toUpperCase()
-                      : 'None'),
+              _buildProfileDetailRow(
+                'Registered Property',
+                _getRegisteredPropertyType() != 'none'
+                    ? _getRegisteredPropertyType().toUpperCase()
+                    : 'None',
+              ),
               const Divider(),
-              _buildProfileDetailRow('Registration Date',
-                  _userData.containsKey('registeredAt')
-                      ? _formatDate(_userData['registeredAt'])
-                      : 'Not available'),
+              _buildProfileDetailRow(
+                'Registration Date',
+                _userData.containsKey('registeredAt')
+                    ? _formatDate(_userData['registeredAt'])
+                    : 'Not available',
+              ),
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
@@ -5374,9 +5654,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
-                color: Color(0xFF6B7280),
-              ),
+              style: const TextStyle(color: Color(0xFF6B7280)),
             ),
           ),
         ],
@@ -5394,10 +5672,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     }
   }
 }
-
-
-
-
 
 class VillaRegistrationDetailsScreen extends StatelessWidget {
   final Map<String, dynamic> registrationData;
@@ -5426,12 +5700,30 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
               icon: Icons.info,
               color: Colors.green,
               children: [
-                _buildDetailRow('Villa Name', _getNestedValue('basicInfo', 'villaName') ?? 'N/A'),
-                _buildDetailRow('Owner Name', _getNestedValue('basicInfo', 'ownerName') ?? 'N/A'),
-                _buildDetailRow('Mobile Number', _getNestedValue('basicInfo', 'mobile') ?? 'N/A'),
-                _buildDetailRow('Alternate Mobile', _getNestedValue('basicInfo', 'altMobile') ?? 'N/A'),
-                _buildDetailRow('Email', _getNestedValue('basicInfo', 'email') ?? 'N/A'),
-                _buildDetailRow('Website', _getNestedValue('basicInfo', 'website') ?? 'N/A'),
+                _buildDetailRow(
+                  'Villa Name',
+                  _getNestedValue('basicInfo', 'villaName') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Owner Name',
+                  _getNestedValue('basicInfo', 'ownerName') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Mobile Number',
+                  _getNestedValue('basicInfo', 'mobile') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Alternate Mobile',
+                  _getNestedValue('basicInfo', 'altMobile') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Email',
+                  _getNestedValue('basicInfo', 'email') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Website',
+                  _getNestedValue('basicInfo', 'website') ?? 'N/A',
+                ),
               ],
             ),
 
@@ -5443,12 +5735,30 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
               icon: Icons.location_on,
               color: Colors.green.shade700,
               children: [
-                _buildDetailRow('Address', _getNestedValue('location', 'address') ?? 'N/A'),
-                _buildDetailRow('Area', _getNestedValue('location', 'area') ?? 'N/A'),
-                _buildDetailRow('City', _getNestedValue('location', 'city') ?? 'N/A'),
-                _buildDetailRow('State', _getNestedValue('location', 'state') ?? 'N/A'),
-                _buildDetailRow('Pincode', _getNestedValue('location', 'pincode') ?? 'N/A'),
-                _buildDetailRow('Google Map Link', _getNestedValue('location', 'googleMapLink') ?? 'N/A'),
+                _buildDetailRow(
+                  'Address',
+                  _getNestedValue('location', 'address') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Area',
+                  _getNestedValue('location', 'area') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'City',
+                  _getNestedValue('location', 'city') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'State',
+                  _getNestedValue('location', 'state') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Pincode',
+                  _getNestedValue('location', 'pincode') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Google Map Link',
+                  _getNestedValue('location', 'googleMapLink') ?? 'N/A',
+                ),
               ],
             ),
 
@@ -5460,13 +5770,35 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
               icon: Icons.home,
               color: Colors.green.shade600,
               children: [
-                _buildDetailRow('Property Type', _getNestedValue('propertyDetails', 'propertyType') ?? 'Villa'),
-                _buildDetailRow('Bedrooms', _getNestedValue('propertyDetails', 'bedrooms') ?? '0'),
-                _buildDetailRow('Bathrooms', _getNestedValue('propertyDetails', 'bathrooms') ?? '0'),
-                _buildDetailRow('Guest Capacity', _getNestedValue('propertyDetails', 'guestCapacity') ?? '0'),
-                _buildDetailRow('Property Size', _getNestedValue('propertyDetails', 'propertySize') ?? 'N/A'),
-                _buildDetailRow('Year Construction', _getNestedValue('propertyDetails', 'yearConstruction') ?? 'N/A'),
-                _buildDetailRow('Description', _getNestedValue('propertyDetails', 'description') ?? 'N/A'),
+                _buildDetailRow(
+                  'Property Type',
+                  _getNestedValue('propertyDetails', 'propertyType') ?? 'Villa',
+                ),
+                _buildDetailRow(
+                  'Bedrooms',
+                  _getNestedValue('propertyDetails', 'bedrooms') ?? '0',
+                ),
+                _buildDetailRow(
+                  'Bathrooms',
+                  _getNestedValue('propertyDetails', 'bathrooms') ?? '0',
+                ),
+                _buildDetailRow(
+                  'Guest Capacity',
+                  _getNestedValue('propertyDetails', 'guestCapacity') ?? '0',
+                ),
+                _buildDetailRow(
+                  'Property Size',
+                  _getNestedValue('propertyDetails', 'propertySize') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Year Construction',
+                  _getNestedValue('propertyDetails', 'yearConstruction') ??
+                      'N/A',
+                ),
+                _buildDetailRow(
+                  'Description',
+                  _getNestedValue('propertyDetails', 'description') ?? 'N/A',
+                ),
               ],
             ),
 
@@ -5488,13 +5820,34 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
               icon: Icons.attach_money,
               color: Colors.green.shade400,
               children: [
-                _buildDetailRow('Base Price', _getNestedValue('pricing', 'basePrice') ?? 'N/A'),
-                _buildDetailRow('Weekend Price', _getNestedValue('pricing', 'weekendPrice') ?? 'N/A'),
-                _buildDetailRow('Peak Price', _getNestedValue('pricing', 'peakPrice') ?? 'N/A'),
-                _buildDetailRow('Security Deposit', _getNestedValue('pricing', 'securityDeposit') ?? 'N/A'),
-                _buildDetailRow('Minimum Stay', _getNestedValue('pricing', 'minimumStay') ?? 'N/A'),
-                _buildDetailRow('Check-in Time', _getNestedValue('pricing', 'checkInTime') ?? 'N/A'),
-                _buildDetailRow('Check-out Time', _getNestedValue('pricing', 'checkOutTime') ?? 'N/A'),
+                _buildDetailRow(
+                  'Base Price',
+                  _getNestedValue('pricing', 'basePrice') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Weekend Price',
+                  _getNestedValue('pricing', 'weekendPrice') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Peak Price',
+                  _getNestedValue('pricing', 'peakPrice') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Security Deposit',
+                  _getNestedValue('pricing', 'securityDeposit') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Minimum Stay',
+                  _getNestedValue('pricing', 'minimumStay') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Check-in Time',
+                  _getNestedValue('pricing', 'checkInTime') ?? 'N/A',
+                ),
+                _buildDetailRow(
+                  'Check-out Time',
+                  _getNestedValue('pricing', 'checkOutTime') ?? 'N/A',
+                ),
               ],
             ),
           ],
@@ -5526,10 +5879,7 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-          ),
+          BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10),
         ],
       ),
       child: Column(
@@ -5563,14 +5913,16 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: children.isNotEmpty ? children : [
-                const Center(
-                  child: Text(
-                    'No data available',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                ),
-              ],
+              children: children.isNotEmpty
+                  ? children
+                  : [
+                      const Center(
+                        child: Text(
+                          'No data available',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                    ],
             ),
           ),
         ],
@@ -5622,22 +5974,30 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
         });
 
         if (selectedAmenities.isNotEmpty) {
-          widgets.add(const Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Text('Selected Amenities:',
-                style: TextStyle(fontWeight: FontWeight.w600)),
-          ));
+          widgets.add(
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Text(
+                'Selected Amenities:',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
+          );
           widgets.add(
             Padding(
               padding: const EdgeInsets.only(left: 16, bottom: 12),
               child: Wrap(
                 spacing: 8,
                 runSpacing: 4,
-                children: selectedAmenities.map((item) => Chip(
-                  label: Text(item),
-                  backgroundColor: Colors.green.shade50,
-                  labelStyle: const TextStyle(fontSize: 12),
-                )).toList(),
+                children: selectedAmenities
+                    .map(
+                      (item) => Chip(
+                        label: Text(item),
+                        backgroundColor: Colors.green.shade50,
+                        labelStyle: const TextStyle(fontSize: 12),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           );
@@ -5647,22 +6007,30 @@ class VillaRegistrationDetailsScreen extends StatelessWidget {
       if (amenities.containsKey('custom') && amenities['custom'] != null) {
         final custom = amenities['custom'] as Map;
         if (custom.isNotEmpty) {
-          widgets.add(const Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Text('Custom Amenities:',
-                style: TextStyle(fontWeight: FontWeight.w600)),
-          ));
+          widgets.add(
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Text(
+                'Custom Amenities:',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
+          );
           widgets.add(
             Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Wrap(
                 spacing: 8,
                 runSpacing: 4,
-                children: custom.values.map((item) => Chip(
-                  label: Text(item.toString()),
-                  backgroundColor: Colors.purple.shade50,
-                  labelStyle: const TextStyle(fontSize: 12),
-                )).toList(),
+                children: custom.values
+                    .map(
+                      (item) => Chip(
+                        label: Text(item.toString()),
+                        backgroundColor: Colors.purple.shade50,
+                        labelStyle: const TextStyle(fontSize: 12),
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           );
@@ -5720,7 +6088,6 @@ class ResortRegistrationDetailsScreen extends StatelessWidget {
   }
 }
 
-
 class HotelRegistrationDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
@@ -5730,13 +6097,12 @@ class HotelRegistrationDetailsScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<HotelRegistrationDetailsScreen> createState() => _HotelRegistrationDetailsScreenState();
+  State<HotelRegistrationDetailsScreen> createState() =>
+      _HotelRegistrationDetailsScreenState();
 }
 
-
-
-
-class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetailsScreen>
+class _HotelRegistrationDetailsScreenState
+    extends State<HotelRegistrationDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Map<String, dynamic> _data;
@@ -5792,7 +6158,7 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
     return value.toString();
   }
 
-// Helper method to format price/double values
+  // Helper method to format price/double values
   String _formatPrice(dynamic value) {
     if (value == null) return '';
 
@@ -5808,7 +6174,9 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
     if (value is String) {
       double? parsed = double.tryParse(value);
       if (parsed != null) {
-        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+        return parsed.toStringAsFixed(
+          parsed.truncateToDouble() == parsed ? 0 : 2,
+        );
       }
       return value;
     }
@@ -5816,7 +6184,7 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
     return value.toString();
   }
 
-// Helper method to safely get and format any numeric value
+  // Helper method to safely get and format any numeric value
   String _getFormattedValue(dynamic value, {bool isPrice = false}) {
     if (value == null) return '';
 
@@ -5826,18 +6194,25 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
       return _formatInteger(value);
     }
   }
+
   String _getRegistrationId() {
     final hotelName = _data['hotelName']?.toString() ?? 'HOTEL';
-    final timestamp = DateTime.now().millisecondsSinceEpoch.toString().substring(8);
-    final namePrefix = hotelName.length >= 3 ? hotelName.substring(0, 3).toUpperCase() : hotelName.toUpperCase();
+    final timestamp = DateTime.now().millisecondsSinceEpoch
+        .toString()
+        .substring(8);
+    final namePrefix = hotelName.length >= 3
+        ? hotelName.substring(0, 3).toUpperCase()
+        : hotelName.toUpperCase();
     return '$namePrefix-${timestamp}';
   }
 
   String _getUserFullName() {
-    if (_data.containsKey('fullName') && _data['fullName'].toString().isNotEmpty) {
+    if (_data.containsKey('fullName') &&
+        _data['fullName'].toString().isNotEmpty) {
       return _data['fullName'].toString();
     }
-    if (_data.containsKey('ownerName') && _data['ownerName'].toString().isNotEmpty) {
+    if (_data.containsKey('ownerName') &&
+        _data['ownerName'].toString().isNotEmpty) {
       return _data['ownerName'].toString();
     }
     return 'User';
@@ -5871,15 +6246,6 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
       backgroundColor: bgColor,
       body: CustomScrollView(
         slivers: [
-
-
-
-
-
-
-
-
-
           // Tab Bar Views
           SliverAppBar(
             expandedHeight: 180, // Increased height significantly
@@ -5891,10 +6257,7 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      primaryColor,
-                      primaryColor.withOpacity(0.85),
-                    ],
+                    colors: [primaryColor, primaryColor.withOpacity(0.85)],
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
@@ -5903,7 +6266,6 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                 ),
                 child: SafeArea(
                   bottom: false,
-
 
                   child: Column(
                     children: [
@@ -6004,15 +6366,16 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
-                  ),
+                  border: Border.all(color: Colors.white.withOpacity(0.3)),
                 ),
-                child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               onPressed: () => Navigator.pop(context),
             ),
-
           ),
           SliverFillRemaining(
             child: Container(
@@ -6047,7 +6410,10 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                           height: 60,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [primaryColor, primaryColor.withOpacity(0.7)],
+                              colors: [
+                                primaryColor,
+                                primaryColor.withOpacity(0.7),
+                              ],
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -6103,8 +6469,6 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                                   ),
                                 ],
                               ),
-
-
                             ],
                           ),
                         ),
@@ -6171,17 +6535,12 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
               ),
             ),
           ),
-
-
         ],
       ),
     );
   }
 
-  Widget _buildInfoChip({
-    required IconData icon,
-    required String value,
-  }) {
+  Widget _buildInfoChip({required IconData icon, required String value}) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 7),
@@ -6226,7 +6585,10 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
               // _buildInfoRow('Year of Establishment', _data['yearOfEstablishment']),
               // _buildInfoRow('Total Rooms', _data['totalRooms']),
               // UPDATED: Year of Establishment as integer
-              _buildInfoRow('Year of Establishment', _data['yearOfEstablishment']),
+              _buildInfoRow(
+                'Year of Establishment',
+                _data['yearOfEstablishment'],
+              ),
               // UPDATED: Total Rooms as integer
               _buildInfoRow('Total Rooms', _data['totalRooms']),
             ],
@@ -6244,7 +6606,8 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
               ..._buildLandlineNumbers(_data['landlineNumbers']),
             ],
           ),
-          if (_data['personPhotoInfo'] != null && _data['personPhotoInfo']['uploaded'] == true)
+          if (_data['personPhotoInfo'] != null &&
+              _data['personPhotoInfo']['uploaded'] == true)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _buildPhotoTile(_data['personPhotoInfo']),
@@ -6307,7 +6670,10 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                   if (_hasValue(_data['maxTariff']))
                     _buildPriceRow('Max Tariff', _data['maxTariff']),
                   if (_data['extraBedAvailable'] != null)
-                    _buildStatusRow('Extra Bed Available', _data['extraBedAvailable'] == true),
+                    _buildStatusRow(
+                      'Extra Bed Available',
+                      _data['extraBedAvailable'] == true,
+                    ),
                 ],
               ),
             ),
@@ -6327,7 +6693,10 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
           if (_data['hotelFacilities'] != null)
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: _buildAmenityCard('Hotel Facilities', _data['hotelFacilities']),
+              child: _buildAmenityCard(
+                'Hotel Facilities',
+                _data['hotelFacilities'],
+              ),
             ),
           if (_data['foodServices'] != null)
             Padding(
@@ -6337,9 +6706,13 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
           if (_data['additionalAmenities'] != null)
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: _buildAmenityCard('Additional Amenities', _data['additionalAmenities']),
+              child: _buildAmenityCard(
+                'Additional Amenities',
+                _data['additionalAmenities'],
+              ),
             ),
-          if (_data['customAmenities'] != null && (_data['customAmenities'] as List).isNotEmpty)
+          if (_data['customAmenities'] != null &&
+              (_data['customAmenities'] as List).isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _buildCustomAmenitiesCard(_data['customAmenities']),
@@ -6373,7 +6746,10 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
             children: [
               _buildInfoRow('Account Holder', _data['accountHolderName']),
               _buildInfoRow('Bank Name', _data['bankName']),
-              _buildInfoRow('Account Number', _maskAccountNumber(_data['accountNumber']?.toString() ?? '')),
+              _buildInfoRow(
+                'Account Number',
+                _maskAccountNumber(_data['accountNumber']?.toString() ?? ''),
+              ),
               _buildInfoRow('IFSC Code', _data['ifscCode']),
               _buildInfoRow('Branch', _data['branch']),
               _buildAccountTypeRow(_data['accountType']),
@@ -6576,7 +6952,6 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
       ),
     );
   }
-
 
   // Widget _buildPriceRow(String label, dynamic value) {
   //   if (value == null || value.toString().isEmpty) {
@@ -6794,30 +7169,37 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: selected.map((type) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [primaryColor, primaryColor.withOpacity(0.8)],
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: primaryColor.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
+              children: selected
+                  .map(
+                    (type) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [primaryColor, primaryColor.withOpacity(0.8)],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: primaryColor.withOpacity(0.2),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Text(
+                        type.toString(),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-                child: Text(
-                  type.toString(),
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              )).toList(),
+                  )
+                  .toList(),
             ),
           ),
         );
@@ -6908,7 +7290,8 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
         if (isSelected == true && roomDetails.containsKey(type)) {
           final details = roomDetails[type];
           if (details is Map) {
-            bool hasData = _hasValue(details['rooms']) ||
+            bool hasData =
+                _hasValue(details['rooms']) ||
                 _hasValue(details['occupancy']) ||
                 _hasValue(details['price']);
 
@@ -6933,7 +7316,11 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                               color: primarySoft,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Icon(Icons.hotel, size: 16, color: primaryColor),
+                            child: Icon(
+                              Icons.hotel,
+                              size: 16,
+                              color: primaryColor,
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Text(
@@ -6958,7 +7345,10 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
 
                       // AC/Non-AC
                       if (details['ac'] != null)
-                        _buildDetailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
+                        _buildDetailRow(
+                          'AC',
+                          details['ac'] == true ? 'Yes' : 'No',
+                        ),
 
                       // UPDATED: Price per Night
                       if (_hasValue(details['price']))
@@ -6966,11 +7356,18 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
 
                       // Extra Bed
                       if (details['extraBed'] != null)
-                        _buildDetailRow('Extra Bed', details['extraBed'] == true ? 'Yes' : 'No'),
+                        _buildDetailRow(
+                          'Extra Bed',
+                          details['extraBed'] == true ? 'Yes' : 'No',
+                        ),
 
                       // UPDATED: Extra Bed Price
-                      if (details['extraBed'] == true && _hasValue(details['extraBedPrice']))
-                        _buildDetailRow('Extra Bed Price', details['extraBedPrice']),
+                      if (details['extraBed'] == true &&
+                          _hasValue(details['extraBedPrice']))
+                        _buildDetailRow(
+                          'Extra Bed Price',
+                          details['extraBedPrice'],
+                        ),
                     ],
                   ),
                 ),
@@ -6983,7 +7380,7 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
     return widgets;
   }
 
-// Add this helper method to check if a value exists and is not empty
+  // Add this helper method to check if a value exists and is not empty
   bool _hasValue(dynamic value) {
     if (value == null) return false;
     if (value is String && value.isEmpty) return false;
@@ -7037,13 +7434,7 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: lightText,
-            ),
-          ),
+          Text(label, style: TextStyle(fontSize: 12, color: lightText)),
           Text(
             displayValue,
             style: TextStyle(
@@ -7111,22 +7502,29 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: selected.map((item) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: primarySoft,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: primaryColor.withOpacity(0.15)),
-              ),
-              child: Text(
-                item.toString(),
-                style: TextStyle(
-                  fontSize: 11,
-                  color: primaryColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            )).toList(),
+            children: selected
+                .map(
+                  (item) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: primarySoft,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: primaryColor.withOpacity(0.15)),
+                    ),
+                    child: Text(
+                      item.toString(),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: primaryColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -7142,9 +7540,7 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [primarySoft, primaryMedium],
-        ),
+        gradient: LinearGradient(colors: [primarySoft, primaryMedium]),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: primaryColor.withOpacity(0.2)),
       ),
@@ -7177,29 +7573,36 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: customAmenities.map((item) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              decoration: BoxDecoration(
-                color: cardColor,
-                borderRadius: BorderRadius.circular(25),
-                border: Border.all(color: primaryColor.withOpacity(0.3)),
-                boxShadow: [
-                  BoxShadow(
-                    color: primaryColor.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
+            children: customAmenities
+                .map(
+                  (item) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: primaryColor.withOpacity(0.3)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: primaryColor.withOpacity(0.1),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      item.toString(),
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: primaryColor,
+                      ),
+                    ),
                   ),
-                ],
-              ),
-              child: Text(
-                item.toString(),
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: primaryColor,
-                ),
-              ),
-            )).toList(),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -7241,10 +7644,7 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
                         const SizedBox(height: 2),
                         Text(
                           'Uploaded successfully',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: lightText,
-                          ),
+                          style: TextStyle(fontSize: 11, color: lightText),
                         ),
                       ],
                     ),
@@ -7290,18 +7690,12 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
               children: [
                 const Text(
                   'Profile Photo',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   photoInfo['name'] ?? 'Uploaded successfully',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: lightText,
-                  ),
+                  style: TextStyle(fontSize: 12, color: lightText),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -7346,16 +7740,10 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
               children: [
                 Text(
                   'Digital Signature',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 2),
-                Text(
-                  'Saved successfully',
-                  style: TextStyle(fontSize: 12),
-                ),
+                Text('Saved successfully', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),
@@ -7378,17 +7766,14 @@ class _HotelRegistrationDetailsScreenState extends State<HotelRegistrationDetail
   }
 }
 
-
 class TwoStarHotelDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
-  const TwoStarHotelDetailsScreen({
-    super.key,
-    required this.registrationData,
-  });
+  const TwoStarHotelDetailsScreen({super.key, required this.registrationData});
 
   @override
-  State<TwoStarHotelDetailsScreen> createState() => _TwoStarHotelDetailsScreenState();
+  State<TwoStarHotelDetailsScreen> createState() =>
+      _TwoStarHotelDetailsScreenState();
 }
 
 class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
@@ -7446,7 +7831,9 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
     if (value is String) {
       double? parsed = double.tryParse(value);
       if (parsed != null) {
-        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+        return parsed.toStringAsFixed(
+          parsed.truncateToDouble() == parsed ? 0 : 2,
+        );
       }
       return value;
     }
@@ -7480,16 +7867,22 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
 
   String _getRegistrationId() {
     final hotelName = _data['hotelName']?.toString() ?? 'HOTEL';
-    final timestamp = DateTime.now().millisecondsSinceEpoch.toString().substring(8);
-    final namePrefix = hotelName.length >= 3 ? hotelName.substring(0, 3).toUpperCase() : hotelName.toUpperCase();
+    final timestamp = DateTime.now().millisecondsSinceEpoch
+        .toString()
+        .substring(8);
+    final namePrefix = hotelName.length >= 3
+        ? hotelName.substring(0, 3).toUpperCase()
+        : hotelName.toUpperCase();
     return '2STAR-$namePrefix-$timestamp';
   }
 
   String _getUserFullName() {
-    if (_data.containsKey('fullName') && _data['fullName'].toString().isNotEmpty) {
+    if (_data.containsKey('fullName') &&
+        _data['fullName'].toString().isNotEmpty) {
       return _data['fullName'].toString();
     }
-    if (_data.containsKey('ownerName') && _data['ownerName'].toString().isNotEmpty) {
+    if (_data.containsKey('ownerName') &&
+        _data['ownerName'].toString().isNotEmpty) {
       return _data['ownerName'].toString();
     }
     return 'User';
@@ -7534,10 +7927,7 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      primaryColor,
-                      primaryColor.withOpacity(0.85),
-                    ],
+                    colors: [primaryColor, primaryColor.withOpacity(0.85)],
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
@@ -7575,8 +7965,16 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.star, color: Colors.white, size: 16),
-                                    Icon(Icons.star, color: Colors.white, size: 16),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -7600,8 +7998,13 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                                   const SizedBox(height: 4),
                                   Row(
                                     children: [
-                                      ...List.generate(2, (index) =>
-                                      const Icon(Icons.star, size: 14, color: Colors.white)
+                                      ...List.generate(
+                                        2,
+                                        (index) => const Icon(
+                                          Icons.star,
+                                          size: 14,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       const SizedBox(width: 4),
                                       Text(
@@ -7651,11 +8054,13 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
-                  ),
+                  border: Border.all(color: Colors.white.withOpacity(0.3)),
                 ),
-                child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -7695,7 +8100,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                           height: 60,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [primaryColor, primaryColor.withOpacity(0.7)],
+                              colors: [
+                                primaryColor,
+                                primaryColor.withOpacity(0.7),
+                              ],
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -7824,10 +8232,7 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
     );
   }
 
-  Widget _buildInfoChip({
-    required IconData icon,
-    required String value,
-  }) {
+  Widget _buildInfoChip({required IconData icon, required String value}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 7),
       decoration: BoxDecoration(
@@ -7868,7 +8273,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
               _buildInfoRow('Hotel Name', _data['hotelName']),
               _buildInfoRow('Hotel Category', '2-Star Hotel'),
               _buildInfoRow('Hotel Type', _data['hotelType']),
-              _buildInfoRow('Year of Establishment', _data['yearOfEstablishment']),
+              _buildInfoRow(
+                'Year of Establishment',
+                _data['yearOfEstablishment'],
+              ),
               _buildInfoRow('Total Rooms', _data['totalRooms']),
               if (_hasValue(_data['designation']))
                 _buildInfoRow('Designation', _data['designation']),
@@ -7889,7 +8297,8 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                 _buildInfoRow('Website', _data['website']),
             ],
           ),
-          if (_data['profilePhoto'] != null && _data['profilePhoto']['uploaded'] == true)
+          if (_data['profilePhoto'] != null &&
+              _data['profilePhoto']['uploaded'] == true)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _buildPhotoTile(_data['profilePhoto']),
@@ -7962,7 +8371,11 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                   color: primarySoft,
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(Icons.location_on_outlined, size: 18, color: primaryColor),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  size: 18,
+                  color: primaryColor,
+                ),
               ),
               const SizedBox(width: 12),
               Text(
@@ -8020,10 +8433,7 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                   Expanded(
                     child: Text(
                       addressText,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: darkText,
-                      ),
+                      style: TextStyle(fontSize: 13, color: darkText),
                     ),
                   ),
                 ],
@@ -8059,7 +8469,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                   if (_hasValue(_data['maxTariff']))
                     _buildPriceRow('Max Tariff', _data['maxTariff']),
                   if (_data['extraBedAvailable'] != null)
-                    _buildStatusRow('Extra Bed Available', _data['extraBedAvailable'] == true),
+                    _buildStatusRow(
+                      'Extra Bed Available',
+                      _data['extraBedAvailable'] == true,
+                    ),
                 ],
               ),
             ),
@@ -8079,7 +8492,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
           if (_data['hotelFacilities'] != null)
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: _buildAmenityCard('Hotel Facilities', _data['hotelFacilities']),
+              child: _buildAmenityCard(
+                'Hotel Facilities',
+                _data['hotelFacilities'],
+              ),
             ),
           if (_data['foodServices'] != null)
             Padding(
@@ -8089,10 +8505,14 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
           if (_data['guestServices'] != null)
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: _buildAmenityCard('Guest Services', _data['guestServices']),
+              child: _buildAmenityCard(
+                'Guest Services',
+                _data['guestServices'],
+              ),
             ),
           // Custom Amenities (NEW)
-          if (_data['customAmenities'] != null && (_data['customAmenities'] as List).isNotEmpty)
+          if (_data['customAmenities'] != null &&
+              (_data['customAmenities'] as List).isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _buildCustomAmenitiesCard(_data['customAmenities']),
@@ -8113,7 +8533,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
             icon: Icons.access_time,
             children: [
               _buildInfoRow('Check-in Time', _formatTime(_data['checkInTime'])),
-              _buildInfoRow('Check-out Time', _formatTime(_data['checkOutTime'])),
+              _buildInfoRow(
+                'Check-out Time',
+                _formatTime(_data['checkOutTime']),
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -8121,7 +8544,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
             title: 'Hotel Policies',
             icon: Icons.policy,
             children: [
-              _buildStatusRow('Couple Friendly', _data['coupleFriendly'] == true),
+              _buildStatusRow(
+                'Couple Friendly',
+                _data['coupleFriendly'] == true,
+              ),
               _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
               if (_hasValue(_data['idProofRequired']))
                 _buildInfoRow('ID Proof Required', _data['idProofRequired']),
@@ -8162,7 +8588,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
               if (_hasValue(_data['bankName']))
                 _buildInfoRow('Bank Name', _data['bankName']),
               if (_hasValue(_data['accountNumber']))
-                _buildInfoRow('Account Number', _maskAccountNumber(_data['accountNumber']?.toString() ?? '')),
+                _buildInfoRow(
+                  'Account Number',
+                  _maskAccountNumber(_data['accountNumber']?.toString() ?? ''),
+                ),
               if (_hasValue(_data['ifscCode']))
                 _buildInfoRow('IFSC Code', _data['ifscCode']),
               if (_hasValue(_data['branch']))
@@ -8196,7 +8625,8 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
               child: _buildDigitalSignatureTile(),
             ),
           // Uploaded Signature File (NEW)
-          if (_data['signatureFile'] != null && _data['signatureFile']['uploaded'] == true)
+          if (_data['signatureFile'] != null &&
+              _data['signatureFile']['uploaded'] == true)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _buildSignatureFileTile(_data['signatureFile']),
@@ -8277,7 +8707,9 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
 
     String displayValue;
 
-    if (label.contains('Year') || label.contains('Rooms') || label.contains('Total')) {
+    if (label.contains('Year') ||
+        label.contains('Rooms') ||
+        label.contains('Total')) {
       displayValue = _formatInteger(value);
     } else if (label.contains('Price') || label.contains('Tariff')) {
       displayValue = '₹${_formatPrice(value)}';
@@ -8486,39 +8918,51 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: selected.map((type) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [primaryColor, primaryColor.withOpacity(0.8)],
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: primaryColor.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ...List.generate(2, (index) =>
-                    const Icon(Icons.star, size: 10, color: Colors.white)
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      type.toString(),
-                      style: const TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+              children: selected
+                  .map(
+                    (type) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [primaryColor, primaryColor.withOpacity(0.8)],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: primaryColor.withOpacity(0.2),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ...List.generate(
+                            2,
+                            (index) => const Icon(
+                              Icons.star,
+                              size: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            type.toString(),
+                            style: const TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              )).toList(),
+                  )
+                  .toList(),
             ),
           ),
         );
@@ -8538,7 +8982,8 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
         if (isSelected == true && roomDetails.containsKey(type)) {
           final details = roomDetails[type];
           if (details is Map) {
-            bool hasData = _hasValue(details['rooms']) ||
+            bool hasData =
+                _hasValue(details['rooms']) ||
                 _hasValue(details['occupancy']) ||
                 _hasValue(details['price']);
 
@@ -8563,7 +9008,11 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                               color: primarySoft,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Icon(Icons.hotel, size: 16, color: primaryColor),
+                            child: Icon(
+                              Icons.hotel,
+                              size: 16,
+                              color: primaryColor,
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Text(
@@ -8585,10 +9034,17 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                         _buildDetailRow('Max Occupancy', details['occupancy']),
 
                       if (details['ac'] != null)
-                        _buildDetailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
+                        _buildDetailRow(
+                          'AC',
+                          details['ac'] == true ? 'Yes' : 'No',
+                        ),
 
                       if (_hasValue(details['price']))
-                        _buildDetailRow('Price per Night', details['price'], isPrice: true),
+                        _buildDetailRow(
+                          'Price per Night',
+                          details['price'],
+                          isPrice: true,
+                        ),
                     ],
                   ),
                 ),
@@ -8619,13 +9075,7 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: lightText,
-            ),
-          ),
+          Text(label, style: TextStyle(fontSize: 12, color: lightText)),
           Text(
             displayValue,
             style: TextStyle(
@@ -8694,29 +9144,36 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: selected.map((item) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: primarySoft,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: primaryColor.withOpacity(0.15)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.check, size: 12, color: primaryColor),
-                  const SizedBox(width: 4),
-                  Text(
-                    item.toString(),
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: primaryColor,
-                      fontWeight: FontWeight.w500,
+            children: selected
+                .map(
+                  (item) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: primarySoft,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: primaryColor.withOpacity(0.15)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.check, size: 12, color: primaryColor),
+                        const SizedBox(width: 4),
+                        Text(
+                          item.toString(),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: primaryColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            )).toList(),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -8733,9 +9190,7 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [primarySoft, primaryMedium],
-        ),
+        gradient: LinearGradient(colors: [primarySoft, primaryMedium]),
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: primaryColor.withOpacity(0.2)),
       ),
@@ -8768,29 +9223,36 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: customAmenities.map((item) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-              decoration: BoxDecoration(
-                color: cardColor,
-                borderRadius: BorderRadius.circular(25),
-                border: Border.all(color: primaryColor.withOpacity(0.3)),
-                boxShadow: [
-                  BoxShadow(
-                    color: primaryColor.withOpacity(0.1),
-                    blurRadius: 4,
-                    offset: const Offset(0, 2),
+            children: customAmenities
+                .map(
+                  (item) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(25),
+                      border: Border.all(color: primaryColor.withOpacity(0.3)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: primaryColor.withOpacity(0.1),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      item.toString(),
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: primaryColor,
+                      ),
+                    ),
                   ),
-                ],
-              ),
-              child: Text(
-                item.toString(),
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: primaryColor,
-                ),
-              ),
-            )).toList(),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -8836,10 +9298,7 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
                         const SizedBox(height: 2),
                         Text(
                           'Uploaded successfully',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: lightText,
-                          ),
+                          style: TextStyle(fontSize: 11, color: lightText),
                         ),
                       ],
                     ),
@@ -8886,18 +9345,12 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
               children: [
                 const Text(
                   'Profile Photo',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   photoInfo['name'] ?? 'Uploaded successfully',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: lightText,
-                  ),
+                  style: TextStyle(fontSize: 12, color: lightText),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -8943,16 +9396,10 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
               children: [
                 Text(
                   'Digital Signature',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 2),
-                Text(
-                  'Saved successfully',
-                  style: TextStyle(fontSize: 12),
-                ),
+                Text('Saved successfully', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),
@@ -8995,18 +9442,12 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
               children: [
                 const Text(
                   'Uploaded Signature',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   signatureInfo['name'] ?? 'Signature uploaded',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: lightText,
-                  ),
+                  style: TextStyle(fontSize: 12, color: lightText),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -9032,8 +9473,6 @@ class _TwoStarHotelDetailsScreenState extends State<TwoStarHotelDetailsScreen>
   }
 }
 
-
-
 class ThreeStarHotelDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
@@ -9043,12 +9482,12 @@ class ThreeStarHotelDetailsScreen extends StatefulWidget {
   });
 
   @override
-  State<ThreeStarHotelDetailsScreen> createState() => _ThreeStarHotelDetailsScreenState();
+  State<ThreeStarHotelDetailsScreen> createState() =>
+      _ThreeStarHotelDetailsScreenState();
 }
 
-
-
-class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScreen>
+class _ThreeStarHotelDetailsScreenState
+    extends State<ThreeStarHotelDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Map<String, dynamic> _data;
@@ -9104,7 +9543,9 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
     if (value is String) {
       double? parsed = double.tryParse(value);
       if (parsed != null) {
-        return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
+        return parsed.toStringAsFixed(
+          parsed.truncateToDouble() == parsed ? 0 : 2,
+        );
       }
       return value;
     }
@@ -9147,19 +9588,26 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
 
   String _getRegistrationId() {
     final hotelName = _data['hotelName']?.toString() ?? 'HOTEL';
-    final timestamp = DateTime.now().millisecondsSinceEpoch.toString().substring(8);
-    final namePrefix = hotelName.length >= 3 ? hotelName.substring(0, 3).toUpperCase() : hotelName.toUpperCase();
+    final timestamp = DateTime.now().millisecondsSinceEpoch
+        .toString()
+        .substring(8);
+    final namePrefix = hotelName.length >= 3
+        ? hotelName.substring(0, 3).toUpperCase()
+        : hotelName.toUpperCase();
     return '3STAR-$namePrefix-$timestamp';
   }
 
   String _getUserFullName() {
-    if (_data.containsKey('fullName') && _data['fullName'].toString().isNotEmpty) {
+    if (_data.containsKey('fullName') &&
+        _data['fullName'].toString().isNotEmpty) {
       return _data['fullName'].toString();
     }
-    if (_data.containsKey('ownerName') && _data['ownerName'].toString().isNotEmpty) {
+    if (_data.containsKey('ownerName') &&
+        _data['ownerName'].toString().isNotEmpty) {
       return _data['ownerName'].toString();
     }
-    if (_data.containsKey('signatoryName') && _data['signatoryName'].toString().isNotEmpty) {
+    if (_data.containsKey('signatoryName') &&
+        _data['signatoryName'].toString().isNotEmpty) {
       return _data['signatoryName'].toString();
     }
     return 'User';
@@ -9204,10 +9652,7 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      primaryColor,
-                      primaryColor.withOpacity(0.85),
-                    ],
+                    colors: [primaryColor, primaryColor.withOpacity(0.85)],
                   ),
                   borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
@@ -9245,9 +9690,21 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.star, color: Colors.white, size: 16),
-                                    Icon(Icons.star, color: Colors.white, size: 16),
-                                    Icon(Icons.star, color: Colors.white, size: 16),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -9271,8 +9728,13 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                                   const SizedBox(height: 4),
                                   Row(
                                     children: [
-                                      ...List.generate(3, (index) =>
-                                      const Icon(Icons.star, size: 14, color: Colors.white)
+                                      ...List.generate(
+                                        3,
+                                        (index) => const Icon(
+                                          Icons.star,
+                                          size: 14,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                       const SizedBox(width: 4),
                                       Text(
@@ -9322,11 +9784,13 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
-                  ),
+                  border: Border.all(color: Colors.white.withOpacity(0.3)),
                 ),
-                child: const Icon(Icons.arrow_back, color: Colors.white, size: 20),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
               onPressed: () => Navigator.pop(context),
             ),
@@ -9366,7 +9830,10 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                           height: 60,
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [primaryColor, primaryColor.withOpacity(0.7)],
+                              colors: [
+                                primaryColor,
+                                primaryColor.withOpacity(0.7),
+                              ],
                             ),
                             borderRadius: BorderRadius.circular(20),
                           ),
@@ -9495,10 +9962,7 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
     );
   }
 
-  Widget _buildInfoChip({
-    required IconData icon,
-    required String value,
-  }) {
+  Widget _buildInfoChip({required IconData icon, required String value}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 7),
       decoration: BoxDecoration(
@@ -9539,10 +10003,16 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
               _buildInfoRow('Hotel Name', _data['hotelName']),
               _buildInfoRow('Hotel Category', '3-Star Hotel'),
               _buildInfoRow('Hotel Type', _data['hotelType']),
-              _buildInfoRow('Year of Establishment', _data['yearOfEstablishment']),
+              _buildInfoRow(
+                'Year of Establishment',
+                _data['yearOfEstablishment'],
+              ),
               _buildInfoRow('Total Rooms', _data['totalRooms']),
               if (_hasValue(_data['registrationNumber']))
-                _buildInfoRow('Registration Number', _data['registrationNumber']),
+                _buildInfoRow(
+                  'Registration Number',
+                  _data['registrationNumber'],
+                ),
               if (_hasValue(_data['designation']))
                 _buildInfoRow('Designation', _data['designation']),
             ],
@@ -9638,7 +10108,11 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                   color: primarySoft,
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: Icon(Icons.location_on_outlined, size: 18, color: primaryColor),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  size: 18,
+                  color: primaryColor,
+                ),
               ),
               const SizedBox(width: 12),
               Text(
@@ -9698,10 +10172,7 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                   Expanded(
                     child: Text(
                       addressText,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: darkText,
-                      ),
+                      style: TextStyle(fontSize: 13, color: darkText),
                     ),
                   ),
                 ],
@@ -9725,7 +10196,8 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
             children: _buildRoomTypes(),
           ),
           ..._buildRoomDetails(),
-          if (_hasValue(_data['extraBedAvailable']) || _hasValue(_data['seasonalPricing']))
+          if (_hasValue(_data['extraBedAvailable']) ||
+              _hasValue(_data['seasonalPricing']))
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _buildGlassCard(
@@ -9733,9 +10205,15 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                 icon: Icons.settings,
                 children: [
                   if (_hasValue(_data['extraBedAvailable']))
-                    _buildStatusRow('Extra Bed Available', _data['extraBedAvailable'] == true),
+                    _buildStatusRow(
+                      'Extra Bed Available',
+                      _data['extraBedAvailable'] == true,
+                    ),
                   if (_hasValue(_data['seasonalPricing']))
-                    _buildStatusRow('Seasonal Pricing', _data['seasonalPricing'] == true),
+                    _buildStatusRow(
+                      'Seasonal Pricing',
+                      _data['seasonalPricing'] == true,
+                    ),
                 ],
               ),
             ),
@@ -9755,7 +10233,10 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
           if (_data['hotelFacilities'] != null)
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: _buildAmenityCard('Hotel Facilities', _data['hotelFacilities']),
+              child: _buildAmenityCard(
+                'Hotel Facilities',
+                _data['hotelFacilities'],
+              ),
             ),
           if (_data['foodServices'] != null)
             Padding(
@@ -9765,7 +10246,10 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
           if (_data['businessServices'] != null)
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: _buildAmenityCard('Business Services', _data['businessServices']),
+              child: _buildAmenityCard(
+                'Business Services',
+                _data['businessServices'],
+              ),
             ),
         ],
       ),
@@ -9782,8 +10266,14 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
             title: 'Check-in/Check-out Timings',
             icon: Icons.access_time,
             children: [
-              _buildInfoRow('Check-in Time', _formatTime(_data['checkInTime'] ?? '')),
-              _buildInfoRow('Check-out Time', _formatTime(_data['checkOutTime'] ?? '')),
+              _buildInfoRow(
+                'Check-in Time',
+                _formatTime(_data['checkInTime'] ?? ''),
+              ),
+              _buildInfoRow(
+                'Check-out Time',
+                _formatTime(_data['checkOutTime'] ?? ''),
+              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -9795,7 +10285,9 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                 _buildInfoRow(
                   'Early/Late Check-out',
                   _data['earlyCheckinAllowed'] == true
-                      ? (_data['earlyCheckinChargeable'] == true ? 'Chargeable' : 'Complimentary')
+                      ? (_data['earlyCheckinChargeable'] == true
+                            ? 'Chargeable'
+                            : 'Complimentary')
                       : 'Not Available',
                 ),
               _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
@@ -9825,7 +10317,10 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
               if (_hasValue(_data['fssaiLicense']))
                 _buildInfoRow('FSSAI License', _data['fssaiLicense']),
               if (_hasValue(_data['fireSafetyCertificate']))
-                _buildStatusRow('Fire Safety Certificate', _data['fireSafetyCertificate'] == true),
+                _buildStatusRow(
+                  'Fire Safety Certificate',
+                  _data['fireSafetyCertificate'] == true,
+                ),
             ],
           ),
           const SizedBox(height: 16),
@@ -9838,7 +10333,10 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
               if (_hasValue(_data['bankName']))
                 _buildInfoRow('Bank Name', _data['bankName']),
               if (_hasValue(_data['accountNumber']))
-                _buildInfoRow('Account Number', _maskAccountNumber(_data['accountNumber']?.toString() ?? '')),
+                _buildInfoRow(
+                  'Account Number',
+                  _maskAccountNumber(_data['accountNumber']?.toString() ?? ''),
+                ),
               if (_hasValue(_data['ifscCode']))
                 _buildInfoRow('IFSC Code', _data['ifscCode']),
               if (_hasValue(_data['branch']))
@@ -9872,7 +10370,8 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
               child: _buildDigitalSignatureTile(),
             ),
           // Uploaded Signature File
-          if (_data['signatureFile'] != null && _data['signatureFile']['uploaded'] == true)
+          if (_data['signatureFile'] != null &&
+              _data['signatureFile']['uploaded'] == true)
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: _buildSignatureFileTile(_data['signatureFile']),
@@ -9953,7 +10452,9 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
 
     String displayValue;
 
-    if (label.contains('Year') || label.contains('Rooms') || label.contains('Total')) {
+    if (label.contains('Year') ||
+        label.contains('Rooms') ||
+        label.contains('Total')) {
       displayValue = _formatInteger(value);
     } else if (label.contains('Price') || label.contains('Tariff')) {
       displayValue = '₹${_formatPrice(value)}';
@@ -10162,39 +10663,51 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
-              children: selected.map((type) => Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [primaryColor, primaryColor.withOpacity(0.8)],
-                  ),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: primaryColor.withOpacity(0.2),
-                      blurRadius: 8,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ...List.generate(3, (index) =>
-                    const Icon(Icons.star, size: 10, color: Colors.white)
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      type.toString(),
-                      style: const TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+              children: selected
+                  .map(
+                    (type) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [primaryColor, primaryColor.withOpacity(0.8)],
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: primaryColor.withOpacity(0.2),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ...List.generate(
+                            3,
+                            (index) => const Icon(
+                              Icons.star,
+                              size: 10,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          Text(
+                            type.toString(),
+                            style: const TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              )).toList(),
+                  )
+                  .toList(),
             ),
           ),
         );
@@ -10214,7 +10727,8 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
         if (isSelected == true && roomDetails.containsKey(type)) {
           final details = roomDetails[type];
           if (details is Map) {
-            bool hasData = _hasValue(details['rooms']) ||
+            bool hasData =
+                _hasValue(details['rooms']) ||
                 _hasValue(details['occupancy']) ||
                 _hasValue(details['price']);
 
@@ -10239,7 +10753,11 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                               color: primarySoft,
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Icon(Icons.hotel, size: 16, color: primaryColor),
+                            child: Icon(
+                              Icons.hotel,
+                              size: 16,
+                              color: primaryColor,
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Text(
@@ -10261,13 +10779,20 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                         _buildDetailRow('Max Occupancy', details['occupancy']),
 
                       if (details['ac'] != null)
-                        _buildDetailRow('AC', details['ac'] == true ? 'Yes' : 'No'),
+                        _buildDetailRow(
+                          'AC',
+                          details['ac'] == true ? 'Yes' : 'No',
+                        ),
 
                       if (_hasValue(details['bedType']))
                         _buildDetailRow('Bed Type', details['bedType']),
 
                       if (_hasValue(details['price']))
-                        _buildDetailRow('Price per Night', details['price'], isPrice: true),
+                        _buildDetailRow(
+                          'Price per Night',
+                          details['price'],
+                          isPrice: true,
+                        ),
                     ],
                   ),
                 ),
@@ -10298,13 +10823,7 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: lightText,
-            ),
-          ),
+          Text(label, style: TextStyle(fontSize: 12, color: lightText)),
           Text(
             displayValue,
             style: TextStyle(
@@ -10373,29 +10892,36 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: selected.map((item) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                color: primarySoft,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: primaryColor.withOpacity(0.15)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.check, size: 12, color: primaryColor),
-                  const SizedBox(width: 4),
-                  Text(
-                    item.toString(),
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: primaryColor,
-                      fontWeight: FontWeight.w500,
+            children: selected
+                .map(
+                  (item) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: primarySoft,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: primaryColor.withOpacity(0.15)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.check, size: 12, color: primaryColor),
+                        const SizedBox(width: 4),
+                        Text(
+                          item.toString(),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: primaryColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            )).toList(),
+                )
+                .toList(),
           ),
         ],
       ),
@@ -10441,10 +10967,7 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
                         const SizedBox(height: 2),
                         Text(
                           value['name'] ?? 'Uploaded successfully',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: lightText,
-                          ),
+                          style: TextStyle(fontSize: 11, color: lightText),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -10493,18 +11016,12 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
               children: [
                 const Text(
                   'Profile Photo',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   photoInfo['name'] ?? 'Uploaded',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: lightText,
-                  ),
+                  style: TextStyle(fontSize: 12, color: lightText),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -10558,16 +11075,10 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
               children: [
                 Text(
                   'Digital Signature',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 2),
-                Text(
-                  'Saved successfully',
-                  style: TextStyle(fontSize: 12),
-                ),
+                Text('Saved successfully', style: TextStyle(fontSize: 12)),
               ],
             ),
           ),
@@ -10610,18 +11121,12 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
               children: [
                 const Text(
                   'Uploaded Signature',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   signatureInfo['name'] ?? 'Signature uploaded',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: lightText,
-                  ),
+                  style: TextStyle(fontSize: 12, color: lightText),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -10647,6 +11152,1658 @@ class _ThreeStarHotelDetailsScreenState extends State<ThreeStarHotelDetailsScree
   }
 }
 
+class FourStarHotelDetailsScreen extends StatefulWidget {
+  final Map<String, dynamic> registrationData;
+
+  const FourStarHotelDetailsScreen({
+    super.key,
+    required this.registrationData,
+  });
+
+  @override
+  State<FourStarHotelDetailsScreen> createState() => _FourStarHotelDetailsScreenState();
+}
+
+class _FourStarHotelDetailsScreenState extends State<FourStarHotelDetailsScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  late Map<String, dynamic> _data;
+
+  // 4-Star specific color scheme (Indigo/Purple)
+  final Color primaryColor = const Color(0xFF4F46E5);
+  final Color primaryLight = const Color(0xFF4F46E5).withOpacity(0.1);
+  final Color primarySoft = const Color(0xFF4F46E5).withOpacity(0.05);
+  final Color primaryMedium = const Color(0xFF4F46E5).withOpacity(0.03);
+
+  // Sophisticated neutral palette
+  final Color darkText = const Color(0xFF1A1E2B);
+  final Color mediumText = const Color(0xFF4A5568);
+  final Color lightText = const Color(0xFF8E9AAB);
+  final Color bgColor = const Color(0xFFF5F7FA);
+  final Color cardColor = Colors.white;
+  final Color borderColor = const Color(0xFFE9EDF2);
+  final Color shadowColor = const Color(0xFF1A1E2B).withOpacity(0.03);
+  final Color starColor = const Color(0xFFFFD700);
+
+  @override
+  void initState() {
+    super.initState();
+    _data = widget.registrationData;
+    _tabController = TabController(length: 6, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  // Helper methods for formatting
+  String _formatInteger(dynamic value) {
+    if (value == null) return '';
+    if (value is int) return value.toString();
+    if (value is double) return value.toInt().toString();
+    if (value is String) {
+      double? parsedDouble = double.tryParse(value);
+      if (parsedDouble != null) return parsedDouble.toInt().toString();
+      return value;
+    }
+    return value.toString();
+  }
+
+  String _formatPrice(dynamic value) {
+    if (value == null) return '';
+    if (value is double) {
+      return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    }
+    if (value is int) return value.toString();
+    if (value is String) {
+      double? parsed = double.tryParse(value);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(
+          parsed.truncateToDouble() == parsed ? 0 : 2,
+        );
+      }
+      return value;
+    }
+    return value.toString();
+  }
+
+  String _formatTime(String time) {
+    if (time.isEmpty) return 'Not set';
+    try {
+      if (time.contains(':')) {
+        List<String> parts = time.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          String period = hour >= 12 ? 'PM' : 'AM';
+          int hour12 = hour % 12;
+          if (hour12 == 0) hour12 = 12;
+          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+        }
+      }
+    } catch (e) {}
+    return time;
+  }
+
+  bool _hasValue(dynamic value) {
+    if (value == null) return false;
+    if (value is String && value.isEmpty) return false;
+    if (value is num && value == 0) return true;
+    return true;
+  }
+
+  String _getRegistrationId() {
+    final hotelName = _data['hotelName']?.toString() ?? 'HOTEL';
+    final timestamp = DateTime.now().millisecondsSinceEpoch
+        .toString()
+        .substring(8);
+    final namePrefix = hotelName.length >= 3
+        ? hotelName.substring(0, 3).toUpperCase()
+        : hotelName.toUpperCase();
+    return '4STAR-$namePrefix-$timestamp';
+  }
+
+  String _getUserFullName() {
+    if (_data.containsKey('fullName') &&
+        _data['fullName'].toString().isNotEmpty) {
+      return _data['fullName'].toString();
+    }
+    if (_data.containsKey('ownerName') &&
+        _data['ownerName'].toString().isNotEmpty) {
+      return _data['ownerName'].toString();
+    }
+    if (_data.containsKey('signatoryName') &&
+        _data['signatoryName'].toString().isNotEmpty) {
+      return _data['signatoryName'].toString();
+    }
+    return 'User';
+  }
+
+  String _getUserEmail() {
+    return _data['email']?.toString() ?? 'Not provided';
+  }
+
+  String _getUserPhone() {
+    if (_data.containsKey('phone')) {
+      return _data['phone'].toString();
+    }
+    if (_data.containsKey('mobileNumber')) {
+      return _data['mobileNumber'].toString();
+    }
+    return 'Not provided';
+  }
+
+  String _getHotelName() {
+    return _data['hotelName']?.toString() ?? 'Hotel';
+  }
+
+  String _getHotelType() {
+    return _data['hotelType']?.toString() ?? '4-Star Hotel';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: bgColor,
+      body: CustomScrollView(
+        slivers: [
+          // SliverAppBar with 4-Star specific styling
+          SliverAppBar(
+            expandedHeight: 180,
+            pinned: true,
+            backgroundColor: primaryColor,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [primaryColor, primaryColor.withOpacity(0.85)],
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                ),
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 25),
+                      // Main Content Card
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(28),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            // Icon with 4 stars
+                            Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(22),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            // Text Content
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _getHotelName(),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      ...List.generate(
+                                        4,
+                                            (index) => const Icon(
+                                          Icons.star,
+                                          size: 14,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        _getHotelType(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.qr_code,
+                                        size: 14,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        'ID: ${_getRegistrationId()}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white.withOpacity(0.8),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            leading: IconButton(
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white.withOpacity(0.3)),
+                ),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+
+          // Main Content
+          SliverFillRemaining(
+            child: Container(
+              color: bgColor,
+              child: Column(
+                children: [
+                  // Personal Info Card
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: shadowColor,
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                        BoxShadow(
+                          color: primaryColor.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        // Profile Avatar with Gradient Border
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                primaryColor,
+                                primaryColor.withOpacity(0.7),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: cardColor,
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.person_rounded,
+                                  size: 35,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        // User Details
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _getUserFullName(),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: darkText,
+                                  letterSpacing: -0.3,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: _buildInfoChip(
+                                      icon: Icons.phone_outlined,
+                                      value: _getUserPhone(),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: _buildInfoChip(
+                                      icon: Icons.email_outlined,
+                                      value: _getUserEmail(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Tab Bar
+                  Container(
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: shadowColor,
+                          blurRadius: 10,
+                          offset: const Offset(0, -2),
+                        ),
+                      ],
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      isScrollable: true,
+                      labelColor: primaryColor,
+                      unselectedLabelColor: lightText,
+                      indicatorColor: primaryColor,
+                      indicatorWeight: 3,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      unselectedLabelStyle: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      tabs: const [
+                        Tab(text: 'Basic Info'),
+                        Tab(text: 'Address'),
+                        Tab(text: 'Room Config'),
+                        Tab(text: 'Amenities'),
+                        Tab(text: 'Policies'),
+                        Tab(text: 'Legal & Bank'),
+                      ],
+                    ),
+                  ),
+
+                  // Tab Bar Views
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildStep1(),
+                        _buildStep2(),
+                        _buildStep3(),
+                        _buildStep4(),
+                        _buildStep5(),
+                        _buildStep6(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoChip({required IconData icon, required String value}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 7),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: primaryColor.withOpacity(0.1)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 14, color: primaryColor),
+          const SizedBox(width: 4),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 12,
+                color: mediumText,
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Step 1: Basic Information
+  Widget _buildStep1() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Hotel Information',
+            icon: Icons.business_center,
+            children: [
+              _buildInfoRow('Hotel Name', _data['hotelName']),
+              _buildInfoRow('Hotel Category', '4-Star Hotel'),
+              _buildInfoRow('Hotel Type', _data['hotelType']),
+              _buildInfoRow(
+                'Year of Establishment',
+                _data['yearOfEstablishment'],
+              ),
+              _buildInfoRow('Total Rooms', _data['totalRooms']),
+              if (_hasValue(_data['registrationNumber']))
+                _buildInfoRow('Registration Number', _data['registrationNumber']),
+              if (_hasValue(_data['designation']))
+                _buildInfoRow('Designation', _data['designation']),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Contact Information',
+            icon: Icons.contact_phone,
+            children: [
+              _buildInfoRow('Owner/Manager', _data['ownerName']),
+              _buildInfoRow('Mobile Number', _data['mobileNumber']),
+              if (_hasValue(_data['alternateContact']))
+                _buildInfoRow('Alternate Contact', _data['alternateContact']),
+              if (_hasValue(_data['email']))
+                _buildInfoRow('Email', _data['email']),
+              if (_hasValue(_data['website']))
+                _buildInfoRow('Website', _data['website']),
+            ],
+          ),
+          if (_data['profilePhoto'] != null &&
+              _data['profilePhoto']['uploaded'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildPhotoTile(_data['profilePhoto']),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 2: Address Details
+  Widget _buildStep2() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Address Details',
+            icon: Icons.location_on,
+            children: [
+              _buildInfoRow('Address Line 1', _data['addressLine1']),
+              if (_hasValue(_data['addressLine2']))
+                _buildInfoRow('Address Line 2', _data['addressLine2']),
+              _buildInfoRow('City', _data['city']),
+              _buildInfoRow('District', _data['district']),
+              _buildInfoRow('State', _data['state']),
+              _buildInfoRow('PIN Code', _data['pinCode']),
+              if (_hasValue(_data['country']))
+                _buildInfoRow('Country', _data['country']),
+            ],
+          ),
+
+          // Additional Addresses
+          if (_data['additionalAddresses'] != null &&
+              (_data['additionalAddresses'] as List).isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAdditionalAddressesCard(),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAdditionalAddressesCard() {
+    final addresses = _data['additionalAddresses'] as List;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  size: 18,
+                  color: primaryColor,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Additional Addresses',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ...addresses.asMap().entries.map((entry) {
+            int index = entry.key + 1;
+            dynamic addr = entry.value;
+            String addressText = '';
+
+            if (addr is Map) {
+              addressText = addr['address']?.toString() ?? '';
+            } else if (addr is String) {
+              addressText = addr;
+            }
+
+            return Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: primaryMedium,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: primaryColor.withOpacity(0.1)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '$index',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      addressText,
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
+
+  // Step 3: Room Configuration
+  Widget _buildStep3() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Room Types Available',
+            icon: Icons.meeting_room,
+            children: _buildRoomTypes(),
+          ),
+          ..._buildRoomDetails(),
+          if (_hasValue(_data['extraBedAvailable']) || _hasValue(_data['seasonalPricing']))
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildGlassCard(
+                title: 'Additional Features',
+                icon: Icons.settings,
+                children: [
+                  if (_hasValue(_data['extraBedAvailable']))
+                    _buildStatusRow('Extra Bed Available', _data['extraBedAvailable'] == true),
+                  if (_hasValue(_data['seasonalPricing']))
+                    _buildStatusRow('Seasonal Pricing', _data['seasonalPricing'] == true),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 4: Amenities
+  Widget _buildStep4() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          if (_data['roomAmenities'] != null)
+            _buildAmenityCard('Room Amenities', _data['roomAmenities']),
+          if (_data['hotelFacilities'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard(
+                'Hotel Facilities',
+                _data['hotelFacilities'],
+              ),
+            ),
+          if (_data['foodServices'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard('Food Services', _data['foodServices']),
+            ),
+          if (_data['businessServices'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard(
+                'Business Services',
+                _data['businessServices'],
+              ),
+            ),
+          if (_data['wellnessRecreation'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard(
+                'Wellness & Recreation',
+                _data['wellnessRecreation'],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 5: Policies
+  Widget _buildStep5() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Check-in/Check-out Timings',
+            icon: Icons.access_time,
+            children: [
+              _buildInfoRow('Check-in Time', _formatTime(_data['checkInTime'] ?? '')),
+              _buildInfoRow(
+                'Check-out Time',
+                _formatTime(_data['checkOutTime'] ?? ''),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Hotel Policies',
+            icon: Icons.policy,
+            children: [
+              if (_hasValue(_data['earlyCheckinAllowed']))
+                _buildInfoRow(
+                  'Early/Late Check-out',
+                  _data['earlyCheckinAllowed'] == true
+                      ? (_data['earlyCheckinChargeable'] == true ? 'Chargeable' : 'Complimentary')
+                      : 'Not Available',
+                ),
+              _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Step 6: Legal & Bank Details
+  Widget _buildStep6() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Legal Details',
+            icon: Icons.gavel,
+            children: [
+              if (_hasValue(_data['gstNumber']))
+                _buildInfoRow('GST Number', _data['gstNumber']),
+              if (_hasValue(_data['panNumber']))
+                _buildInfoRow('PAN Number', _data['panNumber']),
+              if (_hasValue(_data['tradeLicense']))
+                _buildInfoRow('Trade License', _data['tradeLicense']),
+              if (_hasValue(_data['fssaiLicense']))
+                _buildInfoRow('FSSAI License', _data['fssaiLicense']),
+              if (_hasValue(_data['fireSafetyCertificate']))
+                _buildStatusRow('Fire Safety Certificate', _data['fireSafetyCertificate'] == true),
+              if (_hasValue(_data['starCertificate']))
+                _buildStatusRow('Star Certificate', _data['starCertificate'] == true),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Bank Details',
+            icon: Icons.account_balance,
+            children: [
+              if (_hasValue(_data['accountHolderName']))
+                _buildInfoRow('Account Holder', _data['accountHolderName']),
+              if (_hasValue(_data['bankName']))
+                _buildInfoRow('Bank Name', _data['bankName']),
+              if (_hasValue(_data['accountNumber']))
+                _buildInfoRow(
+                  'Account Number',
+                  _maskAccountNumber(_data['accountNumber']?.toString() ?? ''),
+                ),
+              if (_hasValue(_data['ifscCode']))
+                _buildInfoRow('IFSC Code', _data['ifscCode']),
+              if (_hasValue(_data['branch']))
+                _buildInfoRow('Branch', _data['branch']),
+              if (_hasValue(_data['accountType']))
+                _buildAccountTypeRow(_data['accountType']),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Uploaded Documents',
+            icon: Icons.folder,
+            children: _buildUploadedDocuments(),
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Declaration',
+            icon: Icons.verified_user,
+            children: [
+              if (_hasValue(_data['signatoryName']))
+                _buildInfoRow('Signatory Name', _data['signatoryName']),
+              if (_hasValue(_data['declarationDate']))
+                _buildInfoRow('Date', _data['declarationDate']),
+              _buildStatusRow('Accepted', _data['declarationAccepted'] == true),
+            ],
+          ),
+          // Digital Signature Tile
+          if (_data['hasDigitalSignature'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildDigitalSignatureTile(),
+            ),
+          // Uploaded Signature File
+          if (_data['signatureFile'] != null &&
+              _data['signatureFile']['uploaded'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildSignatureFileTile(_data['signatureFile']),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Beautiful Glass Card Design
+  Widget _buildGlassCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    final filteredChildren = children.where((child) {
+      if (child is SizedBox) return true;
+      return child is Widget;
+    }).toList();
+
+    if (filteredChildren.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+          BoxShadow(
+            color: primaryColor.withOpacity(0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, size: 18, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ...filteredChildren,
+        ],
+      ),
+    );
+  }
+
+  // Info Row with proper formatting
+  Widget _buildInfoRow(String label, dynamic value) {
+    if (!_hasValue(value)) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (label.contains('Year') ||
+        label.contains('Rooms') ||
+        label.contains('Total')) {
+      displayValue = _formatInteger(value);
+    } else if (label.contains('Price') || label.contains('Tariff')) {
+      displayValue = '₹${_formatPrice(value)}';
+    } else if (label.contains('Time')) {
+      displayValue = _formatTime(value.toString());
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primaryMedium,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.05)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              displayValue,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: darkText,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Price Row with Special Styling
+  Widget _buildPriceRow(String label, dynamic value) {
+    if (!_hasValue(value)) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.15)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: mediumText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              '₹${_formatPrice(value)}',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: primaryColor,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Status Row
+  Widget _buildStatusRow(String label, bool value) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: value ? primarySoft : primaryMedium,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: value ? primaryColor.withOpacity(0.2) : borderColor,
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  value ? Icons.check_circle : Icons.cancel,
+                  size: 16,
+                  color: value ? primaryColor : lightText,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  value ? 'Yes' : 'No',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: value ? primaryColor : lightText,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Account Type Row
+  Widget _buildAccountTypeRow(dynamic accountType) {
+    if (!_hasValue(accountType)) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.15)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              'Account Type',
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: primaryColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                accountType.toString(),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: primaryColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Room Types
+  List<Widget> _buildRoomTypes() {
+    List<Widget> widgets = [];
+    final selectedRoomTypes = _data['selectedRoomTypes'];
+
+    if (selectedRoomTypes is Map) {
+      final selected = selectedRoomTypes.entries
+          .where((e) => e.value == true)
+          .map((e) => e.key)
+          .toList();
+
+      if (selected.isNotEmpty) {
+        widgets.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: selected
+                  .map(
+                    (type) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [primaryColor, primaryColor.withOpacity(0.8)],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: primaryColor.withOpacity(0.2),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ...List.generate(
+                        4,
+                            (index) => const Icon(
+                          Icons.star,
+                          size: 10,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        type.toString(),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+                  .toList(),
+            ),
+          ),
+        );
+      }
+    }
+    return widgets;
+  }
+
+  // Room Details
+  List<Widget> _buildRoomDetails() {
+    List<Widget> widgets = [];
+    final roomDetails = _data['roomDetails'];
+    final selectedRoomTypes = _data['selectedRoomTypes'];
+
+    if (roomDetails is Map && selectedRoomTypes is Map) {
+      selectedRoomTypes.forEach((type, isSelected) {
+        if (isSelected == true && roomDetails.containsKey(type)) {
+          final details = roomDetails[type];
+          if (details is Map) {
+            bool hasData =
+                _hasValue(details['rooms']) ||
+                    _hasValue(details['occupancy']) ||
+                    _hasValue(details['price']);
+
+            if (hasData) {
+              widgets.add(
+                Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: cardColor,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: borderColor),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: primarySoft,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              Icons.hotel,
+                              size: 16,
+                              color: primaryColor,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            type.toString(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: darkText,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+
+                      if (_hasValue(details['rooms']))
+                        _buildDetailRow('Number of Rooms', details['rooms']),
+
+                      if (_hasValue(details['occupancy']))
+                        _buildDetailRow('Max Occupancy', details['occupancy']),
+
+                      if (details['ac'] != null)
+                        _buildDetailRow(
+                          'AC',
+                          details['ac'] == true ? 'Yes' : 'No',
+                        ),
+
+                      if (_hasValue(details['bedType']))
+                        _buildDetailRow('Bed Type', details['bedType']),
+
+                      if (_hasValue(details['price']))
+                        _buildDetailRow(
+                          'Price per Night',
+                          details['price'],
+                          isPrice: true,
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            }
+          }
+        }
+      });
+    }
+    return widgets;
+  }
+
+  // Detail Row
+  Widget _buildDetailRow(String label, dynamic value, {bool isPrice = false}) {
+    if (!_hasValue(value)) return const SizedBox.shrink();
+
+    String displayValue;
+    if (isPrice) {
+      displayValue = '₹${_formatPrice(value)}';
+    } else if (label.contains('Rooms') || label.contains('Occupancy')) {
+      displayValue = _formatInteger(value);
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 12, color: lightText)),
+          Text(
+            displayValue,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: darkText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Amenity Card
+  Widget _buildAmenityCard(String title, dynamic amenities) {
+    if (amenities is! Map) return const SizedBox.shrink();
+
+    final selected = amenities.entries
+        .where((e) => e.value == true)
+        .map((e) => e.key)
+        .toList();
+
+    if (selected.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(Icons.star, size: 16, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: selected
+                .map(
+                  (item) => Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: primaryColor.withOpacity(0.15)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.check, size: 12, color: primaryColor),
+                    const SizedBox(width: 4),
+                    Text(
+                      item.toString(),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: primaryColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Uploaded Documents
+  List<Widget> _buildUploadedDocuments() {
+    List<Widget> widgets = [];
+    final uploadedFiles = _data['uploadedFiles'];
+
+    if (uploadedFiles is Map) {
+      uploadedFiles.forEach((key, value) {
+        // Skip digital signature as it's handled separately
+        if (key == 'Digital Signature') return;
+
+        if (value is Map && value['uploaded'] == true) {
+          widgets.add(
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: primarySoft,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: primaryColor.withOpacity(0.15)),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.check_circle, size: 16, color: primaryColor),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          key,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: darkText,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          value['name'] ?? 'Uploaded successfully',
+                          style: TextStyle(fontSize: 11, color: lightText),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+      });
+    }
+
+    return widgets;
+  }
+
+  // Photo Tile
+  Widget _buildPhotoTile(Map<String, dynamic> photoInfo) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: borderColor),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [primaryColor, primaryColor.withOpacity(0.7)],
+              ),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Center(
+              child: Icon(Icons.photo_camera, color: Colors.white, size: 24),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Profile Photo',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  photoInfo['name'] ?? 'Uploaded successfully',
+                  style: TextStyle(fontSize: 12, color: lightText),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: primarySoft,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Digital Signature Tile
+  Widget _buildDigitalSignatureTile() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: primaryColor.withOpacity(0.2)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.draw, size: 20, color: primaryColor),
+          ),
+          const SizedBox(width: 16),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Digital Signature',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: 2),
+                Text('Saved successfully', style: TextStyle(fontSize: 12)),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Signature File Tile
+  Widget _buildSignatureFileTile(Map<String, dynamic> signatureInfo) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: primaryColor.withOpacity(0.2)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.note_alt_outlined, size: 20, color: primaryColor),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Uploaded Signature',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  signatureInfo['name'] ?? 'Signature uploaded',
+                  style: TextStyle(fontSize: 12, color: lightText),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _maskAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) return accountNumber;
+    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  }
+}
 
 class HotelListScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -10662,7 +12819,8 @@ class HotelListScreen extends StatefulWidget {
   State<HotelListScreen> createState() => _HotelListScreenState();
 }
 
-class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProviderStateMixin {
+class _HotelListScreenState extends State<HotelListScreen>
+    with SingleTickerProviderStateMixin {
   List<Map<String, dynamic>> _registeredHotels = [];
   bool _isLoading = true;
 
@@ -10679,103 +12837,7 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
     _extractHotels();
   }
 
-  // void _extractHotels() {
-  //   setState(() => _isLoading = true);
-  //
-  //   try {
-  //     print('Extracting hotels from user data: ${widget.userData.keys}');
-  //
-  //     // Clear existing list
-  //     _registeredHotels.clear();
-  //
-  //     // Check if this is a single hotel registration (data directly in userData)
-  //     if (widget.userData.containsKey('hotelName') &&
-  //         widget.userData['hotelName'] != null &&
-  //         widget.userData['hotelName'].toString().isNotEmpty) {
-  //
-  //       print('Found single hotel with name: ${widget.userData['hotelName']}');
-  //
-  //       String hotelCategory = widget.userData['hotelCategory']?.toString() ?? 'Normal';
-  //
-  //       // Create a clean hotel data map
-  //       Map<String, dynamic> hotelData = Map<String, dynamic>.from(widget.userData);
-  //
-  //       _registeredHotels.add({
-  //         'id': _generateHotelId(hotelData),
-  //         'name': hotelData['hotelName'].toString(),
-  //         'category': hotelCategory,
-  //         'type': hotelData['hotelType']?.toString() ?? 'Hotel',
-  //         'data': hotelData,
-  //         'registrationDate': hotelData['registeredAt']?.toString() ??
-  //             DateTime.now().toIso8601String(),
-  //       });
-  //     }
-  //
-  //     // Check if there are multiple hotels in hotels list
-  //     if (widget.userData.containsKey('hotels') &&
-  //         widget.userData['hotels'] is List) {
-  //
-  //       final hotels = widget.userData['hotels'] as List;
-  //       print('Found ${hotels.length} hotels in list');
-  //
-  //       for (var hotel in hotels) {
-  //         if (hotel is Map) {
-  //           Map<String, dynamic> typedHotel = Map<String, dynamic>.from(hotel);
-  //
-  //           String hotelCategory = typedHotel['hotelCategory']?.toString() ?? 'Normal';
-  //
-  //           _registeredHotels.add({
-  //             'id': _generateHotelId(typedHotel),
-  //             'name': typedHotel['hotelName']?.toString() ?? 'Unknown Hotel',
-  //             'category': hotelCategory,
-  //             'type': typedHotel['hotelType']?.toString() ?? 'Hotel',
-  //             'data': typedHotel,
-  //             'registrationDate': typedHotel['registeredAt']?.toString() ??
-  //                 DateTime.now().toIso8601String(),
-  //           });
-  //         }
-  //       }
-  //     }
-  //
-  //     // If still no hotels found, try to extract from registrationData
-  //     if (_registeredHotels.isEmpty && widget.userData.containsKey('registrationData')) {
-  //       final regData = widget.userData['registrationData'];
-  //       if (regData is Map) {
-  //         Map<String, dynamic> typedRegData = Map<String, dynamic>.from(regData);
-  //
-  //         if (typedRegData.containsKey('hotelName') &&
-  //             typedRegData['hotelName'].toString().isNotEmpty) {
-  //
-  //           print('Found hotel in registrationData');
-  //
-  //           String hotelCategory = typedRegData['hotelCategory']?.toString() ?? 'Normal';
-  //
-  //           _registeredHotels.add({
-  //             'id': _generateHotelId(typedRegData),
-  //             'name': typedRegData['hotelName'].toString(),
-  //             'category': hotelCategory,
-  //             'type': typedRegData['hotelType']?.toString() ?? 'Hotel',
-  //             'data': typedRegData,
-  //             'registrationDate': typedRegData['registeredAt']?.toString() ??
-  //                 DateTime.now().toIso8601String(),
-  //           });
-  //         }
-  //       }
-  //     }
-  //
-  //     print('Found ${_registeredHotels.length} registered hotels');
-  //
-  //     // Print each hotel for debugging
-  //     for (var i = 0; i < _registeredHotels.length; i++) {
-  //       print('Hotel $i: ${_registeredHotels[i]['name']} (${_registeredHotels[i]['category']})');
-  //     }
-  //
-  //   } catch (e) {
-  //     print('Error extracting hotels: $e');
-  //   } finally {
-  //     setState(() => _isLoading = false);
-  //   }
-  // }
+
   void _extractHotels() {
     setState(() => _isLoading = true);
 
@@ -10788,7 +12850,6 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
       // Check for hotels list (multiple hotels)
       if (widget.userData.containsKey('hotels') &&
           widget.userData['hotels'] is List) {
-
         List<dynamic> hotelsList = widget.userData['hotels'] as List;
         print('Found hotels list with ${hotelsList.length} hotels');
 
@@ -10796,23 +12857,28 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
           if (hotel is Map) {
             Map<String, dynamic> hotelMap = Map<String, dynamic>.from(hotel);
 
-            String hotelName = hotelMap['hotelName']?.toString() ??
+            String hotelName =
+                hotelMap['hotelName']?.toString() ??
                 hotelMap['businessName']?.toString() ??
                 'Unknown Hotel';
 
-            String hotelCategory = hotelMap['hotelCategory']?.toString() ??
+            String hotelCategory =
+                hotelMap['hotelCategory']?.toString() ??
                 hotelMap['hotelType']?.toString() ??
                 'Normal Hotel';
 
             print('Adding hotel: $hotelName ($hotelCategory)');
 
             _registeredHotels.add({
-              'id': hotelMap['id'] ?? 'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
+              'id':
+                  hotelMap['id'] ??
+                  'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
               'name': hotelName,
               'category': hotelCategory,
               'type': hotelMap['hotelType']?.toString() ?? 'Hotel',
               'data': hotelMap,
-              'registrationDate': hotelMap['registeredAt']?.toString() ??
+              'registrationDate':
+                  hotelMap['registeredAt']?.toString() ??
                   DateTime.now().toIso8601String(),
             });
           }
@@ -10824,44 +12890,51 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
         if (widget.userData.containsKey('hotelName') &&
             widget.userData['hotelName'] != null &&
             widget.userData['hotelName'].toString().isNotEmpty) {
+          print(
+            'Found single hotel with name: ${widget.userData['hotelName']}',
+          );
 
-          print('Found single hotel with name: ${widget.userData['hotelName']}');
-
-          String hotelCategory = widget.userData['hotelCategory']?.toString() ??
+          String hotelCategory =
+              widget.userData['hotelCategory']?.toString() ??
               widget.userData['hotelType']?.toString() ??
               'Normal Hotel';
 
           _registeredHotels.add({
-            'id': widget.userData['id'] ?? 'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
+            'id':
+                widget.userData['id'] ??
+                'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
             'name': widget.userData['hotelName'].toString(),
             'category': hotelCategory,
             'type': widget.userData['hotelType']?.toString() ?? 'Hotel',
             'data': Map<String, dynamic>.from(widget.userData),
-            'registrationDate': widget.userData['registeredAt']?.toString() ??
+            'registrationDate':
+                widget.userData['registeredAt']?.toString() ??
                 DateTime.now().toIso8601String(),
           });
         }
       }
 
       print('Total hotels extracted: ${_registeredHotels.length}');
-
     } catch (e) {
       print('Error extracting hotels: $e');
     } finally {
       setState(() => _isLoading = false);
     }
   }
+
   String _generateHotelId(Map<String, dynamic> hotelData) {
     final name = hotelData['hotelName']?.toString() ?? 'HTL';
-    final prefix = name.length >= 3 ? name.substring(0, 3).toUpperCase() : name.toUpperCase();
-    final timestamp = DateTime.now().millisecondsSinceEpoch.toString().substring(8);
+    final prefix = name.length >= 3
+        ? name.substring(0, 3).toUpperCase()
+        : name.toUpperCase();
+    final timestamp = DateTime.now().millisecondsSinceEpoch
+        .toString()
+        .substring(8);
     return '$prefix-$timestamp';
   }
 
-
-
   Color _getCategoryColor(String category) {
-    switch(category) {
+    switch (category) {
       case '2-Star':
         return const Color(0xFF6B8E23);
       case '3-Star':
@@ -10892,7 +12965,11 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
               color: Colors.grey.shade100,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.arrow_back, color: Color(0xFF1F2937), size: 20),
+            child: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF1F2937),
+              size: 20,
+            ),
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -10912,9 +12989,7 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => WelcomeScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
                 );
               },
               icon: const Icon(Icons.add, size: 18),
@@ -10925,7 +13000,10 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
               ),
             ),
           ),
@@ -10936,13 +13014,13 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
           : _registeredHotels.isEmpty
           ? _buildEmptyState()
           : ListView.builder(
-        padding: const EdgeInsets.all(13),
-        itemCount: _registeredHotels.length,
-        itemBuilder: (context, index) {
-          final hotel = _registeredHotels[index];
-          return _buildHotelCard(hotel);
-        },
-      ),
+              padding: const EdgeInsets.all(13),
+              itemCount: _registeredHotels.length,
+              itemBuilder: (context, index) {
+                final hotel = _registeredHotels[index];
+                return _buildHotelCard(hotel);
+              },
+            ),
     );
   }
 
@@ -10976,19 +13054,14 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
           const SizedBox(height: 8),
           Text(
             'Register your first hotel to get started',
-            style: TextStyle(
-              fontSize: 14,
-              color: lightText,
-            ),
+            style: TextStyle(fontSize: 14, color: lightText),
           ),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => WelcomeScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => WelcomeScreen()),
               );
             },
             style: ElevatedButton.styleFrom(
@@ -11011,38 +13084,36 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
     final categoryColor = _getCategoryColor(category);
 
     return GestureDetector(
-      // onTap: () {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => HotelRegistrationDetailsScreen(
-      //         registrationData: hotel['data'],
-      //       ),
-      //     ),
-      //   );
-      // },
-      onTap: () {
 
+      onTap: () {
         if (category == '2-Star') {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TwoStarHotelDetailsScreen(
-                registrationData: hotel['data'],
-              ),
+              builder: (context) =>
+                  TwoStarHotelDetailsScreen(registrationData: hotel['data']),
             ),
           );
         } else if (category == '3-Star') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  ThreeStarHotelDetailsScreen(registrationData: hotel['data']),
+            ),
+          );
+        } else if (category == '4-Star') {
+
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(
-          //     builder: (context) => ThreeStarHotelDetailsScreen(
+          //     builder: (context) => FourStarHotelDetailsScreen(
           //       registrationData: hotel['data'],
           //     ),
           //   ),
           // );
         } else {
-          // For Normal hotel, use the existing details screen
+
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -11069,7 +13140,7 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
         ),
         child: Row(
           children: [
-            // Hotel Icon with Category Color
+
             Container(
               width: 60,
               height: 60,
@@ -11082,15 +13153,11 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Center(
-                child: Icon(
-                  Icons.hotel,
-                  color: Colors.white,
-                  size: 30,
-                ),
+                child: Icon(Icons.hotel, color: Colors.white, size: 30),
               ),
             ),
             const SizedBox(width: 16),
-            // Hotel Details
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -11108,11 +13175,16 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: categoryColor.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: categoryColor.withOpacity(0.3)),
+                          border: Border.all(
+                            color: categoryColor.withOpacity(0.3),
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -11120,7 +13192,11 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
                             if (category.contains('Star'))
                               ...List.generate(
                                 _getStarCount(category),
-                                    (index) => Icon(Icons.star, size: 10, color: categoryColor),
+                                (index) => Icon(
+                                  Icons.star,
+                                  size: 10,
+                                  color: categoryColor,
+                                ),
                               ),
                             if (!category.contains('Star'))
                               Text(
@@ -11139,16 +13215,16 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
                   const SizedBox(height: 6),
                   Text(
                     hotel['type'],
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: lightText,
-                    ),
+                    style: TextStyle(fontSize: 13, color: lightText),
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.grey.shade100,
                           borderRadius: BorderRadius.circular(12),
@@ -11167,10 +13243,7 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
                       const SizedBox(width: 4),
                       Text(
                         _formatDate(hotel['registrationDate']),
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: lightText,
-                        ),
+                        style: TextStyle(fontSize: 10, color: lightText),
                       ),
                     ],
                   ),
@@ -11215,9 +13288,6 @@ class _HotelListScreenState extends State<HotelListScreen> with SingleTickerProv
   }
 }
 
-
-
-
 class PropertiesScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
   final String userEmail;
@@ -11232,9 +13302,8 @@ class PropertiesScreen extends StatefulWidget {
   State<PropertiesScreen> createState() => _PropertiesScreenState();
 }
 
-
-
-class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerProviderStateMixin {
+class _PropertiesScreenState extends State<PropertiesScreen>
+    with SingleTickerProviderStateMixin {
   Map<String, dynamic> _userData = {};
   Map<String, bool> _registeredProperties = {};
   late AnimationController _animationController;
@@ -11245,17 +13314,20 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
   final Color lightText = const Color(0xFF6B7280);
   final Color bgColor = const Color(0xFFF8FAFF);
 
-
   @override
   void initState() {
     super.initState();
-    print('PropertiesScreen initState - received userData keys: ${widget.userData.keys.toList()}');
-    print('PropertiesScreen initState - propertyType: ${widget.userData['propertyType']}');
+    print(
+      'PropertiesScreen initState - received userData keys: ${widget.userData.keys.toList()}',
+    );
+    print(
+      'PropertiesScreen initState - propertyType: ${widget.userData['propertyType']}',
+    );
 
-    // Create a deep copy of the data
+
     _userData = Map<String, dynamic>.from(widget.userData);
 
-    // FORCE propertyType to be set if hotel data exists
+
     if (_userData.containsKey('hotelName') &&
         _userData['hotelName'] != null &&
         _userData['hotelName'].toString().isNotEmpty) {
@@ -11271,22 +13343,17 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeIn,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
     );
 
     _animationController.forward();
   }
+
   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
   }
-
-
-
 
   void _checkRegisteredProperties() {
     print('=== CHECKING REGISTERED PROPERTIES IN PropertiesScreen ===');
@@ -11313,7 +13380,9 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
         _userData['hotels'] is List &&
         (_userData['hotels'] as List).isNotEmpty) {
       isHotelRegistered = true;
-      print('Found hotels list with ${(_userData['hotels'] as List).length} hotels');
+      print(
+        'Found hotels list with ${(_userData['hotels'] as List).length} hotels',
+      );
     }
 
     // Check for hotel-specific fields
@@ -11347,7 +13416,9 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
         print('propertyType matches hotel data');
       } else if (propertyType == 'hotel' && !isHotelRegistered) {
         // This is the bug - propertyType says hotel but no data
-        print('WARNING: propertyType is hotel but no hotel data found - ignoring');
+        print(
+          'WARNING: propertyType is hotel but no hotel data found - ignoring',
+        );
         // Do NOT set isHotelRegistered based on propertyType alone
       }
     }
@@ -11361,8 +13432,11 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
       };
     });
 
-    print('PropertiesScreen registered properties result: $_registeredProperties');
+    print(
+      'PropertiesScreen registered properties result: $_registeredProperties',
+    );
   }
+
   void _navigateToPropertyDetails(String propertyType) {
     if (!_registeredProperties[propertyType]!) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -11380,10 +13454,8 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HotelListScreen(
-            userData: _userData,
-            userEmail: widget.userEmail,
-          ),
+          builder: (context) =>
+              HotelListScreen(userData: _userData, userEmail: widget.userEmail),
         ),
       );
       return;
@@ -11392,7 +13464,8 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
     // For other property types, extract the data
     Map<String, dynamic> propertyData = {};
 
-    if (_userData.containsKey('registrationData') && _userData['registrationData'] != null) {
+    if (_userData.containsKey('registrationData') &&
+        _userData['registrationData'] != null) {
       propertyData = Map<String, dynamic>.from(_userData['registrationData']);
     } else {
       propertyData = Map<String, dynamic>.from(_userData);
@@ -11404,19 +13477,20 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
         screen = VillaRegistrationDetailsScreen(registrationData: propertyData);
         break;
       case 'apartment':
-        screen = ApartmentRegistrationDetailsScreen(registrationData: propertyData);
+        screen = ApartmentRegistrationDetailsScreen(
+          registrationData: propertyData,
+        );
         break;
       case 'resort':
-        screen = ResortRegistrationDetailsScreen(registrationData: propertyData);
+        screen = ResortRegistrationDetailsScreen(
+          registrationData: propertyData,
+        );
         break;
       default:
         return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => screen),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
   }
 
   int _getRegisteredCount() {
@@ -11559,7 +13633,10 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
             padding: const EdgeInsets.only(right: 16),
             child: Center(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: primaryRed.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -11695,7 +13772,8 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
                                 child: _buildDetailItem(
                                   icon: Icons.business,
                                   label: 'Registered As',
-                                  value: _getRegisteredPropertyType().toUpperCase(),
+                                  value: _getRegisteredPropertyType()
+                                      .toUpperCase(),
                                 ),
                               ),
                           ],
@@ -11803,10 +13881,7 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
             children: [
               Text(
                 label,
-                style: const TextStyle(
-                  fontSize: 10,
-                  color: Color(0xFF6B7280),
-                ),
+                style: const TextStyle(fontSize: 10, color: Color(0xFF6B7280)),
               ),
               Text(
                 value,
@@ -11831,7 +13906,9 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
     required bool isRegistered,
   }) {
     return GestureDetector(
-      onTap: isRegistered ? () => _navigateToPropertyDetails(propertyType.toLowerCase()) : null,
+      onTap: isRegistered
+          ? () => _navigateToPropertyDetails(propertyType.toLowerCase())
+          : null,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -11849,7 +13926,9 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
           ),
           boxShadow: [
             BoxShadow(
-              color: isRegistered ? color.withOpacity(0.1) : Colors.grey.withOpacity(0.05),
+              color: isRegistered
+                  ? color.withOpacity(0.1)
+                  : Colors.grey.withOpacity(0.05),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -11882,7 +13961,9 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: isRegistered ? color.withOpacity(0.1) : Colors.grey.shade100,
+                      color: isRegistered
+                          ? color.withOpacity(0.1)
+                          : Colors.grey.shade100,
                       borderRadius: BorderRadius.circular(14),
                     ),
                     child: Icon(
@@ -11907,18 +13988,27 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
                       ),
                       const SizedBox(height: 4),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         decoration: BoxDecoration(
-                          color: isRegistered ? color.withOpacity(0.1) : Colors.grey.shade100,
+                          color: isRegistered
+                              ? color.withOpacity(0.1)
+                              : Colors.grey.shade100,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
-                              isRegistered ? Icons.check_circle : Icons.lock_outline,
+                              isRegistered
+                                  ? Icons.check_circle
+                                  : Icons.lock_outline,
                               size: 12,
-                              color: isRegistered ? color : Colors.grey.shade500,
+                              color: isRegistered
+                                  ? color
+                                  : Colors.grey.shade500,
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -11926,7 +14016,9 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
-                                color: isRegistered ? color : Colors.grey.shade500,
+                                color: isRegistered
+                                    ? color
+                                    : Colors.grey.shade500,
                               ),
                             ),
                           ],
@@ -11943,5 +14035,4 @@ class _PropertiesScreenState extends State<PropertiesScreen> with SingleTickerPr
     );
   }
 }
-
 
