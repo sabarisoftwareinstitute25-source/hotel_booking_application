@@ -8,7 +8,6 @@ import '../home_screen/hotel_registration_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
 // import '../home_screen/normal_hotel_dashboard_screen.dart';
 import '../screens/dashboard_screen.dart';
 import '../screens/office_users_screen.dart';
@@ -6682,6 +6681,46 @@ class _HotelRegistrationDetailsScreenState
     );
   }
 
+  // // Step 4: Amenities
+  // Widget _buildStep4() {
+  //   return SingleChildScrollView(
+  //     padding: const EdgeInsets.all(20),
+  //     child: Column(
+  //       children: [
+  //         if (_data['basicAmenities'] != null)
+  //           _buildAmenityCard('Basic Amenities', _data['basicAmenities']),
+  //         if (_data['hotelFacilities'] != null)
+  //           Padding(
+  //             padding: const EdgeInsets.only(top: 16),
+  //             child: _buildAmenityCard(
+  //               'Hotel Facilities',
+  //               _data['hotelFacilities'],
+  //             ),
+  //           ),
+  //         if (_data['foodServices'] != null)
+  //           Padding(
+  //             padding: const EdgeInsets.only(top: 16),
+  //             child: _buildAmenityCard('Food Services', _data['foodServices']),
+  //           ),
+  //         if (_data['additionalAmenities'] != null)
+  //           Padding(
+  //             padding: const EdgeInsets.only(top: 16),
+  //             child: _buildAmenityCard(
+  //               'Additional Amenities',
+  //               _data['additionalAmenities'],
+  //             ),
+  //           ),
+  //         if (_data['customAmenities'] != null &&
+  //             (_data['customAmenities'] as List).isNotEmpty)
+  //           Padding(
+  //             padding: const EdgeInsets.only(top: 16),
+  //             child: _buildCustomAmenitiesCard(_data['customAmenities']),
+  //           ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   // Step 4: Amenities
   Widget _buildStep4() {
     return SingleChildScrollView(
@@ -6711,6 +6750,8 @@ class _HotelRegistrationDetailsScreenState
                 _data['additionalAmenities'],
               ),
             ),
+
+          // ADDED: Custom Amenities Section
           if (_data['customAmenities'] != null &&
               (_data['customAmenities'] as List).isNotEmpty)
             Padding(
@@ -6721,7 +6762,85 @@ class _HotelRegistrationDetailsScreenState
       ),
     );
   }
+  Widget _buildCustomAmenitiesCard(dynamic customAmenities) {
+    if (customAmenities is! List || customAmenities.isEmpty) {
+      return const SizedBox.shrink();
+    }
 
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [primarySoft, primaryMedium],
+        ),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: primaryColor.withOpacity(0.2)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(Icons.stars, size: 16, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Custom Amenities',
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: primaryColor,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: customAmenities
+                .map(
+                  (item) => Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(color: primaryColor.withOpacity(0.3)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: primaryColor.withOpacity(0.1),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  item.toString(),
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: primaryColor,
+                  ),
+                ),
+              ),
+            )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+  }
   // Step 5: Legal & Bank Details
   Widget _buildStep5() {
     return SingleChildScrollView(
@@ -7531,83 +7650,83 @@ class _HotelRegistrationDetailsScreenState
     );
   }
 
-  Widget _buildCustomAmenitiesCard(dynamic customAmenities) {
-    if (customAmenities is! List || customAmenities.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [primarySoft, primaryMedium]),
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: primaryColor.withOpacity(0.2)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: cardColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(Icons.stars, size: 16, color: primaryColor),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                'Custom Amenities',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: primaryColor,
-                  letterSpacing: -0.3,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: customAmenities
-                .map(
-                  (item) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: cardColor,
-                      borderRadius: BorderRadius.circular(25),
-                      border: Border.all(color: primaryColor.withOpacity(0.3)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: primaryColor.withOpacity(0.1),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      item.toString(),
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: primaryColor,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildCustomAmenitiesCard(dynamic customAmenities) {
+  //   if (customAmenities is! List || customAmenities.isEmpty) {
+  //     return const SizedBox.shrink();
+  //   }
+  //
+  //   return Container(
+  //     width: double.infinity,
+  //     padding: const EdgeInsets.all(20),
+  //     decoration: BoxDecoration(
+  //       gradient: LinearGradient(colors: [primarySoft, primaryMedium]),
+  //       borderRadius: BorderRadius.circular(24),
+  //       border: Border.all(color: primaryColor.withOpacity(0.2)),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           children: [
+  //             Container(
+  //               padding: const EdgeInsets.all(8),
+  //               decoration: BoxDecoration(
+  //                 color: cardColor,
+  //                 borderRadius: BorderRadius.circular(12),
+  //               ),
+  //               child: Icon(Icons.stars, size: 16, color: primaryColor),
+  //             ),
+  //             const SizedBox(width: 12),
+  //             Text(
+  //               'Custom Amenities',
+  //               style: TextStyle(
+  //                 fontSize: 15,
+  //                 fontWeight: FontWeight.w700,
+  //                 color: primaryColor,
+  //                 letterSpacing: -0.3,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         const SizedBox(height: 16),
+  //         Wrap(
+  //           spacing: 8,
+  //           runSpacing: 8,
+  //           children: customAmenities
+  //               .map(
+  //                 (item) => Container(
+  //                   padding: const EdgeInsets.symmetric(
+  //                     horizontal: 16,
+  //                     vertical: 6,
+  //                   ),
+  //                   decoration: BoxDecoration(
+  //                     color: cardColor,
+  //                     borderRadius: BorderRadius.circular(25),
+  //                     border: Border.all(color: primaryColor.withOpacity(0.3)),
+  //                     boxShadow: [
+  //                       BoxShadow(
+  //                         color: primaryColor.withOpacity(0.1),
+  //                         blurRadius: 4,
+  //                         offset: const Offset(0, 2),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                   child: Text(
+  //                     item.toString(),
+  //                     style: TextStyle(
+  //                       fontSize: 11,
+  //                       fontWeight: FontWeight.w600,
+  //                       color: primaryColor,
+  //                     ),
+  //                   ),
+  //                 ),
+  //               )
+  //               .toList(),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   List<Widget> _buildUploadedDocuments() {
     List<Widget> widgets = [];
@@ -10280,14 +10399,26 @@ class _ThreeStarHotelDetailsScreenState
           _buildGlassCard(
             title: 'Hotel Policies',
             icon: Icons.policy,
+            // children: [
+            //   if (_hasValue(_data['earlyCheckinAllowed']))
+            //     _buildInfoRow(
+            //       'Early/Late Check-out',
+            //       _data['earlyCheckinAllowed'] == true
+            //           ? (_data['earlyCheckinChargeable'] == true
+            //                 ? 'Chargeable'
+            //                 : 'Complimentary')
+            //           : 'Not Available',
+            //     ),
+            //   _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
+            // ],
             children: [
               if (_hasValue(_data['earlyCheckinAllowed']))
                 _buildInfoRow(
                   'Early/Late Check-out',
                   _data['earlyCheckinAllowed'] == true
                       ? (_data['earlyCheckinChargeable'] == true
-                            ? 'Chargeable'
-                            : 'Complimentary')
+                      ? 'Chargeable'
+                      : 'Free')  // Changed from 'Complimentary' to 'Free'
                       : 'Not Available',
                 ),
               _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
@@ -11944,12 +12075,25 @@ class _FourStarHotelDetailsScreenState extends State<FourStarHotelDetailsScreen>
           _buildGlassCard(
             title: 'Hotel Policies',
             icon: Icons.policy,
+            // children: [
+            //   if (_hasValue(_data['earlyCheckinAllowed']))
+            //     _buildInfoRow(
+            //       'Early/Late Check-out',
+            //       _data['earlyCheckinAllowed'] == true
+            //           ? (_data['earlyCheckinChargeable'] == true ? 'Chargeable' : 'Complimentary')
+            //           : 'Not Available',
+            //     ),
+            //   _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
+            // ],
+
             children: [
               if (_hasValue(_data['earlyCheckinAllowed']))
                 _buildInfoRow(
                   'Early/Late Check-out',
                   _data['earlyCheckinAllowed'] == true
-                      ? (_data['earlyCheckinChargeable'] == true ? 'Chargeable' : 'Complimentary')
+                      ? (_data['earlyCheckinChargeable'] == true
+                      ? 'Chargeable'
+                      : 'Free')  // Changed from 'Complimentary' to 'Free'
                       : 'Not Available',
                 ),
               _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
@@ -12805,6 +12949,1717 @@ class _FourStarHotelDetailsScreenState extends State<FourStarHotelDetailsScreen>
   }
 }
 
+
+class FiveStarHotelDetailsScreen extends StatefulWidget {
+  final Map<String, dynamic> registrationData;
+
+  const FiveStarHotelDetailsScreen({
+    super.key,
+    required this.registrationData,
+  });
+
+  @override
+  State<FiveStarHotelDetailsScreen> createState() =>
+      _FiveStarHotelDetailsScreenState();
+}
+
+class _FiveStarHotelDetailsScreenState extends State<FiveStarHotelDetailsScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+  late Map<String, dynamic> _data;
+
+  // 5-Star specific color scheme (Pink/Rose Gold)
+  final Color primaryColor = const Color(0xFFFB717D);
+  final Color primaryLight = const Color(0xFFFB717D).withOpacity(0.1);
+  final Color primarySoft = const Color(0xFFFB717D).withOpacity(0.05);
+  final Color primaryMedium = const Color(0xFFFB717D).withOpacity(0.03);
+
+  // Sophisticated neutral palette
+  final Color darkText = const Color(0xFF1A1E2B);
+  final Color mediumText = const Color(0xFF4A5568);
+  final Color lightText = const Color(0xFF8E9AAB);
+  final Color bgColor = const Color(0xFFF5F7FA);
+  final Color cardColor = Colors.white;
+  final Color borderColor = const Color(0xFFE9EDF2);
+  final Color shadowColor = const Color(0xFF1A1E2B).withOpacity(0.03);
+  final Color starColor = const Color(0xFFFFD700);
+
+  @override
+  void initState() {
+    super.initState();
+    _data = widget.registrationData;
+    _tabController = TabController(length: 6, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  // Helper methods for formatting
+  String _formatInteger(dynamic value) {
+    if (value == null) return '';
+    if (value is int) return value.toString();
+    if (value is double) return value.toInt().toString();
+    if (value is String) {
+      double? parsedDouble = double.tryParse(value);
+      if (parsedDouble != null) return parsedDouble.toInt().toString();
+      return value;
+    }
+    return value.toString();
+  }
+
+  String _formatPrice(dynamic value) {
+    if (value == null) return '';
+    if (value is double) {
+      return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
+    }
+    if (value is int) return value.toString();
+    if (value is String) {
+      double? parsed = double.tryParse(value);
+      if (parsed != null) {
+        return parsed.toStringAsFixed(
+          parsed.truncateToDouble() == parsed ? 0 : 2,
+        );
+      }
+      return value;
+    }
+    return value.toString();
+  }
+
+  String _formatTime(String time) {
+    if (time.isEmpty) return 'Not set';
+    try {
+      if (time.contains(':')) {
+        List<String> parts = time.split(':');
+        if (parts.length >= 2) {
+          int hour = int.parse(parts[0]);
+          int minute = int.parse(parts[1].substring(0, 2));
+          String period = hour >= 12 ? 'PM' : 'AM';
+          int hour12 = hour % 12;
+          if (hour12 == 0) hour12 = 12;
+          return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+        }
+      }
+    } catch (e) {}
+    return time;
+  }
+
+  bool _hasValue(dynamic value) {
+    if (value == null) return false;
+    if (value is String && value.isEmpty) return false;
+    if (value is num && value == 0) return true;
+    return true;
+  }
+
+  String _getRegistrationId() {
+    final hotelName = _data['hotelName']?.toString() ?? 'HOTEL';
+    final timestamp = DateTime.now().millisecondsSinceEpoch
+        .toString()
+        .substring(8);
+    final namePrefix = hotelName.length >= 3
+        ? hotelName.substring(0, 3).toUpperCase()
+        : hotelName.toUpperCase();
+    return '5STAR-$namePrefix-$timestamp';
+  }
+
+  String _getUserFullName() {
+    if (_data.containsKey('fullName') &&
+        _data['fullName'].toString().isNotEmpty) {
+      return _data['fullName'].toString();
+    }
+    if (_data.containsKey('ownerName') &&
+        _data['ownerName'].toString().isNotEmpty) {
+      return _data['ownerName'].toString();
+    }
+    if (_data.containsKey('signatoryName') &&
+        _data['signatoryName'].toString().isNotEmpty) {
+      return _data['signatoryName'].toString();
+    }
+    return 'User';
+  }
+
+  String _getUserEmail() {
+    return _data['email']?.toString() ?? 'Not provided';
+  }
+
+  String _getUserPhone() {
+    if (_data.containsKey('phone')) {
+      return _data['phone'].toString();
+    }
+    if (_data.containsKey('mobileNumber')) {
+      return _data['mobileNumber'].toString();
+    }
+    return 'Not provided';
+  }
+
+  String _getHotelName() {
+    return _data['hotelName']?.toString() ?? 'Hotel';
+  }
+
+  String _getHotelType() {
+    return _data['hotelType']?.toString() ?? '5-Star Luxury Hotel';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: bgColor,
+      body: CustomScrollView(
+        slivers: [
+          // SliverAppBar with 5-Star specific styling
+          SliverAppBar(
+            expandedHeight: 180,
+            pinned: true,
+            backgroundColor: primaryColor,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [primaryColor, primaryColor.withOpacity(0.85)],
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                ),
+                child: SafeArea(
+                  bottom: false,
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 25),
+                      // Main Content Card
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(28),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            // Icon with 5 stars
+                            Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(22),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: List.generate(5, (index) =>
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.white,
+                                        size: 16,
+                                      ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            // Text Content
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    _getHotelName(),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.white,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      ...List.generate(
+                                        5,
+                                            (index) => const Icon(
+                                          Icons.star,
+                                          size: 14,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        _getHotelType(),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.qr_code,
+                                        size: 14,
+                                        color: Colors.white.withOpacity(0.7),
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        'ID: ${_getRegistrationId()}',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white.withOpacity(0.8),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            leading: IconButton(
+              icon: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white.withOpacity(0.3)),
+                ),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+
+          // Main Content
+          SliverFillRemaining(
+            child: Container(
+              color: bgColor,
+              child: Column(
+                children: [
+                  // Personal Info Card
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: shadowColor,
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                        BoxShadow(
+                          color: primaryColor.withOpacity(0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        // Profile Avatar with Gradient Border
+                        Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                primaryColor,
+                                primaryColor.withOpacity(0.7),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: cardColor,
+                                borderRadius: BorderRadius.circular(18),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.person_rounded,
+                                  size: 35,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        // User Details
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                _getUserFullName(),
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: darkText,
+                                  letterSpacing: -0.3,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: _buildInfoChip(
+                                      icon: Icons.phone_outlined,
+                                      value: _getUserPhone(),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: _buildInfoChip(
+                                      icon: Icons.email_outlined,
+                                      value: _getUserEmail(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Tab Bar
+                  Container(
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: shadowColor,
+                          blurRadius: 10,
+                          offset: const Offset(0, -2),
+                        ),
+                      ],
+                    ),
+                    child: TabBar(
+                      controller: _tabController,
+                      isScrollable: true,
+                      labelColor: primaryColor,
+                      unselectedLabelColor: lightText,
+                      indicatorColor: primaryColor,
+                      indicatorWeight: 3,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      unselectedLabelStyle: const TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      tabs: const [
+                        Tab(text: 'Basic Info'),
+                        Tab(text: 'Address'),
+                        Tab(text: 'Room Config'),
+                        Tab(text: 'Amenities'),
+                        Tab(text: 'Policies'),
+                        Tab(text: 'Legal & Bank'),
+                      ],
+                    ),
+                  ),
+
+                  // Tab Bar Views
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildStep1(),
+                        _buildStep2(),
+                        _buildStep3(),
+                        _buildStep4(),
+                        _buildStep5(),
+                        _buildStep6(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoChip({required IconData icon, required String value}) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 7),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: primaryColor.withOpacity(0.1)),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 14, color: primaryColor),
+          const SizedBox(width: 4),
+          Expanded(
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 12,
+                color: mediumText,
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Step 1: Basic Information
+  Widget _buildStep1() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Hotel Information',
+            icon: Icons.business_center,
+            children: [
+              _buildInfoRow('Hotel Name', _data['hotelName']),
+              _buildInfoRow('Hotel Category', '5-Star Luxury Hotel'),
+              if (_hasValue(_data['hotelType']))
+                _buildInfoRow('Hotel Type', _data['hotelType']),
+              if (_hasValue(_data['brandName']))
+                _buildInfoRow('Brand Name', _data['brandName']),
+              if (_hasValue(_data['yearOfEstablishment']))
+                _buildInfoRow(
+                  'Year of Establishment',
+                  _formatInteger(_data['yearOfEstablishment']),
+                ),
+              if (_hasValue(_data['totalRooms']))
+                _buildInfoRow(
+                  'Total Rooms',
+                  _formatInteger(_data['totalRooms']),
+                ),
+              if (_hasValue(_data['starCertNumber']))
+                _buildInfoRow('Star Certificate No.', _data['starCertNumber']),
+              if (_hasValue(_data['designation']))
+                _buildInfoRow('Designation', _data['designation']),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Contact Information',
+            icon: Icons.contact_phone,
+            children: [
+              _buildInfoRow('Owner/Manager', _data['ownerName']),
+              _buildInfoRow('Mobile Number', _data['mobileNumber']),
+              if (_hasValue(_data['alternateContact']))
+                _buildInfoRow('Alternate Contact', _data['alternateContact']),
+              if (_hasValue(_data['email']))
+                _buildInfoRow('Email', _data['email']),
+              if (_hasValue(_data['website']))
+                _buildInfoRow('Website', _data['website']),
+            ],
+          ),
+          if (_data['profilePhoto'] != null &&
+              _data['profilePhoto']['uploaded'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildPhotoTile(_data['profilePhoto']),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 2: Address Details
+  Widget _buildStep2() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Address Details',
+            icon: Icons.location_on,
+            children: [
+              _buildInfoRow('Address Line 1', _data['addressLine1']),
+              if (_hasValue(_data['addressLine2']))
+                _buildInfoRow('Address Line 2', _data['addressLine2']),
+              _buildInfoRow('City', _data['city']),
+              _buildInfoRow('District', _data['district']),
+              _buildInfoRow('State', _data['state']),
+              _buildInfoRow('PIN Code', _data['pinCode']),
+              if (_hasValue(_data['country']))
+                _buildInfoRow('Country', _data['country']),
+            ],
+          ),
+
+          // Additional Addresses
+          if (_data['additionalAddresses'] != null &&
+              (_data['additionalAddresses'] as List).isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAdditionalAddressesCard(),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAdditionalAddressesCard() {
+    final addresses = _data['additionalAddresses'] as List;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(
+                  Icons.location_on_outlined,
+                  size: 18,
+                  color: primaryColor,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                'Additional Addresses',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ...addresses.asMap().entries.map((entry) {
+            int index = entry.key + 1;
+            dynamic addr = entry.value;
+            String addressText = '';
+
+            if (addr is Map) {
+              addressText = addr['address']?.toString() ?? '';
+            } else if (addr is String) {
+              addressText = addr;
+            }
+
+            return Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: primaryMedium,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: primaryColor.withOpacity(0.1)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: primaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '$index',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: primaryColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      addressText,
+                      style: TextStyle(fontSize: 13, color: darkText),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList(),
+        ],
+      ),
+    );
+  }
+
+  // Step 3: Room Configuration
+  Widget _buildStep3() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Room Types Available',
+            icon: Icons.meeting_room,
+            children: _buildRoomTypes(),
+          ),
+          ..._buildRoomDetails(),
+          if (_hasValue(_data['extraBedAvailable']) || _hasValue(_data['seasonalPricing']))
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildGlassCard(
+                title: 'Additional Features',
+                icon: Icons.settings,
+                children: [
+                  if (_hasValue(_data['extraBedAvailable']))
+                    _buildStatusRow('Extra Bed Available', _data['extraBedAvailable'] == true),
+                  if (_hasValue(_data['seasonalPricing']))
+                    _buildStatusRow('Seasonal/Dynamic Pricing', _data['seasonalPricing'] == true),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 4: Amenities
+  Widget _buildStep4() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          if (_data['roomAmenities'] != null)
+            _buildAmenityCard('In-Room Luxury Amenities', _data['roomAmenities']),
+          if (_data['hotelFacilities'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard(
+                'Hotel Infrastructure & Services',
+                _data['hotelFacilities'],
+              ),
+            ),
+          if (_data['diningServices'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard('Dining, Events & Entertainment', _data['diningServices']),
+            ),
+          if (_data['wellnessRecreation'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard(
+                'Wellness, Leisure & Recreation',
+                _data['wellnessRecreation'],
+              ),
+            ),
+          if (_data['guestServices'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildAmenityCard(
+                'Premium Guest Services',
+                _data['guestServices'],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Step 5: Policies
+  Widget _buildStep5() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Check-in/Check-out Timings',
+            icon: Icons.access_time,
+            children: [
+              _buildInfoRow('Check-in Time', _formatTime(_data['checkInTime'] ?? '')),
+              _buildInfoRow(
+                'Check-out Time',
+                _formatTime(_data['checkOutTime'] ?? ''),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Hotel Policies',
+            icon: Icons.policy,
+            children: [
+              if (_hasValue(_data['earlyCheckinAllowed']))
+                _buildInfoRow(
+                  'Early/Late Check-out',
+                  _data['earlyCheckinAllowed'] == true
+                      ? (_data['earlyCheckinChargeable'] == true
+                      ? 'Chargeable'
+                      : 'Free')  // Changed from 'Complimentary' to 'Free'
+                      : 'Not Available',
+                ),
+              if (_hasValue(_data['coupleFriendly']))
+                _buildStatusRow('Couple Friendly', _data['coupleFriendly'] == true),
+              _buildStatusRow('Pets Allowed', _data['petsAllowed'] == true),
+              if (_data['smokingRooms'] == true || _data['nonSmokingRooms'] == true)
+                _buildInfoRow(
+                  'Smoking Policy',
+                  _data['smokingRooms'] == true && _data['nonSmokingRooms'] == true
+                      ? 'Both Available'
+                      : _data['smokingRooms'] == true
+                      ? 'Smoking Rooms'
+                      : 'Non-Smoking Rooms',
+                ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Step 6: Legal & Bank Details
+  Widget _buildStep6() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          _buildGlassCard(
+            title: 'Legal Details',
+            icon: Icons.gavel,
+            children: [
+              if (_hasValue(_data['gstNumber']))
+                _buildInfoRow('GST Number', _data['gstNumber']),
+              if (_hasValue(_data['panNumber']))
+                _buildInfoRow('PAN Number', _data['panNumber']),
+              if (_hasValue(_data['tradeLicense']))
+                _buildInfoRow('Trade License', _data['tradeLicense']),
+              if (_hasValue(_data['fssaiLicense']))
+                _buildInfoRow('FSSAI License', _data['fssaiLicense']),
+              // Compliance Certificates
+              _buildComplianceCertificates(),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Bank Details',
+            icon: Icons.account_balance,
+            children: [
+              if (_hasValue(_data['accountHolderName']))
+                _buildInfoRow('Account Holder', _data['accountHolderName']),
+              if (_hasValue(_data['bankName']))
+                _buildInfoRow('Bank Name', _data['bankName']),
+              if (_hasValue(_data['accountNumber']))
+                _buildInfoRow(
+                  'Account Number',
+                  _maskAccountNumber(_data['accountNumber']?.toString() ?? ''),
+                ),
+              if (_hasValue(_data['ifscCode']))
+                _buildInfoRow('IFSC Code', _data['ifscCode']),
+              if (_hasValue(_data['branch']))
+                _buildInfoRow('Branch', _data['branch']),
+              if (_hasValue(_data['accountType']))
+                _buildAccountTypeRow(_data['accountType']),
+            ],
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Uploaded Documents',
+            icon: Icons.folder,
+            children: _buildUploadedDocuments(),
+          ),
+          const SizedBox(height: 16),
+          _buildGlassCard(
+            title: 'Declaration',
+            icon: Icons.verified_user,
+            children: [
+              if (_hasValue(_data['signatoryName']))
+                _buildInfoRow('Signatory Name', _data['signatoryName']),
+              if (_hasValue(_data['signatoryDesignation']))
+                _buildInfoRow('Designation', _data['signatoryDesignation']),
+              if (_hasValue(_data['declarationDate']))
+                _buildInfoRow('Date', _data['declarationDate']),
+              _buildStatusRow('Accepted', _data['declarationAccepted'] == true),
+            ],
+          ),
+          // Digital Signature Tile
+          if (_data['hasDigitalSignature'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildDigitalSignatureTile(),
+            ),
+          // Uploaded Signature File
+          if (_data['signatureFile'] != null &&
+              _data['signatureFile']['uploaded'] == true)
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: _buildSignatureFileTile(_data['signatureFile']),
+            ),
+        ],
+      ),
+    );
+  }
+
+  // Beautiful Glass Card Design
+  Widget _buildGlassCard({
+    required String title,
+    required IconData icon,
+    required List<Widget> children,
+  }) {
+    final filteredChildren = children.where((child) {
+      if (child is SizedBox) return true;
+      return child is Widget;
+    }).toList();
+
+    if (filteredChildren.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+          BoxShadow(
+            color: primaryColor.withOpacity(0.02),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(icon, size: 18, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          ...filteredChildren,
+        ],
+      ),
+    );
+  }
+
+  // Info Row with proper formatting
+  Widget _buildInfoRow(String label, dynamic value) {
+    if (!_hasValue(value)) return const SizedBox.shrink();
+
+    String displayValue;
+
+    if (label.contains('Year') ||
+        label.contains('Rooms') ||
+        label.contains('Total')) {
+      displayValue = _formatInteger(value);
+    } else if (label.contains('Price') || label.contains('Tariff')) {
+      displayValue = '₹${_formatPrice(value)}';
+    } else if (label.contains('Time')) {
+      displayValue = _formatTime(value.toString());
+    } else {
+      displayValue = value.toString();
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primaryMedium,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.05)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              displayValue,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: darkText,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Price Row with Special Styling
+  Widget _buildPriceRow(String label, dynamic value) {
+    if (!_hasValue(value)) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.15)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: mediumText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Text(
+              '₹${_formatPrice(value)}',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: primaryColor,
+              ),
+              textAlign: TextAlign.right,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Status Row
+  Widget _buildStatusRow(String label, bool value) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: value ? primarySoft : primaryMedium,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: value ? primaryColor.withOpacity(0.2) : borderColor,
+        ),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  value ? Icons.check_circle : Icons.cancel,
+                  size: 16,
+                  color: value ? primaryColor : lightText,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  value ? 'Yes' : 'No',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: value ? primaryColor : lightText,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Account Type Row
+  Widget _buildAccountTypeRow(dynamic accountType) {
+    if (!_hasValue(accountType)) return const SizedBox.shrink();
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: primaryColor.withOpacity(0.15)),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 3,
+            child: Text(
+              'Account Type',
+              style: TextStyle(
+                fontSize: 13,
+                color: lightText,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: primaryColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                accountType.toString(),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: primaryColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Compliance Certificates
+  Widget _buildComplianceCertificates() {
+    final List<String> certificates = [];
+
+    if (_data['fireSafetyCertificate'] == true) certificates.add('Fire Safety NOC');
+    if (_data['pollutionCertificate'] == true) certificates.add('Pollution Control');
+    if (_data['starCertificate'] == true) certificates.add('Star Classification');
+    if (_data['liftCertificate'] == true) certificates.add('Lift Fitness');
+
+    if (certificates.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Compliance Certificates',
+            style: TextStyle(
+              fontSize: 13,
+              color: lightText,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: certificates.map((cert) => Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: primaryColor.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: primaryColor.withOpacity(0.2)),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.check_circle, size: 12, color: primaryColor),
+                  const SizedBox(width: 4),
+                  Text(
+                    cert,
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500,
+                      color: primaryColor,
+                    ),
+                  ),
+                ],
+              ),
+            )).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Room Types
+  List<Widget> _buildRoomTypes() {
+    List<Widget> widgets = [];
+    final selectedRoomTypes = _data['selectedRoomTypes'];
+
+    if (selectedRoomTypes is Map) {
+      final selected = selectedRoomTypes.entries
+          .where((e) => e.value == true)
+          .map((e) => e.key)
+          .toList();
+
+      if (selected.isNotEmpty) {
+        widgets.add(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: selected
+                  .map(
+                    (type) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [primaryColor, primaryColor.withOpacity(0.8)],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: primaryColor.withOpacity(0.2),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ...List.generate(
+                        5,
+                            (index) => const Icon(
+                          Icons.star,
+                          size: 8,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        type.toString(),
+                        style: const TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+                  .toList(),
+            ),
+          ),
+        );
+      }
+    }
+    return widgets;
+  }
+
+  // Room Details
+  List<Widget> _buildRoomDetails() {
+    List<Widget> widgets = [];
+    final roomDetails = _data['roomDetails'];
+    final selectedRoomTypes = _data['selectedRoomTypes'];
+
+    if (roomDetails is Map && selectedRoomTypes is Map) {
+      selectedRoomTypes.forEach((type, isSelected) {
+        if (isSelected == true && roomDetails.containsKey(type)) {
+          final details = roomDetails[type];
+          if (details is Map) {
+            bool hasData =
+                _hasValue(details['rooms']) ||
+                    _hasValue(details['occupancy']) ||
+                    _hasValue(details['ac']) ||
+                    _hasValue(details['bedType']) ||
+                    _hasValue(details['minPrice']) ||
+                    _hasValue(details['maxPrice']);
+
+            if (hasData) {
+              widgets.add(
+                Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: cardColor,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: borderColor),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: primarySoft,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Icon(
+                              Icons.hotel,
+                              size: 16,
+                              color: primaryColor,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            type.toString(),
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: darkText,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+
+                      if (_hasValue(details['rooms']))
+                        _buildDetailRow('Number of Units', _formatInteger(details['rooms'])),
+
+                      if (_hasValue(details['occupancy']))
+                        _buildDetailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
+
+                      if (details['ac'] != null)
+                        _buildDetailRow(
+                          'Climate Control',
+                          details['ac'] == true ? 'Yes' : 'No',
+                        ),
+
+                      if (_hasValue(details['bedType']))
+                        _buildDetailRow('Bed Type', details['bedType']),
+
+                      if (_hasValue(details['minPrice']) || _hasValue(details['maxPrice']))
+                        _buildDetailRow(
+                          'Price Range',
+                          '₹${_formatPrice(details['minPrice'])} - ₹${_formatPrice(details['maxPrice'])}',
+                        ),
+                    ],
+                  ),
+                ),
+              );
+            }
+          }
+        }
+      });
+    }
+    return widgets;
+  }
+
+  // Detail Row
+  Widget _buildDetailRow(String label, dynamic value) {
+    if (!_hasValue(value)) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(label, style: TextStyle(fontSize: 12, color: lightText)),
+          Text(
+            value.toString(),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: darkText,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Amenity Card
+  Widget _buildAmenityCard(String title, dynamic amenities) {
+    if (amenities is! Map) return const SizedBox.shrink();
+
+    final selected = amenities.entries
+        .where((e) => e.value == true)
+        .map((e) => e.key)
+        .toList();
+
+    if (selected.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: borderColor),
+        boxShadow: [
+          BoxShadow(
+            color: shadowColor,
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(Icons.star, size: 16, color: primaryColor),
+              ),
+              const SizedBox(width: 12),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: darkText,
+                  letterSpacing: -0.3,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: selected
+                .map(
+                  (item) => Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: primarySoft,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: primaryColor.withOpacity(0.15)),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.check, size: 12, color: primaryColor),
+                    const SizedBox(width: 4),
+                    Text(
+                      item.toString(),
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: primaryColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+                .toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Uploaded Documents
+  List<Widget> _buildUploadedDocuments() {
+    List<Widget> widgets = [];
+    final uploadedFiles = _data['uploadedFiles'];
+
+    if (uploadedFiles is Map) {
+      uploadedFiles.forEach((key, value) {
+        // Skip digital signature as it's handled separately
+        if (key == 'Digital Signature') return;
+
+        if (value is Map && value['uploaded'] == true) {
+          widgets.add(
+            Container(
+              margin: const EdgeInsets.only(bottom: 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: primarySoft,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: primaryColor.withOpacity(0.15)),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.check_circle, size: 16, color: primaryColor),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          key,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: darkText,
+                          ),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          value['name'] ?? 'Uploaded successfully',
+                          style: TextStyle(fontSize: 11, color: lightText),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+      });
+    }
+
+    return widgets;
+  }
+
+  // Photo Tile
+  Widget _buildPhotoTile(Map<String, dynamic> photoInfo) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: borderColor),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [primaryColor, primaryColor.withOpacity(0.7)],
+              ),
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: const Center(
+              child: Icon(Icons.photo_camera, color: Colors.white, size: 24),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Profile Photo',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  photoInfo['name'] ?? 'Uploaded successfully',
+                  style: TextStyle(fontSize: 12, color: lightText),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: primarySoft,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Digital Signature Tile
+  Widget _buildDigitalSignatureTile() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: primaryColor.withOpacity(0.2)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.draw, size: 20, color: primaryColor),
+          ),
+          const SizedBox(width: 16),
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Digital Signature',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: 2),
+                Text('Saved successfully', style: TextStyle(fontSize: 12)),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Signature File Tile
+  Widget _buildSignatureFileTile(Map<String, dynamic> signatureInfo) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: primarySoft,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: primaryColor.withOpacity(0.2)),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.note_alt_outlined, size: 20, color: primaryColor),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Uploaded Signature',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  signatureInfo['name'] ?? 'Signature uploaded',
+                  style: TextStyle(fontSize: 12, color: lightText),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: cardColor,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _maskAccountNumber(String accountNumber) {
+    if (accountNumber.length <= 4) return accountNumber;
+    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  }
+}
+
 class HotelListScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
   final String userEmail;
@@ -13104,12 +14959,20 @@ class _HotelListScreenState extends State<HotelListScreen>
           );
         } else if (category == '4-Star') {
 
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FourStarHotelDetailsScreen(
+                registrationData: hotel['data'],
+              ),
+            ),
+          );
+        } else if (category == '5-Star') {
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(
-          //     builder: (context) => FourStarHotelDetailsScreen(
-          //       registrationData: hotel['data'],
-          //     ),
+          //     builder: (context) =>
+          //         FiveStarHotelDetailsScreen(registrationData: hotel['data']),
           //   ),
           // );
         } else {

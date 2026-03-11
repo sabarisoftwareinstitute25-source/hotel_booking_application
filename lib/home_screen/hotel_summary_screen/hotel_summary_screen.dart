@@ -2060,7 +2060,7 @@ class TwoStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildPoliciesSection() {
     final List<Widget> children = [];
 
-    // Check-in/Check-out times
+
     final checkIn = _get('checkInTime', '');
     final checkOut = _get('checkOutTime', '');
 
@@ -2134,15 +2134,15 @@ class TwoStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Couple Friendly
-    if (_get('coupleFriendly') != null) {
-      children.add(
-        _infoRow(
-          'Couple Friendly',
-          _get('coupleFriendly') == true ? 'Yes' : 'No',
-        ),
-      );
-    }
+    // // Couple Friendly
+    // if (_get('coupleFriendly') != null) {
+    //   children.add(
+    //     _infoRow(
+    //       'Couple Friendly',
+    //       _get('coupleFriendly') == true ? 'Yes' : 'No',
+    //     ),
+    //   );
+    // }
 
     // Pets Allowed
     if (_get('petsAllowed') != null) {
@@ -3650,6 +3650,112 @@ class ThreeStarHotelSummaryScreen extends StatelessWidget {
     );
   }
 
+  // Widget _buildPoliciesSection() {
+  //   final List<Widget> children = [];
+  //
+  //   // Check-in/Check-out times
+  //   final checkIn = _get('checkInTime', '');
+  //   final checkOut = _get('checkOutTime', '');
+  //
+  //   if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
+  //     children.add(
+  //       Row(
+  //         children: [
+  //           Expanded(
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text('Check-in Time', style: _labelStyle),
+  //                 const SizedBox(height: 4),
+  //                 Container(
+  //                   padding: const EdgeInsets.symmetric(
+  //                     horizontal: 12,
+  //                     vertical: 8,
+  //                   ),
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.grey[50],
+  //                     borderRadius: BorderRadius.circular(8),
+  //                     border: Border.all(color: _borderColor),
+  //                   ),
+  //                   child: Row(
+  //                     children: [
+  //                       Icon(Icons.access_time, size: 14, color: _primaryColor),
+  //                       const SizedBox(width: 8),
+  //                       Text(
+  //                         _formatTime(checkIn.toString()),
+  //                         style: _valueStyle,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           const SizedBox(width: 12),
+  //           Expanded(
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text('Check-out Time', style: _labelStyle),
+  //                 const SizedBox(height: 4),
+  //                 Container(
+  //                   padding: const EdgeInsets.symmetric(
+  //                     horizontal: 12,
+  //                     vertical: 8,
+  //                   ),
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.grey[50],
+  //                     borderRadius: BorderRadius.circular(8),
+  //                     border: Border.all(color: _borderColor),
+  //                   ),
+  //                   child: Row(
+  //                     children: [
+  //                       Icon(Icons.access_time, size: 14, color: _primaryColor),
+  //                       const SizedBox(width: 8),
+  //                       Text(
+  //                         _formatTime(checkOut.toString()),
+  //                         style: _valueStyle,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //   }
+  //
+  //   // Early Check-in / Late Check-out (3-Star specific)
+  //   if (_get('earlyCheckinAllowed') != null) {
+  //     children.add(
+  //       _infoRow(
+  //         'Early Check-in / Late Check-out',
+  //         _get('earlyCheckinAllowed') == true
+  //             ? (_get('earlyCheckinChargeable') == true
+  //             ? 'Chargeable'
+  //             : 'Complimentary')
+  //             : 'Not Available',
+  //       ),
+  //     );
+  //   }
+  //
+  //   // Pets Allowed
+  //   if (_get('petsAllowed') != null) {
+  //     children.add(
+  //       _infoRow('Pets Allowed', _get('petsAllowed') == true ? 'Yes' : 'No'),
+  //     );
+  //   }
+  //
+  //   if (children.isEmpty) return const SizedBox.shrink();
+  //
+  //   return _buildSectionCard(
+  //     title: 'Policies & Timings',
+  //     icon: Icons.policy,
+  //     children: children,
+  //   );
+  // }
   Widget _buildPoliciesSection() {
     final List<Widget> children = [];
 
@@ -3727,17 +3833,18 @@ class ThreeStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Early Check-in / Late Check-out (3-Star specific)
+    // Early Check-in / Late Check-out (3-Star specific) - FIXED
     if (_get('earlyCheckinAllowed') != null) {
+      String earlyCheckinStatus = 'Not Allowed';
+
+      if (_get('earlyCheckinAllowed') == true) {
+        earlyCheckinStatus = _get('earlyCheckinChargeable') == true
+            ? 'Chargeable'
+            : 'Free'; // Changed from 'Complimentary' to 'Free'
+      }
+
       children.add(
-        _infoRow(
-          'Early Check-in / Late Check-out',
-          _get('earlyCheckinAllowed') == true
-              ? (_get('earlyCheckinChargeable') == true
-              ? 'Chargeable'
-              : 'Complimentary')
-              : 'Not Available',
-        ),
+        _infoRow('Early Check-in / Late Check-out', earlyCheckinStatus),
       );
     }
 
@@ -3756,6 +3863,7 @@ class ThreeStarHotelSummaryScreen extends StatelessWidget {
       children: children,
     );
   }
+
 
   Widget _buildLegalCompliance() {
     final List<Widget> children = [];
@@ -5400,16 +5508,29 @@ class FourStarHotelSummaryScreen extends StatelessWidget {
     }
 
     // Early Check-in / Late Check-out (4-Star specific)
+    // if (_get('earlyCheckinAllowed') != null) {
+    //   children.add(
+    //     _infoRow(
+    //       'Early Check-in / Late Check-out',
+    //       _get('earlyCheckinAllowed') == true
+    //           ? (_get('earlyCheckinChargeable') == true
+    //           ? 'Chargeable'
+    //           : 'Complimentary')
+    //           : 'Not Available',
+    //     ),
+    //   );
+    // }
     if (_get('earlyCheckinAllowed') != null) {
+      String earlyCheckinStatus = 'Not Allowed';
+
+      if (_get('earlyCheckinAllowed') == true) {
+        earlyCheckinStatus = _get('earlyCheckinChargeable') == true
+            ? 'Chargeable'
+            : 'Free'; // Changed from 'Complimentary' to 'Free'
+      }
+
       children.add(
-        _infoRow(
-          'Early Check-in / Late Check-out',
-          _get('earlyCheckinAllowed') == true
-              ? (_get('earlyCheckinChargeable') == true
-              ? 'Chargeable'
-              : 'Complimentary')
-              : 'Not Available',
-        ),
+        _infoRow('Early Check-in / Late Check-out', earlyCheckinStatus),
       );
     }
 
@@ -7100,16 +7221,29 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
     }
 
     // Early Check-in / Late Check-out (5-Star specific)
+    // if (_get('earlyCheckinAllowed') != null) {
+    //   children.add(
+    //     _infoRow(
+    //       'Early Check-in / Late Check-out',
+    //       _get('earlyCheckinAllowed') == true
+    //           ? (_get('earlyCheckinChargeable') == true
+    //           ? 'Chargeable'
+    //           : 'Complimentary')
+    //           : 'Not Available',
+    //     ),
+    //   );
+    // }
     if (_get('earlyCheckinAllowed') != null) {
+      String earlyCheckinStatus = 'Not Allowed';
+
+      if (_get('earlyCheckinAllowed') == true) {
+        earlyCheckinStatus = _get('earlyCheckinChargeable') == true
+            ? 'Chargeable'
+            : 'Free'; // Changed from 'Complimentary' to 'Free'
+      }
+
       children.add(
-        _infoRow(
-          'Early Check-in / Late Check-out',
-          _get('earlyCheckinAllowed') == true
-              ? (_get('earlyCheckinChargeable') == true
-              ? 'Chargeable'
-              : 'Complimentary')
-              : 'Not Available',
-        ),
+        _infoRow('Early Check-in / Late Check-out', earlyCheckinStatus),
       );
     }
 
@@ -11735,7 +11869,6 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
   TextStyle get _subSectionStyle =>
       TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
 }
-
 
 class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
   final Map<String, dynamic> registrationData;
