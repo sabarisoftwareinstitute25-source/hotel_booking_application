@@ -1696,51 +1696,51 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                   hint: 'Enter your name',
                 ),
                 SizedBox(height: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: () => _selectDate(context),
-                      child: Container(
-                        height: 48,
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: _borderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _selectedDate != null
-                                  ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                                  : 'Select date',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: _selectedDate != null
-                                    ? _textPrimary
-                                    : _textSecondary,
-                              ),
-                            ),
-                            Icon(
-                              Icons.calendar_today,
-                              size: 18,
-                              color: _textSecondary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       'Date',
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.w500,
+                //         fontSize: 13,
+                //       ),
+                //     ),
+                //     SizedBox(height: 8),
+                //     GestureDetector(
+                //       onTap: () => _selectDate(context),
+                //       child: Container(
+                //         height: 48,
+                //         padding: EdgeInsets.symmetric(horizontal: 12),
+                //         decoration: BoxDecoration(
+                //           border: Border.all(color: _borderColor),
+                //           borderRadius: BorderRadius.circular(8),
+                //         ),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               _selectedDate != null
+                //                   ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                //                   : 'Select date',
+                //               style: TextStyle(
+                //                 fontSize: 14,
+                //                 color: _selectedDate != null
+                //                     ? _textPrimary
+                //                     : _textSecondary,
+                //               ),
+                //             ),
+                //             Icon(
+                //               Icons.calendar_today,
+                //               size: 18,
+                //               color: _textSecondary,
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ],
@@ -3099,7 +3099,8 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       'panNumber': _panController.text,
       'accountHolderName': _accountNameController.text,
       'bankName': _bankNameController.text,
-      'accountNumber': _accountNumberController.text,
+      // 'accountNumber': _accountNumberController.text,
+      'accountNumber': int.tryParse(_accountNumberController.text) ?? 0,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
       'accountType': _accountTypeController.text,
@@ -4479,7 +4480,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       if (_get('environmentalCert') != null) {
         children.add(
           _infoRow(
-            'Environmental & Sustainability Certification',
+            'Sustainability Certification',
             _get('environmentalCert') == true ? 'Available' : 'Not Available',
           ),
         );
@@ -4487,7 +4488,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       if (_get('internationalCert') != null) {
         children.add(
           _infoRow(
-            'International Safety/Quality Certification',
+            'International Safety Certification',
             _get('internationalCert') == true ? 'Available' : 'Not Available',
           ),
         );
@@ -34238,9 +34239,9 @@ Map<String, bool> _selectedRoomTypes = {
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Branch / Country',
+              label: 'Branch',
               controller: _branchController,
-              hint: 'Enter branch and country',
+              hint: 'Enter branch',
             ),
             SizedBox(height: 16),
 

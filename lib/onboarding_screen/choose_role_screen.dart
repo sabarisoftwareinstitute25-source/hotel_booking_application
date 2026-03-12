@@ -6106,7 +6106,7 @@ class _HotelRegistrationDetailsScreenState
   late TabController _tabController;
   late Map<String, dynamic> _data;
 
-  // Your beautiful color
+  // Your beautiful color ..
   final Color primaryColor = const Color(0xFFFF5F6D);
   final Color primaryLight = const Color(0xFFFF5F6D).withOpacity(0.1);
   final Color primarySoft = const Color(0xFFFF5F6D).withOpacity(0.05);
@@ -6580,6 +6580,7 @@ class _HotelRegistrationDetailsScreenState
             icon: Icons.business_center,
             children: [
               _buildInfoRow('Hotel Name', _data['hotelName']),
+              _buildInfoRow('Hotel Category', 'Normal Hotel'),
               _buildInfoRow('Hotel Type', _data['hotelType']),
               // _buildInfoRow('Year of Establishment', _data['yearOfEstablishment']),
               // _buildInfoRow('Total Rooms', _data['totalRooms']),
@@ -6631,6 +6632,7 @@ class _HotelRegistrationDetailsScreenState
               _buildInfoRow('City', _data['city']),
               _buildInfoRow('District', _data['district']),
               _buildInfoRow('State', _data['state']),
+              _buildInfoRow('country',_data['country']),
               _buildInfoRow('PIN Code', _data['pinCode']),
               _buildInfoRow('Landmark', _data['landmark']),
             ],
@@ -6865,9 +6867,13 @@ class _HotelRegistrationDetailsScreenState
             children: [
               _buildInfoRow('Account Holder', _data['accountHolderName']),
               _buildInfoRow('Bank Name', _data['bankName']),
+              // _buildInfoRow(
+              //   'Account Number',
+              //   _maskAccountNumber(_data['accountNumber']?.toString() ?? ''),
+              // ),
               _buildInfoRow(
                 'Account Number',
-                _maskAccountNumber(_data['accountNumber']?.toString() ?? ''),
+                _data['accountNumber']?.toString() ?? '',
               ),
               _buildInfoRow('IFSC Code', _data['ifscCode']),
               _buildInfoRow('Branch', _data['branch']),
@@ -6881,20 +6887,20 @@ class _HotelRegistrationDetailsScreenState
             children: _buildUploadedDocuments(),
           ),
           const SizedBox(height: 16),
-          _buildGlassCard(
-            title: 'Declaration',
-            icon: Icons.verified_user,
-            children: [
-              _buildInfoRow('Name', _data['declarationName']),
-              _buildInfoRow('Date', _data['declarationDate']),
-              _buildStatusRow('Accepted', _data['declarationAccepted'] == true),
-            ],
-          ),
-          if (_data['hasDigitalSignature'] == true)
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: _buildDigitalSignatureTile(),
-            ),
+          // _buildGlassCard(
+          //   title: 'Declaration',
+          //   icon: Icons.verified_user,
+          //   children: [
+          //     _buildInfoRow('Name', _data['declarationName']),
+          //     _buildInfoRow('Date', _data['declarationDate']),
+          //     _buildStatusRow('Accepted', _data['declarationAccepted'] == true),
+          //   ],
+          // ),
+          // if (_data['hasDigitalSignature'] == true)
+          //   Padding(
+          //     padding: const EdgeInsets.only(top: 16),
+          //     child: _buildDigitalSignatureTile(),
+          //   ),
         ],
       ),
     );
@@ -7834,55 +7840,55 @@ class _HotelRegistrationDetailsScreenState
     );
   }
 
-  Widget _buildDigitalSignatureTile() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: primarySoft,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: primaryColor.withOpacity(0.2)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(Icons.draw, size: 20, color: primaryColor),
-          ),
-          const SizedBox(width: 16),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Digital Signature',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: 2),
-                Text('Saved successfully', style: TextStyle(fontSize: 12)),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(Icons.check_circle, size: 18, color: primaryColor),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildDigitalSignatureTile() {
+  //   return Container(
+  //     padding: const EdgeInsets.all(16),
+  //     decoration: BoxDecoration(
+  //       color: primarySoft,
+  //       borderRadius: BorderRadius.circular(20),
+  //       border: Border.all(color: primaryColor.withOpacity(0.2)),
+  //     ),
+  //     child: Row(
+  //       children: [
+  //         Container(
+  //           padding: const EdgeInsets.all(10),
+  //           decoration: BoxDecoration(
+  //             color: cardColor,
+  //             borderRadius: BorderRadius.circular(12),
+  //           ),
+  //           child: Icon(Icons.draw, size: 20, color: primaryColor),
+  //         ),
+  //         const SizedBox(width: 16),
+  //         const Expanded(
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Text(
+  //                 'Digital Signature',
+  //                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+  //               ),
+  //               SizedBox(height: 2),
+  //               Text('Saved successfully', style: TextStyle(fontSize: 12)),
+  //             ],
+  //           ),
+  //         ),
+  //         Container(
+  //           padding: const EdgeInsets.all(8),
+  //           decoration: BoxDecoration(
+  //             color: cardColor,
+  //             borderRadius: BorderRadius.circular(12),
+  //           ),
+  //           child: Icon(Icons.check_circle, size: 18, color: primaryColor),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  String _maskAccountNumber(String accountNumber) {
-    if (accountNumber.length <= 4) return accountNumber;
-    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
-  }
+  // String _maskAccountNumber(String accountNumber) {
+  //   if (accountNumber.length <= 4) return accountNumber;
+  //   return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
+  // }
 }
 
 class TwoStarHotelDetailsScreen extends StatefulWidget {
@@ -16855,7 +16861,7 @@ class _HotelListScreenState extends State<HotelListScreen>
           //   context,
           //   MaterialPageRoute(
           //     builder: (context) =>
-          //         FiveStarHotelDetailsScreen(registrationData: hotel['data']),
+          //         SixStarHotelDetailsScreen(registrationData: hotel['data']),
           //   ),
           // );
         } else {

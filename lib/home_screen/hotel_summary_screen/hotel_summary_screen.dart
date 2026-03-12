@@ -97,7 +97,7 @@ class NormalHotelSummaryScreen extends StatelessWidget {
             _buildLegalCompliance(),
             _buildBankDetails(),
             _buildDocumentsSection(),
-            _buildDeclarationSection(),
+            // _buildDeclarationSection(),
             const SizedBox(height: 20),
           ],
         ),
@@ -181,7 +181,7 @@ class NormalHotelSummaryScreen extends StatelessWidget {
       icon: Icons.business,
       children: [
         _infoRow('Hotel Name', _get('hotelName', 'Not Provided')),
-        _infoRow('Hotel Category', 'Standard Hotel'),
+        _infoRow('Hotel Category', 'Normal Hotel'),
         if (_get('hotelType') != null)
           _infoRow('Hotel Type', _get('hotelType')),
 
@@ -650,7 +650,7 @@ class NormalHotelSummaryScreen extends StatelessWidget {
       children.add(
         _infoRow(
           'Account Number',
-          _maskAccountNumber(_get('accountNumber').toString()),
+          _get('accountNumber').toString(), // Show full account number
         ),
       );
     }
@@ -755,51 +755,51 @@ class NormalHotelSummaryScreen extends StatelessWidget {
     }
 
     // Digital Signature
-    if (_get('hasDigitalSignature') == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.purple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.purple.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Digital Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Saved successfully',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
+    // if (_get('hasDigitalSignature') == true) {
+    //   children.add(
+    //     Container(
+    //       padding: const EdgeInsets.all(12),
+    //       decoration: BoxDecoration(
+    //         color: Colors.purple.withOpacity(0.05),
+    //         borderRadius: BorderRadius.circular(8),
+    //         border: Border.all(color: Colors.purple.withOpacity(0.3)),
+    //       ),
+    //       child: Row(
+    //         children: [
+    //           Container(
+    //             padding: const EdgeInsets.all(8),
+    //             decoration: BoxDecoration(
+    //               color: Colors.purple.withOpacity(0.1),
+    //               borderRadius: BorderRadius.circular(8),
+    //             ),
+    //             child: const Icon(Icons.draw, size: 20, color: Colors.purple),
+    //           ),
+    //           const SizedBox(width: 12),
+    //           Expanded(
+    //             child: Column(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               children: [
+    //                 const Text(
+    //                   'Digital Signature',
+    //                   style: TextStyle(
+    //                     fontSize: 14,
+    //                     fontWeight: FontWeight.w600,
+    //                   ),
+    //                 ),
+    //                 const SizedBox(height: 2),
+    //                 Text(
+    //                   'Saved successfully',
+    //                   style: TextStyle(fontSize: 12, color: _textLight),
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //           Icon(Icons.check_circle, size: 20, color: _successColor),
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // }
 
     return _buildSectionCard(
       title: 'Uploaded Documents',
@@ -905,95 +905,95 @@ class NormalHotelSummaryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDeclarationSection() {
-    final List<Widget> children = [];
-
-    if (_get('declarationName') != null &&
-        _get('declarationName').toString().isNotEmpty) {
-      children.add(_infoRow('Name', _get('declarationName')));
-    }
-
-    final declarationDate = _get('declarationDate');
-    if (declarationDate != null) {
-      String dateStr = '';
-      if (declarationDate is DateTime) {
-        dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-      } else if (declarationDate is String) {
-        try {
-          DateTime parsedDate = DateTime.parse(declarationDate);
-          dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
-        } catch (e) {
-          dateStr = declarationDate;
-        }
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Date', dateStr));
-      }
-    }
-
-    children.add(
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: _get('declarationAccepted', false) == true
-              ? _successColor.withOpacity(0.1)
-              : _dangerColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: _get('declarationAccepted', false) == true
-                ? _successColor.withOpacity(0.3)
-                : _dangerColor.withOpacity(0.3),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              _get('declarationAccepted', false) == true
-                  ? Icons.check_circle
-                  : Icons.error,
-              color: _get('declarationAccepted', false) == true
-                  ? _successColor
-                  : _dangerColor,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _get('declarationAccepted', false) == true
-                        ? 'Declaration Accepted'
-                        : 'Declaration Not Accepted',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: _get('declarationAccepted', false) == true
-                          ? _successColor
-                          : _dangerColor,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'I hereby declare that the information provided above is true and correct to the best of my knowledge.',
-                    style: TextStyle(fontSize: 12, color: _textLight),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: children,
-    );
-  }
+  // Widget _buildDeclarationSection() {
+  //   final List<Widget> children = [];
+  //
+  //   if (_get('declarationName') != null &&
+  //       _get('declarationName').toString().isNotEmpty) {
+  //     children.add(_infoRow('Name', _get('declarationName')));
+  //   }
+  //
+  //   final declarationDate = _get('declarationDate');
+  //   if (declarationDate != null) {
+  //     String dateStr = '';
+  //     if (declarationDate is DateTime) {
+  //       dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
+  //     } else if (declarationDate is String) {
+  //       try {
+  //         DateTime parsedDate = DateTime.parse(declarationDate);
+  //         dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
+  //       } catch (e) {
+  //         dateStr = declarationDate;
+  //       }
+  //     }
+  //     if (dateStr.isNotEmpty) {
+  //       children.add(_infoRow('Date', dateStr));
+  //     }
+  //   }
+  //
+  //   children.add(
+  //     Container(
+  //       padding: const EdgeInsets.all(16),
+  //       decoration: BoxDecoration(
+  //         color: _get('declarationAccepted', false) == true
+  //             ? _successColor.withOpacity(0.1)
+  //             : _dangerColor.withOpacity(0.1),
+  //         borderRadius: BorderRadius.circular(12),
+  //         border: Border.all(
+  //           color: _get('declarationAccepted', false) == true
+  //               ? _successColor.withOpacity(0.3)
+  //               : _dangerColor.withOpacity(0.3),
+  //         ),
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           Icon(
+  //             _get('declarationAccepted', false) == true
+  //                 ? Icons.check_circle
+  //                 : Icons.error,
+  //             color: _get('declarationAccepted', false) == true
+  //                 ? _successColor
+  //                 : _dangerColor,
+  //             size: 24,
+  //           ),
+  //           const SizedBox(width: 12),
+  //           Expanded(
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   _get('declarationAccepted', false) == true
+  //                       ? 'Declaration Accepted'
+  //                       : 'Declaration Not Accepted',
+  //                   style: TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.w600,
+  //                     color: _get('declarationAccepted', false) == true
+  //                         ? _successColor
+  //                         : _dangerColor,
+  //                   ),
+  //                 ),
+  //                 const SizedBox(height: 2),
+  //                 Text(
+  //                   'I hereby declare that the information provided above is true and correct to the best of my knowledge.',
+  //                   style: TextStyle(fontSize: 12, color: _textLight),
+  //                   maxLines: 2,
+  //                   overflow: TextOverflow.ellipsis,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  //
+  //   return _buildSectionCard(
+  //     title: 'Declaration',
+  //     icon: Icons.verified_user,
+  //     children: children,
+  //   );
+  // }
 
   Widget _buildFinishButton(BuildContext context) {
     return SafeArea(
