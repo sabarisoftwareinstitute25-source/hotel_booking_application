@@ -24961,7 +24961,8 @@ class _FourStarHotelRegistrationScreenState
   final Color _textSecondary = Color(0xFF6B7280);
   final Color _successColor = Color(0xFF4F46E5);
   final Color _goldColor = Color(0xFFFFD700);
-
+// Add this list to store landline controllers
+  List<TextEditingController> _landlineControllers = [TextEditingController()];
   final TextEditingController _hotelNameController = TextEditingController();
   final TextEditingController _registrationNumberController =
       TextEditingController();
@@ -25214,6 +25215,23 @@ class _FourStarHotelRegistrationScreenState
     if (value == null) return '';
     if (value is num && value == 0) return '';
     return value.toString();
+  }
+
+  void _addLandlineField() {
+    if (_landlineControllers.length < 3) {
+      setState(() {
+        _landlineControllers.add(TextEditingController());
+      });
+    }
+  }
+
+  void _removeLandlineField(int index) {
+    if (_landlineControllers.length > 1) {
+      setState(() {
+        _landlineControllers[index].dispose();
+        _landlineControllers.removeAt(index);
+      });
+    }
   }
 
   @override
@@ -25743,6 +25761,97 @@ class _FourStarHotelRegistrationScreenState
               hint: 'Optional',
               keyboardType: TextInputType.phone,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            ),
+// In _buildStep2(), after the alternate contact field and before email field
+
+            SizedBox(height: 16),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Landline Number',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: _textPrimary,
+                      ),
+                    ),
+                    if (_landlineControllers.length < 3)
+                      TextButton(
+                        onPressed: _addLandlineField,
+                        child: Row(
+                          children: [
+                            Icon(Icons.add, size: 16, color: _primaryColor),
+                            SizedBox(width: 4),
+                            Text(
+                              'Add Landline',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: _primaryColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Column(
+                  children: _landlineControllers.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    TextEditingController controller = entry.value;
+
+                    return Padding(
+                      padding: EdgeInsets.only(
+                        bottom: index < _landlineControllers.length - 1 ? 12 : 0,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: controller,
+                              keyboardType: TextInputType.phone,
+                              decoration: InputDecoration(
+                                hintText: 'Enter landline number ${index + 1}',
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 12,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: _borderColor),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: _borderColor),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(color: _primaryColor),
+                                ),
+                              ),
+                            ),
+                          ),
+                          if (_landlineControllers.length > 1)
+                            IconButton(
+                              onPressed: () => _removeLandlineField(index),
+                              icon: Icon(
+                                Icons.remove_circle,
+                                color: Colors.red,
+                              ),
+                              padding: EdgeInsets.only(left: 8),
+                            ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
             ),
             SizedBox(height: 16),
             _buildInputField(
@@ -28598,6 +28707,11 @@ class _FourStarHotelRegistrationScreenState
       'designation': _designationController.text,
       'mobileNumber': _mobileController.text,
       'alternateContact': _altMobileController.text,
+
+'landlineNumbers': _landlineControllers
+    .map((c) => c.text)
+    .where((text) => text.isNotEmpty)
+    .toList(),
       'email': _emailController.text,
       'website': _websiteController.text,
       'addressLine1': _address1Controller.text,
@@ -28693,6 +28807,9 @@ class _FourStarHotelRegistrationScreenState
     _signatoryNameController.dispose();
     _signatureController.dispose();
 
+for (var controller in _landlineControllers) {
+  controller.dispose();
+}
     for (var address in _additionalAddresses) {
       address['address']?.dispose();
     }
@@ -29947,7 +30064,31 @@ class _FiveStarHotelRegistrationScreenState
                 ),
               ],
             ),
+// In _buildStep4(), after the Pets Allowed section and before the closing of the _buildCard
 
+SizedBox(height: 20),
+
+Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Text(
+      'Couple Friendly:',
+      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+    ),
+    SizedBox(height: 8),
+    Row(
+      children: [
+        _buildToggleChip('Yes', _coupleFriendly, () {
+          setState(() => _coupleFriendly = true);
+        }),
+        SizedBox(width: 8),
+        _buildToggleChip('No', !_coupleFriendly, () {
+          setState(() => _coupleFriendly = false);
+        }),
+      ],
+    ),
+  ],
+),
             SizedBox(height: 20),
 
             Column(
@@ -29971,7 +30112,38 @@ class _FiveStarHotelRegistrationScreenState
                 ),
               ],
             ),
+
             SizedBox(height: 20),
+
+          // SMOKING POLICY - ADD THIS SECTION
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                  Text(
+      'Smoking Policy:',
+      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+    ),
+    SizedBox(height: 8),
+    Row(
+      children: [
+        _buildToggleChip('Smoking Rooms', _smokingRooms, () {
+          setState(() {
+            _smokingRooms = true;
+            _nonSmokingRooms = false;
+          });
+        }),
+        SizedBox(width: 8),
+        _buildToggleChip('Non-Smoking Rooms', _nonSmokingRooms, () {
+          setState(() {
+            _nonSmokingRooms = true;
+            _smokingRooms = false;
+          });
+        }),
+      ],
+    ),
+
+            ],
+          ),
           ],
         ),
       ],

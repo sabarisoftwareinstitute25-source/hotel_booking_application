@@ -5065,7 +5065,42 @@ class FourStarHotelSummaryScreen extends StatelessWidget {
     if (_get('email') != null && _get('email').toString().isNotEmpty) {
       children.add(_infoRow('Email', _get('email')));
     }
-
+    // Landline Numbers
+    final landlineNumbers = _get('landlineNumbers', []);
+    if (landlineNumbers is List && landlineNumbers.isNotEmpty) {
+      children.add(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Landline Numbers', style: _labelStyle),
+            const SizedBox(height: 8),
+            ...landlineNumbers
+                .map(
+                  (number) => Container(
+                margin: const EdgeInsets.only(bottom: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: _borderColor),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.phone, size: 16, color: _textLight),
+                    const SizedBox(width: 8),
+                    Text(number.toString(), style: _valueStyle),
+                  ],
+                ),
+              ),
+            )
+                .toList(),
+          ],
+        ),
+      );
+    }
     // Website
     if (_get('website') != null && _get('website').toString().isNotEmpty) {
       children.add(_infoRow('Website', _get('website')));
