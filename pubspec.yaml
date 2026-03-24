@@ -49,7 +49,8 @@ dependencies:
   signature:
   path:
   photo_view:
-  image_picker:
+  image_picker: ^1.0.4
+  video_player: ^2.8.0
 
 dev_dependencies:
   flutter_test:

@@ -3235,7 +3235,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
         return const Color(0xFF4F46E5);
       case '5-Star':
         return const Color(0xFFFB717D);
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         return const Color(0xFFD4AF37);
       case 'Normal':
       default:
@@ -3309,7 +3309,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
         return '4-Star Hotel Registration Summary';
       case '5-Star':
         return '5-Star Luxury Hotel Registration Summary';
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         return '6-Star Ultra-Luxury Registration Summary';
       case 'Normal':
       default:
@@ -5157,7 +5157,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       case '4-Star':
         return 'I hereby declare that the above information is true and correct. I agree to comply with all vendor terms.';
       case '5-Star':
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         return 'I hereby certify that all information provided above is true and correct. I agree to comply with all quality standards.';
       case 'Normal':
       default:
@@ -5195,7 +5195,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
   bool _isThreeStar() => hotelCategory == '3-Star';
   bool _isFourStar() => hotelCategory == '4-Star';
   bool _isFiveStar() => hotelCategory == '5-Star';
-  bool _isSixStar() => hotelCategory == '6-Star Ultra-Luxury';
+  bool _isSixStar() => hotelCategory == '6-Star';
 
   bool _isTwoStarOrAbove() =>
       _isTwoStar() ||
@@ -5768,41 +5768,101 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
     );
   }
 
+  // AppBar _buildAppBar() {
+  //   return AppBar(
+  //     backgroundColor: _cardBg,
+  //     elevation: 2,
+  //     shadowColor: Colors.black12,
+  //     leading: Builder(
+  //       builder: (context) => Container(
+  //         margin: EdgeInsets.only(left: 16),
+  //         child: IconButton(
+  //           icon: Icon(Icons.menu_rounded, color: _primaryColor, size: 28),
+  //           onPressed: () => Scaffold.of(context).openDrawer(),
+  //         ),
+  //       ),
+  //     ),
+  //     title: Row(
+  //       children: [
+  //         SizedBox(width: 12),
+  //         Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             Text(
+  //               'Welcome Back!',
+  //               style: TextStyle(
+  //                 color: _textDark,
+  //                 fontSize: 18,
+  //                 fontWeight: FontWeight.w800,
+  //               ),
+  //             ),
+  //             SizedBox(height: 2),
+  //             Text(
+  //               'Normal Hotel Business Dashboard',
+  //               style: TextStyle(
+  //                 color: _textLight,
+  //                 fontSize: 12,
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //     actions: [
+  //       SizedBox(width: 8),
+  //       Container(
+  //         margin: EdgeInsets.only(right: 16),
+  //         child: GestureDetector(
+  //           onTap: () => _showProfile(),
+  //           child: CircleAvatar(
+  //             radius: 18,
+  //             backgroundColor: _primaryColor.withOpacity(0.1),
+  //             child: Icon(Icons.person_rounded, color: _primaryColor, size: 20),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
   AppBar _buildAppBar() {
     return AppBar(
       backgroundColor: _cardBg,
-      elevation: 2,
+      elevation: 1,
       shadowColor: Colors.black12,
       leading: Builder(
         builder: (context) => Container(
-          margin: EdgeInsets.only(left: 16),
-          child: IconButton(
-            icon: Icon(Icons.menu_rounded, color: _primaryColor, size: 28),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+          margin: EdgeInsets.only(left: 5),
+          child: Row(
+            children: [
+              // Back Button
+              IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: _primaryColor, size: 20),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              // Menu Button
+              // IconButton(
+              //   icon: Icon(Icons.menu_rounded, color: primaryColor, size: 28),
+              //   onPressed: () => Scaffold.of(context).openDrawer(),
+              // ),
+            ],
           ),
         ),
       ),
       title: Row(
         children: [
-          SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Welcome Back!',
+                'Normal Hotel Business Dashboard',
                 style: TextStyle(
                   color: _textDark,
-                  fontSize: 18,
+                  fontSize: 16.3,
                   fontWeight: FontWeight.w800,
-                ),
-              ),
-              SizedBox(height: 2),
-              Text(
-                'Owner Dashboard',
-                style: TextStyle(
-                  color: _textLight,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -5810,7 +5870,6 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
         ],
       ),
       actions: [
-        SizedBox(width: 8),
         Container(
           margin: EdgeInsets.only(right: 16),
           child: GestureDetector(
@@ -6132,7 +6191,7 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Hotel Summary',
+              'Normal Hotel Overview',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -8832,7 +8891,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
           'Legal & Bank',
         ];
         break;
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         _primaryColor = const Color(0xFFD4AF37);
         _primaryLight = const Color(0xFFFEF9E7);
         _accentColor = const Color(0xFFD4AF37);
@@ -8908,7 +8967,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
   bool get _isThreeStar => widget.hotelCategory == '3-Star';
   bool get _isFourStar => widget.hotelCategory == '4-Star';
   bool get _isFiveStar => widget.hotelCategory == '5-Star';
-  bool get _isSixStar => widget.hotelCategory == '6-Star Ultra-Luxury';
+  bool get _isSixStar => widget.hotelCategory == '6-Star';
 
   bool get _isTwoStarOrAbove =>
       _isTwoStar || _isThreeStar || _isFourStar || _isFiveStar || _isSixStar;
@@ -11289,7 +11348,7 @@ class _RoomAvailabilityTab extends StatelessWidget {
   bool get _isThreeStar => hotelCategory == '3-Star';
   bool get _isFourStar => hotelCategory == '4-Star';
   bool get _isFiveStar => hotelCategory == '5-Star';
-  bool get _isSixStar => hotelCategory == '6-Star Ultra-Luxury';
+  bool get _isSixStar => hotelCategory == '6-Star';
 
   bool get _isTwoStarOrAbove =>
       _isTwoStar || _isThreeStar || _isFourStar || _isFiveStar || _isSixStar;
@@ -11307,7 +11366,7 @@ class _RoomAvailabilityTab extends StatelessWidget {
         return const Color(0xFF4F46E5);
       case '5-Star':
         return const Color(0xFFFB717D);
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         return const Color(0xFFD4AF37);
       default:
         return const Color(0xFF4F46E5);
@@ -12446,7 +12505,7 @@ class _AmenitiesDetailsTab extends StatelessWidget {
   bool get _isThreeStar => hotelCategory == '3-Star';
   bool get _isFourStar => hotelCategory == '4-Star';
   bool get _isFiveStar => hotelCategory == '5-Star';
-  bool get _isSixStar => hotelCategory == '6-Star Ultra-Luxury';
+  bool get _isSixStar => hotelCategory == '6-Star';
 
   bool get _isTwoStarOrAbove =>
       _isTwoStar || _isThreeStar || _isFourStar || _isFiveStar || _isSixStar;
@@ -12465,7 +12524,7 @@ class _AmenitiesDetailsTab extends StatelessWidget {
         return const Color(0xFF4F46E5);
       case '5-Star':
         return const Color(0xFFFB717D);
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         return const Color(0xFFD4AF37);
       default:
         return const Color(0xFF4F46E5);
@@ -13299,7 +13358,7 @@ class _BankAndDocumentsTab extends StatelessWidget {
       hotelCategory == '3-Star' ||
       hotelCategory == '4-Star' ||
       hotelCategory == '5-Star' ||
-      hotelCategory == '6-Star Ultra-Luxury';
+      hotelCategory == '6-Star';
 
   Color get _primaryColor {
     switch (hotelCategory) {
@@ -13311,7 +13370,7 @@ class _BankAndDocumentsTab extends StatelessWidget {
         return const Color(0xFF4F46E5);
       case '5-Star':
         return const Color(0xFFFB717D);
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         return const Color(0xFFD4AF37);
       default:
         return const Color(0xFF4F46E5);
@@ -17140,6 +17199,7 @@ class _TwoStarHotelRegistrationScreenState
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
 
+  final TextEditingController _countryController = TextEditingController();
 
   final TextEditingController _checkInController = TextEditingController();
   final TextEditingController _checkOutController = TextEditingController();
@@ -17157,7 +17217,7 @@ class _TwoStarHotelRegistrationScreenState
   final TextEditingController _branchController = TextEditingController();
   final TextEditingController _declarationNameController =
       TextEditingController();
-  final TextEditingController _countryController = TextEditingController();
+  // final TextEditingController _countryController = TextEditingController();
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Single Room': {'rooms': '', 'occupancy': '', 'ac': true, 'price': ''},
     'Double Room': {'rooms': '', 'occupancy': '', 'ac': true, 'price': ''},
@@ -17861,7 +17921,7 @@ class _TwoStarHotelRegistrationScreenState
             _buildInputField(
               label: 'Website (if any)',
               controller: _websiteController,
-              hint: 'https://example.com',
+              hint: '',
             ),
             SizedBox(height: 16),
 
@@ -17964,27 +18024,26 @@ class _TwoStarHotelRegistrationScreenState
               ],
             ),
             SizedBox(height: 16),
-            Row(
-              children: [
-
-                Expanded(
-                  child: _buildInputField(
-                    label: 'State',
-                    controller: _stateController,
-                    hint: 'Enter state',
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Country',
-                    controller: TextEditingController(), // You'll need to add this controller
-                    hint: 'Enter country',
-                  ),
-                ),
-
-              ],
-            ),
+           // In _buildStep2() - this part looks correct already
+Row(
+  children: [
+    Expanded(
+      child: _buildInputField(
+        label: 'State',
+        controller: _stateController,
+        hint: 'Enter state',
+      ),
+    ),
+    SizedBox(width: 16),
+    Expanded(
+      child: _buildInputField(
+        label: 'Country',
+        controller: _countryController,  // Make sure this is connected
+        hint: 'Enter country',
+      ),
+    ),
+  ],
+),
             SizedBox(height: 16),
             Row(
               children: [
@@ -18875,25 +18934,39 @@ class _TwoStarHotelRegistrationScreenState
       }
     }
 
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: initialTime,
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-          child: child!,
-        );
-      },
-    );
+    // final TimeOfDay? pickedTime = await showTimePicker(
+    //   context: context,
+    //   initialTime: initialTime,
+    //   builder: (BuildContext context, Widget? child) {
+    //     return MediaQuery(
+    //       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+    //       child: child!,
+    //     );
+    //   },
+    // );
+    //
+    // if (pickedTime != null) {
+    //   setState(() {
+    //     // Store in 24-hour format
+    //     String hour = pickedTime.hour.toString().padLeft(2, '0');
+    //     String minute = pickedTime.minute.toString().padLeft(2, '0');
+    //     controller.text = '$hour:$minute';
+    //   });
+    // }
 
-    if (pickedTime != null) {
-      setState(() {
-        // Store in 24-hour format
-        String hour = pickedTime.hour.toString().padLeft(2, '0');
-        String minute = pickedTime.minute.toString().padLeft(2, '0');
-        controller.text = '$hour:$minute';
-      });
-    }
+    // When selecting time in the registration form
+TimeOfDay? pickedTime = await showTimePicker(
+  context: context,
+  initialTime: TimeOfDay.now(),
+);
+
+if (pickedTime != null) {
+  // Store in 24-hour format for consistency
+  String formattedTime = '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}';
+  setState(() {
+    _checkInController.text = formattedTime;
+  });
+}
   }
   Widget _buildStep5() {
     return Column(
@@ -19322,46 +19395,46 @@ class _TwoStarHotelRegistrationScreenState
                       hint: 'Enter your name',
                     ),
                     SizedBox(height: 16),
-                    Text(
-                      'Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: () => _selectDate(context),
-                      child: Container(
-                        height: 48,
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: _borderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _selectedDate != null
-                                  ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                                  : 'Select date',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: _selectedDate != null
-                                    ? _textPrimary
-                                    : _textSecondary,
-                              ),
-                            ),
-                            Icon(
-                              Icons.calendar_today,
-                              size: 18,
-                              color: _textSecondary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Text(
+                    //   'Date',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.w500,
+                    //     fontSize: 13,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 8),
+                    // GestureDetector(
+                    //   onTap: () => _selectDate(context),
+                    //   child: Container(
+                    //     height: 48,
+                    //     padding: EdgeInsets.symmetric(horizontal: 12),
+                    //     decoration: BoxDecoration(
+                    //       border: Border.all(color: _borderColor),
+                    //       borderRadius: BorderRadius.circular(8),
+                    //     ),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         Text(
+                    //           _selectedDate != null
+                    //               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                    //               : 'Select date',
+                    //           style: TextStyle(
+                    //             fontSize: 14,
+                    //             color: _selectedDate != null
+                    //                 ? _textPrimary
+                    //                 : _textSecondary,
+                    //           ),
+                    //         ),
+                    //         Icon(
+                    //           Icons.calendar_today,
+                    //           size: 18,
+                    //           color: _textSecondary,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
@@ -20979,7 +21052,7 @@ class _TwoStarHotelRegistrationScreenState
       'district': _districtController.text,
       'state': _stateController.text,
       'pinCode': _pinController.text,
-      'country': _countryController.text, // Add this
+       'country': _countryController.text,
       'profilePhoto': _profilePhoto, // Add this
       'accountType': _selectedAccountType,
       'selectedRoomTypes': _selectedRoomTypes,
@@ -21001,8 +21074,9 @@ class _TwoStarHotelRegistrationScreenState
       'fssaiLicense': _fssaiController.text,
       'panNumber': _panController.text,
       'accountHolderName': _accountNameController.text,
+      'accountNumber': int.tryParse(_accountNumberController.text) ?? 0,
       'bankName': _bankNameController.text,
-      'accountNumber': _accountNumberController.text,
+      // 'accountNumber': _accountNumberController.text,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
       'uploadedFiles': _uploadedFiles,
@@ -21020,8 +21094,11 @@ class _TwoStarHotelRegistrationScreenState
       }).toList(),
     };
 
-
-
+// Just before Navigator.push
+// Add debug print to verify country is being sent
+print('=== DEBUG: Submitting form data ===');
+print('Country value being sent: "${_countryController.text}"');
+print('All keys in formData: ${formData.keys.toList()}');
     Navigator.push(
   context,
   MaterialPageRoute(
@@ -22021,7 +22098,7 @@ class _ThreeStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Mobile Number *',
+              label: 'Mobile Number',
               controller: _mobileController,
               hint: 'Enter 10-digit mobile number',
               keyboardType: TextInputType.phone,
@@ -22046,7 +22123,7 @@ class _ThreeStarHotelRegistrationScreenState
             _buildInputField(
               label: 'Website / Booking Link',
               controller: _websiteController,
-              hint: 'https://example.com',
+              hint: '',
             ),
           ],
         ),
@@ -22959,47 +23036,47 @@ class _ThreeStarHotelRegistrationScreenState
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Date',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 13,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: () => _selectDate(context),
-                      child: Container(
-                        height: 48,
-                        padding: EdgeInsets.symmetric(horizontal: 12),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: _borderColor),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              _selectedDate != null
-                                  ? '${_selectedDate!.day}/${_selectedDate!
-                                  .month}/${_selectedDate!.year}'
-                                  : 'Select date',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: _selectedDate != null
-                                    ? _textPrimary
-                                    : _textSecondary,
-                              ),
-                            ),
-                            Icon(
-                              Icons.calendar_today,
-                              size: 18,
-                              color: _textSecondary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Text(
+                    //   'Date',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.w500,
+                    //     fontSize: 13,
+                    //   ),
+                    // ),
+                    // SizedBox(height: 8),
+                    // GestureDetector(
+                    //   onTap: () => _selectDate(context),
+                    //   child: Container(
+                    //     height: 48,
+                    //     padding: EdgeInsets.symmetric(horizontal: 12),
+                    //     decoration: BoxDecoration(
+                    //       border: Border.all(color: _borderColor),
+                    //       borderRadius: BorderRadius.circular(8),
+                    //     ),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         Text(
+                    //           _selectedDate != null
+                    //               ? '${_selectedDate!.day}/${_selectedDate!
+                    //               .month}/${_selectedDate!.year}'
+                    //               : 'Select date',
+                    //           style: TextStyle(
+                    //             fontSize: 14,
+                    //             color: _selectedDate != null
+                    //                 ? _textPrimary
+                    //                 : _textSecondary,
+                    //           ),
+                    //         ),
+                    //         Icon(
+                    //           Icons.calendar_today,
+                    //           size: 18,
+                    //           color: _textSecondary,
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
@@ -24861,7 +24938,8 @@ class _ThreeStarHotelRegistrationScreenState
       'fireSafetyCertificate': _fireSafetyCertificate,
       'accountHolderName': _accountNameController.text,
       'bankName': _bankNameController.text,
-      'accountNumber': _accountNumberController.text,
+      // 'accountNumber': _accountNumberController.text,
+       'accountNumber': int.tryParse(_accountNumberController.text) ?? 0,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
       'accountType': _selectedAccountType,
@@ -26831,43 +26909,43 @@ class _FourStarHotelRegistrationScreenState
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-                ),
-                SizedBox(height: 8),
-                GestureDetector(
-                  onTap: () => _selectDate(context),
-                  child: Container(
-                    height: 48,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: _borderColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          _selectedDate != null
-                              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                              : 'Select date',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: _selectedDate != null
-                                ? _textPrimary
-                                : _textSecondary,
-                          ),
-                        ),
-                        Icon(
-                          Icons.calendar_today,
-                          size: 18,
-                          color: _textSecondary,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Text(
+                //   'Date',
+                //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+                // ),
+                // SizedBox(height: 8),
+                // GestureDetector(
+                //   onTap: () => _selectDate(context),
+                //   child: Container(
+                //     height: 48,
+                //     padding: EdgeInsets.symmetric(horizontal: 12),
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: _borderColor),
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           _selectedDate != null
+                //               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                //               : 'Select date',
+                //           style: TextStyle(
+                //             fontSize: 14,
+                //             color: _selectedDate != null
+                //                 ? _textPrimary
+                //                 : _textSecondary,
+                //           ),
+                //         ),
+                //         Icon(
+                //           Icons.calendar_today,
+                //           size: 18,
+                //           color: _textSecondary,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],
@@ -28746,7 +28824,8 @@ class _FourStarHotelRegistrationScreenState
       'starCertificate': _starCertificate,
       'accountHolderName': _accountNameController.text,
       'bankName': _bankNameController.text,
-      'accountNumber': _accountNumberController.text,
+      // 'accountNumber': _accountNumberController.text,
+      'accountNumber': int.tryParse(_accountNumberController.text) ?? 0,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
       'uploadedFiles': _uploadedFiles,
@@ -30611,43 +30690,43 @@ Column(
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-                ),
-                SizedBox(height: 8),
-                GestureDetector(
-                  onTap: () => _selectDate(context),
-                  child: Container(
-                    height: 48,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: _borderColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          _selectedDate != null
-                              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                              : 'Select date',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: _selectedDate != null
-                                ? _textPrimary
-                                : _textSecondary,
-                          ),
-                        ),
-                        Icon(
-                          Icons.calendar_today,
-                          size: 18,
-                          color: _textSecondary,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Text(
+                //   'Date',
+                //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+                // ),
+                // SizedBox(height: 8),
+                // GestureDetector(
+                //   onTap: () => _selectDate(context),
+                //   child: Container(
+                //     height: 48,
+                //     padding: EdgeInsets.symmetric(horizontal: 12),
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: _borderColor),
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           _selectedDate != null
+                //               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                //               : 'Select date',
+                //           style: TextStyle(
+                //             fontSize: 14,
+                //             color: _selectedDate != null
+                //                 ? _textPrimary
+                //                 : _textSecondary,
+                //           ),
+                //         ),
+                //         Icon(
+                //           Icons.calendar_today,
+                //           size: 18,
+                //           color: _textSecondary,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],
@@ -32529,7 +32608,8 @@ Column(
       'liftCertificate': _liftCertificate,
       'accountHolderName': _accountNameController.text,
       'bankName': _bankNameController.text,
-      'accountNumber': _accountNumberController.text,
+      // 'accountNumber': _accountNumberController.text,
+      'accountNumber': int.tryParse(_accountNumberController.text) ?? 0,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
       'uploadedFiles': _uploadedFiles,
@@ -32645,6 +32725,7 @@ class _SixStarHotelRegistrationScreenState
   final TextEditingController _address2Controller = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
+  final TextEditingController _districtController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
   final TextEditingController _checkInController = TextEditingController();
@@ -32706,6 +32787,7 @@ class _SixStarHotelRegistrationScreenState
 
   String? _selectedHotelType;
 
+ // Default to non-smoking
 Map<String, bool> _selectedRoomTypes = {
   'Luxury Room': false,
   'Club Level Room': false,
@@ -32796,26 +32878,26 @@ Map<String, bool> _selectedRoomTypes = {
       'path': '',
       'uploaded': false,
     },
-    'Environmental & Sustainability Certification': {
+    'Environment & Sustainability Certification': {
       'name': '',
       'size': 0,
       'path': '',
       'uploaded': false,
     },
-    'International Safety/Quality Certification': {
+    'International Safety Certification': {
       'name': '',
       'size': 0,
       'path': '',
       'uploaded': false,
     },
-    'Luxury Brand / Global Recognition Proof': {
+    'Global Recognition Proof': {
       'name': '',
       'size': 0,
       'path': '',
       'uploaded': false,
     },
     'Cancelled Cheque': {'name': '', 'size': 0, 'path': '', 'uploaded': false},
-    'High-Resolution Property & Suite Images': {
+    'High-Resolution Property Images': {
       'name': '',
       'size': 0,
       'path': '',
@@ -32837,10 +32919,11 @@ Map<String, bool> _selectedRoomTypes = {
     'path': '',
     'uploaded': false,
   };
-
+bool _complimentaryCheckout = true;  // Default to true
+bool _byApprovalCheckout = false;
   bool _declarationAccepted = false;
   DateTime? _selectedDate;
-
+ // Default to non-smoking
   String _getCurrentLocalTime() {
     final now = DateTime.now();
     final hour = now.hour.toString().padLeft(2, '0');
@@ -33268,7 +33351,7 @@ Map<String, bool> _selectedRoomTypes = {
                           ),
                         ),
                         Text(
-                          '6-Star Ultra-Luxury Hotel',
+                          '6-Star',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -33525,6 +33608,21 @@ Map<String, bool> _selectedRoomTypes = {
                 ),
               ],
             ),
+            SizedBox(height: 16),
+
+Row(
+  children: [
+
+    SizedBox(width: 16),
+    Expanded(
+      child: _buildInputField(
+        label: 'District',  // NEW: District field
+        controller: _districtController,
+        hint: 'Enter district',
+      ),
+    ),
+  ],
+),
           ],
         ),
       ],
@@ -33984,139 +34082,183 @@ Map<String, bool> _selectedRoomTypes = {
     );
   }
 
-  Widget _buildStep4() {
-    return Column(
-      children: [
-        _buildCard(
-          title: '5. Ultra-Luxury Amenities & Facilities',
-          children: [
-            Text(
-              'Please tick all applicable ultra-luxury amenities for your 6-star hotel',
-              style: TextStyle(
-                fontSize: 12,
-                color: _textSecondary,
-                fontStyle: FontStyle.italic,
+Widget _buildStep4() {
+  return Column(
+    children: [
+      _buildCard(
+        title: '5. Ultra-Luxury Amenities & Facilities',
+        children: [
+          Text(
+            'Please tick all applicable ultra-luxury amenities for your 6-star hotel',
+            style: TextStyle(
+              fontSize: 12,
+              color: _textSecondary,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          SizedBox(height: 16),
+          _buildAmenitiesSection(
+            'In-Room Ultra-Luxury Amenities',
+            _roomAmenities,
+          ),
+          SizedBox(height: 20),
+          _buildAmenitiesSection(
+            'Hotel Infrastructure & Elite Services',
+            _hotelInfrastructure,
+          ),
+          SizedBox(height: 20),
+          _buildAmenitiesSection(
+            'Dining, Events & Experiences',
+            _diningExperiences,
+          ),
+          SizedBox(height: 20),
+          _buildAmenitiesSection(
+            'Wellness, Leisure & Lifestyle',
+            _wellnessLeisure,
+          ),
+          SizedBox(height: 20),
+          _buildAmenitiesSection(
+            'Exclusive Guest Privileges',
+            _guestPrivileges,
+          ),
+        ],
+      ),
+      SizedBox(height: 16),
+
+      _buildCard(
+        title: '6. Guest Policies',
+        children: [
+          // Check-in/Check-out times
+          Row(
+            children: [
+              Expanded(
+                child: _buildTimePickerField(
+                  label: 'Check-In Time',
+                  controller: _checkInController,
+                ),
               ),
-            ),
-            SizedBox(height: 16),
-            _buildAmenitiesSection(
-              'In-Room Ultra-Luxury Amenities',
-              _roomAmenities,
-            ),
-            SizedBox(height: 20),
-            _buildAmenitiesSection(
-              'Hotel Infrastructure & Elite Services',
-              _hotelInfrastructure,
-            ),
-            SizedBox(height: 20),
-            _buildAmenitiesSection(
-              'Dining, Events & Experiences',
-              _diningExperiences,
-            ),
-            SizedBox(height: 20),
-            _buildAmenitiesSection(
-              'Wellness, Leisure & Lifestyle',
-              _wellnessLeisure,
-            ),
-            SizedBox(height: 20),
-            _buildAmenitiesSection(
-              'Exclusive Guest Privileges',
-              _guestPrivileges,
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildTimePickerField(
+                  label: 'Check-Out Time',
+                  controller: _checkOutController,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
 
-        _buildCard(
-          title: '6. Guest Policies',
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: _buildTimePickerField(
-                    label: 'Check-In Time',
-                    controller: _checkInController,
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildTimePickerField(
-                    label: 'Check-Out Time',
-                    controller: _checkOutController,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
+          // Early / Late Check-Out (Fixed - Only Complimentary works)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Early / Late Check-Out:',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  _buildToggleChip('Complimentary', _complimentaryCheckout, () {
+                    setState(() {
+                      _complimentaryCheckout = true;
+                      _byApprovalCheckout = false;
+                    });
+                  }),
+                  SizedBox(width: 8),
+                  _buildToggleChip('By Approval', _byApprovalCheckout, () {
+                    setState(() {  // Fixed: Removed the extra comma after this closing brace
+                      _byApprovalCheckout = true;
+                      _complimentaryCheckout = false;
+                    });
+                  }),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Early / Late Check-Out:',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  children: [
-                    _buildToggleChip('Complimentary', true, () {}),
-                    SizedBox(width: 8),
-                    _buildToggleChip('By Approval', false, () {}),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
+          // Pet Luxury Services
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Pet Luxury Services:',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  _buildToggleChip('Yes', _petLuxuryServices, () {
+                    setState(() => _petLuxuryServices = true);
+                  }),
+                  SizedBox(width: 8),
+                  _buildToggleChip('No', !_petLuxuryServices, () {
+                    setState(() => _petLuxuryServices = false);
+                  }),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'VIP / Diplomatic Protocols:',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  children: [
-                    _buildToggleChip('Yes', _vipProtocols, () {
-                      setState(() => _vipProtocols = true);
-                    }),
-                    SizedBox(width: 8),
-                    _buildToggleChip('No', !_vipProtocols, () {
-                      setState(() => _vipProtocols = false);
-                    }),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
+          // VIP / Diplomatic Protocols
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'VIP / Diplomatic Protocols:',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  _buildToggleChip('Yes', _vipProtocols, () {
+                    setState(() => _vipProtocols = true);
+                  }),
+                  SizedBox(width: 8),
+                  _buildToggleChip('No', !_vipProtocols, () {
+                    setState(() => _vipProtocols = false);
+                  }),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Pet Luxury Services:',
-                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  children: [
-                    _buildToggleChip('Yes', _petLuxuryServices, () {
-                      setState(() => _petLuxuryServices = true);
-                    }),
-                    SizedBox(width: 8),
-                    _buildToggleChip('No', !_petLuxuryServices, () {
-                      setState(() => _petLuxuryServices = false);
-                    }),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+          // Smoking Policy
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Smoking Policy:',
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  _buildToggleChip('Private Areas Only', _smokingPrivateAreas, () {
+                    setState(() {
+                      _smokingPrivateAreas = true;
+                      _nonSmoking = false;
+                    });
+                  }),
+                  SizedBox(width: 8),
+                  _buildToggleChip('Non-Smoking', _nonSmoking, () {
+                    setState(() {
+                      _nonSmoking = true;
+                      _smokingPrivateAreas = false;
+                    });
+                  }),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  );
+}
 
   Widget _buildStep5() {
     return Column(
@@ -34177,7 +34319,7 @@ Map<String, bool> _selectedRoomTypes = {
                       },
                     ),
                     _buildToggleChip(
-                      'Environmental & Sustainability Certification',
+                      'Environment & Sustainability Certification',
                       _environmentalCert,
                           () {
                         setState(
@@ -34186,7 +34328,7 @@ Map<String, bool> _selectedRoomTypes = {
                       },
                     ),
                     _buildToggleChip(
-                      'International Safety/Quality Certification',
+                      'International Safety Certification',
                       _internationalCert,
                           () {
                         setState(
@@ -34558,43 +34700,43 @@ Map<String, bool> _selectedRoomTypes = {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-                ),
-                SizedBox(height: 8),
-                GestureDetector(
-                  onTap: () => _selectDate(context),
-                  child: Container(
-                    height: 48,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: _borderColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          _selectedDate != null
-                              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                              : 'Select date',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: _selectedDate != null
-                                ? _textPrimary
-                                : _textSecondary,
-                          ),
-                        ),
-                        Icon(
-                          Icons.calendar_today,
-                          size: 18,
-                          color: _textSecondary,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Text(
+                //   'Date',
+                //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+                // ),
+                // SizedBox(height: 8),
+                // GestureDetector(
+                //   onTap: () => _selectDate(context),
+                //   child: Container(
+                //     height: 48,
+                //     padding: EdgeInsets.symmetric(horizontal: 12),
+                //     decoration: BoxDecoration(
+                //       border: Border.all(color: _borderColor),
+                //       borderRadius: BorderRadius.circular(8),
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //       children: [
+                //         Text(
+                //           _selectedDate != null
+                //               ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                //               : 'Select date',
+                //           style: TextStyle(
+                //             fontSize: 14,
+                //             color: _selectedDate != null
+                //                 ? _textPrimary
+                //                 : _textSecondary,
+                //           ),
+                //         ),
+                //         Icon(
+                //           Icons.calendar_today,
+                //           size: 18,
+                //           color: _textSecondary,
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],
@@ -34991,186 +35133,7 @@ Map<String, bool> _selectedRoomTypes = {
     );
   }
 
-  // Widget _buildRoomConfigurationCard(String roomType) {
-  //   final details = _roomDetails[roomType]!;
-  //
-  //   return Container(
-  //     padding: EdgeInsets.all(12),
-  //     decoration: BoxDecoration(
-  //       color: Colors.grey[50],
-  //       borderRadius: BorderRadius.circular(8),
-  //       border: Border.all(color: _borderColor),
-  //     ),
-  //     child: Column(
-  //       children: [
-  //         Text(
-  //           roomType,
-  //           style: TextStyle(
-  //             fontSize: 14,
-  //             fontWeight: FontWeight.w600,
-  //             color: _primaryColor,
-  //           ),
-  //         ),
-  //         SizedBox(height: 12),
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Units',
-  //                 controller: TextEditingController(text: details['rooms']),
-  //                 onChanged: (value) => details['rooms'] = value,
-  //                 hint: '0',
-  //                 keyboardType: TextInputType.number,
-  //                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-  //               ),
-  //             ),
-  //             SizedBox(width: 12),
-  //             Expanded(
-  //               child: _buildSmallInput(
-  //                 label: 'Max Occupancy',
-  //                 controller: TextEditingController(text: details['occupancy']),
-  //                 onChanged: (value) => details['occupancy'] = value,
-  //                 hint: 'Persons',
-  //                 keyboardType: TextInputType.number,
-  //                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12),
-  //         Row(
-  //           children: [
-  //             Expanded(
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     'Bed Type',
-  //                     style: TextStyle(
-  //                       fontSize: 12,
-  //                       fontWeight: FontWeight.w500,
-  //                     ),
-  //                   ),
-  //                   SizedBox(height: 8),
-  //                   Container(
-  //                     height: 35,
-  //                     padding: EdgeInsets.symmetric(horizontal: 8),
-  //                     decoration: BoxDecoration(
-  //                       border: Border.all(color: _borderColor),
-  //                       borderRadius: BorderRadius.circular(6),
-  //                     ),
-  //                     child: DropdownButtonHideUnderline(
-  //                       child: DropdownButton<String>(
-  //                         value: details['bedType'],
-  //                         isExpanded: true,
-  //                         icon: Icon(Icons.arrow_drop_down, size: 20),
-  //                         items: _bedTypes.map((String value) {
-  //                           return DropdownMenuItem<String>(
-  //                             value: value,
-  //                             child: Text(
-  //                               value,
-  //                               style: TextStyle(fontSize: 12),
-  //                             ),
-  //                           );
-  //                         }).toList(),
-  //                         onChanged: (String? newValue) {
-  //                           setState(() {
-  //                             details['bedType'] = newValue!;
-  //                           });
-  //                         },
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //             SizedBox(width: 12),
-  //             Expanded(
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   Text(
-  //                     'Select Price Per Day:',
-  //                     style: TextStyle(
-  //                       fontSize: 12,
-  //                       fontWeight: FontWeight.w500,
-  //                       color: _textPrimary,
-  //                     ),
-  //                   ),
-  //                   SizedBox(height: 8),
-  //                   Row(
-  //                     children: [
-  //                       Expanded(
-  //                         child: TextFormField(
-  //                           controller: TextEditingController(
-  //                             text: details['minPrice'] ?? '',
-  //                           ),
-  //                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-  //                           onChanged: (value) => details['minPrice'] = value,
-  //                           inputFormatters: [
-  //                             FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-  //                           ],
-  //                           decoration: InputDecoration(
-  //                             hintText: 'Rs',
-  //                             prefixText: '₹ ',
-  //                             contentPadding: EdgeInsets.symmetric(
-  //                               horizontal: 8,
-  //                               vertical: 6,
-  //                             ),
-  //                             border: OutlineInputBorder(
-  //                               borderRadius: BorderRadius.circular(6),
-  //                               borderSide: BorderSide(color: _borderColor),
-  //                             ),
-  //                             isDense: true,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       Padding(
-  //                         padding: EdgeInsets.symmetric(horizontal: 4),
-  //                         child: Text(
-  //                           'to',
-  //                           style: TextStyle(
-  //                             fontSize: 11,
-  //                             color: _textSecondary,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                       Expanded(
-  //                         child: TextFormField(
-  //                           controller: TextEditingController(
-  //                             text: details['maxPrice'] ?? '',
-  //                           ),
-  //                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-  //                           onChanged: (value) => details['maxPrice'] = value,
-  //                           inputFormatters: [
-  //                             FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-  //                           ],
-  //                           decoration: InputDecoration(
-  //                             hintText: 'Rs',
-  //                             prefixText: '₹ ',
-  //                             contentPadding: EdgeInsets.symmetric(
-  //                               horizontal: 8,
-  //                               vertical: 6,
-  //                             ),
-  //                             border: OutlineInputBorder(
-  //                               borderRadius: BorderRadius.circular(6),
-  //                               borderSide: BorderSide(color: _borderColor),
-  //                             ),
-  //                             isDense: true,
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -36317,7 +36280,7 @@ Map<String, bool> _selectedRoomTypes = {
 
     Map<String, dynamic> formData = {
       'hotelName': _hotelNameController.text,
-      'hotelCategory': '6-Star Ultra-Luxury',
+      'hotelCategory': '6-Star',
       'hotelType': _selectedHotelType,
       'brandName': _brandController.text,
       'yearOfEstablishment': _yearController.text,
@@ -36339,6 +36302,12 @@ Map<String, bool> _selectedRoomTypes = {
       'city': _cityController.text,
       'state': _stateController.text,
       'country': _countryController.text,
+    // Add district field
+'district': _districtController.text,
+
+
+'complimentaryCheckout': _complimentaryCheckout,
+'byApprovalCheckout': _byApprovalCheckout,
       'pinCode': _pinController.text,
       'roomDetails': Map<String, Map<String, dynamic>>.from(_roomDetails),
       'personalButler': _personalButler,
@@ -36349,6 +36318,8 @@ Map<String, bool> _selectedRoomTypes = {
       'petLuxuryServices': _petLuxuryServices,
       'smokingPrivateAreas': _smokingPrivateAreas,
       'nonSmoking': _nonSmoking,
+
+'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
       'roomAmenities': Map<String, bool>.from(_roomAmenities),
       'hotelInfrastructure': Map<String, bool>.from(_hotelInfrastructure),
       'diningExperiences': Map<String, bool>.from(_diningExperiences),
@@ -36363,7 +36334,8 @@ Map<String, bool> _selectedRoomTypes = {
       'internationalCert': _internationalCert,
       'accountHolderName': _accountNameController.text,
       'bankName': _bankNameController.text,
-      'accountNumber': _accountNumberController.text,
+      // 'accountNumber': _accountNumberController.text,
+      'accountNumber': int.tryParse(_accountNumberController.text) ?? 0,
       'ifscCode': _ifscController.text,
       'branch': _branchController.text,
       'accountType': _selectedAccountType,
@@ -36430,6 +36402,7 @@ Map<String, bool> _selectedRoomTypes = {
     super.dispose();
   }
 }
+
 
 class SevenStarHotelRegistrationScreen extends StatefulWidget {
   const SevenStarHotelRegistrationScreen({super.key});
@@ -38248,55 +38221,55 @@ class _SevenStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            _buildInputField(
-              label: 'Title',
-              controller: _titleRankController,
-              hint: 'Enter title',
-            ),
-            SizedBox(height: 16),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-                ),
-                SizedBox(height: 8),
-                GestureDetector(
-                  onTap: () => _selectDate(context),
-                  child: Container(
-                    height: 48,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: _borderColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          _selectedDate != null
-                              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                              : 'Select date',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: _selectedDate != null
-                                ? _textPrimary
-                                : _textSecondary,
-                          ),
-                        ),
-                        Icon(
-                          Icons.calendar_today,
-                          size: 18,
-                          color: _textSecondary,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            // _buildInputField(
+            //   label: 'Title',
+            //   controller: _titleRankController,
+            //   hint: 'Enter title',
+            // ),
+            // SizedBox(height: 16),
+            //
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(
+            //       'Date',
+            //       style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+            //     ),
+            //     SizedBox(height: 8),
+            //     GestureDetector(
+            //       onTap: () => _selectDate(context),
+            //       child: Container(
+            //         height: 48,
+            //         padding: EdgeInsets.symmetric(horizontal: 12),
+            //         decoration: BoxDecoration(
+            //           border: Border.all(color: _borderColor),
+            //           borderRadius: BorderRadius.circular(8),
+            //         ),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             Text(
+            //               _selectedDate != null
+            //                   ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+            //                   : 'Select date',
+            //               style: TextStyle(
+            //                 fontSize: 14,
+            //                 color: _selectedDate != null
+            //                     ? _textPrimary
+            //                     : _textSecondary,
+            //               ),
+            //             ),
+            //             Icon(
+            //               Icons.calendar_today,
+            //               size: 18,
+            //               color: _textSecondary,
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ],
@@ -39564,7 +39537,7 @@ class _SevenStarHotelRegistrationScreenState
       'digitalSignatureImage': _digitalSignatureImage,
 
       // Hotel Category
-      'hotelCategory': '7-Star Sovereign',
+      'hotelCategory': '7-Star',
     };
 
     Navigator.push(
@@ -39627,6 +39600,7 @@ class _SevenStarHotelRegistrationScreenState
   }
 }
 
+
 class GlobalEliteLuxuryHotelRegistrationScreen extends StatefulWidget {
   const GlobalEliteLuxuryHotelRegistrationScreen({super.key});
 
@@ -39634,7 +39608,6 @@ class GlobalEliteLuxuryHotelRegistrationScreen extends StatefulWidget {
   State<GlobalEliteLuxuryHotelRegistrationScreen> createState() =>
       _GlobalEliteLuxuryHotelRegistrationScreenState();
 }
-
 
 
 class _GlobalEliteLuxuryHotelRegistrationScreenState
@@ -40379,7 +40352,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     }
   }
 
-  // ============= STEP 1: Prestientge Hotel Idity =============
+
   Widget _buildStep1() {
     return Column(
       children: [
@@ -40489,7 +40462,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // ============= STEP 2: Ownership & Executive Command =============
+
   Widget _buildStep2() {
     return Column(
       children: [
@@ -40799,7 +40772,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Small input with inputFormatters
+
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
@@ -40844,7 +40817,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Accommodation detail card with integer and double formatting
+
   Widget _buildAccommodationDetailCard(String accommodationType) {
     final details = _accommodationMatrix[accommodationType];
     if (details == null) return SizedBox.shrink();
@@ -43061,7 +43034,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
       case '3-Star':
       case '4-Star':
       case '5-Star':
-      case '6-Star Ultra-Luxury':
+      case '6-Star':
         return 1.00;
       case 'Normal':
       default:
@@ -43399,6 +43372,14 @@ class _VillaRegistrationVendorFormState
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _websiteController = TextEditingController();
 
+  final TextEditingController _officeAddressController = TextEditingController();
+  final TextEditingController _officeAreaController = TextEditingController();
+  final TextEditingController _officeCityController = TextEditingController();
+  final TextEditingController _officeStateController = TextEditingController();
+  final TextEditingController _officePincodeController = TextEditingController();
+  final TextEditingController _officeGoogleMapLinkController = TextEditingController();
+
+
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _areaController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -43438,7 +43419,7 @@ class _VillaRegistrationVendorFormState
       TextEditingController();
   final TextEditingController _ifscCodeController = TextEditingController();
   final TextEditingController _upiIdController = TextEditingController();
-
+  final TextEditingController _virtualTourLinkController = TextEditingController();
   final TextEditingController _otherPropertyTypeController =
       TextEditingController();
   String _customPropertyType = '';
@@ -43861,341 +43842,279 @@ class _VillaRegistrationVendorFormState
     );
   }
 
-  Widget _buildLocationPropertyStep() {
-    return Column(
-      children: [
-        _buildCard(
-          title: 'Location Details',
-          children: [
-            _buildInputField(
-              label: 'Villa Address *',
-              controller: _addressController,
-              hint: 'Enter complete address',
-              maxLines: 2,
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Area / Locality *',
-                    controller: _areaController,
-                    hint: 'Enter area',
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'City *',
-                    controller: _cityController,
-                    hint: 'Enter city',
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'State *',
-                    controller: _stateController,
-                    hint: 'Enter state',
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Pincode *',
-                    controller: _pincodeController,
-                    hint: '6-digit pincode',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            _buildInputField(
-              label: 'Google Map Location',
-              controller: _googleMapLinkController,
-              hint: 'Paste Google Maps link',
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
 
-        // _buildCard(
-        //   title: 'Property Details',
-        //   children: [
-        //     Text(
-        //       'Type of Property *',
-        //       style: TextStyle(
-        //         fontSize: 13,
-        //         fontWeight: FontWeight.w500,
-        //         color: _textPrimary,
-        //       ),
-        //     ),
-        //     SizedBox(height: 12),
-        //     Wrap(
-        //       spacing: 8,
-        //       runSpacing: 8,
-        //       children: _propertyTypes.map((type) {
-        //         bool isSelected = _selectedPropertyType == type['title'];
-        //         return GestureDetector(
-        //           onTap: () {
-        //             setState(() {
-        //               _selectedPropertyType = type['title'];
-        //             });
-        //           },
-        //           child: Container(
-        //             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        //             decoration: BoxDecoration(
-        //               color: isSelected ? _primaryLight : Colors.white,
-        //               borderRadius: BorderRadius.circular(20),
-        //               border: Border.all(
-        //                 color: isSelected ? _primaryColor : _borderColor,
-        //                 width: isSelected ? 2 : 1,
-        //               ),
-        //             ),
-        //             child: Row(
-        //               mainAxisSize: MainAxisSize.min,
-        //               children: [
-        //                 Text(
-        //                   type['icon'],
-        //                   style: TextStyle(fontSize: 16),
-        //                 ),
-        //                 SizedBox(width: 6),
-        //                 Text(
-        //                   type['title'],
-        //                   style: TextStyle(
-        //                     fontSize: 13,
-        //                     color: isSelected ? _primaryColor : _textSecondary,
-        //                     fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-        //                   ),
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         );
-        //       }).toList(),
-        //     ),
-        //     SizedBox(height: 16),
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Bedrooms *',
-        //             controller: _bedroomsController,
-        //             hint: 'Number',
-        //             keyboardType: TextInputType.number,
-        //           ),
-        //         ),
-        //         SizedBox(width: 16),
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Bathrooms *',
-        //             controller: _bathroomsController,
-        //             hint: 'Number',
-        //             keyboardType: TextInputType.number,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(height: 16),
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Guest Capacity *',
-        //             controller: _guestCapacityController,
-        //             hint: 'Max guests',
-        //             keyboardType: TextInputType.number,
-        //           ),
-        //         ),
-        //         SizedBox(width: 16),
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Property Size',
-        //             controller: _propertySizeController,
-        //             hint: 'Sq. Ft.',
-        //             keyboardType: TextInputType.number,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(height: 16),
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Year of Construction',
-        //             controller: _yearConstructionController,
-        //             hint: 'YYYY',
-        //             keyboardType: TextInputType.number,
-        //           ),
-        //         ),
-        //         SizedBox(width: 16),
-        //         Expanded(child: Container()),
-        //       ],
-        //     ),
-        //     SizedBox(height: 16),
-        //     _buildInputField(
-        //       label: 'Property Description *',
-        //       controller: _propertyDescriptionController,
-        //       hint: 'Describe your villa',
-        //       maxLines: 4,
-        //     ),
-        //   ],
-        // ),
-        _buildCard(
-          title: 'Property Details',
-          children: [
-            Text(
-              'Type of Property *',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: _textPrimary,
+Widget _buildLocationPropertyStep() {
+  return Column(
+    children: [
+      _buildCard(
+        title: 'Permanent Office Address',
+        children: [
+          _buildInputField(
+            label: 'Office Address *',
+            controller: _officeAddressController,
+            hint: 'Enter complete office address',
+            maxLines: 2,
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInputField(
+                  label: 'Area / Locality *',
+                  controller: _officeAreaController,
+                  hint: 'Enter area',
+                ),
               ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildInputField(
+                  label: 'City *',
+                  controller: _officeCityController,
+                  hint: 'Enter city',
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInputField(
+                  label: 'State *',
+                  controller: _officeStateController,
+                  hint: 'Enter state',
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildInputField(
+                  label: 'Pincode *',
+                  controller: _officePincodeController,
+                  hint: '6-digit pincode',
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          _buildInputField(
+            label: 'Google Map Location',
+            controller: _officeGoogleMapLinkController,
+            hint: 'Paste Google Maps link for office',
+          ),
+        ],
+      ),
+      SizedBox(height: 16),
+
+      // Villa Address Section
+      _buildCard(
+        title: 'Villa Address',
+        children: [
+          _buildInputField(
+            label: 'Villa Address *',
+            controller: _addressController,
+            hint: 'Enter complete villa address',
+            maxLines: 2,
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInputField(
+                  label: 'Area / Locality *',
+                  controller: _areaController,
+                  hint: 'Enter area',
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildInputField(
+                  label: 'City *',
+                  controller: _cityController,
+                  hint: 'Enter city',
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInputField(
+                  label: 'State *',
+                  controller: _stateController,
+                  hint: 'Enter state',
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildInputField(
+                  label: 'Pincode *',
+                  controller: _pincodeController,
+                  hint: '6-digit pincode',
+                  keyboardType: TextInputType.number,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          _buildInputField(
+            label: 'Google Map Location',
+            controller: _googleMapLinkController,
+            hint: 'Paste Google Maps link for villa',
+          ),
+        ],
+      ),
+      SizedBox(height: 16),
+
+      // Property Details Section
+      _buildCard(
+        title: 'Property Details',
+        children: [
+          Text(
+            'Type of Property *',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: _textPrimary,
             ),
-            SizedBox(height: 12),
+          ),
+          SizedBox(height: 12),
 
-            Column(
-              children: [
-                ..._propertyTypes.map((type) {
-                  bool isSelected = _selectedPropertyType == type['title'];
-                  return RadioListTile<String>(
-                    title: Row(
-                      children: [
-                        Text(type['icon'], style: TextStyle(fontSize: 18)),
-                        SizedBox(width: 12),
-                        Text(
-                          type['title'],
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: isSelected
-                                ? FontWeight.w600
-                                : FontWeight.w400,
-                          ),
+          Column(
+            children: [
+              ..._propertyTypes.map((type) {
+                bool isSelected = _selectedPropertyType == type['title'];
+                return RadioListTile<String>(
+                  title: Row(
+                    children: [
+                      Text(type['icon'], style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 12),
+                      Text(
+                        type['title'],
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.w400,
                         ),
-                      ],
-                    ),
-                    value: type['title'],
-                    groupValue: _selectedPropertyType,
-                    onChanged: (String? value) {
-                      setState(() {
-                        _selectedPropertyType = value;
+                      ),
+                    ],
+                  ),
+                  value: type['title'],
+                  groupValue: _selectedPropertyType,
+                  onChanged: (String? value) {
+                    setState(() {
+                      _selectedPropertyType = value;
 
-                        if (value != 'Other') {
-                          _otherPropertyTypeController.clear();
-                        }
+                      if (value != 'Other') {
+                        _otherPropertyTypeController.clear();
+                      }
+                    });
+                  },
+                  activeColor: _primaryColor,
+                  contentPadding: EdgeInsets.zero,
+                  dense: true,
+                );
+              }).toList(),
+
+              if (_selectedPropertyType == 'Other')
+                Padding(
+                  padding: EdgeInsets.only(left: 40, right: 16, bottom: 16),
+                  child: TextFormField(
+                    controller: _otherPropertyTypeController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter specify property type',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _customPropertyType = value;
                       });
                     },
-                    activeColor: _primaryColor,
-                    contentPadding: EdgeInsets.zero,
-                    dense: true,
-                  );
-                }).toList(),
+                  ),
+                ),
+            ],
+          ),
 
-                if (_selectedPropertyType == 'Other')
-                  Padding(
-                    padding: EdgeInsets.only(left: 40, right: 16, bottom: 16),
-                    child: TextFormField(
-                      controller: _otherPropertyTypeController,
-                      decoration: InputDecoration(
-                        hintText: 'Enter specify property type',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 12,
-                        ),
-                        // prefixIcon: Icon(Icons.edit, size: 18, color: _primaryColor),
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          _customPropertyType = value;
-                        });
-                      },
-                    ),
-                  ),
-              ],
-            ),
+          SizedBox(height: 16),
 
-            SizedBox(height: 16),
-
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Bedrooms *',
-                    controller: _bedroomsController,
-                    hint: 'Number',
-                    keyboardType: TextInputType.number,
-                  ),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInputField(
+                  label: 'Bedrooms *',
+                  controller: _bedroomsController,
+                  hint: 'Number',
+                  keyboardType: TextInputType.number,
                 ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Bathrooms *',
-                    controller: _bathroomsController,
-                    hint: 'Number',
-                    keyboardType: TextInputType.number,
-                  ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildInputField(
+                  label: 'Bathrooms *',
+                  controller: _bathroomsController,
+                  hint: 'Number',
+                  keyboardType: TextInputType.number,
                 ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Guest Capacity *',
-                    controller: _guestCapacityController,
-                    hint: 'Max guests',
-                    keyboardType: TextInputType.number,
-                  ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInputField(
+                  label: 'Guest Capacity *',
+                  controller: _guestCapacityController,
+                  hint: 'Max guests',
+                  keyboardType: TextInputType.number,
                 ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Property Size',
-                    controller: _propertySizeController,
-                    hint: 'Sq. Ft.',
-                    keyboardType: TextInputType.number,
-                  ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildInputField(
+                  label: 'Property Size',
+                  controller: _propertySizeController,
+                  hint: 'Sq. Ft.',
+                  keyboardType: TextInputType.number,
                 ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Year of Construction',
-                    controller: _yearConstructionController,
-                    hint: 'YYYY',
-                    keyboardType: TextInputType.number,
-                  ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInputField(
+                  label: 'Year of Construction',
+                  controller: _yearConstructionController,
+                  hint: 'YYYY',
+                  keyboardType: TextInputType.number,
                 ),
-                SizedBox(width: 16),
-                Expanded(child: Container()),
-              ],
-            ),
-            SizedBox(height: 16),
-            _buildInputField(
-              label: 'Property Description *',
-              controller: _propertyDescriptionController,
-              hint: 'Describe your villa',
-              maxLines: 4,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
+              ),
+              SizedBox(width: 16),
+              Expanded(child: Container()),
+            ],
+          ),
+          SizedBox(height: 16),
+          _buildInputField(
+            label: 'Property Description *',
+            controller: _propertyDescriptionController,
+            hint: 'Describe your villa',
+            maxLines: 4,
+          ),
+        ],
+      ),
+    ],
+  );
+}
   Widget _buildAmenitiesPricingStep() {
     return Column(
       children: [
@@ -44743,199 +44662,183 @@ class _VillaRegistrationVendorFormState
     );
   }
 
-  Widget _buildMediaTermsStep() {
-    return Column(
-      children: [
-        _buildCard(
-          title: 'Media Upload',
-          children: [
-            _buildMediaUploadSection(
-              label: 'Villa Exterior Photos *',
-              mediaKey: 'villa_exterior',
-              isRequired: true,
-            ),
-            SizedBox(height: 16),
-            _buildMediaUploadSection(
-              label: 'Interior Photos *',
-              mediaKey: 'villa_interior',
-              isRequired: true,
-            ),
-            SizedBox(height: 16),
-            _buildMediaUploadSection(
-              label: 'Bedroom Photos *',
-              mediaKey: 'bedroom',
-              isRequired: true,
-            ),
-            SizedBox(height: 16),
-            _buildMediaUploadSection(
-              label: 'Bathroom Photos *',
-              mediaKey: 'bathroom',
-              isRequired: true,
-            ),
-            SizedBox(height: 16),
-            _buildMediaUploadSection(
-              label: 'Amenities Photos *',
-              mediaKey: 'amenities',
-              isRequired: true,
-            ),
-            SizedBox(height: 16),
-            _buildMediaUploadSection(
-              label: 'Short Video',
-              mediaKey: 'short_video',
-              isOptional: true,
-              allowMultiple: false,
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        _buildCard(
-          title: 'Terms & Declaration',
-          children: [
-            _buildCheckboxTile(
-              value: _declarationAccepted,
-              onChanged: (value) {
-                setState(() {
-                  _declarationAccepted = value ?? false;
-                });
-              },
-              title: 'I confirm that the above information is correct.',
-            ),
-            _buildCheckboxTile(
-              value: _termsAccepted,
-              onChanged: (value) {
-                setState(() {
-                  _termsAccepted = value ?? false;
-                });
-              },
-              title: 'I agree to the platform\'s Terms & Conditions.',
-            ),
-            _buildCheckboxTile(
-              value: _commissionAccepted,
-              onChanged: (value) {
-                setState(() {
-                  _commissionAccepted = value ?? false;
-                });
-              },
-              title: 'I agree to commission structure and payout terms.',
-            ),
-            SizedBox(height: 16),
-            _buildSignatureSection(),
-            SizedBox(height: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Date',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-                ),
-                SizedBox(height: 8),
-                GestureDetector(
-                  onTap: () => _selectDate(context),
-                  child: Container(
-                    height: 48,
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: _borderColor),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          _selectedDate != null
-                              ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                              : 'Select date',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: _selectedDate != null
-                                ? _textPrimary
-                                : _textSecondary,
-                          ),
-                        ),
-                        Icon(
-                          Icons.calendar_today,
-                          size: 18,
-                          color: _textSecondary,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-        _buildCard(
-          title: 'Admin Fields',
-          children: [
-            DropdownButtonFormField<String>(
-              value: _vendorStatus,
-              decoration: InputDecoration(
-                labelText: 'Vendor Status',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-              ),
-              items: ['Pending', 'Approved', 'Rejected'].map((status) {
-                return DropdownMenuItem(value: status, child: Text(status));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _vendorStatus = value;
-                });
-              },
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: CheckboxListTile(
-                    value: _featuredListing,
-                    onChanged: (value) {
-                      setState(() {
-                        _featuredListing = value ?? false;
-                      });
-                    },
-                    title: Text('Featured'),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ),
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Rating',
-                      hintText: '0.0',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      _ratingScore = double.tryParse(value) ?? 0.0;
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            _buildInputField(
-              label: 'Remarks',
-              controller: _remarksController,
-              hint: 'Admin remarks',
-              maxLines: 2,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
+ Widget _buildMediaTermsStep() {
+   return Column(
+     children: [
+       _buildCard(
+         title: 'Media Upload',
+         children: [
+           _buildMediaUploadSection(
+             label: 'Villa Exterior Photos *',
+             mediaKey: 'villa_exterior',
+             isRequired: true,
+           ),
+           SizedBox(height: 16),
+           _buildMediaUploadSection(
+             label: 'Interior Photos *',
+             mediaKey: 'villa_interior',
+             isRequired: true,
+           ),
+           SizedBox(height: 16),
+           _buildMediaUploadSection(
+             label: 'Bedroom Photos *',
+             mediaKey: 'bedroom',
+             isRequired: true,
+           ),
+           SizedBox(height: 16),
+           _buildMediaUploadSection(
+             label: 'Bathroom Photos *',
+             mediaKey: 'bathroom',
+             isRequired: true,
+           ),
+           SizedBox(height: 16),
+           _buildMediaUploadSection(
+             label: 'Amenities Photos *',
+             mediaKey: 'amenities',
+             isRequired: true,
+           ),
+           SizedBox(height: 16),
+           _buildMediaUploadSection(
+             label: 'Short Video',
+             mediaKey: 'short_video',
+             isOptional: true,
+             allowMultiple: false,
+           ),
+           SizedBox(height: 16),
 
+           // ADD VIRTUAL TOUR LINK FIELD HERE
+           _buildVirtualTourLinkField(),
+         ],
+       ),
+       SizedBox(height: 16),
+       _buildCard(
+         title: 'Terms & Declaration',
+         children: [
+           _buildCheckboxTile(
+             value: _declarationAccepted,
+             onChanged: (value) {
+               setState(() {
+                 _declarationAccepted = value ?? false;
+               });
+             },
+             title: 'I confirm that the above information is correct.',
+           ),
+           _buildCheckboxTile(
+             value: _termsAccepted,
+             onChanged: (value) {
+               setState(() {
+                 _termsAccepted = value ?? false;
+               });
+             },
+             title: 'I agree to the platform\'s Terms & Conditions.',
+           ),
+           _buildCheckboxTile(
+             value: _commissionAccepted,
+             onChanged: (value) {
+               setState(() {
+                 _commissionAccepted = value ?? false;
+               });
+             },
+             title: 'I agree to commission structure and payout terms.',
+           ),
+           SizedBox(height: 16),
+           _buildSignatureSection(),
+           SizedBox(height: 16),
+           Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Text(
+                 'Date',
+                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+               ),
+               SizedBox(height: 8),
+               GestureDetector(
+                 onTap: () => _selectDate(context),
+                 child: Container(
+                   height: 48,
+                   padding: EdgeInsets.symmetric(horizontal: 12),
+                   decoration: BoxDecoration(
+                     border: Border.all(color: _borderColor),
+                     borderRadius: BorderRadius.circular(8),
+                   ),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       Text(
+                         _selectedDate != null
+                             ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                             : 'Select date',
+                         style: TextStyle(
+                           fontSize: 14,
+                           color: _selectedDate != null
+                               ? _textPrimary
+                               : _textSecondary,
+                         ),
+                       ),
+                       Icon(
+                         Icons.calendar_today,
+                         size: 18,
+                         color: _textSecondary,
+                       ),
+                     ],
+                   ),
+                 ),
+               ),
+             ],
+           ),
+         ],
+       ),
+
+
+     ],
+   );
+ }
+Widget _buildVirtualTourLinkField() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Virtual Tour Link',
+        style: TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          color: _textPrimary,
+        ),
+      ),
+      SizedBox(height: 4),
+      Text(
+        'Paste link to 360° virtual tour (Optional)',
+        style: TextStyle(
+          fontSize: 11,
+          color: _textSecondary,
+          fontStyle: FontStyle.italic,
+        ),
+      ),
+      SizedBox(height: 8),
+      TextFormField(
+        controller: _virtualTourLinkController,
+        decoration: InputDecoration(
+          hintText: 'https://example.com/virtual-tour',
+          prefixIcon: Icon(Icons.link, size: 18, color: _primaryColor),
+          contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: _borderColor),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: _borderColor),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: _primaryColor),
+          ),
+        ),
+        keyboardType: TextInputType.url,
+      ),
+    ],
+  );
+}
   Widget _buildSignatureSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46364,185 +46267,296 @@ class _VillaRegistrationVendorFormState
     }
   }
 
+  // void _submitForm() {
+  //   // Basic validation
+  //   // if (_villaNameController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Villa name is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_ownerNameController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Owner name is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_mobileController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Mobile number is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_emailController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Email is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_addressController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Address is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_cityController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'City is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_stateController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'State is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_pincodeController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Pincode is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_selectedPropertyType == null || _selectedPropertyType!.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Please select property type');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_bedroomsController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Number of bedrooms is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_bathroomsController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Number of bathrooms is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_guestCapacityController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Guest capacity is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_propertyDescriptionController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Property description is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_basePriceController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Base price is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_weekendPriceController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Weekend price is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_minimumStayController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Minimum stay is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_selectedCheckInTime == null) {
+  //   //   _showErrorDialog('Validation Error', 'Check-in time is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_selectedCheckOutTime == null) {
+  //   //   _showErrorDialog('Validation Error', 'Check-out time is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (!_cancellationPolicyInfo['uploaded']) {
+  //   //   _showErrorDialog('Validation Error', 'Cancellation policy is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (!_ownershipProofInfo['uploaded']) {
+  //   //   _showErrorDialog('Validation Error', 'Property ownership proof is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (!_idProofInfo['uploaded']) {
+  //   //   _showErrorDialog('Validation Error', 'ID proof is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_accountHolderController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Account holder name is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_bankNameController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Bank name is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_accountNumberController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Account number is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_ifscCodeController.text.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'IFSC code is required');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_mediaFiles['villa_exterior']!.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Please upload villa exterior photos');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_mediaFiles['villa_interior']!.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Please upload interior photos');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_mediaFiles['bedroom']!.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Please upload bedroom photos');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_mediaFiles['bathroom']!.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Please upload bathroom photos');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_mediaFiles['amenities']!.isEmpty) {
+  //   //   _showErrorDialog('Validation Error', 'Please upload amenities photos');
+  //   //   return;
+  //   // }
+  //
+  //   if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
+  //     _showErrorDialog(
+  //       'Terms Required',
+  //       'Please accept all terms and conditions.',
+  //     );
+  //     return;
+  //   }
+  //
+  //   // final hasSignature = _hasDigitalSignature;
+  //   // if (!hasSignature) {
+  //   //   _showErrorDialog('Signature Required', 'Please draw your digital signature.');
+  //   //   return;
+  //   // }
+  //   //
+  //   // if (_selectedDate == null) {
+  //   //   _showErrorDialog('Date Required', 'Please select the declaration date.');
+  //   //   return;
+  //   // }
+  //   String villaId = 'VILLA_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
+  //   // Get the property type value
+  //   String propertyTypeValue = _selectedPropertyType == 'Other'
+  //       ? _customPropertyType.isNotEmpty
+  //             ? _customPropertyType
+  //             : 'Other Villa'
+  //       : _selectedPropertyType ?? 'Villa';
+  //
+  //   Map<String, dynamic> formData = {
+  //     'id': villaId,
+  //     'registeredAt': DateTime.now().toIso8601String(),
+  //     'basicInfo': {
+  //       'villaName': _villaNameController.text,
+  //       'ownerName': _ownerNameController.text,
+  //       'mobile': _mobileController.text,
+  //       'altMobile': _altMobileController.text,
+  //       'email': _emailController.text,
+  //       'website': _websiteController.text,
+  //       'ownerPhoto': _ownerPhotoInfo,
+  //     },
+  //     'location': {
+  //      'address': _addressController.text,
+  //        'area': _areaController.text,
+  //        'city': _cityController.text,
+  //        'state': _stateController.text,
+  //        'pincode': _pincodeController.text,
+  //        'googleMapLink': _googleMapLinkController.text,
+  //        // Office Address - ADD THIS
+  //        'officeAddress': {
+  //          'address': _officeAddressController.text,
+  //          'area': _officeAreaController.text,
+  //          'city': _officeCityController.text,
+  //          'state': _officeStateController.text,
+  //          'pincode': _officePincodeController.text,
+  //          'googleMapLink': _officeGoogleMapLinkController.text,
+  //        },
+  //     },
+  //     'propertyDetails': {
+  //       'propertyType': propertyTypeValue,
+  //       'bedrooms': _bedroomsController.text,
+  //       'bathrooms': _bathroomsController.text,
+  //       'guestCapacity': _guestCapacityController.text,
+  //       'propertySize': _propertySizeController.text,
+  //       'yearConstruction': _yearConstructionController.text,
+  //       'description': _propertyDescriptionController.text,
+  //     },
+  //     'amenities': {'selected': _villaAmenities, 'custom': _customAmenities},
+  //     'pricing': {
+  //       'basePrice': _basePriceController.text,
+  //       'weekendPrice': _weekendPriceController.text,
+  //       'peakPrice': _peakPriceController.text,
+  //       'securityDeposit': _securityDepositController.text,
+  //       'minimumStay': _minimumStayController.text,
+  //       'checkInTime': _selectedCheckInTime,
+  //       'checkOutTime': _selectedCheckOutTime,
+  //       'cancellationPolicy': _cancellationPolicyInfo,
+  //       'availabilityCalendar': _availabilityCalendarInfo,
+  //     },
+  //     'legal': {
+  //       'ownershipProof': _ownershipProofInfo,
+  //       'idProof': _idProofInfo,
+  //       'gstNumber': _gstNumberController.text,
+  //       'tradeLicense': _tradeLicenseController.text,
+  //     },
+  //     'bank': {
+  //       'accountHolder': _accountHolderController.text,
+  //       'bankName': _bankNameController.text,
+  //       'accountNumber': _accountNumberController.text,
+  //       'ifscCode': _ifscCodeController.text,
+  //       'upiId': _upiIdController.text,
+  //       'cancelledCheque': _cancelledChequeInfo,
+  //     },
+  //     'media': _mediaFiles,
+  //     'virtualTourLink': _virtualTourLinkController.text,
+  //     'signature': {
+  //       'hasDigital': _hasDigitalSignature,
+  //       'digitalSignature': _digitalSignatureImage,
+  //       'date': _selectedDate,
+  //     },
+  //     'declarationAccepted': _declarationAccepted,
+  //   };
+  //
+  //   print('=== SUBMIT FORM DEBUG ===');
+  //   print('Form data keys: ${formData.keys.toList()}');
+  //   print('Property Type Value: "$propertyTypeValue"');
+  //     print('Virtual Tour Link: ${_virtualTourLinkController.text}');
+  //
+  //   _saveToSharedPreferences(formData);
+  //
+  //   // Navigate to summary screen - property type will be passed separately
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => VillaRegistrationSummaryScreen(
+  //         registrationData: formData,
+  //         declarationAccepted: _declarationAccepted,
+  //          userEmail: _emailController.text,
+  //       ),
+  //     ),
+  //   );
+  // }
   void _submitForm() {
-    // Basic validation
-    // if (_villaNameController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Villa name is required');
-    //   return;
-    // }
-    //
-    // if (_ownerNameController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Owner name is required');
-    //   return;
-    // }
-    //
-    // if (_mobileController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Mobile number is required');
-    //   return;
-    // }
-    //
-    // if (_emailController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Email is required');
-    //   return;
-    // }
-    //
-    // if (_addressController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Address is required');
-    //   return;
-    // }
-    //
-    // if (_cityController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'City is required');
-    //   return;
-    // }
-    //
-    // if (_stateController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'State is required');
-    //   return;
-    // }
-    //
-    // if (_pincodeController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Pincode is required');
-    //   return;
-    // }
-    //
-    // if (_selectedPropertyType == null || _selectedPropertyType!.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Please select property type');
-    //   return;
-    // }
-    //
-    // if (_bedroomsController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Number of bedrooms is required');
-    //   return;
-    // }
-    //
-    // if (_bathroomsController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Number of bathrooms is required');
-    //   return;
-    // }
-    //
-    // if (_guestCapacityController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Guest capacity is required');
-    //   return;
-    // }
-    //
-    // if (_propertyDescriptionController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Property description is required');
-    //   return;
-    // }
-    //
-    // if (_basePriceController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Base price is required');
-    //   return;
-    // }
-    //
-    // if (_weekendPriceController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Weekend price is required');
-    //   return;
-    // }
-    //
-    // if (_minimumStayController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Minimum stay is required');
-    //   return;
-    // }
-    //
-    // if (_selectedCheckInTime == null) {
-    //   _showErrorDialog('Validation Error', 'Check-in time is required');
-    //   return;
-    // }
-    //
-    // if (_selectedCheckOutTime == null) {
-    //   _showErrorDialog('Validation Error', 'Check-out time is required');
-    //   return;
-    // }
-    //
-    // if (!_cancellationPolicyInfo['uploaded']) {
-    //   _showErrorDialog('Validation Error', 'Cancellation policy is required');
-    //   return;
-    // }
-    //
-    // if (!_ownershipProofInfo['uploaded']) {
-    //   _showErrorDialog('Validation Error', 'Property ownership proof is required');
-    //   return;
-    // }
-    //
-    // if (!_idProofInfo['uploaded']) {
-    //   _showErrorDialog('Validation Error', 'ID proof is required');
-    //   return;
-    // }
-    //
-    // if (_accountHolderController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Account holder name is required');
-    //   return;
-    // }
-    //
-    // if (_bankNameController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Bank name is required');
-    //   return;
-    // }
-    //
-    // if (_accountNumberController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Account number is required');
-    //   return;
-    // }
-    //
-    // if (_ifscCodeController.text.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'IFSC code is required');
-    //   return;
-    // }
-    //
-    // if (_mediaFiles['villa_exterior']!.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Please upload villa exterior photos');
-    //   return;
-    // }
-    //
-    // if (_mediaFiles['villa_interior']!.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Please upload interior photos');
-    //   return;
-    // }
-    //
-    // if (_mediaFiles['bedroom']!.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Please upload bedroom photos');
-    //   return;
-    // }
-    //
-    // if (_mediaFiles['bathroom']!.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Please upload bathroom photos');
-    //   return;
-    // }
-    //
-    // if (_mediaFiles['amenities']!.isEmpty) {
-    //   _showErrorDialog('Validation Error', 'Please upload amenities photos');
-    //   return;
-    // }
-
     if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-      _showErrorDialog(
-        'Terms Required',
-        'Please accept all terms and conditions.',
-      );
+      _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
       return;
     }
 
-    // final hasSignature = _hasDigitalSignature;
-    // if (!hasSignature) {
-    //   _showErrorDialog('Signature Required', 'Please draw your digital signature.');
-    //   return;
-    // }
-    //
-    // if (_selectedDate == null) {
-    //   _showErrorDialog('Date Required', 'Please select the declaration date.');
-    //   return;
-    // }
+    // Generate a unique ID - MAKE SURE THIS IS PROPERLY FORMATTED
+    String villaId = 'VILLA_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
 
-    // Get the property type value
+    print('=== GENERATING VILLA ID ===');
+    print('Generated Villa ID: $villaId');
+
     String propertyTypeValue = _selectedPropertyType == 'Other'
-        ? _customPropertyType.isNotEmpty
-              ? _customPropertyType
-              : 'Other Villa'
+        ? _customPropertyType.isNotEmpty ? _customPropertyType : 'Other Villa'
         : _selectedPropertyType ?? 'Villa';
 
     Map<String, dynamic> formData = {
+      'id': villaId,  // MAKE SURE THIS IS SET
+      'registeredAt': DateTime.now().toIso8601String(),
       'basicInfo': {
         'villaName': _villaNameController.text,
         'ownerName': _ownerNameController.text,
@@ -46551,6 +46565,7 @@ class _VillaRegistrationVendorFormState
         'email': _emailController.text,
         'website': _websiteController.text,
         'ownerPhoto': _ownerPhotoInfo,
+        'id': villaId,  // ALSO ADD ID TO BASICINFO FOR REDUNDANCY
       },
       'location': {
         'address': _addressController.text,
@@ -46559,6 +46574,14 @@ class _VillaRegistrationVendorFormState
         'state': _stateController.text,
         'pincode': _pincodeController.text,
         'googleMapLink': _googleMapLinkController.text,
+        'officeAddress': {
+          'address': _officeAddressController.text,
+          'area': _officeAreaController.text,
+          'city': _officeCityController.text,
+          'state': _officeStateController.text,
+          'pincode': _officePincodeController.text,
+          'googleMapLink': _officeGoogleMapLinkController.text,
+        },
       },
       'propertyDetails': {
         'propertyType': propertyTypeValue,
@@ -46596,6 +46619,7 @@ class _VillaRegistrationVendorFormState
         'cancelledCheque': _cancelledChequeInfo,
       },
       'media': _mediaFiles,
+      'virtualTourLink': _virtualTourLinkController.text,
       'signature': {
         'hasDigital': _hasDigitalSignature,
         'digitalSignature': _digitalSignatureImage,
@@ -46606,20 +46630,86 @@ class _VillaRegistrationVendorFormState
 
     print('=== SUBMIT FORM DEBUG ===');
     print('Form data keys: ${formData.keys.toList()}');
-    print('Property Type Value: "$propertyTypeValue"');
+    print('Villa ID in formData: ${formData['id']}');
+    print('Villa ID in basicInfo: ${formData['basicInfo']['id']}');
 
-    // Navigate to summary screen - property type will be passed separately
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VillaRegistrationSummaryScreen(
-          registrationData: formData,
-          declarationAccepted: _declarationAccepted,
-        ),
-      ),
-    );
+    _saveToSharedPreferences(formData);
+    // ... rest of code
   }
+  Future<void> _saveToSharedPreferences(Map<String, dynamic> formData) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String userEmail = _emailController.text;
 
+      // Get existing users list from registered_users
+      final String usersJson = prefs.getString('registered_users') ?? '[]';
+      List<dynamic> usersList = jsonDecode(usersJson);
+
+      print('=== SAVING VILLA DATA ===');
+      print('User Email: $userEmail');
+      print('Form Data ID: ${formData['id']}');
+
+      // Find existing user
+      int userIndex = -1;
+      for (int i = 0; i < usersList.length; i++) {
+        if (usersList[i]['email'] == userEmail) {
+          userIndex = i;
+          break;
+        }
+      }
+
+      Map<String, dynamic> userData;
+
+      if (userIndex >= 0) {
+        userData = Map<String, dynamic>.from(usersList[userIndex]);
+
+        // Initialize villas list if not exists
+        if (!userData.containsKey('villlas')) {
+          userData['villlas'] = [];
+        }
+
+        List<dynamic> villasList = userData['villlas'];
+        villasList.add(formData);
+        userData['villlas'] = villasList;
+        userData['propertyType'] = 'villa';
+
+        usersList[userIndex] = userData;
+        print('Added to existing user. Total villas: ${villasList.length}');
+      } else {
+        // Create new user
+        userData = {
+          'email': userEmail,
+          'fullName': _ownerNameController.text,
+          'phone': _mobileController.text,
+          'propertyType': 'villa',
+          'villlas': [formData],
+          'registeredAt': DateTime.now().toIso8601String(),
+        };
+        usersList.add(userData);
+        print('Created new user with 1 villa');
+      }
+
+      // Save back to registered_users
+      await prefs.setString('registered_users', jsonEncode(usersList));
+      print('Villa saved successfully!');
+
+      // Debug: Print saved data
+      final String savedJson = prefs.getString('registered_users') ?? '[]';
+      List<dynamic> savedUsers = jsonDecode(savedJson);
+      for (var user in savedUsers) {
+        if (user['email'] == userEmail) {
+          List<dynamic> savedVillas = user['villlas'] ?? [];
+          print('Verification - User has ${savedVillas.length} villa(s)');
+          for (var villa in savedVillas) {
+            print('  - Villa ID: ${villa['id']}, Name: ${villa['basicInfo']['villaName']}');
+          }
+        }
+      }
+
+    } catch (e) {
+      print('Error saving to SharedPreferences: $e');
+    }
+  }
 
   @override
   void dispose() {
@@ -46636,6 +46726,12 @@ class _VillaRegistrationVendorFormState
     _stateController.dispose();
     _pincodeController.dispose();
     _googleMapLinkController.dispose();
+      _officeAddressController.dispose();
+      _officeAreaController.dispose();
+      _officeCityController.dispose();
+      _officeStateController.dispose();
+      _officePincodeController.dispose();
+      _officeGoogleMapLinkController.dispose();
     _bedroomsController.dispose();
     _bathroomsController.dispose();
     _guestCapacityController.dispose();
@@ -46661,1154 +46757,9 @@ class _VillaRegistrationVendorFormState
     _remarksController.dispose();
     _customAmenityController.dispose();
     _otherPropertyTypeController.dispose();
+    _virtualTourLinkController.dispose();
     super.dispose();
   }
-}
-
-class VillaRegistrationSummaryScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-  final bool declarationAccepted;
-
-  const VillaRegistrationSummaryScreen({
-    Key? key,
-    required this.registrationData,
-    required this.declarationAccepted,
-  }) : super(key: key);
-
-  // Helper method to get nested values
-  dynamic _get(String key, [dynamic defaultValue]) {
-    try {
-      final keys = key.split('.');
-      dynamic value = registrationData;
-      for (final k in keys) {
-        if (value is Map) {
-          value = value[k];
-        } else {
-          return defaultValue;
-        }
-      }
-      return value ?? defaultValue;
-    } catch (e) {
-      return defaultValue;
-    }
-  }
-
-  // Helper method to deep copy the registration data
-  Map<String, dynamic> _deepCopyMap(Map<String, dynamic> original) {
-    Map<String, dynamic> copy = {};
-    original.forEach((key, value) {
-      if (value is Map) {
-        copy[key] = _deepCopyMap(Map<String, dynamic>.from(value));
-      } else if (value is List) {
-        copy[key] = List.from(value);
-      } else {
-        copy[key] = value;
-      }
-    });
-    return copy;
-  }
-
-  // Colors
-  Color get _primaryColor => const Color(0xFF00897B);
-  Color get _primaryLight => _primaryColor.withOpacity(0.1);
-  Color get _bgColor => const Color(0xFFF9FAFB);
-  Color get _textDark => const Color(0xFF111827);
-  Color get _textLight => const Color(0xFF6B7280);
-  Color get _borderColor => const Color(0xFFE5E7EB);
-  Color get _successColor => const Color(0xFF10B981);
-  Color get _warningColor => const Color(0xFFF59E0B);
-  Color get _dangerColor => const Color(0xFFEF4444);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: _textDark),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Villa Registration Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: _textDark,
-          ),
-        ),
-        centerTitle: true,
-        actions: [_buildCategoryChip()],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSuccessHeader(),
-            _buildVillaBasicInfo(),
-            _buildContactInfo(),
-            _buildAddressInfo(),
-            _buildPropertyDetails(),
-            _buildAmenitiesSection(),
-            _buildPricingSection(),
-            _buildLegalBankSection(),
-            _buildDocumentsSection(),
-            _buildDeclarationSection(),
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildFinishButton(context),
-    );
-  }
-
-  Widget _buildCategoryChip() {
-    return Container(
-      margin: const EdgeInsets.only(right: 16),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: _primaryColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.home_work, size: 14, color: Colors.white),
-          const SizedBox(width: 4),
-          Text(
-            _get('propertyDetails.propertyType', 'Villa'),
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSuccessHeader() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Villa Registration Submitted Successfully!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _get('basicInfo.villaName', 'Villa Name'),
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Reference ID: VILLA${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const Icon(Icons.villa, color: Colors.white, size: 30),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildVillaBasicInfo() {
-    return _buildSectionCard(
-      title: 'Villa Information',
-      icon: Icons.home,
-      children: [
-        _infoRow('Villa Name', _get('basicInfo.villaName', 'Not Provided')),
-        _infoRow(
-          'Property Type',
-          _get('propertyDetails.propertyType', 'Not Provided'),
-        ),
-        if (_get('propertyDetails.yearConstruction') != null &&
-            _get('propertyDetails.yearConstruction').toString().isNotEmpty)
-          _infoRow('Year Built', _get('propertyDetails.yearConstruction')),
-        if (_get('propertyDetails.propertySize') != null &&
-            _get('propertyDetails.propertySize').toString().isNotEmpty)
-          _infoRow(
-            'Property Size',
-            '${_get('propertyDetails.propertySize')} sq.ft.',
-          ),
-        _infoRow('Bedrooms', _get('propertyDetails.bedrooms', '0')),
-        _infoRow('Bathrooms', _get('propertyDetails.bathrooms', '0')),
-        _infoRow(
-          'Guest Capacity',
-          '${_get('propertyDetails.guestCapacity', '0')} guests',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildContactInfo() {
-    final List<Widget> children = [
-      _infoRow('Owner/Manager', _get('basicInfo.ownerName', 'Not Provided')),
-      _infoRow('Mobile Number', _get('basicInfo.mobile', 'Not Provided')),
-    ];
-
-    if (_get('basicInfo.altMobile') != null &&
-        _get('basicInfo.altMobile').toString().isNotEmpty) {
-      children.add(_infoRow('Alternate Contact', _get('basicInfo.altMobile')));
-    }
-
-    if (_get('basicInfo.email') != null &&
-        _get('basicInfo.email').toString().isNotEmpty) {
-      children.add(_infoRow('Email', _get('basicInfo.email')));
-    }
-
-    if (_get('basicInfo.website') != null &&
-        _get('basicInfo.website').toString().isNotEmpty) {
-      children.add(_infoRow('Website', _get('basicInfo.website')));
-    }
-
-    final ownerPhoto = _get('basicInfo.ownerPhoto');
-    if (ownerPhoto != null && ownerPhoto['uploaded'] == true) {
-      children.add(_buildPhotoInfo('Profile Photo', ownerPhoto));
-    }
-
-    return _buildSectionCard(
-      title: 'Contact Information',
-      icon: Icons.contact_phone,
-      children: children,
-    );
-  }
-
-  Widget _buildAddressInfo() {
-    final List<Widget> children = [
-      _infoRow('Address', _get('location.address', 'Not Provided')),
-      _infoRow('Area/Locality', _get('location.area', 'Not Provided')),
-      _infoRow('City', _get('location.city', 'Not Provided')),
-      _infoRow('State', _get('location.state', 'Not Provided')),
-      _infoRow('Pincode', _get('location.pincode', 'Not Provided')),
-    ];
-
-    if (_get('location.googleMapLink') != null &&
-        _get('location.googleMapLink').toString().isNotEmpty) {
-      children.add(
-        Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: _primaryLight,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _primaryColor.withOpacity(0.3)),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.map, size: 18, color: _primaryColor),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    _get('location.googleMapLink'),
-                    style: TextStyle(fontSize: 12, color: _textDark),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Location Details',
-      icon: Icons.location_on,
-      children: children,
-    );
-  }
-
-  Widget _buildPropertyDetails() {
-    final description = _get('propertyDetails.description', '');
-
-    return _buildSectionCard(
-      title: 'Property Description',
-      icon: Icons.description,
-      children: [
-        if (description.toString().isNotEmpty)
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _borderColor),
-            ),
-            child: Text(
-              description.toString(),
-              style: TextStyle(fontSize: 14, color: _textDark, height: 1.5),
-            ),
-          ),
-      ],
-    );
-  }
-
-  Widget _buildAmenitiesSection() {
-    final List<Widget> amenitySections = [];
-
-    final selectedAmenities = _get('amenities.selected', {});
-    if (selectedAmenities is Map) {
-      final amenitiesList = (selectedAmenities as Map).entries
-          .where((e) => e.value == true)
-          .map((e) => e.key.toString())
-          .toList();
-
-      if (amenitiesList.isNotEmpty) {
-        amenitySections.add(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Amenities Available', style: _subSectionStyle),
-              const SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: amenitiesList
-                    .map(
-                      (amenity) => Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: _primaryLight,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: _primaryColor.withOpacity(0.2),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.check_circle,
-                              size: 14,
-                              color: _primaryColor,
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              amenity,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: _primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ],
-          ),
-        );
-      }
-    }
-
-    final customAmenities = _get('amenities.custom', []);
-    if (customAmenities is List && customAmenities.isNotEmpty) {
-      amenitySections.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Custom Amenities', style: _subSectionStyle),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: customAmenities
-                  .map(
-                    (amenity) => Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            _primaryColor,
-                            _primaryColor.withOpacity(0.8),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: _primaryColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.star, size: 12, color: Colors.white),
-                          const SizedBox(width: 6),
-                          Text(
-                            amenity.toString(),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (amenitySections.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Amenities',
-      icon: Icons.workspaces_filled,
-      children: amenitySections,
-    );
-  }
-
-  Widget _buildPricingSection() {
-    final List<Widget> children = [];
-
-    final basePrice = _get('pricing.basePrice', '');
-    final weekendPrice = _get('pricing.weekendPrice', '');
-    final peakPrice = _get('pricing.peakPrice', '');
-    final securityDeposit = _get('pricing.securityDeposit', '');
-    final minimumStay = _get('pricing.minimumStay', '');
-    final checkInTime = _get('pricing.checkInTime', '');
-    final checkOutTime = _get('pricing.checkOutTime', '');
-
-    if (basePrice.toString().isNotEmpty) {
-      children.add(_infoRow('Base Price', '₹ $basePrice/night'));
-    }
-
-    if (weekendPrice.toString().isNotEmpty) {
-      children.add(_infoRow('Weekend Price', '₹ $weekendPrice/night'));
-    }
-
-    if (peakPrice.toString().isNotEmpty) {
-      children.add(_infoRow('Peak Season Price', '₹ $peakPrice/night'));
-    }
-
-    if (securityDeposit.toString().isNotEmpty) {
-      children.add(_infoRow('Security Deposit', '₹ $securityDeposit'));
-    }
-
-    if (minimumStay.toString().isNotEmpty) {
-      children.add(_infoRow('Minimum Stay', '$minimumStay nights'));
-    }
-
-    if (checkInTime.toString().isNotEmpty) {
-      children.add(_infoRow('Check-in Time', checkInTime.toString()));
-    }
-
-    if (checkOutTime.toString().isNotEmpty) {
-      children.add(_infoRow('Check-out Time', checkOutTime.toString()));
-    }
-
-    final cancellationPolicy = _get('pricing.cancellationPolicy');
-    if (cancellationPolicy != null && cancellationPolicy['uploaded'] == true) {
-      children.add(
-        _buildDocumentItem('Cancellation Policy', cancellationPolicy),
-      );
-    }
-
-    final availabilityCalendar = _get('pricing.availabilityCalendar');
-    if (availabilityCalendar != null &&
-        availabilityCalendar['uploaded'] == true) {
-      children.add(
-        _buildDocumentItem('Availability Calendar', availabilityCalendar),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Pricing & Policies',
-      icon: Icons.attach_money,
-      children: children,
-    );
-  }
-
-  Widget _buildLegalBankSection() {
-    final List<Widget> children = [];
-
-    final ownershipProof = _get('legal.ownershipProof');
-    if (ownershipProof != null && ownershipProof['uploaded'] == true) {
-      children.add(_buildDocumentItem('Ownership Proof', ownershipProof));
-    }
-
-    final idProof = _get('legal.idProof');
-    if (idProof != null && idProof['uploaded'] == true) {
-      children.add(_buildDocumentItem('ID Proof', idProof));
-    }
-
-    if (_get('legal.gstNumber') != null &&
-        _get('legal.gstNumber').toString().isNotEmpty) {
-      children.add(_infoRow('GST Number', _get('legal.gstNumber')));
-    }
-
-    if (_get('legal.tradeLicense') != null &&
-        _get('legal.tradeLicense').toString().isNotEmpty) {
-      children.add(_infoRow('Trade License', _get('legal.tradeLicense')));
-    }
-
-    if (_get('bank.accountHolder') != null &&
-        _get('bank.accountHolder').toString().isNotEmpty) {
-      children.add(_infoRow('Account Holder', _get('bank.accountHolder')));
-    }
-
-    if (_get('bank.bankName') != null &&
-        _get('bank.bankName').toString().isNotEmpty) {
-      children.add(_infoRow('Bank Name', _get('bank.bankName')));
-    }
-
-    if (_get('bank.accountNumber') != null &&
-        _get('bank.accountNumber').toString().isNotEmpty) {
-      children.add(
-        _infoRow(
-          'Account Number',
-          _maskAccountNumber(_get('bank.accountNumber').toString()),
-        ),
-      );
-    }
-
-    if (_get('bank.ifscCode') != null &&
-        _get('bank.ifscCode').toString().isNotEmpty) {
-      children.add(_infoRow('IFSC Code', _get('bank.ifscCode')));
-    }
-
-    if (_get('bank.upiId') != null &&
-        _get('bank.upiId').toString().isNotEmpty) {
-      children.add(_infoRow('UPI ID', _get('bank.upiId')));
-    }
-
-    final cancelledCheque = _get('bank.cancelledCheque');
-    if (cancelledCheque != null && cancelledCheque['uploaded'] == true) {
-      children.add(_buildDocumentItem('Cancelled Cheque', cancelledCheque));
-    }
-
-    return _buildSectionCard(
-      title: 'Legal & Bank Details',
-      icon: Icons.account_balance,
-      children: children,
-    );
-  }
-
-  Widget _buildDocumentsSection() {
-    final mediaFiles = _get('media', {});
-
-    if (mediaFiles is! Map || mediaFiles.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final List<Widget> children = [];
-
-    final mediaLabels = {
-      'villa_exterior': 'Villa Exterior Photos',
-      'villa_interior': 'Interior Photos',
-      'bedroom': 'Bedroom Photos',
-      'bathroom': 'Bathroom Photos',
-      'amenities': 'Amenities Photos',
-      'short_video': 'Short Video',
-    };
-
-    mediaLabels.forEach((key, label) {
-      final files = mediaFiles[key];
-      if (files is List && files.isNotEmpty) {
-        children.add(
-          Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label, style: _labelStyle),
-                const SizedBox(height: 4),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _primaryColor.withOpacity(0.3)),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        key == 'short_video'
-                            ? Icons.video_library
-                            : Icons.photo_library,
-                        color: _primaryColor,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        '${files.length} file(s) uploaded',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: _textDark,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-    });
-
-    final hasDigitalSignature = _get('signature.hasDigital', false);
-    if (hasDigitalSignature == true) {
-      children.add(
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.purple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.purple.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(Icons.draw, size: 20, color: Colors.purple),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Digital Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      'Saved successfully',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Media & Documents',
-      icon: Icons.folder,
-      children: children,
-    );
-  }
-
-  Widget _buildDeclarationSection() {
-    final List<Widget> children = [];
-
-    final declarationDate = _get('signature.date');
-    if (declarationDate != null) {
-      String dateStr = '';
-      if (declarationDate is DateTime) {
-        dateStr =
-            '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-      } else if (declarationDate is String) {
-        dateStr = declarationDate;
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Date', dateStr));
-      }
-    }
-
-    children.add(
-      Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: declarationAccepted
-              ? _successColor.withOpacity(0.1)
-              : _dangerColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: declarationAccepted
-                ? _successColor.withOpacity(0.3)
-                : _dangerColor.withOpacity(0.3),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              declarationAccepted ? Icons.check_circle : Icons.error,
-              color: declarationAccepted ? _successColor : _dangerColor,
-              size: 24,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    declarationAccepted
-                        ? 'Terms & Declaration Accepted'
-                        : 'Declaration Not Accepted',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: declarationAccepted ? _successColor : _dangerColor,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  const Text(
-                    'I confirm that the above information is correct.',
-                    style: TextStyle(fontSize: 12),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: children,
-    );
-  }
-
-  Widget _buildSectionCard({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    if (children.isEmpty) return const SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 16),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, size: 20, color: _primaryColor),
-              ),
-              const SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: _textDark,
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 24, color: _borderColor),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _infoRow(String label, dynamic value) {
-    if (value == null || value.toString().isEmpty)
-      return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
-          Expanded(
-            flex: 6,
-            child: Text(
-              value.toString(),
-              style: _valueStyle,
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
-    IconData getIcon() {
-      if (docName.contains('Cancellation')) return Icons.policy;
-      if (docName.contains('Calendar')) return Icons.calendar_month;
-      if (docName.contains('Ownership')) return Icons.home;
-      if (docName.contains('ID Proof')) return Icons.badge;
-      if (docName.contains('Cheque')) return Icons.account_balance;
-      return Icons.description;
-    }
-
-    final fileName = fileInfo['name']?.toString() ?? 'Document';
-    final fileSize = fileInfo['size'] ?? 0;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: _primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(getIcon(), size: 24, color: _primaryColor),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  docName,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: _textDark,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  fileName,
-                  style: TextStyle(fontSize: 12, color: _textLight),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                  style: TextStyle(fontSize: 11, color: _textLight),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: _successColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.check_circle, size: 14, color: _successColor),
-                const SizedBox(width: 4),
-                Text(
-                  'Uploaded',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _successColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPhotoInfo(String label, Map<String, dynamic> photoInfo) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: _labelStyle),
-          const SizedBox(height: 8),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _borderColor),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Icon(
-                    Icons.photo,
-                    size: 24,
-                    color: Color(0xFF00897B),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        photoInfo['name'] ?? 'Profile Photo',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: _textDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
-                        style: TextStyle(fontSize: 12, color: _textLight),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.check_circle, size: 20, color: _successColor),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFinishButton(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: _borderColor)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 0,
-                ),
-                onPressed: () {
-                  _showSuccessDialogAndNavigate(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Finish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Icon(
-                      Icons.check_circle,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text(
-            'Your hotel has been registered successfully!',
-          ),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  // Create a clean data structure
-                  Map<String, dynamic> finalData = {
-                    'propertyType': 'hotel',
-                    'fullName': registrationData['fullName'],
-                    'businessName': registrationData['businessName'] ?? registrationData['hotelName'],
-                    'email': registrationData['email'],
-                    'phone': registrationData['phone'],
-                    'hotelName': registrationData['hotelName'],
-                    'hotelType': registrationData['hotelType'],
-                    'hotelCategory': 'Normal',
-                    'registeredAt': DateTime.now().toIso8601String(),
-                    'lastLogin': DateTime.now().toIso8601String(),
-                  };
-
-                  // Add all other hotel data
-                  registrationData.forEach((key, value) {
-                    if (!finalData.containsKey(key)) {
-                      finalData[key] = value;
-                    }
-                  });
-
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => OwnerDashboardScreen(
-                        userData: finalData,
-                        userEmail: registrationData['email']?.toString() ?? '',
-                      ),
-                    ),
-                        (Route<dynamic> route) => false,
-                  );
-                },
-                child: const Text(
-                  'Go to Dashboard',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  String _maskAccountNumber(String accountNumber) {
-    if (accountNumber.length <= 4) return accountNumber;
-    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
-  }
-
-  TextStyle get _labelStyle =>
-      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
-
-  TextStyle get _valueStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-
-  TextStyle get _subSectionStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
 }
 
 class ApartmentRegistrationVendorForm extends StatefulWidget {
@@ -47852,6 +46803,14 @@ class _ApartmentRegistrationVendorFormState
   final TextEditingController _pincodeController = TextEditingController();
   final TextEditingController _googleMapLinkController =
       TextEditingController();
+
+
+  final TextEditingController _officeAddressController = TextEditingController();
+  final TextEditingController _officeAreaController = TextEditingController();
+  final TextEditingController _officeCityController = TextEditingController();
+  final TextEditingController _officeStateController = TextEditingController();
+  final TextEditingController _officePincodeController = TextEditingController();
+  final TextEditingController _officeGoogleMapLinkController = TextEditingController();
 
   final TextEditingController _totalUnitsController = TextEditingController();
   final TextEditingController _totalBedroomsController =
@@ -47925,10 +46884,7 @@ class _ApartmentRegistrationVendorFormState
   bool _termsAccepted = false;
   bool _commissionAccepted = false;
 
-  String? _vendorStatus = 'Pending';
-  bool _featuredListing = false;
-  bool _verifiedBadge = false;
-  double _ratingScore = 0.0;
+
 
   final List<String> _timeSlots = [
     '12:00 AM',
@@ -48253,6 +47209,145 @@ class _ApartmentRegistrationVendorFormState
     }
   }
 
+  // Widget _buildBasicInfoStep() {
+  //   return Column(
+  //     children: [
+  //       _buildCard(
+  //         title: 'Basic Contact Information',
+  //         children: [
+  //           _buildInputField(
+  //             label: 'Apartment Name / Property Name',
+  //             controller: _apartmentNameController,
+  //             hint: 'Enter apartment name',
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Owner / Property Manager Name',
+  //             controller: _ownerNameController,
+  //             hint: 'Enter owner name',
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Mobile Number',
+  //                   controller: _mobileController,
+  //                   hint: 'Enter mobile number',
+  //                   keyboardType: TextInputType.phone,
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Alternate Mobile',
+  //                   controller: _altMobileController,
+  //                   hint: 'Optional',
+  //                   keyboardType: TextInputType.phone,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Email Address *',
+  //                   controller: _emailController,
+  //                   hint: 'example@email.com',
+  //                   keyboardType: TextInputType.emailAddress,
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Website',
+  //                   controller: _websiteController,
+  //                   hint: 'https://example.com',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Company Name',
+  //             controller: _companyNameController,
+  //             hint: 'Enter company name',
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildPhotoUploadItem(
+  //             label: 'Profile Photo',
+  //             fileInfo: _ownerPhotoInfo,
+  //             onUpload: _pickOwnerPhoto,
+  //             onView: _viewOwnerPhoto,
+  //             onRemove: _removeOwnerPhoto,
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(height: 16),
+  //       _buildCard(
+  //         title: 'Property Location Details',
+  //         children: [
+  //           _buildInputField(
+  //             label: 'Apartment Address',
+  //             controller: _addressController,
+  //             hint: 'Enter complete address',
+  //             maxLines: 2,
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Area / Landmark',
+  //                   controller: _areaController,
+  //                   hint: 'Enter area or landmark',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'City',
+  //                   controller: _cityController,
+  //                   hint: 'Enter city',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'State',
+  //                   controller: _stateController,
+  //                   hint: 'Enter state',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Pincode',
+  //                   controller: _pincodeController,
+  //                   hint: '6-digit pincode',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Google Map Location',
+  //             controller: _googleMapLinkController,
+  //             hint: 'Paste Google Maps link or coordinates',
+  //           ),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildBasicInfoStep() {
     return Column(
       children: [
@@ -48260,13 +47355,13 @@ class _ApartmentRegistrationVendorFormState
           title: 'Basic Contact Information',
           children: [
             _buildInputField(
-              label: 'Apartment Name / Property Name *',
+              label: 'Apartment Name / Property Name',
               controller: _apartmentNameController,
               hint: 'Enter apartment name',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Owner / Property Manager Name *',
+              label: 'Owner / Property Manager Name',
               controller: _ownerNameController,
               hint: 'Enter owner name',
             ),
@@ -48275,7 +47370,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Mobile Number *',
+                    label: 'Mobile Number',
                     controller: _mobileController,
                     hint: 'Enter mobile number',
                     keyboardType: TextInputType.phone,
@@ -48297,7 +47392,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Email Address *',
+                    label: 'Email Address',
                     controller: _emailController,
                     hint: 'example@email.com',
                     keyboardType: TextInputType.emailAddress,
@@ -48317,11 +47412,11 @@ class _ApartmentRegistrationVendorFormState
             _buildInputField(
               label: 'Company Name',
               controller: _companyNameController,
-              hint: 'Enter company name (if applicable)',
+              hint: 'Enter company name',
             ),
             SizedBox(height: 16),
             _buildPhotoUploadItem(
-              label: 'Profile Photo of Owner/Manager',
+              label: 'Profile Photo',
               fileInfo: _ownerPhotoInfo,
               onUpload: _pickOwnerPhoto,
               onView: _viewOwnerPhoto,
@@ -48330,11 +47425,74 @@ class _ApartmentRegistrationVendorFormState
           ],
         ),
         SizedBox(height: 16),
+
+        // NEW: Permanent Office Address Card
+        _buildCard(
+          title: 'Permanent Office Address',
+          children: [
+            _buildInputField(
+              label: 'Office Address',
+              controller: _officeAddressController,
+              hint: 'Enter complete office address',
+              maxLines: 2,
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Area / Locality',
+                    controller: _officeAreaController,
+                    hint: 'Enter area',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'City',
+                    controller: _officeCityController,
+                    hint: 'Enter city',
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'State',
+                    controller: _officeStateController,
+                    hint: 'Enter state',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Pincode',
+                    controller: _officePincodeController,
+                    hint: '6-digit pincode',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Google Map Location',
+              controller: _officeGoogleMapLinkController,
+              hint: 'Paste Google Maps link for office',
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+
+        // Property Location Details Card (Apartment Address)
         _buildCard(
           title: 'Property Location Details',
           children: [
             _buildInputField(
-              label: 'Apartment Address *',
+              label: 'Apartment Address',
               controller: _addressController,
               hint: 'Enter complete address',
               maxLines: 2,
@@ -48344,7 +47502,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Area / Landmark *',
+                    label: 'Area / Landmark',
                     controller: _areaController,
                     hint: 'Enter area or landmark',
                   ),
@@ -48352,7 +47510,7 @@ class _ApartmentRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'City *',
+                    label: 'City',
                     controller: _cityController,
                     hint: 'Enter city',
                   ),
@@ -48364,7 +47522,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'State *',
+                    label: 'State',
                     controller: _stateController,
                     hint: 'Enter state',
                   ),
@@ -48372,7 +47530,7 @@ class _ApartmentRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Pincode *',
+                    label: 'Pincode',
                     controller: _pincodeController,
                     hint: '6-digit pincode',
                     keyboardType: TextInputType.number,
@@ -48382,7 +47540,7 @@ class _ApartmentRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Google Map Location (Pin Drop / URL) *',
+              label: 'Google Map Location',
               controller: _googleMapLinkController,
               hint: 'Paste Google Maps link or coordinates',
             ),
@@ -48392,6 +47550,7 @@ class _ApartmentRegistrationVendorFormState
     );
   }
 
+
   Widget _buildPropertyDetailsStep() {
     return Column(
       children: [
@@ -48399,7 +47558,7 @@ class _ApartmentRegistrationVendorFormState
           title: 'Property Details',
           children: [
             Text(
-              'Property Type *',
+              'Property Type',
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
@@ -48475,7 +47634,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Total Number of Units *',
+                    label: 'Total Number of Units',
                     controller: _totalUnitsController,
                     hint: 'Enter number',
                     keyboardType: TextInputType.number,
@@ -48484,7 +47643,7 @@ class _ApartmentRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Total Bedrooms *',
+                    label: 'Total Bedrooms',
                     controller: _totalBedroomsController,
                     hint: 'Enter number',
                     keyboardType: TextInputType.number,
@@ -48497,7 +47656,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Total Bathrooms *',
+                    label: 'Total Bathrooms',
                     controller: _totalBathroomsController,
                     hint: 'Enter number',
                     keyboardType: TextInputType.number,
@@ -48506,7 +47665,7 @@ class _ApartmentRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Max Guest Capacity *',
+                    label: 'Max Guest Capacity',
                     controller: _guestCapacityController,
                     hint: 'Enter number',
                     keyboardType: TextInputType.number,
@@ -48541,7 +47700,7 @@ class _ApartmentRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Elevator Available *',
+                  'Elevator Available',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -48609,7 +47768,7 @@ class _ApartmentRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Property Description *',
+              label: 'Property Description',
               controller: _propertyDescriptionController,
               hint: 'Describe your apartment',
               maxLines: 4,
@@ -48639,7 +47798,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Base Price Per Night *',
+                    label: 'Base Price Per Night',
                     controller: _basePriceController,
                     hint: '₹',
                     keyboardType: TextInputType.number,
@@ -48673,7 +47832,7 @@ class _ApartmentRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Weekend Price *',
+                    label: 'Weekend Price',
                     controller: _weekendPriceController,
                     hint: '₹',
                     keyboardType: TextInputType.number,
@@ -48735,7 +47894,7 @@ class _ApartmentRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Check-in Time *',
+                  'Check-in Time',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -48778,7 +47937,7 @@ class _ApartmentRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Check-out Time *',
+                  'Check-out Time',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -48818,7 +47977,7 @@ class _ApartmentRegistrationVendorFormState
             SizedBox(height: 16),
 
             _buildFileUploadItem(
-              label: 'Cancellation Policy *',
+              label: 'Cancellation Policy',
               fileInfo: _cancelledChequeInfo,
               onUpload: () => _pickFile('cancellation'),
               onView: () => _viewFile(_cancelledChequeInfo),
@@ -48835,7 +47994,7 @@ class _ApartmentRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Available From Date *',
+                  'Available From Date',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -48879,9 +48038,9 @@ class _ApartmentRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Blackout Dates (Optional)',
+              label: 'Blackout Dates',
               controller: _blackoutDatesController,
-              hint: 'Enter dates (e.g., 25 Dec 2024 - 5 Jan 2025)',
+              hint: 'Enter dates',
             ),
             SizedBox(height: 16),
             _buildFileUploadItem(
@@ -48897,7 +48056,7 @@ class _ApartmentRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Instant Booking *',
+                  'Instant Booking',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -48954,7 +48113,7 @@ class _ApartmentRegistrationVendorFormState
           title: 'Legal & Verification Documents',
           children: [
             _buildFileUploadItem(
-              label: 'Property Ownership Proof / Rental Agreement *',
+              label: 'Property Ownership Proof / Rental Agreement',
               fileInfo: _ownershipProofInfo,
               onUpload: () => _pickFile('ownership'),
               onView: () => _viewFile(_ownershipProofInfo),
@@ -48962,7 +48121,7 @@ class _ApartmentRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildFileUploadItem(
-              label: 'ID Proof (Aadhaar / PAN / Passport) *',
+              label: 'ID Proof (Aadhaar / PAN / Passport)',
               fileInfo: _idProofInfo,
               onUpload: () => _pickFile('idproof'),
               onView: () => _viewFile(_idProofInfo),
@@ -49001,7 +48160,7 @@ class _ApartmentRegistrationVendorFormState
           title: 'Bank Details (For Payment Settlement)',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountHolderController,
               hint: 'Enter name',
             ),
@@ -49010,7 +48169,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Bank Name *',
+                    label: 'Bank Name',
                     controller: _bankNameController,
                     hint: 'Enter bank name',
                   ),
@@ -49018,7 +48177,7 @@ class _ApartmentRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
@@ -49031,7 +48190,7 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscCodeController,
                     hint: 'Enter IFSC code',
                   ),
@@ -49048,7 +48207,7 @@ class _ApartmentRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildFileUploadItem(
-              label: 'Cancelled Cheque (Optional)',
+              label: 'Cancelled Cheque',
               fileInfo: _cancelledChequeInfo,
               onUpload: () => _pickFile('cheque'),
               onView: () => _viewFile(_cancelledChequeInfo),
@@ -49068,31 +48227,31 @@ class _ApartmentRegistrationVendorFormState
           title: 'Media Upload Section',
           children: [
             _buildMediaUploadSection(
-              label: 'Exterior Photos *',
+              label: 'Exterior Photos',
               mediaKey: 'exterior',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Interior Photos *',
+              label: 'Interior Photos',
               mediaKey: 'interior',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Bedroom Photos *',
+              label: 'Bedroom Photos',
               mediaKey: 'bedroom',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Bathroom Photos *',
+              label: 'Bathroom Photos',
               mediaKey: 'bathroom',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Amenities Photos *',
+              label: 'Amenities Photos',
               mediaKey: 'amenities',
               isRequired: true,
             ),
@@ -49231,91 +48390,7 @@ class _ApartmentRegistrationVendorFormState
             ),
           ],
         ),
-        SizedBox(height: 16),
-        _buildCard(
-          title: 'Admin Internal Section',
-          children: [
-            DropdownButtonFormField<String>(
-              value: _vendorStatus,
-              decoration: InputDecoration(
-                labelText: 'Vendor Status',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-              ),
-              items: ['Pending', 'Approved', 'Rejected'].map((status) {
-                return DropdownMenuItem(value: status, child: Text(status));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _vendorStatus = value;
-                });
-              },
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: CheckboxListTile(
-                    value: _featuredListing,
-                    onChanged: (value) {
-                      setState(() {
-                        _featuredListing = value ?? false;
-                      });
-                    },
-                    title: Text('Featured Listing'),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ),
-                Expanded(
-                  child: CheckboxListTile(
-                    value: _verifiedBadge,
-                    onChanged: (value) {
-                      setState(() {
-                        _verifiedBadge = value ?? false;
-                      });
-                    },
-                    title: Text('Verified Badge'),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Rating Score',
-                      hintText: '0.0',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      _ratingScore = double.tryParse(value) ?? 0.0;
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            _buildInputField(
-              label: 'Remarks',
-              controller: _remarksController,
-              hint: 'Admin remarks',
-              maxLines: 2,
-            ),
-          ],
-        ),
+
       ],
     );
   }
@@ -50736,30 +49811,150 @@ class _ApartmentRegistrationVendorFormState
     }
   }
 
+  // void _submitForm() {
+  //   if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
+  //     _showErrorDialog(
+  //       'Terms Required',
+  //       'Please accept all terms and conditions.',
+  //     );
+  //     return;
+  //   }
+  //
+  //   final hasSignature = _hasDigitalSignature;
+  //   if (!hasSignature) {
+  //     _showErrorDialog(
+  //       'Signature Required',
+  //       'Please draw your digital signature.',
+  //     );
+  //     return;
+  //   }
+  //
+  //   if (_mediaFiles['exterior']!.isEmpty) {
+  //     _showErrorDialog('Photos Required', 'Please upload exterior photos.');
+  //     return;
+  //   }
+  //
+  //   Map<String, dynamic> formData = {
+  //     'basicInfo': {
+  //       'apartmentName': _apartmentNameController.text,
+  //       'ownerName': _ownerNameController.text,
+  //       'mobile': _mobileController.text,
+  //       'altMobile': _altMobileController.text,
+  //       'email': _emailController.text,
+  //       'companyName': _companyNameController.text,
+  //       'website': _websiteController.text,
+  //       'ownerPhoto': _ownerPhotoInfo,
+  //     },
+  //     'location': {
+  //       'address': _addressController.text,
+  //       'area': _areaController.text,
+  //       'city': _cityController.text,
+  //       'state': _stateController.text,
+  //       'pincode': _pincodeController.text,
+  //       'googleMapLink': _googleMapLinkController.text,
+  //     },
+  //     'propertyDetails': {
+  //       'propertyType': _selectedPropertyType == 'Other'
+  //           ? _customPropertyType
+  //           : _selectedPropertyType,
+  //       'totalUnits': _totalUnitsController.text,
+  //       'totalBedrooms': _totalBedroomsController.text,
+  //       'totalBathrooms': _totalBathroomsController.text,
+  //       'guestCapacity': _guestCapacityController.text,
+  //       'floorNumber': _floorNumberController.text,
+  //       'totalFloors': _totalFloorsController.text,
+  //       'elevatorAvailable': _elevatorAvailable,
+  //       'propertySize': _propertySizeController.text,
+  //       'yearConstruction': _yearConstructionController.text,
+  //       'description': _propertyDescriptionController.text,
+  //     },
+  //     'amenities': {
+  //       'selected': _apartmentAmenities,
+  //       'custom': _customAmenities,
+  //     },
+  //     'pricing': {
+  //       'basePrice': _basePriceController.text,
+  //       'weeklyPrice': _weeklyPriceController.text,
+  //       'monthlyPrice': _monthlyPriceController.text,
+  //       'weekendPrice': _weekendPriceController.text,
+  //       'peakPrice': _peakPriceController.text,
+  //       'securityDeposit': _securityDepositController.text,
+  //       'minimumStay': _minimumStayController.text,
+  //       'advancePayment': _advancePaymentController.text,
+  //       'checkInTime': _selectedCheckInTime,
+  //       'checkOutTime': _selectedCheckOutTime,
+  //       'cancellationPolicy': _cancelledChequeInfo,
+  //     },
+  //     'availability': {
+  //       'availableFromDate': _availableFromDate,
+  //       'blackoutDates': _blackoutDatesController.text,
+  //       'calendarSync': _calendarSyncInfo,
+  //       'instantBooking': _instantBooking,
+  //     },
+  //     'legal': {
+  //       'ownershipProof': _ownershipProofInfo,
+  //       'idProof': _idProofInfo,
+  //       'gstNumber': _gstNumberController.text,
+  //       'tradeLicense': _tradeLicenseController.text,
+  //       'policeVerification': _policeVerificationController.text,
+  //     },
+  //     'bank': {
+  //       'accountHolder': _accountHolderController.text,
+  //       'bankName': _bankNameController.text,
+  //       'accountNumber': _accountNumberController.text,
+  //       'ifscCode': _ifscCodeController.text,
+  //       'upiId': _upiIdController.text,
+  //       'cancelledCheque': _cancelledChequeInfo,
+  //     },
+  //     'media': _mediaFiles,
+  //     'houseRules': {
+  //       'smokingPolicy': _smokingPolicyController.text,
+  //       'petPolicy': _petPolicyController.text,
+  //       'eventPolicy': _eventPolicyController.text,
+  //       'visitorPolicy': _visitorPolicyController.text,
+  //       'quietHours': _quietHoursController.text,
+  //       'additionalRules': _additionalRulesController.text,
+  //     },
+  //     'signature': {
+  //       'hasDigital': _hasDigitalSignature,
+  //       'digitalSignature': _digitalSignatureImage,
+  //       'date': _selectedDate,
+  //     },
+  //     'adminFields': {
+  //       'vendorStatus': _vendorStatus,
+  //       'featuredListing': _featuredListing,
+  //       'verifiedBadge': _verifiedBadge,
+  //       'ratingScore': _ratingScore,
+  //       'remarks': _remarksController.text,
+  //     },
+  //   };
+  //
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => ApartmentRegistrationSummaryScreen(
+  //         registrationData: formData,
+  //         declarationAccepted: _declarationAccepted,
+  //       ),
+  //     ),
+  //   );
+  // }
+
   void _submitForm() {
     if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-      _showErrorDialog(
-        'Terms Required',
-        'Please accept all terms and conditions.',
-      );
+      _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
       return;
     }
 
-    final hasSignature = _hasDigitalSignature;
-    if (!hasSignature) {
-      _showErrorDialog(
-        'Signature Required',
-        'Please draw your digital signature.',
-      );
-      return;
-    }
+    String apartmentId = 'APT_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
 
-    if (_mediaFiles['exterior']!.isEmpty) {
-      _showErrorDialog('Photos Required', 'Please upload exterior photos.');
-      return;
-    }
+    String propertyTypeValue = _selectedPropertyType == 'Other'
+        ? _customPropertyType.isNotEmpty ? _customPropertyType : 'Other Apartment'
+        : _selectedPropertyType ?? 'Service Apartment';
 
     Map<String, dynamic> formData = {
+      'id': apartmentId,
+      'registeredAt': DateTime.now().toIso8601String(),
       'basicInfo': {
         'apartmentName': _apartmentNameController.text,
         'ownerName': _ownerNameController.text,
@@ -50771,17 +49966,25 @@ class _ApartmentRegistrationVendorFormState
         'ownerPhoto': _ownerPhotoInfo,
       },
       'location': {
+        // Apartment Address
         'address': _addressController.text,
         'area': _areaController.text,
         'city': _cityController.text,
         'state': _stateController.text,
         'pincode': _pincodeController.text,
         'googleMapLink': _googleMapLinkController.text,
+        // Office Address - ADD THIS
+        'officeAddress': {
+          'address': _officeAddressController.text,
+          'area': _officeAreaController.text,
+          'city': _officeCityController.text,
+          'state': _officeStateController.text,
+          'pincode': _officePincodeController.text,
+          'googleMapLink': _officeGoogleMapLinkController.text,
+        },
       },
       'propertyDetails': {
-        'propertyType': _selectedPropertyType == 'Other'
-            ? _customPropertyType
-            : _selectedPropertyType,
+        'propertyType': propertyTypeValue,
         'totalUnits': _totalUnitsController.text,
         'totalBedrooms': _totalBedroomsController.text,
         'totalBathrooms': _totalBathroomsController.text,
@@ -50845,14 +50048,14 @@ class _ApartmentRegistrationVendorFormState
         'digitalSignature': _digitalSignatureImage,
         'date': _selectedDate,
       },
-      'adminFields': {
-        'vendorStatus': _vendorStatus,
-        'featuredListing': _featuredListing,
-        'verifiedBadge': _verifiedBadge,
-        'ratingScore': _ratingScore,
-        'remarks': _remarksController.text,
-      },
+      'declarationAccepted': _declarationAccepted,
+      'propertyType': 'apartment',
     };
+
+    _saveToSharedPreferences(formData);
+
+    // Store email for use in summary screen
+    final userEmail = _emailController.text;
 
     Navigator.push(
       context,
@@ -50860,10 +50063,79 @@ class _ApartmentRegistrationVendorFormState
         builder: (context) => ApartmentRegistrationSummaryScreen(
           registrationData: formData,
           declarationAccepted: _declarationAccepted,
+          userEmail: userEmail, // Pass the email
         ),
       ),
     );
   }
+
+  // Future<void> _saveToSharedPreferences(Map<String, dynamic> formData) async {
+  //   try {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     final String userEmail = _emailController.text;
+  //
+  //     final String? existingDataString = prefs.getString('user_${userEmail}_data');
+  //     Map<String, dynamic> userData = {};
+  //
+  //     if (existingDataString != null) {
+  //       userData = jsonDecode(existingDataString);
+  //     }
+  //
+  //     if (userData.containsKey('apartments') && userData['apartments'] is List) {
+  //       List<dynamic> apartmentsList = userData['apartments'];
+  //       apartmentsList.add(formData);
+  //       userData['apartments'] = apartmentsList;
+  //     } else {
+  //       userData['apartments'] = [formData];
+  //     }
+  //
+  //     await prefs.setString('user_${userEmail}_data', jsonEncode(userData));
+  //   } catch (e) {
+  //     print('Error saving to SharedPreferences: $e');
+  //   }
+  // }
+
+  Future<void> _saveToSharedPreferences(Map<String, dynamic> formData) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String userEmail = _emailController.text;
+
+      final String? existingDataString = prefs.getString('user_${userEmail}_data');
+      Map<String, dynamic> userData = {};
+
+      if (existingDataString != null) {
+        userData = jsonDecode(existingDataString);
+        print('Existing user data loaded');
+      }
+
+
+      print('=== SAVING TO SHAREDPREFERENCES ===');
+      print('formData contains location: ${formData.containsKey('location')}');
+      if (formData.containsKey('location')) {
+        print('location contains officeAddress: ${formData['location'].containsKey('officeAddress')}');
+        if (formData['location'].containsKey('officeAddress')) {
+          print('officeAddress address: ${formData['location']['officeAddress']['address']}');
+        }
+      }
+
+      if (userData.containsKey('apartments') && userData['apartments'] is List) {
+        List<dynamic> apartmentsList = userData['apartments'];
+        apartmentsList.add(formData);
+        userData['apartments'] = apartmentsList;
+      } else {
+        userData['apartments'] = [formData];
+      }
+
+
+      print('Saving apartment with office address: ${userData['apartments'].last['location']['officeAddress']['address']}');
+
+      await prefs.setString('user_${userEmail}_data', jsonEncode(userData));
+      print('Data saved successfully!');
+    } catch (e) {
+      print('Error saving to SharedPreferences: $e');
+    }
+  }
+
 
   @override
   void dispose() {
@@ -50881,6 +50153,12 @@ class _ApartmentRegistrationVendorFormState
     _stateController.dispose();
     _pincodeController.dispose();
     _googleMapLinkController.dispose();
+    _officeAddressController.dispose();
+    _officeAreaController.dispose();
+    _officeCityController.dispose();
+    _officeStateController.dispose();
+    _officePincodeController.dispose();
+    _officeGoogleMapLinkController.dispose();
     _totalUnitsController.dispose();
     _totalBedroomsController.dispose();
     _totalBathroomsController.dispose();
@@ -50919,1332 +50197,6 @@ class _ApartmentRegistrationVendorFormState
     _otherPropertyTypeController.dispose();
     super.dispose();
   }
-}
-
-class ApartmentRegistrationSummaryScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-  final bool declarationAccepted;
-
-  const ApartmentRegistrationSummaryScreen({
-    Key? key,
-    required this.registrationData,
-    required this.declarationAccepted,
-  }) : super(key: key);
-
-  dynamic _get(String key, [dynamic defaultValue]) {
-    try {
-      final keys = key.split('.');
-      dynamic value = registrationData;
-
-      for (final k in keys) {
-        if (value is Map) {
-          value = value[k];
-        } else {
-          return defaultValue;
-        }
-      }
-      return value ?? defaultValue;
-    } catch (e) {
-      return defaultValue;
-    }
-  }
-
-  Map<String, bool>? _getAmenities(String key) {
-    final value = _get(key);
-    if (value is Map) {
-      return Map<String, bool>.from(
-        value.map((k, v) => MapEntry(k.toString(), v is bool ? v : false)),
-      );
-    }
-    return null;
-  }
-
-  Color get _primaryColor => Color(0xFF5C6BC0); // Indigo
-  Color get _primaryLight => _primaryColor.withOpacity(0.1);
-  Color get _bgColor => Color(0xFFF9FAFB);
-  Color get _textDark => Color(0xFF111827);
-  Color get _textLight => Color(0xFF6B7280);
-  Color get _borderColor => Color(0xFFE5E7EB);
-  Color get _successColor => Color(0xFF10B981);
-  Color get _warningColor => Color(0xFFF59E0B);
-  Color get _dangerColor => Color(0xFFEF4444);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: _textDark),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Apartment Registration Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: _textDark,
-          ),
-        ),
-        centerTitle: true,
-        actions: [_buildCategoryChip()],
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSuccessHeader(),
-            _buildBasicInfo(),
-            _buildLocationInfo(),
-            _buildPropertyDetails(),
-            _buildAmenitiesSection(),
-            _buildPricingSection(),
-            _buildAvailabilitySection(),
-            _buildLegalBankSection(),
-            _buildMediaSection(),
-            _buildHouseRulesSection(),
-            _buildDeclarationSection(),
-            SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildFinishButton(context),
-    );
-  }
-
-  Widget _buildCategoryChip() {
-    return Container(
-      margin: EdgeInsets.only(right: 16),
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: _primaryColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.apartment, size: 14, color: Colors.white),
-          SizedBox(width: 4),
-          Text(
-            _get('propertyDetails.propertyType', 'Apartment'),
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSuccessHeader() {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(bottom: 20),
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Apartment Registration Submitted Successfully!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  _get('basicInfo.apartmentName', 'Apartment Name'),
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 2),
-                Text(
-                  'Reference ID: APT${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.apartment, color: Colors.white, size: 30),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBasicInfo() {
-    final List<Widget> children = [
-      _infoRow(
-        'Apartment Name',
-        _get('basicInfo.apartmentName', 'Not Provided'),
-      ),
-      _infoRow('Owner/Manager', _get('basicInfo.ownerName', 'Not Provided')),
-      _infoRow('Mobile Number', _get('basicInfo.mobile', 'Not Provided')),
-    ];
-
-    if (_get('basicInfo.altMobile') != null &&
-        _get('basicInfo.altMobile').toString().isNotEmpty) {
-      children.add(_infoRow('Alternate Contact', _get('basicInfo.altMobile')));
-    }
-
-    if (_get('basicInfo.email') != null &&
-        _get('basicInfo.email').toString().isNotEmpty) {
-      children.add(_infoRow('Email', _get('basicInfo.email')));
-    }
-
-    if (_get('basicInfo.companyName') != null &&
-        _get('basicInfo.companyName').toString().isNotEmpty) {
-      children.add(_infoRow('Company Name', _get('basicInfo.companyName')));
-    }
-
-    if (_get('basicInfo.website') != null &&
-        _get('basicInfo.website').toString().isNotEmpty) {
-      children.add(_infoRow('Website', _get('basicInfo.website')));
-    }
-
-    final ownerPhoto = _get('basicInfo.ownerPhoto');
-    if (ownerPhoto != null && ownerPhoto['uploaded'] == true) {
-      children.add(_buildPhotoInfo('Profile Photo', ownerPhoto));
-    }
-
-    return _buildSectionCard(
-      title: 'Basic Information',
-      icon: Icons.contact_phone,
-      children: children,
-    );
-  }
-
-  Widget _buildLocationInfo() {
-    final List<Widget> children = [
-      _infoRow('Address', _get('location.address', 'Not Provided')),
-      _infoRow('Area/Landmark', _get('location.area', 'Not Provided')),
-      _infoRow('City', _get('location.city', 'Not Provided')),
-      _infoRow('State', _get('location.state', 'Not Provided')),
-      _infoRow('Pincode', _get('location.pincode', 'Not Provided')),
-    ];
-
-    if (_get('location.googleMapLink') != null &&
-        _get('location.googleMapLink').toString().isNotEmpty) {
-      children.add(
-        Padding(
-          padding: EdgeInsets.only(top: 8),
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: _primaryLight,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: _primaryColor.withOpacity(0.3)),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.map, size: 18, color: _primaryColor),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    _get('location.googleMapLink'),
-                    style: TextStyle(fontSize: 12, color: _textDark),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Location Details',
-      icon: Icons.location_on,
-      children: children,
-    );
-  }
-
-  Widget _buildPropertyDetails() {
-    final List<Widget> children = [
-      _infoRow(
-        'Property Type',
-        _get('propertyDetails.propertyType', 'Not Provided'),
-      ),
-      _infoRow('Total Units', _get('propertyDetails.totalUnits', '0')),
-      _infoRow('Total Bedrooms', _get('propertyDetails.totalBedrooms', '0')),
-      _infoRow('Total Bathrooms', _get('propertyDetails.totalBathrooms', '0')),
-      _infoRow(
-        'Guest Capacity',
-        '${_get('propertyDetails.guestCapacity', '0')} guests',
-      ),
-    ];
-
-    if (_get('propertyDetails.floorNumber') != null &&
-        _get('propertyDetails.floorNumber').toString().isNotEmpty) {
-      children.add(
-        _infoRow('Floor Number', _get('propertyDetails.floorNumber')),
-      );
-    }
-
-    if (_get('propertyDetails.totalFloors') != null &&
-        _get('propertyDetails.totalFloors').toString().isNotEmpty) {
-      children.add(
-        _infoRow('Total Floors', _get('propertyDetails.totalFloors')),
-      );
-    }
-
-    children.add(
-      _infoRow(
-        'Elevator Available',
-        _get('propertyDetails.elevatorAvailable', 'No'),
-      ),
-    );
-
-    if (_get('propertyDetails.propertySize') != null &&
-        _get('propertyDetails.propertySize').toString().isNotEmpty) {
-      children.add(
-        _infoRow(
-          'Property Size',
-          '${_get('propertyDetails.propertySize')} sq.ft.',
-        ),
-      );
-    }
-
-    if (_get('propertyDetails.yearConstruction') != null &&
-        _get('propertyDetails.yearConstruction').toString().isNotEmpty) {
-      children.add(
-        _infoRow('Year Built', _get('propertyDetails.yearConstruction')),
-      );
-    }
-
-    final description = _get('propertyDetails.description', '');
-    if (description.toString().isNotEmpty) {
-      children.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Description', style: _labelStyle),
-            SizedBox(height: 8),
-            Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: _borderColor),
-              ),
-              child: Text(
-                description.toString(),
-                style: TextStyle(fontSize: 14, color: _textDark, height: 1.5),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Property Details',
-      icon: Icons.home,
-      children: children,
-    );
-  }
-
-  Widget _buildAmenitiesSection() {
-    final List<Widget> amenitySections = [];
-
-    final selectedAmenities = _get('amenities.selected', {});
-    if (selectedAmenities is Map) {
-      final amenitiesList = (selectedAmenities as Map).entries
-          .where((e) => e.value == true)
-          .map((e) => e.key.toString())
-          .toList();
-
-      if (amenitiesList.isNotEmpty) {
-        amenitySections.add(
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Amenities Available', style: _subSectionStyle),
-              SizedBox(height: 8),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: amenitiesList
-                    .map(
-                      (amenity) => Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: _primaryLight,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: _primaryColor.withOpacity(0.2),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.check_circle,
-                              size: 14,
-                              color: _primaryColor,
-                            ),
-                            SizedBox(width: 6),
-                            Text(
-                              amenity,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: _primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ],
-          ),
-        );
-      }
-    }
-
-    final customAmenities = _get('amenities.custom', []);
-    if (customAmenities is List && customAmenities.isNotEmpty) {
-      amenitySections.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Custom Amenities', style: _subSectionStyle),
-            SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: customAmenities
-                  .map(
-                    (amenity) => Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            _primaryColor,
-                            _primaryColor.withOpacity(0.8),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: _primaryColor.withOpacity(0.2),
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.star, size: 12, color: Colors.white),
-                          SizedBox(width: 6),
-                          Text(
-                            amenity.toString(),
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (amenitySections.isEmpty) return SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'Amenities',
-      icon: Icons.workspaces_filled,
-      children: amenitySections,
-    );
-  }
-
-  Widget _buildPricingSection() {
-    final List<Widget> children = [];
-
-    final basePrice = _get('pricing.basePrice', '');
-    final weeklyPrice = _get('pricing.weeklyPrice', '');
-    final monthlyPrice = _get('pricing.monthlyPrice', '');
-    final weekendPrice = _get('pricing.weekendPrice', '');
-    final peakPrice = _get('pricing.peakPrice', '');
-    final securityDeposit = _get('pricing.securityDeposit', '');
-    final minimumStay = _get('pricing.minimumStay', '');
-    final advancePayment = _get('pricing.advancePayment', '');
-    final checkInTime = _get('pricing.checkInTime', '');
-    final checkOutTime = _get('pricing.checkOutTime', '');
-
-    if (basePrice.toString().isNotEmpty) {
-      children.add(_infoRow('Base Price', '₹ ${basePrice}/night'));
-    }
-
-    if (weeklyPrice.toString().isNotEmpty) {
-      children.add(_infoRow('Weekly Price', '₹ ${weeklyPrice}'));
-    }
-
-    if (monthlyPrice.toString().isNotEmpty) {
-      children.add(_infoRow('Monthly Price', '₹ ${monthlyPrice}'));
-    }
-
-    if (weekendPrice.toString().isNotEmpty) {
-      children.add(_infoRow('Weekend Price', '₹ ${weekendPrice}/night'));
-    }
-
-    if (peakPrice.toString().isNotEmpty) {
-      children.add(_infoRow('Peak Season Price', '₹ ${peakPrice}/night'));
-    }
-
-    if (securityDeposit.toString().isNotEmpty) {
-      children.add(_infoRow('Security Deposit', '₹ ${securityDeposit}'));
-    }
-
-    if (minimumStay.toString().isNotEmpty) {
-      children.add(_infoRow('Minimum Stay', '${minimumStay} nights'));
-    }
-
-    if (advancePayment.toString().isNotEmpty) {
-      children.add(_infoRow('Advance Payment', '${advancePayment}%'));
-    }
-
-    if (checkInTime.toString().isNotEmpty) {
-      children.add(_infoRow('Check-in Time', checkInTime.toString()));
-    }
-
-    if (checkOutTime.toString().isNotEmpty) {
-      children.add(_infoRow('Check-out Time', checkOutTime.toString()));
-    }
-
-    final cancellationPolicy = _get('pricing.cancellationPolicy');
-    if (cancellationPolicy != null && cancellationPolicy['uploaded'] == true) {
-      children.add(
-        _buildDocumentItem('Cancellation Policy', cancellationPolicy),
-      );
-    }
-
-    return _buildSectionCard(
-      title: 'Pricing & Policies',
-      icon: Icons.attach_money,
-      children: children,
-    );
-  }
-
-  Widget _buildAvailabilitySection() {
-    final List<Widget> children = [];
-
-    final availableFromDate = _get('availability.availableFromDate');
-    if (availableFromDate != null) {
-      String dateStr = '';
-      if (availableFromDate is DateTime) {
-        dateStr =
-            '${availableFromDate.day}/${availableFromDate.month}/${availableFromDate.year}';
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Available From', dateStr));
-      }
-    }
-
-    if (_get('availability.blackoutDates') != null &&
-        _get('availability.blackoutDates').toString().isNotEmpty) {
-      children.add(
-        _infoRow('Blackout Dates', _get('availability.blackoutDates')),
-      );
-    }
-
-    final calendarSync = _get('availability.calendarSync');
-    if (calendarSync != null && calendarSync['uploaded'] == true) {
-      children.add(_buildDocumentItem('Calendar Sync', calendarSync));
-    }
-
-    children.add(
-      _infoRow('Instant Booking', _get('availability.instantBooking', 'No')),
-    );
-
-    return _buildSectionCard(
-      title: 'Availability Management',
-      icon: Icons.calendar_today,
-      children: children,
-    );
-  }
-
-  Widget _buildLegalBankSection() {
-    final List<Widget> children = [];
-
-    final ownershipProof = _get('legal.ownershipProof');
-    if (ownershipProof != null && ownershipProof['uploaded'] == true) {
-      children.add(_buildDocumentItem('Ownership Proof', ownershipProof));
-    }
-
-    final idProof = _get('legal.idProof');
-    if (idProof != null && idProof['uploaded'] == true) {
-      children.add(_buildDocumentItem('ID Proof', idProof));
-    }
-
-    if (_get('legal.gstNumber') != null &&
-        _get('legal.gstNumber').toString().isNotEmpty) {
-      children.add(_infoRow('GST Number', _get('legal.gstNumber')));
-    }
-
-    if (_get('legal.tradeLicense') != null &&
-        _get('legal.tradeLicense').toString().isNotEmpty) {
-      children.add(_infoRow('Trade License', _get('legal.tradeLicense')));
-    }
-
-    if (_get('legal.policeVerification') != null &&
-        _get('legal.policeVerification').toString().isNotEmpty) {
-      children.add(
-        _infoRow('Police Verification', _get('legal.policeVerification')),
-      );
-    }
-
-    if (_get('bank.accountHolder') != null &&
-        _get('bank.accountHolder').toString().isNotEmpty) {
-      children.add(_infoRow('Account Holder', _get('bank.accountHolder')));
-    }
-
-    if (_get('bank.bankName') != null &&
-        _get('bank.bankName').toString().isNotEmpty) {
-      children.add(_infoRow('Bank Name', _get('bank.bankName')));
-    }
-
-    if (_get('bank.accountNumber') != null &&
-        _get('bank.accountNumber').toString().isNotEmpty) {
-      children.add(
-        _infoRow(
-          'Account Number',
-          _maskAccountNumber(_get('bank.accountNumber').toString()),
-        ),
-      );
-    }
-
-    if (_get('bank.ifscCode') != null &&
-        _get('bank.ifscCode').toString().isNotEmpty) {
-      children.add(_infoRow('IFSC Code', _get('bank.ifscCode')));
-    }
-
-    if (_get('bank.upiId') != null &&
-        _get('bank.upiId').toString().isNotEmpty) {
-      children.add(_infoRow('UPI ID', _get('bank.upiId')));
-    }
-
-    final cancelledCheque = _get('bank.cancelledCheque');
-    if (cancelledCheque != null && cancelledCheque['uploaded'] == true) {
-      children.add(_buildDocumentItem('Cancelled Cheque', cancelledCheque));
-    }
-
-    return _buildSectionCard(
-      title: 'Legal & Bank Details',
-      icon: Icons.account_balance,
-      children: children,
-    );
-  }
-
-  Widget _buildMediaSection() {
-    final mediaFiles = _get('media', {});
-
-    if (mediaFiles is! Map || mediaFiles.isEmpty) {
-      return SizedBox.shrink();
-    }
-
-    final List<Widget> children = [];
-
-    final mediaLabels = {
-      'exterior': 'Exterior Photos',
-      'interior': 'Interior Photos',
-      'bedroom': 'Bedroom Photos',
-      'bathroom': 'Bathroom Photos',
-      'amenities': 'Amenities Photos',
-      'short_video': 'Short Video',
-    };
-
-    mediaLabels.forEach((key, label) {
-      final files = mediaFiles[key];
-      if (files is List && files.isNotEmpty) {
-        children.add(
-          Padding(
-            padding: EdgeInsets.only(bottom: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(label, style: _labelStyle),
-                SizedBox(height: 4),
-                Container(
-                  padding: EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: _primaryColor.withOpacity(0.3)),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        key == 'short_video'
-                            ? Icons.video_library
-                            : Icons.photo_library,
-                        color: _primaryColor,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        '${files.length} file(s) uploaded',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                          color: _textDark,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-    });
-
-    return _buildSectionCard(
-      title: 'Media',
-      icon: Icons.photo_library,
-      children: children,
-    );
-  }
-
-  Widget _buildHouseRulesSection() {
-    final List<Widget> children = [];
-
-    if (_get('houseRules.smokingPolicy') != null &&
-        _get('houseRules.smokingPolicy').toString().isNotEmpty) {
-      children.add(
-        _infoRow('Smoking Policy', _get('houseRules.smokingPolicy')),
-      );
-    }
-
-    if (_get('houseRules.petPolicy') != null &&
-        _get('houseRules.petPolicy').toString().isNotEmpty) {
-      children.add(_infoRow('Pet Policy', _get('houseRules.petPolicy')));
-    }
-
-    if (_get('houseRules.eventPolicy') != null &&
-        _get('houseRules.eventPolicy').toString().isNotEmpty) {
-      children.add(_infoRow('Event Policy', _get('houseRules.eventPolicy')));
-    }
-
-    if (_get('houseRules.visitorPolicy') != null &&
-        _get('houseRules.visitorPolicy').toString().isNotEmpty) {
-      children.add(
-        _infoRow('Visitor Policy', _get('houseRules.visitorPolicy')),
-      );
-    }
-
-    if (_get('houseRules.quietHours') != null &&
-        _get('houseRules.quietHours').toString().isNotEmpty) {
-      children.add(_infoRow('Quiet Hours', _get('houseRules.quietHours')));
-    }
-
-    if (_get('houseRules.additionalRules') != null &&
-        _get('houseRules.additionalRules').toString().isNotEmpty) {
-      children.add(
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Additional Rules', style: _labelStyle),
-            SizedBox(height: 8),
-            Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: _borderColor),
-              ),
-              child: Text(
-                _get('houseRules.additionalRules'),
-                style: TextStyle(fontSize: 14, color: _textDark),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    if (children.isEmpty) return SizedBox.shrink();
-
-    return _buildSectionCard(
-      title: 'House Rules',
-      icon: Icons.rule,
-      children: children,
-    );
-  }
-
-  Widget _buildDeclarationSection() {
-    final List<Widget> children = [];
-
-    final declarationDate = _get('signature.date');
-    if (declarationDate != null) {
-      String dateStr = '';
-      if (declarationDate is DateTime) {
-        dateStr =
-            '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
-      } else if (declarationDate is String) {
-        dateStr = declarationDate;
-      }
-      if (dateStr.isNotEmpty) {
-        children.add(_infoRow('Date', dateStr));
-      }
-    }
-
-    final hasDigitalSignature = _get('signature.hasDigital', false);
-    if (hasDigitalSignature == true) {
-      children.add(
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.purple.withOpacity(0.05),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.purple.withOpacity(0.3)),
-          ),
-          child: Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.purple.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(Icons.draw, size: 20, color: Colors.purple),
-              ),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Digital Signature',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: _textDark,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      'Saved successfully',
-                      style: TextStyle(fontSize: 12, color: _textLight),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.check_circle, size: 20, color: _successColor),
-            ],
-          ),
-        ),
-      );
-    }
-
-    children.add(
-      Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: declarationAccepted
-              ? _successColor.withOpacity(0.1)
-              : _dangerColor.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: declarationAccepted
-                ? _successColor.withOpacity(0.3)
-                : _dangerColor.withOpacity(0.3),
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              declarationAccepted ? Icons.check_circle : Icons.error,
-              color: declarationAccepted ? _successColor : _dangerColor,
-              size: 24,
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    declarationAccepted
-                        ? 'Terms & Declaration Accepted'
-                        : 'Declaration Not Accepted',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: declarationAccepted ? _successColor : _dangerColor,
-                    ),
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    'I confirm that the above information is correct.',
-                    style: TextStyle(fontSize: 12, color: _textLight),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: children,
-    );
-  }
-
-  Widget _buildSectionCard({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    if (children.isEmpty) return SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: _borderColor),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 8,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, size: 20, color: _primaryColor),
-              ),
-              SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: _textDark,
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 24, color: _borderColor),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _infoRow(String label, dynamic value) {
-    if (value == null || value.toString().isEmpty) return SizedBox.shrink();
-
-    return Padding(
-      padding: EdgeInsets.only(bottom: 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(flex: 4, child: Text(label, style: _labelStyle)),
-          Expanded(
-            flex: 6,
-            child: Text(
-              value.toString(),
-              style: _valueStyle,
-              textAlign: TextAlign.right,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDocumentItem(String docName, Map<String, dynamic> fileInfo) {
-    IconData getIcon() {
-      if (docName.contains('Cancellation')) return Icons.policy;
-      if (docName.contains('Calendar')) return Icons.calendar_month;
-      if (docName.contains('Ownership')) return Icons.home;
-      if (docName.contains('ID Proof')) return Icons.badge;
-      if (docName.contains('Cheque')) return Icons.account_balance;
-      return Icons.description;
-    }
-
-    final fileName = fileInfo['name']?.toString() ?? 'Document';
-    final fileSize = fileInfo['size'] ?? 0;
-
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[50],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: _primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(getIcon(), size: 24, color: _primaryColor),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  docName,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: _textDark,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  fileName,
-                  style: TextStyle(fontSize: 12, color: _textLight),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 2),
-                Text(
-                  '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                  style: TextStyle(fontSize: 11, color: _textLight),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: _successColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              children: [
-                Icon(Icons.check_circle, size: 14, color: _successColor),
-                SizedBox(width: 4),
-                Text(
-                  'Uploaded',
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: _successColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPhotoInfo(String label, Map<String, dynamic> photoInfo) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: _labelStyle),
-          SizedBox(height: 8),
-          Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[50],
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: _borderColor),
-            ),
-            child: Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(Icons.photo, size: 24, color: _primaryColor),
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        photoInfo['name'] ?? 'Profile Photo',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: _textDark,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(height: 2),
-                      Text(
-                        '${(photoInfo['size'] ?? 0 / 1024).toStringAsFixed(1)} KB',
-                        style: TextStyle(fontSize: 12, color: _textLight),
-                      ),
-                    ],
-                  ),
-                ),
-                Icon(Icons.check_circle, size: 20, color: _successColor),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Widget _buildFinishButton(BuildContext context) {
-  //   return SafeArea(
-  //     child: Container(
-  //       padding: EdgeInsets.all(16),
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         border: Border(top: BorderSide(color: _borderColor)),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.black.withOpacity(0.05),
-  //             blurRadius: 8,
-  //             offset: Offset(0, -4),
-  //           ),
-  //         ],
-  //       ),
-  //       child: Row(
-  //         children: [
-  //           Expanded(
-  //             child: ElevatedButton(
-  //               style: ElevatedButton.styleFrom(
-  //                 backgroundColor: _primaryColor,
-  //                 padding: EdgeInsets.symmetric(vertical: 16),
-  //                 shape: RoundedRectangleBorder(
-  //                   borderRadius: BorderRadius.circular(12),
-  //                 ),
-  //                 elevation: 0,
-  //               ),
-  //               onPressed: () {
-  //
-  //                 Navigator.pop(context);
-  //               },
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   Text(
-  //                     'Proceed to Payment',
-  //                     style: TextStyle(
-  //                       color: Colors.white,
-  //                       fontSize: 15,
-  //                       fontWeight: FontWeight.w600,
-  //                     ),
-  //                   ),
-  //                   SizedBox(width: 8),
-  //                   Icon(Icons.arrow_forward, size: 18, color: Colors.white),
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-  Widget _buildFinishButton(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: _borderColor)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 0,
-                ),
-                onPressed: () {
-                  _showSuccessDialogAndNavigate(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Finish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Icon(
-                      Icons.check_circle,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text(
-            'Your apartment has been registered successfully! Please login to access your dashboard.',
-          ),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  // Navigate to PropertyAuthScreen with explicit property type
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => PropertyAuthScreen(
-                        selectedPropertyType:
-                            'apartment', // Explicitly pass 'apartment'
-                        registrationData: registrationData, // Pass the data
-                      ),
-                    ),
-                    (Route<dynamic> route) => false,
-                  );
-                },
-                child: const Text(
-                  'Continue to Login',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  String _maskAccountNumber(String accountNumber) {
-    if (accountNumber.length <= 4) return accountNumber;
-    return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
-  }
-
-  // Text Styles
-  TextStyle get _labelStyle =>
-      TextStyle(fontSize: 13, color: _textLight, fontWeight: FontWeight.w500);
-
-  TextStyle get _valueStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
-
-  TextStyle get _subSectionStyle =>
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: _textDark);
 }
 
 class ResortRegistrationVendorForm extends StatefulWidget {
