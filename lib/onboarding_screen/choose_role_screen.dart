@@ -9,6 +9,7 @@ import 'package:hotel_booking_mobile_application/onboarding_screen/find_stays_sc
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
+import '../home_screen/business_dashboard_screen/business_dashboard_screen.dart';
 import '../home_screen/hotel_registration_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -2375,7 +2376,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     try {
       final Map<String, dynamic> userData = {};
 
-      // Add user account data FIRST
+
       userData['fullName'] = fullName;
       userData['businessName'] = businessName;
       userData['email'] = email.toLowerCase().trim();
@@ -2384,11 +2385,11 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
       userData['registeredAt'] = DateTime.now().toIso8601String();
       userData['lastLogin'] = DateTime.now().toIso8601String();
 
-      // If there's property registration data, add it
+
       if (widget.registrationData != null && widget.registrationData!.isNotEmpty) {
         print('Adding registration data with keys: ${widget.registrationData!.keys.toList()}');
 
-        // Check what type of property is being registered
+
         if (widget.registrationData!.containsKey('hotelName') ||
             widget.registrationData!.containsKey('totalRooms')) {
           userData['propertyType'] = 'hotel';
@@ -2401,10 +2402,10 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
           userData['propertyType'] = 'resort';
         }
 
-        // Add all registration data
+
         userData.addAll(widget.registrationData!);
       } else {
-        // This is just account creation - don't set propertyType
+
         print('Creating account only - no property registered yet');
       }
 
@@ -4572,13 +4573,3256 @@ class OwnerDashboardScreen extends StatefulWidget {
   State<OwnerDashboardScreen> createState() => _OwnerDashboardScreenState();
 }
 
+// class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
+//   Map<String, dynamic> _userData = {};
+//   bool _isLoading = true;
+//   Map<String, bool> _registeredProperties = {};
+//   List<Map<String, dynamic>> _registeredHotels = [];
+//
+//   final Color primaryRed = const Color(0xFFFF5F6D);
+//   final Color primaryOrange = const Color(0xFFFFC371);
+//   final Color lightText = const Color(0xFF6B7280);
+//   final Color bgColor = const Color(0xFFF8FAFF);
+//   final Color darkText = const Color(0xFF1F2937);
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _userData = widget.userData;
+//     _checkRegisteredProperties();
+//     _loadUserData();
+//   }
+//
+//   Future<void> _loadUserData() async {
+//     setState(() => _isLoading = true);
+//
+//     try {
+//       final prefs = await SharedPreferences.getInstance();
+//       final String usersJson = prefs.getString('registered_users') ?? '[]';
+//       final List<dynamic> usersList = jsonDecode(usersJson);
+//
+//       final normalizedEmail = widget.userEmail.toLowerCase().trim();
+//
+//       for (var user in usersList) {
+//         if (user is Map) {
+//           final storedEmail =
+//               user['email']?.toString().toLowerCase().trim() ?? '';
+//           if (storedEmail == normalizedEmail) {
+//             Map<String, dynamic> safeUserData = {};
+//             user.forEach((key, value) {
+//               safeUserData[key.toString()] = value;
+//             });
+//
+//             if (!safeUserData.containsKey('propertyType') ||
+//                 safeUserData['propertyType'] == null) {
+//               if (safeUserData.containsKey('hotelName') ||
+//                   safeUserData.containsKey('hotels') ||
+//                   safeUserData.containsKey('roomDetails')) {
+//                 safeUserData['propertyType'] = 'hotel';
+//               }
+//             }
+//
+//             setState(() {
+//               _userData = safeUserData;
+//               _checkRegisteredProperties();
+//             });
+//
+//             _extractHotels();
+//             break;
+//           }
+//         }
+//       }
+//     } catch (e) {
+//       print('Error loading user data: $e');
+//     } finally {
+//       setState(() => _isLoading = false);
+//     }
+//   }
+//
+//   void _checkRegisteredProperties() {
+//     print('=== CHECKING REGISTERED PROPERTIES ===');
+//     print('User data keys: ${_userData.keys.toList()}');
+//
+//     bool isHotelRegistered = false;
+//     bool isVillaRegistered = false;
+//     bool isApartmentRegistered = false;
+//     bool isResortRegistered = false;
+//
+//     if (_userData.containsKey('hotelName') &&
+//         _userData['hotelName'] != null &&
+//         _userData['hotelName'].toString().isNotEmpty) {
+//       isHotelRegistered = true;
+//     }
+//
+//     if (_userData.containsKey('hotels') &&
+//         _userData['hotels'] is List &&
+//         (_userData['hotels'] as List).isNotEmpty) {
+//       isHotelRegistered = true;
+//     }
+//
+//     if (_userData.containsKey('totalRooms') ||
+//         _userData.containsKey('roomDetails') ||
+//         _userData.containsKey('selectedRoomTypes') ||
+//         _userData.containsKey('basicAmenities')) {
+//       isHotelRegistered = true;
+//     }
+//
+//     if (_userData.containsKey('registrationData') &&
+//         _userData['registrationData'] != null) {
+//       final regData = _userData['registrationData'] as Map;
+//       if (regData.containsKey('hotelName') &&
+//           regData['hotelName']?.toString().isNotEmpty == true) {
+//         isHotelRegistered = true;
+//       }
+//     }
+//
+//     setState(() {
+//       _registeredProperties = {
+//         'hotel': isHotelRegistered,
+//         'villa': isVillaRegistered,
+//         'apartment': isApartmentRegistered,
+//         'resort': isResortRegistered,
+//       };
+//     });
+//   }
+//
+//   void _extractHotels() {
+//     try {
+//       print('=== EXTRACTING HOTELS IN DASHBOARD ===');
+//       print('User data keys: ${_userData.keys.toList()}');
+//
+//       List<Map<String, dynamic>> tempHotels = [];
+//
+//       if (_userData.containsKey('hotels') && _userData['hotels'] is List) {
+//         List<dynamic> hotelsList = _userData['hotels'] as List;
+//         print('Found hotels list with ${hotelsList.length} hotels');
+//
+//         for (var hotel in hotelsList) {
+//           if (hotel is Map) {
+//             Map<String, dynamic> hotelMap = {};
+//             hotel.forEach((key, value) {
+//               hotelMap[key.toString()] = value;
+//             });
+//
+//             var extractedHotel = _extractSingleHotel(hotelMap);
+//             if (extractedHotel != null) {
+//               tempHotels.add(extractedHotel);
+//             }
+//           }
+//         }
+//       }
+//
+//       if (tempHotels.isEmpty && _userData.containsKey('registrationData') &&
+//           _userData['registrationData'] != null) {
+//         final regData = _userData['registrationData'] as Map;
+//         Map<String, dynamic> regDataMap = {};
+//         regData.forEach((key, value) {
+//           regDataMap[key.toString()] = value;
+//         });
+//
+//         var extractedHotel = _extractSingleHotel(regDataMap);
+//         if (extractedHotel != null) {
+//           tempHotels.add(extractedHotel);
+//         }
+//       }
+//
+//       if (tempHotels.isEmpty) {
+//         var extractedHotel = _extractSingleHotel(_userData);
+//         if (extractedHotel != null) {
+//           tempHotels.add(extractedHotel);
+//         }
+//       }
+//
+//       setState(() {
+//         _registeredHotels = tempHotels;
+//       });
+//
+//       print('Total hotels in dashboard: ${_registeredHotels.length}');
+//     } catch (e) {
+//       print('Error extracting hotels in dashboard: $e');
+//     }
+//   }
+//
+//   Map<String, dynamic>? _extractSingleHotel(Map<String, dynamic> hotelData) {
+//     try {
+//       String hotelName = '';
+//       if (hotelData.containsKey('propertyName') &&
+//           hotelData['propertyName'] != null &&
+//           hotelData['propertyName'].toString().isNotEmpty) {
+//         hotelName = hotelData['propertyName'].toString();
+//       } else if (hotelData.containsKey('hotelName') &&
+//           hotelData['hotelName'] != null &&
+//           hotelData['hotelName'].toString().isNotEmpty) {
+//         hotelName = hotelData['hotelName'].toString();
+//       } else if (hotelData.containsKey('estateName') &&
+//           hotelData['estateName'] != null &&
+//           hotelData['estateName'].toString().isNotEmpty) {
+//         hotelName = hotelData['estateName'].toString();
+//       }
+//
+//       if (hotelName.isEmpty) return null;
+//
+//       String hotelCategory = '';
+//       if (hotelData.containsKey('hotelCategory') &&
+//           hotelData['hotelCategory'] != null &&
+//           hotelData['hotelCategory'].toString().isNotEmpty) {
+//         hotelCategory = hotelData['hotelCategory'].toString();
+//       } else if (hotelData.containsKey('luxuryClassification') &&
+//           hotelData['luxuryClassification'] != null &&
+//           hotelData['luxuryClassification'].toString().isNotEmpty) {
+//         hotelCategory = hotelData['luxuryClassification'].toString();
+//       } else if (hotelData.containsKey('hotelType') &&
+//           hotelData['hotelType'] != null &&
+//           hotelData['hotelType'].toString().isNotEmpty) {
+//         hotelCategory = hotelData['hotelType'].toString();
+//       } else {
+//         hotelCategory = 'Normal Hotel';
+//       }
+//
+//       String hotelType = '';
+//       if (hotelData.containsKey('propertyPositioning') &&
+//           hotelData['propertyPositioning'] != null &&
+//           hotelData['propertyPositioning'].toString().isNotEmpty) {
+//         hotelType = hotelData['propertyPositioning'].toString();
+//       } else if (hotelData.containsKey('hotelType') &&
+//           hotelData['hotelType'] != null &&
+//           hotelData['hotelType'].toString().isNotEmpty) {
+//         hotelType = hotelData['hotelType'].toString();
+//       } else {
+//         hotelType = 'Hotel';
+//       }
+//
+//       String registrationDate = '';
+//       if (hotelData.containsKey('registeredAt') &&
+//           hotelData['registeredAt'] != null) {
+//         registrationDate = hotelData['registeredAt'].toString();
+//       } else if (hotelData.containsKey('registrationDate') &&
+//           hotelData['registrationDate'] != null) {
+//         registrationDate = hotelData['registrationDate'].toString();
+//       } else {
+//         registrationDate = DateTime.now().toIso8601String();
+//       }
+//
+//       return {
+//         'id': hotelData['id'] ??
+//             'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
+//         'name': hotelName,
+//         'category': hotelCategory,
+//         'type': hotelType,
+//         'data': hotelData,
+//         'registrationDate': registrationDate,
+//       };
+//     } catch (e) {
+//       print('Error extracting single hotel: $e');
+//       return null;
+//     }
+//   }
+//
+//   Color _getCategoryColor(String category) {
+//     switch (category) {
+//       case '2-Star':
+//         return const Color(0xFF6B8E23);
+//       case '3-Star':
+//         return const Color(0xFFDAA520);
+//       case '4-Star':
+//         return const Color(0xFF4F46E5);
+//       case '5-Star':
+//         return const Color(0xFFFB717D);
+//       case '6-Star':
+//         return const Color(0xFFD4AF37);
+//       case '7-Star':
+//         return const Color(0xFF1A94F6);
+//       case 'Global Elite Luxury':
+//         return const Color(0xFF10B981);
+//       default:
+//         return primaryRed;
+//     }
+//   }
+//
+//   int _getStarCount(String category) {
+//     if (category.contains('2')) return 2;
+//     if (category.contains('3')) return 3;
+//     if (category.contains('4')) return 4;
+//     if (category.contains('5')) return 5;
+//     if (category.contains('6')) return 6;
+//     if (category.contains('7')) return 7;
+//     return 0;
+//   }
+//
+//   String _formatDate(String dateString) {
+//     try {
+//       final date = DateTime.parse(dateString);
+//       return '${date.day}/${date.month}/${date.year}';
+//     } catch (e) {
+//       return dateString;
+//     }
+//   }
+//
+//   void _navigateToHotelDetails(Map<String, dynamic> hotelData, String category) {
+//     print('Navigating to hotel details - Category: "$category"');
+//     print('========== NAVIGATION DEBUG ==========');
+//     print('Navigating to hotel details - Category: "$category"');
+//     print('Category length: ${category.length}');
+//     print('Category characters: ${category.codeUnits}');
+//     print('Is "3-Star"? ${category == '3-Star'}');
+//
+//     if (category == '2-Star') {
+//       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+//       String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
+//       String mobileNumber = hotelData['mobileNumber']?.toString() ?? hotelData['phone']?.toString() ?? '';
+//       String email = hotelData['email']?.toString() ?? '';
+//       String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//       String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+//       String city = hotelData['city']?.toString() ?? '';
+//       String district = hotelData['district']?.toString() ?? '';
+//       String state = hotelData['state']?.toString() ?? '';
+//       String pinCode = hotelData['pinCode']?.toString() ?? '';
+//
+//       int totalRooms = 0;
+//       if (hotelData.containsKey('totalRooms')) {
+//         if (hotelData['totalRooms'] is int) {
+//           totalRooms = hotelData['totalRooms'] as int;
+//         } else {
+//           totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//         }
+//       }
+//
+//       String gstNumber = hotelData['gstNumber']?.toString() ?? '';
+//       String fssaiLicense = hotelData['fssaiLicense']?.toString() ?? '';
+//       String tradeLicense = hotelData['tradeLicense']?.toString() ?? '';
+//       String aadharNumber = hotelData['aadharNumber']?.toString() ?? '';
+//       String panNumber = hotelData['panNumber']?.toString() ?? '';
+//       String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
+//       String bankName = hotelData['bankName']?.toString() ?? '';
+//       String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//       String ifscCode = hotelData['ifscCode']?.toString() ?? '';
+//       String branch = hotelData['branch']?.toString() ?? '';
+//       String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//       Map<String, dynamic> personPhotoInfo = {};
+//       if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//         if (hotelData['personPhotoInfo'] is Map) {
+//           personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//         }
+//       }
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => TwoStarHotelDashboard(
+//             hotelName: hotelName,
+//             ownerName: ownerName,
+//             mobileNumber: mobileNumber,
+//             email: email,
+//             addressLine1: addressLine1,
+//             addressLine2: addressLine2,
+//             city: city,
+//             district: district,
+//             state: state,
+//             pinCode: pinCode,
+//             gstNumber: gstNumber,
+//             fssaiLicense: fssaiLicense,
+//             tradeLicense: tradeLicense,
+//             aadharNumber: aadharNumber,
+//             panNumber: panNumber,
+//             accountHolderName: accountHolderName,
+//             bankName: bankName,
+//             accountNumber: accountNumber,
+//             ifscCode: ifscCode,
+//             branch: branch,
+//             accountType: accountType,
+//             totalRooms: totalRooms,
+//             personPhotoInfo: personPhotoInfo,
+//             registrationData: hotelData,
+//           ),
+//         ),
+//       );
+//     } else if (category.toLowerCase().contains('3-star') || category.toLowerCase().contains('3 star')) {
+//       // Extract all required data for 3-Star Hotel Dashboard
+//       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+//       String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
+//       String mobileNumber = hotelData['mobileNumber']?.toString() ?? hotelData['phone']?.toString() ?? '';
+//       String email = hotelData['email']?.toString() ?? '';
+//       String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//       String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+//       String city = hotelData['city']?.toString() ?? '';
+//       String district = hotelData['district']?.toString() ?? '';
+//       String state = hotelData['state']?.toString() ?? '';
+//       String pinCode = hotelData['pinCode']?.toString() ?? '';
+//       String landmark = hotelData['landmark']?.toString() ?? '';
+//       String website = hotelData['website']?.toString() ?? '';
+//       String alternateContact = hotelData['alternateContact']?.toString() ?? '';
+//       List<String> landlineNumbers = [];
+//       if (hotelData['landlineNumbers'] is List) {
+//         landlineNumbers = List<String>.from(hotelData['landlineNumbers'] as List);
+//       }
+//
+//       int totalRooms = 0;
+//       if (hotelData.containsKey('totalRooms')) {
+//         if (hotelData['totalRooms'] is int) {
+//           totalRooms = hotelData['totalRooms'] as int;
+//         } else {
+//           totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//         }
+//       }
+//
+//       String gstNumber = hotelData['gstNumber']?.toString() ?? '';
+//       String fssaiLicense = hotelData['fssaiLicense']?.toString() ?? '';
+//       String tradeLicense = hotelData['tradeLicense']?.toString() ?? '';
+//       String aadharNumber = hotelData['aadharNumber']?.toString() ?? '';
+//       String? panNumber = hotelData['panNumber']?.toString();
+//       String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
+//       String bankName = hotelData['bankName']?.toString() ?? '';
+//       String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//       String ifscCode = hotelData['ifscCode']?.toString() ?? '';
+//       String branch = hotelData['branch']?.toString() ?? '';
+//       String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//       // Room Configuration
+//       Map<String, bool> selectedRoomTypes = {};
+//       if (hotelData['selectedRoomTypes'] is Map) {
+//         selectedRoomTypes = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
+//       }
+//
+//       Map<String, Map<String, dynamic>> roomDetails = {};
+//       if (hotelData['roomDetails'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             roomDetails[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       String minTariff = hotelData['minTariff']?.toString() ?? '';
+//       String maxTariff = hotelData['maxTariff']?.toString() ?? '';
+//       bool extraBedAvailable = hotelData['extraBedAvailable'] ?? false;
+//
+//       // Amenities
+//       Map<String, bool> basicAmenities = {};
+//       if (hotelData['basicAmenities'] is Map) {
+//         basicAmenities = Map<String, bool>.from(hotelData['basicAmenities'] as Map);
+//       }
+//
+//       Map<String, bool> hotelFacilities = {};
+//       if (hotelData['hotelFacilities'] is Map) {
+//         hotelFacilities = Map<String, bool>.from(hotelData['hotelFacilities'] as Map);
+//       }
+//
+//       Map<String, bool> foodServices = {};
+//       if (hotelData['foodServices'] is Map) {
+//         foodServices = Map<String, bool>.from(hotelData['foodServices'] as Map);
+//       }
+//
+//       Map<String, bool> additionalAmenities = {};
+//       if (hotelData['additionalAmenities'] is Map) {
+//         additionalAmenities = Map<String, bool>.from(hotelData['additionalAmenities'] as Map);
+//       }
+//
+//       List<String> customAmenities = [];
+//       if (hotelData['customAmenities'] is List) {
+//         customAmenities = List<String>.from(hotelData['customAmenities'] as List);
+//       }
+//
+//       // Uploaded Files
+//       Map<String, Map<String, dynamic>> uploadedFiles = {};
+//       if (hotelData['uploadedFiles'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             uploadedFiles[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       Map<String, dynamic> personPhotoInfo = {};
+//       if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//         if (hotelData['personPhotoInfo'] is Map) {
+//           personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//         }
+//       }
+//
+//       // Signature & Declaration
+//       String signatureName = hotelData['signatureName']?.toString() ?? '';
+//       String declarationName = hotelData['declarationName']?.toString() ?? '';
+//       DateTime? declarationDate;
+//       if (hotelData['declarationDate'] != null) {
+//         declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
+//       }
+//       bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
+//
+//       // 3-Star specific fields
+//       String? registrationNumber = hotelData['registrationNumber']?.toString();
+//       String? signatoryName = hotelData['signatoryName']?.toString();
+//       bool? seasonalPricing = hotelData['seasonalPricing'];
+//       bool? earlyCheckinAllowed = hotelData['earlyCheckinAllowed'];
+//       bool? earlyCheckinChargeable = hotelData['earlyCheckinChargeable'];
+//       bool? fireSafetyCertificate = hotelData['fireSafetyCertificate'];
+//
+//       Map<String, bool>? businessServices;
+//       if (hotelData['businessServices'] is Map) {
+//         businessServices = Map<String, bool>.from(hotelData['businessServices'] as Map);
+//       }
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => ThreeStarHotelDashboard(
+//             // Basic Information
+//             hotelName: hotelName,
+//             hotelType: hotelData['hotelType']?.toString() ?? '',
+//             yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
+//             totalRooms: totalRooms,
+//
+//             // Contact Information
+//             ownerName: ownerName,
+//             mobileNumber: mobileNumber,
+//             alternateContact: alternateContact,
+//             landlineNumbers: landlineNumbers,
+//             email: email,
+//             website: website,
+//
+//             // Address Information
+//             addressLine1: addressLine1,
+//             addressLine2: addressLine2,
+//             city: city,
+//             district: district,
+//             state: state,
+//             pinCode: pinCode,
+//             landmark: landmark,
+//
+//             // Room Configuration
+//             selectedRoomTypes: selectedRoomTypes,
+//             roomDetails: roomDetails,
+//             minTariff: minTariff,
+//             maxTariff: maxTariff,
+//             extraBedAvailable: extraBedAvailable,
+//
+//             // Amenities
+//             basicAmenities: basicAmenities,
+//             hotelFacilities: hotelFacilities,
+//             foodServices: foodServices,
+//             additionalAmenities: additionalAmenities,
+//             customAmenities: customAmenities,
+//
+//             // Legal Details
+//             gstNumber: gstNumber,
+//             fssaiLicense: fssaiLicense,
+//             tradeLicense: tradeLicense,
+//             aadharNumber: aadharNumber,
+//             panNumber: panNumber,
+//
+//             // Bank Details
+//             accountHolderName: accountHolderName,
+//             bankName: bankName,
+//             accountNumber: accountNumber,
+//             ifscCode: ifscCode,
+//             branch: branch,
+//             accountType: accountType,
+//
+//             // Uploaded Files
+//             uploadedFiles: uploadedFiles,
+//             personPhotoInfo: personPhotoInfo,
+//
+//             // Signature & Declaration
+//             signatureName: signatureName,
+//             declarationName: declarationName,
+//             declarationDate: declarationDate,
+//             declarationAccepted: declarationAccepted,
+//
+//             // Hotel Category
+//             hotelCategory: '3-Star',
+//
+//             // Digital Signature
+//             hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
+//             digitalSignatureImage: null,
+//
+//             // 3-Star specific fields
+//             registrationNumber: registrationNumber,
+//             signatoryName: signatoryName,
+//             seasonalPricing: seasonalPricing,
+//             earlyCheckinAllowed: earlyCheckinAllowed,
+//             earlyCheckinChargeable: earlyCheckinChargeable,
+//             fireSafetyCertificate: fireSafetyCertificate,
+//             businessServices: businessServices,
+//
+//             // Pass the complete registration data
+//             registrationData: hotelData,
+//           ),
+//         ),
+//       );
+//     } else if (category == '4-Star' || category.toLowerCase().contains('4-star') || category.toLowerCase().contains('4 star')) {
+//       // Extract all required data for 4-Star Hotel Dashboard
+//       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+//       String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
+//       String mobileNumber = hotelData['mobileNumber']?.toString() ?? hotelData['phone']?.toString() ?? '';
+//       String email = hotelData['email']?.toString() ?? '';
+//       String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//       String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+//       String city = hotelData['city']?.toString() ?? '';
+//       String district = hotelData['district']?.toString() ?? '';
+//       String state = hotelData['state']?.toString() ?? '';
+//       String pinCode = hotelData['pinCode']?.toString() ?? '';
+//       String landmark = hotelData['landmark']?.toString() ?? '';
+//       String website = hotelData['website']?.toString() ?? '';
+//       String alternateContact = hotelData['alternateContact']?.toString() ?? '';
+//       List<String> landlineNumbers = [];
+//       if (hotelData['landlineNumbers'] is List) {
+//         landlineNumbers = List<String>.from(hotelData['landlineNumbers'] as List);
+//       }
+//
+//       int totalRooms = 0;
+//       if (hotelData.containsKey('totalRooms')) {
+//         if (hotelData['totalRooms'] is int) {
+//           totalRooms = hotelData['totalRooms'] as int;
+//         } else {
+//           totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//         }
+//       }
+//
+//       String gstNumber = hotelData['gstNumber']?.toString() ?? '';
+//       String fssaiLicense = hotelData['fssaiLicense']?.toString() ?? '';
+//       String tradeLicense = hotelData['tradeLicense']?.toString() ?? '';
+//       String aadharNumber = hotelData['aadharNumber']?.toString() ?? '';
+//       String? panNumber = hotelData['panNumber']?.toString();
+//       String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
+//       String bankName = hotelData['bankName']?.toString() ?? '';
+//       String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//       String ifscCode = hotelData['ifscCode']?.toString() ?? '';
+//       String branch = hotelData['branch']?.toString() ?? '';
+//       String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//       // Room Configuration
+//       Map<String, bool> selectedRoomTypes = {};
+//       if (hotelData['selectedRoomTypes'] is Map) {
+//         selectedRoomTypes = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
+//       }
+//
+//       Map<String, Map<String, dynamic>> roomDetails = {};
+//       if (hotelData['roomDetails'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             roomDetails[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       String minTariff = hotelData['minTariff']?.toString() ?? '';
+//       String maxTariff = hotelData['maxTariff']?.toString() ?? '';
+//       bool extraBedAvailable = hotelData['extraBedAvailable'] ?? false;
+//
+//       // Amenities
+//       Map<String, bool> basicAmenities = {};
+//       if (hotelData['basicAmenities'] is Map) {
+//         basicAmenities = Map<String, bool>.from(hotelData['basicAmenities'] as Map);
+//       }
+//
+//       Map<String, bool> hotelFacilities = {};
+//       if (hotelData['hotelFacilities'] is Map) {
+//         hotelFacilities = Map<String, bool>.from(hotelData['hotelFacilities'] as Map);
+//       }
+//
+//       Map<String, bool> foodServices = {};
+//       if (hotelData['foodServices'] is Map) {
+//         foodServices = Map<String, bool>.from(hotelData['foodServices'] as Map);
+//       }
+//
+//       Map<String, bool> additionalAmenities = {};
+//       if (hotelData['additionalAmenities'] is Map) {
+//         additionalAmenities = Map<String, bool>.from(hotelData['additionalAmenities'] as Map);
+//       }
+//
+//       List<String> customAmenities = [];
+//       if (hotelData['customAmenities'] is List) {
+//         customAmenities = List<String>.from(hotelData['customAmenities'] as List);
+//       }
+//
+//       // Uploaded Files
+//       Map<String, Map<String, dynamic>> uploadedFiles = {};
+//       if (hotelData['uploadedFiles'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             uploadedFiles[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       Map<String, dynamic> personPhotoInfo = {};
+//       if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//         if (hotelData['personPhotoInfo'] is Map) {
+//           personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//         }
+//       }
+//
+//       // Signature & Declaration
+//       String signatureName = hotelData['signatureName']?.toString() ?? '';
+//       String declarationName = hotelData['declarationName']?.toString() ?? '';
+//       DateTime? declarationDate;
+//       if (hotelData['declarationDate'] != null) {
+//         declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
+//       }
+//       bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
+//
+//       // 4-Star specific fields
+//       String? registrationNumber = hotelData['registrationNumber']?.toString();
+//       String? signatoryName = hotelData['signatoryName']?.toString();
+//       bool? seasonalPricing = hotelData['seasonalPricing'];
+//       bool? earlyCheckinAllowed = hotelData['earlyCheckinAllowed'];
+//       bool? earlyCheckinChargeable = hotelData['earlyCheckinChargeable'];
+//       bool? fireSafetyCertificate = hotelData['fireSafetyCertificate'];
+//       bool? starCertificate = hotelData['starCertificate'];
+//
+//       Map<String, bool>? businessServices;
+//       if (hotelData['businessServices'] is Map) {
+//         businessServices = Map<String, bool>.from(hotelData['businessServices'] as Map);
+//       }
+//
+//       Map<String, bool>? wellnessRecreation;
+//       if (hotelData['wellnessRecreation'] is Map) {
+//         wellnessRecreation = Map<String, bool>.from(hotelData['wellnessRecreation'] as Map);
+//       }
+//
+//       print('Navigating to FourStarHotelDashboard for hotel: $hotelName');
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => FourStarHotelDashboard(
+//             // Basic Information
+//             hotelName: hotelName,
+//             hotelType: hotelData['hotelType']?.toString() ?? '',
+//             yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
+//             totalRooms: totalRooms,
+//
+//             // Contact Information
+//             ownerName: ownerName,
+//             mobileNumber: mobileNumber,
+//             alternateContact: alternateContact,
+//             landlineNumbers: landlineNumbers,
+//             email: email,
+//             website: website,
+//
+//             // Address Information
+//             addressLine1: addressLine1,
+//             addressLine2: addressLine2,
+//             city: city,
+//             district: district,
+//             state: state,
+//             pinCode: pinCode,
+//             landmark: landmark,
+//
+//             // Room Configuration
+//             selectedRoomTypes: selectedRoomTypes,
+//             roomDetails: roomDetails,
+//             minTariff: minTariff,
+//             maxTariff: maxTariff,
+//             extraBedAvailable: extraBedAvailable,
+//
+//             // Amenities
+//             basicAmenities: basicAmenities,
+//             hotelFacilities: hotelFacilities,
+//             foodServices: foodServices,
+//             additionalAmenities: additionalAmenities,
+//             customAmenities: customAmenities,
+//
+//             // Legal Details
+//             gstNumber: gstNumber,
+//             fssaiLicense: fssaiLicense,
+//             tradeLicense: tradeLicense,
+//             aadharNumber: aadharNumber,
+//             panNumber: panNumber,
+//
+//             // Bank Details
+//             accountHolderName: accountHolderName,
+//             bankName: bankName,
+//             accountNumber: accountNumber,
+//             ifscCode: ifscCode,
+//             branch: branch,
+//             accountType: accountType,
+//
+//             // Uploaded Files
+//             uploadedFiles: uploadedFiles,
+//             personPhotoInfo: personPhotoInfo,
+//
+//             // Signature & Declaration
+//             signatureName: signatureName,
+//             declarationName: declarationName,
+//             declarationDate: declarationDate,
+//             declarationAccepted: declarationAccepted,
+//
+//             // Hotel Category
+//             hotelCategory: '4-Star',
+//
+//             // Digital Signature
+//             hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
+//             digitalSignatureImage: null,
+//
+//             // 4-Star specific fields
+//             registrationNumber: registrationNumber,
+//             signatoryName: signatoryName,
+//             seasonalPricing: seasonalPricing,
+//             earlyCheckinAllowed: earlyCheckinAllowed,
+//             earlyCheckinChargeable: earlyCheckinChargeable,
+//             fireSafetyCertificate: fireSafetyCertificate,
+//             starCertificate: starCertificate,
+//             businessServices: businessServices,
+//             wellnessRecreation: wellnessRecreation,
+//
+//             // Pass the complete registration data
+//             registrationData: hotelData,
+//           ),
+//         ),
+//       );
+//     }   else if (category == '5-Star' || category.toLowerCase().contains('5-star') || category.toLowerCase().contains('5 star')) {
+//   // Extract all required data for 5-Star Hotel Dashboard
+//   String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+//   String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
+//   String mobileNumber = hotelData['mobileNumber']?.toString() ?? hotelData['phone']?.toString() ?? '';
+//   String email = hotelData['email']?.toString() ?? '';
+//   String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//   String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+//   String city = hotelData['city']?.toString() ?? '';
+//   String district = hotelData['district']?.toString() ?? '';
+//   String state = hotelData['state']?.toString() ?? '';
+//   String pinCode = hotelData['pinCode']?.toString() ?? '';
+//   String landmark = hotelData['landmark']?.toString() ?? '';
+//   String website = hotelData['website']?.toString() ?? '';
+//   String alternateContact = hotelData['alternateContact']?.toString() ?? '';
+//   List<String> landlineNumbers = [];
+//   if (hotelData['landlineNumbers'] is List) {
+//   landlineNumbers = List<String>.from(hotelData['landlineNumbers'] as List);
+//   }
+//
+//   int totalRooms = 0;
+//   if (hotelData.containsKey('totalRooms')) {
+//   if (hotelData['totalRooms'] is int) {
+//   totalRooms = hotelData['totalRooms'] as int;
+//   } else {
+//   totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//   }
+//   }
+//
+//   String gstNumber = hotelData['gstNumber']?.toString() ?? '';
+//   String fssaiLicense = hotelData['fssaiLicense']?.toString() ?? '';
+//   String tradeLicense = hotelData['tradeLicense']?.toString() ?? '';
+//   String aadharNumber = hotelData['aadharNumber']?.toString() ?? '';
+//   String? panNumber = hotelData['panNumber']?.toString();
+//   String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
+//   String bankName = hotelData['bankName']?.toString() ?? '';
+//   String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//   String ifscCode = hotelData['ifscCode']?.toString() ?? '';
+//   String branch = hotelData['branch']?.toString() ?? '';
+//   String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//   // Room Configuration
+//   Map<String, bool> selectedRoomTypes = {};
+//   if (hotelData['selectedRoomTypes'] is Map) {
+//   selectedRoomTypes = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
+//   }
+//
+//   Map<String, Map<String, dynamic>> roomDetails = {};
+//   if (hotelData['roomDetails'] is Map) {
+//   Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
+//   temp.forEach((key, value) {
+//   if (value is Map) {
+//   roomDetails[key] = Map<String, dynamic>.from(value);
+//   }
+//   });
+//   }
+//
+//   String minTariff = hotelData['minTariff']?.toString() ?? '';
+//   String maxTariff = hotelData['maxTariff']?.toString() ?? '';
+//   bool extraBedAvailable = hotelData['extraBedAvailable'] ?? false;
+//
+//   // Amenities
+//   Map<String, bool> basicAmenities = {};
+//   if (hotelData['basicAmenities'] is Map) {
+//   basicAmenities = Map<String, bool>.from(hotelData['basicAmenities'] as Map);
+//   }
+//
+//   Map<String, bool> hotelFacilities = {};
+//   if (hotelData['hotelFacilities'] is Map) {
+//   hotelFacilities = Map<String, bool>.from(hotelData['hotelFacilities'] as Map);
+//   }
+//
+//   Map<String, bool> foodServices = {};
+//   if (hotelData['foodServices'] is Map) {
+//   foodServices = Map<String, bool>.from(hotelData['foodServices'] as Map);
+//   }
+//
+//   Map<String, bool> additionalAmenities = {};
+//   if (hotelData['additionalAmenities'] is Map) {
+//   additionalAmenities = Map<String, bool>.from(hotelData['additionalAmenities'] as Map);
+//   }
+//
+//   List<String> customAmenities = [];
+//   if (hotelData['customAmenities'] is List) {
+//   customAmenities = List<String>.from(hotelData['customAmenities'] as List);
+//   }
+//
+//   // Uploaded Files
+//   Map<String, Map<String, dynamic>> uploadedFiles = {};
+//   if (hotelData['uploadedFiles'] is Map) {
+//   Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
+//   temp.forEach((key, value) {
+//   if (value is Map) {
+//   uploadedFiles[key] = Map<String, dynamic>.from(value);
+//   }
+//   });
+//   }
+//
+//   Map<String, dynamic> personPhotoInfo = {};
+//   if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//   if (hotelData['personPhotoInfo'] is Map) {
+//   personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//   }
+//   }
+//
+//   // Signature & Declaration
+//   String signatureName = hotelData['signatureName']?.toString() ?? '';
+//   String declarationName = hotelData['declarationName']?.toString() ?? '';
+//   DateTime? declarationDate;
+//   if (hotelData['declarationDate'] != null) {
+//   declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
+//   }
+//   bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
+//
+//   // 5-Star specific fields
+//   String? brandName = hotelData['brandName']?.toString();
+//   String? starCertNumber = hotelData['starCertNumber']?.toString();
+//   bool? pollutionCertificate = hotelData['pollutionCertificate'];
+//   bool? liftCertificate = hotelData['liftCertificate'];
+//   bool? fireSafetyCertificate = hotelData['fireSafetyCertificate'];
+//   bool? starCertificate = hotelData['starCertificate'];
+//   bool? seasonalPricing = hotelData['seasonalPricing'];
+//   bool? earlyCheckinAllowed = hotelData['earlyCheckinAllowed'];
+//   bool? earlyCheckinChargeable = hotelData['earlyCheckinChargeable'];
+//
+//   Map<String, bool>? diningServices;
+//   if (hotelData['diningServices'] is Map) {
+//   diningServices = Map<String, bool>.from(hotelData['diningServices'] as Map);
+//   }
+//
+//   Map<String, bool>? wellnessRecreation5Star;
+//   if (hotelData['wellnessRecreation5Star'] is Map) {
+//   wellnessRecreation5Star = Map<String, bool>.from(hotelData['wellnessRecreation5Star'] as Map);
+//   }
+//
+//   print('Navigating to FiveStarHotelDashboard for hotel: $hotelName');
+//
+//   Navigator.push(
+//   context,
+//   MaterialPageRoute(
+//   builder: (context) => FiveStarHotelDashboard(
+//   // Basic Information
+//   hotelName: hotelName,
+//   hotelType: hotelData['hotelType']?.toString() ?? '',
+//   yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
+//   totalRooms: totalRooms,
+//
+//   // Contact Information
+//   ownerName: ownerName,
+//   mobileNumber: mobileNumber,
+//   alternateContact: alternateContact,
+//   landlineNumbers: landlineNumbers,
+//   email: email,
+//   website: website,
+//
+//   // Address Information
+//   addressLine1: addressLine1,
+//   addressLine2: addressLine2,
+//   city: city,
+//   district: district,
+//   state: state,
+//   pinCode: pinCode,
+//   landmark: landmark,
+//
+//   // Room Configuration
+//   selectedRoomTypes: selectedRoomTypes,
+//   roomDetails: roomDetails,
+//   minTariff: minTariff,
+//   maxTariff: maxTariff,
+//   extraBedAvailable: extraBedAvailable,
+//
+//   // Amenities
+//   basicAmenities: basicAmenities,
+//   hotelFacilities: hotelFacilities,
+//   foodServices: foodServices,
+//   additionalAmenities: additionalAmenities,
+//   customAmenities: customAmenities,
+//
+//   // Legal Details
+//   gstNumber: gstNumber,
+//   fssaiLicense: fssaiLicense,
+//   tradeLicense: tradeLicense,
+//   aadharNumber: aadharNumber,
+//   panNumber: panNumber,
+//
+//   // Bank Details
+//   accountHolderName: accountHolderName,
+//   bankName: bankName,
+//   accountNumber: accountNumber,
+//   ifscCode: ifscCode,
+//   branch: branch,
+//   accountType: accountType,
+//
+//   // Uploaded Files
+//   uploadedFiles: uploadedFiles,
+//   personPhotoInfo: personPhotoInfo,
+//
+//   // Signature & Declaration
+//   signatureName: signatureName,
+//   declarationName: declarationName,
+//   declarationDate: declarationDate,
+//   declarationAccepted: declarationAccepted,
+//
+//   // Hotel Category
+//   hotelCategory: '5-Star',
+//
+//   // Digital Signature
+//   hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
+//   digitalSignatureImage: null,
+//
+//   // 5-Star specific fields
+//   brandName: brandName,
+//   starCertNumber: starCertNumber,
+//   pollutionCertificate: pollutionCertificate,
+//   liftCertificate: liftCertificate,
+//   fireSafetyCertificate: fireSafetyCertificate,
+//   starCertificate: starCertificate,
+//   seasonalPricing: seasonalPricing,
+//   earlyCheckinAllowed: earlyCheckinAllowed,
+//   earlyCheckinChargeable: earlyCheckinChargeable,
+//   diningServices: diningServices,
+//   wellnessRecreation5Star: wellnessRecreation5Star,
+//
+//   // Pass the complete registration data
+//   registrationData: hotelData,
+//   ),
+//   ),
+//   );
+//     } else if (category == '6-Star' || category.toLowerCase().contains('6-star') || category.toLowerCase().contains('6 star')) {
+//       // Extract all required data for 6-Star Hotel Dashboard
+//       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+//       String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
+//       String mobileNumber = hotelData['mobileNumber']?.toString() ?? hotelData['phone']?.toString() ?? '';
+//       String email = hotelData['email']?.toString() ?? '';
+//       String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//       String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+//       String city = hotelData['city']?.toString() ?? '';
+//       String district = hotelData['district']?.toString() ?? '';
+//       String state = hotelData['state']?.toString() ?? '';
+//       String pinCode = hotelData['pinCode']?.toString() ?? '';
+//       String landmark = hotelData['landmark']?.toString() ?? '';
+//       String website = hotelData['website']?.toString() ?? '';
+//       String alternateContact = hotelData['alternateContact']?.toString() ?? '';
+//       List<String> landlineNumbers = [];
+//       if (hotelData['landlineNumbers'] is List) {
+//         landlineNumbers = List<String>.from(hotelData['landlineNumbers'] as List);
+//       }
+//
+//       int totalRooms = 0;
+//       if (hotelData.containsKey('totalRooms')) {
+//         if (hotelData['totalRooms'] is int) {
+//           totalRooms = hotelData['totalRooms'] as int;
+//         } else {
+//           totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//         }
+//       }
+//
+//       String gstNumber = hotelData['gstNumber']?.toString() ?? '';
+//       String fssaiLicense = hotelData['fssaiLicense']?.toString() ?? '';
+//       String tradeLicense = hotelData['tradeLicense']?.toString() ?? '';
+//       String aadharNumber = hotelData['aadharNumber']?.toString() ?? '';
+//       String? panNumber = hotelData['panNumber']?.toString();
+//       String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
+//       String bankName = hotelData['bankName']?.toString() ?? '';
+//       String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//       String ifscCode = hotelData['ifscCode']?.toString() ?? '';
+//       String branch = hotelData['branch']?.toString() ?? '';
+//       String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//       // Room Configuration
+//       Map<String, bool> selectedRoomTypes = {};
+//       if (hotelData['selectedRoomTypes'] is Map) {
+//         selectedRoomTypes = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
+//       }
+//
+//       Map<String, Map<String, dynamic>> roomDetails = {};
+//       if (hotelData['roomDetails'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             roomDetails[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       String minTariff = hotelData['minTariff']?.toString() ?? '';
+//       String maxTariff = hotelData['maxTariff']?.toString() ?? '';
+//       bool extraBedAvailable = hotelData['extraBedAvailable'] ?? false;
+//
+//       // Amenities
+//       Map<String, bool> basicAmenities = {};
+//       if (hotelData['basicAmenities'] is Map) {
+//         basicAmenities = Map<String, bool>.from(hotelData['basicAmenities'] as Map);
+//       }
+//
+//       Map<String, bool> hotelFacilities = {};
+//       if (hotelData['hotelFacilities'] is Map) {
+//         hotelFacilities = Map<String, bool>.from(hotelData['hotelFacilities'] as Map);
+//       }
+//
+//       Map<String, bool> foodServices = {};
+//       if (hotelData['foodServices'] is Map) {
+//         foodServices = Map<String, bool>.from(hotelData['foodServices'] as Map);
+//       }
+//
+//       Map<String, bool> additionalAmenities = {};
+//       if (hotelData['additionalAmenities'] is Map) {
+//         additionalAmenities = Map<String, bool>.from(hotelData['additionalAmenities'] as Map);
+//       }
+//
+//       List<String> customAmenities = [];
+//       if (hotelData['customAmenities'] is List) {
+//         customAmenities = List<String>.from(hotelData['customAmenities'] as List);
+//       }
+//
+//       // Uploaded Files
+//       Map<String, Map<String, dynamic>> uploadedFiles = {};
+//       if (hotelData['uploadedFiles'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             uploadedFiles[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       Map<String, dynamic> personPhotoInfo = {};
+//       if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//         if (hotelData['personPhotoInfo'] is Map) {
+//           personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//         }
+//       }
+//
+//       // Signature & Declaration
+//       String signatureName = hotelData['signatureName']?.toString() ?? '';
+//       String declarationName = hotelData['declarationName']?.toString() ?? '';
+//       DateTime? declarationDate;
+//       if (hotelData['declarationDate'] != null) {
+//         declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
+//       }
+//       bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
+//
+//       print('Navigating to SixStarHotelDashboard for hotel: $hotelName');
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => SixStarHotelDashboard(
+//             // Basic Information
+//             hotelName: hotelName,
+//             hotelType: hotelData['hotelType']?.toString() ?? '',
+//             yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
+//             totalRooms: totalRooms,
+//
+//             // Contact Information
+//             ownerName: ownerName,
+//             mobileNumber: mobileNumber,
+//             alternateContact: alternateContact,
+//             landlineNumbers: landlineNumbers,
+//             email: email,
+//             website: website,
+//
+//             // Address Information
+//             addressLine1: addressLine1,
+//             addressLine2: addressLine2,
+//             city: city,
+//             district: district,
+//             state: state,
+//             pinCode: pinCode,
+//             landmark: landmark,
+//
+//             // Room Configuration
+//             selectedRoomTypes: selectedRoomTypes,
+//             roomDetails: roomDetails,
+//             minTariff: minTariff,
+//             maxTariff: maxTariff,
+//             extraBedAvailable: extraBedAvailable,
+//
+//             // Amenities
+//             basicAmenities: basicAmenities,
+//             hotelFacilities: hotelFacilities,
+//             foodServices: foodServices,
+//             additionalAmenities: additionalAmenities,
+//             customAmenities: customAmenities,
+//
+//             // Legal Details
+//             gstNumber: gstNumber,
+//             fssaiLicense: fssaiLicense,
+//             tradeLicense: tradeLicense,
+//             aadharNumber: aadharNumber,
+//             panNumber: panNumber,
+//
+//             // Bank Details
+//             accountHolderName: accountHolderName,
+//             bankName: bankName,
+//             accountNumber: accountNumber,
+//             ifscCode: ifscCode,
+//             branch: branch,
+//             accountType: accountType,
+//
+//             // Uploaded Files
+//             uploadedFiles: uploadedFiles,
+//             personPhotoInfo: personPhotoInfo,
+//
+//             // Signature & Declaration
+//             signatureName: signatureName,
+//             declarationName: declarationName,
+//             declarationDate: declarationDate,
+//             declarationAccepted: declarationAccepted,
+//
+//             // Hotel Category
+//             hotelCategory: '6-Star',
+//
+//             // Digital Signature
+//             hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
+//             digitalSignatureImage: null,
+//
+//             // Pass the complete registration data
+//             registrationData: hotelData,
+//           ),
+//         ),
+//       );
+//     } else if (category == '7-Star' || category.toLowerCase().contains('7-star') || category.toLowerCase().contains('7 star')) {
+//       // Extract all required data for 7-Star Hotel Dashboard
+//       String estateName =  hotelData['estateName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+//       String hotelType = hotelData['hotelType']?.toString() ?? '';
+//       String yearOfOrigin = hotelData['yearOfOrigin']?.toString() ?? hotelData['yearOfEstablishment']?.toString() ?? '';
+//
+//       int totalGuestCapacity = 0;
+//       if (hotelData.containsKey('totalGuestCapacity')) {
+//         if (hotelData['totalGuestCapacity'] is int) {
+//           totalGuestCapacity = hotelData['totalGuestCapacity'] as int;
+//         } else {
+//           totalGuestCapacity = int.tryParse(hotelData['totalGuestCapacity'].toString()) ?? 0;
+//         }
+//       } else if (hotelData.containsKey('totalRooms')) {
+//         // Fallback to totalRooms if totalGuestCapacity not available
+//         if (hotelData['totalRooms'] is int) {
+//           totalGuestCapacity = hotelData['totalRooms'] as int;
+//         } else {
+//           totalGuestCapacity = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//         }
+//       }
+//
+//       // Contact Information
+//       String sovereignOwner = hotelData['sovereignOwner']?.toString() ?? hotelData['ownerName']?.toString() ?? '';
+//       String directCommandContact = hotelData['directCommandContact']?.toString() ?? hotelData['mobileNumber']?.toString() ?? '';
+//       String executiveEmail = hotelData['executiveEmail']?.toString() ?? hotelData['email']?.toString() ?? '';
+//       String officialPortfolio = hotelData['officialPortfolio']?.toString() ?? hotelData['website']?.toString() ?? '';
+//
+//       // Address Information
+//       String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//       String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+//       String city = hotelData['city']?.toString() ?? '';
+//       String district = hotelData['district']?.toString() ?? '';
+//       String state = hotelData['state']?.toString() ?? '';
+//       String pinCode = hotelData['pinCode']?.toString() ?? '';
+//       String country = hotelData['country']?.toString() ?? '';
+//
+//       // Royal Accommodations
+//       Map<String, bool> selectedRoyalAccommodations = {};
+//       if (hotelData['selectedRoyalAccommodations'] is Map) {
+//         selectedRoyalAccommodations = Map<String, bool>.from(hotelData['selectedRoyalAccommodations'] as Map);
+//       } else if (hotelData['selectedRoomTypes'] is Map) {
+//         // Fallback to selectedRoomTypes
+//         selectedRoyalAccommodations = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
+//       }
+//
+//       Map<String, Map<String, dynamic>> royalAccommodations = {};
+//       if (hotelData['royalAccommodations'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['royalAccommodations'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             royalAccommodations[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       } else if (hotelData['roomDetails'] is Map) {
+//         // Fallback to roomDetails
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             royalAccommodations[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       String pricingEngine = hotelData['pricingEngine']?.toString() ?? 'Dynamic Royal Pricing';
+//
+//       // Sovereign Amenities
+//       Map<String, bool> arrivalInfrastructure = {};
+//       if (hotelData['arrivalInfrastructure'] is Map) {
+//         arrivalInfrastructure = Map<String, bool>.from(hotelData['arrivalInfrastructure'] as Map);
+//       }
+//
+//       Map<String, bool> inResidenceSystems = {};
+//       if (hotelData['inResidenceSystems'] is Map) {
+//         inResidenceSystems = Map<String, bool>.from(hotelData['inResidenceSystems'] as Map);
+//       }
+//
+//       Map<String, bool> signatureRoyalAmenities = {};
+//       if (hotelData['signatureRoyalAmenities'] is Map) {
+//         signatureRoyalAmenities = Map<String, bool>.from(hotelData['signatureRoyalAmenities'] as Map);
+//       }
+//
+//       Map<String, bool> arrivalCeremonialProtocols = {};
+//       if (hotelData['arrivalCeremonialProtocols'] is Map) {
+//         arrivalCeremonialProtocols = Map<String, bool>.from(hotelData['arrivalCeremonialProtocols'] as Map);
+//       }
+//
+//       Map<String, bool> gastronomicSupremacy = {};
+//       if (hotelData['gastronomicSupremacy'] is Map) {
+//         gastronomicSupremacy = Map<String, bool>.from(hotelData['gastronomicSupremacy'] as Map);
+//       }
+//
+//       Map<String, bool> wellnessDominion = {};
+//       if (hotelData['wellnessDominion'] is Map) {
+//         wellnessDominion = Map<String, bool>.from(hotelData['wellnessDominion'] as Map);
+//       }
+//
+//       Map<String, bool> ultraElitePrivileges = {};
+//       if (hotelData['ultraElitePrivileges'] is Map) {
+//         ultraElitePrivileges = Map<String, bool>.from(hotelData['ultraElitePrivileges'] as Map);
+//       }
+//
+//       Map<String, bool> hyperDigitalIntegration = {};
+//       if (hotelData['hyperDigitalIntegration'] is Map) {
+//         hyperDigitalIntegration = Map<String, bool>.from(hotelData['hyperDigitalIntegration'] as Map);
+//       }
+//
+//       // Legal & Treasury
+//       String internationalTaxId = hotelData['internationalTaxId']?.toString() ?? hotelData['gstNumber']?.toString() ?? '';
+//       String securityCertificationLevel = hotelData['securityCertificationLevel']?.toString() ?? '';
+//       bool fireDisasterClearance = hotelData['fireDisasterClearance'] ?? hotelData['fireSafetyCertificate'] ?? false;
+//       bool environmentalSovereignCertification = hotelData['environmentalSovereignCertification'] ?? false;
+//       String cyberIntelligenceProtection = hotelData['cyberIntelligenceProtection']?.toString() ?? '';
+//       bool crisisCommandSystem = hotelData['crisisCommandSystem'] ?? false;
+//       String treasuryAccountName = hotelData['treasuryAccountName']?.toString() ?? hotelData['accountHolderName']?.toString() ?? '';
+//       String globalBankInstitution = hotelData['globalBankInstitution']?.toString() ?? hotelData['bankName']?.toString() ?? '';
+//       String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//       String swiftIban = hotelData['swiftIban']?.toString() ?? hotelData['ifscCode']?.toString() ?? '';
+//       String settlementCurrency = hotelData['settlementCurrency']?.toString() ?? 'USD';
+//       String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//       // Uploaded Files
+//       Map<String, Map<String, dynamic>> sovereignCredentials = {};
+//       if (hotelData['sovereignCredentials'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['sovereignCredentials'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             sovereignCredentials[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       } else if (hotelData['uploadedFiles'] is Map) {
+//         // Fallback to uploadedFiles
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             sovereignCredentials[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       Map<String, dynamic> personPhotoInfo = {};
+//       if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//         if (hotelData['personPhotoInfo'] is Map) {
+//           personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//         }
+//       }
+//
+//       // Signature & Declaration
+//       String authorizedAuthority = hotelData['authorizedAuthority']?.toString() ?? hotelData['signatoryName']?.toString() ?? '';
+//       String titleRank = hotelData['titleRank']?.toString() ?? '';
+//       DateTime? declarationDate;
+//       if (hotelData['declarationDate'] != null) {
+//         if (hotelData['declarationDate'] is DateTime) {
+//           declarationDate = hotelData['declarationDate'] as DateTime;
+//         } else {
+//           declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
+//         }
+//       }
+//       bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
+//       bool hasDigitalSignature = hotelData['hasDigitalSignature'] ?? false;
+//
+//       print('Navigating to SevenStarHotelDashboard for estate: $estateName');
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => SevenStarHotelDashboard(
+//             // Basic Information
+//             estateName: estateName,
+//             hotelType: hotelType,
+//             yearOfOrigin: yearOfOrigin,
+//             totalGuestCapacity: totalGuestCapacity,
+//
+//             // Contact Information
+//             sovereignOwner: sovereignOwner,
+//             directCommandContact: directCommandContact,
+//             executiveEmail: executiveEmail,
+//             officialPortfolio: officialPortfolio,
+//
+//             // Address Information
+//             addressLine1: addressLine1,
+//             addressLine2: addressLine2,
+//             city: city,
+//             district: district,
+//             state: state,
+//             pinCode: pinCode,
+//             country: country,
+//
+//             // Royal Accommodations
+//             selectedRoyalAccommodations: selectedRoyalAccommodations,
+//             royalAccommodations: royalAccommodations,
+//             pricingEngine: pricingEngine,
+//
+//             // Sovereign Amenities
+//             arrivalInfrastructure: arrivalInfrastructure,
+//             inResidenceSystems: inResidenceSystems,
+//             signatureRoyalAmenities: signatureRoyalAmenities,
+//             arrivalCeremonialProtocols: arrivalCeremonialProtocols,
+//             gastronomicSupremacy: gastronomicSupremacy,
+//             wellnessDominion: wellnessDominion,
+//             ultraElitePrivileges: ultraElitePrivileges,
+//             hyperDigitalIntegration: hyperDigitalIntegration,
+//
+//             // Legal & Treasury
+//             internationalTaxId: internationalTaxId,
+//             securityCertificationLevel: securityCertificationLevel,
+//             fireDisasterClearance: fireDisasterClearance,
+//             environmentalSovereignCertification: environmentalSovereignCertification,
+//             cyberIntelligenceProtection: cyberIntelligenceProtection,
+//             crisisCommandSystem: crisisCommandSystem,
+//             treasuryAccountName: treasuryAccountName,
+//             globalBankInstitution: globalBankInstitution,
+//             accountNumber: accountNumber,
+//             swiftIban: swiftIban,
+//             settlementCurrency: settlementCurrency,
+//             accountType: accountType,
+//
+//             // Uploaded Documents
+//             sovereignCredentials: sovereignCredentials,
+//             personPhotoInfo: personPhotoInfo,
+//
+//             // Signature & Declaration
+//             authorizedAuthority: authorizedAuthority,
+//             titleRank: titleRank,
+//             declarationDate: declarationDate,
+//             declarationAccepted: declarationAccepted,
+//             hasDigitalSignature: hasDigitalSignature,
+//
+//             // Pass the complete registration data
+//             registrationData: hotelData,
+//           ),
+//         ),
+//       );
+//     } else if (category.toLowerCase().contains('global elite') || category.toLowerCase().contains('global elite luxury')) {
+//       // Helper function to safely convert Map<String, dynamic> to Map<String, bool>
+//       Map<String, bool> _safeConvertToBoolMap(dynamic data) {
+//         if (data == null || data is! Map) return {};
+//
+//         final Map<String, bool> result = {};
+//         data.forEach((key, value) {
+//           // Convert various types to bool safely
+//           if (value is bool) {
+//             result[key.toString()] = value;
+//           } else if (value is int) {
+//             result[key.toString()] = value == 1;
+//           } else if (value is String) {
+//             result[key.toString()] = value.toLowerCase() == 'true' ||
+//                 value.toLowerCase() == 'yes' ||
+//                 value == '1';
+//           } else {
+//             result[key.toString()] = false;
+//           }
+//         });
+//         return result;
+//       }
+//
+//       // Extract all required data for Global Elite Luxury Hotel Dashboard
+//       String propertyName = hotelData['propertyName']?.toString() ?? hotelData['hotelName']?.toString() ?? '';
+//       String hotelType = hotelData['hotelType']?.toString() ?? '';
+//       String yearEstablished = hotelData['yearEstablished']?.toString() ?? hotelData['yearOfEstablishment']?.toString() ?? '';
+//
+//       int totalInventory = 0;
+//       if (hotelData.containsKey('totalInventory')) {
+//         if (hotelData['totalInventory'] is int) {
+//           totalInventory = hotelData['totalInventory'] as int;
+//         } else {
+//           totalInventory = int.tryParse(hotelData['totalInventory'].toString()) ?? 0;
+//         }
+//       } else if (hotelData.containsKey('totalRooms')) {
+//         if (hotelData['totalRooms'] is int) {
+//           totalInventory = hotelData['totalRooms'] as int;
+//         } else {
+//           totalInventory = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//         }
+//       }
+//
+//       // Contact Information
+//       String ubo = hotelData['ubo']?.toString() ?? hotelData['ownerName']?.toString() ?? '';
+//       String primaryContact = hotelData['primaryContact']?.toString() ?? hotelData['mobileNumber']?.toString() ?? '';
+//       String executiveEmail = hotelData['executiveEmail']?.toString() ?? hotelData['email']?.toString() ?? '';
+//       String websitePortfolio = hotelData['websitePortfolio']?.toString() ?? hotelData['website']?.toString() ?? '';
+//
+//       // Address Information
+//       String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//       String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+//       String city = hotelData['city']?.toString() ?? '';
+//       String state = hotelData['state']?.toString() ?? '';
+//       String country = hotelData['country']?.toString() ?? '';
+//       String postalCode = hotelData['postalCode']?.toString() ?? hotelData['pinCode']?.toString() ?? '';
+//       String nearestAirport = hotelData['nearestAirport']?.toString() ?? '';
+//       String distanceFromAirport = hotelData['distanceFromAirport']?.toString() ?? '';
+//
+//       // Accommodation Configuration - SAFELY CONVERT TO BOOL MAPS
+//       Map<String, bool> selectedAccommodationTypes = _safeConvertToBoolMap(hotelData['selectedAccommodationTypes']);
+//
+//       Map<String, Map<String, dynamic>> accommodationMatrix = {};
+//       if (hotelData['accommodationMatrix'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['accommodationMatrix'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             accommodationMatrix[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       } else if (hotelData['roomDetails'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             accommodationMatrix[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       String rateEngineType = hotelData['rateEngineType']?.toString() ?? 'Dynamic Elite Pricing';
+//
+//       // Luxury Amenities - SAFELY CONVERT TO BOOL MAPS
+//       Map<String, bool> inSuiteTechnology = _safeConvertToBoolMap(hotelData['inSuiteTechnology']);
+//       Map<String, bool> signatureLuxuryFeatures = _safeConvertToBoolMap(hotelData['signatureLuxuryFeatures']);
+//       Map<String, bool> arrivalExperience = _safeConvertToBoolMap(hotelData['arrivalExperience']);
+//       Map<String, bool> gastronomyFeatures = _safeConvertToBoolMap(hotelData['gastronomyFeatures']);
+//       Map<String, bool> wellnessFeatures = _safeConvertToBoolMap(hotelData['wellnessFeatures']);
+//       Map<String, bool> guestPrivileges = _safeConvertToBoolMap(hotelData['guestPrivileges']);
+//       Map<String, bool> digitalIntegration = _safeConvertToBoolMap(hotelData['digitalIntegration']);
+//       Map<String, bool> privateAccessOptions = _safeConvertToBoolMap(hotelData['privateAccessOptions']);
+//
+//       // Legal & Treasury
+//       String taxId = hotelData['taxId']?.toString() ?? hotelData['gstNumber']?.toString() ?? '';
+//       bool fireSafetyCertification = _getBooleanValue(hotelData['fireSafetyCertification']) ?? hotelData['fireSafetyCertificate'] ?? false;
+//       bool environmentalCertification = _getBooleanValue(hotelData['environmentalCertification']) ?? false;
+//       bool cybersecurityCertification = _getBooleanValue(hotelData['cybersecurityCertification']) ?? false;
+//       bool crisisManagementProtocol = _getBooleanValue(hotelData['crisisManagementProtocol']) ?? false;
+//       String accountName = hotelData['accountName']?.toString() ?? hotelData['accountHolderName']?.toString() ?? '';
+//       String bank = hotelData['bank']?.toString() ?? hotelData['bankName']?.toString() ?? '';
+//       String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//       String swiftIfsc = hotelData['swiftIfsc']?.toString() ?? hotelData['ifscCode']?.toString() ?? '';
+//       String bankCountry = hotelData['bankCountry']?.toString() ?? '';
+//       String settlementCurrency = hotelData['settlementCurrency']?.toString() ?? 'USD';
+//       String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//       // Uploaded Files
+//       Map<String, Map<String, dynamic>> requiredDocuments = {};
+//       if (hotelData['requiredDocuments'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['requiredDocuments'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             requiredDocuments[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       } else if (hotelData['uploadedFiles'] is Map) {
+//         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
+//         temp.forEach((key, value) {
+//           if (value is Map) {
+//             requiredDocuments[key] = Map<String, dynamic>.from(value);
+//           }
+//         });
+//       }
+//
+//       Map<String, dynamic> personPhotoInfo = {};
+//       if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//         if (hotelData['personPhotoInfo'] is Map) {
+//           personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//         }
+//       }
+//
+//       // Signature & Declaration
+//       String authorizedSignatoryName = hotelData['authorizedSignatoryName']?.toString() ?? hotelData['signatoryName']?.toString() ?? '';
+//       DateTime? declarationDate;
+//       if (hotelData['declarationDate'] != null) {
+//         if (hotelData['declarationDate'] is DateTime) {
+//           declarationDate = hotelData['declarationDate'] as DateTime;
+//         } else {
+//           declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
+//         }
+//       }
+//       bool declarationAccepted = _getBooleanValue(hotelData['declarationAccepted']) ?? false;
+//       bool hasDigitalSignature = _getBooleanValue(hotelData['hasDigitalSignature']) ?? false;
+//
+//       // Global Elite specific fields
+//       String? luxuryClassification = hotelData['luxuryClassification']?.toString();
+//       String? propertyPositioning = hotelData['propertyPositioning']?.toString();
+//       String? brandAffiliation = hotelData['brandAffiliation']?.toString();
+//       String? recognitionLevel = hotelData['recognitionLevel']?.toString();
+//       String? awardsRankings = hotelData['awardsRankings']?.toString();
+//       String? staffToGuestRatio = hotelData['staffToGuestRatio']?.toString();
+//       String? complianceStandard = hotelData['complianceStandard']?.toString();
+//
+//       int? michelinCount;
+//       if (hotelData.containsKey('michelinCount')) {
+//         if (hotelData['michelinCount'] is int) {
+//           michelinCount = hotelData['michelinCount'] as int;
+//         } else {
+//           michelinCount = int.tryParse(hotelData['michelinCount'].toString());
+//         }
+//       }
+//
+//       int? banquetHallCapacity;
+//       if (hotelData.containsKey('banquetHallCapacity')) {
+//         if (hotelData['banquetHallCapacity'] is int) {
+//           banquetHallCapacity = hotelData['banquetHallCapacity'] as int;
+//         } else {
+//           banquetHallCapacity = int.tryParse(hotelData['banquetHallCapacity'].toString());
+//         }
+//       }
+//
+//       bool? globalEventHosting = _getBooleanValue(hotelData['globalEventHosting']);
+//       String? luxuryLinenBrand = hotelData['luxuryLinenBrand']?.toString();
+//
+//       print('Navigating to GlobalEliteLuxuryHotelDashboard for property: $propertyName');
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => GlobalEliteLuxuryHotelDashboard(
+//             // Basic Information
+//             propertyName: propertyName,
+//             hotelType: hotelType,
+//             yearEstablished: yearEstablished,
+//             totalInventory: totalInventory,
+//
+//             // Contact Information
+//             ubo: ubo,
+//             primaryContact: primaryContact,
+//             executiveEmail: executiveEmail,
+//             websitePortfolio: websitePortfolio,
+//
+//             // Address Information
+//             addressLine1: addressLine1,
+//             addressLine2: addressLine2,
+//             city: city,
+//             state: state,
+//             country: country,
+//             postalCode: postalCode,
+//             nearestAirport: nearestAirport,
+//             distanceFromAirport: distanceFromAirport,
+//
+//             // Accommodation Configuration
+//             selectedAccommodationTypes: selectedAccommodationTypes,
+//             accommodationMatrix: accommodationMatrix,
+//             rateEngineType: rateEngineType,
+//
+//             // Luxury Amenities
+//             inSuiteTechnology: inSuiteTechnology,
+//             signatureLuxuryFeatures: signatureLuxuryFeatures,
+//             arrivalExperience: arrivalExperience,
+//             gastronomyFeatures: gastronomyFeatures,
+//             wellnessFeatures: wellnessFeatures,
+//             guestPrivileges: guestPrivileges,
+//             digitalIntegration: digitalIntegration,
+//             privateAccessOptions: privateAccessOptions,
+//
+//             // Legal & Treasury
+//             taxId: taxId,
+//             fireSafetyCertification: fireSafetyCertification,
+//             environmentalCertification: environmentalCertification,
+//             cybersecurityCertification: cybersecurityCertification,
+//             crisisManagementProtocol: crisisManagementProtocol,
+//             accountName: accountName,
+//             bank: bank,
+//             accountNumber: accountNumber,
+//             swiftIfsc: swiftIfsc,
+//             bankCountry: bankCountry,
+//             settlementCurrency: settlementCurrency,
+//             accountType: accountType,
+//
+//             // Uploaded Files
+//             requiredDocuments: requiredDocuments,
+//             personPhotoInfo: personPhotoInfo,
+//
+//             // Signature & Declaration
+//             authorizedSignatoryName: authorizedSignatoryName,
+//             declarationDate: declarationDate,
+//             declarationAccepted: declarationAccepted,
+//             hasDigitalSignature: hasDigitalSignature,
+//
+//             // Global Elite specific fields
+//             luxuryClassification: luxuryClassification,
+//             propertyPositioning: propertyPositioning,
+//             brandAffiliation: brandAffiliation,
+//             recognitionLevel: recognitionLevel,
+//             awardsRankings: awardsRankings,
+//             staffToGuestRatio: staffToGuestRatio,
+//             complianceStandard: complianceStandard,
+//             michelinCount: michelinCount,
+//             banquetHallCapacity: banquetHallCapacity,
+//             globalEventHosting: globalEventHosting,
+//             luxuryLinenBrand: luxuryLinenBrand,
+//
+//             // Pass the complete registration data
+//             registrationData: hotelData,
+//           ),
+//         ),
+//       );
+//     } else {
+//       // Normal Hotel
+//       String hotelName = hotelData['hotelName']?.toString() ?? '';
+//       String ownerName = hotelData['ownerName']?.toString() ?? '';
+//       String mobileNumber = hotelData['mobileNumber']?.toString() ?? '';
+//       String email = hotelData['email']?.toString() ?? '';
+//       String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+//       String city = hotelData['city']?.toString() ?? '';
+//       String state = hotelData['state']?.toString() ?? '';
+//       String pinCode = hotelData['pinCode']?.toString() ?? '';
+//       String gstNumber = hotelData['gstNumber']?.toString() ?? '';
+//       String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
+//       String bankName = hotelData['bankName']?.toString() ?? '';
+//       String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+//       String ifscCode = hotelData['ifscCode']?.toString() ?? '';
+//       String accountType = hotelData['accountType']?.toString() ?? '';
+//
+//       int totalRooms = 0;
+//       if (hotelData.containsKey('totalRooms')) {
+//         if (hotelData['totalRooms'] is int) {
+//           totalRooms = hotelData['totalRooms'] as int;
+//         } else {
+//           totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+//         }
+//       }
+//
+//       Map<String, dynamic> personPhotoInfo = {};
+//       if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+//         if (hotelData['personPhotoInfo'] is Map) {
+//           personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+//         }
+//       }
+//
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => HotelOwnerDashboard(
+//             hotelName: hotelName,
+//             totalRooms: totalRooms,
+//             ownerName: ownerName,
+//             mobileNumber: mobileNumber,
+//             email: email,
+//             addressLine1: addressLine1,
+//             city: city,
+//             state: state,
+//             pinCode: pinCode,
+//             gstNumber: gstNumber,
+//             accountHolderName: accountHolderName,
+//             bankName: bankName,
+//             accountNumber: accountNumber,
+//             ifscCode: ifscCode,
+//             accountType: accountType,
+//             personPhotoInfo: personPhotoInfo,
+//             registrationData: hotelData,
+//           ),
+//         ),
+//       );
+//     }
+//   }
+//
+//   bool? _getBooleanValue(dynamic value) {
+//     if (value == null) return null;
+//     if (value is bool) return value;
+//     if (value is int) return value == 1;
+//     if (value is String) {
+//       return value.toLowerCase() == 'true' ||
+//           value.toLowerCase() == 'yes' ||
+//           value == '1';
+//     }
+//     return null;
+//   }
+//
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: bgColor,
+//       appBar: AppBar(
+//         backgroundColor: Colors.white,
+//         elevation: 0,
+//         leading: IconButton(
+//           icon: const Icon(Icons.arrow_back_ios, color: Color(0xFF1F2937)),
+//           onPressed: () {
+//             Navigator.pushReplacement(
+//               context,
+//               MaterialPageRoute(
+//                 builder: (context) => PropertyAuthScreen(
+//                   selectedPropertyType: 'hotel',
+//                   registrationData: null,
+//                 ),
+//               ),
+//             );
+//           },
+//         ),
+//         title: const Text(
+//           'My Dashboard',
+//           style: TextStyle(
+//             color: Color(0xFF1F2937),
+//             fontSize: 20,
+//             fontWeight: FontWeight.w700,
+//           ),
+//         ),
+//       ),
+//       body: _isLoading
+//           ? const Center(child: CircularProgressIndicator())
+//           : SingleChildScrollView(
+//         padding: const EdgeInsets.all(16),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//
+//             _buildProfileSection(),
+//
+//             const SizedBox(height: 24),
+//
+//
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: _buildActionButton(
+//                     onTap: _navigateToWelcomeScreen,
+//                     icon: Icons.app_registration,
+//                     title: 'New Register',
+//                     subtitle: 'Add another property',
+//                     gradientColors: [
+//                       Colors.blue,
+//                       Colors.lightBlue.shade300,
+//                     ],
+//                   ),
+//                 ),
+//                 const SizedBox(width: 10),
+//                 Expanded(
+//                   child: _buildActionButton(
+//                     onTap: () {
+//                       Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) => PropertiesScreen(
+//                             userData: _userData,
+//                             userEmail: widget.userEmail,
+//                           ),
+//                         ),
+//                       );
+//                     },
+//                     icon: Icons.person_rounded,
+//                     title: 'My Profile',
+//                     subtitle: 'View all properties',
+//                     gradientColors: [
+//                       primaryRed,
+//                       primaryOrange,
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//
+//             const SizedBox(height: 24),
+//
+//
+//             if (_registeredHotels.isNotEmpty) ...[
+//               Row(
+//                 children: [
+//                   Container(
+//                     width: 4,
+//                     height: 24,
+//                     decoration: BoxDecoration(
+//                       gradient: LinearGradient(
+//                         colors: [primaryRed, primaryOrange],
+//                       ),
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                   ),
+//                   const SizedBox(width: 12),
+//                   Text(
+//                     'Business Overview',
+//                     style: TextStyle(
+//                       fontSize: 18,
+//                       fontWeight: FontWeight.w700,
+//                       color: darkText,
+//                     ),
+//                   ),
+//                   const SizedBox(width: 8),
+//                   Container(
+//                     padding: const EdgeInsets.symmetric(
+//                       horizontal: 8,
+//                       vertical: 4,
+//                     ),
+//                     decoration: BoxDecoration(
+//                       color: primaryRed.withOpacity(0.1),
+//                       borderRadius: BorderRadius.circular(12),
+//                     ),
+//                     child: Text(
+//                       '${_registeredHotels.length}',
+//                       style: TextStyle(
+//                         fontSize: 12,
+//                         fontWeight: FontWeight.w600,
+//                         color: primaryRed,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//
+//               const SizedBox(height: 16),
+//
+//
+//               ListView.builder(
+//                 shrinkWrap: true,
+//                 physics: const NeverScrollableScrollPhysics(),
+//                 itemCount: _registeredHotels.length,
+//                 itemBuilder: (context, index) {
+//                   final hotel = _registeredHotels[index];
+//                   return _buildDashboardHotelCard(hotel);
+//                 },
+//               ),
+//
+//               const SizedBox(height: 16),
+//             ],
+//
+//
+//             if (_registeredHotels.isEmpty && !_isLoading) ...[
+//               Center(
+//                 child: Column(
+//                   children: [
+//                     const SizedBox(height: 40),
+//                     Container(
+//                       width: 100,
+//                       height: 100,
+//                       decoration: BoxDecoration(
+//                         color: primaryRed.withOpacity(0.1),
+//                         shape: BoxShape.circle,
+//                       ),
+//                       child: Icon(
+//                         Icons.business_center,
+//                         size: 50,
+//                         color: primaryRed.withOpacity(0.5),
+//                       ),
+//                     ),
+//                     const SizedBox(height: 16),
+//                     const Text(
+//                       'No Business Registered',
+//                       style: TextStyle(
+//                         fontSize: 18,
+//                         fontWeight: FontWeight.w700,
+//                         color: Color(0xFF1F2937),
+//                       ),
+//                     ),
+//                     const SizedBox(height: 8),
+//                     Text(
+//                       'Register your first property to get started',
+//                       style: TextStyle(fontSize: 14, color: lightText),
+//                     ),
+//                     const SizedBox(height: 24),
+//                     ElevatedButton(
+//                       onPressed: _navigateToWelcomeScreen,
+//                       style: ElevatedButton.styleFrom(
+//                         backgroundColor: primaryRed,
+//                         foregroundColor: Colors.white,
+//                         padding: const EdgeInsets.symmetric(
+//                           horizontal: 32,
+//                           vertical: 16,
+//                         ),
+//                         shape: RoundedRectangleBorder(
+//                           borderRadius: BorderRadius.circular(30),
+//                         ),
+//                       ),
+//                       child: const Text('Register Property'),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//             ],
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   Widget _buildProfileSection() {
+//     return Container(
+//       width: double.infinity,
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.circular(20),
+//         boxShadow: [
+//           BoxShadow(
+//             color: Colors.black.withOpacity(0.05),
+//             blurRadius: 10,
+//             offset: const Offset(0, 4),
+//           ),
+//         ],
+//       ),
+//       child: Column(
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.all(16),
+//             child: Row(
+//               children: [
+//                 Container(
+//                   width: 70,
+//                   height: 70,
+//                   decoration: BoxDecoration(
+//                     gradient: const LinearGradient(
+//                       colors: [Color(0xFFFF5F6D), Color(0xFFFFC371)],
+//                     ),
+//                     borderRadius: BorderRadius.circular(35),
+//                   ),
+//                   child: const Center(
+//                     child: Icon(
+//                       Icons.person,
+//                       size: 35,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                 ),
+//                 const SizedBox(width: 16),
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         _getUserFullName(),
+//                         style: const TextStyle(
+//                           fontSize: 18,
+//                           fontWeight: FontWeight.w700,
+//                           color: Color(0xFF1F2937),
+//                         ),
+//                       ),
+//                       const SizedBox(height: 4),
+//                       Text(
+//                         _getBusinessName(),
+//                         style: const TextStyle(
+//                           fontSize: 14,
+//                           color: Color(0xFF6B7280),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//
+//           Padding(
+//             padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+//             child: Container(
+//               width: double.infinity,
+//               padding: const EdgeInsets.all(12),
+//               decoration: BoxDecoration(
+//                 color: const Color(0xFFF9FAFB),
+//                 borderRadius: BorderRadius.circular(12),
+//               ),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   const Text(
+//                     'Personal Details',
+//                     style: TextStyle(
+//                       fontSize: 14,
+//                       fontWeight: FontWeight.w600,
+//                       color: Color(0xFF374151),
+//                     ),
+//                   ),
+//                   const SizedBox(height: 8),
+//                   Row(
+//                     children: [
+//                       Expanded(
+//                         child: _buildDetailItem(
+//                           icon: Icons.phone,
+//                           label: 'Phone',
+//                           value: _getUserPhone(),
+//                         ),
+//                       ),
+//                       Expanded(
+//                         child: _buildDetailItem(
+//                           icon: Icons.email,
+//                           label: 'Email',
+//                           value: _getUserEmail(),
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   if (_getRegisteredPropertyType() != 'none')
+//                     Padding(
+//                       padding: const EdgeInsets.only(top: 8),
+//                       child: _buildDetailItem(
+//                         icon: Icons.business,
+//                         label: 'Registered As',
+//                         value: _getRegisteredPropertyType().toUpperCase(),
+//                       ),
+//                     ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   Widget _buildDashboardHotelCard(Map<String, dynamic> hotel) {
+//     final category = hotel['category'] as String;
+//     final categoryColor = _getCategoryColor(category);
+//     final starCount = _getStarCount(category);
+//
+//     int totalRooms = 0;
+//     int occupiedRooms = 0;
+//     int availableRooms = 0;
+//
+//
+//     String address = '';
+//     if (hotel['data'].containsKey('addressLine1')) {
+//       address = hotel['data']['addressLine1'].toString();
+//       if (hotel['data'].containsKey('city')) {
+//         address += ', ${hotel['data']['city']}';
+//       }
+//     } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
+//       final basicInfo = hotel['data']['basicInfo'] as Map;
+//       if (basicInfo.containsKey('addressLine1')) {
+//         address = basicInfo['addressLine1'].toString();
+//         if (basicInfo.containsKey('city')) {
+//           address += ', ${basicInfo['city']}';
+//         }
+//       }
+//     }
+//
+//
+//     String mobileNumber = '';
+//     if (hotel['data'].containsKey('mobileNumber')) {
+//       mobileNumber = hotel['data']['mobileNumber'].toString();
+//     } else if (hotel['data'].containsKey('phone')) {
+//       mobileNumber = hotel['data']['phone'].toString();
+//     } else if (hotel['data'].containsKey('contactNumber')) {
+//       mobileNumber = hotel['data']['contactNumber'].toString();
+//     } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
+//       final basicInfo = hotel['data']['basicInfo'] as Map;
+//       if (basicInfo.containsKey('mobile')) {
+//         mobileNumber = basicInfo['mobile'].toString();
+//       } else if (basicInfo.containsKey('phone')) {
+//         mobileNumber = basicInfo['phone'].toString();
+//       }
+//     }
+//
+//
+//     if (hotel['data'].containsKey('totalRooms')) {
+//       totalRooms = int.tryParse(hotel['data']['totalRooms'].toString()) ?? 0;
+//     } else if (hotel['data'].containsKey('roomDetails')) {
+//       final roomDetails = hotel['data']['roomDetails'] as Map?;
+//       if (roomDetails != null) {
+//         roomDetails.forEach((key, value) {
+//           if (value is Map && value.containsKey('rooms')) {
+//             totalRooms += int.tryParse(value['rooms'].toString()) ?? 0;
+//           }
+//         });
+//       }
+//     } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
+//       final basicInfo = hotel['data']['basicInfo'] as Map;
+//       if (basicInfo.containsKey('totalRooms')) {
+//         totalRooms = int.tryParse(basicInfo['totalRooms'].toString()) ?? 0;
+//       }
+//     }
+//
+//
+//     occupiedRooms = (totalRooms * 0.6).round();
+//     availableRooms = totalRooms - occupiedRooms;
+//
+//
+//     IconData propertyIcon = _getPropertyIcon(category);
+//
+//     return GestureDetector(
+//       onTap: () => _navigateToHotelDetails(hotel['data'], category),
+//       child: Container(
+//         margin: const EdgeInsets.only(bottom: 16),
+//         decoration: BoxDecoration(
+//           color: Colors.white,
+//           borderRadius: BorderRadius.circular(24),
+//           boxShadow: [
+//             BoxShadow(
+//               color: Colors.black.withOpacity(0.09),
+//               blurRadius: 15,
+//               offset: const Offset(0, 5),
+//             ),
+//           ],
+//         ),
+//         child: Column(
+//           children: [
+//
+//             Container(
+//               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+//               decoration: BoxDecoration(
+//                 gradient: LinearGradient(
+//                   begin: Alignment.topLeft,
+//                   end: Alignment.bottomRight,
+//                   colors: [
+//                     categoryColor.withOpacity(0.5),
+//                     Colors.white,
+//                   ],
+//                 ),
+//                 borderRadius: const BorderRadius.only(
+//                   topLeft: Radius.circular(24),
+//                   topRight: Radius.circular(24),
+//                 ),
+//                 border: Border(
+//                   bottom: BorderSide(color: categoryColor.withOpacity(0.2), width: 1),
+//                 ),
+//               ),
+//               child: Row(
+//                 children: [
+//                   Container(
+//                     padding: const EdgeInsets.all(6),
+//                     decoration: BoxDecoration(
+//                       color: categoryColor.withOpacity(0.2),
+//                       shape: BoxShape.circle,
+//                     ),
+//                     child: Icon(
+//                       propertyIcon,
+//                       size: 14,
+//                       color: categoryColor,
+//                     ),
+//                   ),
+//                   const SizedBox(width: 8),
+//                   Expanded(
+//                     child: Text(
+//                       hotel['name'],
+//                       style: TextStyle(
+//                         fontSize: 14,
+//                         fontWeight: FontWeight.w600,
+//                         color: darkText,
+//                       ),
+//                       maxLines: 1,
+//                       overflow: TextOverflow.ellipsis,
+//                     ),
+//                   ),
+//                   Container(
+//                     padding: const EdgeInsets.symmetric(
+//                       horizontal: 8,
+//                       vertical: 4,
+//                     ),
+//                     decoration: BoxDecoration(
+//                       color: categoryColor,
+//                       borderRadius: BorderRadius.circular(16),
+//                     ),
+//                     child: Row(
+//                       mainAxisSize: MainAxisSize.min,
+//                       children: [
+//                         if (starCount > 0)
+//                           ...List.generate(
+//                             starCount,
+//                                 (index) => Icon(
+//                               Icons.star,
+//                               size: 10,
+//                               color: Colors.white,
+//                             ),
+//                           )
+//                         else
+//                           Text(
+//                             category,
+//                             style: const TextStyle(
+//                               fontSize: 9,
+//                               fontWeight: FontWeight.w600,
+//                               color: Colors.white,
+//                             ),
+//                           ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             // Main Content with Address and Mobile
+//             Padding(
+//               padding: const EdgeInsets.all(16),
+//               child: Column(
+//                 children: [
+//
+//                   Row(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Container(
+//                         padding: const EdgeInsets.all(8),
+//                         decoration: BoxDecoration(
+//                           color: categoryColor.withOpacity(0.1),
+//                           borderRadius: BorderRadius.circular(12),
+//                         ),
+//                         child: Icon(
+//                           Icons.location_on,
+//                           size: 16,
+//                           color: categoryColor,
+//                         ),
+//                       ),
+//                       const SizedBox(width: 12),
+//                       Expanded(
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             const Text(
+//                               'Address',
+//                               style: TextStyle(
+//                                 fontSize: 11,
+//                                 color: Color(0xFF6B7280),
+//                                 fontWeight: FontWeight.w500,
+//                               ),
+//                             ),
+//                             const SizedBox(height: 2),
+//                             Text(
+//                               address.isNotEmpty ? address : 'Address not available',
+//                               style: TextStyle(
+//                                 fontSize: 13,
+//                                 fontWeight: FontWeight.w500,
+//                                 color: darkText,
+//                               ),
+//                               maxLines: 2,
+//                               overflow: TextOverflow.ellipsis,
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//
+//                   const SizedBox(height: 12),
+//
+//                   // Mobile Number Row
+//                   Row(
+//                     children: [
+//                       Container(
+//                         padding: const EdgeInsets.all(8),
+//                         decoration: BoxDecoration(
+//                           color: categoryColor.withOpacity(0.1),
+//                           borderRadius: BorderRadius.circular(12),
+//                         ),
+//                         child: Icon(
+//                           Icons.phone,
+//                           size: 16,
+//                           color: categoryColor,
+//                         ),
+//                       ),
+//                       const SizedBox(width: 12),
+//                       Expanded(
+//                         child: Column(
+//                           crossAxisAlignment: CrossAxisAlignment.start,
+//                           children: [
+//                             const Text(
+//                               'Contact Number',
+//                               style: TextStyle(
+//                                 fontSize: 11,
+//                                 color: Color(0xFF6B7280),
+//                                 fontWeight: FontWeight.w500,
+//                               ),
+//                             ),
+//                             const SizedBox(height: 2),
+//                             Text(
+//                               mobileNumber.isNotEmpty ? mobileNumber : 'Not provided',
+//                               style: TextStyle(
+//                                 fontSize: 13,
+//                                 fontWeight: FontWeight.w600,
+//                                 color: categoryColor,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                       // Registration Date Badge
+//                       Container(
+//                         padding: const EdgeInsets.symmetric(
+//                           horizontal: 10,
+//                           vertical: 6,
+//                         ),
+//                         decoration: BoxDecoration(
+//                           color: Colors.amber.shade50,
+//                           borderRadius: BorderRadius.circular(20),
+//                           border: Border.all(
+//                             color: Colors.amber.shade200,
+//                             width: 1,
+//                           ),
+//                         ),
+//                         child: Row(
+//                           mainAxisSize: MainAxisSize.min,
+//                           children: [
+//                             Icon(
+//                               Icons.calendar_today,
+//                               size: 10,
+//                               color: Colors.amber.shade700,
+//                             ),
+//                             const SizedBox(width: 4),
+//                             Text(
+//                               _formatDate(hotel['registrationDate']),
+//                               style: TextStyle(
+//                                 fontSize: 9,
+//                                 fontWeight: FontWeight.w600,
+//                                 color: Colors.amber.shade700,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//
+//             // // Room Statistics Section
+//             // Padding(
+//             //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//             //   child: Row(
+//             //     children: [
+//             //       _buildRoomStat(
+//             //         icon: Icons.meeting_room,
+//             //         value: totalRooms.toString(),
+//             //         label: 'Total Rooms',
+//             //         color: Colors.blue,
+//             //       ),
+//             //       const SizedBox(width: 8),
+//             //       _buildRoomStat(
+//             //         icon: Icons.single_bed,
+//             //         value: occupiedRooms.toString(),
+//             //         label: 'Occupied',
+//             //         color: Colors.orange,
+//             //       ),
+//             //       const SizedBox(width: 8),
+//             //       _buildRoomStat(
+//             //         icon: Icons.check_circle,
+//             //         value: availableRooms.toString(),
+//             //         label: 'Available',
+//             //         color: Colors.green,
+//             //       ),
+//             //     ],
+//             //   ),
+//             // ),
+//
+//
+//             Container(
+//               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+//               decoration: BoxDecoration(
+//                 border: Border(
+//                   top: BorderSide(color: Colors.grey.shade200),
+//                 ),
+//               ),
+//               child: Row(
+//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                 children: [
+//                   Text(
+//                     'Tap to view details',
+//                     style: TextStyle(
+//                       fontSize: 11,
+//                       color: lightText,
+//                       fontStyle: FontStyle.italic,
+//                     ),
+//                   ),
+//                   // Arrow Button - Now using the same navigation method
+//                   GestureDetector(
+//                     onTap: () {
+//                       _navigateToHotelDetails(hotel['data'], category);
+//                     },
+//                     child: Container(
+//                       padding: const EdgeInsets.all(10),
+//                       decoration: BoxDecoration(
+//                         gradient: LinearGradient(
+//                           colors: [
+//                             categoryColor,
+//                             categoryColor.withOpacity(0.7),
+//                           ],
+//                           begin: Alignment.topLeft,
+//                           end: Alignment.bottomRight,
+//                         ),
+//                         shape: BoxShape.circle,
+//                         boxShadow: [
+//                           BoxShadow(
+//                             color: categoryColor.withOpacity(0.3),
+//                             blurRadius: 8,
+//                             offset: const Offset(0, 3),
+//                           ),
+//                         ],
+//                       ),
+//                       child: const Icon(
+//                         Icons.arrow_forward_rounded,
+//                         color: Colors.white,
+//                         size: 18,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//
+//   // Widget _buildDashboardHotelCard(Map<String, dynamic> hotel) {
+//   //   final category = hotel['category'] as String;
+//   //   final categoryColor = _getCategoryColor(category);
+//   //   final starCount = _getStarCount(category);
+//   //
+//   //   // Extract room statistics from hotel data
+//   //   int totalRooms = 0;
+//   //   int occupiedRooms = 0;
+//   //   int availableRooms = 0;
+//   //
+//   //   // Extract address from hotel data
+//   //   String address = '';
+//   //   if (hotel['data'].containsKey('addressLine1')) {
+//   //     address = hotel['data']['addressLine1'].toString();
+//   //     if (hotel['data'].containsKey('city')) {
+//   //       address += ', ${hotel['data']['city']}';
+//   //     }
+//   //   } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
+//   //     final basicInfo = hotel['data']['basicInfo'] as Map;
+//   //     if (basicInfo.containsKey('addressLine1')) {
+//   //       address = basicInfo['addressLine1'].toString();
+//   //       if (basicInfo.containsKey('city')) {
+//   //         address += ', ${basicInfo['city']}';
+//   //       }
+//   //     }
+//   //   }
+//   //
+//   //   // Extract mobile number from hotel data
+//   //   String mobileNumber = '';
+//   //   if (hotel['data'].containsKey('mobileNumber')) {
+//   //     mobileNumber = hotel['data']['mobileNumber'].toString();
+//   //   } else if (hotel['data'].containsKey('phone')) {
+//   //     mobileNumber = hotel['data']['phone'].toString();
+//   //   } else if (hotel['data'].containsKey('contactNumber')) {
+//   //     mobileNumber = hotel['data']['contactNumber'].toString();
+//   //   } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
+//   //     final basicInfo = hotel['data']['basicInfo'] as Map;
+//   //     if (basicInfo.containsKey('mobile')) {
+//   //       mobileNumber = basicInfo['mobile'].toString();
+//   //     } else if (basicInfo.containsKey('phone')) {
+//   //       mobileNumber = basicInfo['phone'].toString();
+//   //     }
+//   //   }
+//   //
+//   //   // Try to get room data from various possible locations
+//   //   if (hotel['data'].containsKey('totalRooms')) {
+//   //     totalRooms = int.tryParse(hotel['data']['totalRooms'].toString()) ?? 0;
+//   //   } else if (hotel['data'].containsKey('roomDetails')) {
+//   //     final roomDetails = hotel['data']['roomDetails'] as Map?;
+//   //     if (roomDetails != null) {
+//   //       roomDetails.forEach((key, value) {
+//   //         if (value is Map && value.containsKey('rooms')) {
+//   //           totalRooms += int.tryParse(value['rooms'].toString()) ?? 0;
+//   //         }
+//   //       });
+//   //     }
+//   //   } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
+//   //     final basicInfo = hotel['data']['basicInfo'] as Map;
+//   //     if (basicInfo.containsKey('totalRooms')) {
+//   //       totalRooms = int.tryParse(basicInfo['totalRooms'].toString()) ?? 0;
+//   //     }
+//   //   }
+//   //
+//   //   // Calculate occupied rooms (example calculation - in real app, this comes from booking data)
+//   //   occupiedRooms = (totalRooms * 0.6).round();
+//   //   availableRooms = totalRooms - occupiedRooms;
+//   //
+//   //   // Get appropriate icon based on property type
+//   //   IconData propertyIcon = _getPropertyIcon(category);
+//   //
+//   //   return GestureDetector(
+//   //     onTap: () => _navigateToHotelDetails(hotel['data'], category),
+//   //     child: Container(
+//   //       margin: const EdgeInsets.only(bottom: 16),
+//   //       decoration: BoxDecoration(
+//   //         color: Colors.white,
+//   //         borderRadius: BorderRadius.circular(24),
+//   //         boxShadow: [
+//   //           BoxShadow(
+//   //             color: Colors.black.withOpacity(0.09),
+//   //             blurRadius: 15,
+//   //             offset: const Offset(0, 5),
+//   //           ),
+//   //         ],
+//   //       ),
+//   //       child: Column(
+//   //         children: [
+//   //           // Top Section with Status Bar
+//   //           Container(
+//   //             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+//   //             decoration: BoxDecoration(
+//   //               gradient: LinearGradient(
+//   //                 begin: Alignment.topLeft,
+//   //                 end: Alignment.bottomRight,
+//   //                 colors: [
+//   //                   categoryColor.withOpacity(0.5),
+//   //                   Colors.white,
+//   //                 ],
+//   //               ),
+//   //               borderRadius: const BorderRadius.only(
+//   //                 topLeft: Radius.circular(24),
+//   //                 topRight: Radius.circular(24),
+//   //               ),
+//   //               border: Border(
+//   //                 bottom: BorderSide(color: categoryColor.withOpacity(0.2), width: 1),
+//   //               ),
+//   //             ),
+//   //             child: Row(
+//   //               children: [
+//   //                 Container(
+//   //                   padding: const EdgeInsets.all(6),
+//   //                   decoration: BoxDecoration(
+//   //                     color: categoryColor.withOpacity(0.2),
+//   //                     shape: BoxShape.circle,
+//   //                   ),
+//   //                   child: Icon(
+//   //                     propertyIcon,
+//   //                     size: 14,
+//   //                     color: categoryColor,
+//   //                   ),
+//   //                 ),
+//   //                 const SizedBox(width: 8),
+//   //                 Expanded(
+//   //                   child: Text(
+//   //                     hotel['name'],
+//   //                     style: TextStyle(
+//   //                       fontSize: 14,
+//   //                       fontWeight: FontWeight.w600,
+//   //                       color: darkText,
+//   //                     ),
+//   //                     maxLines: 1,
+//   //                     overflow: TextOverflow.ellipsis,
+//   //                   ),
+//   //                 ),
+//   //                 Container(
+//   //                   padding: const EdgeInsets.symmetric(
+//   //                     horizontal: 8,
+//   //                     vertical: 4,
+//   //                   ),
+//   //                   decoration: BoxDecoration(
+//   //                     color: categoryColor,
+//   //                     borderRadius: BorderRadius.circular(16),
+//   //                   ),
+//   //                   child: Row(
+//   //                     mainAxisSize: MainAxisSize.min,
+//   //                     children: [
+//   //                       if (starCount > 0)
+//   //                         ...List.generate(
+//   //                           starCount,
+//   //                               (index) => Icon(
+//   //                             Icons.star,
+//   //                             size: 10,
+//   //                             color: Colors.white,
+//   //                           ),
+//   //                         )
+//   //                       else
+//   //                         Text(
+//   //                           category,
+//   //                           style: const TextStyle(
+//   //                             fontSize: 9,
+//   //                             fontWeight: FontWeight.w600,
+//   //                             color: Colors.white,
+//   //                           ),
+//   //                         ),
+//   //                     ],
+//   //                   ),
+//   //                 ),
+//   //               ],
+//   //             ),
+//   //           ),
+//   //
+//   //           // Main Content with Address and Mobile
+//   //           Padding(
+//   //             padding: const EdgeInsets.all(16),
+//   //             child: Column(
+//   //               children: [
+//   //                 // Address Row
+//   //                 Row(
+//   //                   crossAxisAlignment: CrossAxisAlignment.start,
+//   //                   children: [
+//   //                     Container(
+//   //                       padding: const EdgeInsets.all(8),
+//   //                       decoration: BoxDecoration(
+//   //                         color: categoryColor.withOpacity(0.1),
+//   //                         borderRadius: BorderRadius.circular(12),
+//   //                       ),
+//   //                       child: Icon(
+//   //                         Icons.location_on,
+//   //                         size: 16,
+//   //                         color: categoryColor,
+//   //                       ),
+//   //                     ),
+//   //                     const SizedBox(width: 12),
+//   //                     Expanded(
+//   //                       child: Column(
+//   //                         crossAxisAlignment: CrossAxisAlignment.start,
+//   //                         children: [
+//   //                           const Text(
+//   //                             'Address',
+//   //                             style: TextStyle(
+//   //                               fontSize: 11,
+//   //                               color: Color(0xFF6B7280),
+//   //                               fontWeight: FontWeight.w500,
+//   //                             ),
+//   //                           ),
+//   //                           const SizedBox(height: 2),
+//   //                           Text(
+//   //                             address.isNotEmpty ? address : 'Address not available',
+//   //                             style: TextStyle(
+//   //                               fontSize: 13,
+//   //                               fontWeight: FontWeight.w500,
+//   //                               color: darkText,
+//   //                             ),
+//   //                             maxLines: 2,
+//   //                             overflow: TextOverflow.ellipsis,
+//   //                           ),
+//   //                         ],
+//   //                       ),
+//   //                     ),
+//   //                   ],
+//   //                 ),
+//   //
+//   //                 const SizedBox(height: 12),
+//   //
+//   //                 // Mobile Number Row
+//   //                 Row(
+//   //                   children: [
+//   //                     Container(
+//   //                       padding: const EdgeInsets.all(8),
+//   //                       decoration: BoxDecoration(
+//   //                         color: categoryColor.withOpacity(0.1),
+//   //                         borderRadius: BorderRadius.circular(12),
+//   //                       ),
+//   //                       child: Icon(
+//   //                         Icons.phone,
+//   //                         size: 16,
+//   //                         color: categoryColor,
+//   //                       ),
+//   //                     ),
+//   //                     const SizedBox(width: 12),
+//   //                     Expanded(
+//   //                       child: Column(
+//   //                         crossAxisAlignment: CrossAxisAlignment.start,
+//   //                         children: [
+//   //                           const Text(
+//   //                             'Contact Number',
+//   //                             style: TextStyle(
+//   //                               fontSize: 11,
+//   //                               color: Color(0xFF6B7280),
+//   //                               fontWeight: FontWeight.w500,
+//   //                             ),
+//   //                           ),
+//   //                           const SizedBox(height: 2),
+//   //                           Text(
+//   //                             mobileNumber.isNotEmpty ? mobileNumber : 'Not provided',
+//   //                             style: TextStyle(
+//   //                               fontSize: 13,
+//   //                               fontWeight: FontWeight.w600,
+//   //                               color: categoryColor,
+//   //                             ),
+//   //                           ),
+//   //                         ],
+//   //                       ),
+//   //                     ),
+//   //                     // Registration Date Badge
+//   //                     Container(
+//   //                       padding: const EdgeInsets.symmetric(
+//   //                         horizontal: 10,
+//   //                         vertical: 6,
+//   //                       ),
+//   //                       decoration: BoxDecoration(
+//   //                         color: Colors.amber.shade50,
+//   //                         borderRadius: BorderRadius.circular(20),
+//   //                         border: Border.all(
+//   //                           color: Colors.amber.shade200,
+//   //                           width: 1,
+//   //                         ),
+//   //                       ),
+//   //                       child: Row(
+//   //                         mainAxisSize: MainAxisSize.min,
+//   //                         children: [
+//   //                           Icon(
+//   //                             Icons.calendar_today,
+//   //                             size: 10,
+//   //                             color: Colors.amber.shade700,
+//   //                           ),
+//   //                           const SizedBox(width: 4),
+//   //                           Text(
+//   //                             _formatDate(hotel['registrationDate']),
+//   //                             style: TextStyle(
+//   //                               fontSize: 9,
+//   //                               fontWeight: FontWeight.w600,
+//   //                               color: Colors.amber.shade700,
+//   //                             ),
+//   //                           ),
+//   //                         ],
+//   //                       ),
+//   //                     ),
+//   //                   ],
+//   //                 ),
+//   //               ],
+//   //             ),
+//   //           ),
+//   //
+//   //           // Room Statistics Section
+//   //           Padding(
+//   //             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//   //             child: Row(
+//   //               children: [
+//   //                 _buildRoomStat(
+//   //                   icon: Icons.meeting_room,
+//   //                   value: totalRooms.toString(),
+//   //                   label: 'Total Rooms',
+//   //                   color: Colors.blue,
+//   //                 ),
+//   //                 const SizedBox(width: 8),
+//   //                 _buildRoomStat(
+//   //                   icon: Icons.single_bed,
+//   //                   value: occupiedRooms.toString(),
+//   //                   label: 'Occupied',
+//   //                   color: Colors.orange,
+//   //                 ),
+//   //                 const SizedBox(width: 8),
+//   //                 _buildRoomStat(
+//   //                   icon: Icons.check_circle,
+//   //                   value: availableRooms.toString(),
+//   //                   label: 'Available',
+//   //                   color: Colors.green,
+//   //                 ),
+//   //               ],
+//   //             ),
+//   //           ),
+//   //
+//   //           // Bottom Section with Arrow
+//   //           Container(
+//   //             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+//   //             decoration: BoxDecoration(
+//   //               border: Border(
+//   //                 top: BorderSide(color: Colors.grey.shade200),
+//   //               ),
+//   //             ),
+//   //             child: Row(
+//   //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//   //               children: [
+//   //                 // Optional: Add any left side content here if needed
+//   //                 Text(
+//   //                   'Tap to view details',
+//   //                   style: TextStyle(
+//   //                     fontSize: 11,
+//   //                     color: lightText,
+//   //                     fontStyle: FontStyle.italic,
+//   //                   ),
+//   //                 ),
+//   //                 // Arrow Button
+//   //                 GestureDetector(
+//   //                   onTap: () {
+//   //                     // Navigate to NormalHotelDashboardScreen for normal hotels
+//   //                     Navigator.push(
+//   //                       context,
+//   //                       MaterialPageRoute(
+//   //                         builder: (context) => HotelOwnerDashboard(registrationData: {}, hotelName: '', totalRooms: 0, ownerName: '', mobileNumber: '', email: '', addressLine1: '', city: '', state: '', pinCode: '', gstNumber: '', accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', accountType: '', personPhotoInfo: {},
+//   //                           // registrationData: hotel['data'],
+//   //                         ),
+//   //                       ),
+//   //                     );
+//   //                   },
+//   //                   child: Container(
+//   //                     padding: const EdgeInsets.all(10),
+//   //                     decoration: BoxDecoration(
+//   //                       gradient: LinearGradient(
+//   //                         colors: [
+//   //                           categoryColor,
+//   //                           categoryColor.withOpacity(0.7),
+//   //                         ],
+//   //                         begin: Alignment.topLeft,
+//   //                         end: Alignment.bottomRight,
+//   //                       ),
+//   //                       shape: BoxShape.circle,
+//   //                       boxShadow: [
+//   //                         BoxShadow(
+//   //                           color: categoryColor.withOpacity(0.3),
+//   //                           blurRadius: 8,
+//   //                           offset: const Offset(0, 3),
+//   //                         ),
+//   //                       ],
+//   //                     ),
+//   //                     child: const Icon(
+//   //                       Icons.arrow_forward_rounded,
+//   //                       color: Colors.white,
+//   //                       size: 18,
+//   //                     ),
+//   //                   ),
+//   //                 ),
+//   //               ],
+//   //             ),
+//   //           ),
+//   //         ],
+//   //       ),
+//   //     ),
+//   //   );
+//   // }
+//
+// // Room Stat Helper
+//
+//
+//   Widget _buildRoomStat({
+//     required IconData icon,
+//     required String value,
+//     required String label,
+//     required Color color,
+//   }) {
+//     return Expanded(
+//       child: Container(
+//         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+//         decoration: BoxDecoration(
+//           color: color.withOpacity(0.08),
+//           borderRadius: BorderRadius.circular(12),
+//           border: Border.all(
+//             color: color.withOpacity(0.2),
+//             width: 0.5,
+//           ),
+//         ),
+//         child: Column(
+//           children: [
+//             Icon(icon, size: 16, color: color),
+//             const SizedBox(height: 4),
+//             Text(
+//               value,
+//               style: TextStyle(
+//                 fontSize: 16,
+//                 fontWeight: FontWeight.w700,
+//                 color: color,
+//               ),
+//             ),
+//             Text(
+//               label,
+//               style: TextStyle(
+//                 fontSize: 11,
+//                 color: lightText,
+//                 fontWeight: FontWeight.w500,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//
+//
+//   IconData _getPropertyIcon(String category) {
+//     if (category.contains('Hotel') || category.contains('hotel')) {
+//       return Icons.hotel;
+//     } else if (category.contains('Villa') || category.contains('villa')) {
+//       return Icons.villa;
+//     } else if (category.contains('Apartment') || category.contains('apartment')) {
+//       return Icons.apartment;
+//     } else if (category.contains('Resort') || category.contains('resort')) {
+//       return Icons.beach_access;
+//     } else if (category.contains('Global Elite')) {
+//       return Icons.star;
+//     } else {
+//       return Icons.business_center;
+//     }
+//   }
+//
+//   Widget _buildStatItem({
+//     required IconData icon,
+//     required String value,
+//     required String label,
+//     required Color color,
+//   }) {
+//     return Row(
+//       children: [
+//         Icon(icon, size: 14, color: color),
+//         const SizedBox(width: 4),
+//         Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               value,
+//               style: TextStyle(
+//                 fontSize: 12,
+//                 fontWeight: FontWeight.w700,
+//                 color: darkText,
+//               ),
+//             ),
+//             Text(
+//               label,
+//               style: TextStyle(
+//                 fontSize: 9,
+//                 color: lightText,
+//               ),
+//             ),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildDetailItem({
+//     required IconData icon,
+//     required String label,
+//     required String value,
+//   }) {
+//     return Row(
+//       children: [
+//         Icon(icon, size: 14, color: lightText),
+//         const SizedBox(width: 4),
+//         Expanded(
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Text(
+//                 label,
+//                 style: TextStyle(fontSize: 10, color: lightText),
+//               ),
+//               Text(
+//                 value,
+//                 style: const TextStyle(
+//                   fontSize: 12,
+//                   fontWeight: FontWeight.w500,
+//                   color: Color(0xFF1F2937),
+//                 ),
+//                 overflow: TextOverflow.ellipsis,
+//               ),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+//
+//   Widget _buildActionButton({
+//     required VoidCallback onTap,
+//     required IconData icon,
+//     required String title,
+//     required String subtitle,
+//     required List<Color> gradientColors,
+//   }) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+//         decoration: BoxDecoration(
+//           gradient: LinearGradient(
+//             begin: Alignment.topLeft,
+//             end: Alignment.bottomRight,
+//             colors: gradientColors,
+//           ),
+//           borderRadius: BorderRadius.circular(14),
+//           boxShadow: [
+//             BoxShadow(
+//               color: gradientColors.first.withOpacity(0.3),
+//               blurRadius: 8,
+//               offset: const Offset(0, 3),
+//             ),
+//           ],
+//         ),
+//         child: Row(
+//           children: [
+//             Container(
+//               padding: const EdgeInsets.all(6),
+//               decoration: BoxDecoration(
+//                 color: Colors.white.withOpacity(0.2),
+//                 borderRadius: BorderRadius.circular(10),
+//               ),
+//               child: Icon(icon, color: Colors.white, size: 18),
+//             ),
+//             const SizedBox(width: 8),
+//             SizedBox(
+//               height: 38,
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Text(
+//                     title,
+//                     style: const TextStyle(
+//                       fontSize: 14,
+//                       fontWeight: FontWeight.w600,
+//                       color: Colors.white,
+//                     ),
+//                   ),
+//                   if (subtitle.isNotEmpty)
+//                     Text(
+//                       subtitle,
+//                       style: TextStyle(
+//                         fontSize: 10,
+//                         color: Colors.white.withOpacity(0.9),
+//                         fontWeight: FontWeight.w400,
+//                       ),
+//                     ),
+//                 ],
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//
+//   void _navigateToWelcomeScreen() {
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(builder: (context) => WelcomeScreen()),
+//     );
+//   }
+//
+//
+//   String _getUserFullName() {
+//     if (_userData.containsKey('fullName')) {
+//       return _userData['fullName'].toString();
+//     }
+//     if (_userData.containsKey('ownerName')) {
+//       return _userData['ownerName'].toString();
+//     }
+//     if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+//       final basicInfo = _userData['basicInfo'] as Map;
+//       if (basicInfo.containsKey('ownerName')) {
+//         return basicInfo['ownerName'].toString();
+//       }
+//     }
+//     return 'User';
+//   }
+//
+//   String _getUserEmail() {
+//     return _userData['email']?.toString() ?? widget.userEmail;
+//   }
+//
+//   String _getUserPhone() {
+//     if (_userData.containsKey('phone')) {
+//       return _userData['phone'].toString();
+//     }
+//     if (_userData.containsKey('mobileNumber')) {
+//       return _userData['mobileNumber'].toString();
+//     }
+//     if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+//       final basicInfo = _userData['basicInfo'] as Map;
+//       if (basicInfo.containsKey('mobile')) {
+//         return basicInfo['mobile'].toString();
+//       }
+//     }
+//     return 'Not provided';
+//   }
+//
+//   String _getRegisteredPropertyType() {
+//     if (_userData.containsKey('propertyType')) {
+//       return _userData['propertyType'].toString();
+//     }
+//     if (_userData.containsKey('hotelName')) return 'hotel';
+//     if (_userData.containsKey('villaName')) return 'villa';
+//     if (_userData.containsKey('apartmentName')) return 'apartment';
+//     if (_userData.containsKey('resortName')) return 'resort';
+//     if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+//       final basicInfo = _userData['basicInfo'] as Map;
+//       if (basicInfo.containsKey('hotelName')) return 'hotel';
+//       if (basicInfo.containsKey('villaName')) return 'villa';
+//       if (basicInfo.containsKey('apartmentName')) return 'apartment';
+//       if (basicInfo.containsKey('resortName')) return 'resort';
+//     }
+//     return 'none';
+//   }
+//
+//   String _getBusinessName() {
+//     if (_userData.containsKey('businessName') &&
+//         _userData['businessName'] != null &&
+//         _userData['businessName'].toString().isNotEmpty) {
+//       return _userData['businessName'].toString();
+//     }
+//
+//     if (_userData.containsKey('hotelName') &&
+//         _userData['hotelName'] != null &&
+//         _userData['hotelName'].toString().isNotEmpty) {
+//       return _userData['hotelName'].toString();
+//     }
+//
+//     if (_userData.containsKey('villaName') &&
+//         _userData['villaName'] != null &&
+//         _userData['villaName'].toString().isNotEmpty) {
+//       return _userData['villaName'].toString();
+//     }
+//
+//     if (_userData.containsKey('apartmentName') &&
+//         _userData['apartmentName'] != null &&
+//         _userData['apartmentName'].toString().isNotEmpty) {
+//       return _userData['apartmentName'].toString();
+//     }
+//
+//     if (_userData.containsKey('resortName') &&
+//         _userData['resortName'] != null &&
+//         _userData['resortName'].toString().isNotEmpty) {
+//       return _userData['resortName'].toString();
+//     }
+//
+//     if (_userData.containsKey('basicInfo') && _userData['basicInfo'] != null) {
+//       final basicInfo = _userData['basicInfo'] as Map;
+//
+//       if (basicInfo.containsKey('villaName') &&
+//           basicInfo['villaName']?.toString().isNotEmpty == true) {
+//         return basicInfo['villaName'].toString();
+//       }
+//
+//       if (basicInfo.containsKey('hotelName') &&
+//           basicInfo['hotelName']?.toString().isNotEmpty == true) {
+//         return basicInfo['hotelName'].toString();
+//       }
+//
+//       if (basicInfo.containsKey('apartmentName') &&
+//           basicInfo['apartmentName']?.toString().isNotEmpty == true) {
+//         return basicInfo['apartmentName'].toString();
+//       }
+//
+//       if (basicInfo.containsKey('resortName') &&
+//           basicInfo['resortName']?.toString().isNotEmpty == true) {
+//         return basicInfo['resortName'].toString();
+//       }
+//     }
+//
+//     return 'Business Name Not Set';
+//   }
+// }
 
 
 class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
   Map<String, dynamic> _userData = {};
   bool _isLoading = true;
   Map<String, bool> _registeredProperties = {};
+
+
   List<Map<String, dynamic>> _registeredHotels = [];
+  List<Map<String, dynamic>> _registeredVillas = [];
+  List<Map<String, dynamic>> _registeredApartments = [];
+  List<Map<String, dynamic>> _registeredResorts = [];
+
+
+  List<Map<String, dynamic>> get _allRegisteredProperties => [
+    ..._registeredHotels,
+    ..._registeredVillas,
+    ..._registeredApartments,
+    ..._registeredResorts,
+  ];
 
   final Color primaryRed = const Color(0xFFFF5F6D);
   final Color primaryOrange = const Color(0xFFFFC371);
@@ -4606,20 +7850,28 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
       for (var user in usersList) {
         if (user is Map) {
-          final storedEmail =
-              user['email']?.toString().toLowerCase().trim() ?? '';
+          final storedEmail = user['email']?.toString().toLowerCase().trim() ?? '';
           if (storedEmail == normalizedEmail) {
             Map<String, dynamic> safeUserData = {};
             user.forEach((key, value) {
               safeUserData[key.toString()] = value;
             });
 
-            if (!safeUserData.containsKey('propertyType') ||
-                safeUserData['propertyType'] == null) {
+            // Detect property type if not set
+            if (!safeUserData.containsKey('propertyType') || safeUserData['propertyType'] == null) {
               if (safeUserData.containsKey('hotelName') ||
                   safeUserData.containsKey('hotels') ||
                   safeUserData.containsKey('roomDetails')) {
                 safeUserData['propertyType'] = 'hotel';
+              } else if (safeUserData.containsKey('villaName') ||
+                  safeUserData.containsKey('villlas')) {
+                safeUserData['propertyType'] = 'villa';
+              } else if (safeUserData.containsKey('apartmentName') ||
+                  safeUserData.containsKey('apartments')) {
+                safeUserData['propertyType'] = 'apartment';
+              } else if (safeUserData.containsKey('resortName') ||
+                  safeUserData.containsKey('resorts')) {
+                safeUserData['propertyType'] = 'resort';
               }
             }
 
@@ -4628,7 +7880,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
               _checkRegisteredProperties();
             });
 
-            _extractHotels();
+            _extractAllProperties();
             break;
           }
         }
@@ -4649,18 +7901,17 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     bool isApartmentRegistered = false;
     bool isResortRegistered = false;
 
+    // Check for hotels
     if (_userData.containsKey('hotelName') &&
         _userData['hotelName'] != null &&
         _userData['hotelName'].toString().isNotEmpty) {
       isHotelRegistered = true;
     }
-
     if (_userData.containsKey('hotels') &&
         _userData['hotels'] is List &&
         (_userData['hotels'] as List).isNotEmpty) {
       isHotelRegistered = true;
     }
-
     if (_userData.containsKey('totalRooms') ||
         _userData.containsKey('roomDetails') ||
         _userData.containsKey('selectedRoomTypes') ||
@@ -4668,13 +7919,40 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       isHotelRegistered = true;
     }
 
-    if (_userData.containsKey('registrationData') &&
-        _userData['registrationData'] != null) {
-      final regData = _userData['registrationData'] as Map;
-      if (regData.containsKey('hotelName') &&
-          regData['hotelName']?.toString().isNotEmpty == true) {
-        isHotelRegistered = true;
-      }
+    // Check for villas
+    if (_userData.containsKey('villaName') &&
+        _userData['villaName'] != null &&
+        _userData['villaName'].toString().isNotEmpty) {
+      isVillaRegistered = true;
+    }
+    if (_userData.containsKey('villlas') &&
+        _userData['villlas'] is List &&
+        (_userData['villlas'] as List).isNotEmpty) {
+      isVillaRegistered = true;
+    }
+
+    // Check for apartments
+    if (_userData.containsKey('apartmentName') &&
+        _userData['apartmentName'] != null &&
+        _userData['apartmentName'].toString().isNotEmpty) {
+      isApartmentRegistered = true;
+    }
+    if (_userData.containsKey('apartments') &&
+        _userData['apartments'] is List &&
+        (_userData['apartments'] as List).isNotEmpty) {
+      isApartmentRegistered = true;
+    }
+
+    // Check for resorts
+    if (_userData.containsKey('resortName') &&
+        _userData['resortName'] != null &&
+        _userData['resortName'].toString().isNotEmpty) {
+      isResortRegistered = true;
+    }
+    if (_userData.containsKey('resorts') &&
+        _userData['resorts'] is List &&
+        (_userData['resorts'] as List).isNotEmpty) {
+      isResortRegistered = true;
     }
 
     setState(() {
@@ -4685,6 +7963,13 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
         'resort': isResortRegistered,
       };
     });
+  }
+
+  void _extractAllProperties() {
+    _extractHotels();
+    _extractVillas();
+    _extractApartments();
+    _extractResorts();
   }
 
   void _extractHotels() {
@@ -4744,6 +8029,117 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     }
   }
 
+  void _extractVillas() {
+    try {
+      print('=== EXTRACTING VILLAS IN DASHBOARD ===');
+      List<Map<String, dynamic>> tempVillas = [];
+
+      if (_userData.containsKey('villlas') && _userData['villlas'] is List) {
+        List<dynamic> villasList = _userData['villlas'] as List;
+        print('Found villas list with ${villasList.length} villas');
+
+        for (var villa in villasList) {
+          if (villa is Map) {
+            Map<String, dynamic> villaMap = Map<String, dynamic>.from(villa);
+            var extractedVilla = _extractSingleVilla(villaMap);
+            if (extractedVilla != null) {
+              tempVillas.add(extractedVilla);
+            }
+          }
+        }
+      }
+
+      if (tempVillas.isEmpty) {
+        var extractedVilla = _extractSingleVilla(_userData);
+        if (extractedVilla != null) {
+          tempVillas.add(extractedVilla);
+        }
+      }
+
+      setState(() {
+        _registeredVillas = tempVillas;
+      });
+
+      print('Total villas in dashboard: ${_registeredVillas.length}');
+    } catch (e) {
+      print('Error extracting villas in dashboard: $e');
+    }
+  }
+
+  void _extractApartments() {
+    try {
+      print('=== EXTRACTING APARTMENTS IN DASHBOARD ===');
+      List<Map<String, dynamic>> tempApartments = [];
+
+      if (_userData.containsKey('apartments') && _userData['apartments'] is List) {
+        List<dynamic> apartmentsList = _userData['apartments'] as List;
+        print('Found apartments list with ${apartmentsList.length} apartments');
+
+        for (var apartment in apartmentsList) {
+          if (apartment is Map) {
+            Map<String, dynamic> apartmentMap = Map<String, dynamic>.from(apartment);
+            var extractedApartment = _extractSingleApartment(apartmentMap);
+            if (extractedApartment != null) {
+              tempApartments.add(extractedApartment);
+            }
+          }
+        }
+      }
+
+      if (tempApartments.isEmpty) {
+        var extractedApartment = _extractSingleApartment(_userData);
+        if (extractedApartment != null) {
+          tempApartments.add(extractedApartment);
+        }
+      }
+
+      setState(() {
+        _registeredApartments = tempApartments;
+      });
+
+      print('Total apartments in dashboard: ${_registeredApartments.length}');
+    } catch (e) {
+      print('Error extracting apartments in dashboard: $e');
+    }
+  }
+
+  void _extractResorts() {
+    try {
+      print('=== EXTRACTING RESORTS IN DASHBOARD ===');
+      List<Map<String, dynamic>> tempResorts = [];
+
+      if (_userData.containsKey('resorts') && _userData['resorts'] is List) {
+        List<dynamic> resortsList = _userData['resorts'] as List;
+        print('Found resorts list with ${resortsList.length} resorts');
+
+        for (var resort in resortsList) {
+          if (resort is Map) {
+            Map<String, dynamic> resortMap = Map<String, dynamic>.from(resort);
+            var extractedResort = _extractSingleResort(resortMap);
+            if (extractedResort != null) {
+              tempResorts.add(extractedResort);
+            }
+          }
+        }
+      }
+
+      if (tempResorts.isEmpty) {
+        var extractedResort = _extractSingleResort(_userData);
+        if (extractedResort != null) {
+          tempResorts.add(extractedResort);
+        }
+      }
+
+      setState(() {
+        _registeredResorts = tempResorts;
+      });
+
+      print('Total resorts in dashboard: ${_registeredResorts.length}');
+    } catch (e) {
+      print('Error extracting resorts in dashboard: $e');
+    }
+  }
+
   Map<String, dynamic>? _extractSingleHotel(Map<String, dynamic> hotelData) {
     try {
       String hotelName = '';
@@ -4780,19 +8176,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
         hotelCategory = 'Normal Hotel';
       }
 
-      String hotelType = '';
-      if (hotelData.containsKey('propertyPositioning') &&
-          hotelData['propertyPositioning'] != null &&
-          hotelData['propertyPositioning'].toString().isNotEmpty) {
-        hotelType = hotelData['propertyPositioning'].toString();
-      } else if (hotelData.containsKey('hotelType') &&
-          hotelData['hotelType'] != null &&
-          hotelData['hotelType'].toString().isNotEmpty) {
-        hotelType = hotelData['hotelType'].toString();
-      } else {
-        hotelType = 'Hotel';
-      }
-
       String registrationDate = '';
       if (hotelData.containsKey('registeredAt') &&
           hotelData['registeredAt'] != null) {
@@ -4809,7 +8192,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             'HOTEL_${DateTime.now().millisecondsSinceEpoch}',
         'name': hotelName,
         'category': hotelCategory,
-        'type': hotelType,
+        'type': 'hotel',
+        'propertyType': 'hotel',
         'data': hotelData,
         'registrationDate': registrationDate,
       };
@@ -4819,25 +8203,175 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     }
   }
 
-  Color _getCategoryColor(String category) {
-    switch (category) {
-      case '2-Star':
-        return const Color(0xFF6B8E23);
-      case '3-Star':
-        return const Color(0xFFDAA520);
-      case '4-Star':
-        return const Color(0xFF4F46E5);
-      case '5-Star':
-        return const Color(0xFFFB717D);
-      case '6-Star':
-        return const Color(0xFFD4AF37);
-      case '7-Star':
-        return const Color(0xFF1A94F6);
-      case 'Global Elite Luxury':
-        return const Color(0xFF10B981);
-      default:
-        return primaryRed;
+  Map<String, dynamic>? _extractSingleVilla(Map<String, dynamic> villaData) {
+    try {
+      String villaName = '';
+      if (villaData.containsKey('basicInfo') && villaData['basicInfo'] is Map) {
+        Map<String, dynamic> basicInfo = villaData['basicInfo'];
+        if (basicInfo.containsKey('villaName') && basicInfo['villaName'].toString().isNotEmpty) {
+          villaName = basicInfo['villaName'].toString();
+        }
+      } else if (villaData.containsKey('villaName') && villaData['villaName'].toString().isNotEmpty) {
+        villaName = villaData['villaName'].toString();
+      } else if (villaData.containsKey('propertyName') && villaData['propertyName'].toString().isNotEmpty) {
+        villaName = villaData['propertyName'].toString();
+      }
+
+      if (villaName.isEmpty) return null;
+
+      String propertyType = 'Villa';
+      if (villaData.containsKey('propertyDetails') && villaData['propertyDetails'] is Map) {
+        Map<String, dynamic> propertyDetails = villaData['propertyDetails'];
+        if (propertyDetails.containsKey('propertyType') && propertyDetails['propertyType'].toString().isNotEmpty) {
+          propertyType = propertyDetails['propertyType'].toString();
+        }
+      } else if (villaData.containsKey('propertyTypeValue') && villaData['propertyTypeValue'].toString().isNotEmpty) {
+        propertyType = villaData['propertyTypeValue'].toString();
+      }
+
+      String registrationDate = '';
+      if (villaData.containsKey('registeredAt') && villaData['registeredAt'] != null) {
+        registrationDate = villaData['registeredAt'].toString();
+      } else if (villaData.containsKey('registrationDate') && villaData['registrationDate'] != null) {
+        registrationDate = villaData['registrationDate'].toString();
+      } else {
+        registrationDate = DateTime.now().toIso8601String();
+      }
+
+      return {
+        'id': villaData['id'] ??
+            'VILLA_${DateTime.now().millisecondsSinceEpoch}',
+        'name': villaName,
+        'category': propertyType,
+        'type': 'villa',
+        'propertyType': 'villa',
+        'data': villaData,
+        'registrationDate': registrationDate,
+      };
+    } catch (e) {
+      print('Error extracting single villa: $e');
+      return null;
     }
+  }
+
+  Map<String, dynamic>? _extractSingleApartment(Map<String, dynamic> apartmentData) {
+    try {
+      String apartmentName = '';
+      if (apartmentData.containsKey('basicInfo') && apartmentData['basicInfo'] is Map) {
+        Map<String, dynamic> basicInfo = apartmentData['basicInfo'];
+        if (basicInfo.containsKey('apartmentName') && basicInfo['apartmentName'].toString().isNotEmpty) {
+          apartmentName = basicInfo['apartmentName'].toString();
+        }
+      } else if (apartmentData.containsKey('apartmentName') && apartmentData['apartmentName'].toString().isNotEmpty) {
+        apartmentName = apartmentData['apartmentName'].toString();
+      } else if (apartmentData.containsKey('propertyName') && apartmentData['propertyName'].toString().isNotEmpty) {
+        apartmentName = apartmentData['propertyName'].toString();
+      }
+
+      if (apartmentName.isEmpty) return null;
+
+      String propertyType = 'Apartment';
+      if (apartmentData.containsKey('propertyDetails') && apartmentData['propertyDetails'] is Map) {
+        Map<String, dynamic> propertyDetails = apartmentData['propertyDetails'];
+        if (propertyDetails.containsKey('propertyType') && propertyDetails['propertyType'].toString().isNotEmpty) {
+          propertyType = propertyDetails['propertyType'].toString();
+        }
+      } else if (apartmentData.containsKey('propertyTypeValue') && apartmentData['propertyTypeValue'].toString().isNotEmpty) {
+        propertyType = apartmentData['propertyTypeValue'].toString();
+      }
+
+      String registrationDate = '';
+      if (apartmentData.containsKey('registeredAt') && apartmentData['registeredAt'] != null) {
+        registrationDate = apartmentData['registeredAt'].toString();
+      } else if (apartmentData.containsKey('registrationDate') && apartmentData['registrationDate'] != null) {
+        registrationDate = apartmentData['registrationDate'].toString();
+      } else {
+        registrationDate = DateTime.now().toIso8601String();
+      }
+
+      return {
+        'id': apartmentData['id'] ??
+            'APT_${DateTime.now().millisecondsSinceEpoch}',
+        'name': apartmentName,
+        'category': propertyType,
+        'type': 'apartment',
+        'propertyType': 'apartment',
+        'data': apartmentData,
+        'registrationDate': registrationDate,
+      };
+    } catch (e) {
+      print('Error extracting single apartment: $e');
+      return null;
+    }
+  }
+
+  Map<String, dynamic>? _extractSingleResort(Map<String, dynamic> resortData) {
+    try {
+      String resortName = '';
+      if (resortData.containsKey('basicInfo') && resortData['basicInfo'] is Map) {
+        Map<String, dynamic> basicInfo = resortData['basicInfo'];
+        if (basicInfo.containsKey('resortName') && basicInfo['resortName'].toString().isNotEmpty) {
+          resortName = basicInfo['resortName'].toString();
+        }
+      } else if (resortData.containsKey('resortName') && resortData['resortName'].toString().isNotEmpty) {
+        resortName = resortData['resortName'].toString();
+      } else if (resortData.containsKey('propertyName') && resortData['propertyName'].toString().isNotEmpty) {
+        resortName = resortData['propertyName'].toString();
+      }
+
+      if (resortName.isEmpty) return null;
+
+      String resortCategory = 'Resort';
+      if (resortData.containsKey('propertyDetails') && resortData['propertyDetails'] is Map) {
+        Map<String, dynamic> propertyDetails = resortData['propertyDetails'];
+        if (propertyDetails.containsKey('resortCategory') && propertyDetails['resortCategory'].toString().isNotEmpty) {
+          resortCategory = propertyDetails['resortCategory'].toString();
+        }
+      } else if (resortData.containsKey('resortCategory') && resortData['resortCategory'].toString().isNotEmpty) {
+        resortCategory = resortData['resortCategory'].toString();
+      }
+
+      String registrationDate = '';
+      if (resortData.containsKey('registeredAt') && resortData['registeredAt'] != null) {
+        registrationDate = resortData['registeredAt'].toString();
+      } else if (resortData.containsKey('registrationDate') && resortData['registrationDate'] != null) {
+        registrationDate = resortData['registrationDate'].toString();
+      } else {
+        registrationDate = DateTime.now().toIso8601String();
+      }
+
+      return {
+        'id': resortData['id'] ??
+            'RESORT_${DateTime.now().millisecondsSinceEpoch}',
+        'name': resortName,
+        'category': resortCategory,
+        'type': 'resort',
+        'propertyType': 'resort',
+        'data': resortData,
+        'registrationDate': registrationDate,
+      };
+    } catch (e) {
+      print('Error extracting single resort: $e');
+      return null;
+    }
+  }
+
+  Color _getCategoryColor(String category) {
+    // Hotel categories
+    if (category == '2-Star') return const Color(0xFF6B8E23);
+    if (category == '3-Star') return const Color(0xFFDAA520);
+    if (category == '4-Star') return const Color(0xFF4F46E5);
+    if (category == '5-Star') return const Color(0xFFFB717D);
+    if (category == '6-Star') return const Color(0xFFD4AF37);
+    if (category == '7-Star') return const Color(0xFF1A94F6);
+    if (category == 'Global Elite Luxury') return const Color(0xFF10B981);
+
+    // Villa, Apartment, Resort colors
+    if (category == 'Villa') return const Color(0xFF2E7D32);
+    if (category == 'Apartment') return const Color(0xFF5C6BC0);
+    if (category == 'Resort') return const Color(0xFF7B1FA2);
+
+    return primaryRed;
   }
 
   int _getStarCount(String category) {
@@ -4850,22 +8384,332 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     return 0;
   }
 
-  String _formatDate(String dateString) {
-    try {
-      final date = DateTime.parse(dateString);
-      return '${date.day}/${date.month}/${date.year}';
-    } catch (e) {
-      return dateString;
+  IconData _getPropertyIcon(String propertyType) {
+    switch (propertyType) {
+      case 'hotel':
+        return Icons.hotel;
+      case 'villa':
+        return Icons.villa;
+      case 'apartment':
+        return Icons.apartment;
+      case 'resort':
+        return Icons.beach_access;
+      default:
+        return Icons.business_center;
     }
+  }
+
+  void _navigateToPropertyDetails(Map<String, dynamic> propertyData, String propertyType, String category) {
+    if (propertyType == 'hotel') {
+      _navigateToHotelDetails(propertyData, category);
+    } else if (propertyType == 'villa') {
+      _navigateToVillaDetails(propertyData);
+    } else if (propertyType == 'apartment') {
+      _navigateToApartmentDetails(propertyData);
+    } else if (propertyType == 'resort') {
+      _navigateToResortDetails(propertyData);
+    }
+  }
+
+
+
+  void _navigateToVillaDetails(Map<String, dynamic> villaData) {
+    print('Navigating to villa details');
+    print('Villa data keys: ${villaData.keys.toList()}');
+
+    // Extract villa name
+    String villaName = '';
+    if (villaData.containsKey('basicInfo') && villaData['basicInfo'] != null) {
+      final basicInfo = villaData['basicInfo'] as Map;
+      if (basicInfo.containsKey('villaName') && basicInfo['villaName'] != null) {
+        villaName = basicInfo['villaName'].toString();
+      }
+    }
+    if (villaName.isEmpty && villaData.containsKey('villaName') && villaData['villaName'] != null) {
+      villaName = villaData['villaName'].toString();
+    }
+    if (villaName.isEmpty && villaData.containsKey('propertyName') && villaData['propertyName'] != null) {
+      villaName = villaData['propertyName'].toString();
+    }
+    if (villaName.isEmpty) {
+      villaName = 'Villa';
+    }
+
+    // Extract owner name
+    String ownerName = '';
+    if (villaData.containsKey('basicInfo') && villaData['basicInfo'] != null) {
+      final basicInfo = villaData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerName') && basicInfo['ownerName'] != null) {
+        ownerName = basicInfo['ownerName'].toString();
+      }
+      if (ownerName.isEmpty && basicInfo.containsKey('fullName') && basicInfo['fullName'] != null) {
+        ownerName = basicInfo['fullName'].toString();
+      }
+    }
+    if (ownerName.isEmpty && villaData.containsKey('ownerName') && villaData['ownerName'] != null) {
+      ownerName = villaData['ownerName'].toString();
+    }
+    if (ownerName.isEmpty && villaData.containsKey('fullName') && villaData['fullName'] != null) {
+      ownerName = villaData['fullName'].toString();
+    }
+
+    // Extract mobile number
+    String mobileNumber = '';
+    if (villaData.containsKey('basicInfo') && villaData['basicInfo'] != null) {
+      final basicInfo = villaData['basicInfo'] as Map;
+      if (basicInfo.containsKey('mobile') && basicInfo['mobile'] != null) {
+        mobileNumber = basicInfo['mobile'].toString();
+      }
+      if (mobileNumber.isEmpty && basicInfo.containsKey('phone') && basicInfo['phone'] != null) {
+        mobileNumber = basicInfo['phone'].toString();
+      }
+    }
+    if (mobileNumber.isEmpty && villaData.containsKey('mobile') && villaData['mobile'] != null) {
+      mobileNumber = villaData['mobile'].toString();
+    }
+    if (mobileNumber.isEmpty && villaData.containsKey('phone') && villaData['phone'] != null) {
+      mobileNumber = villaData['phone'].toString();
+    }
+
+    // Extract email
+    String email = '';
+    if (villaData.containsKey('basicInfo') && villaData['basicInfo'] != null) {
+      final basicInfo = villaData['basicInfo'] as Map;
+      if (basicInfo.containsKey('email') && basicInfo['email'] != null) {
+        email = basicInfo['email'].toString();
+      }
+    }
+    if (email.isEmpty && villaData.containsKey('email') && villaData['email'] != null) {
+      email = villaData['email'].toString();
+    }
+
+    // Extract address details
+    String addressLine1 = '';
+    String addressLine2 = '';
+    String city = '';
+    String district = '';
+    String state = '';
+    String pinCode = '';
+
+    if (villaData.containsKey('location') && villaData['location'] != null) {
+      final location = villaData['location'] as Map;
+      if (location.containsKey('address') && location['address'] != null) {
+        addressLine1 = location['address'].toString();
+      }
+      if (location.containsKey('area') && location['area'] != null) {
+        addressLine2 = location['area'].toString();
+      }
+      if (location.containsKey('city') && location['city'] != null) {
+        city = location['city'].toString();
+      }
+      if (location.containsKey('state') && location['state'] != null) {
+        state = location['state'].toString();
+      }
+      if (location.containsKey('pincode') && location['pincode'] != null) {
+        pinCode = location['pincode'].toString();
+      }
+    }
+
+    // Extract district (try to get from location, otherwise use city)
+    district = city; // Default to city if district not available
+    if (villaData.containsKey('district') && villaData['district'] != null) {
+      district = villaData['district'].toString();
+    }
+
+    // Fallback to direct keys
+    if (addressLine1.isEmpty && villaData.containsKey('address') && villaData['address'] != null) {
+      addressLine1 = villaData['address'].toString();
+    }
+    if (addressLine2.isEmpty && villaData.containsKey('area') && villaData['area'] != null) {
+      addressLine2 = villaData['area'].toString();
+    }
+    if (city.isEmpty && villaData.containsKey('city') && villaData['city'] != null) {
+      city = villaData['city'].toString();
+      if (district.isEmpty) district = city;
+    }
+    if (state.isEmpty && villaData.containsKey('state') && villaData['state'] != null) {
+      state = villaData['state'].toString();
+    }
+    if (pinCode.isEmpty && villaData.containsKey('pincode') && villaData['pincode'] != null) {
+      pinCode = villaData['pincode'].toString();
+    }
+
+    // Extract legal details (GST, FSSAI, Trade License, Aadhar, PAN)
+    String gstNumber = '';
+    String fssaiLicense = '';
+    String tradeLicense = '';
+    String aadharNumber = '';
+    String panNumber = '';
+
+    if (villaData.containsKey('legal') && villaData['legal'] != null) {
+      final legal = villaData['legal'] as Map;
+      if (legal.containsKey('gstNumber') && legal['gstNumber'] != null) {
+        gstNumber = legal['gstNumber'].toString();
+      }
+      if (legal.containsKey('tradeLicense') && legal['tradeLicense'] != null) {
+        tradeLicense = legal['tradeLicense'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (gstNumber.isEmpty && villaData.containsKey('gstNumber') && villaData['gstNumber'] != null) {
+      gstNumber = villaData['gstNumber'].toString();
+    }
+    if (tradeLicense.isEmpty && villaData.containsKey('tradeLicense') && villaData['tradeLicense'] != null) {
+      tradeLicense = villaData['tradeLicense'].toString();
+    }
+
+    // Extract bank details
+    String accountHolderName = '';
+    String bankName = '';
+    String accountNumber = '';
+    String ifscCode = '';
+    String branch = '';
+    String accountType = '';
+
+    if (villaData.containsKey('bank') && villaData['bank'] != null) {
+      final bank = villaData['bank'] as Map;
+      if (bank.containsKey('accountHolder') && bank['accountHolder'] != null) {
+        accountHolderName = bank['accountHolder'].toString();
+      }
+      if (bank.containsKey('bankName') && bank['bankName'] != null) {
+        bankName = bank['bankName'].toString();
+      }
+      if (bank.containsKey('accountNumber') && bank['accountNumber'] != null) {
+        accountNumber = bank['accountNumber'].toString();
+      }
+      if (bank.containsKey('ifscCode') && bank['ifscCode'] != null) {
+        ifscCode = bank['ifscCode'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (accountHolderName.isEmpty && villaData.containsKey('accountHolder') && villaData['accountHolder'] != null) {
+      accountHolderName = villaData['accountHolder'].toString();
+    }
+    if (bankName.isEmpty && villaData.containsKey('bankName') && villaData['bankName'] != null) {
+      bankName = villaData['bankName'].toString();
+    }
+    if (accountNumber.isEmpty && villaData.containsKey('accountNumber') && villaData['accountNumber'] != null) {
+      accountNumber = villaData['accountNumber'].toString();
+    }
+    if (ifscCode.isEmpty && villaData.containsKey('ifscCode') && villaData['ifscCode'] != null) {
+      ifscCode = villaData['ifscCode'].toString();
+    }
+
+    // Calculate total villas from property details
+    int totalVillas = 0;
+    if (villaData.containsKey('propertyDetails') && villaData['propertyDetails'] != null) {
+      final propertyDetails = villaData['propertyDetails'] as Map;
+      if (propertyDetails.containsKey('totalUnits') && propertyDetails['totalUnits'] != null) {
+        totalVillas = int.tryParse(propertyDetails['totalUnits'].toString()) ?? 0;
+      }
+      // Check for bhkDetails if available
+      if (propertyDetails.containsKey('bhkDetails') && propertyDetails['bhkDetails'] is List) {
+        final bhkDetails = propertyDetails['bhkDetails'] as List;
+        for (var bhk in bhkDetails) {
+          if (bhk is Map && bhk.containsKey('totalUnits')) {
+            totalVillas += int.tryParse(bhk['totalUnits'].toString()) ?? 0;
+          }
+        }
+      }
+    }
+    if (totalVillas == 0 && villaData.containsKey('totalUnits') && villaData['totalUnits'] != null) {
+      totalVillas = int.tryParse(villaData['totalUnits'].toString()) ?? 0;
+    }
+    if (totalVillas == 0) {
+      totalVillas = 1; // Default to 1 villa
+    }
+
+    // Extract person photo info
+    Map<String, dynamic> personPhotoInfo = {};
+    if (villaData.containsKey('basicInfo') && villaData['basicInfo'] != null) {
+      final basicInfo = villaData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerPhoto') && basicInfo['ownerPhoto'] != null) {
+        personPhotoInfo = Map<String, dynamic>.from(basicInfo['ownerPhoto'] as Map);
+      }
+    }
+    if (personPhotoInfo.isEmpty && villaData.containsKey('ownerPhoto') && villaData['ownerPhoto'] != null) {
+      personPhotoInfo = Map<String, dynamic>.from(villaData['ownerPhoto'] as Map);
+    }
+
+    print('=== NAVIGATING TO VILLA BUSINESS DASHBOARD ===');
+    print('Villa Name: $villaName');
+    print('Owner Name: $ownerName');
+    print('Mobile: $mobileNumber');
+    print('Email: $email');
+    print('Address Line 1: $addressLine1');
+    print('Address Line 2: $addressLine2');
+    print('City: $city');
+    print('District: $district');
+    print('State: $state');
+    print('Pin Code: $pinCode');
+    print('GST Number: $gstNumber');
+    print('Trade License: $tradeLicense');
+    print('Account Holder: $accountHolderName');
+    print('Bank Name: $bankName');
+    print('Total Villas: $totalVillas');
+    print('Person Photo Info: $personPhotoInfo');
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VillaBusinessDashboard(
+          villaName: villaName,
+          ownerName: ownerName,
+          mobileNumber: mobileNumber,
+          email: email,
+          addressLine1: addressLine1,
+          addressLine2: addressLine2,
+          city: city,
+          district: district,
+          state: state,
+          pinCode: pinCode,
+          gstNumber: gstNumber,
+          fssaiLicense: fssaiLicense, // Default to empty string
+          tradeLicense: tradeLicense,
+          aadharNumber: aadharNumber, // Default to empty string
+          panNumber: panNumber, // Default to empty string
+          accountHolderName: accountHolderName,
+          bankName: bankName,
+          accountNumber: accountNumber,
+          ifscCode: ifscCode,
+          branch: branch, // Default to empty string
+          accountType: accountType, // Default to empty string
+          totalVillas: totalVillas,
+          personPhotoInfo: personPhotoInfo,
+          registrationData: villaData,
+        ),
+      ),
+    );
+  }
+
+  void _navigateToApartmentDetails(Map<String, dynamic> apartmentData) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ApartmentRegistrationDetailsScreen(
+          registrationData: apartmentData,
+          apartmentId: apartmentData['id']?.toString() ?? '',
+          apartmentIndex: 0,
+        ),
+      ),
+    );
+  }
+
+  void _navigateToResortDetails(Map<String, dynamic> resortData) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResortRegistrationDetailsScreen(
+          registrationData: resortData,
+        ),
+      ),
+    );
   }
 
   void _navigateToHotelDetails(Map<String, dynamic> hotelData, String category) {
     print('Navigating to hotel details - Category: "$category"');
-    print('========== NAVIGATION DEBUG ==========');
-    print('Navigating to hotel details - Category: "$category"');
-    print('Category length: ${category.length}');
-    print('Category characters: ${category.codeUnits}');
-    print('Is "3-Star"? ${category == '3-Star'}');
 
     if (category == '2-Star') {
       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
@@ -4938,7 +8782,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
           ),
         ),
       );
-    } else if (category.toLowerCase().contains('3-star') || category.toLowerCase().contains('3 star')) {
+    } else if (category == '3-Star') {
       // Extract all required data for 3-Star Hotel Dashboard
       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
       String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
@@ -5069,21 +8913,16 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => ThreeStarHotelDashboard(
-            // Basic Information
             hotelName: hotelName,
             hotelType: hotelData['hotelType']?.toString() ?? '',
             yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
             totalRooms: totalRooms,
-
-            // Contact Information
             ownerName: ownerName,
             mobileNumber: mobileNumber,
             alternateContact: alternateContact,
             landlineNumbers: landlineNumbers,
             email: email,
             website: website,
-
-            // Address Information
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             city: city,
@@ -5091,54 +8930,36 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             state: state,
             pinCode: pinCode,
             landmark: landmark,
-
-            // Room Configuration
             selectedRoomTypes: selectedRoomTypes,
             roomDetails: roomDetails,
             minTariff: minTariff,
             maxTariff: maxTariff,
             extraBedAvailable: extraBedAvailable,
-
-            // Amenities
             basicAmenities: basicAmenities,
             hotelFacilities: hotelFacilities,
             foodServices: foodServices,
             additionalAmenities: additionalAmenities,
             customAmenities: customAmenities,
-
-            // Legal Details
             gstNumber: gstNumber,
             fssaiLicense: fssaiLicense,
             tradeLicense: tradeLicense,
             aadharNumber: aadharNumber,
             panNumber: panNumber,
-
-            // Bank Details
             accountHolderName: accountHolderName,
             bankName: bankName,
             accountNumber: accountNumber,
             ifscCode: ifscCode,
             branch: branch,
             accountType: accountType,
-
-            // Uploaded Files
             uploadedFiles: uploadedFiles,
             personPhotoInfo: personPhotoInfo,
-
-            // Signature & Declaration
             signatureName: signatureName,
             declarationName: declarationName,
             declarationDate: declarationDate,
             declarationAccepted: declarationAccepted,
-
-            // Hotel Category
             hotelCategory: '3-Star',
-
-            // Digital Signature
             hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
             digitalSignatureImage: null,
-
-            // 3-Star specific fields
             registrationNumber: registrationNumber,
             signatoryName: signatoryName,
             seasonalPricing: seasonalPricing,
@@ -5146,13 +8967,11 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             earlyCheckinChargeable: earlyCheckinChargeable,
             fireSafetyCertificate: fireSafetyCertificate,
             businessServices: businessServices,
-
-            // Pass the complete registration data
             registrationData: hotelData,
           ),
         ),
       );
-    } else if (category == '4-Star' || category.toLowerCase().contains('4-star') || category.toLowerCase().contains('4 star')) {
+    } else if (category == '4-Star') {
       // Extract all required data for 4-Star Hotel Dashboard
       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
       String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
@@ -5285,27 +9104,20 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
         wellnessRecreation = Map<String, bool>.from(hotelData['wellnessRecreation'] as Map);
       }
 
-      print('Navigating to FourStarHotelDashboard for hotel: $hotelName');
-
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => FourStarHotelDashboard(
-            // Basic Information
             hotelName: hotelName,
             hotelType: hotelData['hotelType']?.toString() ?? '',
             yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
             totalRooms: totalRooms,
-
-            // Contact Information
             ownerName: ownerName,
             mobileNumber: mobileNumber,
             alternateContact: alternateContact,
             landlineNumbers: landlineNumbers,
             email: email,
             website: website,
-
-            // Address Information
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             city: city,
@@ -5313,54 +9125,36 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             state: state,
             pinCode: pinCode,
             landmark: landmark,
-
-            // Room Configuration
             selectedRoomTypes: selectedRoomTypes,
             roomDetails: roomDetails,
             minTariff: minTariff,
             maxTariff: maxTariff,
             extraBedAvailable: extraBedAvailable,
-
-            // Amenities
             basicAmenities: basicAmenities,
             hotelFacilities: hotelFacilities,
             foodServices: foodServices,
             additionalAmenities: additionalAmenities,
             customAmenities: customAmenities,
-
-            // Legal Details
             gstNumber: gstNumber,
             fssaiLicense: fssaiLicense,
             tradeLicense: tradeLicense,
             aadharNumber: aadharNumber,
             panNumber: panNumber,
-
-            // Bank Details
             accountHolderName: accountHolderName,
             bankName: bankName,
             accountNumber: accountNumber,
             ifscCode: ifscCode,
             branch: branch,
             accountType: accountType,
-
-            // Uploaded Files
             uploadedFiles: uploadedFiles,
             personPhotoInfo: personPhotoInfo,
-
-            // Signature & Declaration
             signatureName: signatureName,
             declarationName: declarationName,
             declarationDate: declarationDate,
             declarationAccepted: declarationAccepted,
-
-            // Hotel Category
             hotelCategory: '4-Star',
-
-            // Digital Signature
             hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
             digitalSignatureImage: null,
-
-            // 4-Star specific fields
             registrationNumber: registrationNumber,
             signatoryName: signatoryName,
             seasonalPricing: seasonalPricing,
@@ -5370,241 +9164,212 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             starCertificate: starCertificate,
             businessServices: businessServices,
             wellnessRecreation: wellnessRecreation,
-
-            // Pass the complete registration data
             registrationData: hotelData,
           ),
         ),
       );
-    }   else if (category == '5-Star' || category.toLowerCase().contains('5-star') || category.toLowerCase().contains('5 star')) {
-  // Extract all required data for 5-Star Hotel Dashboard
-  String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
-  String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
-  String mobileNumber = hotelData['mobileNumber']?.toString() ?? hotelData['phone']?.toString() ?? '';
-  String email = hotelData['email']?.toString() ?? '';
-  String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
-  String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
-  String city = hotelData['city']?.toString() ?? '';
-  String district = hotelData['district']?.toString() ?? '';
-  String state = hotelData['state']?.toString() ?? '';
-  String pinCode = hotelData['pinCode']?.toString() ?? '';
-  String landmark = hotelData['landmark']?.toString() ?? '';
-  String website = hotelData['website']?.toString() ?? '';
-  String alternateContact = hotelData['alternateContact']?.toString() ?? '';
-  List<String> landlineNumbers = [];
-  if (hotelData['landlineNumbers'] is List) {
-  landlineNumbers = List<String>.from(hotelData['landlineNumbers'] as List);
-  }
+    } else if (category == '5-Star') {
+      // Extract all required data for 5-Star Hotel Dashboard
+      String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+      String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
+      String mobileNumber = hotelData['mobileNumber']?.toString() ?? hotelData['phone']?.toString() ?? '';
+      String email = hotelData['email']?.toString() ?? '';
+      String addressLine1 = hotelData['addressLine1']?.toString() ?? '';
+      String addressLine2 = hotelData['addressLine2']?.toString() ?? '';
+      String city = hotelData['city']?.toString() ?? '';
+      String district = hotelData['district']?.toString() ?? '';
+      String state = hotelData['state']?.toString() ?? '';
+      String pinCode = hotelData['pinCode']?.toString() ?? '';
+      String landmark = hotelData['landmark']?.toString() ?? '';
+      String website = hotelData['website']?.toString() ?? '';
+      String alternateContact = hotelData['alternateContact']?.toString() ?? '';
+      List<String> landlineNumbers = [];
+      if (hotelData['landlineNumbers'] is List) {
+        landlineNumbers = List<String>.from(hotelData['landlineNumbers'] as List);
+      }
 
-  int totalRooms = 0;
-  if (hotelData.containsKey('totalRooms')) {
-  if (hotelData['totalRooms'] is int) {
-  totalRooms = hotelData['totalRooms'] as int;
-  } else {
-  totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
-  }
-  }
+      int totalRooms = 0;
+      if (hotelData.containsKey('totalRooms')) {
+        if (hotelData['totalRooms'] is int) {
+          totalRooms = hotelData['totalRooms'] as int;
+        } else {
+          totalRooms = int.tryParse(hotelData['totalRooms'].toString()) ?? 0;
+        }
+      }
 
-  String gstNumber = hotelData['gstNumber']?.toString() ?? '';
-  String fssaiLicense = hotelData['fssaiLicense']?.toString() ?? '';
-  String tradeLicense = hotelData['tradeLicense']?.toString() ?? '';
-  String aadharNumber = hotelData['aadharNumber']?.toString() ?? '';
-  String? panNumber = hotelData['panNumber']?.toString();
-  String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
-  String bankName = hotelData['bankName']?.toString() ?? '';
-  String accountNumber = hotelData['accountNumber']?.toString() ?? '';
-  String ifscCode = hotelData['ifscCode']?.toString() ?? '';
-  String branch = hotelData['branch']?.toString() ?? '';
-  String accountType = hotelData['accountType']?.toString() ?? '';
+      String gstNumber = hotelData['gstNumber']?.toString() ?? '';
+      String fssaiLicense = hotelData['fssaiLicense']?.toString() ?? '';
+      String tradeLicense = hotelData['tradeLicense']?.toString() ?? '';
+      String aadharNumber = hotelData['aadharNumber']?.toString() ?? '';
+      String? panNumber = hotelData['panNumber']?.toString();
+      String accountHolderName = hotelData['accountHolderName']?.toString() ?? '';
+      String bankName = hotelData['bankName']?.toString() ?? '';
+      String accountNumber = hotelData['accountNumber']?.toString() ?? '';
+      String ifscCode = hotelData['ifscCode']?.toString() ?? '';
+      String branch = hotelData['branch']?.toString() ?? '';
+      String accountType = hotelData['accountType']?.toString() ?? '';
 
-  // Room Configuration
-  Map<String, bool> selectedRoomTypes = {};
-  if (hotelData['selectedRoomTypes'] is Map) {
-  selectedRoomTypes = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
-  }
+      // Room Configuration
+      Map<String, bool> selectedRoomTypes = {};
+      if (hotelData['selectedRoomTypes'] is Map) {
+        selectedRoomTypes = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
+      }
 
-  Map<String, Map<String, dynamic>> roomDetails = {};
-  if (hotelData['roomDetails'] is Map) {
-  Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
-  temp.forEach((key, value) {
-  if (value is Map) {
-  roomDetails[key] = Map<String, dynamic>.from(value);
-  }
-  });
-  }
+      Map<String, Map<String, dynamic>> roomDetails = {};
+      if (hotelData['roomDetails'] is Map) {
+        Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
+        temp.forEach((key, value) {
+          if (value is Map) {
+            roomDetails[key] = Map<String, dynamic>.from(value);
+          }
+        });
+      }
 
-  String minTariff = hotelData['minTariff']?.toString() ?? '';
-  String maxTariff = hotelData['maxTariff']?.toString() ?? '';
-  bool extraBedAvailable = hotelData['extraBedAvailable'] ?? false;
+      String minTariff = hotelData['minTariff']?.toString() ?? '';
+      String maxTariff = hotelData['maxTariff']?.toString() ?? '';
+      bool extraBedAvailable = hotelData['extraBedAvailable'] ?? false;
 
-  // Amenities
-  Map<String, bool> basicAmenities = {};
-  if (hotelData['basicAmenities'] is Map) {
-  basicAmenities = Map<String, bool>.from(hotelData['basicAmenities'] as Map);
-  }
+      // Amenities
+      Map<String, bool> basicAmenities = {};
+      if (hotelData['basicAmenities'] is Map) {
+        basicAmenities = Map<String, bool>.from(hotelData['basicAmenities'] as Map);
+      }
 
-  Map<String, bool> hotelFacilities = {};
-  if (hotelData['hotelFacilities'] is Map) {
-  hotelFacilities = Map<String, bool>.from(hotelData['hotelFacilities'] as Map);
-  }
+      Map<String, bool> hotelFacilities = {};
+      if (hotelData['hotelFacilities'] is Map) {
+        hotelFacilities = Map<String, bool>.from(hotelData['hotelFacilities'] as Map);
+      }
 
-  Map<String, bool> foodServices = {};
-  if (hotelData['foodServices'] is Map) {
-  foodServices = Map<String, bool>.from(hotelData['foodServices'] as Map);
-  }
+      Map<String, bool> foodServices = {};
+      if (hotelData['foodServices'] is Map) {
+        foodServices = Map<String, bool>.from(hotelData['foodServices'] as Map);
+      }
 
-  Map<String, bool> additionalAmenities = {};
-  if (hotelData['additionalAmenities'] is Map) {
-  additionalAmenities = Map<String, bool>.from(hotelData['additionalAmenities'] as Map);
-  }
+      Map<String, bool> additionalAmenities = {};
+      if (hotelData['additionalAmenities'] is Map) {
+        additionalAmenities = Map<String, bool>.from(hotelData['additionalAmenities'] as Map);
+      }
 
-  List<String> customAmenities = [];
-  if (hotelData['customAmenities'] is List) {
-  customAmenities = List<String>.from(hotelData['customAmenities'] as List);
-  }
+      List<String> customAmenities = [];
+      if (hotelData['customAmenities'] is List) {
+        customAmenities = List<String>.from(hotelData['customAmenities'] as List);
+      }
 
-  // Uploaded Files
-  Map<String, Map<String, dynamic>> uploadedFiles = {};
-  if (hotelData['uploadedFiles'] is Map) {
-  Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
-  temp.forEach((key, value) {
-  if (value is Map) {
-  uploadedFiles[key] = Map<String, dynamic>.from(value);
-  }
-  });
-  }
+      // Uploaded Files
+      Map<String, Map<String, dynamic>> uploadedFiles = {};
+      if (hotelData['uploadedFiles'] is Map) {
+        Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
+        temp.forEach((key, value) {
+          if (value is Map) {
+            uploadedFiles[key] = Map<String, dynamic>.from(value);
+          }
+        });
+      }
 
-  Map<String, dynamic> personPhotoInfo = {};
-  if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
-  if (hotelData['personPhotoInfo'] is Map) {
-  personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
-  }
-  }
+      Map<String, dynamic> personPhotoInfo = {};
+      if (hotelData.containsKey('personPhotoInfo') && hotelData['personPhotoInfo'] != null) {
+        if (hotelData['personPhotoInfo'] is Map) {
+          personPhotoInfo = Map<String, dynamic>.from(hotelData['personPhotoInfo'] as Map);
+        }
+      }
 
-  // Signature & Declaration
-  String signatureName = hotelData['signatureName']?.toString() ?? '';
-  String declarationName = hotelData['declarationName']?.toString() ?? '';
-  DateTime? declarationDate;
-  if (hotelData['declarationDate'] != null) {
-  declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
-  }
-  bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
+      // Signature & Declaration
+      String signatureName = hotelData['signatureName']?.toString() ?? '';
+      String declarationName = hotelData['declarationName']?.toString() ?? '';
+      DateTime? declarationDate;
+      if (hotelData['declarationDate'] != null) {
+        declarationDate = DateTime.tryParse(hotelData['declarationDate'].toString());
+      }
+      bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
 
-  // 5-Star specific fields
-  String? brandName = hotelData['brandName']?.toString();
-  String? starCertNumber = hotelData['starCertNumber']?.toString();
-  bool? pollutionCertificate = hotelData['pollutionCertificate'];
-  bool? liftCertificate = hotelData['liftCertificate'];
-  bool? fireSafetyCertificate = hotelData['fireSafetyCertificate'];
-  bool? starCertificate = hotelData['starCertificate'];
-  bool? seasonalPricing = hotelData['seasonalPricing'];
-  bool? earlyCheckinAllowed = hotelData['earlyCheckinAllowed'];
-  bool? earlyCheckinChargeable = hotelData['earlyCheckinChargeable'];
+      // 5-Star specific fields
+      String? brandName = hotelData['brandName']?.toString();
+      String? starCertNumber = hotelData['starCertNumber']?.toString();
+      bool? pollutionCertificate = hotelData['pollutionCertificate'];
+      bool? liftCertificate = hotelData['liftCertificate'];
+      bool? fireSafetyCertificate = hotelData['fireSafetyCertificate'];
+      bool? starCertificate = hotelData['starCertificate'];
+      bool? seasonalPricing = hotelData['seasonalPricing'];
+      bool? earlyCheckinAllowed = hotelData['earlyCheckinAllowed'];
+      bool? earlyCheckinChargeable = hotelData['earlyCheckinChargeable'];
 
-  Map<String, bool>? diningServices;
-  if (hotelData['diningServices'] is Map) {
-  diningServices = Map<String, bool>.from(hotelData['diningServices'] as Map);
-  }
+      Map<String, bool>? diningServices;
+      if (hotelData['diningServices'] is Map) {
+        diningServices = Map<String, bool>.from(hotelData['diningServices'] as Map);
+      }
 
-  Map<String, bool>? wellnessRecreation5Star;
-  if (hotelData['wellnessRecreation5Star'] is Map) {
-  wellnessRecreation5Star = Map<String, bool>.from(hotelData['wellnessRecreation5Star'] as Map);
-  }
+      Map<String, bool>? wellnessRecreation5Star;
+      if (hotelData['wellnessRecreation5Star'] is Map) {
+        wellnessRecreation5Star = Map<String, bool>.from(hotelData['wellnessRecreation5Star'] as Map);
+      }
 
-  print('Navigating to FiveStarHotelDashboard for hotel: $hotelName');
-
-  Navigator.push(
-  context,
-  MaterialPageRoute(
-  builder: (context) => FiveStarHotelDashboard(
-  // Basic Information
-  hotelName: hotelName,
-  hotelType: hotelData['hotelType']?.toString() ?? '',
-  yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
-  totalRooms: totalRooms,
-
-  // Contact Information
-  ownerName: ownerName,
-  mobileNumber: mobileNumber,
-  alternateContact: alternateContact,
-  landlineNumbers: landlineNumbers,
-  email: email,
-  website: website,
-
-  // Address Information
-  addressLine1: addressLine1,
-  addressLine2: addressLine2,
-  city: city,
-  district: district,
-  state: state,
-  pinCode: pinCode,
-  landmark: landmark,
-
-  // Room Configuration
-  selectedRoomTypes: selectedRoomTypes,
-  roomDetails: roomDetails,
-  minTariff: minTariff,
-  maxTariff: maxTariff,
-  extraBedAvailable: extraBedAvailable,
-
-  // Amenities
-  basicAmenities: basicAmenities,
-  hotelFacilities: hotelFacilities,
-  foodServices: foodServices,
-  additionalAmenities: additionalAmenities,
-  customAmenities: customAmenities,
-
-  // Legal Details
-  gstNumber: gstNumber,
-  fssaiLicense: fssaiLicense,
-  tradeLicense: tradeLicense,
-  aadharNumber: aadharNumber,
-  panNumber: panNumber,
-
-  // Bank Details
-  accountHolderName: accountHolderName,
-  bankName: bankName,
-  accountNumber: accountNumber,
-  ifscCode: ifscCode,
-  branch: branch,
-  accountType: accountType,
-
-  // Uploaded Files
-  uploadedFiles: uploadedFiles,
-  personPhotoInfo: personPhotoInfo,
-
-  // Signature & Declaration
-  signatureName: signatureName,
-  declarationName: declarationName,
-  declarationDate: declarationDate,
-  declarationAccepted: declarationAccepted,
-
-  // Hotel Category
-  hotelCategory: '5-Star',
-
-  // Digital Signature
-  hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
-  digitalSignatureImage: null,
-
-  // 5-Star specific fields
-  brandName: brandName,
-  starCertNumber: starCertNumber,
-  pollutionCertificate: pollutionCertificate,
-  liftCertificate: liftCertificate,
-  fireSafetyCertificate: fireSafetyCertificate,
-  starCertificate: starCertificate,
-  seasonalPricing: seasonalPricing,
-  earlyCheckinAllowed: earlyCheckinAllowed,
-  earlyCheckinChargeable: earlyCheckinChargeable,
-  diningServices: diningServices,
-  wellnessRecreation5Star: wellnessRecreation5Star,
-
-  // Pass the complete registration data
-  registrationData: hotelData,
-  ),
-  ),
-  );
-    } else if (category == '6-Star' || category.toLowerCase().contains('6-star') || category.toLowerCase().contains('6 star')) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FiveStarHotelDashboard(
+            hotelName: hotelName,
+            hotelType: hotelData['hotelType']?.toString() ?? '',
+            yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
+            totalRooms: totalRooms,
+            ownerName: ownerName,
+            mobileNumber: mobileNumber,
+            alternateContact: alternateContact,
+            landlineNumbers: landlineNumbers,
+            email: email,
+            website: website,
+            addressLine1: addressLine1,
+            addressLine2: addressLine2,
+            city: city,
+            district: district,
+            state: state,
+            pinCode: pinCode,
+            landmark: landmark,
+            selectedRoomTypes: selectedRoomTypes,
+            roomDetails: roomDetails,
+            minTariff: minTariff,
+            maxTariff: maxTariff,
+            extraBedAvailable: extraBedAvailable,
+            basicAmenities: basicAmenities,
+            hotelFacilities: hotelFacilities,
+            foodServices: foodServices,
+            additionalAmenities: additionalAmenities,
+            customAmenities: customAmenities,
+            gstNumber: gstNumber,
+            fssaiLicense: fssaiLicense,
+            tradeLicense: tradeLicense,
+            aadharNumber: aadharNumber,
+            panNumber: panNumber,
+            accountHolderName: accountHolderName,
+            bankName: bankName,
+            accountNumber: accountNumber,
+            ifscCode: ifscCode,
+            branch: branch,
+            accountType: accountType,
+            uploadedFiles: uploadedFiles,
+            personPhotoInfo: personPhotoInfo,
+            signatureName: signatureName,
+            declarationName: declarationName,
+            declarationDate: declarationDate,
+            declarationAccepted: declarationAccepted,
+            hotelCategory: '5-Star',
+            hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
+            digitalSignatureImage: null,
+            brandName: brandName,
+            starCertNumber: starCertNumber,
+            pollutionCertificate: pollutionCertificate,
+            liftCertificate: liftCertificate,
+            fireSafetyCertificate: fireSafetyCertificate,
+            starCertificate: starCertificate,
+            seasonalPricing: seasonalPricing,
+            earlyCheckinAllowed: earlyCheckinAllowed,
+            earlyCheckinChargeable: earlyCheckinChargeable,
+            diningServices: diningServices,
+            wellnessRecreation5Star: wellnessRecreation5Star,
+            registrationData: hotelData,
+          ),
+        ),
+      );
+    } else if (category == '6-Star') {
       // Extract all required data for 6-Star Hotel Dashboard
       String hotelName = hotelData['hotelName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
       String ownerName = hotelData['ownerName']?.toString() ?? hotelData['fullName']?.toString() ?? '';
@@ -5718,27 +9483,20 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       }
       bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
 
-      print('Navigating to SixStarHotelDashboard for hotel: $hotelName');
-
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => SixStarHotelDashboard(
-            // Basic Information
             hotelName: hotelName,
             hotelType: hotelData['hotelType']?.toString() ?? '',
             yearOfEstablishment: hotelData['yearOfEstablishment']?.toString() ?? '',
             totalRooms: totalRooms,
-
-            // Contact Information
             ownerName: ownerName,
             mobileNumber: mobileNumber,
             alternateContact: alternateContact,
             landlineNumbers: landlineNumbers,
             email: email,
             website: website,
-
-            // Address Information
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             city: city,
@@ -5746,61 +9504,43 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             state: state,
             pinCode: pinCode,
             landmark: landmark,
-
-            // Room Configuration
             selectedRoomTypes: selectedRoomTypes,
             roomDetails: roomDetails,
             minTariff: minTariff,
             maxTariff: maxTariff,
             extraBedAvailable: extraBedAvailable,
-
-            // Amenities
             basicAmenities: basicAmenities,
             hotelFacilities: hotelFacilities,
             foodServices: foodServices,
             additionalAmenities: additionalAmenities,
             customAmenities: customAmenities,
-
-            // Legal Details
             gstNumber: gstNumber,
             fssaiLicense: fssaiLicense,
             tradeLicense: tradeLicense,
             aadharNumber: aadharNumber,
             panNumber: panNumber,
-
-            // Bank Details
             accountHolderName: accountHolderName,
             bankName: bankName,
             accountNumber: accountNumber,
             ifscCode: ifscCode,
             branch: branch,
             accountType: accountType,
-
-            // Uploaded Files
             uploadedFiles: uploadedFiles,
             personPhotoInfo: personPhotoInfo,
-
-            // Signature & Declaration
             signatureName: signatureName,
             declarationName: declarationName,
             declarationDate: declarationDate,
             declarationAccepted: declarationAccepted,
-
-            // Hotel Category
             hotelCategory: '6-Star',
-
-            // Digital Signature
             hasDigitalSignature: hotelData['hasDigitalSignature'] ?? false,
             digitalSignatureImage: null,
-
-            // Pass the complete registration data
             registrationData: hotelData,
           ),
         ),
       );
-    } else if (category == '7-Star' || category.toLowerCase().contains('7-star') || category.toLowerCase().contains('7 star')) {
+    } else if (category == '7-Star') {
       // Extract all required data for 7-Star Hotel Dashboard
-      String estateName =  hotelData['estateName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
+      String estateName = hotelData['estateName']?.toString() ?? hotelData['propertyName']?.toString() ?? '';
       String hotelType = hotelData['hotelType']?.toString() ?? '';
       String yearOfOrigin = hotelData['yearOfOrigin']?.toString() ?? hotelData['yearOfEstablishment']?.toString() ?? '';
 
@@ -5812,7 +9552,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
           totalGuestCapacity = int.tryParse(hotelData['totalGuestCapacity'].toString()) ?? 0;
         }
       } else if (hotelData.containsKey('totalRooms')) {
-        // Fallback to totalRooms if totalGuestCapacity not available
         if (hotelData['totalRooms'] is int) {
           totalGuestCapacity = hotelData['totalRooms'] as int;
         } else {
@@ -5840,7 +9579,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       if (hotelData['selectedRoyalAccommodations'] is Map) {
         selectedRoyalAccommodations = Map<String, bool>.from(hotelData['selectedRoyalAccommodations'] as Map);
       } else if (hotelData['selectedRoomTypes'] is Map) {
-        // Fallback to selectedRoomTypes
         selectedRoyalAccommodations = Map<String, bool>.from(hotelData['selectedRoomTypes'] as Map);
       }
 
@@ -5853,7 +9591,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
           }
         });
       } else if (hotelData['roomDetails'] is Map) {
-        // Fallback to roomDetails
         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['roomDetails'] as Map);
         temp.forEach((key, value) {
           if (value is Map) {
@@ -5929,7 +9666,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
           }
         });
       } else if (hotelData['uploadedFiles'] is Map) {
-        // Fallback to uploadedFiles
         Map<String, dynamic> temp = Map<String, dynamic>.from(hotelData['uploadedFiles'] as Map);
         temp.forEach((key, value) {
           if (value is Map) {
@@ -5959,25 +9695,18 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       bool declarationAccepted = hotelData['declarationAccepted'] ?? false;
       bool hasDigitalSignature = hotelData['hasDigitalSignature'] ?? false;
 
-      print('Navigating to SevenStarHotelDashboard for estate: $estateName');
-
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => SevenStarHotelDashboard(
-            // Basic Information
             estateName: estateName,
             hotelType: hotelType,
             yearOfOrigin: yearOfOrigin,
             totalGuestCapacity: totalGuestCapacity,
-
-            // Contact Information
             sovereignOwner: sovereignOwner,
             directCommandContact: directCommandContact,
             executiveEmail: executiveEmail,
             officialPortfolio: officialPortfolio,
-
-            // Address Information
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             city: city,
@@ -5985,13 +9714,9 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             state: state,
             pinCode: pinCode,
             country: country,
-
-            // Royal Accommodations
             selectedRoyalAccommodations: selectedRoyalAccommodations,
             royalAccommodations: royalAccommodations,
             pricingEngine: pricingEngine,
-
-            // Sovereign Amenities
             arrivalInfrastructure: arrivalInfrastructure,
             inResidenceSystems: inResidenceSystems,
             signatureRoyalAmenities: signatureRoyalAmenities,
@@ -6000,8 +9725,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             wellnessDominion: wellnessDominion,
             ultraElitePrivileges: ultraElitePrivileges,
             hyperDigitalIntegration: hyperDigitalIntegration,
-
-            // Legal & Treasury
             internationalTaxId: internationalTaxId,
             securityCertificationLevel: securityCertificationLevel,
             fireDisasterClearance: fireDisasterClearance,
@@ -6014,31 +9737,24 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             swiftIban: swiftIban,
             settlementCurrency: settlementCurrency,
             accountType: accountType,
-
-            // Uploaded Documents
             sovereignCredentials: sovereignCredentials,
             personPhotoInfo: personPhotoInfo,
-
-            // Signature & Declaration
             authorizedAuthority: authorizedAuthority,
             titleRank: titleRank,
             declarationDate: declarationDate,
             declarationAccepted: declarationAccepted,
             hasDigitalSignature: hasDigitalSignature,
-
-            // Pass the complete registration data
             registrationData: hotelData,
           ),
         ),
       );
-    } else if (category.toLowerCase().contains('global elite') || category.toLowerCase().contains('global elite luxury')) {
+    } else if (category.toLowerCase().contains('global elite')) {
       // Helper function to safely convert Map<String, dynamic> to Map<String, bool>
       Map<String, bool> _safeConvertToBoolMap(dynamic data) {
         if (data == null || data is! Map) return {};
 
         final Map<String, bool> result = {};
         data.forEach((key, value) {
-          // Convert various types to bool safely
           if (value is bool) {
             result[key.toString()] = value;
           } else if (value is int) {
@@ -6052,6 +9768,18 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
           }
         });
         return result;
+      }
+
+      bool? _getBooleanValue(dynamic value) {
+        if (value == null) return null;
+        if (value is bool) return value;
+        if (value is int) return value == 1;
+        if (value is String) {
+          return value.toLowerCase() == 'true' ||
+              value.toLowerCase() == 'yes' ||
+              value == '1';
+        }
+        return null;
       }
 
       // Extract all required data for Global Elite Luxury Hotel Dashboard
@@ -6090,7 +9818,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       String nearestAirport = hotelData['nearestAirport']?.toString() ?? '';
       String distanceFromAirport = hotelData['distanceFromAirport']?.toString() ?? '';
 
-      // Accommodation Configuration - SAFELY CONVERT TO BOOL MAPS
+      // Accommodation Configuration
       Map<String, bool> selectedAccommodationTypes = _safeConvertToBoolMap(hotelData['selectedAccommodationTypes']);
 
       Map<String, Map<String, dynamic>> accommodationMatrix = {};
@@ -6112,7 +9840,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
       String rateEngineType = hotelData['rateEngineType']?.toString() ?? 'Dynamic Elite Pricing';
 
-      // Luxury Amenities - SAFELY CONVERT TO BOOL MAPS
+      // Luxury Amenities
       Map<String, bool> inSuiteTechnology = _safeConvertToBoolMap(hotelData['inSuiteTechnology']);
       Map<String, bool> signatureLuxuryFeatures = _safeConvertToBoolMap(hotelData['signatureLuxuryFeatures']);
       Map<String, bool> arrivalExperience = _safeConvertToBoolMap(hotelData['arrivalExperience']);
@@ -6204,25 +9932,18 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       bool? globalEventHosting = _getBooleanValue(hotelData['globalEventHosting']);
       String? luxuryLinenBrand = hotelData['luxuryLinenBrand']?.toString();
 
-      print('Navigating to GlobalEliteLuxuryHotelDashboard for property: $propertyName');
-
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => GlobalEliteLuxuryHotelDashboard(
-            // Basic Information
             propertyName: propertyName,
             hotelType: hotelType,
             yearEstablished: yearEstablished,
             totalInventory: totalInventory,
-
-            // Contact Information
             ubo: ubo,
             primaryContact: primaryContact,
             executiveEmail: executiveEmail,
             websitePortfolio: websitePortfolio,
-
-            // Address Information
             addressLine1: addressLine1,
             addressLine2: addressLine2,
             city: city,
@@ -6231,13 +9952,9 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             postalCode: postalCode,
             nearestAirport: nearestAirport,
             distanceFromAirport: distanceFromAirport,
-
-            // Accommodation Configuration
             selectedAccommodationTypes: selectedAccommodationTypes,
             accommodationMatrix: accommodationMatrix,
             rateEngineType: rateEngineType,
-
-            // Luxury Amenities
             inSuiteTechnology: inSuiteTechnology,
             signatureLuxuryFeatures: signatureLuxuryFeatures,
             arrivalExperience: arrivalExperience,
@@ -6246,8 +9963,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             guestPrivileges: guestPrivileges,
             digitalIntegration: digitalIntegration,
             privateAccessOptions: privateAccessOptions,
-
-            // Legal & Treasury
             taxId: taxId,
             fireSafetyCertification: fireSafetyCertification,
             environmentalCertification: environmentalCertification,
@@ -6260,18 +9975,12 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             bankCountry: bankCountry,
             settlementCurrency: settlementCurrency,
             accountType: accountType,
-
-            // Uploaded Files
             requiredDocuments: requiredDocuments,
             personPhotoInfo: personPhotoInfo,
-
-            // Signature & Declaration
             authorizedSignatoryName: authorizedSignatoryName,
             declarationDate: declarationDate,
             declarationAccepted: declarationAccepted,
             hasDigitalSignature: hasDigitalSignature,
-
-            // Global Elite specific fields
             luxuryClassification: luxuryClassification,
             propertyPositioning: propertyPositioning,
             brandAffiliation: brandAffiliation,
@@ -6283,8 +9992,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             banquetHallCapacity: banquetHallCapacity,
             globalEventHosting: globalEventHosting,
             luxuryLinenBrand: luxuryLinenBrand,
-
-            // Pass the complete registration data
             registrationData: hotelData,
           ),
         ),
@@ -6348,18 +10055,15 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       );
     }
   }
-  bool? _getBooleanValue(dynamic value) {
-    if (value == null) return null;
-    if (value is bool) return value;
-    if (value is int) return value == 1;
-    if (value is String) {
-      return value.toLowerCase() == 'true' ||
-          value.toLowerCase() == 'yes' ||
-          value == '1';
-    }
-    return null;
-  }
 
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return dateString;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -6398,11 +10102,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             _buildProfileSection(),
-
             const SizedBox(height: 24),
-
 
             Row(
               children: [
@@ -6446,8 +10147,8 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
             const SizedBox(height: 24),
 
-
-            if (_registeredHotels.isNotEmpty) ...[
+            // Business Overview Section - Shows ALL properties
+            if (_allRegisteredProperties.isNotEmpty) ...[
               Row(
                 children: [
                   Container(
@@ -6480,7 +10181,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      '${_registeredHotels.length}',
+                      '${_allRegisteredProperties.length}',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -6493,22 +10194,22 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 
               const SizedBox(height: 16),
 
-
+              // Show all properties in a single list
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: _registeredHotels.length,
+                itemCount: _allRegisteredProperties.length,
                 itemBuilder: (context, index) {
-                  final hotel = _registeredHotels[index];
-                  return _buildDashboardHotelCard(hotel);
+                  final property = _allRegisteredProperties[index];
+                  return _buildPropertyCard(property);
                 },
               ),
 
               const SizedBox(height: 16),
             ],
 
-
-            if (_registeredHotels.isEmpty && !_isLoading) ...[
+            // Empty State
+            if (_allRegisteredProperties.isEmpty && !_isLoading) ...[
               Center(
                 child: Column(
                   children: [
@@ -6560,6 +10261,315 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
                 ),
               ),
             ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPropertyCard(Map<String, dynamic> property) {
+    final propertyType = property['propertyType'] as String;
+    final category = property['category'] as String;
+    final categoryColor = _getCategoryColor(category);
+    final propertyIcon = _getPropertyIcon(propertyType);
+
+    // Extract address based on property type
+    String address = '';
+    if (property['data'].containsKey('addressLine1')) {
+      address = property['data']['addressLine1'].toString();
+      if (property['data'].containsKey('city')) {
+        address += ', ${property['data']['city']}';
+      }
+    } else if (property['data'].containsKey('location') && property['data']['location'] is Map) {
+      final location = property['data']['location'] as Map;
+      if (location.containsKey('address')) {
+        address = location['address'].toString();
+        if (location.containsKey('city')) {
+          address += ', ${location['city']}';
+        }
+      }
+    }
+
+    // Extract contact number based on property type
+    String contactNumber = '';
+    if (property['data'].containsKey('mobileNumber')) {
+      contactNumber = property['data']['mobileNumber'].toString();
+    } else if (property['data'].containsKey('phone')) {
+      contactNumber = property['data']['phone'].toString();
+    } else if (property['data'].containsKey('basicInfo') && property['data']['basicInfo'] is Map) {
+      final basicInfo = property['data']['basicInfo'] as Map;
+      if (basicInfo.containsKey('mobile')) {
+        contactNumber = basicInfo['mobile'].toString();
+      }
+    }
+
+    return GestureDetector(
+      onTap: () => _navigateToPropertyDetails(property['data'], propertyType, category),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.09),
+              blurRadius: 15,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            // Top Section with Status Bar
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    categoryColor.withOpacity(0.5),
+                    Colors.white,
+                  ],
+                ),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+                border: Border(
+                  bottom: BorderSide(color: categoryColor.withOpacity(0.2), width: 1),
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: categoryColor.withOpacity(0.2),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      propertyIcon,
+                      size: 14,
+                      color: categoryColor,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      property['name'],
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: darkText,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: categoryColor,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      propertyType.toUpperCase(),
+                      style: const TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Main Content with Address and Contact
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  // Address Row
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: categoryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          Icons.location_on,
+                          size: 16,
+                          color: categoryColor,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Address',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Color(0xFF6B7280),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              address.isNotEmpty ? address : 'Address not available',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: darkText,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // Contact Number Row
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: categoryColor.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Icon(
+                          Icons.phone,
+                          size: 16,
+                          color: categoryColor,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Contact Number',
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: Color(0xFF6B7280),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              contactNumber.isNotEmpty ? contactNumber : 'Not provided',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: categoryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Registration Date Badge
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 6,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.amber.shade50,
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Colors.amber.shade200,
+                            width: 1,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.calendar_today,
+                              size: 10,
+                              color: Colors.amber.shade700,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              _formatDate(property['registrationDate']),
+                              style: TextStyle(
+                                fontSize: 9,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.amber.shade700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // Bottom Section with Arrow
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.grey.shade200),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Tap to view details',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: lightText,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          categoryColor,
+                          categoryColor.withOpacity(0.7),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: categoryColor.withOpacity(0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -6688,899 +10698,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     );
   }
 
-  Widget _buildDashboardHotelCard(Map<String, dynamic> hotel) {
-    final category = hotel['category'] as String;
-    final categoryColor = _getCategoryColor(category);
-    final starCount = _getStarCount(category);
-
-    int totalRooms = 0;
-    int occupiedRooms = 0;
-    int availableRooms = 0;
-
-
-    String address = '';
-    if (hotel['data'].containsKey('addressLine1')) {
-      address = hotel['data']['addressLine1'].toString();
-      if (hotel['data'].containsKey('city')) {
-        address += ', ${hotel['data']['city']}';
-      }
-    } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
-      final basicInfo = hotel['data']['basicInfo'] as Map;
-      if (basicInfo.containsKey('addressLine1')) {
-        address = basicInfo['addressLine1'].toString();
-        if (basicInfo.containsKey('city')) {
-          address += ', ${basicInfo['city']}';
-        }
-      }
-    }
-
-
-    String mobileNumber = '';
-    if (hotel['data'].containsKey('mobileNumber')) {
-      mobileNumber = hotel['data']['mobileNumber'].toString();
-    } else if (hotel['data'].containsKey('phone')) {
-      mobileNumber = hotel['data']['phone'].toString();
-    } else if (hotel['data'].containsKey('contactNumber')) {
-      mobileNumber = hotel['data']['contactNumber'].toString();
-    } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
-      final basicInfo = hotel['data']['basicInfo'] as Map;
-      if (basicInfo.containsKey('mobile')) {
-        mobileNumber = basicInfo['mobile'].toString();
-      } else if (basicInfo.containsKey('phone')) {
-        mobileNumber = basicInfo['phone'].toString();
-      }
-    }
-
-
-    if (hotel['data'].containsKey('totalRooms')) {
-      totalRooms = int.tryParse(hotel['data']['totalRooms'].toString()) ?? 0;
-    } else if (hotel['data'].containsKey('roomDetails')) {
-      final roomDetails = hotel['data']['roomDetails'] as Map?;
-      if (roomDetails != null) {
-        roomDetails.forEach((key, value) {
-          if (value is Map && value.containsKey('rooms')) {
-            totalRooms += int.tryParse(value['rooms'].toString()) ?? 0;
-          }
-        });
-      }
-    } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
-      final basicInfo = hotel['data']['basicInfo'] as Map;
-      if (basicInfo.containsKey('totalRooms')) {
-        totalRooms = int.tryParse(basicInfo['totalRooms'].toString()) ?? 0;
-      }
-    }
-
-
-    occupiedRooms = (totalRooms * 0.6).round();
-    availableRooms = totalRooms - occupiedRooms;
-
-
-    IconData propertyIcon = _getPropertyIcon(category);
-
-    return GestureDetector(
-      onTap: () => _navigateToHotelDetails(hotel['data'], category),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.09),
-              blurRadius: 15,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    categoryColor.withOpacity(0.5),
-                    Colors.white,
-                  ],
-                ),
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-                border: Border(
-                  bottom: BorderSide(color: categoryColor.withOpacity(0.2), width: 1),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: categoryColor.withOpacity(0.2),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      propertyIcon,
-                      size: 14,
-                      color: categoryColor,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      hotel['name'],
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: darkText,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: categoryColor,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (starCount > 0)
-                          ...List.generate(
-                            starCount,
-                                (index) => Icon(
-                              Icons.star,
-                              size: 10,
-                              color: Colors.white,
-                            ),
-                          )
-                        else
-                          Text(
-                            category,
-                            style: const TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Main Content with Address and Mobile
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: categoryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Icon(
-                          Icons.location_on,
-                          size: 16,
-                          color: categoryColor,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Address',
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Color(0xFF6B7280),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              address.isNotEmpty ? address : 'Address not available',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                                color: darkText,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  // Mobile Number Row
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: categoryColor.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Icon(
-                          Icons.phone,
-                          size: 16,
-                          color: categoryColor,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Contact Number',
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Color(0xFF6B7280),
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              mobileNumber.isNotEmpty ? mobileNumber : 'Not provided',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                                color: categoryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      // Registration Date Badge
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.amber.shade50,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: Colors.amber.shade200,
-                            width: 1,
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.calendar_today,
-                              size: 10,
-                              color: Colors.amber.shade700,
-                            ),
-                            const SizedBox(width: 4),
-                            Text(
-                              _formatDate(hotel['registrationDate']),
-                              style: TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.amber.shade700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            // // Room Statistics Section
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            //   child: Row(
-            //     children: [
-            //       _buildRoomStat(
-            //         icon: Icons.meeting_room,
-            //         value: totalRooms.toString(),
-            //         label: 'Total Rooms',
-            //         color: Colors.blue,
-            //       ),
-            //       const SizedBox(width: 8),
-            //       _buildRoomStat(
-            //         icon: Icons.single_bed,
-            //         value: occupiedRooms.toString(),
-            //         label: 'Occupied',
-            //         color: Colors.orange,
-            //       ),
-            //       const SizedBox(width: 8),
-            //       _buildRoomStat(
-            //         icon: Icons.check_circle,
-            //         value: availableRooms.toString(),
-            //         label: 'Available',
-            //         color: Colors.green,
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              decoration: BoxDecoration(
-                border: Border(
-                  top: BorderSide(color: Colors.grey.shade200),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Tap to view details',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: lightText,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  // Arrow Button - Now using the same navigation method
-                  GestureDetector(
-                    onTap: () {
-                      _navigateToHotelDetails(hotel['data'], category);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            categoryColor,
-                            categoryColor.withOpacity(0.7),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: categoryColor.withOpacity(0.3),
-                            blurRadius: 8,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.arrow_forward_rounded,
-                        color: Colors.white,
-                        size: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-
-  // Widget _buildDashboardHotelCard(Map<String, dynamic> hotel) {
-  //   final category = hotel['category'] as String;
-  //   final categoryColor = _getCategoryColor(category);
-  //   final starCount = _getStarCount(category);
-  //
-  //   // Extract room statistics from hotel data
-  //   int totalRooms = 0;
-  //   int occupiedRooms = 0;
-  //   int availableRooms = 0;
-  //
-  //   // Extract address from hotel data
-  //   String address = '';
-  //   if (hotel['data'].containsKey('addressLine1')) {
-  //     address = hotel['data']['addressLine1'].toString();
-  //     if (hotel['data'].containsKey('city')) {
-  //       address += ', ${hotel['data']['city']}';
-  //     }
-  //   } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
-  //     final basicInfo = hotel['data']['basicInfo'] as Map;
-  //     if (basicInfo.containsKey('addressLine1')) {
-  //       address = basicInfo['addressLine1'].toString();
-  //       if (basicInfo.containsKey('city')) {
-  //         address += ', ${basicInfo['city']}';
-  //       }
-  //     }
-  //   }
-  //
-  //   // Extract mobile number from hotel data
-  //   String mobileNumber = '';
-  //   if (hotel['data'].containsKey('mobileNumber')) {
-  //     mobileNumber = hotel['data']['mobileNumber'].toString();
-  //   } else if (hotel['data'].containsKey('phone')) {
-  //     mobileNumber = hotel['data']['phone'].toString();
-  //   } else if (hotel['data'].containsKey('contactNumber')) {
-  //     mobileNumber = hotel['data']['contactNumber'].toString();
-  //   } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
-  //     final basicInfo = hotel['data']['basicInfo'] as Map;
-  //     if (basicInfo.containsKey('mobile')) {
-  //       mobileNumber = basicInfo['mobile'].toString();
-  //     } else if (basicInfo.containsKey('phone')) {
-  //       mobileNumber = basicInfo['phone'].toString();
-  //     }
-  //   }
-  //
-  //   // Try to get room data from various possible locations
-  //   if (hotel['data'].containsKey('totalRooms')) {
-  //     totalRooms = int.tryParse(hotel['data']['totalRooms'].toString()) ?? 0;
-  //   } else if (hotel['data'].containsKey('roomDetails')) {
-  //     final roomDetails = hotel['data']['roomDetails'] as Map?;
-  //     if (roomDetails != null) {
-  //       roomDetails.forEach((key, value) {
-  //         if (value is Map && value.containsKey('rooms')) {
-  //           totalRooms += int.tryParse(value['rooms'].toString()) ?? 0;
-  //         }
-  //       });
-  //     }
-  //   } else if (hotel['data'].containsKey('basicInfo') && hotel['data']['basicInfo'] != null) {
-  //     final basicInfo = hotel['data']['basicInfo'] as Map;
-  //     if (basicInfo.containsKey('totalRooms')) {
-  //       totalRooms = int.tryParse(basicInfo['totalRooms'].toString()) ?? 0;
-  //     }
-  //   }
-  //
-  //   // Calculate occupied rooms (example calculation - in real app, this comes from booking data)
-  //   occupiedRooms = (totalRooms * 0.6).round();
-  //   availableRooms = totalRooms - occupiedRooms;
-  //
-  //   // Get appropriate icon based on property type
-  //   IconData propertyIcon = _getPropertyIcon(category);
-  //
-  //   return GestureDetector(
-  //     onTap: () => _navigateToHotelDetails(hotel['data'], category),
-  //     child: Container(
-  //       margin: const EdgeInsets.only(bottom: 16),
-  //       decoration: BoxDecoration(
-  //         color: Colors.white,
-  //         borderRadius: BorderRadius.circular(24),
-  //         boxShadow: [
-  //           BoxShadow(
-  //             color: Colors.black.withOpacity(0.09),
-  //             blurRadius: 15,
-  //             offset: const Offset(0, 5),
-  //           ),
-  //         ],
-  //       ),
-  //       child: Column(
-  //         children: [
-  //           // Top Section with Status Bar
-  //           Container(
-  //             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-  //             decoration: BoxDecoration(
-  //               gradient: LinearGradient(
-  //                 begin: Alignment.topLeft,
-  //                 end: Alignment.bottomRight,
-  //                 colors: [
-  //                   categoryColor.withOpacity(0.5),
-  //                   Colors.white,
-  //                 ],
-  //               ),
-  //               borderRadius: const BorderRadius.only(
-  //                 topLeft: Radius.circular(24),
-  //                 topRight: Radius.circular(24),
-  //               ),
-  //               border: Border(
-  //                 bottom: BorderSide(color: categoryColor.withOpacity(0.2), width: 1),
-  //               ),
-  //             ),
-  //             child: Row(
-  //               children: [
-  //                 Container(
-  //                   padding: const EdgeInsets.all(6),
-  //                   decoration: BoxDecoration(
-  //                     color: categoryColor.withOpacity(0.2),
-  //                     shape: BoxShape.circle,
-  //                   ),
-  //                   child: Icon(
-  //                     propertyIcon,
-  //                     size: 14,
-  //                     color: categoryColor,
-  //                   ),
-  //                 ),
-  //                 const SizedBox(width: 8),
-  //                 Expanded(
-  //                   child: Text(
-  //                     hotel['name'],
-  //                     style: TextStyle(
-  //                       fontSize: 14,
-  //                       fontWeight: FontWeight.w600,
-  //                       color: darkText,
-  //                     ),
-  //                     maxLines: 1,
-  //                     overflow: TextOverflow.ellipsis,
-  //                   ),
-  //                 ),
-  //                 Container(
-  //                   padding: const EdgeInsets.symmetric(
-  //                     horizontal: 8,
-  //                     vertical: 4,
-  //                   ),
-  //                   decoration: BoxDecoration(
-  //                     color: categoryColor,
-  //                     borderRadius: BorderRadius.circular(16),
-  //                   ),
-  //                   child: Row(
-  //                     mainAxisSize: MainAxisSize.min,
-  //                     children: [
-  //                       if (starCount > 0)
-  //                         ...List.generate(
-  //                           starCount,
-  //                               (index) => Icon(
-  //                             Icons.star,
-  //                             size: 10,
-  //                             color: Colors.white,
-  //                           ),
-  //                         )
-  //                       else
-  //                         Text(
-  //                           category,
-  //                           style: const TextStyle(
-  //                             fontSize: 9,
-  //                             fontWeight: FontWeight.w600,
-  //                             color: Colors.white,
-  //                           ),
-  //                         ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //
-  //           // Main Content with Address and Mobile
-  //           Padding(
-  //             padding: const EdgeInsets.all(16),
-  //             child: Column(
-  //               children: [
-  //                 // Address Row
-  //                 Row(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Container(
-  //                       padding: const EdgeInsets.all(8),
-  //                       decoration: BoxDecoration(
-  //                         color: categoryColor.withOpacity(0.1),
-  //                         borderRadius: BorderRadius.circular(12),
-  //                       ),
-  //                       child: Icon(
-  //                         Icons.location_on,
-  //                         size: 16,
-  //                         color: categoryColor,
-  //                       ),
-  //                     ),
-  //                     const SizedBox(width: 12),
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           const Text(
-  //                             'Address',
-  //                             style: TextStyle(
-  //                               fontSize: 11,
-  //                               color: Color(0xFF6B7280),
-  //                               fontWeight: FontWeight.w500,
-  //                             ),
-  //                           ),
-  //                           const SizedBox(height: 2),
-  //                           Text(
-  //                             address.isNotEmpty ? address : 'Address not available',
-  //                             style: TextStyle(
-  //                               fontSize: 13,
-  //                               fontWeight: FontWeight.w500,
-  //                               color: darkText,
-  //                             ),
-  //                             maxLines: 2,
-  //                             overflow: TextOverflow.ellipsis,
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //
-  //                 const SizedBox(height: 12),
-  //
-  //                 // Mobile Number Row
-  //                 Row(
-  //                   children: [
-  //                     Container(
-  //                       padding: const EdgeInsets.all(8),
-  //                       decoration: BoxDecoration(
-  //                         color: categoryColor.withOpacity(0.1),
-  //                         borderRadius: BorderRadius.circular(12),
-  //                       ),
-  //                       child: Icon(
-  //                         Icons.phone,
-  //                         size: 16,
-  //                         color: categoryColor,
-  //                       ),
-  //                     ),
-  //                     const SizedBox(width: 12),
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           const Text(
-  //                             'Contact Number',
-  //                             style: TextStyle(
-  //                               fontSize: 11,
-  //                               color: Color(0xFF6B7280),
-  //                               fontWeight: FontWeight.w500,
-  //                             ),
-  //                           ),
-  //                           const SizedBox(height: 2),
-  //                           Text(
-  //                             mobileNumber.isNotEmpty ? mobileNumber : 'Not provided',
-  //                             style: TextStyle(
-  //                               fontSize: 13,
-  //                               fontWeight: FontWeight.w600,
-  //                               color: categoryColor,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     // Registration Date Badge
-  //                     Container(
-  //                       padding: const EdgeInsets.symmetric(
-  //                         horizontal: 10,
-  //                         vertical: 6,
-  //                       ),
-  //                       decoration: BoxDecoration(
-  //                         color: Colors.amber.shade50,
-  //                         borderRadius: BorderRadius.circular(20),
-  //                         border: Border.all(
-  //                           color: Colors.amber.shade200,
-  //                           width: 1,
-  //                         ),
-  //                       ),
-  //                       child: Row(
-  //                         mainAxisSize: MainAxisSize.min,
-  //                         children: [
-  //                           Icon(
-  //                             Icons.calendar_today,
-  //                             size: 10,
-  //                             color: Colors.amber.shade700,
-  //                           ),
-  //                           const SizedBox(width: 4),
-  //                           Text(
-  //                             _formatDate(hotel['registrationDate']),
-  //                             style: TextStyle(
-  //                               fontSize: 9,
-  //                               fontWeight: FontWeight.w600,
-  //                               color: Colors.amber.shade700,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //
-  //           // Room Statistics Section
-  //           Padding(
-  //             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-  //             child: Row(
-  //               children: [
-  //                 _buildRoomStat(
-  //                   icon: Icons.meeting_room,
-  //                   value: totalRooms.toString(),
-  //                   label: 'Total Rooms',
-  //                   color: Colors.blue,
-  //                 ),
-  //                 const SizedBox(width: 8),
-  //                 _buildRoomStat(
-  //                   icon: Icons.single_bed,
-  //                   value: occupiedRooms.toString(),
-  //                   label: 'Occupied',
-  //                   color: Colors.orange,
-  //                 ),
-  //                 const SizedBox(width: 8),
-  //                 _buildRoomStat(
-  //                   icon: Icons.check_circle,
-  //                   value: availableRooms.toString(),
-  //                   label: 'Available',
-  //                   color: Colors.green,
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //
-  //           // Bottom Section with Arrow
-  //           Container(
-  //             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-  //             decoration: BoxDecoration(
-  //               border: Border(
-  //                 top: BorderSide(color: Colors.grey.shade200),
-  //               ),
-  //             ),
-  //             child: Row(
-  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //               children: [
-  //                 // Optional: Add any left side content here if needed
-  //                 Text(
-  //                   'Tap to view details',
-  //                   style: TextStyle(
-  //                     fontSize: 11,
-  //                     color: lightText,
-  //                     fontStyle: FontStyle.italic,
-  //                   ),
-  //                 ),
-  //                 // Arrow Button
-  //                 GestureDetector(
-  //                   onTap: () {
-  //                     // Navigate to NormalHotelDashboardScreen for normal hotels
-  //                     Navigator.push(
-  //                       context,
-  //                       MaterialPageRoute(
-  //                         builder: (context) => HotelOwnerDashboard(registrationData: {}, hotelName: '', totalRooms: 0, ownerName: '', mobileNumber: '', email: '', addressLine1: '', city: '', state: '', pinCode: '', gstNumber: '', accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', accountType: '', personPhotoInfo: {},
-  //                           // registrationData: hotel['data'],
-  //                         ),
-  //                       ),
-  //                     );
-  //                   },
-  //                   child: Container(
-  //                     padding: const EdgeInsets.all(10),
-  //                     decoration: BoxDecoration(
-  //                       gradient: LinearGradient(
-  //                         colors: [
-  //                           categoryColor,
-  //                           categoryColor.withOpacity(0.7),
-  //                         ],
-  //                         begin: Alignment.topLeft,
-  //                         end: Alignment.bottomRight,
-  //                       ),
-  //                       shape: BoxShape.circle,
-  //                       boxShadow: [
-  //                         BoxShadow(
-  //                           color: categoryColor.withOpacity(0.3),
-  //                           blurRadius: 8,
-  //                           offset: const Offset(0, 3),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                     child: const Icon(
-  //                       Icons.arrow_forward_rounded,
-  //                       color: Colors.white,
-  //                       size: 18,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
-// Room Stat Helper
-
-
-  Widget _buildRoomStat({
-    required IconData icon,
-    required String value,
-    required String label,
-    required Color color,
-  }) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.08),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: color.withOpacity(0.2),
-            width: 0.5,
-          ),
-        ),
-        child: Column(
-          children: [
-            Icon(icon, size: 16, color: color),
-            const SizedBox(height: 4),
-            Text(
-              value,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-                color: color,
-              ),
-            ),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11,
-                color: lightText,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-
-
-  IconData _getPropertyIcon(String category) {
-    if (category.contains('Hotel') || category.contains('hotel')) {
-      return Icons.hotel;
-    } else if (category.contains('Villa') || category.contains('villa')) {
-      return Icons.villa;
-    } else if (category.contains('Apartment') || category.contains('apartment')) {
-      return Icons.apartment;
-    } else if (category.contains('Resort') || category.contains('resort')) {
-      return Icons.beach_access;
-    } else if (category.contains('Global Elite')) {
-      return Icons.star;
-    } else {
-      return Icons.business_center;
-    }
-  }
-
-  Widget _buildStatItem({
-    required IconData icon,
-    required String value,
-    required String label,
-    required Color color,
-  }) {
-    return Row(
-      children: [
-        Icon(icon, size: 14, color: color),
-        const SizedBox(width: 4),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              value,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w700,
-                color: darkText,
-              ),
-            ),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 9,
-                color: lightText,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   Widget _buildDetailItem({
     required IconData icon,
     required String label,
@@ -7689,7 +10806,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
       MaterialPageRoute(builder: (context) => WelcomeScreen()),
     );
   }
-
 
   String _getUserFullName() {
     if (_userData.containsKey('fullName')) {
@@ -7805,5582 +10921,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
 }
 
 
-// class VillaRegistrationDetailsScreen extends StatefulWidget {
-//   final Map<String, dynamic> registrationData;
-//   final String? villaId;
-//   final int? villaIndex;
-//
-//   const VillaRegistrationDetailsScreen({
-//     Key? key,
-//     required this.registrationData,
-//     this.villaId,
-//     this.villaIndex,
-//   }) : super(key: key);
-//
-//   @override
-//   State<VillaRegistrationDetailsScreen> createState() => _VillaRegistrationDetailsScreenState();
-// }
-//
-//
-// class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetailsScreen>
-//     with SingleTickerProviderStateMixin {
-//   late TabController _tabController;
-//   late Map<String, dynamic> _data;
-//
-//
-//
-//   late Map<String, bool> _villaAmenities;
-//   late List<String> _customAmenities;
-//   Map<String, bool> _editModes = {};
-//
-//
-//   bool _isEditingPhone = false;
-//   late TextEditingController _phoneController;
-//   late TextEditingController _checkInController;
-//   late TextEditingController _checkOutController;
-//
-//   late Map<String, bool> _priceEditModes;
-//   late String _checkInTime;
-//   late String _checkOutTime;
-//
-//   late Map<String, bool> _mediaEditModes;
-//   late Map<String, int> _mediaMaxLimits;
-//
-//   late Map<String, bool> _documentEditModes;
-//
-//
-//   final Color primaryColor = const Color(0xFF00897B);
-//   final Color primaryLight = const Color(0xFF00897B).withOpacity(0.1);
-//   final Color primarySoft = const Color(0xFF00897B).withOpacity(0.05);
-//   final Color primaryMedium = const Color(0xFF00897B).withOpacity(0.03);
-//
-//
-//   final Color darkText = const Color(0xFF1A1E2B);
-//   final Color mediumText = const Color(0xFF4A5568);
-//   final Color lightText = const Color(0xFF8E9AAB);
-//   final Color bgColor = const Color(0xFFF5F7FA);
-//   final Color cardColor = Colors.white;
-//   final Color borderColor = const Color(0xFFE9EDF2);
-//   final Color shadowColor = const Color(0xFF1A1E2B).withOpacity(0.03);
-//
-//
-//
-//
-//   String _getOfficeAddress() {
-//     // Check in location.officeAddress first
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('officeAddress') && location['officeAddress'] != null) {
-//         final office = location['officeAddress'] as Map;
-//         if (office.containsKey('address') && office['address'].toString().isNotEmpty) {
-//           print('Found office address in location.officeAddress: ${office['address']}');
-//           return office['address'].toString();
-//         }
-//       }
-//     }
-//
-//     // Check direct officeAddress
-//     if (_data.containsKey('officeAddress') && _data['officeAddress'] != null) {
-//       final office = _data['officeAddress'] as Map;
-//       if (office.containsKey('address') && office['address'].toString().isNotEmpty) {
-//         print('Found office address in direct officeAddress: ${office['address']}');
-//         return office['address'].toString();
-//       }
-//     }
-//
-//     // Check in basicInfo.officeAddress
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('officeAddress') && basicInfo['officeAddress'] != null) {
-//         final office = basicInfo['officeAddress'] as Map;
-//         if (office.containsKey('address') && office['address'].toString().isNotEmpty) {
-//           print('Found office address in basicInfo.officeAddress: ${office['address']}');
-//           return office['address'].toString();
-//         }
-//       }
-//     }
-//
-//     print('No office address found anywhere');
-//     return 'Not provided';
-//   }
-//
-//   String _getOfficeArea() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('officeAddress') && location['officeAddress'] != null) {
-//         final office = location['officeAddress'] as Map;
-//         if (office.containsKey('area') && office['area'].toString().isNotEmpty) {
-//           return office['area'].toString();
-//         }
-//       }
-//     }
-//
-//     if (_data.containsKey('officeAddress') && _data['officeAddress'] != null) {
-//       final office = _data['officeAddress'] as Map;
-//       if (office.containsKey('area') && office['area'].toString().isNotEmpty) {
-//         return office['area'].toString();
-//       }
-//     }
-//
-//     return '';
-//   }
-//
-//   String _getOfficeCity() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('officeAddress') && location['officeAddress'] != null) {
-//         final office = location['officeAddress'] as Map;
-//         if (office.containsKey('city') && office['city'].toString().isNotEmpty) {
-//           return office['city'].toString();
-//         }
-//       }
-//     }
-//
-//     if (_data.containsKey('officeAddress') && _data['officeAddress'] != null) {
-//       final office = _data['officeAddress'] as Map;
-//       if (office.containsKey('city') && office['city'].toString().isNotEmpty) {
-//         return office['city'].toString();
-//       }
-//     }
-//
-//     return 'Not provided';
-//   }
-//
-//   String _getOfficeState() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('officeAddress') && location['officeAddress'] != null) {
-//         final office = location['officeAddress'] as Map;
-//         if (office.containsKey('state') && office['state'].toString().isNotEmpty) {
-//           return office['state'].toString();
-//         }
-//       }
-//     }
-//
-//     if (_data.containsKey('officeAddress') && _data['officeAddress'] != null) {
-//       final office = _data['officeAddress'] as Map;
-//       if (office.containsKey('state') && office['state'].toString().isNotEmpty) {
-//         return office['state'].toString();
-//       }
-//     }
-//
-//     return 'Not provided';
-//   }
-//
-//   String _getOfficePincode() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('officeAddress') && location['officeAddress'] != null) {
-//         final office = location['officeAddress'] as Map;
-//         if (office.containsKey('pincode') && office['pincode'].toString().isNotEmpty) {
-//           return office['pincode'].toString();
-//         }
-//       }
-//     }
-//
-//     if (_data.containsKey('officeAddress') && _data['officeAddress'] != null) {
-//       final office = _data['officeAddress'] as Map;
-//       if (office.containsKey('pincode') && office['pincode'].toString().isNotEmpty) {
-//         return office['pincode'].toString();
-//       }
-//     }
-//
-//     return 'Not provided';
-//   }
-//
-//   String _getOfficeGoogleMapLink() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('officeAddress') && location['officeAddress'] != null) {
-//         final office = location['officeAddress'] as Map;
-//         if (office.containsKey('googleMapLink') && office['googleMapLink'].toString().isNotEmpty) {
-//           return office['googleMapLink'].toString();
-//         }
-//       }
-//     }
-//
-//     if (_data.containsKey('officeAddress') && _data['officeAddress'] != null) {
-//       final office = _data['officeAddress'] as Map;
-//       if (office.containsKey('googleMapLink') && office['googleMapLink'].toString().isNotEmpty) {
-//         return office['googleMapLink'].toString();
-//       }
-//     }
-//
-//     return '';
-//   }
-//
-//
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _data = widget.registrationData;
-//     _tabController = TabController(length:7, vsync: this);
-//
-//     _phoneController = TextEditingController(text: _getUserPhone());
-//     _checkInController = TextEditingController(
-//         text: _data['checkInTime']?.toString() ?? ''
-//     );
-//     _checkOutController = TextEditingController(
-//         text: _data['checkOutTime']?.toString() ?? ''
-//     );
-//
-//     print('=== DETAILS SCREEN RECEIVED DATA ===');
-//     print('virtualTourLink: ${_data['virtualTourLink']}');
-//     print('media: ${_data['media']}');
-//     print('basicInfo: ${_data['basicInfo']}');
-//     _initializeTimes();
-//     _priceEditModes = {};
-//     // _debugPrintData();
-//     _debugPrintMediaData();
-//     _initializeAmenities();
-//   }
-//
-//   void _debugPrintMediaData() {
-//     print('=== DEBUG MEDIA DATA ===');
-//     print('Full data keys: ${_data.keys.toList()}');
-//
-//     if (_data.containsKey('media')) {
-//       final media = _data['media'] as Map;
-//       print('Media keys: ${media.keys.toList()}');
-//       media.forEach((key, value) {
-//         print('Key: $key, Value: $value, Type: ${value.runtimeType}');
-//       });
-//     }
-//
-//     if (_data.containsKey('virtualTourLink')) {
-//       print('virtualTourLink (direct): ${_data['virtualTourLink']}');
-//     }
-//
-//     if (_data.containsKey('basicInfo')) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('virtualTourLink')) {
-//         print('virtualTourLink in basicInfo: ${basicInfo['virtualTourLink']}');
-//       }
-//     }
-//
-//     final tourLink = _getVirtualTourLink();
-//     print('Final virtual tour link: $tourLink');
-//   }
-//
-//   void _initializeTimes() {
-//     // Get pricing data from nested structure
-//     Map<String, dynamic> pricingData = {};
-//     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//       pricingData = Map<String, dynamic>.from(_data['pricing']);
-//     }
-//
-//     // Initialize Check-in Time
-//     _checkInTime = _data['checkInTime']?.toString() ??
-//         pricingData['checkInTime']?.toString() ??
-//         '12:00';
-//     _checkInController = TextEditingController(text: _checkInTime);
-//
-//     // Initialize Check-out Time
-//     _checkOutTime = _data['checkOutTime']?.toString() ??
-//         pricingData['checkOutTime']?.toString() ??
-//         '11:00';
-//     _checkOutController = TextEditingController(text: _checkOutTime);
-//   }
-//
-//   void _autoSaveTimes() {
-//     _data['checkInTime'] = _checkInTime;
-//     _data['checkOutTime'] = _checkOutTime;
-//
-//     // Also save in pricing nested structure if exists
-//     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//       final pricing = _data['pricing'] as Map;
-//       pricing['checkInTime'] = _checkInTime;
-//       pricing['checkOutTime'] = _checkOutTime;
-//       _data['pricing'] = pricing;
-//     }
-//   }
-//
-//
-//   Widget _buildEditableTimeField({
-//     required String label,
-//     required TextEditingController controller,
-//     required ValueChanged<String> onChanged,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           label,
-//           style: TextStyle(
-//             fontSize: 13,
-//             fontWeight: FontWeight.w500,
-//             color: darkText,
-//           ),
-//         ),
-//         const SizedBox(height: 8),
-//         GestureDetector(
-//           onTap: () => _selectTime(context, controller, onChanged),
-//           child: Container(
-//             height: 50,
-//             padding: const EdgeInsets.symmetric(horizontal: 12),
-//             decoration: BoxDecoration(
-//               border: Border.all(color: borderColor),
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Text(
-//                   controller.text.isNotEmpty
-//                       ? _formatTimeForDisplay(controller.text)
-//                       : 'Select time',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     color: controller.text.isNotEmpty ? darkText : lightText,
-//                   ),
-//                 ),
-//                 Icon(
-//                   Icons.access_time,
-//                   size: 20,
-//                   color: primaryColor,
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-//
-//   Future<void> _selectTime(
-//       BuildContext context,
-//       TextEditingController controller,
-//       ValueChanged<String> onChanged,
-//       ) async {
-//     TimeOfDay initialTime = TimeOfDay.now();
-//
-//     if (controller.text.isNotEmpty) {
-//       try {
-//         List<String> parts = controller.text.split(':');
-//         if (parts.length >= 2) {
-//           int hour = int.parse(parts[0]);
-//           int minute = int.parse(parts[1].substring(0, 2));
-//           initialTime = TimeOfDay(hour: hour, minute: minute);
-//         }
-//       } catch (e) {
-//         initialTime = TimeOfDay.now();
-//       }
-//     }
-//
-//     TimeOfDay? pickedTime = await showTimePicker(
-//       context: context,
-//       initialTime: initialTime,
-//       builder: (BuildContext context, Widget? child) {
-//         return MediaQuery(
-//           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-//           child: child!,
-//         );
-//       },
-//     );
-//
-//     if (pickedTime != null) {
-//       String formattedTime = '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}';
-//       controller.text = formattedTime;
-//       onChanged(formattedTime);
-//     }
-//   }
-//
-//   String _formatTimeForDisplay(String time24) {
-//     if (time24.isEmpty) return '';
-//     try {
-//       List<String> parts = time24.split(':');
-//       if (parts.length >= 2) {
-//         int hour = int.parse(parts[0]);
-//         int minute = int.parse(parts[1].substring(0, 2));
-//         String period = hour >= 12 ? 'PM' : 'AM';
-//         int hour12 = hour % 12;
-//         if (hour12 == 0) hour12 = 12;
-//         return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
-//       }
-//     } catch (e) {
-//       return time24;
-//     }
-//     return time24;
-//   }
-//
-//   Future<void> _uploadMediaFile(String mediaKey, String mediaName, int maxLimit) async {
-//     try {
-//       // Check if already at max limit
-//       final currentFiles = _getMediaFiles(mediaKey);
-//       if (currentFiles.length >= maxLimit) {
-//         _showErrorDialog(
-//           'Maximum Limit Reached',
-//           'You can only upload up to $maxLimit $mediaName. Please remove some files first.',
-//         );
-//         return;
-//       }
-//
-//       FilePickerResult? result = await FilePicker.platform.pickFiles(
-//         type: FileType.media,
-//         allowMultiple: false,
-//       );
-//
-//       if (result != null && result.files.isNotEmpty) {
-//         final file = result.files.first;
-//
-//         // Validate file size (max 10MB for videos, 5MB for images)
-//         int maxSize = mediaKey == 'short_video' ? 10 * 1024 * 1024 : 5 * 1024 * 1024;
-//         if (file.size > maxSize) {
-//           _showErrorDialog(
-//             'File too large',
-//             'Please select a file smaller than ${maxSize ~/ (1024 * 1024)}MB',
-//           );
-//           return;
-//         }
-//
-//         // Validate file type for videos
-//         if (mediaKey == 'short_video') {
-//           final ext = file.name.split('.').last.toLowerCase();
-//           if (!['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
-//             _showErrorDialog('Invalid Format', 'Please select a video file (MP4, MOV, AVI, MKV)');
-//             return;
-//           }
-//         }
-//
-//         Map<String, dynamic> fileInfo = {
-//           'name': file.name,
-//           'size': file.size,
-//           'path': file.path ?? '',
-//           'uploaded': true,
-//         };
-//
-//         setState(() {
-//           // Add to media files
-//           if (_data.containsKey('media') && _data['media'] is Map) {
-//             final media = _data['media'] as Map;
-//             if (media.containsKey(mediaKey) && media[mediaKey] is List) {
-//               (media[mediaKey] as List).add(fileInfo);
-//             } else {
-//               media[mediaKey] = [fileInfo];
-//             }
-//             _data['media'] = media;
-//           } else {
-//             _data['media'] = {mediaKey: [fileInfo]};
-//           }
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('$mediaName uploaded successfully'),
-//             backgroundColor: primaryColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       }
-//     } catch (e) {
-//       _showErrorDialog('Upload Error', 'Failed to upload file: ${e.toString()}');
-//     }
-//   }
-//
-//   void _viewMediaFile(Map<String, dynamic> file, String mediaName) {
-//     if (file['path'] != null && file['path'].isNotEmpty) {
-//       final fileName = file['name'] ?? 'File';
-//       final filePath = file['path'];
-//       final ext = fileName.split('.').last.toLowerCase();
-//
-//       // For images, show image preview
-//       if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
-//         showDialog(
-//           context: context,
-//           builder: (context) => Dialog(
-//             child: Container(
-//               width: MediaQuery.of(context).size.width * 0.9,
-//               height: MediaQuery.of(context).size.height * 0.8,
-//               child: Column(
-//                 children: [
-//                   Padding(
-//                     padding: const EdgeInsets.all(16),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Text(
-//                           mediaName,
-//                           style: TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.w600,
-//                             color: darkText,
-//                           ),
-//                         ),
-//                         IconButton(
-//                           onPressed: () => Navigator.pop(context),
-//                           icon: Icon(Icons.close, color: lightText),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   Expanded(
-//                     child: Image.file(
-//                       File(filePath),
-//                       fit: BoxFit.contain,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         );
-//       } else if (['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
-//         // For videos, show video player
-//         showDialog(
-//           context: context,
-//           builder: (context) => Dialog(
-//             child: Container(
-//               width: MediaQuery.of(context).size.width * 0.9,
-//               height: MediaQuery.of(context).size.height * 0.6,
-//               child: Column(
-//                 children: [
-//                   Padding(
-//                     padding: const EdgeInsets.all(16),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Text(
-//                           mediaName,
-//                           style: TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.w600,
-//                             color: darkText,
-//                           ),
-//                         ),
-//                         IconButton(
-//                           onPressed: () => Navigator.pop(context),
-//                           icon: Icon(Icons.close, color: lightText),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   Expanded(
-//                     child: VideoPlayerWidget(filePath: filePath),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         );
-//       } else {
-//         // For other files, show file info dialog
-//         showDialog(
-//           context: context,
-//           builder: (context) => AlertDialog(
-//             title: Text(mediaName),
-//             content: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 Icon(
-//                   _getFileIcon(fileName),
-//                   size: 48,
-//                   color: primaryColor,
-//                 ),
-//                 const SizedBox(height: 16),
-//                 Text(
-//                   fileName,
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(fontWeight: FontWeight.w500),
-//                 ),
-//                 const SizedBox(height: 8),
-//                 Text(
-//                   'Size: ${(file['size'] / 1024).toStringAsFixed(1)} KB',
-//                   style: TextStyle(fontSize: 12, color: lightText),
-//                 ),
-//               ],
-//             ),
-//             actions: [
-//               TextButton(
-//                 onPressed: () => Navigator.pop(context),
-//                 child: Text('Close'),
-//               ),
-//             ],
-//           ),
-//         );
-//       }
-//     }
-//   }
-//
-//   void _removeMediaFile(String mediaKey, int index, String mediaName) {
-//     _showConfirmationDialog(
-//       'Remove File',
-//       'Are you sure you want to remove this $mediaName?',
-//           () {
-//         setState(() {
-//           if (_data.containsKey('media') && _data['media'] is Map) {
-//             final media = _data['media'] as Map;
-//             if (media.containsKey(mediaKey) && media[mediaKey] is List) {
-//               (media[mediaKey] as List).removeAt(index);
-//               _data['media'] = media;
-//             }
-//           }
-//           _mediaEditModes[mediaKey] = false;
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('$mediaName removed successfully'),
-//             backgroundColor: primaryColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       },
-//     );
-//   }
-//
-//   void _initializeAmenities() {
-//     _editModes = {
-//       'amenities': false,
-//       'custom': false,
-//     };
-//
-//     // Initialize price edit modes for all price fields
-//     _priceEditModes = {
-//       'basePrice': false,
-//       'weekendPrice': false,
-//       'peakPrice': false,
-//       'securityDeposit': false,
-//       'minimumStay': false,
-//     };
-//     _documentEditModes = {
-//       'ownershipProof': false,
-//       'idProof': false,
-//       'cancellationPolicy': false,
-//       'availabilityCalendar': false,
-//       'cancelledCheque': false,
-//     };
-//
-//     _mediaEditModes = {
-//       'villa_exterior': false,
-//       'villa_interior': false,
-//       'bedroom': false,
-//       'bathroom': false,
-//       'amenities': false,
-//       'short_video': false,
-//     };
-//
-//
-//     _mediaMaxLimits = {
-//       'villa_exterior': 2,
-//       'villa_interior': 2,
-//       'bedroom': 1,
-//       'bathroom': 1,
-//       'amenities': 5,
-//       'short_video': 1,
-//     };
-//     // Initialize Villa Amenities
-//     if (_data['selectedAmenities'] != null && _data['selectedAmenities'] is Map) {
-//       _villaAmenities = Map<String, bool>.from(_data['selectedAmenities']);
-//     } else if (_data['amenities'] != null && _data['amenities']['selected'] is Map) {
-//       _villaAmenities = Map<String, bool>.from(_data['amenities']['selected']);
-//     } else {
-//       _villaAmenities = {
-//         'Private Swimming Pool': false,
-//         'WiFi': false,
-//         'Air Conditioning': false,
-//         'Kitchen': false,
-//         'Parking': false,
-//         'Power Backup': false,
-//         'CCTV Security': false,
-//         'Caretaker Available': false,
-//         'Garden': false,
-//         'BBQ Area': false,
-//         'TV': false,
-//         'Washing Machine': false,
-//         'Pet Friendly': false,
-//         'Event Allowed': false,
-//       };
-//     }
-//
-//     // Initialize Custom Amenities
-//     if (_data['customAmenities'] != null && _data['customAmenities'] is List) {
-//       _customAmenities = List<String>.from(_data['customAmenities']);
-//     } else if (_data['amenities'] != null && _data['amenities']['custom'] is List) {
-//       _customAmenities = List<String>.from(_data['amenities']['custom']);
-//     } else {
-//       _customAmenities = [];
-//     }
-//   }
-//
-//   void _autoSaveAmenities() {
-//     _data['selectedAmenities'] = Map<String, bool>.from(_villaAmenities);
-//     _data['customAmenities'] = List<String>.from(_customAmenities);
-//   }
-//
-//   void _savePhoneChanges() {
-//     setState(() {
-//       if (_data.containsKey('phone')) {
-//         _data['phone'] = _phoneController.text;
-//       }
-//       if (_data.containsKey('mobile')) {
-//         _data['mobile'] = _phoneController.text;
-//       }
-//       if (_data.containsKey('basicInfo')) {
-//         final basicInfo = _data['basicInfo'] as Map;
-//         basicInfo['mobile'] = _phoneController.text;
-//         _data['basicInfo'] = basicInfo;
-//       }
-//       _isEditingPhone = false;
-//     });
-//
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(
-//         content: Text('Phone number updated successfully'),
-//         backgroundColor: primaryColor,
-//         duration: Duration(seconds: 2),
-//       ),
-//     );
-//   }
-//
-//   Future<void> _pickAndUploadPhoto() async {
-//     try {
-//       final ImagePicker picker = ImagePicker();
-//       showModalBottomSheet(
-//         context: context,
-//         shape: const RoundedRectangleBorder(
-//           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-//         ),
-//         builder: (BuildContext context) {
-//           return SafeArea(
-//             child: Wrap(
-//               children: [
-//                 Padding(
-//                   padding: const EdgeInsets.all(16),
-//                   child: Text(
-//                     'Choose Photo',
-//                     style: TextStyle(
-//                       fontSize: 18,
-//                       fontWeight: FontWeight.w600,
-//                       color: darkText,
-//                     ),
-//                   ),
-//                 ),
-//                 ListTile(
-//                   leading: Container(
-//                     padding: const EdgeInsets.all(8),
-//                     decoration: BoxDecoration(
-//                       color: primarySoft,
-//                       shape: BoxShape.circle,
-//                     ),
-//                     child: Icon(Icons.photo_library, color: primaryColor),
-//                   ),
-//                   title: const Text('Gallery'),
-//                   onTap: () async {
-//                     Navigator.pop(context);
-//                     await _pickImageFromSource(ImageSource.gallery);
-//                   },
-//                 ),
-//                 ListTile(
-//                   leading: Container(
-//                     padding: const EdgeInsets.all(8),
-//                     decoration: BoxDecoration(
-//                       color: primarySoft,
-//                       shape: BoxShape.circle,
-//                     ),
-//                     child: Icon(Icons.camera_alt, color: primaryColor),
-//                   ),
-//                   title: const Text('Camera'),
-//                   onTap: () async {
-//                     Navigator.pop(context);
-//                     await _pickImageFromSource(ImageSource.camera);
-//                   },
-//                 ),
-//                 const SizedBox(height: 10),
-//               ],
-//             ),
-//           );
-//         },
-//       );
-//     } catch (e) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Error picking image: $e'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//     }
-//   }
-//
-//   Future<void> _pickImageFromSource(ImageSource source) async {
-//     try {
-//       final ImagePicker picker = ImagePicker();
-//       final XFile? image = await picker.pickImage(
-//         source: source,
-//         maxWidth: 1000,
-//         maxHeight: 1000,
-//         imageQuality: 85,
-//       );
-//
-//       if (image != null) {
-//         setState(() {
-//           _data['ownerPhoto'] = {
-//             'uploaded': true,
-//             'name': image.name,
-//             'path': image.path,
-//           };
-//           if (_data.containsKey('basicInfo')) {
-//             final basicInfo = _data['basicInfo'] as Map;
-//             basicInfo['ownerPhoto'] = {
-//               'uploaded': true,
-//               'name': image.name,
-//               'path': image.path,
-//             };
-//             _data['basicInfo'] = basicInfo;
-//           }
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('Photo uploaded successfully'),
-//             backgroundColor: primaryColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       }
-//     } catch (e) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Error uploading photo: $e'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//     }
-//   }
-//
-//   String _formatInteger(dynamic value) {
-//     if (value == null) return '';
-//     if (value is int) return value.toString();
-//     if (value is double) return value.toInt().toString();
-//     if (value is String) {
-//       double? parsedDouble = double.tryParse(value);
-//       if (parsedDouble != null) return parsedDouble.toInt().toString();
-//       return value;
-//     }
-//     return value.toString();
-//   }
-//
-//   String _formatPrice(dynamic value) {
-//     if (value == null) return '';
-//     if (value is double) {
-//       return value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
-//     }
-//     if (value is int) return value.toString();
-//     if (value is String) {
-//       double? parsed = double.tryParse(value);
-//       if (parsed != null) {
-//         return parsed.toStringAsFixed(parsed.truncateToDouble() == parsed ? 0 : 2);
-//       }
-//       return value;
-//     }
-//     return value.toString();
-//   }
-//
-//   bool _hasValue(dynamic value) {
-//     if (value == null) return false;
-//     if (value is String && value.isEmpty) return false;
-//     if (value is num) return true; // This includes 0
-//     if (value is Map) return value.isNotEmpty;
-//     if (value is List) return value.isNotEmpty;
-//     if (value is bool) return true;
-//     return true;
-//   }
-//
-//   String _getRegistrationId() {
-//     final villaName = _getVillaName();
-//     final timestamp = DateTime.now().millisecondsSinceEpoch.toString().substring(8);
-//     final namePrefix = villaName.length >= 3
-//         ? villaName.substring(0, 3).toUpperCase()
-//         : villaName.toUpperCase();
-//     return 'VILLA-$namePrefix-$timestamp';
-//   }
-//
-//   String _getUserFullName() {
-//     // Check in basicInfo nested structure
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('ownerName') && basicInfo['ownerName'].toString().isNotEmpty) {
-//         return basicInfo['ownerName'].toString();
-//       }
-//       if (basicInfo.containsKey('fullName') && basicInfo['fullName'].toString().isNotEmpty) {
-//         return basicInfo['fullName'].toString();
-//       }
-//     }
-//
-//     // Direct keys
-//     if (_data.containsKey('fullName') && _data['fullName'].toString().isNotEmpty) {
-//       return _data['fullName'].toString();
-//     }
-//     if (_data.containsKey('ownerName') && _data['ownerName'].toString().isNotEmpty) {
-//       return _data['ownerName'].toString();
-//     }
-//
-//     return 'User';
-//   }
-//
-//   String _getUserEmail() {
-//     // Check in basicInfo nested structure
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('email') && basicInfo['email'].toString().isNotEmpty) {
-//         return basicInfo['email'].toString();
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey('email') && _data['email'].toString().isNotEmpty) {
-//       return _data['email'].toString();
-//     }
-//
-//     return 'Not provided';
-//   }
-//
-//   String _getUserPhone() {
-//     // Check in basicInfo nested structure
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('mobile') && basicInfo['mobile'].toString().isNotEmpty) {
-//         return basicInfo['mobile'].toString();
-//       }
-//       if (basicInfo.containsKey('phone') && basicInfo['phone'].toString().isNotEmpty) {
-//         return basicInfo['phone'].toString();
-//       }
-//     }
-//
-//     // Direct keys
-//     if (_data.containsKey('phone') && _data['phone'].toString().isNotEmpty) {
-//       return _data['phone'].toString();
-//     }
-//     if (_data.containsKey('mobile') && _data['mobile'].toString().isNotEmpty) {
-//       return _data['mobile'].toString();
-//     }
-//
-//     return 'Not provided';
-//   }
-//
-//   String _getVillaName() {
-//     // Check in basicInfo nested structure
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('villaName') && basicInfo['villaName'].toString().isNotEmpty) {
-//         return basicInfo['villaName'].toString();
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey('villaName') && _data['villaName'].toString().isNotEmpty) {
-//       return _data['villaName'].toString();
-//     }
-//
-//     return 'Villa';
-//   }
-//
-//   String _getAlternateMobile() {
-//     // Check in basicInfo nested structure
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('altMobile') && basicInfo['altMobile'].toString().isNotEmpty) {
-//         return basicInfo['altMobile'].toString();
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey('altMobile') && _data['altMobile'].toString().isNotEmpty) {
-//       return _data['altMobile'].toString();
-//     }
-//
-//     return '';
-//   }
-//
-//   String _getWebsite() {
-//     // Check in basicInfo nested structure
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('website') && basicInfo['website'].toString().isNotEmpty) {
-//         return basicInfo['website'].toString();
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey('website') && _data['website'].toString().isNotEmpty) {
-//       return _data['website'].toString();
-//     }
-//
-//     return '';
-//   }
-//
-//   String _getGoogleMapLink() {
-//     // Check in location nested structure
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('googleMapLink') && location['googleMapLink'].toString().isNotEmpty) {
-//         return location['googleMapLink'].toString();
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey('googleMapLink') && _data['googleMapLink'].toString().isNotEmpty) {
-//       return _data['googleMapLink'].toString();
-//     }
-//
-//     return '';
-//   }
-//
-//   String _getPropertySize() {
-//     // Check in propertyDetails nested structure
-//     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
-//       final details = _data['propertyDetails'] as Map;
-//       if (details.containsKey('propertySize') && details['propertySize'].toString().isNotEmpty) {
-//         return details['propertySize'].toString();
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey('propertySize') && _data['propertySize'].toString().isNotEmpty) {
-//       return _data['propertySize'].toString();
-//     }
-//
-//     return '';
-//   }
-//
-//   String _getYearConstruction() {
-//     // Check in propertyDetails nested structure
-//     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
-//       final details = _data['propertyDetails'] as Map;
-//       if (details.containsKey('yearConstruction') && details['yearConstruction'].toString().isNotEmpty) {
-//         return details['yearConstruction'].toString();
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey('yearConstruction') && _data['yearConstruction'].toString().isNotEmpty) {
-//       return _data['yearConstruction'].toString();
-//     }
-//
-//     return '';
-//   }
-//
-//   // String _getVirtualTourLink() {
-//   //   print('=== GETTING VIRTUAL TOUR LINK ===');
-//   //
-//   //   // Check direct key first
-//   //   if (_data.containsKey('virtualTourLink')) {
-//   //     final value = _data['virtualTourLink'];
-//   //     print('Direct virtualTourLink found: $value (type: ${value.runtimeType})');
-//   //     if (value != null && value.toString().isNotEmpty) {
-//   //       return value.toString();
-//   //     }
-//   //   }
-//   //
-//   //   // Check in media nested structure
-//   //   if (_data.containsKey('media') && _data['media'] != null) {
-//   //     final media = _data['media'] as Map;
-//   //     print('Media keys: ${media.keys.toList()}');
-//   //
-//   //     // Check for virtual_tour as List
-//   //     if (media.containsKey('virtual_tour')) {
-//   //       final tours = media['virtual_tour'];
-//   //       print('virtual_tour found: $tours (type: ${tours.runtimeType})');
-//   //
-//   //       if (tours is List && tours.isNotEmpty) {
-//   //         if (tours[0] is Map && tours[0]['path'] != null && tours[0]['path'].toString().isNotEmpty) {
-//   //           return tours[0]['path'].toString();
-//   //         } else if (tours[0] is String && tours[0].toString().isNotEmpty) {
-//   //           return tours[0].toString();
-//   //         }
-//   //       } else if (tours is String && tours.isNotEmpty) {
-//   //         return tours;
-//   //       }
-//   //     }
-//   //
-//   //     // Check for virtualTourLink in media
-//   //     if (media.containsKey('virtualTourLink')) {
-//   //       final value = media['virtualTourLink'];
-//   //       print('virtualTourLink in media: $value');
-//   //       if (value != null && value.toString().isNotEmpty) {
-//   //         return value.toString();
-//   //       }
-//   //     }
-//   //   }
-//   //
-//   //   // Check in basicInfo
-//   //   if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//   //     final basicInfo = _data['basicInfo'] as Map;
-//   //     if (basicInfo.containsKey('virtualTourLink')) {
-//   //       final value = basicInfo['virtualTourLink'];
-//   //       print('virtualTourLink in basicInfo: $value');
-//   //       if (value != null && value.toString().isNotEmpty) {
-//   //         return value.toString();
-//   //       }
-//   //     }
-//   //   }
-//   //
-//   //   print('No virtual tour link found');
-//   //   return '';
-//   // }
-//
-//   String _getVirtualTourLink() {
-//     print('=== GETTING VIRTUAL TOUR LINK ===');
-//
-//     // Check in media.virtual_tour (string or list)
-//     if (_data.containsKey('media') && _data['media'] != null) {
-//       final media = _data['media'] as Map;
-//       print('Media keys: ${media.keys.toList()}');
-//
-//       // Check for virtual_tour as a direct string
-//       if (media.containsKey('virtual_tour')) {
-//         final tour = media['virtual_tour'];
-//         print('virtual_tour found: $tour (type: ${tour.runtimeType})');
-//
-//         if (tour is String && tour.isNotEmpty) {
-//           return tour;
-//         }
-//
-//         // If it's a list, check the first element
-//         if (tour is List && tour.isNotEmpty) {
-//           if (tour[0] is Map && tour[0]['path'] != null && tour[0]['path'].toString().isNotEmpty) {
-//             return tour[0]['path'].toString();
-//           } else if (tour[0] is String && tour[0].toString().isNotEmpty) {
-//             return tour[0].toString();
-//           }
-//         }
-//       }
-//
-//       // Check for virtualTourLink in media
-//       if (media.containsKey('virtualTourLink')) {
-//         final value = media['virtualTourLink'];
-//         print('virtualTourLink in media: $value');
-//         if (value != null && value.toString().isNotEmpty) {
-//           return value.toString();
-//         }
-//       }
-//
-//       // Check for virtual_tour_url
-//       if (media.containsKey('virtual_tour_url')) {
-//         final value = media['virtual_tour_url'];
-//         print('virtual_tour_url in media: $value');
-//         if (value != null && value.toString().isNotEmpty) {
-//           return value.toString();
-//         }
-//       }
-//     }
-//
-//     // Check direct key
-//     if (_data.containsKey('virtualTourLink')) {
-//       final value = _data['virtualTourLink'];
-//       print('Direct virtualTourLink found: $value');
-//       if (value != null && value.toString().isNotEmpty) {
-//         return value.toString();
-//       }
-//     }
-//
-//     // Check in basicInfo
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('virtualTourLink')) {
-//         final value = basicInfo['virtualTourLink'];
-//         print('virtualTourLink in basicInfo: $value');
-//         if (value != null && value.toString().isNotEmpty) {
-//           return value.toString();
-//         }
-//       }
-//       if (basicInfo.containsKey('virtual_tour')) {
-//         final value = basicInfo['virtual_tour'];
-//         print('virtual_tour in basicInfo: $value');
-//         if (value != null && value.toString().isNotEmpty) {
-//           return value.toString();
-//         }
-//       }
-//     }
-//
-//     // Check in propertyDetails
-//     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
-//       final details = _data['propertyDetails'] as Map;
-//       if (details.containsKey('virtualTourLink')) {
-//         final value = details['virtualTourLink'];
-//         print('virtualTourLink in propertyDetails: $value');
-//         if (value != null && value.toString().isNotEmpty) {
-//           return value.toString();
-//         }
-//       }
-//     }
-//
-//     print('No virtual tour link found');
-//     return '';
-//   }
-//
-//   String _getPropertyType() {
-//     // Check in propertyDetails nested structure
-//     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
-//       final details = _data['propertyDetails'] as Map;
-//       if (details.containsKey('propertyType') && details['propertyType'].toString().isNotEmpty) {
-//         return details['propertyType'].toString();
-//       }
-//     }
-//
-//     // Check direct propertyTypeValue
-//     if (_data.containsKey('propertyTypeValue') && _data['propertyTypeValue'].toString().isNotEmpty) {
-//       return _data['propertyTypeValue'].toString();
-//     }
-//
-//     // Check direct propertyType
-//     if (_data.containsKey('propertyType') && _data['propertyType'].toString().isNotEmpty) {
-//       return _data['propertyType'].toString();
-//     }
-//
-//     return 'Luxury Villa';
-//   }
-//
-//
-//   List<Map<String, dynamic>> _getMediaFiles(String mediaKey) {
-//     if (_data.containsKey('media') && _data['media'] != null) {
-//       final media = _data['media'] as Map;
-//       if (media.containsKey(mediaKey) && media[mediaKey] is List) {
-//         return List<Map<String, dynamic>>.from(media[mediaKey]);
-//       }
-//     }
-//
-//     // Check direct key
-//     if (_data.containsKey(mediaKey) && _data[mediaKey] is List) {
-//       return List<Map<String, dynamic>>.from(_data[mediaKey]);
-//     }
-//
-//     return [];
-//   }
-//
-//
-//   Map<String, dynamic> _getFileInfo(String key) {
-//     // Check in pricing nested structure
-//     if (_data.containsKey('pricing') && _data['pricing'] != null) {
-//       final pricing = _data['pricing'] as Map;
-//       if (pricing.containsKey(key) && pricing[key] is Map) {
-//         return Map<String, dynamic>.from(pricing[key]);
-//       }
-//     }
-//
-//     // Direct key
-//     if (_data.containsKey(key) && _data[key] is Map) {
-//       return Map<String, dynamic>.from(_data[key]);
-//     }
-//
-//     return {'uploaded': false};
-//   }
-//
-//   @override
-//   void dispose() {
-//     _tabController.dispose();
-//     _phoneController.dispose();
-//     _checkInController.dispose();
-//     _checkOutController.dispose();
-//     super.dispose();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: bgColor,
-//       body: CustomScrollView(
-//         slivers: [
-//
-//           SliverAppBar(
-//             expandedHeight: 180,
-//             pinned: true,
-//             backgroundColor: primaryColor,
-//             flexibleSpace: FlexibleSpaceBar(
-//               background: Container(
-//                 decoration: BoxDecoration(
-//                   gradient: LinearGradient(
-//                     begin: Alignment.topCenter,
-//                     end: Alignment.bottomCenter,
-//                     colors: [primaryColor, primaryColor.withOpacity(0.85)],
-//                   ),
-//                   borderRadius: const BorderRadius.only(
-//                     bottomLeft: Radius.circular(30),
-//                     bottomRight: Radius.circular(30),
-//                   ),
-//                 ),
-//                 child: SafeArea(
-//                   bottom: false,
-//                   child: Column(
-//                     children: [
-//                       const SizedBox(height: 25),
-//                       Container(
-//                         margin: const EdgeInsets.symmetric(horizontal: 15),
-//                         padding: const EdgeInsets.all(20),
-//                         decoration: BoxDecoration(
-//                           color: Colors.white.withOpacity(0.12),
-//                           borderRadius: BorderRadius.circular(28),
-//                           border: Border.all(
-//                             color: Colors.white.withOpacity(0.2),
-//                             width: 1.5,
-//                           ),
-//                         ),
-//                         child: Row(
-//                           children: [
-//                             Container(
-//                               width: 80,
-//                               height: 72,
-//                               decoration: BoxDecoration(
-//                                 color: Colors.white.withOpacity(0.2),
-//                                 borderRadius: BorderRadius.circular(22),
-//                               ),
-//                               child: const Center(
-//                                 child: Icon(
-//                                   Icons.villa,
-//                                   color: Colors.white,
-//                                   size: 32,
-//                                 ),
-//                               ),
-//                             ),
-//                             const SizedBox(width: 16),
-//                             Expanded(
-//                               child: Column(
-//                                 crossAxisAlignment: CrossAxisAlignment.start,
-//                                 children: [
-//                                   Text(
-//                                     _getVillaName(),
-//                                     style: const TextStyle(
-//                                       fontSize: 24,
-//                                       fontWeight: FontWeight.w800,
-//                                       color: Colors.white,
-//                                     ),
-//                                     maxLines: 1,
-//                                     overflow: TextOverflow.ellipsis,
-//                                   ),
-//                                   const SizedBox(height: 4),
-//                                   Row(
-//                                     children: [
-//                                       Container(
-//                                         padding: const EdgeInsets.symmetric(
-//                                           horizontal: 8,
-//                                           vertical: 4,
-//                                         ),
-//                                         decoration: BoxDecoration(
-//                                           color: Colors.white.withOpacity(0.2),
-//                                           borderRadius: BorderRadius.circular(12),
-//                                         ),
-//                                         child: Text(
-//                                           _getPropertyType(),
-//                                           style: const TextStyle(
-//                                             fontSize: 12,
-//                                             color: Colors.white,
-//                                             fontWeight: FontWeight.w500,
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                   const SizedBox(height: 8),
-//                                   Row(
-//                                     children: [
-//                                       Icon(
-//                                         Icons.qr_code,
-//                                         size: 14,
-//                                         color: Colors.white.withOpacity(0.7),
-//                                       ),
-//                                       const SizedBox(width: 4),
-//                                       Text(
-//                                         'ID: ${_getRegistrationId()}',
-//                                         style: TextStyle(
-//                                           fontSize: 12,
-//                                           color: Colors.white.withOpacity(0.8),
-//                                           fontWeight: FontWeight.w500,
-//                                         ),
-//                                       ),
-//                                     ],
-//                                   ),
-//                                 ],
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                       const Spacer(),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             leading: IconButton(
-//               icon: Container(
-//                 padding: const EdgeInsets.all(8),
-//                 decoration: BoxDecoration(
-//                   color: Colors.white.withOpacity(0.2),
-//                   shape: BoxShape.circle,
-//                   border: Border.all(color: Colors.white.withOpacity(0.3)),
-//                 ),
-//                 child: const Icon(
-//                   Icons.arrow_back,
-//                   color: Colors.white,
-//                   size: 20,
-//                 ),
-//               ),
-//               onPressed: () => Navigator.pop(context),
-//             ),
-//
-//             actions: [
-//               // Logout Button
-//               GestureDetector(
-//                 onTap: () => _showLogoutConfirmationDialog(context),
-//                 child: Container(
-//                   margin: const EdgeInsets.only(right: 16),
-//                   padding: const EdgeInsets.all(8),
-//                   decoration: BoxDecoration(
-//                     color: Colors.white.withOpacity(0.2),
-//                     shape: BoxShape.circle,
-//                     border: Border.all(color: Colors.white.withOpacity(0.3)),
-//                   ),
-//                   child: const Icon(
-//                     Icons.logout,
-//                     color: Colors.white,
-//                     size: 20,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//
-//           // Main Content
-//           SliverFillRemaining(
-//             child: Container(
-//               color: bgColor,
-//               child: Column(
-//                 children: [
-//                   // Personal Info Card
-//                   Container(
-//                     margin: const EdgeInsets.all(16),
-//                     padding: const EdgeInsets.all(16),
-//                     decoration: BoxDecoration(
-//                       color: cardColor,
-//                       borderRadius: BorderRadius.circular(20),
-//                       boxShadow: [
-//                         BoxShadow(
-//                           color: shadowColor,
-//                           blurRadius: 20,
-//                           offset: const Offset(0, 8),
-//                         ),
-//                         BoxShadow(
-//                           color: primaryColor.withOpacity(0.05),
-//                           blurRadius: 10,
-//                           offset: const Offset(0, 2),
-//                         ),
-//                       ],
-//                     ),
-//                     child: Row(
-//                       children: [
-//                         Stack(
-//                           children: [
-//                             Container(
-//                               width: 60,
-//                               height: 60,
-//                               decoration: BoxDecoration(
-//                                 gradient: LinearGradient(
-//                                   colors: [primaryColor, primaryColor.withOpacity(0.7)],
-//                                 ),
-//                                 borderRadius: BorderRadius.circular(20),
-//                               ),
-//                               child: Padding(
-//                                 padding: const EdgeInsets.all(2),
-//                                 child: Container(
-//                                   decoration: BoxDecoration(
-//                                     color: cardColor,
-//                                     borderRadius: BorderRadius.circular(18),
-//                                   ),
-//                                   child: ClipRRect(
-//                                     borderRadius: BorderRadius.circular(18),
-//                                     child: _getOwnerPhotoWidget(),
-//                                   ),
-//                                 ),
-//                               ),
-//                             ),
-//                             Positioned(
-//                               bottom: 0,
-//                               right: 0,
-//                               child: GestureDetector(
-//                                 onTap: _pickAndUploadPhoto,
-//                                 child: Container(
-//                                   padding: const EdgeInsets.all(4),
-//                                   decoration: BoxDecoration(
-//                                     color: primaryColor,
-//                                     shape: BoxShape.circle,
-//                                     border: Border.all(color: Colors.white, width: 2),
-//                                   ),
-//                                   child: const Icon(
-//                                     Icons.camera_alt,
-//                                     size: 12,
-//                                     color: Colors.white,
-//                                   ),
-//                                 ),
-//                               ),
-//                             ),
-//                           ],
-//                         ),
-//                         const SizedBox(width: 16),
-//                         Expanded(
-//                           child: Column(
-//                             crossAxisAlignment: CrossAxisAlignment.start,
-//                             children: [
-//                               Text(
-//                                 _getUserFullName(),
-//                                 style: TextStyle(
-//                                   fontSize: 16,
-//                                   fontWeight: FontWeight.w700,
-//                                   color: darkText,
-//                                   letterSpacing: -0.3,
-//                                 ),
-//                                 maxLines: 1,
-//                                 overflow: TextOverflow.ellipsis,
-//                               ),
-//                               const SizedBox(height: 8),
-//                               Row(
-//                                 children: [
-//                                   Expanded(
-//                                     child: _buildInfoChip(
-//                                       icon: Icons.phone_outlined,
-//                                       value: _getUserPhone(),
-//                                     ),
-//                                   ),
-//                                   const SizedBox(width: 8),
-//                                   Expanded(
-//                                     child: _buildInfoChip(
-//                                       icon: Icons.email_outlined,
-//                                       value: _getUserEmail(),
-//                                     ),
-//                                   ),
-//                                 ],
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//
-//                   // Tab Bar
-//                   // Container(
-//                   //   decoration: BoxDecoration(
-//                   //     color: cardColor,
-//                   //     borderRadius: const BorderRadius.only(
-//                   //       topLeft: Radius.circular(20),
-//                   //       topRight: Radius.circular(20),
-//                   //     ),
-//                   //     boxShadow: [
-//                   //       BoxShadow(
-//                   //         color: shadowColor,
-//                   //         blurRadius: 10,
-//                   //         offset: const Offset(0, -2),
-//                   //       ),
-//                   //     ],
-//                   //   ),
-//                   //   child: TabBar(
-//                   //     controller: _tabController,
-//                   //     isScrollable: true,
-//                   //     labelColor: primaryColor,
-//                   //     unselectedLabelColor: lightText,
-//                   //     indicatorColor: primaryColor,
-//                   //     indicatorWeight: 3,
-//                   //     indicatorSize: TabBarIndicatorSize.label,
-//                   //     labelStyle: const TextStyle(
-//                   //       fontSize: 13,
-//                   //       fontWeight: FontWeight.w600,
-//                   //     ),
-//                   //     unselectedLabelStyle: const TextStyle(
-//                   //       fontSize: 13,
-//                   //       fontWeight: FontWeight.w500,
-//                   //     ),
-//                   //     tabs: const [
-//                   //       Tab(text: 'Basic Info'),
-//                   //       Tab(text: 'Location'),
-//                   //       Tab(text: 'Property Details'),
-//                   //       Tab(text: 'Amenities'),
-//                   //       Tab(text: 'Pricing & Policies'),
-//                   //       Tab(text: 'Legal & Bank'),
-//                   //     ],
-//                   //   ),
-//                   // ),
-//
-//                   Container(
-//                     decoration: BoxDecoration(
-//                       color: cardColor,
-//                       borderRadius: const BorderRadius.only(
-//                         topLeft: Radius.circular(20),
-//                         topRight: Radius.circular(20),
-//                       ),
-//                       boxShadow: [
-//                         BoxShadow(
-//                           color: shadowColor,
-//                           blurRadius: 10,
-//                           offset: const Offset(0, -2),
-//                         ),
-//                       ],
-//                     ),
-//                     child: TabBar(
-//                       controller: _tabController,
-//                       isScrollable: true,
-//                       labelColor: primaryColor,
-//                       unselectedLabelColor: lightText,
-//                       indicatorColor: primaryColor,
-//                       indicatorWeight: 3,
-//                       indicatorSize: TabBarIndicatorSize.label,
-//                       labelStyle: const TextStyle(
-//                         fontSize: 13,
-//                         fontWeight: FontWeight.w600,
-//                       ),
-//                       unselectedLabelStyle: const TextStyle(
-//                         fontSize: 13,
-//                         fontWeight: FontWeight.w500,
-//                       ),
-//                       tabs: const [
-//                         Tab(text: 'Basic Info'),
-//                         Tab(text: 'Location'),
-//                         Tab(text: 'Property Details'),
-//                         Tab(text: 'Amenities'),
-//                         Tab(text: 'Pricing & Policies'),
-//                         Tab(text: 'Media & Virtual Tour'),
-//                         Tab(text: 'Legal & Bank'),
-//
-//                       ],
-//                     ),
-//                   ),
-//                   // Tab Bar Views
-//                   Expanded(
-//                     child: TabBarView(
-//                       controller: _tabController,
-//                       children: [
-//                         _buildBasicInfo(),
-//                         _buildLocation(),
-//                         _buildPropertyDetails(),
-//                         _buildAmenities(),
-//                         _buildPricingPolicies(),
-//                         _buildMediaAndVirtualTour(),
-//                         _buildLegalBank(),
-//
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildMediaAndVirtualTour() {
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//
-//
-//
-//           // const SizedBox(height: 16),
-//
-//           _buildMediaSection(),
-//
-//           // _buildVirtualTourSection(),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildVirtualTourSection() {
-//     final String virtualTourLink = _getVirtualTourLink();
-//
-//     return Container(
-//       width: double.infinity,
-//       padding: const EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: cardColor,
-//         borderRadius: BorderRadius.circular(24),
-//         border: Border.all(color: borderColor),
-//         boxShadow: [
-//           BoxShadow(
-//             color: shadowColor,
-//             blurRadius: 20,
-//             offset: const Offset(0, 8),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             children: [
-//               Container(
-//                 padding: const EdgeInsets.all(10),
-//                 decoration: BoxDecoration(
-//                   color: primarySoft,
-//                   borderRadius: BorderRadius.circular(14),
-//                 ),
-//                 child: Icon(Icons.videocam, size: 18, color: primaryColor),
-//               ),
-//               const SizedBox(width: 12),
-//               Text(
-//                 'Virtual Tour',
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.w700,
-//                   color: darkText,
-//                   letterSpacing: -0.3,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//
-//           if (virtualTourLink.isNotEmpty)
-//             Container(
-//               padding: const EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: primarySoft,
-//                 borderRadius: BorderRadius.circular(12),
-//                 border: Border.all(color: primaryColor.withOpacity(0.2)),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Icon(Icons.link, size: 18, color: primaryColor),
-//                   const SizedBox(width: 8),
-//                   Expanded(
-//                     child: Text(
-//                       virtualTourLink,
-//                       style: TextStyle(fontSize: 12, color: darkText),
-//                       maxLines: 2,
-//                       overflow: TextOverflow.ellipsis,
-//                     ),
-//                   ),
-//                   IconButton(
-//                     onPressed: () {
-//
-//                       _launchURL(virtualTourLink);
-//                     },
-//                     icon: Icon(Icons.open_in_new, size: 18, color: primaryColor),
-//                     padding: EdgeInsets.zero,
-//                   ),
-//                 ],
-//               ),
-//             )
-//           else
-//             Container(
-//               padding: const EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: Colors.grey[50],
-//                 borderRadius: BorderRadius.circular(12),
-//                 border: Border.all(color: borderColor),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Icon(Icons.info_outline, size: 20, color: lightText),
-//                   const SizedBox(width: 12),
-//                   Expanded(
-//                     child: Text(
-//                       'No virtual tour link available',
-//                       style: TextStyle(fontSize: 12, color: lightText),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Future<void> _launchURL(String url) async {
-//     final Uri uri = Uri.parse(url);
-//     if (await canLaunchUrl(uri)) {
-//       await launchUrl(uri, mode: LaunchMode.externalApplication);
-//     } else {
-//       _showErrorDialog('Error', 'Could not launch URL');
-//     }
-//   }
-//
-//   void _showLogoutConfirmationDialog(BuildContext context) {
-//     showDialog(
-//       context: context,
-//       barrierDismissible: false,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: const Text(
-//             'Logout Confirmation',
-//             style: TextStyle(fontWeight: FontWeight.bold),
-//           ),
-//           content: const Text(
-//             'Are you sure you want to logout?',
-//             style: TextStyle(fontSize: 16),
-//           ),
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(20),
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: Text(
-//                 'Cancel',
-//                 style: TextStyle(color: Colors.grey[600]),
-//               ),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.pop(context);
-//                 _showLogoutPurposeDialog(context);
-//               },
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: primaryColor,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(10),
-//                 ),
-//               ),
-//               child: const Text('Yes, Logout',style:TextStyle(color:Colors.white)),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-//
-//
-//   void _showLogoutPurposeDialog(BuildContext context) {
-//     final List<String> purposes = [
-//       'Technical Issue',
-//       'User Interface Issue',
-//       'Found Better Alternative',
-//       'Not Satisfied with Service',
-//       'Security Concerns',
-//       'Account Management',
-//       'Other',
-//     ];
-//
-//     String? selectedPurpose;
-//     String? customPurpose;
-//     TextEditingController customController = TextEditingController();
-//
-//     showDialog(
-//       context: context,
-//       barrierDismissible: false,
-//       builder: (BuildContext context) {
-//         return StatefulBuilder(
-//           builder: (context, setState) {
-//             return AlertDialog(
-//               title: const Text(
-//                 'Reason for Logout',
-//                 style: TextStyle(fontWeight: FontWeight.bold),
-//               ),
-//               content: SizedBox(
-//                 width: double.maxFinite,
-//                 child: SingleChildScrollView(
-//                   child: Column(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       const Text(
-//                         'Please help us improve by sharing your reason for leaving:',
-//                         style: TextStyle(fontSize: 14),
-//                       ),
-//                       const SizedBox(height: 16),
-//                       ...purposes.map((purpose) {
-//                         return RadioListTile<String>(
-//                           title: Text(purpose),
-//                           value: purpose,
-//                           groupValue: selectedPurpose,
-//                           onChanged: (value) {
-//                             setState(() {
-//                               selectedPurpose = value;
-//                               if (value != 'Other') {
-//                                 customPurpose = null;
-//                               }
-//                             });
-//                           },
-//                           activeColor: primaryColor,
-//                           contentPadding: EdgeInsets.zero,
-//                         );
-//                       }).toList(),
-//                       if (selectedPurpose == 'Other')
-//                         Padding(
-//                           padding: const EdgeInsets.only(left: 16, top: 8),
-//                           child: TextField(
-//                             controller: customController,
-//                             decoration: InputDecoration(
-//                               hintText: 'Please specify...',
-//                               border: OutlineInputBorder(
-//                                 borderRadius: BorderRadius.circular(8),
-//                               ),
-//                               contentPadding: const EdgeInsets.symmetric(
-//                                 horizontal: 12,
-//                                 vertical: 10,
-//                               ),
-//                             ),
-//                             onChanged: (value) {
-//                               customPurpose = value;
-//                             },
-//                           ),
-//                         ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(20),
-//               ),
-//               actions: [
-//                 TextButton(
-//                   onPressed: () => Navigator.pop(context),
-//                   child: Text(
-//                     'Back',
-//                     style: TextStyle(color: Colors.grey[600]),
-//                   ),
-//                 ),
-//                 ElevatedButton(
-//                   onPressed: () {
-//                     final reason = selectedPurpose == 'Other'
-//                         ? customPurpose
-//                         : selectedPurpose;
-//                     if (reason != null && reason.isNotEmpty) {
-//                       Navigator.pop(context);
-//                       _showFeedbackDialog(context, reason);
-//                     } else {
-//                       ScaffoldMessenger.of(context).showSnackBar(
-//                         const SnackBar(
-//                           content: Text('Please select a reason'),
-//                           backgroundColor: Colors.red,
-//                         ),
-//                       );
-//                     }
-//                   },
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: primaryColor,
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(10),
-//                     ),
-//                   ),
-//                   child: const Text('Continue',style:TextStyle(color:Colors.white)),
-//                 ),
-//               ],
-//             );
-//           },
-//         );
-//       },
-//     );
-//   }
-//
-//
-//   void _showFeedbackDialog(BuildContext context, String reason) {
-//     TextEditingController feedbackController = TextEditingController();
-//
-//     showDialog(
-//       context: context,
-//       barrierDismissible: false,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: const Text(
-//             'Your Feedback Matters!',
-//             style: TextStyle(fontWeight: FontWeight.bold),
-//           ),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Container(
-//                 padding: const EdgeInsets.all(12),
-//                 decoration: BoxDecoration(
-//                   color: primarySoft,
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Icon(Icons.info_outline, color: primaryColor, size: 20),
-//                     const SizedBox(width: 8),
-//                     Expanded(
-//                       child: Text(
-//                         'Reason: $reason',
-//                         style: TextStyle(
-//                           fontSize: 13,
-//                           color: darkText,
-//                           fontWeight: FontWeight.w500,
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//               const SizedBox(height: 16),
-//               const Text(
-//                 'Any additional feedback?',
-//                 style: TextStyle(fontSize: 14),
-//               ),
-//               const SizedBox(height: 12),
-//               TextField(
-//                 controller: feedbackController,
-//                 maxLines: 4,
-//                 decoration: InputDecoration(
-//                   hintText: 'Your feedback helps us improve...',
-//                   border: OutlineInputBorder(
-//                     borderRadius: BorderRadius.circular(12),
-//                   ),
-//                   contentPadding: const EdgeInsets.all(12),
-//                 ),
-//               ),
-//             ],
-//           ),
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(20),
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.pop(context);
-//                 _showFinalLogoutConfirmation(context, reason, feedbackController.text);
-//               },
-//               child: Text(
-//                 'Skip',
-//                 style: TextStyle(color: Colors.grey[600]),
-//               ),
-//             ),
-//             ElevatedButton(
-//               onPressed: () {
-//                 Navigator.pop(context);
-//                 _showFinalLogoutConfirmation(context, reason, feedbackController.text);
-//               },
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: primaryColor,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(10),
-//                 ),
-//               ),
-//               child: const Text('Submit & Logout', style:TextStyle(color:Colors.white)),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-//
-//
-//   // void _showFinalLogoutConfirmation(BuildContext context, String reason, String feedback) {
-//   //   showDialog(
-//   //     context: context,
-//   //     barrierDismissible: false,
-//   //     builder: (BuildContext context) {
-//   //       return AlertDialog(
-//   //         title: const Text(
-//   //           'Final Confirmation',
-//   //           style: TextStyle(fontWeight: FontWeight.bold),
-//   //         ),
-//   //         content: Column(
-//   //           mainAxisSize: MainAxisSize.min,
-//   //           children: [
-//   //             const Icon(
-//   //               Icons.warning_amber_rounded,
-//   //               size: 48,
-//   //               color: Colors.orange,
-//   //             ),
-//   //             const SizedBox(height: 16),
-//   //             const Text(
-//   //               'Are you absolutely sure you want to logout?',
-//   //               textAlign: TextAlign.center,
-//   //               style: TextStyle(fontSize: 16),
-//   //             ),
-//   //             const SizedBox(height: 12),
-//   //             Container(
-//   //               padding: const EdgeInsets.all(12),
-//   //               decoration: BoxDecoration(
-//   //                 color: Colors.grey[100],
-//   //                 borderRadius: BorderRadius.circular(12),
-//   //               ),
-//   //               child: Column(
-//   //                 children: [
-//   //                   Text(
-//   //                     'You will be logged out of your account.',
-//   //                     style: TextStyle(fontSize: 12, color: lightText),
-//   //                   ),
-//   //                   const SizedBox(height: 4),
-//   //                   Text(
-//   //                     'Your registration data is saved.',
-//   //                     style: TextStyle(fontSize: 12, color: Colors.green),
-//   //                   ),
-//   //                 ],
-//   //               ),
-//   //             ),
-//   //           ],
-//   //         ),
-//   //         shape: RoundedRectangleBorder(
-//   //           borderRadius: BorderRadius.circular(20),
-//   //         ),
-//   //         actions: [
-//   //           TextButton(
-//   //             onPressed: () => Navigator.pop(context),
-//   //             child: Text(
-//   //               'Cancel',
-//   //               style: TextStyle(color: Colors.grey[600]),
-//   //             ),
-//   //           ),
-//   //           ElevatedButton(
-//   //             onPressed: () async {
-//   //
-//   //               await _saveLogoutFeedback(reason, feedback);
-//   //
-//   //               // Navigate back to login/home screen
-//   //               Navigator.of(context).pushAndRemoveUntil(
-//   //                 MaterialPageRoute(
-//   //                   builder: (context) => LoginScreen1(),
-//   //                 ),
-//   //                     (route) => false,
-//   //               );
-//   //             },
-//   //             style: ElevatedButton.styleFrom(
-//   //               backgroundColor: Colors.red,
-//   //               shape: RoundedRectangleBorder(
-//   //                 borderRadius: BorderRadius.circular(10),
-//   //               ),
-//   //             ),
-//   //             child: const Text('Logout Permanently', style: TextStyle(color:Colors.white)),
-//   //           ),
-//   //         ],
-//   //       );
-//   //     },
-//   //   );
-//   // }
-//
-//   void _showFinalLogoutConfirmation(BuildContext context, String reason, String feedback) {
-//     showDialog(
-//       context: context,
-//       barrierDismissible: false,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: const Text(
-//             'Final Confirmation',
-//             style: TextStyle(fontWeight: FontWeight.bold),
-//           ),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               const Icon(
-//                 Icons.warning_amber_rounded,
-//                 size: 48,
-//                 color: Colors.orange,
-//               ),
-//               const SizedBox(height: 16),
-//               const Text(
-//                 'Are you absolutely sure you want to logout and remove this villa?',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(fontSize: 16),
-//               ),
-//               const SizedBox(height: 12),
-//               Container(
-//                 padding: const EdgeInsets.all(12),
-//                 decoration: BoxDecoration(
-//                   color: Colors.grey[100],
-//                   borderRadius: BorderRadius.circular(12),
-//                 ),
-//                 child: Column(
-//                   children: [
-//                     Text(
-//                       'Villa: ${_getVillaName()}',
-//                       style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-//                     ),
-//                     const SizedBox(height: 4),
-//                     Text(
-//                       'This villa will be removed from your list.',
-//                       style: TextStyle(fontSize: 12, color: Colors.red),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(20),
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () => Navigator.pop(context),
-//               child: Text(
-//                 'Cancel',
-//                 style: TextStyle(color: Colors.grey[600]),
-//               ),
-//             ),
-//             ElevatedButton(
-//               onPressed: () async {
-//                 await _saveLogoutFeedback(reason, feedback);
-//
-//                 // Remove only this specific villa
-//                 await _removeCurrentVillaFromList();
-//
-//                 // Navigate back to villa list with updated data
-//                 Navigator.of(context).pushAndRemoveUntil(
-//                   MaterialPageRoute(
-//                     builder: (context) => VillaListScreen(
-//                       userData: widget.registrationData,
-//                       removedVillaId: widget.villaId ?? _data['id'],
-//                       userEmail: _getUserEmail(), // Add this line - pass the user email
-//                     ),
-//                   ),
-//                       (route) => false,
-//                 );
-//               },
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: Colors.red,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(10),
-//                 ),
-//               ),
-//               child: const Text('Logout & Remove Villa', style: TextStyle(color: Colors.white)),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-//
-//   Future<void> _removeCurrentVillaFromList() async {
-//     try {
-//       final prefs = await SharedPreferences.getInstance();
-//       final String userEmail = _getUserEmail();
-//       final String villaIdToRemove = widget.villaId ?? _data['id'];
-//
-//       print('=== REMOVING VILLA ===');
-//       print('User Email: $userEmail');
-//       print('Villa ID to remove: $villaIdToRemove');
-//       print('Villa Name: ${_getVillaName()}');
-//
-//       // Get existing user data from SharedPreferences
-//       final String? userDataString = prefs.getString('user_${userEmail}_data');
-//
-//       if (userDataString != null) {
-//         Map<String, dynamic> userData = jsonDecode(userDataString);
-//         print('Original user data keys: ${userData.keys.toList()}');
-//
-//         // Check for villas list
-//         if (userData.containsKey('villlas') && userData['villlas'] is List) {
-//           List<dynamic> villasList = userData['villlas'];
-//           print('Original villas count: ${villasList.length}');
-//
-//           // Remove the specific villa
-//           villasList.removeWhere((villa) {
-//             Map<String, dynamic> villaMap = Map<String, dynamic>.from(villa);
-//             String villaId = villaMap['id']?.toString() ?? '';
-//             print('Checking villa: ${villaMap['villaName']}, ID: $villaId');
-//             return villaId == villaIdToRemove;
-//           });
-//
-//           print('Remaining villas count: ${villasList.length}');
-//
-//           // Update the user data
-//           userData['villlas'] = villasList;
-//
-//           // Save back to SharedPreferences
-//           await prefs.setString('user_${userEmail}_data', jsonEncode(userData));
-//           print('Villa removed successfully!');
-//         } else {
-//           // If it's a single villa
-//           print('Single villa mode - removing entire user data');
-//           await prefs.remove('user_${userEmail}_data');
-//           print('User data removed');
-//         }
-//       } else {
-//         print('No user data found in SharedPreferences');
-//       }
-//     } catch (e) {
-//       print('Error removing villa: $e');
-//     }
-//   }
-//
-//
-//   // Future<void> _removeCurrentVillaFromList() async {
-//   //   try {
-//   //     final prefs = await SharedPreferences.getInstance();
-//   //
-//   //     // Get the current villa ID or name to identify which one to remove
-//   //     final currentVillaId = _getRegistrationId(); // or use villa name
-//   //     final currentVillaName = _getVillaName();
-//   //
-//   //     // Get the list of registered villas
-//   //     List<String> registeredVillas = prefs.getStringList('registered_villas') ?? [];
-//   //
-//   //     print('=== REMOVING VILLA ===');
-//   //     print('Current villa to remove: $currentVillaName (ID: $currentVillaId)');
-//   //     print('Current registered villas count: ${registeredVillas.length}');
-//   //
-//   //     // Filter out the current villa
-//   //     List<String> updatedVillas = registeredVillas.where((villa) {
-//   //       try {
-//   //         Map<String, dynamic> villaData = jsonDecode(villa);
-//   //         // Check if this is the current villa
-//   //         return villaData['villaName'] != currentVillaName &&
-//   //             villaData['registrationId'] != currentVillaId;
-//   //       } catch (e) {
-//   //         return true; // Keep if can't parse
-//   //       }
-//   //     }).toList();
-//   //
-//   //     // Save the updated list
-//   //     await prefs.setStringList('registered_villas', updatedVillas);
-//   //
-//   //     print('Villa removed successfully');
-//   //     print('Remaining villas count: ${updatedVillas.length}');
-//   //
-//   //   } catch (e) {
-//   //     print('Error removing villa: $e');
-//   //   }
-//   // }
-//
-//
-//   // Future<void> _saveLogoutFeedback(String reason, String feedback) async {
-//   //   try {
-//   //     final prefs = await SharedPreferences.getInstance();
-//   //     final List<String> feedbackList = prefs.getStringList('logout_feedback') ?? [];
-//   //
-//   //     final feedbackEntry = {
-//   //       'timestamp': DateTime.now().toIso8601String(),
-//   //       'reason': reason,
-//   //       'feedback': feedback,
-//   //       'userEmail': _getUserEmail(),
-//   //       'villaName': _getVillaName(),
-//   //     };
-//   //
-//   //     feedbackList.add(jsonEncode(feedbackEntry));
-//   //     await prefs.setStringList('logout_feedback', feedbackList);
-//   //
-//   //     print('Logout feedback saved: $feedbackEntry');
-//   //   } catch (e) {
-//   //     print('Error saving feedback: $e');
-//   //   }
-//   // }
-//
-//   Future<void> _saveLogoutFeedback(String reason, String feedback) async {
-//     try {
-//       final prefs = await SharedPreferences.getInstance();
-//       final List<String> feedbackList = prefs.getStringList('logout_feedback') ?? [];
-//
-//       final feedbackEntry = {
-//         'timestamp': DateTime.now().toIso8601String(),
-//         'reason': reason,
-//         'feedback': feedback,
-//         'userEmail': _getUserEmail(),
-//         'villaName': _getVillaName(),
-//         'villaId': widget.villaId ?? _data['id'],
-//         'action': 'remove_villa',
-//       };
-//
-//       feedbackList.add(jsonEncode(feedbackEntry));
-//       await prefs.setStringList('logout_feedback', feedbackList);
-//
-//       print('Logout feedback saved: $feedbackEntry');
-//     } catch (e) {
-//       print('Error saving feedback: $e');
-//     }
-//   }
-//
-//   Widget _getOwnerPhotoWidget() {
-//     // Check in basicInfo nested structure
-//     Map<String, dynamic>? ownerPhoto;
-//
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('ownerPhoto') && basicInfo['ownerPhoto']['uploaded'] == true) {
-//         ownerPhoto = basicInfo['ownerPhoto'];
-//       }
-//     }
-//
-//     if (ownerPhoto == null && _data.containsKey('ownerPhoto') && _data['ownerPhoto']['uploaded'] == true) {
-//       ownerPhoto = _data['ownerPhoto'];
-//     }
-//
-//     if (ownerPhoto != null && ownerPhoto['path'] != null) {
-//       return Image.file(
-//         File(ownerPhoto['path']),
-//         fit: BoxFit.cover,
-//         width: 60,
-//         height: 60,
-//       );
-//     }
-//
-//     return Center(
-//       child: Icon(
-//         Icons.person_rounded,
-//         size: 35,
-//         color: primaryColor,
-//       ),
-//     );
-//   }
-//
-//   Widget _buildInfoChip({required IconData icon, required String value}) {
-//     return Expanded(
-//       child: Container(
-//         padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 7),
-//         decoration: BoxDecoration(
-//           color: primarySoft,
-//           borderRadius: BorderRadius.circular(14),
-//           border: Border.all(color: primaryColor.withOpacity(0.1)),
-//         ),
-//         child: Row(
-//           children: [
-//             Icon(icon, size: 14, color: primaryColor),
-//             const SizedBox(width: 4),
-//             Expanded(
-//               child: Text(
-//                 value,
-//                 style: TextStyle(
-//                   fontSize: 12,
-//                   color: mediumText,
-//                   fontWeight: FontWeight.w500,
-//                 ),
-//                 overflow: TextOverflow.ellipsis,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   Widget _buildEditablePhoneField() {
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-//       decoration: BoxDecoration(
-//         color: primaryMedium,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: primaryColor),
-//       ),
-//       child: Row(
-//         children: [
-//           Expanded(
-//             flex: 3,
-//             child: Text(
-//               'Mobile Number',
-//               style: TextStyle(
-//                 fontSize: 13,
-//                 color: lightText,
-//                 fontWeight: FontWeight.w500,
-//               ),
-//             ),
-//           ),
-//           Expanded(
-//             flex: 4,
-//             child: TextField(
-//               controller: _phoneController,
-//               decoration: InputDecoration(
-//                 hintText: 'Enter phone number',
-//                 hintStyle: TextStyle(fontSize: 13, color: lightText),
-//                 border: InputBorder.none,
-//                 contentPadding: const EdgeInsets.symmetric(vertical: 8),
-//                 isDense: true,
-//               ),
-//               style: TextStyle(
-//                 fontSize: 13,
-//                 fontWeight: FontWeight.w600,
-//                 color: darkText,
-//               ),
-//               textAlign: TextAlign.right,
-//               keyboardType: TextInputType.phone,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildBasicInfo() {
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           _buildGlassCard(
-//             title: 'Villa Information',
-//             icon: Icons.villa,
-//             children: [
-//               _buildInfoRow('Villa Name', _getVillaName()),
-//               _buildInfoRow('Property Type', _getPropertyType()),
-//               if (_hasValue(_data['bedrooms']) || _hasValue(_data['propertyDetails']?['bedrooms']))
-//                 _buildInfoRow('Bedrooms', _data['bedrooms'] ?? _data['propertyDetails']?['bedrooms']),
-//               if (_hasValue(_data['bathrooms']) || _hasValue(_data['propertyDetails']?['bathrooms']))
-//                 _buildInfoRow('Bathrooms', _data['bathrooms'] ?? _data['propertyDetails']?['bathrooms']),
-//               if (_hasValue(_data['guestCapacity']) || _hasValue(_data['propertyDetails']?['guestCapacity']))
-//                 _buildInfoRow('Guest Capacity', '${_data['guestCapacity'] ?? _data['propertyDetails']?['guestCapacity']} guests'),
-//               // Property Size - ADD THIS
-//               if (_getPropertySize().isNotEmpty)
-//                 _buildInfoRow('Property Size', '${_getPropertySize()} sq.ft.'),
-//               // Year of Construction - ADD THIS
-//               if (_getYearConstruction().isNotEmpty)
-//                 _buildInfoRow('Year Built', _getYearConstruction()),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//
-//           // Contact Information Card
-//           Container(
-//             width: double.infinity,
-//             padding: const EdgeInsets.all(20),
-//             decoration: BoxDecoration(
-//               color: cardColor,
-//               borderRadius: BorderRadius.circular(24),
-//               border: Border.all(color: borderColor),
-//               boxShadow: [
-//                 BoxShadow(
-//                   color: shadowColor,
-//                   blurRadius: 20,
-//                   offset: const Offset(0, 8),
-//                 ),
-//                 BoxShadow(
-//                   color: primaryColor.withOpacity(0.02),
-//                   blurRadius: 10,
-//                   offset: const Offset(0, 2),
-//                 ),
-//               ],
-//             ),
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: [
-//                     Row(
-//                       children: [
-//                         Container(
-//                           padding: const EdgeInsets.all(10),
-//                           decoration: BoxDecoration(
-//                             color: primarySoft,
-//                             borderRadius: BorderRadius.circular(14),
-//                           ),
-//                           child: Icon(Icons.contact_phone, size: 18, color: primaryColor),
-//                         ),
-//                         const SizedBox(width: 12),
-//                         Text(
-//                           'Contact Information',
-//                           style: TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.w700,
-//                             color: darkText,
-//                             letterSpacing: -0.3,
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                     if (!_isEditingPhone)
-//                       GestureDetector(
-//                         onTap: () {
-//                           setState(() {
-//                             _isEditingPhone = true;
-//                             _phoneController.text = _getUserPhone();
-//                           });
-//                         },
-//                         child: Container(
-//                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                           decoration: BoxDecoration(
-//                             color: primarySoft,
-//                             borderRadius: BorderRadius.circular(20),
-//                             border: Border.all(color: primaryColor.withOpacity(0.2)),
-//                           ),
-//                           child: Row(
-//                             mainAxisSize: MainAxisSize.min,
-//                             children: [
-//                               Icon(Icons.edit, size: 14, color: primaryColor),
-//                               const SizedBox(width: 4),
-//                               Text(
-//                                 'Edit Phone',
-//                                 style: TextStyle(
-//                                   fontSize: 11,
-//                                   fontWeight: FontWeight.w600,
-//                                   color: primaryColor,
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                   ],
-//                 ),
-//                 const SizedBox(height: 16),
-//
-//                 _buildInfoRow('Owner/Manager', _getUserFullName()),
-//
-//                 if (_isEditingPhone)
-//                   _buildEditablePhoneField()
-//                 else
-//                   _buildInfoRow('Mobile Number', _getUserPhone()),
-//
-//                 // Alternate Mobile - ADD THIS
-//                 if (_getAlternateMobile().isNotEmpty && !_isEditingPhone)
-//                   _buildInfoRow('Alternate Mobile', _getAlternateMobile()),
-//
-//                 if (_isEditingPhone)
-//                   Padding(
-//                     padding: const EdgeInsets.only(bottom: 12),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.end,
-//                       children: [
-//                         TextButton(
-//                           onPressed: () {
-//                             setState(() {
-//                               _isEditingPhone = false;
-//                               _phoneController.text = _getUserPhone();
-//                             });
-//                           },
-//                           style: TextButton.styleFrom(
-//                             foregroundColor: lightText,
-//                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-//                           ),
-//                           child: const Text('Cancel'),
-//                         ),
-//                         const SizedBox(width: 8),
-//                         ElevatedButton(
-//                           onPressed: _savePhoneChanges,
-//                           style: ElevatedButton.styleFrom(
-//                             backgroundColor: primaryColor,
-//                             foregroundColor: Colors.white,
-//                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(20),
-//                             ),
-//                           ),
-//                           child: const Text('Save'),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//
-//                 _buildInfoRow('Email', _getUserEmail()),
-//
-//                 // Website - ADD THIS
-//                 if (_getWebsite().isNotEmpty)
-//                   _buildInfoRow('Website', _getWebsite()),
-//               ],
-//             ),
-//           ),
-//
-//           if (_getOwnerPhotoWidget() is Image)
-//             Padding(
-//               padding: const EdgeInsets.only(top: 16),
-//               child: _buildPhotoTile(),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildPhotoTile() {
-//     Map<String, dynamic>? ownerPhoto;
-//
-//     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
-//       final basicInfo = _data['basicInfo'] as Map;
-//       if (basicInfo.containsKey('ownerPhoto') && basicInfo['ownerPhoto']['uploaded'] == true) {
-//         ownerPhoto = basicInfo['ownerPhoto'];
-//       }
-//     }
-//
-//     if (ownerPhoto == null && _data.containsKey('ownerPhoto') && _data['ownerPhoto']['uploaded'] == true) {
-//       ownerPhoto = _data['ownerPhoto'];
-//     }
-//
-//     if (ownerPhoto == null) return const SizedBox.shrink();
-//
-//     return Container(
-//       padding: const EdgeInsets.all(16),
-//       decoration: BoxDecoration(
-//         color: cardColor,
-//         borderRadius: BorderRadius.circular(20),
-//         border: Border.all(color: borderColor),
-//       ),
-//       child: Row(
-//         children: [
-//           Container(
-//             width: 50,
-//             height: 50,
-//             decoration: BoxDecoration(
-//               gradient: LinearGradient(
-//                 colors: [primaryColor, primaryColor.withOpacity(0.7)],
-//               ),
-//               borderRadius: BorderRadius.circular(14),
-//             ),
-//             child: ClipRRect(
-//               borderRadius: BorderRadius.circular(14),
-//               child: ownerPhoto['path'] != null
-//                   ? Image.file(File(ownerPhoto['path']), fit: BoxFit.cover)
-//                   : const Center(
-//                 child: Icon(Icons.photo_camera, color: Colors.white, size: 24),
-//               ),
-//             ),
-//           ),
-//           const SizedBox(width: 16),
-//           Expanded(
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 const Text(
-//                   'Profile Photo',
-//                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-//                 ),
-//                 const SizedBox(height: 2),
-//                 Text(
-//                   ownerPhoto['name'] ?? 'Uploaded successfully',
-//                   style: TextStyle(fontSize: 12, color: lightText),
-//                   maxLines: 1,
-//                   overflow: TextOverflow.ellipsis,
-//                 ),
-//               ],
-//             ),
-//           ),
-//           Container(
-//             padding: const EdgeInsets.all(8),
-//             decoration: BoxDecoration(
-//               color: primarySoft,
-//               borderRadius: BorderRadius.circular(12),
-//             ),
-//             child: Icon(Icons.check_circle, size: 18, color: primaryColor),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildLocation() {
-//     final officeAddressChildren = <Widget>[];
-//
-//     // Debug prints
-//     print('=== BUILDING LOCATION SECTION ===');
-//     print('Office Address: ${_getOfficeAddress()}');
-//     print('Office Area: ${_getOfficeArea()}');
-//     print('Office City: ${_getOfficeCity()}');
-//     print('Office State: ${_getOfficeState()}');
-//     print('Office Pincode: ${_getOfficePincode()}');
-//     print('Office GoogleMap: ${_getOfficeGoogleMapLink()}');
-//
-//     // Build office address section only if there's data
-//     if (_getOfficeAddress() != 'Not provided' ||
-//         _getOfficeArea().isNotEmpty ||
-//         _getOfficeCity() != 'Not provided' ||
-//         _getOfficeGoogleMapLink().isNotEmpty) {
-//       officeAddressChildren.addAll([
-//         _buildInfoRow('Office Address', _getOfficeAddress()),
-//         if (_getOfficeArea().isNotEmpty)
-//           _buildInfoRow('Area / Locality', _getOfficeArea()),
-//         _buildInfoRow('City', _getOfficeCity()),
-//         _buildInfoRow('State', _getOfficeState()),
-//         _buildInfoRow('Pincode', _getOfficePincode()),
-//         if (_getOfficeGoogleMapLink().isNotEmpty)
-//           _buildOfficeGoogleMapLink(),
-//       ]);
-//     }
-//
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           // Office Address Card - Only show if there's data
-//           if (officeAddressChildren.isNotEmpty)
-//             _buildGlassCard(
-//               title: 'Permanent Office Address',
-//               icon: Icons.business,
-//               children: officeAddressChildren,
-//             ),
-//
-//           if (officeAddressChildren.isNotEmpty)
-//             const SizedBox(height: 16),
-//
-//           // Villa Address Card
-//           _buildGlassCard(
-//             title: 'Villa Location Details',
-//             icon: Icons.location_on,
-//             children: [
-//               _buildInfoRow('Villa Address', _getAddress()),
-//               if (_getArea().isNotEmpty)
-//                 _buildInfoRow('Area / Locality', _getArea()),
-//               _buildInfoRow('City', _getCity()),
-//               _buildInfoRow('State', _getState()),
-//               _buildInfoRow('Pincode', _getPincode()),
-//               if (_getGoogleMapLink().isNotEmpty)
-//                 _buildGoogleMapLink(),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildOfficeGoogleMapLink() {
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: primarySoft,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: primaryColor.withOpacity(0.2)),
-//       ),
-//       child: Row(
-//         children: [
-//           Icon(Icons.map, size: 18, color: primaryColor),
-//           const SizedBox(width: 8),
-//           Expanded(
-//             child: Text(
-//               _getOfficeGoogleMapLink(),
-//               style: TextStyle(fontSize: 12, color: darkText),
-//               maxLines: 2,
-//               overflow: TextOverflow.ellipsis,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   String _getAddress() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('address') && location['address'].toString().isNotEmpty) {
-//         return location['address'].toString();
-//       }
-//     }
-//     return _data['address']?.toString() ?? 'Not provided';
-//   }
-//
-//   String _getArea() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('area') && location['area'].toString().isNotEmpty) {
-//         return location['area'].toString();
-//       }
-//     }
-//     return _data['area']?.toString() ?? '';
-//   }
-//
-//   String _getCity() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('city') && location['city'].toString().isNotEmpty) {
-//         return location['city'].toString();
-//       }
-//     }
-//     return _data['city']?.toString() ?? 'Not provided';
-//   }
-//
-//   String _getState() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('state') && location['state'].toString().isNotEmpty) {
-//         return location['state'].toString();
-//       }
-//     }
-//     return _data['state']?.toString() ?? 'Not provided';
-//   }
-//
-//   String _getPincode() {
-//     if (_data.containsKey('location') && _data['location'] != null) {
-//       final location = _data['location'] as Map;
-//       if (location.containsKey('pincode') && location['pincode'].toString().isNotEmpty) {
-//         return location['pincode'].toString();
-//       }
-//     }
-//     return _data['pincode']?.toString() ?? 'Not provided';
-//   }
-//
-//   Widget _buildGoogleMapLink() {
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: primarySoft,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: primaryColor.withOpacity(0.2)),
-//       ),
-//       child: Row(
-//         children: [
-//           Icon(Icons.map, size: 18, color: primaryColor),
-//           const SizedBox(width: 8),
-//           Expanded(
-//             child: Text(
-//               _getGoogleMapLink(),
-//               style: TextStyle(fontSize: 12, color: darkText),
-//               maxLines: 2,
-//               overflow: TextOverflow.ellipsis,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildPropertyDetails() {
-//     final description = _getDescription();
-//
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           _buildGlassCard(
-//             title: 'Property Description',
-//             icon: Icons.description,
-//             children: [
-//               if (description.isNotEmpty)
-//                 Container(
-//                   padding: const EdgeInsets.all(12),
-//                   decoration: BoxDecoration(
-//                     color: primarySoft,
-//                     borderRadius: BorderRadius.circular(12),
-//                     border: Border.all(color: borderColor),
-//                   ),
-//                   child: Text(
-//                     description,
-//                     style: TextStyle(fontSize: 14, color: darkText, height: 1.5),
-//                   ),
-//                 ),
-//             ],
-//           ),
-//
-//           const SizedBox(height: 16),
-//
-//           _buildGlassCard(
-//             title: 'Property Specifications',
-//             icon: Icons.architecture,
-//             children: [
-//               if (_hasValue(_data['bedrooms']) || _hasValue(_data['propertyDetails']?['bedrooms']))
-//                 _buildInfoRow('Bedrooms', _data['bedrooms'] ?? _data['propertyDetails']?['bedrooms']),
-//               if (_hasValue(_data['bathrooms']) || _hasValue(_data['propertyDetails']?['bathrooms']))
-//                 _buildInfoRow('Bathrooms', _data['bathrooms'] ?? _data['propertyDetails']?['bathrooms']),
-//               if (_hasValue(_data['guestCapacity']) || _hasValue(_data['propertyDetails']?['guestCapacity']))
-//                 _buildInfoRow('Guest Capacity', '${_data['guestCapacity'] ?? _data['propertyDetails']?['guestCapacity']} guests'),
-//               if (_getPropertySize().isNotEmpty)
-//                 _buildInfoRow('Property Size', '${_getPropertySize()} sq.ft.'),
-//               if (_getYearConstruction().isNotEmpty)
-//                 _buildInfoRow('Year Built', _getYearConstruction()),
-//               _buildInfoRow('Property Type', _getPropertyType()),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   String _getDescription() {
-//     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
-//       final details = _data['propertyDetails'] as Map;
-//       if (details.containsKey('description') && details['description'].toString().isNotEmpty) {
-//         return details['description'].toString();
-//       }
-//     }
-//     return _data['description']?.toString() ?? '';
-//   }
-//
-//   Widget _buildAmenities() {
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           // Villa Amenities - With edit mode
-//           if (_villaAmenities.isNotEmpty)
-//             _buildEditableSection(
-//               title: 'Villa Amenities',
-//               icon: Icons.workspaces_filled,
-//               amenities: _villaAmenities,
-//               sectionId: 'amenities',
-//             ),
-//
-//           // Custom Amenities
-//           Padding(
-//             padding: const EdgeInsets.only(top: 16),
-//             child: _buildCustomAmenitiesCard(),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Future<void> _uploadNewDocument(String docType, String docName) async {
-//     try {
-//       FilePickerResult? result = await FilePicker.platform.pickFiles(
-//         type: FileType.custom,
-//         allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
-//         allowMultiple: false,
-//       );
-//
-//       if (result != null && result.files.isNotEmpty) {
-//         final file = result.files.first;
-//
-//         // Validate file size (max 5MB)
-//         if (file.size > 5 * 1024 * 1024) {
-//           _showErrorDialog('File too large', 'Please select a file smaller than 5MB');
-//           return;
-//         }
-//
-//         Map<String, dynamic> fileInfo = {
-//           'name': file.name,
-//           'size': file.size,
-//           'path': file.path ?? '',
-//           'uploaded': true,
-//         };
-//
-//         setState(() {
-//           // Update based on document type
-//           switch (docType) {
-//             case 'ownershipProof':
-//               _data['ownershipProof'] = fileInfo;
-//               if (_data.containsKey('legal') && _data['legal'] is Map) {
-//                 (_data['legal'] as Map)['ownershipProof'] = fileInfo;
-//               }
-//               break;
-//             case 'idProof':
-//               _data['idProof'] = fileInfo;
-//               if (_data.containsKey('legal') && _data['legal'] is Map) {
-//                 (_data['legal'] as Map)['idProof'] = fileInfo;
-//               }
-//               break;
-//             case 'cancellationPolicy':
-//               _data['cancellationPolicy'] = fileInfo;
-//               if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//                 (_data['pricing'] as Map)['cancellationPolicy'] = fileInfo;
-//               }
-//               break;
-//             case 'availabilityCalendar':
-//               _data['availabilityCalendar'] = fileInfo;
-//               if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//                 (_data['pricing'] as Map)['availabilityCalendar'] = fileInfo;
-//               }
-//               break;
-//             case 'cancelledCheque':
-//               _data['cancelledCheque'] = fileInfo;
-//               if (_data.containsKey('bank') && _data['bank'] is Map) {
-//                 (_data['bank'] as Map)['cancelledCheque'] = fileInfo;
-//               }
-//               break;
-//           }
-//           _documentEditModes[docType] = false;
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('$docName uploaded successfully'),
-//             backgroundColor: primaryColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       }
-//     } catch (e) {
-//       _showErrorDialog('Upload Error', 'Failed to upload file: ${e.toString()}');
-//     }
-//   }
-//
-//   void _viewDocument(Map<String, dynamic> fileInfo, String docName) {
-//     if (fileInfo['path'] != null && fileInfo['path'].isNotEmpty) {
-//       final fileName = fileInfo['name'] ?? 'Document';
-//       final filePath = fileInfo['path'];
-//       final ext = fileName.split('.').last.toLowerCase();
-//
-//       // For images, show image preview
-//       if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
-//         showDialog(
-//           context: context,
-//           builder: (context) => Dialog(
-//             child: Container(
-//               width: MediaQuery.of(context).size.width * 0.9,
-//               height: MediaQuery.of(context).size.height * 0.8,
-//               child: Column(
-//                 children: [
-//                   Padding(
-//                     padding: const EdgeInsets.all(16),
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                       children: [
-//                         Text(
-//                           docName,
-//                           style: TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.w600,
-//                             color: darkText,
-//                           ),
-//                         ),
-//                         IconButton(
-//                           onPressed: () => Navigator.pop(context),
-//                           icon: Icon(Icons.close, color: lightText),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                   Expanded(
-//                     child: Image.file(
-//                       File(filePath),
-//                       fit: BoxFit.contain,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         );
-//       } else {
-//         // For other files, show file info dialog
-//         showDialog(
-//           context: context,
-//           builder: (context) => AlertDialog(
-//             title: Text(docName),
-//             content: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 Icon(
-//                   _getFileIcon(fileName),
-//                   size: 48,
-//                   color: primaryColor,
-//                 ),
-//                 const SizedBox(height: 16),
-//                 Text(
-//                   fileName,
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(fontWeight: FontWeight.w500),
-//                 ),
-//                 const SizedBox(height: 8),
-//                 Text(
-//                   'Size: ${(fileInfo['size'] / 1024).toStringAsFixed(1)} KB',
-//                   style: TextStyle(fontSize: 12, color: lightText),
-//                 ),
-//               ],
-//             ),
-//             actions: [
-//               TextButton(
-//                 onPressed: () => Navigator.pop(context),
-//                 child: Text('Close'),
-//               ),
-//             ],
-//           ),
-//         );
-//       }
-//     }
-//   }
-//
-//   void _removeDocument(String docType, String docName) {
-//     _showConfirmationDialog(
-//       'Remove Document',
-//       'Are you sure you want to remove $docName?',
-//           () {
-//         setState(() {
-//           Map<String, dynamic> emptyInfo = {
-//             'name': '',
-//             'size': 0,
-//             'path': '',
-//             'uploaded': false,
-//           };
-//
-//           switch (docType) {
-//             case 'ownershipProof':
-//               _data['ownershipProof'] = emptyInfo;
-//               if (_data.containsKey('legal') && _data['legal'] is Map) {
-//                 (_data['legal'] as Map)['ownershipProof'] = emptyInfo;
-//               }
-//               break;
-//             case 'idProof':
-//               _data['idProof'] = emptyInfo;
-//               if (_data.containsKey('legal') && _data['legal'] is Map) {
-//                 (_data['legal'] as Map)['idProof'] = emptyInfo;
-//               }
-//               break;
-//             case 'cancellationPolicy':
-//               _data['cancellationPolicy'] = emptyInfo;
-//               if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//                 (_data['pricing'] as Map)['cancellationPolicy'] = emptyInfo;
-//               }
-//               break;
-//             case 'availabilityCalendar':
-//               _data['availabilityCalendar'] = emptyInfo;
-//               if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//                 (_data['pricing'] as Map)['availabilityCalendar'] = emptyInfo;
-//               }
-//               break;
-//             case 'cancelledCheque':
-//               _data['cancelledCheque'] = emptyInfo;
-//               if (_data.containsKey('bank') && _data['bank'] is Map) {
-//                 (_data['bank'] as Map)['cancelledCheque'] = emptyInfo;
-//               }
-//               break;
-//           }
-//           _documentEditModes[docType] = false;
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('$docName removed successfully'),
-//             backgroundColor: primaryColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       },
-//     );
-//   }
-//
-//   void _showConfirmationDialog(String title, String message, VoidCallback onConfirm) {
-//     showDialog(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         title: Text(title),
-//         content: Text(message),
-//         actions: [
-//           TextButton(
-//             onPressed: () => Navigator.pop(context),
-//             child: Text('Cancel'),
-//           ),
-//           TextButton(
-//             onPressed: () {
-//               Navigator.pop(context);
-//               onConfirm();
-//             },
-//             child: Text('Confirm', style: TextStyle(color: Colors.red)),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   void _showErrorDialog(String title, String message) {
-//     showDialog(
-//       context: context,
-//       builder: (context) => AlertDialog(
-//         title: Text(title),
-//         content: Text(message),
-//         actions: [
-//           TextButton(
-//             onPressed: () => Navigator.pop(context),
-//             child: Text('OK'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//
-//   Widget _buildEditableSection({
-//     required String title,
-//     required IconData icon,
-//     required Map<String, bool> amenities,
-//     required String sectionId,
-//   }) {
-//     bool isEditMode = _editModes[sectionId] ?? false;
-//
-//     return Container(
-//       width: double.infinity,
-//       padding: const EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: cardColor,
-//         borderRadius: BorderRadius.circular(24),
-//         border: Border.all(color: borderColor),
-//         boxShadow: [
-//           BoxShadow(
-//             color: shadowColor,
-//             blurRadius: 20,
-//             offset: const Offset(0, 8),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Row(
-//                 children: [
-//                   Container(
-//                     padding: const EdgeInsets.all(8),
-//                     decoration: BoxDecoration(
-//                       color: primarySoft,
-//                       borderRadius: BorderRadius.circular(12),
-//                     ),
-//                     child: Icon(icon, size: 16, color: primaryColor),
-//                   ),
-//                   const SizedBox(width: 12),
-//                   Text(
-//                     title,
-//                     style: TextStyle(
-//                       fontSize: 15,
-//                       fontWeight: FontWeight.w700,
-//                       color: darkText,
-//                       letterSpacing: -0.3,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               GestureDetector(
-//                 onTap: () {
-//                   setState(() {
-//                     if (isEditMode) {
-//                       _autoSaveAmenities();
-//                       _editModes[sectionId] = false;
-//                     } else {
-//                       _editModes[sectionId] = true;
-//                     }
-//                   });
-//                 },
-//                 child: Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                   decoration: BoxDecoration(
-//                     color: isEditMode ? primaryColor : primarySoft,
-//                     borderRadius: BorderRadius.circular(20),
-//                     border: Border.all(
-//                       color: isEditMode ? Colors.transparent : primaryColor.withOpacity(0.2),
-//                     ),
-//                   ),
-//                   child: Row(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       Icon(
-//                         isEditMode ? Icons.check : Icons.edit,
-//                         size: 14,
-//                         color: isEditMode ? Colors.white : primaryColor,
-//                       ),
-//                       const SizedBox(width: 4),
-//                       Text(
-//                         isEditMode ? 'Submit' : 'Edit',
-//                         style: TextStyle(
-//                           fontSize: 11,
-//                           fontWeight: FontWeight.w600,
-//                           color: isEditMode ? Colors.white : primaryColor,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//
-//           Wrap(
-//             spacing: 8,
-//             runSpacing: 8,
-//             children: amenities.entries.map((entry) {
-//               bool isSelected = entry.value;
-//               return GestureDetector(
-//                 onTap: isEditMode
-//                     ? () {
-//                   setState(() {
-//                     amenities[entry.key] = !isSelected;
-//                     _autoSaveAmenities();
-//                   });
-//                 }
-//                     : null,
-//                 child: Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-//                   decoration: BoxDecoration(
-//                     gradient: isSelected
-//                         ? LinearGradient(
-//                       colors: [primaryColor, primaryColor.withOpacity(0.8)],
-//                     )
-//                         : null,
-//                     color: isSelected ? null : Colors.white,
-//                     borderRadius: BorderRadius.circular(25),
-//                     border: Border.all(
-//                       color: isSelected ? Colors.transparent : borderColor,
-//                       width: isSelected ? 0 : 1,
-//                     ),
-//                     boxShadow: isSelected
-//                         ? [
-//                       BoxShadow(
-//                         color: primaryColor.withOpacity(0.3),
-//                         blurRadius: 8,
-//                         offset: const Offset(0, 2),
-//                       ),
-//                     ]
-//                         : null,
-//                   ),
-//                   child: Row(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       if (isSelected)
-//                         Icon(Icons.check_circle, size: 14, color: Colors.white)
-//                       else
-//                         Icon(
-//                           isEditMode ? Icons.circle_outlined : Icons.circle,
-//                           size: 14,
-//                           color: isEditMode ? lightText : borderColor,
-//                         ),
-//                       const SizedBox(width: 6),
-//                       Text(
-//                         entry.key,
-//                         style: TextStyle(
-//                           fontSize: 11,
-//                           fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-//                           color: isSelected ? Colors.white : darkText,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               );
-//             }).toList(),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildCustomAmenitiesCard() {
-//     final TextEditingController _customController = TextEditingController();
-//     bool isEditMode = _editModes['custom'] ?? false;
-//
-//     return Container(
-//       width: double.infinity,
-//       padding: const EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: cardColor,
-//         borderRadius: BorderRadius.circular(24),
-//         border: Border.all(color: borderColor),
-//         boxShadow: [
-//           BoxShadow(
-//             color: shadowColor,
-//             blurRadius: 20,
-//             offset: const Offset(0, 8),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Row(
-//                 children: [
-//                   Container(
-//                     padding: const EdgeInsets.all(8),
-//                     decoration: BoxDecoration(
-//                       color: primarySoft,
-//                       borderRadius: BorderRadius.circular(12),
-//                     ),
-//                     child: Icon(Icons.stars, size: 16, color: primaryColor),
-//                   ),
-//                   const SizedBox(width: 12),
-//                   Text(
-//                     'Custom Amenities',
-//                     style: TextStyle(
-//                       fontSize: 15,
-//                       fontWeight: FontWeight.w700,
-//                       color: darkText,
-//                       letterSpacing: -0.3,
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               GestureDetector(
-//                 onTap: () {
-//                   setState(() {
-//                     if (isEditMode) {
-//                       _editModes['custom'] = false;
-//                       _autoSaveAmenities();
-//                     } else {
-//                       _editModes['custom'] = true;
-//                     }
-//                   });
-//                 },
-//                 child: Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                   decoration: BoxDecoration(
-//                     color: isEditMode ? primaryColor : primarySoft,
-//                     borderRadius: BorderRadius.circular(20),
-//                     border: Border.all(
-//                       color: isEditMode ? Colors.transparent : primaryColor.withOpacity(0.2),
-//                     ),
-//                   ),
-//                   child: Row(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       Icon(
-//                         isEditMode ? Icons.check : Icons.edit,
-//                         size: 14,
-//                         color: isEditMode ? Colors.white : primaryColor,
-//                       ),
-//                       const SizedBox(width: 4),
-//                       Text(
-//                         isEditMode ? 'Submit' : 'Edit',
-//                         style: TextStyle(
-//                           fontSize: 11,
-//                           fontWeight: FontWeight.w600,
-//                           color: isEditMode ? Colors.white : primaryColor,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//
-//           if (isEditMode)
-//             Column(
-//               children: [
-//                 Row(
-//                   children: [
-//                     Expanded(
-//                       child: TextField(
-//                         controller: _customController,
-//                         decoration: InputDecoration(
-//                           hintText: 'Enter new amenity...',
-//                           hintStyle: TextStyle(fontSize: 12, color: lightText),
-//                           contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-//                           border: OutlineInputBorder(
-//                             borderRadius: BorderRadius.circular(12),
-//                             borderSide: BorderSide(color: borderColor),
-//                           ),
-//                           filled: true,
-//                           fillColor: Colors.white,
-//                         ),
-//                       ),
-//                     ),
-//                     const SizedBox(width: 12),
-//                     SizedBox(
-//                       height: 45,
-//                       child: ElevatedButton(
-//                         onPressed: () {
-//                           if (_customController.text.trim().isNotEmpty) {
-//                             setState(() {
-//                               _customAmenities.add(_customController.text.trim());
-//                               _autoSaveAmenities();
-//                               _customController.clear();
-//                             });
-//                           }
-//                         },
-//                         style: ElevatedButton.styleFrom(
-//                           backgroundColor: primaryColor,
-//                           shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.circular(12),
-//                           ),
-//                         ),
-//                         child: const Icon(Icons.add, color: Colors.white),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//                 const SizedBox(height: 16),
-//               ],
-//             ),
-//
-//           if (_customAmenities.isNotEmpty)
-//             Wrap(
-//               spacing: 8,
-//               runSpacing: 8,
-//               children: _customAmenities.asMap().entries.map((entry) {
-//                 int index = entry.key;
-//                 String amenity = entry.value;
-//                 return Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-//                   decoration: BoxDecoration(
-//                     color: isEditMode ? primarySoft : cardColor,
-//                     borderRadius: BorderRadius.circular(20),
-//                     border: Border.all(
-//                       color: isEditMode ? primaryColor.withOpacity(0.3) : borderColor,
-//                     ),
-//                   ),
-//                   child: Row(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       Text(
-//                         amenity,
-//                         style: TextStyle(
-//                           fontSize: 11,
-//                           fontWeight: FontWeight.w600,
-//                           color: isEditMode ? primaryColor : darkText,
-//                         ),
-//                       ),
-//                       if (isEditMode) ...[
-//                         const SizedBox(width: 4),
-//                         GestureDetector(
-//                           onTap: () {
-//                             setState(() {
-//                               _customAmenities.removeAt(index);
-//                               _autoSaveAmenities();
-//                             });
-//                           },
-//                           child: Icon(Icons.close, size: 14, color: Colors.red),
-//                         ),
-//                       ],
-//                     ],
-//                   ),
-//                 );
-//               }).toList(),
-//             ),
-//
-//           if (_customAmenities.isEmpty && !isEditMode)
-//             Padding(
-//               padding: const EdgeInsets.symmetric(vertical: 8),
-//               child: Text(
-//                 'No custom amenities added',
-//                 style: TextStyle(fontSize: 12, color: lightText, fontStyle: FontStyle.italic),
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildPricingPolicies() {
-//     // Get pricing data from nested structure
-//     Map<String, dynamic> pricingData = {};
-//     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//       pricingData = Map<String, dynamic>.from(_data['pricing']);
-//     }
-//
-//     // Get values from either top-level or nested
-//     final basePrice = _data['basePrice'] ?? pricingData['basePrice'];
-//     final weekendPrice = _data['weekendPrice'] ?? pricingData['weekendPrice'];
-//     final peakPrice = _data['peakPrice'] ?? pricingData['peakPrice'];
-//     final securityDeposit = _data['securityDeposit'] ?? pricingData['securityDeposit'];
-//     final minimumStay = _data['minimumStay'] ?? pricingData['minimumStay'];
-//
-//     // Get cancellation policy and availability calendar
-//     final cancellationPolicy = _data['cancellationPolicy'] ?? pricingData['cancellationPolicy'] ?? {'uploaded': false};
-//     final availabilityCalendar = _data['availabilityCalendar'] ?? pricingData['availabilityCalendar'] ?? {'uploaded': false};
-//
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           _buildGlassCard(
-//             title: 'Pricing Information',
-//             icon: Icons.attach_money,
-//             children: [
-//               // Base Price - Editable
-//               _buildEditablePriceField(
-//                 label: 'Base Price',
-//                 value: basePrice,
-//                 key: 'basePrice',
-//               ),
-//               // Weekend Price - Editable
-//               _buildEditablePriceField(
-//                 label: 'Weekend Price',
-//                 value: weekendPrice,
-//                 key: 'weekendPrice',
-//               ),
-//               // Peak Season Price - Editable
-//               if (_hasValue(peakPrice))
-//                 _buildEditablePriceField(
-//                   label: 'Peak Season Price',
-//                   value: peakPrice,
-//                   key: 'peakPrice',
-//                 ),
-//               // Security Deposit - Editable
-//               if (_hasValue(securityDeposit))
-//                 _buildEditablePriceField(
-//                   label: 'Security Deposit',
-//                   value: securityDeposit,
-//                   key: 'securityDeposit',
-//                 ),
-//               // Minimum Stay - Editable
-//               if (_hasValue(minimumStay))
-//                 _buildEditableIntegerField(
-//                   label: 'Minimum Stay',
-//                   value: minimumStay,
-//                   key: 'minimumStay',
-//                   suffix: ' nights',
-//                 ),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//
-//           _buildGlassCard(
-//             title: 'Check-in/Check-out Timings',
-//             icon: Icons.access_time,
-//             children: [
-//               _buildEditableTimeField(
-//                 label: 'Check-in Time',
-//                 controller: _checkInController,
-//                 onChanged: (value) {
-//                   setState(() {
-//                     _checkInTime = value;
-//                     _autoSaveTimes();
-//                   });
-//                 },
-//               ),
-//               const SizedBox(height: 16),
-//               _buildEditableTimeField(
-//                 label: 'Check-out Time',
-//                 controller: _checkOutController,
-//                 onChanged: (value) {
-//                   setState(() {
-//                     _checkOutTime = value;
-//                     _autoSaveTimes();
-//                   });
-//                 },
-//               ),
-//             ],
-//           ),
-//
-//           const SizedBox(height: 16),
-//
-//           // Policy Documents
-//           _buildGlassCard(
-//             title: 'Policy Documents',
-//             icon: Icons.description,
-//             children: [
-//               _buildEditableDocumentItem(
-//                 docName: 'Cancellation Policy',
-//                 docType: 'cancellationPolicy',
-//                 fileInfo: cancellationPolicy,
-//               ),
-//               _buildEditableDocumentItem(
-//                 docName: 'Availability Calendar',
-//                 docType: 'availabilityCalendar',
-//                 fileInfo: availabilityCalendar,
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//
-//
-//   Widget _buildEditablePriceField({
-//     required String label,
-//     required dynamic value,
-//     required String key,
-//   }) {
-//     bool isEditing = _priceEditModes[key] ?? false;
-//     final TextEditingController controller = TextEditingController(text: value?.toString() ?? '');
-//
-//     if (!isEditing) {
-//       // Display mode - show value with edit button
-//       return Container(
-//         margin: const EdgeInsets.only(bottom: 12),
-//         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-//         decoration: BoxDecoration(
-//           color: primarySoft,
-//           borderRadius: BorderRadius.circular(12),
-//           border: Border.all(color: primaryColor.withOpacity(0.15)),
-//         ),
-//         child: Row(
-//           children: [
-//             Expanded(
-//               flex: 3,
-//               child: Text(
-//                 label,
-//                 style: TextStyle(fontSize: 13, color: mediumText, fontWeight: FontWeight.w500),
-//               ),
-//             ),
-//             Expanded(
-//               flex: 4,
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.end,
-//                 children: [
-//                   Text(
-//                     _hasValue(value) ? '₹${_formatPrice(value)}' : 'Not set',
-//                     style: TextStyle(
-//                       fontSize: 14,
-//                       fontWeight: FontWeight.w700,
-//                       color: primaryColor,
-//                     ),
-//                   ),
-//                   GestureDetector(
-//                     onTap: () {
-//                       setState(() {
-//                         // Set all other price fields to false, then set this one to true
-//                         _priceEditModes.updateAll((k, v) => false);
-//                         _priceEditModes[key] = true;
-//                       });
-//                     },
-//                     child: Container(
-//                       margin: const EdgeInsets.only(left: 8),
-//                       padding: const EdgeInsets.all(4),
-//                       decoration: BoxDecoration(
-//                         color: primaryColor.withOpacity(0.1),
-//                         shape: BoxShape.circle,
-//                       ),
-//                       child: Icon(Icons.edit, size: 12, color: primaryColor),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-//
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: primarySoft,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: primaryColor, width: 1.5),
-//       ),
-//       child: Column(
-//         children: [
-//           Row(
-//             children: [
-//               Expanded(
-//                 flex: 3,
-//                 child: Text(
-//                   label,
-//                   style: TextStyle(fontSize: 12, color: mediumText, fontWeight: FontWeight.w500),
-//                 ),
-//               ),
-//               Expanded(
-//                 flex: 4,
-//                 child: TextField(
-//                   controller: controller,
-//                   decoration: InputDecoration(
-//                     prefixText: '₹ ',
-//                     hintText: 'Enter amount',
-//                     border: InputBorder.none,
-//                     contentPadding: const EdgeInsets.symmetric(vertical: 4),
-//                     isDense: true,
-//                   ),
-//                   keyboardType: TextInputType.number,
-//                   textAlign: TextAlign.right,
-//                   autofocus: true,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 8),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.end,
-//             children: [
-//               TextButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     _priceEditModes[key] = false;
-//                   });
-//                 },
-//                 style: TextButton.styleFrom(
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-//                   minimumSize: Size.zero,
-//                 ),
-//                 child: const Text('Cancel', style: TextStyle(fontSize: 11)),
-//               ),
-//               const SizedBox(width: 8),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   double? newValue = double.tryParse(controller.text);
-//                   if (newValue != null && newValue > 0) {
-//                     setState(() {
-//                       // Update in top-level
-//                       _data[key] = newValue;
-//
-//                       // Update in pricing nested structure
-//                       if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//                         final pricing = _data['pricing'] as Map;
-//                         pricing[key] = newValue;
-//                         _data['pricing'] = pricing;
-//                       }
-//
-//                       _priceEditModes[key] = false;
-//                     });
-//
-//                     ScaffoldMessenger.of(context).showSnackBar(
-//                       SnackBar(
-//                         content: Text('$label updated to ₹${_formatPrice(newValue)}'),
-//                         backgroundColor: primaryColor,
-//                         duration: Duration(seconds: 2),
-//                       ),
-//                     );
-//                   } else {
-//                     ScaffoldMessenger.of(context).showSnackBar(
-//                       SnackBar(
-//                         content: Text('Please enter a valid amount'),
-//                         backgroundColor: Colors.red,
-//                         duration: Duration(seconds: 2),
-//                       ),
-//                     );
-//                   }
-//                 },
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: primaryColor,
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-//                   minimumSize: Size.zero,
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(16),
-//                   ),
-//                 ),
-//                 child: const Text('Save', style: TextStyle(fontSize: 11,color:Colors.white)),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildEditableIntegerField({
-//     required String label,
-//     required dynamic value,
-//     required String key,
-//     String suffix = '',
-//   }) {
-//     bool isEditing = _priceEditModes[key] ?? false;
-//     final TextEditingController controller = TextEditingController(text: value?.toString() ?? '');
-//
-//     if (!isEditing) {
-//       // Display mode
-//       return Container(
-//         margin: const EdgeInsets.only(bottom: 12),
-//         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-//         decoration: BoxDecoration(
-//           color: primarySoft,
-//           borderRadius: BorderRadius.circular(12),
-//           border: Border.all(color: primaryColor.withOpacity(0.15)),
-//         ),
-//         child: Row(
-//           children: [
-//             Expanded(
-//               flex: 3,
-//               child: Text(
-//                 label,
-//                 style: TextStyle(fontSize: 13, color: mediumText, fontWeight: FontWeight.w500),
-//               ),
-//             ),
-//             Expanded(
-//               flex: 4,
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.end,
-//                 children: [
-//                   Text(
-//                     _hasValue(value) ? '${_formatInteger(value)}$suffix' : 'Not set',
-//                     style: TextStyle(
-//                       fontSize: 14,
-//                       fontWeight: FontWeight.w700,
-//                       color: primaryColor,
-//                     ),
-//                   ),
-//                   GestureDetector(
-//                     onTap: () {
-//                       setState(() {
-//                         _priceEditModes.updateAll((k, v) => false);
-//                         _priceEditModes[key] = true;
-//                       });
-//                     },
-//                     child: Container(
-//                       margin: const EdgeInsets.only(left: 8),
-//                       padding: const EdgeInsets.all(4),
-//                       decoration: BoxDecoration(
-//                         color: primaryColor.withOpacity(0.1),
-//                         shape: BoxShape.circle,
-//                       ),
-//                       child: Icon(Icons.edit, size: 12, color: primaryColor),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-//     }
-//
-//
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: primarySoft,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: primaryColor, width: 1.5),
-//       ),
-//       child: Column(
-//         children: [
-//           Row(
-//             children: [
-//               Expanded(
-//                 flex: 3,
-//                 child: Text(
-//                   label,
-//                   style: TextStyle(fontSize: 12, color: mediumText, fontWeight: FontWeight.w500),
-//                 ),
-//               ),
-//               Expanded(
-//                 flex: 4,
-//                 child: TextField(
-//                   controller: controller,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter number',
-//                     suffixText: suffix,
-//                     border: InputBorder.none,
-//                     contentPadding: const EdgeInsets.symmetric(vertical: 4),
-//                     isDense: true,
-//                   ),
-//                   keyboardType: TextInputType.number,
-//                   textAlign: TextAlign.right,
-//                   autofocus: true,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 8),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.end,
-//             children: [
-//               TextButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     _priceEditModes[key] = false;
-//                   });
-//                 },
-//                 style: TextButton.styleFrom(
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-//                   minimumSize: Size.zero,
-//                 ),
-//                 child: const Text('Cancel', style: TextStyle(fontSize: 11)),
-//               ),
-//               const SizedBox(width: 8),
-//               ElevatedButton(
-//                 onPressed: () {
-//                   int? newValue = int.tryParse(controller.text);
-//                   if (newValue != null && newValue > 0) {
-//                     setState(() {
-//                       _data[key] = newValue;
-//
-//                       // Update in pricing nested structure
-//                       if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//                         final pricing = _data['pricing'] as Map;
-//                         pricing[key] = newValue;
-//                         _data['pricing'] = pricing;
-//                       }
-//
-//                       _priceEditModes[key] = false;
-//                     });
-//
-//                     ScaffoldMessenger.of(context).showSnackBar(
-//                       SnackBar(
-//                         content: Text('$label updated to $newValue$suffix'),
-//                         backgroundColor: primaryColor,
-//                         duration: Duration(seconds: 2),
-//                       ),
-//                     );
-//                   } else {
-//                     ScaffoldMessenger.of(context).showSnackBar(
-//                       SnackBar(
-//                         content: Text('Please enter a valid number'),
-//                         backgroundColor: Colors.red,
-//                         duration: Duration(seconds: 2),
-//                       ),
-//                     );
-//                   }
-//                 },
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: primaryColor,
-//                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-//                   minimumSize: Size.zero,
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(16),
-//                   ),
-//                 ),
-//                 child: const Text('Save', style: TextStyle(fontSize: 11, color:Colors.white)),
-//               ),
-//             ],
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//
-//
-//
-//   // Widget _buildEditablePriceFieldSimple({
-//   //   required String label,
-//   //   required dynamic value,
-//   //   required String key,
-//   // }) {
-//   //   bool isEditing = _priceEditModes[key] ?? false;
-//   //   final TextEditingController controller = TextEditingController(text: value?.toString() ?? '');
-//   //
-//   //   if (!isEditing) {
-//   //     return _buildPriceRow(label, value);
-//   //   }
-//   //
-//   //   return Container(
-//   //     margin: const EdgeInsets.only(bottom: 12),
-//   //     padding: const EdgeInsets.all(12),
-//   //     decoration: BoxDecoration(
-//   //       color: primarySoft,
-//   //       borderRadius: BorderRadius.circular(12),
-//   //       border: Border.all(color: primaryColor),
-//   //     ),
-//   //     child: Column(
-//   //       children: [
-//   //         Row(
-//   //           children: [
-//   //             Expanded(
-//   //               flex: 3,
-//   //               child: Text(
-//   //                 label,
-//   //                 style: TextStyle(fontSize: 12, color: mediumText, fontWeight: FontWeight.w500),
-//   //               ),
-//   //             ),
-//   //             Expanded(
-//   //               flex: 4,
-//   //               child: TextField(
-//   //                 controller: controller,
-//   //                 decoration: InputDecoration(
-//   //                   prefixText: '₹ ',
-//   //                   hintText: 'Enter amount',
-//   //                   border: InputBorder.none,
-//   //                   contentPadding: const EdgeInsets.symmetric(vertical: 4),
-//   //                 ),
-//   //                 keyboardType: TextInputType.number,
-//   //                 textAlign: TextAlign.right,
-//   //               ),
-//   //             ),
-//   //           ],
-//   //         ),
-//   //         const SizedBox(height: 8),
-//   //         Row(
-//   //           mainAxisAlignment: MainAxisAlignment.end,
-//   //           children: [
-//   //             TextButton(
-//   //               onPressed: () {
-//   //                 setState(() {
-//   //                   _priceEditModes[key] = false;
-//   //                 });
-//   //               },
-//   //               child: const Text('Cancel', style: TextStyle(fontSize: 11)),
-//   //             ),
-//   //             const SizedBox(width: 8),
-//   //             ElevatedButton(
-//   //               onPressed: () {
-//   //                 double? newValue = double.tryParse(controller.text);
-//   //                 if (newValue != null) {
-//   //                   setState(() {
-//   //                     _data[key] = newValue;
-//   //                     // Also update in pricing nested structure
-//   //                     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//   //                       final pricing = _data['pricing'] as Map;
-//   //                       pricing[key] = newValue;
-//   //                       _data['pricing'] = pricing;
-//   //                     }
-//   //                     _priceEditModes[key] = false;
-//   //                   });
-//   //                   ScaffoldMessenger.of(context).showSnackBar(
-//   //                     SnackBar(
-//   //                       content: Text('$label updated successfully'),
-//   //                       backgroundColor: primaryColor,
-//   //                       duration: Duration(seconds: 2),
-//   //                     ),
-//   //                   );
-//   //                 }
-//   //               },
-//   //               style: ElevatedButton.styleFrom(
-//   //                 backgroundColor: primaryColor,
-//   //                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-//   //                 minimumSize: Size.zero,
-//   //               ),
-//   //               child: const Text('Save', style: TextStyle(fontSize: 11)),
-//   //             ),
-//   //           ],
-//   //         ),
-//   //       ],
-//   //     ),
-//   //   );
-//   // }
-//
-//
-//
-//
-//   // Widget _buildLegalBank() {
-//   //   print('=== LEGAL BANK DATA DEBUG ===');
-//   //   print('_data keys: ${_data.keys.toList()}');
-//   //
-//   //   // Get legal data from the correct location
-//   //   Map<String, dynamic> legalData = {};
-//   //   Map<String, dynamic> bankData = {};
-//   //   Map<String, dynamic> pricingData = {};
-//   //
-//   //   if (_data.containsKey('legal') && _data['legal'] is Map) {
-//   //     legalData = Map<String, dynamic>.from(_data['legal']);
-//   //   }
-//   //
-//   //   if (_data.containsKey('bank') && _data['bank'] is Map) {
-//   //     bankData = Map<String, dynamic>.from(_data['bank']);
-//   //   }
-//   //
-//   //   if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//   //     pricingData = Map<String, dynamic>.from(_data['pricing']);
-//   //   }
-//   //
-//   //   // Get file info from various locations
-//   //   final ownershipProof = _data['ownershipProof'] ?? legalData['ownershipProof'] ?? {'uploaded': false};
-//   //   final idProof = _data['idProof'] ?? legalData['idProof'] ?? {'uploaded': false};
-//   //   final cancellationPolicy = _data['cancellationPolicy'] ?? pricingData['cancellationPolicy'] ?? {'uploaded': false};
-//   //   final availabilityCalendar = _data['availabilityCalendar'] ?? pricingData['availabilityCalendar'] ?? {'uploaded': false};
-//   //   final cancelledCheque = _data['cancelledCheque'] ?? bankData['cancelledCheque'] ?? {'uploaded': false};
-//   //
-//   //   final gstNumber = legalData['gstNumber'] ?? _data['gstNumber'];
-//   //   final tradeLicense = legalData['tradeLicense'] ?? _data['tradeLicense'];
-//   //
-//   //   final accountHolder = bankData['accountHolder'] ?? _data['accountHolder'];
-//   //   final bankName = bankData['bankName'] ?? _data['bankName'];
-//   //   final accountNumber = bankData['accountNumber'] ?? _data['accountNumber'];
-//   //   final ifscCode = bankData['ifscCode'] ?? _data['ifscCode'];
-//   //   final upiId = bankData['upiId'] ?? _data['upiId'];
-//   //
-//   //   return SingleChildScrollView(
-//   //     padding: const EdgeInsets.all(20),
-//   //     child: Column(
-//   //       children: [
-//   //         // Legal & Verification Section
-//   //         _buildGlassCard(
-//   //           title: 'Legal & Verification',
-//   //           icon: Icons.gavel,
-//   //           children: [
-//   //             if (_hasValue(gstNumber))
-//   //               _buildInfoRow('GST Number', gstNumber),
-//   //             if (_hasValue(tradeLicense))
-//   //               _buildInfoRow('Trade License', tradeLicense),
-//   //             _buildEditableDocumentItem(
-//   //               docName: 'Ownership Proof',
-//   //               docType: 'ownershipProof',
-//   //               fileInfo: ownershipProof,
-//   //             ),
-//   //             _buildEditableDocumentItem(
-//   //               docName: 'ID Proof',
-//   //               docType: 'idProof',
-//   //               fileInfo: idProof,
-//   //             ),
-//   //           ],
-//   //         ),
-//   //         const SizedBox(height: 16),
-//   //
-//   //         // Bank Details Section
-//   //         _buildGlassCard(
-//   //           title: 'Bank Details',
-//   //           icon: Icons.account_balance,
-//   //           children: [
-//   //             if (_hasValue(accountHolder))
-//   //               _buildInfoRow('Account Holder', accountHolder),
-//   //             if (_hasValue(bankName))
-//   //               _buildInfoRow('Bank Name', bankName),
-//   //             if (_hasValue(accountNumber))
-//   //               _buildInfoRow('Account Number', accountNumber),
-//   //             if (_hasValue(ifscCode))
-//   //               _buildInfoRow('IFSC Code', ifscCode),
-//   //             if (_hasValue(upiId))
-//   //               _buildInfoRow('UPI ID', upiId),
-//   //             _buildEditableDocumentItem(
-//   //               docName: 'Cancelled Cheque',
-//   //               docType: 'cancelledCheque',
-//   //               fileInfo: cancelledCheque,
-//   //             ),
-//   //           ],
-//   //         ),
-//   //
-//   //         const SizedBox(height: 16),
-//   //
-//   //         // Policy Documents Section
-//   //         _buildGlassCard(
-//   //           title: 'Policy Documents',
-//   //           icon: Icons.description,
-//   //           children: [
-//   //             _buildEditableDocumentItem(
-//   //               docName: 'Cancellation Policy',
-//   //               docType: 'cancellationPolicy',
-//   //               fileInfo: cancellationPolicy,
-//   //             ),
-//   //             _buildEditableDocumentItem(
-//   //               docName: 'Availability Calendar',
-//   //               docType: 'availabilityCalendar',
-//   //               fileInfo: availabilityCalendar,
-//   //             ),
-//   //           ],
-//   //         ),
-//   //
-//   //         const SizedBox(height: 16),
-//   //
-//   //         // Media Section
-//   //         _buildMediaSection(),
-//   //       ],
-//   //     ),
-//   //   );
-//   // }
-//
-//   Widget _buildLegalBank() {
-//     print('=== LEGAL BANK DATA DEBUG ===');
-//     print('_data keys: ${_data.keys.toList()}');
-//
-//     // Get legal data from the correct location
-//     Map<String, dynamic> legalData = {};
-//     Map<String, dynamic> bankData = {};
-//     Map<String, dynamic> pricingData = {};
-//
-//     if (_data.containsKey('legal') && _data['legal'] is Map) {
-//       legalData = Map<String, dynamic>.from(_data['legal']);
-//     }
-//
-//     if (_data.containsKey('bank') && _data['bank'] is Map) {
-//       bankData = Map<String, dynamic>.from(_data['bank']);
-//     }
-//
-//     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-//       pricingData = Map<String, dynamic>.from(_data['pricing']);
-//     }
-//
-//     // Get file info from various locations
-//     final ownershipProof = _data['ownershipProof'] ?? legalData['ownershipProof'] ?? {'uploaded': false};
-//     final idProof = _data['idProof'] ?? legalData['idProof'] ?? {'uploaded': false};
-//     final cancellationPolicy = _data['cancellationPolicy'] ?? pricingData['cancellationPolicy'] ?? {'uploaded': false};
-//     final availabilityCalendar = _data['availabilityCalendar'] ?? pricingData['availabilityCalendar'] ?? {'uploaded': false};
-//     final cancelledCheque = _data['cancelledCheque'] ?? bankData['cancelledCheque'] ?? {'uploaded': false};
-//
-//     final gstNumber = legalData['gstNumber'] ?? _data['gstNumber'];
-//     final tradeLicense = legalData['tradeLicense'] ?? _data['tradeLicense'];
-//
-//     final accountHolder = bankData['accountHolder'] ?? _data['accountHolder'];
-//     final bankName = bankData['bankName'] ?? _data['bankName'];
-//     final accountNumber = bankData['accountNumber'] ?? _data['accountNumber'];
-//     final ifscCode = bankData['ifscCode'] ?? _data['ifscCode'];
-//     final upiId = bankData['upiId'] ?? _data['upiId'];
-//
-//     return SingleChildScrollView(
-//       padding: const EdgeInsets.all(20),
-//       child: Column(
-//         children: [
-//           // Legal & Verification Section
-//           _buildGlassCard(
-//             title: 'Legal & Verification',
-//             icon: Icons.gavel,
-//             children: [
-//               if (_hasValue(gstNumber))
-//                 _buildInfoRow('GST Number', gstNumber),
-//               if (_hasValue(tradeLicense))
-//                 _buildInfoRow('Trade License', tradeLicense),
-//               _buildEditableDocumentItem(
-//                 docName: 'Ownership Proof',
-//                 docType: 'ownershipProof',
-//                 fileInfo: ownershipProof,
-//               ),
-//               _buildEditableDocumentItem(
-//                 docName: 'ID Proof',
-//                 docType: 'idProof',
-//                 fileInfo: idProof,
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//
-//           // Bank Details Section
-//           _buildGlassCard(
-//             title: 'Bank Details',
-//             icon: Icons.account_balance,
-//             children: [
-//               if (_hasValue(accountHolder))
-//                 _buildInfoRow('Account Holder', accountHolder),
-//               if (_hasValue(bankName))
-//                 _buildInfoRow('Bank Name', bankName),
-//               if (_hasValue(accountNumber))
-//                 _buildInfoRow('Account Number', accountNumber),
-//               if (_hasValue(ifscCode))
-//                 _buildInfoRow('IFSC Code', ifscCode),
-//               if (_hasValue(upiId))
-//                 _buildInfoRow('UPI ID', upiId),
-//               _buildEditableDocumentItem(
-//                 docName: 'Cancelled Cheque',
-//                 docType: 'cancelledCheque',
-//                 fileInfo: cancelledCheque,
-//               ),
-//             ],
-//           ),
-//
-//           const SizedBox(height: 16),
-//
-//           // Policy Documents Section
-//           // _buildGlassCard(
-//           //   title: 'Policy Documents',
-//           //   icon: Icons.description,
-//           //   children: [
-//           //     _buildEditableDocumentItem(
-//           //       docName: 'Cancellation Policy',
-//           //       docType: 'cancellationPolicy',
-//           //       fileInfo: cancellationPolicy,
-//           //     ),
-//           //     _buildEditableDocumentItem(
-//           //       docName: 'Availability Calendar',
-//           //       docType: 'availabilityCalendar',
-//           //       fileInfo: availabilityCalendar,
-//           //     ),
-//           //   ],
-//           // ),
-//
-//           // const SizedBox(height: 16),
-//
-//
-//           // _buildMediaSection(),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildMediaSection() {
-//     final List<Widget> mediaWidgets = [];
-//
-//     final mediaCategories = {
-//       'villa_exterior': {'label': 'Villa Exterior Photos', 'maxLimit': 2},
-//       'villa_interior': {'label': 'Interior Photos', 'maxLimit': 2},
-//       'bedroom': {'label': 'Bedroom Photos', 'maxLimit': 1},
-//       'bathroom': {'label': 'Bathroom Photos', 'maxLimit': 1},
-//       'amenities': {'label': 'Amenities Photos', 'maxLimit': 5},
-//       'short_video': {'label': 'Short Video', 'maxLimit': 1},
-//     };
-//
-//     mediaCategories.forEach((key, data) {
-//       final files = _getMediaFiles(key);
-//       final label = data['label'] as String;
-//       final maxLimit = data['maxLimit'] as int;
-//       bool isEditing = _mediaEditModes[key] ?? false;
-//
-//       mediaWidgets.add(
-//         Padding(
-//           padding: const EdgeInsets.only(bottom: 16),
-//           child: _buildEditableMediaSection(
-//             label: label,
-//             mediaKey: key,
-//             files: files,
-//             maxLimit: maxLimit,
-//             isEditing: isEditing,
-//             onEditToggle: () {
-//               setState(() {
-//                 _mediaEditModes[key] = !isEditing;
-//               });
-//             },
-//             onUpload: () => _uploadMediaFile(key, label, maxLimit),
-//             onView: (file) => _viewMediaFile(file, label),
-//             onRemove: (index) => _removeMediaFile(key, index, label),
-//             onReplace: (index) => _replaceMediaFile(key, index, label), // Add this line
-//           ),
-//         ),
-//       );
-//     });
-//
-//     // Virtual Tour Link
-//     final String virtualTourLink = _getVirtualTourLink();
-//     if (virtualTourLink.isNotEmpty) {
-//       mediaWidgets.add(
-//         Padding(
-//           padding: const EdgeInsets.only(bottom: 16),
-//           child: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               Text(
-//                 'Virtual Tour Link',
-//                 style: TextStyle(
-//                   fontSize: 14,
-//                   fontWeight: FontWeight.w600,
-//                   color: darkText,
-//                 ),
-//               ),
-//               const SizedBox(height: 8),
-//               Container(
-//                 padding: const EdgeInsets.all(12),
-//                 decoration: BoxDecoration(
-//                   color: primarySoft,
-//                   borderRadius: BorderRadius.circular(12),
-//                   border: Border.all(color: primaryColor.withOpacity(0.2)),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Icon(Icons.link, size: 18, color: primaryColor),
-//                     const SizedBox(width: 8),
-//                     Expanded(
-//                       child: Text(
-//                         virtualTourLink,
-//                         style: TextStyle(fontSize: 12, color: darkText),
-//                         maxLines: 2,
-//                         overflow: TextOverflow.ellipsis,
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       );
-//     }
-//
-//     if (mediaWidgets.isEmpty) return const SizedBox.shrink();
-//
-//     return _buildGlassCard(
-//       title: 'Media & Virtual Tour',
-//       icon: Icons.photo_library,
-//       children: mediaWidgets,
-//     );
-//   }
-//
-//   // Widget _buildMediaSection() {
-//   //   final List<Widget> mediaWidgets = [];
-//   //
-//   //   final mediaCategories = {
-//   //     'villa_exterior': {'label': 'Villa Exterior Photos', 'maxLimit': 2},
-//   //     'villa_interior': {'label': 'Interior Photos', 'maxLimit': 2},
-//   //     'bedroom': {'label': 'Bedroom Photos', 'maxLimit': 1},
-//   //     'bathroom': {'label': 'Bathroom Photos', 'maxLimit': 1},
-//   //     'amenities': {'label': 'Amenities Photos', 'maxLimit': 5},
-//   //     'short_video': {'label': 'Short Video', 'maxLimit': 1},
-//   //   };
-//   //
-//   //   mediaCategories.forEach((key, data) {
-//   //     final files = _getMediaFiles(key);
-//   //     final label = data['label'] as String;
-//   //     final maxLimit = data['maxLimit'] as int;
-//   //     bool isEditing = _mediaEditModes[key] ?? false;
-//   //
-//   //     mediaWidgets.add(
-//   //       Padding(
-//   //         padding: const EdgeInsets.only(bottom: 16),
-//   //         child: _buildEditableMediaSection(
-//   //           label: label,
-//   //           mediaKey: key,
-//   //           files: files,
-//   //           maxLimit: maxLimit,
-//   //           isEditing: isEditing,
-//   //           onEditToggle: () {
-//   //             setState(() {
-//   //               _mediaEditModes[key] = !isEditing;
-//   //             });
-//   //           },
-//   //           onUpload: () => _uploadMediaFile(key, label, maxLimit),
-//   //           onView: (file) => _viewMediaFile(file, label),
-//   //           onRemove: (index) => _removeMediaFile(key, index, label),
-//   //         ),
-//   //       ),
-//   //     );
-//   //   });
-//   //
-//   //   // Virtual Tour Link
-//   //   final String virtualTourLink = _getVirtualTourLink();
-//   //   if (virtualTourLink.isNotEmpty) {
-//   //     mediaWidgets.add(
-//   //       Padding(
-//   //         padding: const EdgeInsets.only(bottom: 16),
-//   //         child: Column(
-//   //           crossAxisAlignment: CrossAxisAlignment.start,
-//   //           children: [
-//   //             Text(
-//   //               'Virtual Tour Link',
-//   //               style: TextStyle(
-//   //                 fontSize: 14,
-//   //                 fontWeight: FontWeight.w600,
-//   //                 color: darkText,
-//   //               ),
-//   //             ),
-//   //             const SizedBox(height: 8),
-//   //             Container(
-//   //               padding: const EdgeInsets.all(12),
-//   //               decoration: BoxDecoration(
-//   //                 color: primarySoft,
-//   //                 borderRadius: BorderRadius.circular(12),
-//   //                 border: Border.all(color: primaryColor.withOpacity(0.2)),
-//   //               ),
-//   //               child: Row(
-//   //                 children: [
-//   //                   Icon(Icons.link, size: 18, color: primaryColor),
-//   //                   const SizedBox(width: 8),
-//   //                   Expanded(
-//   //                     child: Text(
-//   //                       virtualTourLink,
-//   //                       style: TextStyle(fontSize: 12, color: darkText),
-//   //                       maxLines: 2,
-//   //                       overflow: TextOverflow.ellipsis,
-//   //                     ),
-//   //                   ),
-//   //                 ],
-//   //               ),
-//   //             ),
-//   //           ],
-//   //         ),
-//   //       ),
-//   //     );
-//   //   }
-//   //
-//   //   if (mediaWidgets.isEmpty) return const SizedBox.shrink();
-//   //
-//   //   return _buildGlassCard(
-//   //     title: 'Media & Virtual Tour',
-//   //     icon: Icons.photo_library,
-//   //     children: mediaWidgets,
-//   //   );
-//   // }
-//
-//   // Widget _buildEditableMediaSection({
-//   //   required String label,
-//   //   required String mediaKey,
-//   //   required List<Map<String, dynamic>> files,
-//   //   required int maxLimit,
-//   //   required bool isEditing,
-//   //   required VoidCallback onEditToggle,
-//   //   required VoidCallback onUpload,
-//   //   required Function(Map<String, dynamic>) onView,
-//   //   required Function(int) onRemove,
-//   // }) {
-//   //   return Column(
-//   //     crossAxisAlignment: CrossAxisAlignment.start,
-//   //     children: [
-//   //       // Header with label and edit button
-//   //       Row(
-//   //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//   //         children: [
-//   //           Text(
-//   //             label,
-//   //             style: TextStyle(
-//   //               fontSize: 14,
-//   //               fontWeight: FontWeight.w600,
-//   //               color: darkText,
-//   //             ),
-//   //           ),
-//   //           if (!isEditing && files.isNotEmpty)
-//   //             GestureDetector(
-//   //               onTap: onEditToggle,
-//   //               child: Container(
-//   //                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-//   //                 decoration: BoxDecoration(
-//   //                   color: primarySoft,
-//   //                   borderRadius: BorderRadius.circular(12),
-//   //                 ),
-//   //                 child: Row(
-//   //                   mainAxisSize: MainAxisSize.min,
-//   //                   children: [
-//   //                     Icon(Icons.edit, size: 12, color: primaryColor),
-//   //                     const SizedBox(width: 4),
-//   //                     Text(
-//   //                       'Edit',
-//   //                       style: TextStyle(
-//   //                         fontSize: 10,
-//   //                         color: primaryColor,
-//   //                         fontWeight: FontWeight.w500,
-//   //                       ),
-//   //                     ),
-//   //                   ],
-//   //                 ),
-//   //               ),
-//   //             ),
-//   //         ],
-//   //       ),
-//   //       const SizedBox(height: 8),
-//   //
-//   //       if (isEditing) ...[
-//   //         // Edit mode - show upload button and file list with remove options
-//   //         if (files.length < maxLimit)
-//   //           SizedBox(
-//   //             width: double.infinity,
-//   //             child: ElevatedButton.icon(
-//   //               onPressed: onUpload,
-//   //               icon: Icon(Icons.cloud_upload, size: 18),
-//   //               label: Text('Upload ${files.length + 1}/$maxLimit'),
-//   //               style: ElevatedButton.styleFrom(
-//   //                 backgroundColor: primaryColor,
-//   //                 foregroundColor: Colors.white,
-//   //                 padding: const EdgeInsets.symmetric(vertical: 12),
-//   //                 shape: RoundedRectangleBorder(
-//   //                   borderRadius: BorderRadius.circular(8),
-//   //                 ),
-//   //               ),
-//   //             ),
-//   //           ),
-//   //         const SizedBox(height: 8),
-//   //         ...files.asMap().entries.map((entry) {
-//   //           int index = entry.key;
-//   //           var file = entry.value;
-//   //           return Container(
-//   //             margin: const EdgeInsets.only(bottom: 8),
-//   //             padding: const EdgeInsets.all(12),
-//   //             decoration: BoxDecoration(
-//   //               color: Colors.white,
-//   //               borderRadius: BorderRadius.circular(8),
-//   //               border: Border.all(color: borderColor),
-//   //             ),
-//   //             child: Row(
-//   //               children: [
-//   //                 Container(
-//   //                   width: 40,
-//   //                   height: 40,
-//   //                   decoration: BoxDecoration(
-//   //                     color: primaryColor.withOpacity(0.1),
-//   //                     borderRadius: BorderRadius.circular(8),
-//   //                   ),
-//   //                   child: Icon(
-//   //                     _getFileIcon(file['name'] ?? ''),
-//   //                     size: 20,
-//   //                     color: primaryColor,
-//   //                   ),
-//   //                 ),
-//   //                 const SizedBox(width: 12),
-//   //                 Expanded(
-//   //                   child: Column(
-//   //                     crossAxisAlignment: CrossAxisAlignment.start,
-//   //                     children: [
-//   //                       Text(
-//   //                         file['name'] ?? 'File',
-//   //                         style: TextStyle(
-//   //                           fontSize: 12,
-//   //                           fontWeight: FontWeight.w500,
-//   //                           color: darkText,
-//   //                         ),
-//   //                         maxLines: 1,
-//   //                         overflow: TextOverflow.ellipsis,
-//   //                       ),
-//   //                       Text(
-//   //                         '${(file['size'] / 1024).toStringAsFixed(1)} KB',
-//   //                         style: TextStyle(fontSize: 10, color: lightText),
-//   //                       ),
-//   //                     ],
-//   //                   ),
-//   //                 ),
-//   //                 Row(
-//   //                   children: [
-//   //                     IconButton(
-//   //                       onPressed: () => onView(file),
-//   //                       icon: Icon(Icons.visibility, size: 18, color: primaryColor),
-//   //                       padding: EdgeInsets.zero,
-//   //                     ),
-//   //                     const SizedBox(width: 8),
-//   //                     IconButton(
-//   //                       onPressed: () => onRemove(index),
-//   //                       icon: Icon(Icons.delete, size: 18, color: Colors.red),
-//   //                       padding: EdgeInsets.zero,
-//   //                     ),
-//   //                   ],
-//   //                 ),
-//   //               ],
-//   //             ),
-//   //           );
-//   //         }).toList(),
-//   //         Row(
-//   //           mainAxisAlignment: MainAxisAlignment.end,
-//   //           children: [
-//   //             TextButton(
-//   //               onPressed: onEditToggle,
-//   //               child: Text('Done', style: TextStyle(color: primaryColor)),
-//   //             ),
-//   //           ],
-//   //         ),
-//   //       ] else ...[
-//   //         // View mode - show file list
-//   //         if (files.isNotEmpty)
-//   //           ...files.map((file) => GestureDetector(
-//   //             onTap: () => onView(file),
-//   //             child: Container(
-//   //               margin: const EdgeInsets.only(bottom: 8),
-//   //               padding: const EdgeInsets.all(12),
-//   //               decoration: BoxDecoration(
-//   //                 color: Colors.white,
-//   //                 borderRadius: BorderRadius.circular(8),
-//   //                 border: Border.all(color: borderColor),
-//   //               ),
-//   //               child: Row(
-//   //                 children: [
-//   //                   Container(
-//   //                     width: 40,
-//   //                     height: 40,
-//   //                     decoration: BoxDecoration(
-//   //                       color: primaryColor.withOpacity(0.1),
-//   //                       borderRadius: BorderRadius.circular(8),
-//   //                     ),
-//   //                     child: Icon(
-//   //                       _getFileIcon(file['name'] ?? ''),
-//   //                       size: 20,
-//   //                       color: primaryColor,
-//   //                     ),
-//   //                   ),
-//   //                   const SizedBox(width: 12),
-//   //                   Expanded(
-//   //                     child: Column(
-//   //                       crossAxisAlignment: CrossAxisAlignment.start,
-//   //                       children: [
-//   //                         Text(
-//   //                           file['name'] ?? 'File',
-//   //                           style: TextStyle(
-//   //                             fontSize: 12,
-//   //                             fontWeight: FontWeight.w500,
-//   //                             color: darkText,
-//   //                           ),
-//   //                           maxLines: 1,
-//   //                           overflow: TextOverflow.ellipsis,
-//   //                         ),
-//   //                         Text(
-//   //                           '${(file['size'] / 1024).toStringAsFixed(1)} KB',
-//   //                           style: TextStyle(fontSize: 10, color: lightText),
-//   //                         ),
-//   //                       ],
-//   //                     ),
-//   //                   ),
-//   //                   Icon(
-//   //                     Icons.chevron_right,
-//   //                     size: 20,
-//   //                     color: lightText,
-//   //                   ),
-//   //                 ],
-//   //               ),
-//   //             ),
-//   //           ))
-//   //         else
-//   //           Container(
-//   //             padding: const EdgeInsets.all(12),
-//   //             decoration: BoxDecoration(
-//   //               color: Colors.grey[50],
-//   //               borderRadius: BorderRadius.circular(8),
-//   //               border: Border.all(color: borderColor),
-//   //             ),
-//   //             child: Row(
-//   //               children: [
-//   //                 Icon(Icons.cloud_upload_outlined, size: 20, color: lightText),
-//   //                 const SizedBox(width: 12),
-//   //                 Expanded(
-//   //                   child: Text(
-//   //                     'No files uploaded. Tap Edit to add.',
-//   //                     style: TextStyle(fontSize: 12, color: lightText),
-//   //                   ),
-//   //                 ),
-//   //               ],
-//   //             ),
-//   //           ),
-//   //       ],
-//   //     ],
-//   //   );
-//   // }
-//
-//   Widget _buildEditableMediaSection({
-//     required String label,
-//     required String mediaKey,
-//     required List<Map<String, dynamic>> files,
-//     required int maxLimit,
-//     required bool isEditing,
-//     required VoidCallback onEditToggle,
-//     required VoidCallback onUpload,
-//     required Function(Map<String, dynamic>) onView,
-//     required Function(int) onRemove,
-//     required Function(int) onReplace,
-//   }) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         // Header with label and edit button
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             Text(
-//               label,
-//               style: TextStyle(
-//                 fontSize: 14,
-//                 fontWeight: FontWeight.w600,
-//                 color: darkText,
-//               ),
-//             ),
-//             if (!isEditing && files.isNotEmpty)
-//               GestureDetector(
-//                 onTap: onEditToggle,
-//                 child: Container(
-//                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-//                   decoration: BoxDecoration(
-//                     color: primarySoft,
-//                     borderRadius: BorderRadius.circular(12),
-//                   ),
-//                   child: Row(
-//                     mainAxisSize: MainAxisSize.min,
-//                     children: [
-//                       Icon(Icons.edit, size: 12, color: primaryColor),
-//                       const SizedBox(width: 4),
-//                       Text(
-//                         'Edit',
-//                         style: TextStyle(
-//                           fontSize: 10,
-//                           color: primaryColor,
-//                           fontWeight: FontWeight.w500,
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//           ],
-//         ),
-//         const SizedBox(height: 8),
-//
-//         if (isEditing) ...[
-//           // Edit mode - show upload button and file list with remove/ replace options
-//           if (files.length < maxLimit)
-//             SizedBox(
-//               width: double.infinity,
-//               child: ElevatedButton.icon(
-//                 onPressed: onUpload,
-//                 icon: Icon(Icons.cloud_upload, size: 18),
-//                 label: Text('Upload ${files.length + 1}/$maxLimit'),
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: primaryColor,
-//                   foregroundColor: Colors.white,
-//                   padding: const EdgeInsets.symmetric(vertical: 12),
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(8),
-//                   ),
-//                 ),
-//               ),
-//             ),
-//           const SizedBox(height: 8),
-//           ...files.asMap().entries.map((entry) {
-//             int index = entry.key;
-//             var file = entry.value;
-//             return Container(
-//               margin: const EdgeInsets.only(bottom: 8),
-//               padding: const EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: Colors.white,
-//                 borderRadius: BorderRadius.circular(8),
-//                 border: Border.all(color: borderColor),
-//               ),
-//               child: Column(
-//                 children: [
-//                   // File info row
-//                   Row(
-//                     children: [
-//                       Container(
-//                         width: 40,
-//                         height: 40,
-//                         decoration: BoxDecoration(
-//                           color: primaryColor.withOpacity(0.1),
-//                           borderRadius: BorderRadius.circular(8),
-//                         ),
-//                         child: Icon(
-//                           _getFileIcon(file['name'] ?? ''),
-//                           size: 20,
-//                           color: primaryColor,
-//                         ),
-//                       ),
-//                       const SizedBox(width: 12),
-//                       Expanded(
-//                         child: Column(
-//                           crossAxisAlignment: CrossAxisAlignment.start,
-//                           children: [
-//                             Text(
-//                               file['name'] ?? 'File',
-//                               style: TextStyle(
-//                                 fontSize: 12,
-//                                 fontWeight: FontWeight.w500,
-//                                 color: darkText,
-//                               ),
-//                               maxLines: 1,
-//                               overflow: TextOverflow.ellipsis,
-//                             ),
-//                             Text(
-//                               '${(file['size'] / 1024).toStringAsFixed(1)} KB',
-//                               style: TextStyle(fontSize: 10, color: lightText),
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 8),
-//                   // Action buttons row
-//                   Row(
-//                     children: [
-//                       Expanded(
-//                         child: OutlinedButton.icon(
-//                           onPressed: () => onView(file),
-//                           icon: Icon(Icons.visibility, size: 16),
-//                           label: Text('View'),
-//                           style: OutlinedButton.styleFrom(
-//                             side: BorderSide(color: primaryColor),
-//                             foregroundColor: primaryColor,
-//                             padding: const EdgeInsets.symmetric(vertical: 8),
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(width: 8),
-//                       Expanded(
-//                         child: OutlinedButton.icon(
-//                           onPressed: () => onReplace(index),
-//                           icon: Icon(Icons.refresh, size: 16),
-//                           label: Text('Replace'),
-//                           style: OutlinedButton.styleFrom(
-//                             side: BorderSide(color: Colors.orange),
-//                             foregroundColor: Colors.orange,
-//                             padding: const EdgeInsets.symmetric(vertical: 8),
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(width: 8),
-//                       Expanded(
-//                         child: OutlinedButton.icon(
-//                           onPressed: () => onRemove(index),
-//                           icon: Icon(Icons.delete, size: 16),
-//                           label: Text('Remove'),
-//                           style: OutlinedButton.styleFrom(
-//                             side: BorderSide(color: Colors.red),
-//                             foregroundColor: Colors.red,
-//                             padding: const EdgeInsets.symmetric(vertical: 8),
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             );
-//           }).toList(),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.end,
-//             children: [
-//               TextButton(
-//                 onPressed: onEditToggle,
-//                 child: Text('Done', style: TextStyle(color: primaryColor)),
-//               ),
-//             ],
-//           ),
-//         ] else ...[
-//           // View mode - show file list
-//           if (files.isNotEmpty)
-//             ...files.map((file) => GestureDetector(
-//               onTap: () => onView(file),
-//               child: Container(
-//                 margin: const EdgeInsets.only(bottom: 8),
-//                 padding: const EdgeInsets.all(12),
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(8),
-//                   border: Border.all(color: borderColor),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Container(
-//                       width: 40,
-//                       height: 40,
-//                       decoration: BoxDecoration(
-//                         color: primaryColor.withOpacity(0.1),
-//                         borderRadius: BorderRadius.circular(8),
-//                       ),
-//                       child: Icon(
-//                         _getFileIcon(file['name'] ?? ''),
-//                         size: 20,
-//                         color: primaryColor,
-//                       ),
-//                     ),
-//                     const SizedBox(width: 12),
-//                     Expanded(
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Text(
-//                             file['name'] ?? 'File',
-//                             style: TextStyle(
-//                               fontSize: 12,
-//                               fontWeight: FontWeight.w500,
-//                               color: darkText,
-//                             ),
-//                             maxLines: 1,
-//                             overflow: TextOverflow.ellipsis,
-//                           ),
-//                           Text(
-//                             '${(file['size'] / 1024).toStringAsFixed(1)} KB',
-//                             style: TextStyle(fontSize: 10, color: lightText),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     Icon(
-//                       Icons.chevron_right,
-//                       size: 20,
-//                       color: lightText,
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ))
-//           else
-//             Container(
-//               padding: const EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: Colors.grey[50],
-//                 borderRadius: BorderRadius.circular(8),
-//                 border: Border.all(color: borderColor),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Icon(Icons.cloud_upload_outlined, size: 20, color: lightText),
-//                   const SizedBox(width: 12),
-//                   Expanded(
-//                     child: Text(
-//                       'No files uploaded. Tap Edit to add.',
-//                       style: TextStyle(fontSize: 12, color: lightText),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         ],
-//       ],
-//     );
-//   }
-//
-//   Future<void> _replaceMediaFile(String mediaKey, int index, String mediaName) async {
-//     try {
-//       FilePickerResult? result = await FilePicker.platform.pickFiles(
-//         type: FileType.media,
-//         allowMultiple: false,
-//       );
-//
-//       if (result != null && result.files.isNotEmpty) {
-//         final file = result.files.first;
-//
-//         // Validate file size (max 10MB for videos, 5MB for images)
-//         int maxSize = mediaKey == 'short_video' ? 10 * 1024 * 1024 : 5 * 1024 * 1024;
-//         if (file.size > maxSize) {
-//           _showErrorDialog(
-//             'File too large',
-//             'Please select a file smaller than ${maxSize ~/ (1024 * 1024)}MB',
-//           );
-//           return;
-//         }
-//
-//         // Validate file type for videos
-//         if (mediaKey == 'short_video') {
-//           final ext = file.name.split('.').last.toLowerCase();
-//           if (!['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
-//             _showErrorDialog('Invalid Format', 'Please select a video file (MP4, MOV, AVI, MKV)');
-//             return;
-//           }
-//         }
-//
-//         Map<String, dynamic> fileInfo = {
-//           'name': file.name,
-//           'size': file.size,
-//           'path': file.path ?? '',
-//           'uploaded': true,
-//         };
-//
-//         setState(() {
-//           if (_data.containsKey('media') && _data['media'] is Map) {
-//             final media = _data['media'] as Map;
-//             if (media.containsKey(mediaKey) && media[mediaKey] is List) {
-//               (media[mediaKey] as List)[index] = fileInfo;
-//             }
-//             _data['media'] = media;
-//           }
-//         });
-//
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text('$mediaName replaced successfully'),
-//             backgroundColor: primaryColor,
-//             duration: Duration(seconds: 2),
-//           ),
-//         );
-//       }
-//     } catch (e) {
-//       _showErrorDialog('Replace Error', 'Failed to replace file: ${e.toString()}');
-//     }
-//   }
-//
-//
-//
-//   IconData _getFileIcon(String fileName) {
-//     final ext = fileName.split('.').last.toLowerCase();
-//
-//     if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
-//       return Icons.image;
-//     } else if (['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
-//       return Icons.video_file;
-//     } else if (['pdf'].contains(ext)) {
-//       return Icons.picture_as_pdf;
-//     } else {
-//       return Icons.insert_drive_file;
-//     }
-//   }
-//
-//
-//
-//   Widget _buildGlassCard({
-//     required String title,
-//     required IconData icon,
-//     required List<Widget> children,
-//   }) {
-//     final filteredChildren = children.where((child) {
-//       if (child is SizedBox) return true;
-//       return child is Widget;
-//     }).toList();
-//
-//     if (filteredChildren.isEmpty) return const SizedBox.shrink();
-//
-//     return Container(
-//       width: double.infinity,
-//       padding: const EdgeInsets.all(20),
-//       decoration: BoxDecoration(
-//         color: cardColor,
-//         borderRadius: BorderRadius.circular(24),
-//         border: Border.all(color: borderColor),
-//         boxShadow: [
-//           BoxShadow(
-//             color: shadowColor,
-//             blurRadius: 20,
-//             offset: const Offset(0, 8),
-//           ),
-//           BoxShadow(
-//             color: primaryColor.withOpacity(0.02),
-//             blurRadius: 10,
-//             offset: const Offset(0, 2),
-//           ),
-//         ],
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Row(
-//             children: [
-//               Container(
-//                 padding: const EdgeInsets.all(10),
-//                 decoration: BoxDecoration(
-//                   color: primarySoft,
-//                   borderRadius: BorderRadius.circular(14),
-//                 ),
-//                 child: Icon(icon, size: 18, color: primaryColor),
-//               ),
-//               const SizedBox(width: 12),
-//               Text(
-//                 title,
-//                 style: TextStyle(
-//                   fontSize: 16,
-//                   fontWeight: FontWeight.w700,
-//                   color: darkText,
-//                   letterSpacing: -0.3,
-//                 ),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 16),
-//           ...filteredChildren,
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildInfoRow(String label, dynamic value) {
-//     if (!_hasValue(value)) return const SizedBox.shrink();
-//
-//     String displayValue = value.toString();
-//
-//     if (label.contains('Year') || label.contains('Rooms') || label.contains('Bathrooms') ||
-//         label == 'Bedrooms' || label == 'Guest Capacity') {
-//       displayValue = _formatInteger(value);
-//     } else if (label.contains('Price') || label.contains('Deposit') || label == 'Base Price' ||
-//         label == 'Weekend Price' || label == 'Peak Season Price') {
-//       displayValue = '₹${_formatPrice(value)}';
-//     }
-//
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-//       decoration: BoxDecoration(
-//         color: primaryMedium,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: primaryColor.withOpacity(0.05)),
-//       ),
-//       child: Row(
-//         children: [
-//           Expanded(
-//             flex: 3,
-//             child: Text(
-//               label,
-//               style: TextStyle(fontSize: 13, color: lightText, fontWeight: FontWeight.w500),
-//             ),
-//           ),
-//           Expanded(
-//             flex: 4,
-//             child: Text(
-//               displayValue,
-//               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: darkText),
-//               textAlign: TextAlign.right,
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildPriceRow(String label, dynamic value) {
-//     if (!_hasValue(value)) return const SizedBox.shrink();
-//
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-//       decoration: BoxDecoration(
-//         color: primarySoft,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(color: primaryColor.withOpacity(0.15)),
-//       ),
-//       child: Row(
-//         children: [
-//           Expanded(
-//             flex: 3,
-//             child: Text(
-//               label,
-//               style: TextStyle(fontSize: 13, color: mediumText, fontWeight: FontWeight.w500),
-//             ),
-//           ),
-//           Expanded(
-//             flex: 4,
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.end,
-//               children: [
-//                 Text(
-//                   '₹${_formatPrice(value)}',
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     fontWeight: FontWeight.w700,
-//                     color: primaryColor,
-//                   ),
-//                 ),
-//                 GestureDetector(
-//                   onTap: () {
-//                     setState(() {
-//                       String key = label.toLowerCase().replaceAll(' ', '_');
-//                       _priceEditModes[key] = true;
-//                     });
-//                   },
-//                   child: Container(
-//                     margin: const EdgeInsets.only(left: 8),
-//                     padding: const EdgeInsets.all(4),
-//                     decoration: BoxDecoration(
-//                       color: primaryColor.withOpacity(0.1),
-//                       shape: BoxShape.circle,
-//                     ),
-//                     child: Icon(Icons.edit, size: 12, color: primaryColor),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//
-//
-//   Widget _buildEditableDocumentItem({
-//     required String docName,
-//     required String docType,
-//     required Map<String, dynamic> fileInfo,
-//   }) {
-//     bool isUploaded = fileInfo['uploaded'] == true;
-//
-//     return Container(
-//       margin: const EdgeInsets.only(bottom: 12),
-//       padding: const EdgeInsets.all(12),
-//       decoration: BoxDecoration(
-//         color: isUploaded ? primarySoft : primaryMedium,
-//         borderRadius: BorderRadius.circular(12),
-//         border: Border.all(
-//           color: isUploaded ? primaryColor.withOpacity(0.3) : borderColor,
-//         ),
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           // Header with document name (No edit button)
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: [
-//               Text(
-//                 docName,
-//                 style: TextStyle(
-//                   fontSize: 13,
-//                   fontWeight: FontWeight.w600,
-//                   color: darkText,
-//                 ),
-//               ),
-//               // No edit button for documents
-//               Container(),
-//             ],
-//           ),
-//           const SizedBox(height: 8),
-//
-//           // View mode - show document info (View Only)
-//           if (isUploaded)
-//             GestureDetector(
-//               onTap: () => _viewDocument(fileInfo, docName),
-//               child: Container(
-//                 padding: const EdgeInsets.all(12),
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(8),
-//                   border: Border.all(color: borderColor),
-//                 ),
-//                 child: Row(
-//                   children: [
-//                     Container(
-//                       width: 40,
-//                       height: 40,
-//                       decoration: BoxDecoration(
-//                         color: primaryColor.withOpacity(0.1),
-//                         borderRadius: BorderRadius.circular(8),
-//                       ),
-//                       child: Icon(
-//                         _getFileIcon(fileInfo['name'] ?? ''),
-//                         size: 20,
-//                         color: primaryColor,
-//                       ),
-//                     ),
-//                     const SizedBox(width: 12),
-//                     Expanded(
-//                       child: Column(
-//                         crossAxisAlignment: CrossAxisAlignment.start,
-//                         children: [
-//                           Text(
-//                             fileInfo['name'] ?? 'Document',
-//                             style: TextStyle(
-//                               fontSize: 12,
-//                               fontWeight: FontWeight.w500,
-//                               color: darkText,
-//                             ),
-//                             maxLines: 1,
-//                             overflow: TextOverflow.ellipsis,
-//                           ),
-//                           Text(
-//                             '${(fileInfo['size'] / 1024).toStringAsFixed(1)} KB',
-//                             style: TextStyle(fontSize: 10, color: lightText),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     Icon(
-//                       Icons.chevron_right,
-//                       size: 20,
-//                       color: lightText,
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             )
-//           else
-//             Container(
-//               padding: const EdgeInsets.all(12),
-//               decoration: BoxDecoration(
-//                 color: Colors.grey[50],
-//                 borderRadius: BorderRadius.circular(8),
-//                 border: Border.all(color: borderColor),
-//               ),
-//               child: Row(
-//                 children: [
-//                   Icon(Icons.file_upload_outlined, size: 20, color: lightText),
-//                   const SizedBox(width: 12),
-//                   Expanded(
-//                     child: Text(
-//                       'No file uploaded',
-//                       style: TextStyle(fontSize: 12, color: lightText),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//         ],
-//       ),
-//     );
-//   }
-//
-// }
-
-// class LoginScreen1 extends StatelessWidget  {
-//   final String? removedVillaId;
-//   final String? userEmail;
-//
-//   const LoginScreen1({
-//     Key? key,
-//     this.removedVillaId,
-//     this.userEmail,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFF5F7FA),
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         leading: IconButton(
-//           icon: const Icon(Icons.arrow_back, color: Color(0xFF00897B)),
-//           onPressed: () => Navigator.pop(context),
-//         ),
-//         title: const Text(
-//           'Logout',
-//           style: TextStyle(
-//             fontSize: 18,
-//             fontWeight: FontWeight.w600,
-//             color: Color(0xFF111827),
-//           ),
-//         ),
-//         centerTitle: true,
-//       ),
-//       body: Center(
-//         child: Container(
-//           padding: const EdgeInsets.all(24),
-//           margin: const EdgeInsets.all(24),
-//           decoration: BoxDecoration(
-//             color: Colors.white,
-//             borderRadius: BorderRadius.circular(24),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.black.withOpacity(0.05),
-//                 blurRadius: 20,
-//                 offset: const Offset(0, 8),
-//               ),
-//             ],
-//           ),
-//           child: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               const Icon(
-//                 Icons.villa,
-//                 size: 80,
-//                 color: Color(0xFF00897B),
-//               ),
-//               const SizedBox(height: 24),
-//               const Text(
-//                 'Villa Removed Successfully',
-//                 style: TextStyle(
-//                   fontSize: 20,
-//                   fontWeight: FontWeight.bold,
-//                   color: Color(0xFF111827),
-//                 ),
-//               ),
-//               const SizedBox(height: 16),
-//               const Text(
-//                 'The selected villa has been removed from your list.',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   fontSize: 14,
-//                   color: Color(0xFF6B7280),
-//                 ),
-//               ),
-//               const SizedBox(height: 32),
-//               SizedBox(
-//                 width: double.infinity,
-//                 child: ElevatedButton(
-//                   onPressed: () {
-//                     Navigator.pushReplacement(
-//                       context,
-//                       MaterialPageRoute(
-//                         builder: (context) => VillaListScreen(
-//                           userData: {},
-//                           userEmail: userEmail ?? '',
-//                           removedVillaId: removedVillaId,
-//                         ),
-//                       ),
-//                     );
-//                   },
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: const Color(0xFF00897B),
-//                     padding: const EdgeInsets.symmetric(vertical: 14),
-//                     shape: RoundedRectangleBorder(
-//                       borderRadius: BorderRadius.circular(12),
-//                     ),
-//                   ),
-//                   child: const Text(
-//                     'Back to Villa List',
-//                     style: TextStyle(fontSize: 16, color: Colors.white),
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-
 class VideoPlayerWidget extends StatefulWidget {
   final String filePath;
   const VideoPlayerWidget({Key? key, required this.filePath}) : super(key: key);
@@ -13423,33 +10963,6 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   }
 }
 
-
-
-
-class ResortRegistrationDetailsScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-
-  const ResortRegistrationDetailsScreen({
-    Key? key,
-    required this.registrationData,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Resort Registration Details'),
-        backgroundColor: Colors.purple,
-        foregroundColor: Colors.white,
-      ),
-      body: Center(
-        child: Text('Resort Details - Implement similar to Villa screen'),
-      ),
-    );
-  }
-}
-
-
 class HotelRegistrationDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
@@ -13480,8 +10993,8 @@ class _HotelRegistrationDetailsScreenState
 
   late Map<String, bool> _policies;
   bool _isEditingPhone = false;
-  late Map<String, bool> _priceEditModes; // For individual room price edits
-  bool _isEditingTariffs = false; // For min/max tariff edits
+  late Map<String, bool> _priceEditModes;
+  bool _isEditingTariffs = false;
   late TextEditingController _phoneController;
 
   final Color primaryColor = const Color(0xFFFF5F6D);
@@ -25756,7 +23269,6 @@ class _FourStarHotelDetailsScreenState extends State<FourStarHotelDetailsScreen>
   }
 }
 
-
 class FiveStarHotelDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
@@ -32328,8 +29840,6 @@ class _SixStarHotelDetailsScreenState extends State<SixStarHotelDetailsScreen>
   }
 }
 
-
-
 class SevenStarHotelDetailsScreen extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
@@ -37983,12 +35493,6 @@ class _GlobalEliteLuxuryHotelDetailsScreenState
 }
 
 
-
-
-
-
-
-
 class HotelListScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
   final String userEmail;
@@ -38002,427 +35506,6 @@ class HotelListScreen extends StatefulWidget {
   @override
   State<HotelListScreen> createState() => _HotelListScreenState();
 }
-
-// class VillaListScreen extends StatefulWidget {
-//   final Map<String, dynamic> userData;
-//   final String userEmail;
-//
-//   const VillaListScreen({
-//     Key? key,
-//     required this.userData,
-//     required this.userEmail,
-//   }) : super(key: key);
-//
-//   @override
-//   State<VillaListScreen> createState() => _VillaListScreenState();
-// }
-
-// class _VillaListScreenState extends State<VillaListScreen>
-//     with SingleTickerProviderStateMixin {
-//   List<Map<String, dynamic>> _registeredVillas = [];
-//   bool _isLoading = true;
-//
-//   final Color primaryColor = const Color(0xFF00897B); // Teal color for villas
-//   final Color accentColor = const Color(0xFF10B981);
-//   final Color darkText = const Color(0xFF1F2937);
-//   final Color lightText = const Color(0xFF6B7280);
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _extractVillas();
-//   }
-//
-//   void _extractVillas() {
-//     setState(() => _isLoading = true);
-//
-//     try {
-//       print('=== EXTRACTING VILLAS ===');
-//       print('User data keys: ${widget.userData.keys.toList()}');
-//
-//       _registeredVillas.clear();
-//
-//       // Check for villas list (multiple villas)
-//       if (widget.userData.containsKey('villlas') &&
-//           widget.userData['villlas'] is List) {
-//         List<dynamic> villasList = widget.userData['villlas'] as List;
-//         print('Found villas list with ${villasList.length} villas');
-//
-//         for (var villa in villasList) {
-//           if (villa is Map) {
-//             Map<String, dynamic> villaMap = Map<String, dynamic>.from(villa);
-//
-//             // Get villa name
-//             String villaName = '';
-//             if (villaMap.containsKey('villaName') &&
-//                 villaMap['villaName'] != null &&
-//                 villaMap['villaName'].toString().isNotEmpty) {
-//               villaName = villaMap['villaName'].toString();
-//             } else if (villaMap.containsKey('propertyName') &&
-//                 villaMap['propertyName'] != null &&
-//                 villaMap['propertyName'].toString().isNotEmpty) {
-//               villaName = villaMap['propertyName'].toString();
-//             } else {
-//               villaName = 'Unknown Villa';
-//             }
-//
-//             // Get property type
-//             String propertyType = '';
-//             if (villaMap.containsKey('propertyTypeValue') &&
-//                 villaMap['propertyTypeValue'] != null &&
-//                 villaMap['propertyTypeValue'].toString().isNotEmpty) {
-//               propertyType = villaMap['propertyTypeValue'].toString();
-//             } else if (villaMap.containsKey('propertyType') &&
-//                 villaMap['propertyType'] != null &&
-//                 villaMap['propertyType'].toString().isNotEmpty) {
-//               propertyType = villaMap['propertyType'].toString();
-//             } else {
-//               propertyType = 'Villa';
-//             }
-//
-//             print('Adding villa: $villaName ($propertyType)');
-//
-//             _registeredVillas.add({
-//               'id': villaMap['id'] ??
-//                   'VILLA_${DateTime.now().millisecondsSinceEpoch}',
-//               'name': villaName,
-//               'propertyType': propertyType,
-//               'data': villaMap,
-//               'registrationDate': villaMap['registeredAt']?.toString() ??
-//                   DateTime.now().toIso8601String(),
-//             });
-//           }
-//         }
-//       }
-//
-//       // If no villas list, check for single villa data
-//       if (_registeredVillas.isEmpty) {
-//         String villaName = '';
-//         if (widget.userData.containsKey('villaName') &&
-//             widget.userData['villaName'] != null &&
-//             widget.userData['villaName'].toString().isNotEmpty) {
-//           villaName = widget.userData['villaName'].toString();
-//         } else if (widget.userData.containsKey('propertyName') &&
-//             widget.userData['propertyName'] != null &&
-//             widget.userData['propertyName'].toString().isNotEmpty) {
-//           villaName = widget.userData['propertyName'].toString();
-//         }
-//
-//         if (villaName.isNotEmpty) {
-//           print('Found single villa with name: $villaName');
-//
-//           String propertyType = '';
-//           if (widget.userData.containsKey('propertyTypeValue') &&
-//               widget.userData['propertyTypeValue'] != null &&
-//               widget.userData['propertyTypeValue'].toString().isNotEmpty) {
-//             propertyType = widget.userData['propertyTypeValue'].toString();
-//           } else if (widget.userData.containsKey('propertyType') &&
-//               widget.userData['propertyType'] != null &&
-//               widget.userData['propertyType'].toString().isNotEmpty) {
-//             propertyType = widget.userData['propertyType'].toString();
-//           } else {
-//             propertyType = 'Villa';
-//           }
-//
-//           _registeredVillas.add({
-//             'id': widget.userData['id'] ??
-//                 'VILLA_${DateTime.now().millisecondsSinceEpoch}',
-//             'name': villaName,
-//             'propertyType': propertyType,
-//             'data': Map<String, dynamic>.from(widget.userData),
-//             'registrationDate': widget.userData['registeredAt']?.toString() ??
-//                 DateTime.now().toIso8601String(),
-//           });
-//         }
-//       }
-//
-//       print('Total villas extracted: ${_registeredVillas.length}');
-//       for (var villa in _registeredVillas) {
-//         print('Villa: ${villa['name']}, Type: ${villa['propertyType']}');
-//       }
-//     } catch (e) {
-//       print('Error extracting villas: $e');
-//     } finally {
-//       setState(() => _isLoading = false);
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xFFF9FAFB),
-//       appBar: AppBar(
-//         backgroundColor: Colors.white,
-//         elevation: 0,
-//         leading: IconButton(
-//           icon: Container(
-//             padding: const EdgeInsets.all(8),
-//             decoration: BoxDecoration(
-//               color: Colors.grey.shade100,
-//               shape: BoxShape.circle,
-//             ),
-//             child: const Icon(
-//               Icons.arrow_back,
-//               color: Color(0xFF1F2937),
-//               size: 20,
-//             ),
-//           ),
-//           onPressed: () => Navigator.pop(context),
-//         ),
-//         title: const Text(
-//           'My Villas List',
-//           style: TextStyle(
-//             color: Color(0xFF1F2937),
-//             fontSize: 20,
-//             fontWeight: FontWeight.w700,
-//           ),
-//         ),
-//         actions: [
-//           Padding(
-//             padding: const EdgeInsets.only(right: 16),
-//             child: ElevatedButton.icon(
-//               onPressed: () {
-//                 Navigator.push(
-//                   context,
-//                   MaterialPageRoute(builder: (context) => WelcomeScreen()),
-//                 );
-//               },
-//               icon: const Icon(Icons.add, size: 18),
-//               label: const Text('New Register'),
-//               style: ElevatedButton.styleFrom(
-//                 backgroundColor: primaryColor,
-//                 foregroundColor: Colors.white,
-//                 shape: RoundedRectangleBorder(
-//                   borderRadius: BorderRadius.circular(30),
-//                 ),
-//                 padding: const EdgeInsets.symmetric(
-//                   horizontal: 16,
-//                   vertical: 10,
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//       body: _isLoading
-//           ? const Center(child: CircularProgressIndicator())
-//           : _registeredVillas.isEmpty
-//           ? _buildEmptyState()
-//           : ListView.builder(
-//         padding: const EdgeInsets.all(13),
-//         itemCount: _registeredVillas.length,
-//         itemBuilder: (context, index) {
-//           final villa = _registeredVillas[index];
-//           return _buildVillaCard(villa);
-//         },
-//       ),
-//     );
-//   }
-//
-//   Widget _buildEmptyState() {
-//     return Center(
-//       child: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           Container(
-//             width: 120,
-//             height: 120,
-//             decoration: BoxDecoration(
-//               color: primaryColor.withOpacity(0.1),
-//               shape: BoxShape.circle,
-//             ),
-//             child: Icon(
-//               Icons.villa,
-//               size: 50,
-//               color: primaryColor.withOpacity(0.5),
-//             ),
-//           ),
-//           const SizedBox(height: 24),
-//           const Text(
-//             'No Villas Registered',
-//             style: TextStyle(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//               color: Color(0xFF1F2937),
-//             ),
-//           ),
-//           const SizedBox(height: 8),
-//           Text(
-//             'Register your first villa to get started',
-//             style: TextStyle(fontSize: 14, color: lightText),
-//           ),
-//           const SizedBox(height: 24),
-//           ElevatedButton(
-//             onPressed: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(builder: (context) => WelcomeScreen()),
-//               );
-//             },
-//             style: ElevatedButton.styleFrom(
-//               backgroundColor: primaryColor,
-//               foregroundColor: Colors.white,
-//               padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(30),
-//               ),
-//             ),
-//             child: const Text('Register Villa'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildVillaCard(Map<String, dynamic> villa) {
-//     return GestureDetector(
-//       onTap: () {
-//         // Navigate to Villa Details Screen
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (context) => VillaRegistrationDetailsScreen(
-//               registrationData: villa['data'],
-//             ),
-//           ),
-//         );
-//       },
-//       child: Container(
-//         margin: const EdgeInsets.only(bottom: 16),
-//         padding: const EdgeInsets.all(16),
-//         decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.circular(20),
-//           boxShadow: [
-//             BoxShadow(
-//               color: Colors.black.withOpacity(0.03),
-//               blurRadius: 10,
-//               offset: const Offset(0, 4),
-//             ),
-//           ],
-//         ),
-//         child: Row(
-//           children: [
-//             Container(
-//               width: 60,
-//               height: 60,
-//               decoration: BoxDecoration(
-//                 gradient: LinearGradient(
-//                   colors: [primaryColor, primaryColor.withOpacity(0.7)],
-//                   begin: Alignment.topLeft,
-//                   end: Alignment.bottomRight,
-//                 ),
-//                 borderRadius: BorderRadius.circular(16),
-//               ),
-//               child: const Center(
-//                 child: Icon(Icons.villa, color: Colors.white, size: 30),
-//               ),
-//             ),
-//             const SizedBox(width: 16),
-//             Expanded(
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Row(
-//                     children: [
-//                       Expanded(
-//                         child: Text(
-//                           villa['name'],
-//                           style: const TextStyle(
-//                             fontSize: 16,
-//                             fontWeight: FontWeight.w700,
-//                             color: Color(0xFF1F2937),
-//                           ),
-//                         ),
-//                       ),
-//                       Container(
-//                         padding: const EdgeInsets.symmetric(
-//                           horizontal: 10,
-//                           vertical: 4,
-//                         ),
-//                         decoration: BoxDecoration(
-//                           color: primaryColor.withOpacity(0.1),
-//                           borderRadius: BorderRadius.circular(20),
-//                           border: Border.all(
-//                             color: primaryColor.withOpacity(0.3),
-//                           ),
-//                         ),
-//                         child: Text(
-//                           villa['propertyType'],
-//                           style: TextStyle(
-//                             fontSize: 10,
-//                             fontWeight: FontWeight.w600,
-//                             color: primaryColor,
-//                           ),
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                   const SizedBox(height: 6),
-//                   Text(
-//                     'Bedrooms: ${villa['data']['bedrooms'] ?? 'N/A'} | Bathrooms: ${villa['data']['bathrooms'] ?? 'N/A'}',
-//                     style: TextStyle(fontSize: 13, color: lightText),
-//                   ),
-//                   const SizedBox(height: 8),
-//                   Row(
-//                     children: [
-//                       Container(
-//                         padding: const EdgeInsets.symmetric(
-//                           horizontal: 8,
-//                           vertical: 4,
-//                         ),
-//                         decoration: BoxDecoration(
-//                           color: Colors.grey.shade100,
-//                           borderRadius: BorderRadius.circular(12),
-//                         ),
-//                         child: Text(
-//                           'ID: ${villa['id']}',
-//                           style: TextStyle(
-//                             fontSize: 10,
-//                             color: lightText,
-//                             fontWeight: FontWeight.w500,
-//                           ),
-//                         ),
-//                       ),
-//                       const SizedBox(width: 8),
-//                       Icon(Icons.calendar_today, size: 12, color: lightText),
-//                       const SizedBox(width: 4),
-//                       Text(
-//                         _formatDate(villa['registrationDate']),
-//                         style: TextStyle(fontSize: 10, color: lightText),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Container(
-//               padding: const EdgeInsets.all(8),
-//               decoration: BoxDecoration(
-//                 color: primaryColor.withOpacity(0.1),
-//                 shape: BoxShape.circle,
-//               ),
-//               child: Icon(
-//                 Icons.arrow_forward_rounded,
-//                 color: primaryColor,
-//                 size: 20,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   String _formatDate(String dateString) {
-//     try {
-//       final date = DateTime.parse(dateString);
-//       return '${date.day}/${date.month}/${date.year}';
-//     } catch (e) {
-//       return dateString;
-//     }
-//   }
-// }
 
 class VillaListScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -39288,8 +36371,8 @@ class _VillaListScreenState extends State<VillaListScreen> {
             builder: (context) => VillaRegistrationDetailsScreen(
               registrationData: villa['data'],
                villaId: villa['id'],
-              // villaId: widget._registeredVillas['id']?.toString(),
               villaIndex: _registeredVillas.indexOf(villa),
+
 
             ),
           ),
@@ -39432,8 +36515,453 @@ class _VillaListScreenState extends State<VillaListScreen> {
   }
 }
 
+class ResortListScreen extends StatefulWidget {
+  final Map<String, dynamic> userData;
+  final String userEmail;
+  final String? removedResortId;
+
+  const ResortListScreen({
+    Key? key,
+    required this.userData,
+    required this.userEmail,
+    this.removedResortId,
+  }) : super(key: key);
+
+  @override
+  State<ResortListScreen> createState() => _ResortListScreenState();
+}
+
+class _ResortListScreenState extends State<ResortListScreen> {
+  List<Map<String, dynamic>> _registeredResorts = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadResortsFromStorage();
+    _debugPrintStorage();
+  }
+
+  Future<void> _debugPrintStorage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? userDataString = prefs.getString('user_${widget.userEmail}_data');
+
+    if (userDataString != null) {
+      Map<String, dynamic> userData = jsonDecode(userDataString);
+      print('=== DEBUG STORAGE ===');
+      print('User email: ${widget.userEmail}');
+      print('Data keys: ${userData.keys.toList()}');
+
+      if (userData.containsKey('resorts')) {
+        List<dynamic> resorts = userData['resorts'];
+        print('Number of resorts: ${resorts.length}');
+        for (var i = 0; i < resorts.length; i++) {
+          Map<String, dynamic> resort = Map<String, dynamic>.from(resorts[i]);
+          print('Resort $i - ID: ${resort['id']}, Name: ${resort['basicInfo']?['resortName'] ?? resort['resortName']}');
+        }
+      }
+    } else {
+      print('No data found for user: ${widget.userEmail}');
+    }
+  }
+
+  Future<void> _loadResortsFromStorage() async {
+    setState(() => _isLoading = true);
+
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String usersJson = prefs.getString('registered_users') ?? '[]';
+      final List<dynamic> usersList = jsonDecode(usersJson);
+
+      print('=== LOADING RESORTS ===');
+      print('User Email: ${widget.userEmail}');
+
+      Map<String, dynamic>? userData;
+      for (var user in usersList) {
+        if (user is Map && user['email'] == widget.userEmail) {
+          userData = Map<String, dynamic>.from(user);
+          break;
+        }
+      }
+
+      if (userData != null) {
+        print('Found user data with keys: ${userData.keys.toList()}');
+        _extractResorts(userData);
+      } else {
+        print('User not found in registered_users');
+        _extractResorts(widget.userData);
+      }
+
+    } catch (e) {
+      print('Error loading resorts: $e');
+      _extractResorts(widget.userData);
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
 
 
+
+  void _extractResorts(Map<String, dynamic> userData) {
+    try {
+      print('=== EXTRACTING RESORTS ===');
+      print('User data keys: ${userData.keys.toList()}');
+      print('Removed Resort ID: ${widget.removedResortId}');
+
+      _registeredResorts.clear();
+
+      if (userData.containsKey('resorts') && userData['resorts'] is List) {
+        List<dynamic> resortsList = userData['resorts'] as List;
+        print('Found resorts list with ${resortsList.length} resorts');
+
+        for (var resort in resortsList) {
+          if (resort is Map) {
+            Map<String, dynamic> resortMap = Map<String, dynamic>.from(resort);
+
+            String resortId = '';
+            if (resortMap.containsKey('id') && resortMap['id'] != null) {
+              resortId = resortMap['id'].toString();
+            } else if (resortMap.containsKey('basicInfo') && resortMap['basicInfo'] is Map) {
+              final basicInfo = resortMap['basicInfo'] as Map;
+              if (basicInfo.containsKey('id') && basicInfo['id'] != null) {
+                resortId = basicInfo['id'].toString();
+              }
+            }
+
+            print('Found resort ID: "$resortId"');
+
+            if (widget.removedResortId != null &&
+                widget.removedResortId!.isNotEmpty &&
+                resortId.isNotEmpty &&
+                resortId == widget.removedResortId) {
+              print('SKIPPING removed resort with ID: $resortId');
+              continue;
+            }
+
+            String resortName = '';
+            if (resortMap.containsKey('basicInfo') && resortMap['basicInfo'] is Map) {
+              Map<String, dynamic> basicInfo = resortMap['basicInfo'];
+              if (basicInfo.containsKey('resortName') && basicInfo['resortName'].toString().isNotEmpty) {
+                resortName = basicInfo['resortName'].toString();
+              }
+            } else if (resortMap.containsKey('resortName') && resortMap['resortName'].toString().isNotEmpty) {
+              resortName = resortMap['resortName'].toString();
+            } else {
+              resortName = 'Unknown Resort';
+            }
+
+            String resortCategory = '';
+            if (resortMap.containsKey('propertyDetails') && resortMap['propertyDetails'] is Map) {
+              Map<String, dynamic> propertyDetails = resortMap['propertyDetails'];
+              if (propertyDetails.containsKey('resortCategory') && propertyDetails['resortCategory'].toString().isNotEmpty) {
+                resortCategory = propertyDetails['resortCategory'].toString();
+              }
+            } else if (resortMap.containsKey('resortCategory') && resortMap['resortCategory'].toString().isNotEmpty) {
+              resortCategory = resortMap['resortCategory'].toString();
+            } else {
+              resortCategory = 'Resort';
+            }
+
+            print('Adding resort: $resortName ($resortCategory) with ID: $resortId');
+
+            _registeredResorts.add({
+              'id': resortId,
+              'name': resortName,
+              'category': resortCategory,
+              'data': resortMap,
+              'registrationDate': resortMap['registeredAt']?.toString() ??
+                  DateTime.now().toIso8601String(),
+            });
+          }
+        }
+      }
+
+      print('Total resorts extracted: ${_registeredResorts.length}');
+      for (var resort in _registeredResorts) {
+        print('Resort: ${resort['name']}, ID: ${resort['id']}');
+      }
+    } catch (e) {
+      print('Error extracting resorts: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9FAFB),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.arrow_back,
+              color: Color(0xFF1F2937),
+              size: 20,
+            ),
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          'My Resorts List',
+          style: TextStyle(
+            color: Color(0xFF1F2937),
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                );
+              },
+              icon: const Icon(Icons.add, size: 18),
+              label: const Text('New Register'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF2E7D32),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : _registeredResorts.isEmpty
+          ? _buildEmptyState()
+          : ListView.builder(
+        padding: const EdgeInsets.all(13),
+        itemCount: _registeredResorts.length,
+        itemBuilder: (context, index) {
+          final resort = _registeredResorts[index];
+          return _buildResortCard(resort);
+        },
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              color: const Color(0xFF2E7D32).withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.nature_people,
+              size: 50,
+              color: const Color(0xFF2E7D32).withOpacity(0.5),
+            ),
+          ),
+          const SizedBox(height: 24),
+          const Text(
+            'No Resorts Registered',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF1F2937),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Register your first resort to get started',
+            style: TextStyle(fontSize: 14, color: const Color(0xFF6B7280)),
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => WelcomeScreen()),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF2E7D32),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+            child: const Text('Register Resort'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResortCard(Map<String, dynamic> resort) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResortRegistrationDetailsScreen(
+              registrationData: resort['data'],
+              // resortId: resort['id'],
+              // resortIndex: _registeredResorts.indexOf(resort),
+            ),
+          ),
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [const Color(0xFF2E7D32), const Color(0xFF2E7D32).withOpacity(0.7)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Center(
+                child: Icon(Icons.nature_people, color: Colors.white, size: 30),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          resort['name'],
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF1F2937),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF2E7D32).withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color(0xFF2E7D32).withOpacity(0.3),
+                          ),
+                        ),
+                        child: Text(
+                          resort['category'],
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                            color: const Color(0xFF2E7D32),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Rooms: ${resort['data']['propertyDetails']?['totalRooms'] ?? resort['data']['totalRooms'] ?? 'N/A'} | Capacity: ${resort['data']['propertyDetails']?['totalCapacity'] ?? resort['data']['totalCapacity'] ?? 'N/A'}',
+                    style: TextStyle(fontSize: 13, color: const Color(0xFF6B7280)),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          'ID: ${resort['id']}',
+                          style: TextStyle(
+                            fontSize: 10,
+                            color: const Color(0xFF6B7280),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      // const SizedBox(width: 2),
+                      Icon(Icons.calendar_today, size: 12, color: const Color(0xFF6B7280)),
+                      const SizedBox(width: 4),
+                      Text(
+                        _formatDate(resort['registrationDate']),
+                        style: TextStyle(fontSize: 10, color: const Color(0xFF6B7280)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: const Color(0xFF2E7D32).withOpacity(0.1),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.arrow_forward_rounded,
+                color: const Color(0xFF2E7D32),
+                size: 17,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _formatDate(String dateString) {
+    try {
+      final date = DateTime.parse(dateString);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return dateString;
+    }
+  }
+}
 
 class ApartmentListScreen extends StatefulWidget {
   final Map<String, dynamic> userData;
@@ -40823,6 +38351,29 @@ class _PropertiesScreenState extends State<PropertiesScreen>
       print('propertyType indicates apartment registration');
     }
 
+    // Check for resort data
+    if (_userData.containsKey('resortName') &&
+        _userData['resortName'] != null &&
+        _userData['resortName'].toString().isNotEmpty) {
+      isResortRegistered = true;
+      print('Found resortName: ${_userData['resortName']}');
+    }
+
+    if (_userData.containsKey('resorts') &&
+        _userData['resorts'] is List &&
+        (_userData['resorts'] as List).isNotEmpty) {
+      isResortRegistered = true;
+      print('Found resorts list with ${(_userData['resorts'] as List).length} resorts');
+    }
+
+    if (_userData.containsKey('propertyType') &&
+        _userData['propertyType'] != null &&
+        _userData['propertyType'].toString().toLowerCase() == 'resort') {
+      isResortRegistered = true;
+      print('propertyType indicates resort registration');
+    }
+
+
     setState(() {
       _registeredProperties = {
         'hotel': isHotelRegistered,
@@ -40865,7 +38416,7 @@ class _PropertiesScreenState extends State<PropertiesScreen>
         context,
         MaterialPageRoute(
           builder: (context) =>
-              VillaListScreen(userData: _userData, userEmail: widget.userEmail),
+              VillaListScreen(userData: _userData, userEmail: widget.userEmail,),
         ),
       );
       return;
@@ -40881,8 +38432,17 @@ class _PropertiesScreenState extends State<PropertiesScreen>
       );
       return;
     }
+    if (propertyType == 'resort') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              ResortListScreen(userData: _userData, userEmail: widget.userEmail),
+        ),
+      );
+      return;
+    }
 
-    // For other property types, extract the data
     Map<String, dynamic> propertyData = {};
 
     if (_userData.containsKey('registrationData') &&
@@ -40894,16 +38454,12 @@ class _PropertiesScreenState extends State<PropertiesScreen>
 
     Widget screen;
     switch (propertyType) {
-      case 'resort':
-        screen = ResortRegistrationDetailsScreen(
-          registrationData: propertyData,
-        );
-        break;
+
       default:
         return;
     }
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
   }
 
   int _getRegisteredCount() {
@@ -41710,7 +39266,6 @@ class _PropertiesScreenState extends State<PropertiesScreen>
 
 
 }
-
 
 class TwoStarHotelDashboard extends StatefulWidget {
   final String hotelName;
@@ -44220,7 +41775,6 @@ class _BookingTrendGraphPainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
-///
 
 class ThreeStarHotelDashboard extends StatefulWidget {
   final Map<String, dynamic> registrationData;
@@ -46811,7 +44365,6 @@ class _ThreeStarHotelDashboardState extends State<ThreeStarHotelDashboard> {
     );
   }
 }
-
 
 
 class FourStarHotelDashboard extends StatefulWidget {
@@ -49405,7 +46958,6 @@ class _FourStarHotelDashboardState extends State<FourStarHotelDashboard> {
     );
   }
 }
-
 
 
 class FiveStarHotelDashboard extends StatefulWidget {
@@ -57298,8 +54850,6 @@ class _SevenStarHotelDashboardState extends State<SevenStarHotelDashboard> {
     );
   }
 }
-
-
 
 
 class GlobalEliteLuxuryHotelDashboard extends StatefulWidget {

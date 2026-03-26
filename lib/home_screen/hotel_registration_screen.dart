@@ -43771,13 +43771,13 @@ class _VillaRegistrationVendorFormState
           title: 'Basic Information',
           children: [
             _buildInputField(
-              label: 'Villa Name *',
+              label: 'Villa Name',
               controller: _villaNameController,
               hint: 'Enter villa name',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Owner / Contact Person Name *',
+              label: 'Owner / Contact Person Name',
               controller: _ownerNameController,
               hint: 'Enter owner name',
             ),
@@ -43786,7 +43786,7 @@ class _VillaRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Mobile Number *',
+                    label: 'Mobile Number',
                     controller: _mobileController,
                     hint: 'Enter mobile number',
                     keyboardType: TextInputType.phone,
@@ -43808,7 +43808,7 @@ class _VillaRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Email Address *',
+                    label: 'Email Address',
                     controller: _emailController,
                     hint: 'example@email.com',
                     keyboardType: TextInputType.emailAddress,
@@ -43827,7 +43827,7 @@ class _VillaRegistrationVendorFormState
             SizedBox(height: 16),
 
             _buildPhotoUploadItem(
-              label: 'Profile Photo of Owner',
+              label: 'Profile Photo',
               fileInfo: _ownerPhotoInfo,
               onUpload: () {
                 print("Calling _pickOwnerPhoto from button");
@@ -43850,7 +43850,7 @@ Widget _buildLocationPropertyStep() {
         title: 'Permanent Office Address',
         children: [
           _buildInputField(
-            label: 'Office Address *',
+            label: 'Office Address',
             controller: _officeAddressController,
             hint: 'Enter complete office address',
             maxLines: 2,
@@ -43860,7 +43860,7 @@ Widget _buildLocationPropertyStep() {
             children: [
               Expanded(
                 child: _buildInputField(
-                  label: 'Area / Locality *',
+                  label: 'Area / Locality',
                   controller: _officeAreaController,
                   hint: 'Enter area',
                 ),
@@ -43868,7 +43868,7 @@ Widget _buildLocationPropertyStep() {
               SizedBox(width: 16),
               Expanded(
                 child: _buildInputField(
-                  label: 'City *',
+                  label: 'City',
                   controller: _officeCityController,
                   hint: 'Enter city',
                 ),
@@ -43880,7 +43880,7 @@ Widget _buildLocationPropertyStep() {
             children: [
               Expanded(
                 child: _buildInputField(
-                  label: 'State *',
+                  label: 'State',
                   controller: _officeStateController,
                   hint: 'Enter state',
                 ),
@@ -43888,7 +43888,7 @@ Widget _buildLocationPropertyStep() {
               SizedBox(width: 16),
               Expanded(
                 child: _buildInputField(
-                  label: 'Pincode *',
+                  label: 'Pincode',
                   controller: _officePincodeController,
                   hint: '6-digit pincode',
                   keyboardType: TextInputType.number,
@@ -43911,7 +43911,7 @@ Widget _buildLocationPropertyStep() {
         title: 'Villa Address',
         children: [
           _buildInputField(
-            label: 'Villa Address *',
+            label: 'Villa Address',
             controller: _addressController,
             hint: 'Enter complete villa address',
             maxLines: 2,
@@ -43921,7 +43921,7 @@ Widget _buildLocationPropertyStep() {
             children: [
               Expanded(
                 child: _buildInputField(
-                  label: 'Area / Locality *',
+                  label: 'Area / Locality',
                   controller: _areaController,
                   hint: 'Enter area',
                 ),
@@ -43929,7 +43929,7 @@ Widget _buildLocationPropertyStep() {
               SizedBox(width: 16),
               Expanded(
                 child: _buildInputField(
-                  label: 'City *',
+                  label: 'City',
                   controller: _cityController,
                   hint: 'Enter city',
                 ),
@@ -43941,7 +43941,7 @@ Widget _buildLocationPropertyStep() {
             children: [
               Expanded(
                 child: _buildInputField(
-                  label: 'State *',
+                  label: 'State',
                   controller: _stateController,
                   hint: 'Enter state',
                 ),
@@ -43949,7 +43949,7 @@ Widget _buildLocationPropertyStep() {
               SizedBox(width: 16),
               Expanded(
                 child: _buildInputField(
-                  label: 'Pincode *',
+                  label: 'Pincode',
                   controller: _pincodeController,
                   hint: '6-digit pincode',
                   keyboardType: TextInputType.number,
@@ -43972,7 +43972,7 @@ Widget _buildLocationPropertyStep() {
         title: 'Property Details',
         children: [
           Text(
-            'Type of Property *',
+            'Type of Property',
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -44049,7 +44049,7 @@ Widget _buildLocationPropertyStep() {
             children: [
               Expanded(
                 child: _buildInputField(
-                  label: 'Bedrooms *',
+                  label: 'Bedrooms',
                   controller: _bedroomsController,
                   hint: 'Number',
                   keyboardType: TextInputType.number,
@@ -44058,7 +44058,7 @@ Widget _buildLocationPropertyStep() {
               SizedBox(width: 16),
               Expanded(
                 child: _buildInputField(
-                  label: 'Bathrooms *',
+                  label: 'Bathrooms',
                   controller: _bathroomsController,
                   hint: 'Number',
                   keyboardType: TextInputType.number,
@@ -44071,7 +44071,7 @@ Widget _buildLocationPropertyStep() {
             children: [
               Expanded(
                 child: _buildInputField(
-                  label: 'Guest Capacity *',
+                  label: 'Guest Capacity',
                   controller: _guestCapacityController,
                   hint: 'Max guests',
                   keyboardType: TextInputType.number,
@@ -44105,7 +44105,7 @@ Widget _buildLocationPropertyStep() {
           ),
           SizedBox(height: 16),
           _buildInputField(
-            label: 'Property Description *',
+            label: 'Property Description',
             controller: _propertyDescriptionController,
             hint: 'Describe your villa',
             maxLines: 4,
@@ -44238,7 +44238,7 @@ Widget _buildLocationPropertyStep() {
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Base Price *',
+                    label: 'Base Price',
                     controller: _basePriceController,
                     hint: '₹',
                     keyboardType: TextInputType.number,
@@ -44248,7 +44248,7 @@ Widget _buildLocationPropertyStep() {
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Weekend Price *',
+                    label: 'Weekend Price',
                     controller: _weekendPriceController,
                     hint: '₹',
                     keyboardType: TextInputType.number,
@@ -44286,7 +44286,7 @@ Widget _buildLocationPropertyStep() {
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Minimum Stay *',
+                    label: 'Minimum Stay',
                     controller: _minimumStayController,
                     hint: 'Nights',
                     keyboardType: TextInputType.number,
@@ -44302,7 +44302,7 @@ Widget _buildLocationPropertyStep() {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Check-in Time *',
+                  'Check-in Time',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -44345,7 +44345,7 @@ Widget _buildLocationPropertyStep() {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Check-out Time *',
+                  'Check-out Time',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -44385,7 +44385,7 @@ Widget _buildLocationPropertyStep() {
             SizedBox(height: 16),
 
             _buildFileUploadItem(
-              label: 'Cancellation Policy *',
+              label: 'Cancellation Policy',
               fileInfo: _cancellationPolicyInfo,
               onUpload: () => _pickFile('cancellation'),
               onView: () => _viewFile(_cancellationPolicyInfo),
@@ -44561,7 +44561,7 @@ Widget _buildLocationPropertyStep() {
           title: 'Legal & Verification',
           children: [
             _buildFileUploadItem(
-              label: 'Property Ownership Proof *',
+              label: 'Property Ownership Proof',
               fileInfo: _ownershipProofInfo,
               onUpload: () => _pickFile('ownership'),
               onView: () => _viewFile(_ownershipProofInfo),
@@ -44569,7 +44569,7 @@ Widget _buildLocationPropertyStep() {
             ),
             SizedBox(height: 16),
             _buildFileUploadItem(
-              label: 'ID Proof (Aadhaar/PAN) *',
+              label: 'ID Proof (Aadhaar/PAN)',
               fileInfo: _idProofInfo,
               onUpload: () => _pickFile('idproof'),
               onView: () => _viewFile(_idProofInfo),
@@ -44602,7 +44602,7 @@ Widget _buildLocationPropertyStep() {
           title: 'Bank Details',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountHolderController,
               hint: 'Enter name',
             ),
@@ -44611,7 +44611,7 @@ Widget _buildLocationPropertyStep() {
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Bank Name *',
+                    label: 'Bank Name',
                     controller: _bankNameController,
                     hint: 'Bank name',
                   ),
@@ -44619,7 +44619,7 @@ Widget _buildLocationPropertyStep() {
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Account number',
                     keyboardType: TextInputType.number,
@@ -44632,7 +44632,7 @@ Widget _buildLocationPropertyStep() {
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscCodeController,
                     hint: 'IFSC code',
                   ),
@@ -44669,31 +44669,31 @@ Widget _buildLocationPropertyStep() {
          title: 'Media Upload',
          children: [
            _buildMediaUploadSection(
-             label: 'Villa Exterior Photos *',
+             label: 'Villa Exterior Photos',
              mediaKey: 'villa_exterior',
              isRequired: true,
            ),
            SizedBox(height: 16),
            _buildMediaUploadSection(
-             label: 'Interior Photos *',
+             label: 'Interior Photos',
              mediaKey: 'villa_interior',
              isRequired: true,
            ),
            SizedBox(height: 16),
            _buildMediaUploadSection(
-             label: 'Bedroom Photos *',
+             label: 'Bedroom Photos',
              mediaKey: 'bedroom',
              isRequired: true,
            ),
            SizedBox(height: 16),
            _buildMediaUploadSection(
-             label: 'Bathroom Photos *',
+             label: 'Bathroom Photos',
              mediaKey: 'bathroom',
              isRequired: true,
            ),
            SizedBox(height: 16),
            _buildMediaUploadSection(
-             label: 'Amenities Photos *',
+             label: 'Amenities Photos',
              mediaKey: 'amenities',
              isRequired: true,
            ),
@@ -44793,7 +44793,53 @@ Widget _buildLocationPropertyStep() {
      ],
    );
  }
-Widget _buildVirtualTourLinkField() {
+
+
+
+  Widget _buildDatePickerSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Date',
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+        ),
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: () => _selectDate(context),
+          child: Container(
+            height: 48,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: _borderColor),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  _selectedDate != null
+                      ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
+                      : 'Select date',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: _selectedDate != null ? _textPrimary : _textSecondary,
+                  ),
+                ),
+                Icon(
+                  Icons.calendar_today,
+                  size: 18,
+                  color: _textSecondary,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildVirtualTourLinkField() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -44839,6 +44885,7 @@ Widget _buildVirtualTourLinkField() {
     ],
   );
 }
+
   Widget _buildSignatureSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -45094,152 +45141,70 @@ Widget _buildVirtualTourLinkField() {
     );
   }
 
-  // Widget _buildPhotoUploadItem({
-  //   required String label,
-  //   required Map<String, dynamic> fileInfo,
-  //   required VoidCallback onUpload,
-  //   required VoidCallback onView,
-  //   required VoidCallback onRemove,
-  //   bool isOptional = false,
-  // }) {
-  //   final isUploaded = fileInfo['uploaded'] as bool? ?? false;
-  //   final fileName = fileInfo['name'] as String? ?? '';
-  //
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         label,
-  //         style: TextStyle(
-  //           fontSize: 13,
-  //           fontWeight: FontWeight.w500,
-  //           color: _textPrimary,
-  //         ),
-  //       ),
-  //       SizedBox(height: 8),
-  //       Container(
-  //         padding: EdgeInsets.all(12),
-  //         decoration: BoxDecoration(
-  //           color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
-  //           borderRadius: BorderRadius.circular(8),
-  //           border: Border.all(
-  //             color: isUploaded ? _successColor : _borderColor,
-  //             width: isUploaded ? 1.5 : 1,
-  //           ),
-  //         ),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             // if (!isUploaded)
-  //             //   SizedBox(
-  //             //     width: double.infinity,
-  //             //     child: ElevatedButton(
-  //             //       onPressed: onUpload,
-  //             //       style: ElevatedButton.styleFrom(
-  //             //         backgroundColor: _primaryColor,
-  //             //         padding: EdgeInsets.symmetric(vertical: 10),
-  //             //         shape: RoundedRectangleBorder(
-  //             //           borderRadius: BorderRadius.circular(6),
-  //             //         ),
-  //             //       ),
-  //             //       child: Row(
-  //             //         mainAxisAlignment: MainAxisAlignment.center,
-  //             //         children: [
-  //             //           Icon(Icons.photo_camera, size: 16, color: Colors.white),
-  //             //           SizedBox(width: 8),
-  //             //           Text('Upload', style: TextStyle(color: Colors.white)),
-  //             //         ],
-  //             //       ),
-  //             //     ),
-  //             //   ),
-  //
-  //             if (!isUploaded)
-  //               SizedBox(
-  //                 width: double.infinity,
-  //                 child: ElevatedButton(
-  //                   onPressed: onUpload,
-  //                   style: ElevatedButton.styleFrom(
-  //                     backgroundColor: _primaryColor,
-  //                     padding: EdgeInsets.symmetric(vertical: 10),
-  //                     shape: RoundedRectangleBorder(
-  //                       borderRadius: BorderRadius.circular(6),
-  //                     ),
-  //                   ),
-  //                   child: Row(
-  //                     mainAxisAlignment: MainAxisAlignment.center,
-  //                     children: [
-  //                       Icon(Icons.photo_camera, size: 16, color: Colors.white),
-  //                       SizedBox(width: 8),
-  //                       Text('Upload', style: TextStyle(color: Colors.white)),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ),
-  //             if (isUploaded && fileName.isNotEmpty)
-  //               Container(
-  //                 padding: EdgeInsets.all(10),
-  //                 decoration: BoxDecoration(
-  //                   color: _primaryLight,
-  //                   borderRadius: BorderRadius.circular(6),
-  //                 ),
-  //                 child: Row(
-  //                   children: [
-  //                     Container(
-  //                       width: 40,
-  //                       height: 40,
-  //                       decoration: BoxDecoration(
-  //                         color: _primaryColor.withOpacity(0.1),
-  //                         borderRadius: BorderRadius.circular(4),
-  //                       ),
-  //                       child: Center(
-  //                         child: Icon(Icons.photo, size: 20, color: _primaryColor),
-  //                       ),
-  //                     ),
-  //                     SizedBox(width: 12),
-  //                     Expanded(
-  //                       child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             fileName,
-  //                             style: TextStyle(
-  //                               fontWeight: FontWeight.w500,
-  //                               fontSize: 12,
-  //                               color: _textPrimary,
-  //                             ),
-  //                             overflow: TextOverflow.ellipsis,
-  //                             maxLines: 1,
-  //                           ),
-  //                           Text(
-  //                             '${(fileInfo['size'] / 1024).toStringAsFixed(1)} KB',
-  //                             style: TextStyle(fontSize: 10, color: _textSecondary),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                     Row(
-  //                       children: [
-  //                         IconButton(
-  //                           onPressed: onView,
-  //                           icon: Icon(Icons.remove_red_eye, size: 18, color: _primaryColor),
-  //                           padding: EdgeInsets.all(4),
-  //                         ),
-  //                         IconButton(
-  //                           onPressed: onRemove,
-  //                           icon: Icon(Icons.delete, size: 18, color: Colors.red),
-  //                           padding: EdgeInsets.all(4),
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //           ],
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+
+
+
+
+
+
+
+
+
+
+
+  Future<void> _replaceMediaFile(String mediaKey, int index, String label, bool isVideo) async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: isVideo ? FileType.video : FileType.image,
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.isNotEmpty) {
+        final file = result.files.first;
+
+        int maxSize = isVideo ? 10 * 1024 * 1024 : 5 * 1024 * 1024;
+        if (file.size > maxSize) {
+          _showErrorDialog(
+            'File too large',
+            'Please select a file smaller than ${maxSize ~/ (1024 * 1024)}MB',
+          );
+          return;
+        }
+
+        if (isVideo) {
+          final ext = file.name.split('.').last.toLowerCase();
+          if (!['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
+            _showErrorDialog('Invalid Format', 'Please select a video file');
+            return;
+          }
+        }
+
+        Map<String, dynamic> fileInfo = {
+          'name': file.name,
+          'size': file.size,
+          'path': file.path ?? '',
+          'uploaded': true,
+        };
+
+        setState(() {
+          _mediaFiles[mediaKey]![index] = fileInfo;
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('File replaced successfully'),
+            backgroundColor: _successColor,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      _showErrorDialog('Replace Error', 'Failed to replace file: ${e.toString()}');
+    }
+  }
+
+
+
 
   Widget _buildPhotoUploadItem({
     required String label,
@@ -45751,7 +45716,7 @@ Widget _buildVirtualTourLinkField() {
   Future<void> _pickOwnerPhoto() async {
     print("_pickOwnerPhoto called");
     try {
-      // CHANGE THIS: Use FileType.custom instead of FileType.image
+
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.custom, // Changed from FileType.image
         allowedExtensions: [
@@ -46267,186 +46232,25 @@ Widget _buildVirtualTourLinkField() {
     }
   }
 
+
   // void _submitForm() {
-  //   // Basic validation
-  //   // if (_villaNameController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Villa name is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_ownerNameController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Owner name is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_mobileController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Mobile number is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_emailController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Email is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_addressController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Address is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_cityController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'City is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_stateController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'State is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_pincodeController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Pincode is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_selectedPropertyType == null || _selectedPropertyType!.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Please select property type');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_bedroomsController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Number of bedrooms is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_bathroomsController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Number of bathrooms is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_guestCapacityController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Guest capacity is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_propertyDescriptionController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Property description is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_basePriceController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Base price is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_weekendPriceController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Weekend price is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_minimumStayController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Minimum stay is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_selectedCheckInTime == null) {
-  //   //   _showErrorDialog('Validation Error', 'Check-in time is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_selectedCheckOutTime == null) {
-  //   //   _showErrorDialog('Validation Error', 'Check-out time is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (!_cancellationPolicyInfo['uploaded']) {
-  //   //   _showErrorDialog('Validation Error', 'Cancellation policy is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (!_ownershipProofInfo['uploaded']) {
-  //   //   _showErrorDialog('Validation Error', 'Property ownership proof is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (!_idProofInfo['uploaded']) {
-  //   //   _showErrorDialog('Validation Error', 'ID proof is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_accountHolderController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Account holder name is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_bankNameController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Bank name is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_accountNumberController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Account number is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_ifscCodeController.text.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'IFSC code is required');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_mediaFiles['villa_exterior']!.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Please upload villa exterior photos');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_mediaFiles['villa_interior']!.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Please upload interior photos');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_mediaFiles['bedroom']!.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Please upload bedroom photos');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_mediaFiles['bathroom']!.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Please upload bathroom photos');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_mediaFiles['amenities']!.isEmpty) {
-  //   //   _showErrorDialog('Validation Error', 'Please upload amenities photos');
-  //   //   return;
-  //   // }
-  //
   //   if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-  //     _showErrorDialog(
-  //       'Terms Required',
-  //       'Please accept all terms and conditions.',
-  //     );
+  //     _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
   //     return;
   //   }
   //
-  //   // final hasSignature = _hasDigitalSignature;
-  //   // if (!hasSignature) {
-  //   //   _showErrorDialog('Signature Required', 'Please draw your digital signature.');
-  //   //   return;
-  //   // }
-  //   //
-  //   // if (_selectedDate == null) {
-  //   //   _showErrorDialog('Date Required', 'Please select the declaration date.');
-  //   //   return;
-  //   // }
+  //   // Generate a unique ID - MAKE SURE THIS IS PROPERLY FORMATTED
   //   String villaId = 'VILLA_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
-  //   // Get the property type value
+  //
+  //   print('=== GENERATING VILLA ID ===');
+  //   print('Generated Villa ID: $villaId');
+  //
   //   String propertyTypeValue = _selectedPropertyType == 'Other'
-  //       ? _customPropertyType.isNotEmpty
-  //             ? _customPropertyType
-  //             : 'Other Villa'
+  //       ? _customPropertyType.isNotEmpty ? _customPropertyType : 'Other Villa'
   //       : _selectedPropertyType ?? 'Villa';
   //
   //   Map<String, dynamic> formData = {
-  //     'id': villaId,
+  //     'id': villaId,  // MAKE SURE THIS IS SET
   //     'registeredAt': DateTime.now().toIso8601String(),
   //     'basicInfo': {
   //       'villaName': _villaNameController.text,
@@ -46456,23 +46260,23 @@ Widget _buildVirtualTourLinkField() {
   //       'email': _emailController.text,
   //       'website': _websiteController.text,
   //       'ownerPhoto': _ownerPhotoInfo,
+  //       'id': villaId,  // ALSO ADD ID TO BASICINFO FOR REDUNDANCY
   //     },
   //     'location': {
-  //      'address': _addressController.text,
-  //        'area': _areaController.text,
-  //        'city': _cityController.text,
-  //        'state': _stateController.text,
-  //        'pincode': _pincodeController.text,
-  //        'googleMapLink': _googleMapLinkController.text,
-  //        // Office Address - ADD THIS
-  //        'officeAddress': {
-  //          'address': _officeAddressController.text,
-  //          'area': _officeAreaController.text,
-  //          'city': _officeCityController.text,
-  //          'state': _officeStateController.text,
-  //          'pincode': _officePincodeController.text,
-  //          'googleMapLink': _officeGoogleMapLinkController.text,
-  //        },
+  //       'address': _addressController.text,
+  //       'area': _areaController.text,
+  //       'city': _cityController.text,
+  //       'state': _stateController.text,
+  //       'pincode': _pincodeController.text,
+  //       'googleMapLink': _googleMapLinkController.text,
+  //       'officeAddress': {
+  //         'address': _officeAddressController.text,
+  //         'area': _officeAreaController.text,
+  //         'city': _officeCityController.text,
+  //         'state': _officeStateController.text,
+  //         'pincode': _officePincodeController.text,
+  //         'googleMapLink': _officeGoogleMapLinkController.text,
+  //       },
   //     },
   //     'propertyDetails': {
   //       'propertyType': propertyTypeValue,
@@ -46521,41 +46325,80 @@ Widget _buildVirtualTourLinkField() {
   //
   //   print('=== SUBMIT FORM DEBUG ===');
   //   print('Form data keys: ${formData.keys.toList()}');
-  //   print('Property Type Value: "$propertyTypeValue"');
-  //     print('Virtual Tour Link: ${_virtualTourLinkController.text}');
+  //   print('Villa ID in formData: ${formData['id']}');
+  //   print('Villa ID in basicInfo: ${formData['basicInfo']['id']}');
   //
   //   _saveToSharedPreferences(formData);
-  //
-  //   // Navigate to summary screen - property type will be passed separately
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => VillaRegistrationSummaryScreen(
-  //         registrationData: formData,
-  //         declarationAccepted: _declarationAccepted,
-  //          userEmail: _emailController.text,
-  //       ),
-  //     ),
-  //   );
+  //   // ... rest of code
   // }
+
   void _submitForm() {
-    if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-      _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
+    // Validate media requirements
+    bool hasMediaErrors = false;
+
+    // Check Villa Exterior Photos (min 2)
+    if (_mediaFiles['villa_exterior']!.length < 2) {
+      _showErrorDialog(
+        'Media Required',
+        'Please upload at least 2 Villa Exterior Photos',
+      );
       return;
     }
 
-    // Generate a unique ID - MAKE SURE THIS IS PROPERLY FORMATTED
-    String villaId = 'VILLA_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
+    // Check Interior Photos (min 2)
+    if (_mediaFiles['villa_interior']!.length < 2) {
+      _showErrorDialog(
+        'Media Required',
+        'Please upload at least 2 Interior Photos',
+      );
+      return;
+    }
 
-    print('=== GENERATING VILLA ID ===');
-    print('Generated Villa ID: $villaId');
+    // Check Bedroom Photos (min 1)
+    if (_mediaFiles['bedroom']!.isEmpty) {
+      _showErrorDialog(
+        'Media Required',
+        'Please upload at least 1 Bedroom Photo',
+      );
+      return;
+    }
+
+    // Check Bathroom Photos (min 1)
+    if (_mediaFiles['bathroom']!.isEmpty) {
+      _showErrorDialog(
+        'Media Required',
+        'Please upload at least 1 Bathroom Photo',
+      );
+      return;
+    }
+
+    // Check Amenities Photos (min 5)
+    if (_mediaFiles['amenities']!.length < 5) {
+      _showErrorDialog(
+        'Media Required',
+        'Please upload at least 5 Amenities Photos',
+      );
+      return;
+    }
+
+    // Check terms acceptance
+    if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
+      _showErrorDialog(
+        'Terms Required',
+        'Please accept all terms and conditions.',
+      );
+      return;
+    }
+
+    // Generate villa ID
+    String villaId = 'VILLA_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
 
     String propertyTypeValue = _selectedPropertyType == 'Other'
         ? _customPropertyType.isNotEmpty ? _customPropertyType : 'Other Villa'
         : _selectedPropertyType ?? 'Villa';
 
     Map<String, dynamic> formData = {
-      'id': villaId,  // MAKE SURE THIS IS SET
+      'id': villaId,
       'registeredAt': DateTime.now().toIso8601String(),
       'basicInfo': {
         'villaName': _villaNameController.text,
@@ -46565,7 +46408,7 @@ Widget _buildVirtualTourLinkField() {
         'email': _emailController.text,
         'website': _websiteController.text,
         'ownerPhoto': _ownerPhotoInfo,
-        'id': villaId,  // ALSO ADD ID TO BASICINFO FOR REDUNDANCY
+        'id': villaId,
       },
       'location': {
         'address': _addressController.text,
@@ -46628,14 +46471,22 @@ Widget _buildVirtualTourLinkField() {
       'declarationAccepted': _declarationAccepted,
     };
 
-    print('=== SUBMIT FORM DEBUG ===');
-    print('Form data keys: ${formData.keys.toList()}');
-    print('Villa ID in formData: ${formData['id']}');
-    print('Villa ID in basicInfo: ${formData['basicInfo']['id']}');
-
     _saveToSharedPreferences(formData);
-    // ... rest of code
+
+    // Navigate to summary screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VillaRegistrationSummaryScreen(
+          registrationData: formData,
+          declarationAccepted: _declarationAccepted,
+          userEmail: _emailController.text,
+        ),
+      ),
+    );
   }
+
+
   Future<void> _saveToSharedPreferences(Map<String, dynamic> formData) async {
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -46871,6 +46722,8 @@ class _ApartmentRegistrationVendorFormState
 
   final TextEditingController _otherPropertyTypeController =
       TextEditingController();
+
+  final TextEditingController _customBHKController = TextEditingController();
   String _customPropertyType = '';
 
   String? _selectedPropertyType;
@@ -46972,18 +46825,80 @@ class _ApartmentRegistrationVendorFormState
     'uploaded': false,
   };
 
+  // final List<Map<String, dynamic>> _propertyTypes = [
+  //   {'title': 'Service Apartment', 'icon': '🏢', 'color': Color(0xFF5C6BC0)},
+  //   {'title': 'Studio Apartment', 'icon': '🏠', 'color': Color(0xFF42A5F5)},
+  //   {'title': '1 BHK', 'icon': '🛏️', 'color': Color(0xFF66BB6A)},
+  //   {'title': '2 BHK', 'icon': '🛏️🛏️', 'color': Color(0xFFFFA726)},
+  //   {'title': '3 BHK', 'icon': '🛏️🛏️🛏️', 'color': Color(0xFFEF5350)},
+  //   {'title': 'Luxury Apartment', 'icon': '✨', 'color': Color(0xFFAB47BC)},
+  //   {'title': 'Budget Apartment', 'icon': '💰', 'color': Color(0xFF26A69A)},
+  //   {'title': 'Entire Apartment', 'icon': '🏘️', 'color': Color(0xFF7E57C2)},
+  //   {'title': 'Shared Apartment', 'icon': '🤝', 'color': Color(0xFFFF7043)},
+  //   {'title': 'Other', 'icon': '🏡', 'color': Color(0xFF9E9E9E)},
+  // ];
+
   final List<Map<String, dynamic>> _propertyTypes = [
-    {'title': 'Service Apartment', 'icon': '🏢', 'color': Color(0xFF5C6BC0)},
-    {'title': 'Studio Apartment', 'icon': '🏠', 'color': Color(0xFF42A5F5)},
-    {'title': '1 BHK', 'icon': '🛏️', 'color': Color(0xFF66BB6A)},
-    {'title': '2 BHK', 'icon': '🛏️🛏️', 'color': Color(0xFFFFA726)},
-    {'title': '3 BHK', 'icon': '🛏️🛏️🛏️', 'color': Color(0xFFEF5350)},
-    {'title': 'Luxury Apartment', 'icon': '✨', 'color': Color(0xFFAB47BC)},
-    {'title': 'Budget Apartment', 'icon': '💰', 'color': Color(0xFF26A69A)},
-    {'title': 'Entire Apartment', 'icon': '🏘️', 'color': Color(0xFF7E57C2)},
-    {'title': 'Shared Apartment', 'icon': '🤝', 'color': Color(0xFFFF7043)},
-    {'title': 'Other', 'icon': '🏡', 'color': Color(0xFF9E9E9E)},
+    {
+      'title': 'Service Apartment',
+      'icon': '🏢',
+      'color': Color(0xFF5C6BC0),
+      'hasSubOptions': true,
+      'subOptions': ['1 BHK', '2 BHK', '3 BHK','4 BHK', '5 BHK'],
+    },
+    {
+      'title': 'Studio Apartment',
+      'icon': '🏠',
+      'color': Color(0xFF42A5F5),
+      'hasSubOptions': true,
+      'subOptions': ['1 BHK', '2 BHK', '3 BHK','4 BHK', '5 BHK'],
+    },
+    {
+      'title': 'Luxury Apartment',
+      'icon': '✨',
+      'color': Color(0xFFAB47BC),
+      'hasSubOptions': true,
+      'subOptions': ['1 BHK', '2 BHK', '3 BHK', '4 BHK', '5 BHK'],
+    },
+    {
+      'title': 'Budget Apartment',
+      'icon': '💰',
+      'color': Color(0xFF26A69A),
+      'hasSubOptions': true,
+      'subOptions': ['1 BHK', '2 BHK', '3 BHK', '4 BHK', '5 BHK'],
+    },
+    {
+      'title': 'Entire Apartment',
+      'icon': '🏘️',
+      'color': Color(0xFF7E57C2),
+      'hasSubOptions': true,
+      'subOptions': ['1 BHK', '2 BHK', '3 BHK', '4 BHK', '5 BHK'],
+    },
+    {
+      'title': 'Shared Apartment',
+      'icon': '🤝',
+      'color': Color(0xFFFF7043),
+      'hasSubOptions': true,
+      'subOptions': ['1 BHK', '2 BHK', '3 BHK', '4 BHK', '5 BHK'],
+    },
+    {
+      'title': 'Other',
+      'icon': '🏡',
+      'color': Color(0xFF9E9E9E),
+      'hasSubOptions': true,
+      'subOptions': ['1 BHK', '2 BHK', '3 BHK', '4 BHK', '5 BHK'],
+    },
   ];
+
+// Add these variables to manage selected sub-options
+  List<String> _selectedSubOptions = [];
+  Map<String, BHKDetails> _selectedSubOptionsDetails = {};
+
+// Add this to manage multiple selected BHKs
+  List<BHKDetails> _selectedBHKs = [];
+
+// Add controllers for each BHK section
+  final Map<String, Map<String, TextEditingController>> _bhkControllers = {};
 
   Map<String, bool> _apartmentAmenities = {
     'WiFi': false,
@@ -47035,6 +46950,17 @@ class _ApartmentRegistrationVendorFormState
     {'title': 'Legal & Bank', 'subtitle': 'Documents & Bank'},
     {'title': 'Media & Terms', 'subtitle': 'Photos & Declaration'},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Debug print to verify property types
+    print('=== PROPERTY TYPES DEBUG ===');
+    for (var type in _propertyTypes) {
+      print('Type: ${type['title']}, hasSubOptions: ${type['hasSubOptions']}, subOptions: ${type['subOptions']}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47571,35 +47497,162 @@ class _ApartmentRegistrationVendorFormState
               children: [
                 ..._propertyTypes.map((type) {
                   bool isSelected = _selectedPropertyType == type['title'];
-                  return RadioListTile<String>(
-                    title: Row(
-                      children: [
-                        Text(type['icon'], style: TextStyle(fontSize: 18)),
-                        SizedBox(width: 12),
-                        Text(
-                          type['title'],
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: isSelected
-                                ? FontWeight.w600
-                                : FontWeight.w400,
+                  bool hasSubOptions = type['hasSubOptions'] as bool? ?? false;
+
+                  return Column(
+                    children: [
+                      RadioListTile<String>(
+                        title: Row(
+                          children: [
+                            Text(type['icon'], style: TextStyle(fontSize: 18)),
+                            SizedBox(width: 12),
+                            Text(
+                              type['title'],
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: isSelected
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        value: type['title'],
+                        groupValue: _selectedPropertyType,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _selectedPropertyType = value;
+                            _selectedSubOptions.clear();
+                            _selectedSubOptionsDetails.clear();
+                            _customBHKController.clear();
+                            if (value != 'Other') {
+                              _otherPropertyTypeController.clear();
+                            }
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+
+                      if (isSelected && hasSubOptions)
+                        Padding(
+                          padding: EdgeInsets.only(left: 40, right: 16, bottom: 8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 8),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: _primaryLight,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  'Select ${type['title']} Types Available',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: _primaryColor,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: [
+                                  ...(type['subOptions'] as List<String>).map((subOption) {
+                                    bool isSubSelected = _selectedSubOptions.contains(subOption);
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (isSubSelected) {
+                                            _selectedSubOptions.remove(subOption);
+                                            _selectedSubOptionsDetails.remove(subOption);
+                                          } else {
+                                            _selectedSubOptions.add(subOption);
+                                            _selectedSubOptionsDetails[subOption] = BHKDetails(type: subOption);
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          color: isSubSelected ? _primaryColor : Colors.white,
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(
+                                            color: isSubSelected ? _primaryColor : _borderColor,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          subOption,
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                            color: isSubSelected ? Colors.white : _textPrimary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+
+                                  // Add Custom BHK Button
+                                  Container(
+                                    margin: EdgeInsets.only(left: 4),
+                                    child: GestureDetector(
+                                      onTap: () => _showAddCustomBHKDialog(),
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(color: _primaryColor, width: 1.5),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(Icons.add, size: 14, color: _primaryColor),
+                                            SizedBox(width: 4),
+                                            Text(
+                                              'Add Custom BHK',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                color: _primaryColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              if (_selectedSubOptions.isNotEmpty)
+                                Padding(
+                                  padding: EdgeInsets.only(top: 12),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                      color: _primaryColor.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Text(
+                                      'Selected: ${_selectedSubOptions.join(", ")}',
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: _primaryColor,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                    value: type['title'],
-                    groupValue: _selectedPropertyType,
-                    onChanged: (String? value) {
-                      setState(() {
-                        _selectedPropertyType = value;
-                        if (value != 'Other') {
-                          _otherPropertyTypeController.clear();
-                        }
-                      });
-                    },
-                    activeColor: _primaryColor,
-                    contentPadding: EdgeInsets.zero,
-                    dense: true,
+                    ],
                   );
                 }).toList(),
 
@@ -47630,149 +47683,14 @@ class _ApartmentRegistrationVendorFormState
 
             SizedBox(height: 16),
 
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Total Number of Units',
-                    controller: _totalUnitsController,
-                    hint: 'Enter number',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Total Bedrooms',
-                    controller: _totalBedroomsController,
-                    hint: 'Enter number',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Total Bathrooms',
-                    controller: _totalBathroomsController,
-                    hint: 'Enter number',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Max Guest Capacity',
-                    controller: _guestCapacityController,
-                    hint: 'Enter number',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Floor Number',
-                    controller: _floorNumberController,
-                    hint: 'Enter floor',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Total Floors in Building',
-                    controller: _totalFloorsController,
-                    hint: 'Enter total floors',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Elevator Available',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
-                    color: _textPrimary,
-                  ),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: RadioListTile<String>(
-                        title: Text('Yes'),
-                        value: 'Yes',
-                        groupValue: _elevatorAvailable,
-                        onChanged: (value) {
-                          setState(() {
-                            _elevatorAvailable = value;
-                          });
-                        },
-                        activeColor: _primaryColor,
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                    ),
-                    Expanded(
-                      child: RadioListTile<String>(
-                        title: Text('No'),
-                        value: 'No',
-                        groupValue: _elevatorAvailable,
-                        onChanged: (value) {
-                          setState(() {
-                            _elevatorAvailable = value;
-                          });
-                        },
-                        activeColor: _primaryColor,
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Property Size (Sq. Ft.)',
-                    controller: _propertySizeController,
-                    hint: 'Enter size',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Year of Construction',
-                    controller: _yearConstructionController,
-                    hint: 'YYYY',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            _buildInputField(
-              label: 'Property Description',
-              controller: _propertyDescriptionController,
-              hint: 'Describe your apartment',
-              maxLines: 4,
-            ),
+            if (_selectedSubOptions.isNotEmpty)
+              ..._selectedSubOptions.map((subOption) => _buildBHKDetailsCard(subOption)),
+
+            if (_selectedSubOptions.isEmpty && _selectedPropertyType != 'Other')
+              _buildBasicPropertyDetails(),
+
+            if (_selectedPropertyType == 'Other')
+              _buildBasicPropertyDetails(),
           ],
         ),
         SizedBox(height: 16),
@@ -47786,6 +47704,871 @@ class _ApartmentRegistrationVendorFormState
         ),
       ],
     );
+  }
+
+  void _showAddCustomBHKDialog() {
+    _customBHKController.clear();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Add Custom BHK Type'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Enter BHK type (e.g., 6 BHK, 7 BHK, 8 BHK, etc.)',
+              style: TextStyle(fontSize: 12, color: _textSecondary),
+            ),
+            SizedBox(height: 16),
+            TextField(
+              controller: _customBHKController,
+              decoration: InputDecoration(
+                hintText: 'e.g., 6 BHK',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              ),
+              keyboardType: TextInputType.text,
+              autofocus: true,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              _customBHKController.clear();
+              Navigator.pop(context);
+            },
+            child: Text('Cancel', style: TextStyle(color: _textSecondary)),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              String customBHK = _customBHKController.text.trim();
+              if (customBHK.isNotEmpty) {
+                // Validate format (should contain "BHK")
+                if (!customBHK.toUpperCase().contains('BHK')) {
+                  _showErrorDialog(
+                    'Invalid Format',
+                    'Please enter a valid BHK type (e.g., 6 BHK, 7 BHK, etc.)',
+                  );
+                  return;
+                }
+
+                // Check if already exists
+                if (_selectedSubOptions.contains(customBHK)) {
+                  _showErrorDialog(
+                    'Already Added',
+                    '$customBHK is already selected.',
+                  );
+                  return;
+                }
+
+                setState(() {
+                  _selectedSubOptions.add(customBHK);
+                  _selectedSubOptionsDetails[customBHK] = BHKDetails(type: customBHK);
+                });
+
+                _customBHKController.clear();
+                Navigator.pop(context);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('$customBHK added successfully'),
+                    backgroundColor: _successColor,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              }
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _primaryColor,
+            ),
+            child: Text('Add', style: TextStyle(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+  // Widget _buildPropertyDetailsStep() {
+  //   return Column(
+  //     children: [
+  //       _buildCard(
+  //         title: 'Property Details',
+  //         children: [
+  //           Text(
+  //             'Property Type',
+  //             style: TextStyle(
+  //               fontSize: 13,
+  //               fontWeight: FontWeight.w500,
+  //               color: _textPrimary,
+  //             ),
+  //           ),
+  //           SizedBox(height: 12),
+  //
+  //           Column(
+  //             children: [
+  //               ..._propertyTypes.map((type) {
+  //                 bool isSelected = _selectedPropertyType == type['title'];
+  //                 bool hasSubOptions = type['hasSubOptions'] as bool? ?? false;
+  //
+  //                 // Debug print to verify
+  //                 print('=== PROPERTY TYPE DEBUG ===');
+  //                 print('Type: ${type['title']}');
+  //                 print('hasSubOptions: $hasSubOptions');
+  //                 print('isSelected: $isSelected');
+  //                 print('subOptions: ${type['subOptions']}');
+  //
+  //                 return Column(
+  //                   children: [
+  //                     RadioListTile<String>(
+  //                       title: Row(
+  //                         children: [
+  //                           Text(type['icon'], style: TextStyle(fontSize: 18)),
+  //                           SizedBox(width: 12),
+  //                           Text(
+  //                             type['title'],
+  //                             style: TextStyle(
+  //                               fontSize: 14,
+  //                               fontWeight: isSelected
+  //                                   ? FontWeight.w600
+  //                                   : FontWeight.w400,
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                       value: type['title'],
+  //                       groupValue: _selectedPropertyType,
+  //                       onChanged: (String? value) {
+  //                         setState(() {
+  //                           _selectedPropertyType = value;
+  //                           // Clear sub-options when changing main type
+  //                           _selectedSubOptions.clear();
+  //                           _selectedSubOptionsDetails.clear();
+  //                           if (value != 'Other') {
+  //                             _otherPropertyTypeController.clear();
+  //                           }
+  //                         });
+  //                       },
+  //                       activeColor: _primaryColor,
+  //                       contentPadding: EdgeInsets.zero,
+  //                       dense: true,
+  //                     ),
+  //
+  //                     // Show sub-options if main type is selected AND hasSubOptions is true
+  //                     if (isSelected && hasSubOptions)
+  //                       Padding(
+  //                         padding: EdgeInsets.only(left: 40, right: 16, bottom: 8),
+  //                         child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             SizedBox(height: 8),
+  //                             Container(
+  //                               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+  //                               decoration: BoxDecoration(
+  //                                 color: _primaryLight,
+  //                                 borderRadius: BorderRadius.circular(8),
+  //                               ),
+  //                               child: Text(
+  //                                 'Select ${type['title']} Types Available',
+  //                                 style: TextStyle(
+  //                                   fontSize: 12,
+  //                                   fontWeight: FontWeight.w600,
+  //                                   color: _primaryColor,
+  //                                 ),
+  //                               ),
+  //                             ),
+  //                             SizedBox(height: 12),
+  //                             Wrap(
+  //                               spacing: 8,
+  //                               runSpacing: 8,
+  //                               children: (type['subOptions'] as List<String>).map((subOption) {
+  //                                 bool isSubSelected = _selectedSubOptions.contains(subOption);
+  //                                 return GestureDetector(
+  //                                   onTap: () {
+  //                                     setState(() {
+  //                                       if (isSubSelected) {
+  //                                         _selectedSubOptions.remove(subOption);
+  //                                         _selectedSubOptionsDetails.remove(subOption);
+  //                                       } else {
+  //                                         _selectedSubOptions.add(subOption);
+  //                                         _selectedSubOptionsDetails[subOption] = BHKDetails(type: subOption);
+  //                                       }
+  //                                     });
+  //                                   },
+  //                                   child: Container(
+  //                                     padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+  //                                     decoration: BoxDecoration(
+  //                                       color: isSubSelected ? _primaryColor : Colors.white,
+  //                                       borderRadius: BorderRadius.circular(20),
+  //                                       border: Border.all(
+  //                                         color: isSubSelected ? _primaryColor : _borderColor,
+  //                                         width: 1.5,
+  //                                       ),
+  //                                     ),
+  //                                     child: Text(
+  //                                       subOption,
+  //                                       style: TextStyle(
+  //                                         fontSize: 13,
+  //                                         fontWeight: FontWeight.w600,
+  //                                         color: isSubSelected ? Colors.white : _textPrimary,
+  //                                       ),
+  //                                     ),
+  //                                   ),
+  //                                 );
+  //                               }).toList(),
+  //                             ),
+  //                             if (_selectedSubOptions.isNotEmpty)
+  //                               Padding(
+  //                                 padding: EdgeInsets.only(top: 12),
+  //                                 child: Container(
+  //                                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+  //                                   decoration: BoxDecoration(
+  //                                     color: _primaryColor.withOpacity(0.1),
+  //                                     borderRadius: BorderRadius.circular(12),
+  //                                   ),
+  //                                   child: Text(
+  //                                     'Selected: ${_selectedSubOptions.join(", ")}',
+  //                                     style: TextStyle(
+  //                                       fontSize: 11,
+  //                                       color: _primaryColor,
+  //                                       fontWeight: FontWeight.w500,
+  //                                     ),
+  //                                   ),
+  //                                 ),
+  //                               ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                   ],
+  //                 );
+  //               }).toList(),
+  //
+  //               if (_selectedPropertyType == 'Other')
+  //                 Padding(
+  //                   padding: EdgeInsets.only(left: 40, right: 16, bottom: 16),
+  //                   child: TextFormField(
+  //                     controller: _otherPropertyTypeController,
+  //                     decoration: InputDecoration(
+  //                       hintText: 'Enter specify property type',
+  //                       border: OutlineInputBorder(
+  //                         borderRadius: BorderRadius.circular(8),
+  //                       ),
+  //                       contentPadding: EdgeInsets.symmetric(
+  //                         horizontal: 12,
+  //                         vertical: 12,
+  //                       ),
+  //                     ),
+  //                     onChanged: (value) {
+  //                       setState(() {
+  //                         _customPropertyType = value;
+  //                       });
+  //                     },
+  //                   ),
+  //                 ),
+  //             ],
+  //           ),
+  //
+  //           SizedBox(height: 16),
+  //
+  //           // Show BHK Details Cards for each selected sub-option
+  //           if (_selectedSubOptions.isNotEmpty)
+  //             ..._selectedSubOptions.map((subOption) => _buildBHKDetailsCard(subOption)),
+  //
+  //           // Show basic property details if no sub-options selected
+  //           if (_selectedSubOptions.isEmpty && _selectedPropertyType != 'Other')
+  //             // _buildBasicPropertyDetails(),
+  //
+  //           // Show basic property details for "Other" type
+  //           if (_selectedPropertyType == 'Other')
+  //             _buildBasicPropertyDetails(),
+  //         ],
+  //       ),
+  //       SizedBox(height: 16),
+  //       _buildCard(
+  //         title: 'Amenities Available',
+  //         children: [
+  //           _buildAmenitiesGrid(),
+  //           SizedBox(height: 16),
+  //           _buildCustomAmenitiesSection(),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  Widget _buildBHKDetailsCard(String bhkType) {
+
+    if (!_selectedSubOptionsDetails.containsKey(bhkType)) {
+      _selectedSubOptionsDetails[bhkType] = BHKDetails(type: bhkType);
+    }
+
+    final bhk = _selectedSubOptionsDetails[bhkType]!;
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _primaryLight.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _primaryColor.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '$bhkType Details',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: _primaryColor,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedSubOptions.remove(bhkType);
+                    _selectedSubOptionsDetails.remove(bhkType);
+                  });
+                },
+                icon: Icon(Icons.close, color: Colors.red, size: 20),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildBHKInputField(
+                  label: 'Total Number of Units *',
+                  value: bhk.totalUnits,
+                  hint: 'Enter number',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      bhk.totalUnits = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildBHKInputField(
+                  label: 'Total Bedrooms *',
+                  value: bhk.totalBedrooms,
+                  hint: 'Enter number',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      bhk.totalBedrooms = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildBHKInputField(
+                  label: 'Total Bathrooms *',
+                  value: bhk.totalBathrooms,
+                  hint: 'Enter number',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      bhk.totalBathrooms = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildBHKInputField(
+                  label: 'Max Guest Capacity *',
+                  value: bhk.guestCapacity,
+                  hint: 'Enter number',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      bhk.guestCapacity = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildBHKInputField(
+                  label: 'Floor Number',
+                  value: bhk.floorNumber,
+                  hint: 'Enter floor',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      bhk.floorNumber = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildBHKInputField(
+                  label: 'Total Floors in Building',
+                  value: bhk.totalFloors,
+                  hint: 'Enter total floors',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      bhk.totalFloors = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Elevator Available',
+                style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
+                  color: _textPrimary,
+                ),
+              ),
+              SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile<String>(
+                      title: Text('Yes'),
+                      value: 'Yes',
+                      groupValue: bhk.elevatorAvailable,
+                      onChanged: (value) {
+                        setState(() {
+                          bhk.elevatorAvailable = value ?? '';
+                        });
+                      },
+                      activeColor: _primaryColor,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                  ),
+                  Expanded(
+                    child: RadioListTile<String>(
+                      title: Text('No'),
+                      value: 'No',
+                      groupValue: bhk.elevatorAvailable,
+                      onChanged: (value) {
+                        setState(() {
+                          bhk.elevatorAvailable = value ?? '';
+                        });
+                      },
+                      activeColor: _primaryColor,
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildBHKInputField(
+                  label: 'Property Size (Sq. Ft.)',
+                  value: bhk.propertySize,
+                  hint: 'Enter size',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      bhk.propertySize = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          _buildBHKInputField(
+            label: 'Property Description',
+            value: bhk.propertyDescription,
+            hint: 'Describe this $bhkType unit',
+            maxLines: 3,
+            onChanged: (value) {
+              setState(() {
+                bhk.propertyDescription = value;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBHKInputField({
+    required String label,
+    required String value,
+    required String hint,
+    TextInputType? keyboardType,
+    int maxLines = 1,
+    required Function(String) onChanged,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: _textSecondary,
+          ),
+        ),
+        SizedBox(height: 4),
+        TextFormField(
+          initialValue: value,
+          keyboardType: keyboardType,
+          maxLines: maxLines,
+          onChanged: onChanged,
+          decoration: InputDecoration(
+            hintText: hint,
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _borderColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _primaryColor),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBHKOptionsSection() {
+    final bhkOptions = _propertyTypes.firstWhere(
+          (type) => type['title'] == _selectedPropertyType,
+      orElse: () => {'bhkOptions': []},
+    )['bhkOptions'] as List<String>;
+
+    if (bhkOptions.isEmpty) return SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Select BHK Types Available',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        Text(
+          'You can select multiple BHK types for this property',
+          style: TextStyle(fontSize: 12, color: _textSecondary),
+        ),
+        SizedBox(height: 12),
+        Wrap(
+          spacing: 12,
+          runSpacing: 12,
+          children: bhkOptions.map((bhkType) {
+            bool isSelected = _selectedBHKs.any((b) => b.type == bhkType);
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (isSelected) {
+                    // Remove BHK
+                    _selectedBHKs.removeWhere((b) => b.type == bhkType);
+                    _bhkControllers.remove(bhkType);
+                  } else {
+                    // Add new BHK
+                    _selectedBHKs.add(BHKDetails(type: bhkType));
+                    _initializeBHKControllers(bhkType);
+                  }
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                decoration: BoxDecoration(
+                  color: isSelected ? _primaryColor : Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: isSelected ? _primaryColor : _borderColor,
+                    width: 1.5,
+                  ),
+                ),
+                child: Text(
+                  bhkType,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: isSelected ? Colors.white : _textPrimary,
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+        if (_selectedBHKs.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(top: 12),
+            child: Text(
+              'Selected: ${_selectedBHKs.map((b) => b.type).join(", ")}',
+              style: TextStyle(fontSize: 12, color: _primaryColor),
+            ),
+          ),
+        SizedBox(height: 16),
+        Divider(color: _borderColor),
+        SizedBox(height: 16),
+      ],
+    );
+  }
+
+  Widget _buildBasicPropertyDetails() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: _buildInputField(
+                label: 'Total Number of Units',
+                controller: _totalUnitsController,
+                hint: 'Enter number',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildInputField(
+                label: 'Total Bedrooms',
+                controller: _totalBedroomsController,
+                hint: 'Enter number',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: _buildInputField(
+                label: 'Total Bathrooms',
+                controller: _totalBathroomsController,
+                hint: 'Enter number',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildInputField(
+                label: 'Max Guest Capacity',
+                controller: _guestCapacityController,
+                hint: 'Enter number',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: _buildInputField(
+                label: 'Floor Number',
+                controller: _floorNumberController,
+                hint: 'Enter floor',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildInputField(
+                label: 'Total Floors in Building',
+                controller: _totalFloorsController,
+                hint: 'Enter total floors',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Elevator Available',
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: _textPrimary,
+              ),
+            ),
+            SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: RadioListTile<String>(
+                    title: Text('Yes'),
+                    value: 'Yes',
+                    groupValue: _elevatorAvailable,
+                    onChanged: (value) {
+                      setState(() {
+                        _elevatorAvailable = value;
+                      });
+                    },
+                    activeColor: _primaryColor,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ),
+                Expanded(
+                  child: RadioListTile<String>(
+                    title: Text('No'),
+                    value: 'No',
+                    groupValue: _elevatorAvailable,
+                    onChanged: (value) {
+                      setState(() {
+                        _elevatorAvailable = value;
+                      });
+                    },
+                    activeColor: _primaryColor,
+                    dense: true,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: _buildInputField(
+                label: 'Property Size (Sq. Ft.)',
+                controller: _propertySizeController,
+                hint: 'Enter size',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildInputField(
+                label: 'Year of Construction',
+                controller: _yearConstructionController,
+                hint: 'YYYY',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildInputField(
+          label: 'Property Description',
+          controller: _propertyDescriptionController,
+          hint: 'Describe your apartment',
+          maxLines: 4,
+        ),
+      ],
+    );
+  }
+
+  void _initializeBHKControllers(String bhkType) {
+    _bhkControllers[bhkType] = {
+      'totalUnits': TextEditingController(),
+      'totalBedrooms': TextEditingController(),
+      'totalBathrooms': TextEditingController(),
+      'guestCapacity': TextEditingController(),
+      'floorNumber': TextEditingController(),
+      'totalFloors': TextEditingController(),
+      'propertySize': TextEditingController(),
+      'propertyDescription': TextEditingController(),
+    };
+
+    // Initialize with existing data if any
+    final existingBHK = _selectedBHKs.firstWhere(
+          (b) => b.type == bhkType,
+      orElse: () => BHKDetails(type: bhkType),
+    );
+
+    _bhkControllers[bhkType]!['totalUnits']?.text = existingBHK.totalUnits;
+    _bhkControllers[bhkType]!['totalBedrooms']?.text = existingBHK.totalBedrooms;
+    _bhkControllers[bhkType]!['totalBathrooms']?.text = existingBHK.totalBathrooms;
+    _bhkControllers[bhkType]!['guestCapacity']?.text = existingBHK.guestCapacity;
+    _bhkControllers[bhkType]!['floorNumber']?.text = existingBHK.floorNumber;
+    _bhkControllers[bhkType]!['totalFloors']?.text = existingBHK.totalFloors;
+    _bhkControllers[bhkType]!['propertySize']?.text = existingBHK.propertySize;
+    _bhkControllers[bhkType]!['propertyDescription']?.text = existingBHK.propertyDescription;
+  }
+
+  void _updateBHKDetails(String bhkType, String field, String value) {
+    final index = _selectedBHKs.indexWhere((b) => b.type == bhkType);
+    if (index != -1) {
+      switch (field) {
+        case 'totalUnits':
+          _selectedBHKs[index].totalUnits = value;
+          break;
+        case 'totalBedrooms':
+          _selectedBHKs[index].totalBedrooms = value;
+          break;
+        case 'totalBathrooms':
+          _selectedBHKs[index].totalBathrooms = value;
+          break;
+        case 'guestCapacity':
+          _selectedBHKs[index].guestCapacity = value;
+          break;
+        case 'floorNumber':
+          _selectedBHKs[index].floorNumber = value;
+          break;
+        case 'totalFloors':
+          _selectedBHKs[index].totalFloors = value;
+          break;
+        case 'elevatorAvailable':
+          _selectedBHKs[index].elevatorAvailable = value;
+          break;
+        case 'propertySize':
+          _selectedBHKs[index].propertySize = value;
+          break;
+        case 'propertyDescription':
+          _selectedBHKs[index].propertyDescription = value;
+          break;
+      }
+    }
+  }
+
+  bool _getSelectedPropertyTypeHasBHKOptions() {
+    if (_selectedPropertyType == null) return false;
+    final type = _propertyTypes.firstWhere(
+          (t) => t['title'] == _selectedPropertyType,
+      orElse: () => {'hasBHKOptions': false},
+    );
+    return type['hasBHKOptions'] as bool? ?? false;
   }
 
   Widget _buildPricingStep() {
@@ -49811,30 +50594,23 @@ class _ApartmentRegistrationVendorFormState
     }
   }
 
+
+
   // void _submitForm() {
   //   if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-  //     _showErrorDialog(
-  //       'Terms Required',
-  //       'Please accept all terms and conditions.',
-  //     );
+  //     _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
   //     return;
   //   }
   //
-  //   final hasSignature = _hasDigitalSignature;
-  //   if (!hasSignature) {
-  //     _showErrorDialog(
-  //       'Signature Required',
-  //       'Please draw your digital signature.',
-  //     );
-  //     return;
-  //   }
+  //   String apartmentId = 'APT_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
   //
-  //   if (_mediaFiles['exterior']!.isEmpty) {
-  //     _showErrorDialog('Photos Required', 'Please upload exterior photos.');
-  //     return;
-  //   }
+  //   String propertyTypeValue = _selectedPropertyType == 'Other'
+  //       ? _customPropertyType.isNotEmpty ? _customPropertyType : 'Other Apartment'
+  //       : _selectedPropertyType ?? 'Service Apartment';
   //
   //   Map<String, dynamic> formData = {
+  //     'id': apartmentId,
+  //     'registeredAt': DateTime.now().toIso8601String(),
   //     'basicInfo': {
   //       'apartmentName': _apartmentNameController.text,
   //       'ownerName': _ownerNameController.text,
@@ -49846,17 +50622,25 @@ class _ApartmentRegistrationVendorFormState
   //       'ownerPhoto': _ownerPhotoInfo,
   //     },
   //     'location': {
+  //       // Apartment Address
   //       'address': _addressController.text,
   //       'area': _areaController.text,
   //       'city': _cityController.text,
   //       'state': _stateController.text,
   //       'pincode': _pincodeController.text,
   //       'googleMapLink': _googleMapLinkController.text,
+  //       // Office Address - ADD THIS
+  //       'officeAddress': {
+  //         'address': _officeAddressController.text,
+  //         'area': _officeAreaController.text,
+  //         'city': _officeCityController.text,
+  //         'state': _officeStateController.text,
+  //         'pincode': _officePincodeController.text,
+  //         'googleMapLink': _officeGoogleMapLinkController.text,
+  //       },
   //     },
   //     'propertyDetails': {
-  //       'propertyType': _selectedPropertyType == 'Other'
-  //           ? _customPropertyType
-  //           : _selectedPropertyType,
+  //       'propertyType': propertyTypeValue,
   //       'totalUnits': _totalUnitsController.text,
   //       'totalBedrooms': _totalBedroomsController.text,
   //       'totalBathrooms': _totalBathroomsController.text,
@@ -49920,14 +50704,14 @@ class _ApartmentRegistrationVendorFormState
   //       'digitalSignature': _digitalSignatureImage,
   //       'date': _selectedDate,
   //     },
-  //     'adminFields': {
-  //       'vendorStatus': _vendorStatus,
-  //       'featuredListing': _featuredListing,
-  //       'verifiedBadge': _verifiedBadge,
-  //       'ratingScore': _ratingScore,
-  //       'remarks': _remarksController.text,
-  //     },
+  //     'declarationAccepted': _declarationAccepted,
+  //     'propertyType': 'apartment',
   //   };
+  //
+  //   _saveToSharedPreferences(formData);
+  //
+  //   // Store email for use in summary screen
+  //   final userEmail = _emailController.text;
   //
   //   Navigator.push(
   //     context,
@@ -49935,6 +50719,7 @@ class _ApartmentRegistrationVendorFormState
   //       builder: (context) => ApartmentRegistrationSummaryScreen(
   //         registrationData: formData,
   //         declarationAccepted: _declarationAccepted,
+  //         userEmail: userEmail, // Pass the email
   //       ),
   //     ),
   //   );
@@ -49946,11 +50731,34 @@ class _ApartmentRegistrationVendorFormState
       return;
     }
 
+
+    if (_selectedSubOptions.isNotEmpty) {
+      for (var entry in _selectedSubOptionsDetails.entries) {
+        final bhk = entry.value;
+        if (bhk.totalUnits.isEmpty || bhk.totalBedrooms.isEmpty ||
+            bhk.totalBathrooms.isEmpty || bhk.guestCapacity.isEmpty) {
+          _showErrorDialog(
+            'Incomplete ${bhk.type} Details',
+            'Please fill all required fields for ${bhk.type} units.',
+          );
+          return;
+        }
+      }
+    }
+
     String apartmentId = 'APT_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
 
     String propertyTypeValue = _selectedPropertyType == 'Other'
         ? _customPropertyType.isNotEmpty ? _customPropertyType : 'Other Apartment'
         : _selectedPropertyType ?? 'Service Apartment';
+
+
+    List<Map<String, dynamic>> bhkDetails = [];
+    if (_selectedSubOptions.isNotEmpty) {
+      bhkDetails = _selectedSubOptionsDetails.values.map((bhk) => bhk.toJson()).toList();
+    }
+
+
 
     Map<String, dynamic> formData = {
       'id': apartmentId,
@@ -49966,14 +50774,12 @@ class _ApartmentRegistrationVendorFormState
         'ownerPhoto': _ownerPhotoInfo,
       },
       'location': {
-        // Apartment Address
         'address': _addressController.text,
         'area': _areaController.text,
         'city': _cityController.text,
         'state': _stateController.text,
         'pincode': _pincodeController.text,
         'googleMapLink': _googleMapLinkController.text,
-        // Office Address - ADD THIS
         'officeAddress': {
           'address': _officeAddressController.text,
           'area': _officeAreaController.text,
@@ -49985,16 +50791,20 @@ class _ApartmentRegistrationVendorFormState
       },
       'propertyDetails': {
         'propertyType': propertyTypeValue,
-        'totalUnits': _totalUnitsController.text,
-        'totalBedrooms': _totalBedroomsController.text,
-        'totalBathrooms': _totalBathroomsController.text,
-        'guestCapacity': _guestCapacityController.text,
-        'floorNumber': _floorNumberController.text,
-        'totalFloors': _totalFloorsController.text,
-        'elevatorAvailable': _elevatorAvailable,
-        'propertySize': _propertySizeController.text,
+        'hasSubOptions': _selectedSubOptions.isNotEmpty,
+        'selectedSubOptions': _selectedSubOptions,
+        'bhkDetails': bhkDetails,
+
+        'totalUnits': _selectedSubOptions.isEmpty ? _totalUnitsController.text : '',
+        'totalBedrooms': _selectedSubOptions.isEmpty ? _totalBedroomsController.text : '',
+        'totalBathrooms': _selectedSubOptions.isEmpty ? _totalBathroomsController.text : '',
+        'guestCapacity': _selectedSubOptions.isEmpty ? _guestCapacityController.text : '',
+        'floorNumber': _selectedSubOptions.isEmpty ? _floorNumberController.text : '',
+        'totalFloors': _selectedSubOptions.isEmpty ? _totalFloorsController.text : '',
+        'elevatorAvailable': _selectedSubOptions.isEmpty ? _elevatorAvailable : '',
+        'propertySize': _selectedSubOptions.isEmpty ? _propertySizeController.text : '',
         'yearConstruction': _yearConstructionController.text,
-        'description': _propertyDescriptionController.text,
+        'description': _selectedSubOptions.isEmpty ? _propertyDescriptionController.text : '',
       },
       'amenities': {
         'selected': _apartmentAmenities,
@@ -50054,7 +50864,7 @@ class _ApartmentRegistrationVendorFormState
 
     _saveToSharedPreferences(formData);
 
-    // Store email for use in summary screen
+
     final userEmail = _emailController.text;
 
     Navigator.push(
@@ -50063,11 +50873,13 @@ class _ApartmentRegistrationVendorFormState
         builder: (context) => ApartmentRegistrationSummaryScreen(
           registrationData: formData,
           declarationAccepted: _declarationAccepted,
-          userEmail: userEmail, // Pass the email
+          userEmail: userEmail,
         ),
       ),
     );
   }
+
+
 
   // Future<void> _saveToSharedPreferences(Map<String, dynamic> formData) async {
   //   try {
@@ -50159,6 +50971,7 @@ class _ApartmentRegistrationVendorFormState
     _officeStateController.dispose();
     _officePincodeController.dispose();
     _officeGoogleMapLinkController.dispose();
+    _customBHKController.dispose();
     _totalUnitsController.dispose();
     _totalBedroomsController.dispose();
     _totalBathroomsController.dispose();
@@ -50246,6 +51059,14 @@ class _ResortRegistrationVendorFormState
   final TextEditingController _nearestRailwayController =
       TextEditingController();
 
+
+  final TextEditingController _officeAddressController = TextEditingController();
+  final TextEditingController _officeAreaController = TextEditingController();
+  final TextEditingController _officeCityController = TextEditingController();
+  final TextEditingController _officeStateController = TextEditingController();
+  final TextEditingController _officePincodeController = TextEditingController();
+  final TextEditingController _officeGoogleMapLinkController = TextEditingController();
+
   final TextEditingController _totalRoomsController = TextEditingController();
   final TextEditingController _totalCapacityController =
       TextEditingController();
@@ -50298,6 +51119,18 @@ class _ResortRegistrationVendorFormState
   final TextEditingController _otherAmenityController = TextEditingController();
   List<String> _customAmenities = [];
 
+
+
+
+
+
+
+String _customResortCategory = '';
+  final TextEditingController _customResortCategoryController = TextEditingController();
+  bool _isAddingCustomCategory = false;
+  // List<String> _customResortCategories = []; // Store custom categories added by user
+final TextEditingController _otherResortCategoryController = TextEditingController();
+
   String? _selectedResortCategory;
   String? _selectedCheckInTime;
   String? _selectedCheckOutTime;
@@ -50315,6 +51148,12 @@ class _ResortRegistrationVendorFormState
   bool _verifiedBadge = false;
   double _ratingScore = 0.0;
   String? _priorityListingLevel = 'Standard';
+
+  List<String> _selectedStarRatings = [];
+  Map<String, StarRatingDetails> _selectedStarRatingDetails = {};
+
+
+  final TextEditingController _customStarRatingController = TextEditingController();
 
   final List<String> _timeSlots = [
     '12:00 AM',
@@ -50409,17 +51248,115 @@ class _ResortRegistrationVendorFormState
     'uploaded': false,
   };
 
-  final List<Map<String, dynamic>> _resortCategories = [
-    {'title': '3 Star', 'icon': '⭐⭐⭐', 'color': Color(0xFF4A6FA5)},
-    {'title': '4 Star', 'icon': '⭐⭐⭐⭐', 'color': Color(0xFF6B8E23)},
-    {'title': '5 Star', 'icon': '⭐⭐⭐⭐⭐', 'color': Color(0xFFDAA520)},
-    {'title': 'Luxury', 'icon': '✨', 'color': Color(0xFFC71585)},
-    {'title': 'Boutique', 'icon': '💎', 'color': Color(0xFF9370DB)},
-    {'title': 'Eco Resort', 'icon': '🌿', 'color': Color(0xFF2E7D32)},
-    {'title': 'Beach Resort', 'icon': '🏖️', 'color': Color(0xFF2196F3)},
-    {'title': 'Hill Resort', 'icon': '⛰️', 'color': Color(0xFF795548)},
-    {'title': 'Farm Resort', 'icon': '🌾', 'color': Color(0xFFFF9800)},
-  ];
+  // final List<Map<String, dynamic>> _resortCategories = [
+  //   {'title': '3 Star', 'icon': '⭐⭐⭐', 'color': Color(0xFF4A6FA5)},
+  //   {'title': '4 Star', 'icon': '⭐⭐⭐⭐', 'color': Color(0xFF6B8E23)},
+  //   {'title': '5 Star', 'icon': '⭐⭐⭐⭐⭐', 'color': Color(0xFFDAA520)},
+  //   {'title': 'Luxury', 'icon': '✨', 'color': Color(0xFFC71585)},
+  //   {'title': 'Boutique', 'icon': '💎', 'color': Color(0xFF9370DB)},
+  //   {'title': 'Eco Resort', 'icon': '🌿', 'color': Color(0xFF2E7D32)},
+  //   {'title': 'Beach Resort', 'icon': '🏖️', 'color': Color(0xFF2196F3)},
+  //   {'title': 'Hill Resort', 'icon': '⛰️', 'color': Color(0xFF795548)},
+  //   {'title': 'Farm Resort', 'icon': '🌾', 'color': Color(0xFFFF9800)},
+  // ];
+
+final List<Map<String, dynamic>> _resortCategories = [
+  {
+    'title': 'Luxury',
+    'icon': '✨',
+    'color': Color(0xFFC71585),
+    'hasSubOptions': true,
+    'subOptions': ['3 Star', '4 Star', '5 Star']
+  },
+  {
+    'title': 'Boutique',
+    'icon': '💎',
+    'color': Color(0xFF9370DB),
+    'hasSubOptions': true,
+    'subOptions': ['3 Star', '4 Star', '5 Star']
+  },
+  {
+    'title': 'Eco Resort',
+    'icon': '🌿',
+    'color': Color(0xFF2E7D32),
+    'hasSubOptions': true,
+    'subOptions': ['3 Star', '4 Star', '5 Star']
+  },
+  {
+    'title': 'Beach Resort',
+    'icon': '🏖️',
+    'color': Color(0xFF2196F3),
+    'hasSubOptions': true,
+    'subOptions': ['3 Star', '4 Star', '5 Star']
+  },
+  {
+    'title': 'Hill Resort',
+    'icon': '⛰️',
+    'color': Color(0xFF795548),
+    'hasSubOptions': true,
+    'subOptions': ['3 Star', '4 Star', '5 Star']
+  },
+  {
+    'title': 'Farm Resort',
+    'icon': '🌾',
+    'color': Color(0xFFFF9800),
+    'hasSubOptions': true,
+    'subOptions': ['3 Star', '4 Star', '5 Star']
+  },
+  {
+    'title': 'Other',
+    'icon': '🏡',
+    'color': Color(0xFF9E9E9E),
+    'hasSubOptions': true,
+    'subOptions': ['3 Star', '4 Star', '5 Star']
+  },
+];
+
+  // final List<Map<String, dynamic>> _resortCategories = [
+  //
+  //   {
+  //     'title': 'Luxury',
+  //     'icon': '✨',
+  //     'color': Color(0xFFC71585),
+  //     'hasSubOptions': true,
+  //     'subOptions': ['3 Star', '4 Star', '5 Star']
+  //   },
+  //   {
+  //     'title': 'Boutique',
+  //     'icon': '💎',
+  //     'color': Color(0xFF9370DB),
+  //     'hasSubOptions': true,
+  //     'subOptions': ['3 Star', '4 Star', '5 Star']
+  //   },
+  //   {
+  //     'title': 'Eco Resort',
+  //     'icon': '🌿',
+  //     'color': Color(0xFF2E7D32),
+  //     'hasSubOptions': true,
+  //     'subOptions': ['3 Star', '4 Star', '5 Star']
+  //   },
+  //   {
+  //     'title': 'Beach Resort',
+  //     'icon': '🏖️',
+  //     'color': Color(0xFF2196F3),
+  //     'hasSubOptions': true,
+  //     'subOptions': ['3 Star', '4 Star', '5 Star']
+  //   },
+  //   {
+  //     'title': 'Hill Resort',
+  //     'icon': '⛰️',
+  //     'color': Color(0xFF795548),
+  //     'hasSubOptions': true,
+  //     'subOptions': ['3 Star', '4 Star', '5 Star']
+  //   },
+  //   {
+  //     'title': 'Farm Resort',
+  //     'icon': '🌾',
+  //     'color': Color(0xFFFF9800),
+  //     'hasSubOptions': true,
+  //     'subOptions': ['3 Star', '4 Star', '5 Star']
+  //   },
+  // ];
 
   Map<String, bool> _roomTypes = {
     'Standard': false,
@@ -50667,7 +51604,7 @@ class _ResortRegistrationVendorFormState
           title: 'Basic Information',
           children: [
             _buildInputField(
-              label: 'Resort Name *',
+              label: 'Resort Name',
               controller: _resortNameController,
               hint: 'Enter resort name',
             ),
@@ -50676,7 +51613,7 @@ class _ResortRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Owner / General Manager Name *',
+                    label: 'Owner / General Manager Name',
                     controller: _ownerNameController,
                     hint: 'Enter owner/GM name',
                   ),
@@ -50684,7 +51621,7 @@ class _ResortRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Contact Person Name *',
+                    label: 'Contact Person Name',
                     controller: _contactPersonController,
                     hint: 'Enter contact person',
                   ),
@@ -50696,7 +51633,7 @@ class _ResortRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Mobile Number *',
+                    label: 'Mobile Number',
                     controller: _mobileController,
                     hint: 'Enter mobile number',
                     keyboardType: TextInputType.phone,
@@ -50718,7 +51655,7 @@ class _ResortRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Email Address *',
+                    label: 'Email Address',
                     controller: _emailController,
                     hint: 'example@email.com',
                     keyboardType: TextInputType.emailAddress,
@@ -50742,7 +51679,7 @@ class _ResortRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildPhotoUploadItem(
-              label: 'Profile Photo of Owner/Manager',
+              label: 'Profile Photo',
               fileInfo: _ownerPhotoInfo,
               onUpload: _pickOwnerPhoto,
               onView: _viewOwnerPhoto,
@@ -50754,9 +51691,338 @@ class _ResortRegistrationVendorFormState
     );
   }
 
+
+
+  // Widget _buildLocationPropertyStep() {
+  //   return Column(
+  //     children: [
+  //
+  //       _buildCard(
+  //         title: 'Permanent Office Address',
+  //         children: [
+  //           _buildInputField(
+  //             label: 'Office Address *',
+  //             controller: _officeAddressController,
+  //             hint: 'Enter complete office address',
+  //             maxLines: 2,
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Area / Locality *',
+  //                   controller: _officeAreaController,
+  //                   hint: 'Enter area',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'City *',
+  //                   controller: _officeCityController,
+  //                   hint: 'Enter city',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'State *',
+  //                   controller: _officeStateController,
+  //                   hint: 'Enter state',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Pincode *',
+  //                   controller: _officePincodeController,
+  //                   hint: '6-digit pincode',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Google Map Location',
+  //             controller: _officeGoogleMapLinkController,
+  //             hint: 'Paste Google Maps link for office',
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(height: 16),
+  //
+  //       // Resort Location Details Card
+  //       _buildCard(
+  //         title: 'Resort Location Details',
+  //         children: [
+  //           _buildInputField(
+  //             label: 'Full Address *',
+  //             controller: _addressController,
+  //             hint: 'Enter complete address',
+  //             maxLines: 2,
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Area / Landmark *',
+  //                   controller: _areaController,
+  //                   hint: 'Enter area or landmark',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'City *',
+  //                   controller: _cityController,
+  //                   hint: 'Enter city',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'State *',
+  //                   controller: _stateController,
+  //                   hint: 'Enter state',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Pincode *',
+  //                   controller: _pincodeController,
+  //                   hint: '6-digit pincode',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //           _buildInputField(
+  //             label: 'Google Map Location (Link) *',
+  //             controller: _googleMapLinkController,
+  //             hint: 'Paste Google Maps link',
+  //           ),
+  //           SizedBox(height: 16),
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Nearest Airport',
+  //                   controller: _nearestAirportController,
+  //                   hint: 'Enter nearest airport',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Nearest Railway Station',
+  //                   controller: _nearestRailwayController,
+  //                   hint: 'Enter railway station',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(height: 16),
+  //
+  //       // Resort Property Details Card
+  //       _buildCard(
+  //         title: 'Resort Property Details',
+  //         children: [
+  //           Text(
+  //             'Resort Category *',
+  //             style: TextStyle(
+  //               fontSize: 13,
+  //               fontWeight: FontWeight.w500,
+  //               color: _textPrimary,
+  //             ),
+  //           ),
+  //           SizedBox(height: 12),
+  //
+  //           Column(
+  //             children: [
+  //               ..._resortCategories.map((category) {
+  //                 bool isSelected = _selectedResortCategory == category['title'];
+  //                 return RadioListTile<String>(
+  //                   title: Row(
+  //                     children: [
+  //                       Text(category['icon'], style: TextStyle(fontSize: 18)),
+  //                       SizedBox(width: 12),
+  //                       Text(
+  //                         category['title'],
+  //                         style: TextStyle(
+  //                           fontSize: 14,
+  //                           fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                   value: category['title'],
+  //                   groupValue: _selectedResortCategory,
+  //                   onChanged: (String? value) {
+  //                     setState(() {
+  //                       _selectedResortCategory = value;
+  //                     });
+  //                   },
+  //                   activeColor: _primaryColor,
+  //                   contentPadding: EdgeInsets.zero,
+  //                   dense: true,
+  //                 );
+  //               }).toList(),
+  //             ],
+  //           ),
+  //
+  //           SizedBox(height: 16),
+  //
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Total Number of Rooms *',
+  //                   controller: _totalRoomsController,
+  //                   hint: 'Enter number',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Total Room Capacity *',
+  //                   controller: _totalCapacityController,
+  //                   hint: 'Enter max guests',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //
+  //           Text(
+  //             'Room Types Available *',
+  //             style: TextStyle(
+  //               fontSize: 13,
+  //               fontWeight: FontWeight.w500,
+  //               color: _textPrimary,
+  //             ),
+  //           ),
+  //           SizedBox(height: 8),
+  //
+  //           _buildRoomTypesGrid(),
+  //
+  //           SizedBox(height: 16),
+  //
+  //           Row(
+  //             children: [
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Total Property Area',
+  //                   controller: _propertyAreaController,
+  //                   hint: 'Sq. Ft. / Acres',
+  //                 ),
+  //               ),
+  //               SizedBox(width: 16),
+  //               Expanded(
+  //                 child: _buildInputField(
+  //                   label: 'Year of Establishment *',
+  //                   controller: _yearEstablishedController,
+  //                   hint: 'YYYY',
+  //                   keyboardType: TextInputType.number,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           SizedBox(height: 16),
+  //
+  //           _buildInputField(
+  //             label: 'Description of Resort *',
+  //             controller: _descriptionController,
+  //             hint: 'Describe your resort',
+  //             maxLines: 4,
+  //           ),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildLocationPropertyStep() {
     return Column(
       children: [
+
+        _buildCard(
+          title: 'Permanent Office Address',
+          children: [
+            _buildInputField(
+              label: 'Office Address *',
+              controller: _officeAddressController,
+              hint: 'Enter complete office address',
+              maxLines: 2,
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Area / Locality *',
+                    controller: _officeAreaController,
+                    hint: 'Enter area',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'City *',
+                    controller: _officeCityController,
+                    hint: 'Enter city',
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInputField(
+                    label: 'State *',
+                    controller: _officeStateController,
+                    hint: 'Enter state',
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: _buildInputField(
+                    label: 'Pincode *',
+                    controller: _officePincodeController,
+                    hint: '6-digit pincode',
+                    keyboardType: TextInputType.number,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            _buildInputField(
+              label: 'Google Map Location',
+              controller: _officeGoogleMapLinkController,
+              hint: 'Paste Google Maps link for office',
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+
+        // Resort Location Details Card
         _buildCard(
           title: 'Resort Location Details',
           children: [
@@ -50811,7 +52077,7 @@ class _ResortRegistrationVendorFormState
             _buildInputField(
               label: 'Google Map Location (Link) *',
               controller: _googleMapLinkController,
-              hint: 'Paste Google Maps link ',
+              hint: 'Paste Google Maps link',
             ),
             SizedBox(height: 16),
             Row(
@@ -50836,6 +52102,284 @@ class _ResortRegistrationVendorFormState
           ],
         ),
         SizedBox(height: 16),
+        //
+        // // Resort Property Details Card
+        // _buildCard(
+        //   title: 'Resort Property Details',
+        //   children: [
+        //     Text(
+        //       'Resort Category *',
+        //       style: TextStyle(
+        //         fontSize: 13,
+        //         fontWeight: FontWeight.w500,
+        //         color: _textPrimary,
+        //       ),
+        //     ),
+        //     SizedBox(height: 12),
+        //
+        //     Column(
+        //       children: [
+        //         ..._resortCategories.map((category) {
+        //           bool isSelected = _selectedResortCategory == category['title'];
+        //           bool hasSubOptions = category['hasSubOptions'] as bool? ?? false;
+        //
+        //           return Column(
+        //             children: [
+        //               RadioListTile<String>(
+        //                 title: Row(
+        //                   children: [
+        //                     Text(category['icon'], style: TextStyle(fontSize: 18)),
+        //                     SizedBox(width: 12),
+        //                     Text(
+        //                       category['title'],
+        //                       style: TextStyle(
+        //                         fontSize: 14,
+        //                         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+        //                       ),
+        //                     ),
+        //                   ],
+        //                 ),
+        //                 value: category['title'],
+        //                 groupValue: _selectedResortCategory,
+        //                 onChanged: (String? value) {
+        //                   setState(() {
+        //                     _selectedResortCategory = value;
+        //                     // Clear sub-options when changing main type
+        //                     _selectedStarRatings.clear();
+        //                     _selectedStarRatingDetails.clear();
+        //                   });
+        //                 },
+        //                 activeColor: _primaryColor,
+        //                 contentPadding: EdgeInsets.zero,
+        //                 dense: true,
+        //               ),
+        //
+        //               // // Show sub-options if main type is selected AND hasSubOptions is true
+        //               // if (isSelected && hasSubOptions)
+        //               //   Padding(
+        //               //     padding: EdgeInsets.only(left: 40, right: 16, bottom: 8),
+        //               //     child: Column(
+        //               //       crossAxisAlignment: CrossAxisAlignment.start,
+        //               //       children: [
+        //               //         SizedBox(height: 8),
+        //               //         Container(
+        //               //           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        //               //           decoration: BoxDecoration(
+        //               //             color: _primaryLight,
+        //               //             borderRadius: BorderRadius.circular(8),
+        //               //           ),
+        //               //           child: Text(
+        //               //             'Select Star Ratings Available',
+        //               //             style: TextStyle(
+        //               //               fontSize: 12,
+        //               //               fontWeight: FontWeight.w600,
+        //               //               color: _primaryColor,
+        //               //             ),
+        //               //           ),
+        //               //         ),
+        //               //         SizedBox(height: 12),
+        //               //         Wrap(
+        //               //           spacing: 8,
+        //               //           runSpacing: 8,
+        //               //           children: [
+        //               //             ...(category['subOptions'] as List<String>).map((subOption) {
+        //               //               bool isSubSelected = _selectedStarRatings.contains(subOption);
+        //               //               return GestureDetector(
+        //               //                 onTap: () {
+        //               //                   setState(() {
+        //               //                     if (isSubSelected) {
+        //               //                       _selectedStarRatings.remove(subOption);
+        //               //                       _selectedStarRatingDetails.remove(subOption);
+        //               //                     } else {
+        //               //                       _selectedStarRatings.add(subOption);
+        //               //                       _selectedStarRatingDetails[subOption] = StarRatingDetails(type: subOption);
+        //               //                     }
+        //               //                   });
+        //               //                 },
+        //               //                 child: Container(
+        //               //                   padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        //               //                   decoration: BoxDecoration(
+        //               //                     color: isSubSelected ? _primaryColor : Colors.white,
+        //               //                     borderRadius: BorderRadius.circular(20),
+        //               //                     border: Border.all(
+        //               //                       color: isSubSelected ? _primaryColor : _borderColor,
+        //               //                       width: 1.5,
+        //               //                     ),
+        //               //                   ),
+        //               //                   child: Text(
+        //               //                     subOption,
+        //               //                     style: TextStyle(
+        //               //                       fontSize: 13,
+        //               //                       fontWeight: FontWeight.w600,
+        //               //                       color: isSubSelected ? Colors.white : _textPrimary,
+        //               //                     ),
+        //               //                   ),
+        //               //                 ),
+        //               //               );
+        //               //             }).toList(),
+        //               //           ],
+        //               //         ),
+        //               //         if (_selectedStarRatings.isNotEmpty)
+        //               //           Padding(
+        //               //             padding: EdgeInsets.only(top: 12),
+        //               //             child: Container(
+        //               //               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        //               //               decoration: BoxDecoration(
+        //               //                 color: _primaryColor.withOpacity(0.1),
+        //               //                 borderRadius: BorderRadius.circular(12),
+        //               //               ),
+        //               //               child: Text(
+        //               //                 'Selected: ${_selectedStarRatings.join(", ")}',
+        //               //                 style: TextStyle(
+        //               //                   fontSize: 11,
+        //               //                   color: _primaryColor,
+        //               //                   fontWeight: FontWeight.w500,
+        //               //                 ),
+        //               //               ),
+        //               //             ),
+        //               //           ),
+        //               //       ],
+        //               //     ),
+        //               //   ),
+        //
+        //
+        //
+        //               if (isSelected && hasSubOptions)
+        //                 Padding(
+        //                   padding: EdgeInsets.only(left: 40, right: 16, bottom: 8),
+        //                   child: Column(
+        //                     crossAxisAlignment: CrossAxisAlignment.start,
+        //                     children: [
+        //                       SizedBox(height: 8),
+        //                       Container(
+        //                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        //                         decoration: BoxDecoration(
+        //                           color: _primaryLight,
+        //                           borderRadius: BorderRadius.circular(8),
+        //                         ),
+        //                         child: Text(
+        //                           'Select Star Ratings Available',
+        //                           style: TextStyle(
+        //                             fontSize: 12,
+        //                             fontWeight: FontWeight.w600,
+        //                             color: _primaryColor,
+        //                           ),
+        //                         ),
+        //                       ),
+        //                       SizedBox(height: 12),
+        //                       Wrap(
+        //                         spacing: 8,
+        //                         runSpacing: 8,
+        //                         children: [
+        //                           ...(category['subOptions'] as List<String>).map((subOption) {
+        //                             bool isSubSelected = _selectedStarRatings.contains(subOption);
+        //                             return GestureDetector(
+        //                               onTap: () {
+        //                                 setState(() {
+        //                                   if (isSubSelected) {
+        //                                     _selectedStarRatings.remove(subOption);
+        //                                     _selectedStarRatingDetails.remove(subOption);
+        //                                   } else {
+        //                                     _selectedStarRatings.add(subOption);
+        //                                     _selectedStarRatingDetails[subOption] = StarRatingDetails(type: subOption);
+        //                                   }
+        //                                 });
+        //                               },
+        //                               child: Container(
+        //                                 padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        //                                 decoration: BoxDecoration(
+        //                                   color: isSubSelected ? _primaryColor : Colors.white,
+        //                                   borderRadius: BorderRadius.circular(20),
+        //                                   border: Border.all(
+        //                                     color: isSubSelected ? _primaryColor : _borderColor,
+        //                                     width: 1.5,
+        //                                   ),
+        //                                 ),
+        //                                 child: Text(
+        //                                   subOption,
+        //                                   style: TextStyle(
+        //                                     fontSize: 13,
+        //                                     fontWeight: FontWeight.w600,
+        //                                     color: isSubSelected ? Colors.white : _textPrimary,
+        //                                   ),
+        //                                 ),
+        //                               ),
+        //                             );
+        //                           }).toList(),
+        //
+        //                           // Add Custom Star Rating Button
+        //                           Container(
+        //                             margin: EdgeInsets.only(left: 4),
+        //                             child: GestureDetector(
+        //                               onTap: _showAddCustomStarRatingDialog,
+        //                               child: Container(
+        //                                 padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        //                                 decoration: BoxDecoration(
+        //                                   color: Colors.white,
+        //                                   borderRadius: BorderRadius.circular(20),
+        //                                   border: Border.all(color: _primaryColor, width: 1.5),
+        //                                 ),
+        //                                 child: Row(
+        //                                   mainAxisSize: MainAxisSize.min,
+        //                                   children: [
+        //                                     Icon(Icons.add, size: 14, color: _primaryColor),
+        //                                     SizedBox(width: 4),
+        //                                     Text(
+        //                                       'Add Custom Star',
+        //                                       style: TextStyle(
+        //                                         fontSize: 12,
+        //                                         fontWeight: FontWeight.w600,
+        //                                         color: _primaryColor,
+        //                                       ),
+        //                                     ),
+        //                                   ],
+        //                                 ),
+        //                               ),
+        //                             ),
+        //                           ),
+        //                         ],
+        //                       ),
+        //                       if (_selectedStarRatings.isNotEmpty)
+        //                         Padding(
+        //                           padding: EdgeInsets.only(top: 12),
+        //                           child: Container(
+        //                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        //                             decoration: BoxDecoration(
+        //                               color: _primaryColor.withOpacity(0.1),
+        //                               borderRadius: BorderRadius.circular(12),
+        //                             ),
+        //                             child: Text(
+        //                               'Selected: ${_selectedStarRatings.join(", ")}',
+        //                               style: TextStyle(
+        //                                 fontSize: 11,
+        //                                 color: _primaryColor,
+        //                                 fontWeight: FontWeight.w500,
+        //                               ),
+        //                             ),
+        //                           ),
+        //                         ),
+        //                     ],
+        //                   ),
+        //                 ),
+        //             ],
+        //           );
+        //         }).toList(),
+        //       ],
+        //     ),
+        //
+        //     SizedBox(height: 16),
+        //
+        //     // Show Star Rating Details Cards for each selected sub-option
+        //     if (_selectedStarRatings.isNotEmpty)
+        //       ..._selectedStarRatings.map((starRating) => _buildStarRatingDetailsCard(starRating)),
+        //
+        //     // Show basic property details if no sub-options selected
+        //     // if (_selectedStarRatings.isEmpty)
+        //       // _buildBasicResortPropertyDetails(),
+        //   ],
+        // ),
+
+        // Resort Property Details Card
         _buildCard(
           title: 'Resort Property Details',
           children: [
@@ -50852,107 +52396,802 @@ class _ResortRegistrationVendorFormState
             Column(
               children: [
                 ..._resortCategories.map((category) {
-                  bool isSelected =
-                      _selectedResortCategory == category['title'];
-                  return RadioListTile<String>(
-                    title: Row(
-                      children: [
-                        Text(category['icon'], style: TextStyle(fontSize: 18)),
-                        SizedBox(width: 12),
-                        Text(
-                          category['title'],
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: isSelected
-                                ? FontWeight.w600
-                                : FontWeight.w400,
+                  bool isSelected = _selectedResortCategory == category['title'];
+                  bool hasSubOptions = category['hasSubOptions'] as bool? ?? false;
+
+                  return Column(
+                    children: [
+                      RadioListTile<String>(
+                        title: Row(
+                          children: [
+                            Text(category['icon'], style: TextStyle(fontSize: 18)),
+                            SizedBox(width: 12),
+                            Text(
+                              category['title'],
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        value: category['title'],
+                        groupValue: _selectedResortCategory,
+                        onChanged: (String? value) {
+                          setState(() {
+                            _selectedResortCategory = value;
+                            // Clear sub-options when changing main type
+                            _selectedStarRatings.clear();
+                            _selectedStarRatingDetails.clear();
+                          });
+                        },
+                        activeColor: _primaryColor,
+                        contentPadding: EdgeInsets.zero,
+                        dense: true,
+                      ),
+
+                      // Show sub-options if main type is selected AND hasSubOptions is true
+                      if (isSelected && hasSubOptions)
+                        Padding(
+                          padding: EdgeInsets.only(left: 40, right: 16, bottom: 8),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 8),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: _primaryLight,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Text(
+                                  'Select Star Ratings Available',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                    color: _primaryColor,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 12),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: [
+                                  ...(category['subOptions'] as List<String>).map((subOption) {
+                                    bool isSubSelected = _selectedStarRatings.contains(subOption);
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (isSubSelected) {
+                                            _selectedStarRatings.remove(subOption);
+                                            _selectedStarRatingDetails.remove(subOption);
+                                          } else {
+                                            _selectedStarRatings.add(subOption);
+                                            _selectedStarRatingDetails[subOption] = StarRatingDetails(type: subOption);
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          color: isSubSelected ? _primaryColor : Colors.white,
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(
+                                            color: isSubSelected ? _primaryColor : _borderColor,
+                                            width: 1.5,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          subOption,
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w600,
+                                            color: isSubSelected ? Colors.white : _textPrimary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+
+
+
+                                  // Add Custom Star Rating Button
+                                  Container(
+                                    margin: EdgeInsets.only(left: 4),
+                                    child: GestureDetector(
+                                      onTap: _showAddCustomStarRatingDialog,
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(20),
+                                          border: Border.all(color: _primaryColor, width: 1.5),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Icon(Icons.add, size: 14, color: _primaryColor),
+                                            SizedBox(width: 4),
+                                            Text(
+                                              'Add Custom Star',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                color: _primaryColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              if (_selectedStarRatings.isNotEmpty)
+                                Padding(
+                                  padding: EdgeInsets.only(top: 12),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                      color: _primaryColor.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Text(
+                                      'Selected: ${_selectedStarRatings.join(", ")}',
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: _primaryColor,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                    value: category['title'],
-                    groupValue: _selectedResortCategory,
-                    onChanged: (String? value) {
-                      setState(() {
-                        _selectedResortCategory = value;
-                      });
-                    },
-                    activeColor: _primaryColor,
-                    contentPadding: EdgeInsets.zero,
-                    dense: true,
+                    ],
                   );
                 }).toList(),
+
+        if (_selectedResortCategory == 'Other')
+                Padding(
+                  padding: EdgeInsets.only(left: 40, right: 16, bottom: 16),
+                  child: TextFormField(
+                    controller: _otherResortCategoryController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter specify resort category',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 12,
+                      ),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _customResortCategory = value;
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
 
             SizedBox(height: 16),
 
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Total Number of Rooms *',
-                    controller: _totalRoomsController,
-                    hint: 'Enter number',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Total Room Capacity *',
-                    controller: _totalCapacityController,
-                    hint: 'Enter max guests',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
+            // Show Star Rating Details Cards for each selected sub-option
+            if (_selectedStarRatings.isNotEmpty)
+              ..._selectedStarRatings.map((starRating) => _buildStarRatingDetailsCard(starRating)),
 
-            Text(
-              'Room Types Available *',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w500,
-                color: _textPrimary,
+            // // Show basic property details if no sub-options selected
+            // if (_selectedStarRatings.isEmpty)
+            //   _buildBasicResortPropertyDetails(),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStarRatingDetailsCard(String starRating) {
+    if (!_selectedStarRatingDetails.containsKey(starRating)) {
+      _selectedStarRatingDetails[starRating] = StarRatingDetails(type: starRating);
+    }
+
+    final starDetails = _selectedStarRatingDetails[starRating]!;
+
+    return Container(
+      key: ValueKey('star_rating_$starRating'),
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: _primaryLight.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: _primaryColor.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '$starRating Details',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: _primaryColor,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedStarRatings.remove(starRating);
+                    _selectedStarRatingDetails.remove(starRating);
+                  });
+                },
+                icon: Icon(Icons.close, color: Colors.red, size: 20),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildStarRatingInputField(
+                  label: 'Total Number of Rooms *',
+                  value: starDetails.totalRooms,
+                  hint: 'Enter number',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      starDetails.totalRooms = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildStarRatingInputField(
+                  label: 'Total Room Capacity *',
+                  value: starDetails.totalCapacity,
+                  hint: 'Enter max guests',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      starDetails.totalCapacity = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Text(
+            'Room Types Available *',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: _textPrimary,
+            ),
+          ),
+          SizedBox(height: 8),
+          _buildStarRatingRoomTypesGrid(starRating, starDetails),
+          SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildStarRatingInputField(
+                  label: 'Total Property Area',
+                  value: starDetails.propertyArea,
+                  hint: 'Sq. Ft. / Acres',
+                  onChanged: (value) {
+                    setState(() {
+                      starDetails.propertyArea = value;
+                    });
+                  },
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: _buildStarRatingInputField(
+                  label: 'Year of Establishment *',
+                  value: starDetails.yearEstablished ?? '',
+                  hint: 'YYYY',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      starDetails.yearEstablished = value;
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          _buildStarRatingInputField(
+            label: 'Resort Description *',
+            value: starDetails.description,
+            hint: 'Describe this $starRating resort',
+            maxLines: 4,
+            onChanged: (value) {
+              setState(() {
+                starDetails.description = value;
+              });
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Widget _buildStarRatingDetailsCard(String starRating) {
+  //   if (!_selectedStarRatingDetails.containsKey(starRating)) {
+  //     _selectedStarRatingDetails[starRating] = StarRatingDetails(type: starRating);
+  //   }
+  //
+  //   final starDetails = _selectedStarRatingDetails[starRating]!;
+  //
+  //   return Container(
+  //     key: ValueKey('star_rating_$starRating'),
+  //     margin: EdgeInsets.only(bottom: 16),
+  //     padding: EdgeInsets.all(16),
+  //     decoration: BoxDecoration(
+  //       color: _primaryLight.withOpacity(0.3),
+  //       borderRadius: BorderRadius.circular(12),
+  //       border: Border.all(color: _primaryColor.withOpacity(0.3)),
+  //     ),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //           children: [
+  //             Text(
+  //               '$starRating Details',
+  //               style: TextStyle(
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: _primaryColor,
+  //               ),
+  //             ),
+  //             IconButton(
+  //               onPressed: () {
+  //                 setState(() {
+  //                   _selectedStarRatings.remove(starRating);
+  //                   _selectedStarRatingDetails.remove(starRating);
+  //                 });
+  //               },
+  //               icon: Icon(Icons.close, color: Colors.red, size: 20),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 12),
+  //         Row(
+  //           children: [
+  //             Expanded(
+  //               child: _buildStarRatingInputField(
+  //                 label: 'Total Number of Rooms *',
+  //                 value: starDetails.totalRooms,
+  //                 hint: 'Enter number',
+  //                 keyboardType: TextInputType.number,
+  //                 onChanged: (value) {
+  //                   setState(() {
+  //                     starDetails.totalRooms = value;
+  //                   });
+  //                 },
+  //               ),
+  //             ),
+  //             SizedBox(width: 16),
+  //             Expanded(
+  //               child: _buildStarRatingInputField(
+  //                 label: 'Total Room Capacity *',
+  //                 value: starDetails.totalCapacity,
+  //                 hint: 'Enter max guests',
+  //                 keyboardType: TextInputType.number,
+  //                 onChanged: (value) {
+  //                   setState(() {
+  //                     starDetails.totalCapacity = value;
+  //                   });
+  //                 },
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 16),
+  //         Text(
+  //           'Room Types Available *',
+  //           style: TextStyle(
+  //             fontSize: 13,
+  //             fontWeight: FontWeight.w500,
+  //             color: _textPrimary,
+  //           ),
+  //         ),
+  //         SizedBox(height: 8),
+  //         // Pass a key to force rebuild when room types change
+  //         _buildStarRatingRoomTypesGrid(starRating, starDetails),
+  //         SizedBox(height: 16),
+  //         Row(
+  //           children: [
+  //             Expanded(
+  //               child: _buildStarRatingInputField(
+  //                 label: 'Total Property Area',
+  //                 value: starDetails.propertyArea,
+  //                 hint: 'Sq. Ft. / Acres',
+  //                 onChanged: (value) {
+  //                   setState(() {
+  //                     starDetails.propertyArea = value;
+  //                   });
+  //                 },
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         SizedBox(height: 16),
+  //         _buildStarRatingInputField(
+  //           label: 'Resort Description *',
+  //           value: starDetails.description,
+  //           hint: 'Describe this $starRating resort',
+  //           maxLines: 4,
+  //           onChanged: (value) {
+  //             setState(() {
+  //               starDetails.description = value;
+  //             });
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  // Widget _buildStarRatingRoomTypesGrid(String starRating, StarRatingDetails starDetails) {
+  //   return Wrap(
+  //     spacing: 8,
+  //     runSpacing: 8,
+  //     children: starDetails.roomTypes.entries.map((entry) {
+  //       bool isSelected = entry.value;
+  //       return GestureDetector(
+  //         onTap: () {
+  //           setState(() {
+  //             starDetails.roomTypes[entry.key] = !isSelected;
+  //           });
+  //         },
+  //         child: Container(
+  //           padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+  //           decoration: BoxDecoration(
+  //             color: isSelected ? _primaryLight : Colors.white,
+  //             borderRadius: BorderRadius.circular(20),
+  //             border: Border.all(
+  //               color: isSelected ? _primaryColor : _borderColor,
+  //               width: isSelected ? 2 : 1,
+  //             ),
+  //           ),
+  //           child: Row(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               Icon(
+  //                 isSelected ? Icons.check_circle : Icons.circle_outlined,
+  //                 size: 16,
+  //                 color: isSelected ? _primaryColor : _textSecondary,
+  //               ),
+  //               SizedBox(width: 6),
+  //               Text(
+  //                 entry.key,
+  //                 style: TextStyle(
+  //                   fontSize: 13,
+  //                   color: isSelected ? _primaryColor : _textSecondary,
+  //                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     }).toList(),
+  //   );
+  // }
+
+  // Widget _buildStarRatingRoomTypesGrid(String starRating, StarRatingDetails starDetails) {
+  //   return Wrap(
+  //     spacing: 8,
+  //     runSpacing: 8,
+  //     children: starDetails.roomTypes.entries.map((entry) {
+  //       bool isSelected = entry.value;
+  //       return GestureDetector(
+  //         onTap: () {
+  //           setState(() {
+  //             // Create a new map to trigger rebuild
+  //             final updatedRoomTypes = Map<String, bool>.from(starDetails.roomTypes);
+  //             updatedRoomTypes[entry.key] = !isSelected;
+  //             starDetails.roomTypes = updatedRoomTypes;
+  //           });
+  //         },
+  //         child: Container(
+  //           padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+  //           decoration: BoxDecoration(
+  //             color: isSelected ? _primaryLight : Colors.white,
+  //             borderRadius: BorderRadius.circular(20),
+  //             border: Border.all(
+  //               color: isSelected ? _primaryColor : _borderColor,
+  //               width: isSelected ? 2 : 1,
+  //             ),
+  //           ),
+  //           child: Row(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               Icon(
+  //                 isSelected ? Icons.check_circle : Icons.circle_outlined,
+  //                 size: 16,
+  //                 color: isSelected ? _primaryColor : _textSecondary,
+  //               ),
+  //               SizedBox(width: 6),
+  //               Text(
+  //                 entry.key,
+  //                 style: TextStyle(
+  //                   fontSize: 13,
+  //                   color: isSelected ? _primaryColor : _textSecondary,
+  //                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     }).toList(),
+  //   );
+  // }
+
+
+
+void _showAddCustomStarRatingDialog() {
+  _customStarRatingController.clear();
+
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Add Custom Star Rating'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Enter star rating (e.g., 6 Star, 7 Star, 8 Star, etc.)',
+            style: TextStyle(fontSize: 12),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _customStarRatingController,
+            decoration: InputDecoration(
+              hintText: 'e.g., 6 Star',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            ),
+            keyboardType: TextInputType.text,
+            autofocus: true,
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            _customStarRatingController.clear();
+            Navigator.pop(context);
+          },
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            String customStar = _customStarRatingController.text.trim();
+            if (customStar.isNotEmpty) {
+              // Validate format (should contain "Star")
+              if (!customStar.toUpperCase().contains('STAR')) {
+                _showErrorDialog(
+                  'Invalid Format',
+                  'Please enter a valid star rating (e.g., 6 Star, 7 Star, etc.)',
+                );
+                return;
+              }
+
+              // Check if already exists
+              if (_selectedStarRatings.contains(customStar)) {
+                _showErrorDialog(
+                  'Already Added',
+                  '$customStar is already selected.',
+                );
+                return;
+              }
+
+              setState(() {
+                _selectedStarRatings.add(customStar);
+                _selectedStarRatingDetails[customStar] = StarRatingDetails(type: customStar);
+              });
+
+              _customStarRatingController.clear();
+              Navigator.pop(context);
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('$customStar added successfully'),
+                  backgroundColor: _successColor,
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: _primaryColor,
+          ),
+          child: const Text('Add', style: TextStyle(color: Colors.white)),
+        ),
+      ],
+    ),
+  );
+}
+
+  Widget _buildStarRatingRoomTypesGrid(String starRating, StarRatingDetails starDetails) {
+    return Container(
+      key: ValueKey('room_types_$starRating'),
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: starDetails.roomTypes.entries.map((entry) {
+          bool isSelected = entry.value;
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+
+                starDetails.roomTypes[entry.key] = !isSelected;
+
+                starDetails.roomTypes = Map<String, bool>.from(starDetails.roomTypes);
+              });
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: isSelected ? _primaryLight : Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isSelected ? _primaryColor : _borderColor,
+                  width: isSelected ? 2 : 1,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    isSelected ? Icons.check_circle : Icons.circle_outlined,
+                    size: 16,
+                    color: isSelected ? _primaryColor : _textSecondary,
+                  ),
+                  SizedBox(width: 6),
+                  Text(
+                    entry.key,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: isSelected ? _primaryColor : _textSecondary,
+                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 8),
+          );
+        }).toList(),
+      ),
+    );
+  }
 
-            _buildRoomTypesGrid(),
 
-            SizedBox(height: 16),
-
-            Row(
-              children: [
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Total Property Area',
-                    controller: _propertyAreaController,
-                    hint: 'Sq. Ft. / Acres',
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: _buildInputField(
-                    label: 'Year of Establishment *',
-                    controller: _yearEstablishedController,
-                    hint: 'YYYY',
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-              ],
+  Widget _buildBasicResortPropertyDetails() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: _buildInputField(
+                label: 'Total Number of Rooms *',
+                controller: _totalRoomsController,
+                hint: 'Enter number',
+                keyboardType: TextInputType.number,
+              ),
             ),
-            SizedBox(height: 16),
-
-            _buildInputField(
-              label: 'Description of Resort *',
-              controller: _descriptionController,
-              hint: 'Describe your resort',
-              maxLines: 4,
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildInputField(
+                label: 'Total Room Capacity *',
+                controller: _totalCapacityController,
+                hint: 'Enter max guests',
+                keyboardType: TextInputType.number,
+              ),
             ),
           ],
+        ),
+        SizedBox(height: 16),
+        Text(
+          'Room Types Available *',
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+            color: _textPrimary,
+          ),
+        ),
+        SizedBox(height: 8),
+        _buildRoomTypesGrid(),
+        SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              child: _buildInputField(
+                label: 'Total Property Area',
+                controller: _propertyAreaController,
+                hint: 'Sq. Ft. / Acres',
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildInputField(
+                label: 'Year of Establishment *',
+                controller: _yearEstablishedController,
+                hint: 'YYYY',
+                keyboardType: TextInputType.number,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 16),
+        _buildInputField(
+          label: 'Description of Resort *',
+          controller: _descriptionController,
+          hint: 'Describe your resort',
+          maxLines: 4,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStarRatingInputField({
+    required String label,
+    required String value,
+    required String hint,
+    TextInputType? keyboardType,
+    int maxLines = 1,
+    required Function(String) onChanged,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: _textSecondary,
+          ),
+        ),
+        SizedBox(height: 4),
+        TextFormField(
+          initialValue: value,
+          keyboardType: keyboardType,
+          maxLines: maxLines,
+          onChanged: onChanged,
+          decoration: InputDecoration(
+            hintText: hint,
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _borderColor),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _borderColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: _primaryColor),
+            ),
+          ),
         ),
       ],
     );
@@ -51024,7 +53263,7 @@ class _ResortRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Base Price Per Night *',
+                    label: 'Base Price Per Night',
                     controller: _basePriceController,
                     hint: '₹',
                     keyboardType: TextInputType.number,
@@ -51034,7 +53273,7 @@ class _ResortRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Weekend Price *',
+                    label: 'Weekend Price',
                     controller: _weekendPriceController,
                     hint: '₹',
                     keyboardType: TextInputType.number,
@@ -51102,7 +53341,7 @@ class _ResortRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Check-in Time *',
+                  'Check-in Time',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -51145,7 +53384,7 @@ class _ResortRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Check-out Time *',
+                  'Check-out Time',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -51185,7 +53424,7 @@ class _ResortRegistrationVendorFormState
             SizedBox(height: 16),
 
             _buildFileUploadItem(
-              label: 'Cancellation Policy *',
+              label: 'Cancellation Policy',
               fileInfo: _cancelledChequeInfo,
               onUpload: () => _pickFile('cancellation'),
               onView: () => _viewFile(_cancelledChequeInfo),
@@ -51205,7 +53444,7 @@ class _ResortRegistrationVendorFormState
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Instant Booking *',
+                        'Instant Booking',
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
@@ -51312,7 +53551,7 @@ class _ResortRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Available From Date *',
+                  'Available From Date',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -51524,7 +53763,7 @@ class _ResortRegistrationVendorFormState
           title: 'Legal & Verification Documents',
           children: [
             _buildFileUploadItem(
-              label: 'Business Registration Certificate *',
+              label: 'Business Registration Certificate',
               fileInfo: _businessRegInfo,
               onUpload: () => _pickFile('business'),
               onView: () => _viewFile(_businessRegInfo),
@@ -51532,13 +53771,13 @@ class _ResortRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'GST Number *',
+              label: 'GST Number',
               controller: _gstNumberController,
               hint: 'Enter GST number',
             ),
             SizedBox(height: 16),
             _buildInputField(
-              label: 'Trade License *',
+              label: 'Trade License',
               controller: _tradeLicenseController,
               hint: 'Enter trade license number',
             ),
@@ -51550,7 +53789,7 @@ class _ResortRegistrationVendorFormState
             ),
             SizedBox(height: 16),
             _buildFileUploadItem(
-              label: 'ID Proof of Owner *',
+              label: 'ID Proof of Owner',
               fileInfo: _idProofInfo,
               onUpload: () => _pickFile('idproof'),
               onView: () => _viewFile(_idProofInfo),
@@ -51586,7 +53825,7 @@ class _ResortRegistrationVendorFormState
           title: 'Bank Details',
           children: [
             _buildInputField(
-              label: 'Account Holder Name *',
+              label: 'Account Holder Name',
               controller: _accountHolderController,
               hint: 'Enter name',
             ),
@@ -51595,7 +53834,7 @@ class _ResortRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Bank Name *',
+                    label: 'Bank Name',
                     controller: _bankNameController,
                     hint: 'Enter bank name',
                   ),
@@ -51603,7 +53842,7 @@ class _ResortRegistrationVendorFormState
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Account Number *',
+                    label: 'Account Number',
                     controller: _accountNumberController,
                     hint: 'Enter account number',
                     keyboardType: TextInputType.number,
@@ -51616,7 +53855,7 @@ class _ResortRegistrationVendorFormState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'IFSC Code *',
+                    label: 'IFSC Code',
                     controller: _ifscCodeController,
                     hint: 'Enter IFSC code',
                   ),
@@ -51659,31 +53898,31 @@ class _ResortRegistrationVendorFormState
           title: 'Media Upload Section',
           children: [
             _buildMediaUploadSection(
-              label: 'Resort Exterior Photos *',
+              label: 'Resort Exterior Photos',
               mediaKey: 'exterior',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Reception & Lobby Photos *',
+              label: 'Reception & Lobby Photos',
               mediaKey: 'reception',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Room Photos *',
+              label: 'Room Photos',
               mediaKey: 'rooms',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Pool & Amenities Photos *',
+              label: 'Pool & Amenities Photos',
               mediaKey: 'pool_amenities',
               isRequired: true,
             ),
             SizedBox(height: 16),
             _buildMediaUploadSection(
-              label: 'Restaurant Photos *',
+              label: 'Restaurant Photos',
               mediaKey: 'restaurant',
               isRequired: true,
             ),
@@ -51716,7 +53955,7 @@ class _ResortRegistrationVendorFormState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'ID Proof Required *',
+                  'ID Proof Required',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
@@ -51871,115 +54110,7 @@ class _ResortRegistrationVendorFormState
             ),
           ],
         ),
-        SizedBox(height: 16),
-        _buildCard(
-          title: 'Admin Internal Section',
-          children: [
-            DropdownButtonFormField<String>(
-              value: _vendorStatus,
-              decoration: InputDecoration(
-                labelText: 'Vendor Status',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-              ),
-              items: ['Pending', 'Approved', 'Rejected'].map((status) {
-                return DropdownMenuItem(value: status, child: Text(status));
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _vendorStatus = value;
-                });
-              },
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: CheckboxListTile(
-                    value: _featuredResort,
-                    onChanged: (value) {
-                      setState(() {
-                        _featuredResort = value ?? false;
-                      });
-                    },
-                    title: Text('Featured Resort'),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ),
-                Expanded(
-                  child: CheckboxListTile(
-                    value: _verifiedBadge,
-                    onChanged: (value) {
-                      setState(() {
-                        _verifiedBadge = value ?? false;
-                      });
-                    },
-                    title: Text('Verified Badge'),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Rating Score',
-                      hintText: '0.0',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    onChanged: (value) {
-                      _ratingScore = double.tryParse(value) ?? 0.0;
-                    },
-                  ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: DropdownButtonFormField<String>(
-                    value: _priorityListingLevel,
-                    decoration: InputDecoration(
-                      labelText: 'Priority Level',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                    ),
-                    items: _priorityLevels.map((level) {
-                      return DropdownMenuItem(value: level, child: Text(level));
-                    }).toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _priorityListingLevel = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            _buildInputField(
-              label: 'Admin Remarks',
-              controller: _remarksController,
-              hint: 'Enter admin remarks',
-              maxLines: 2,
-            ),
-          ],
-        ),
+
       ],
     );
   }
@@ -53264,136 +55395,369 @@ class _ResortRegistrationVendorFormState
     }
   }
 
-  void _submitForm() {
-    if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-      _showErrorDialog(
-        'Terms Required',
-        'Please accept all terms and conditions.',
-      );
-      return;
+
+
+  // void _submitForm() {
+  //   if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
+  //     _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
+  //     return;
+  //   }
+  //
+  //   String resortId = 'RST_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
+  //
+  //   print('=== GENERATING RESORT ID ===');
+  //   print('Generated Resort ID: $resortId');
+  //
+  //
+  //
+  //   Map<String, dynamic> formData = {
+  //     'id': resortId,
+  //     'registeredAt': DateTime.now().toIso8601String(),
+  //     'basicInfo': {
+  //       'resortName': _resortNameController.text,
+  //       'ownerName': _ownerNameController.text,
+  //       'contactPerson': _contactPersonController.text,
+  //       'mobile': _mobileController.text,
+  //       'altMobile': _altMobileController.text,
+  //       'email': _emailController.text,
+  //       'website': _websiteController.text,
+  //       'companyName': _companyNameController.text,
+  //       'ownerPhoto': _ownerPhotoInfo,
+  //       'id': resortId,
+  //     },
+  //     'location': {
+  //       'address': _addressController.text,
+  //       'area': _areaController.text,
+  //       'city': _cityController.text,
+  //       'state': _stateController.text,
+  //       'pincode': _pincodeController.text,
+  //       'googleMapLink': _googleMapLinkController.text,
+  //       'nearestAirport': _nearestAirportController.text,
+  //       'nearestRailway': _nearestRailwayController.text,
+  //       'officeAddress': {
+  //         'address': _officeAddressController.text,
+  //         'area': _officeAreaController.text,
+  //         'city': _officeCityController.text,
+  //         'state': _officeStateController.text,
+  //         'pincode': _officePincodeController.text,
+  //         'googleMapLink': _officeGoogleMapLinkController.text,
+  //       },
+  //     },
+  //     'propertyDetails': {
+  //       'resortCategory': _selectedResortCategory,
+  //       'totalRooms': _totalRoomsController.text,
+  //       'roomTypes': _roomTypes,
+  //       'totalCapacity': _totalCapacityController.text,
+  //       'propertyArea': _propertyAreaController.text,
+  //       'yearEstablished': _yearEstablishedController.text,
+  //       'description': _descriptionController.text,
+  //     },
+  //     'amenities': {'selected': _resortAmenities, 'custom': _customAmenities},
+  //     'pricing': {
+  //       'basePrice': _basePriceController.text,
+  //       'weekendPrice': _weekendPriceController.text,
+  //       'peakPrice': _peakPriceController.text,
+  //       'extraBedCharges': _extraBedChargesController.text,
+  //       'childPolicy': _childPolicyController.text,
+  //       'minimumStay': _minimumStayController.text,
+  //       'advancePayment': _advancePaymentController.text,
+  //       'checkInTime': _selectedCheckInTime,
+  //       'checkOutTime': _selectedCheckOutTime,
+  //       'cancellationPolicy': _cancelledChequeInfo,
+  //     },
+  //     'availability': {
+  //       'instantBooking': _instantBooking,
+  //       'manualApproval': _manualApproval,
+  //       'availableFromDate': _availableFromDate,
+  //       'blackoutDates': _blackoutDatesController.text,
+  //       'seasonalPricing': _seasonalPricingController.text,
+  //     },
+  //     'legal': {
+  //       'businessReg': _businessRegInfo,
+  //       'gstNumber': _gstNumberController.text,
+  //       'tradeLicense': _tradeLicenseController.text,
+  //       'fssaiLicense': _fssaiLicenseController.text,
+  //       'idProof': _idProofInfo,
+  //       'ownershipProof': _ownershipProofInfo,
+  //       'fireSafety': _fireSafetyInfo,
+  //       'tourismApproval': _tourismApprovalController.text,
+  //     },
+  //     'bank': {
+  //       'accountHolder': _accountHolderController.text,
+  //       'bankName': _bankNameController.text,
+  //       'accountNumber': _accountNumberController.text,
+  //       'ifscCode': _ifscCodeController.text,
+  //       'upiId': _upiIdController.text,
+  //       'gstBilling': _gstBillingController.text,
+  //       'cancelledCheque': _cancelledChequeInfo,
+  //     },
+  //     'media': _mediaFiles,
+  //     'houseRules': {
+  //       'checkInRequirements': _checkInRequirementsController.text,
+  //       'idProofRequired': _idProofRequired,
+  //       'petPolicy': _petPolicyController.text,
+  //       'smokingPolicy': _smokingPolicyController.text,
+  //       'eventPolicy': _eventPolicyController.text,
+  //       'damagePolicy': _damagePolicyController.text,
+  //       'refundPolicy': _refundPolicyController.text,
+  //     },
+  //     'signature': {
+  //       'hasDigital': _hasDigitalSignature,
+  //       'digitalSignature': _digitalSignatureImage,
+  //       'date': _selectedDate,
+  //     },
+  //     'declarationAccepted': _declarationAccepted,
+  //     'propertyType': 'resort',
+  //   };
+  //
+  //   _saveToSharedPreferences(formData);
+  //
+  //   final userEmail = _emailController.text;
+  //
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => ResortRegistrationSummaryScreen(
+  //         registrationData: formData,
+  //         declarationAccepted: _declarationAccepted,
+  //         userEmail: userEmail,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+ void _submitForm() {
+  if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
+    _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
+    return;
+  }
+
+  // Validation for star rating details if selected
+  if (_selectedStarRatings.isNotEmpty) {
+    for (var entry in _selectedStarRatingDetails.entries) {
+      final starDetails = entry.value;
+      if (starDetails.totalRooms.isEmpty ||
+          starDetails.totalCapacity.isEmpty ||
+          starDetails.description.isEmpty) {
+        _showErrorDialog(
+          'Incomplete ${starDetails.type} Details',
+          'Please fill all required fields for ${starDetails.type} details.',
+        );
+        return;
+      }
+
+      // Validate that at least one room type is selected for each star rating
+      bool hasRoomTypeSelected = starDetails.roomTypes.values.any((selected) => selected == true);
+      if (!hasRoomTypeSelected) {
+        _showErrorDialog(
+          'Room Types Required',
+          'Please select at least one room type for ${starDetails.type} details.',
+        );
+        return;
+      }
     }
+  }
 
-    final hasSignature = _hasDigitalSignature;
-    if (!hasSignature) {
-      _showErrorDialog(
-        'Signature Required',
-        'Please draw your digital signature.',
-      );
-      return;
-    }
+  String resortId = 'RST_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
 
-    if (_mediaFiles['exterior']!.isEmpty) {
-      _showErrorDialog(
-        'Photos Required',
-        'Please upload resort exterior photos.',
-      );
-      return;
-    }
+  // Get the resort category value (handle "Other" case)
+  String resortCategoryValue = _selectedResortCategory ?? 'Resort';
+  if (_selectedResortCategory == 'Other' && _customResortCategory.isNotEmpty) {
+    resortCategoryValue = _customResortCategory;
+  }
 
-    Map<String, dynamic> formData = {
-      'basicInfo': {
-        'resortName': _resortNameController.text,
-        'ownerName': _ownerNameController.text,
-        'contactPerson': _contactPersonController.text,
-        'mobile': _mobileController.text,
-        'altMobile': _altMobileController.text,
-        'email': _emailController.text,
-        'website': _websiteController.text,
-        'companyName': _companyNameController.text,
-        'ownerPhoto': _ownerPhotoInfo,
-      },
-      'location': {
-        'address': _addressController.text,
-        'area': _areaController.text,
-        'city': _cityController.text,
-        'state': _stateController.text,
-        'pincode': _pincodeController.text,
-        'googleMapLink': _googleMapLinkController.text,
-        'nearestAirport': _nearestAirportController.text,
-        'nearestRailway': _nearestRailwayController.text,
-      },
-      'propertyDetails': {
-        'resortCategory': _selectedResortCategory,
-        'totalRooms': _totalRoomsController.text,
-        'roomTypes': _roomTypes,
-        'totalCapacity': _totalCapacityController.text,
-        'propertyArea': _propertyAreaController.text,
-        'yearEstablished': _yearEstablishedController.text,
-        'description': _descriptionController.text,
-      },
-      'amenities': {'selected': _resortAmenities, 'custom': _customAmenities},
-      'pricing': {
-        'basePrice': _basePriceController.text,
-        'weekendPrice': _weekendPriceController.text,
-        'peakPrice': _peakPriceController.text,
-        'extraBedCharges': _extraBedChargesController.text,
-        'childPolicy': _childPolicyController.text,
-        'minimumStay': _minimumStayController.text,
-        'advancePayment': _advancePaymentController.text,
-        'checkInTime': _selectedCheckInTime,
-        'checkOutTime': _selectedCheckOutTime,
-        'cancellationPolicy': _cancelledChequeInfo,
-      },
-      'availability': {
-        'instantBooking': _instantBooking,
-        'manualApproval': _manualApproval,
-        'availableFromDate': _availableFromDate,
-        'blackoutDates': _blackoutDatesController.text,
-        'seasonalPricing': _seasonalPricingController.text,
-      },
-      'legal': {
-        'businessReg': _businessRegInfo,
-        'gstNumber': _gstNumberController.text,
-        'tradeLicense': _tradeLicenseController.text,
-        'fssaiLicense': _fssaiLicenseController.text,
-        'idProof': _idProofInfo,
-        'ownershipProof': _ownershipProofInfo,
-        'fireSafety': _fireSafetyInfo,
-        'tourismApproval': _tourismApprovalController.text,
-      },
-      'bank': {
-        'accountHolder': _accountHolderController.text,
-        'bankName': _bankNameController.text,
-        'accountNumber': _accountNumberController.text,
-        'ifscCode': _ifscCodeController.text,
-        'upiId': _upiIdController.text,
-        'gstBilling': _gstBillingController.text,
-        'cancelledCheque': _cancelledChequeInfo,
-      },
-      'media': _mediaFiles,
-      'houseRules': {
-        'checkInRequirements': _checkInRequirementsController.text,
-        'idProofRequired': _idProofRequired,
-        'petPolicy': _petPolicyController.text,
-        'smokingPolicy': _smokingPolicyController.text,
-        'eventPolicy': _eventPolicyController.text,
-        'damagePolicy': _damagePolicyController.text,
-        'refundPolicy': _refundPolicyController.text,
-      },
-      'signature': {
-        'hasDigital': _hasDigitalSignature,
-        'digitalSignature': _digitalSignatureImage,
-        'date': _selectedDate,
-      },
-      'adminFields': {
-        'vendorStatus': _vendorStatus,
-        'featuredResort': _featuredResort,
-        'verifiedBadge': _verifiedBadge,
-        'ratingScore': _ratingScore,
-        'priorityListingLevel': _priorityListingLevel,
-        'remarks': _remarksController.text,
-      },
-    };
+  // Prepare star rating details
+  List<Map<String, dynamic>> starRatingDetails = [];
+  if (_selectedStarRatings.isNotEmpty) {
+    starRatingDetails = _selectedStarRatingDetails.values.map((details) => details.toJson()).toList();
+  }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ResortRegistrationSummaryScreen(
-          registrationData: formData,
-          declarationAccepted: _declarationAccepted,
-        ),
+  Map<String, dynamic> formData = {
+    'id': resortId,
+    'registeredAt': DateTime.now().toIso8601String(),
+    'basicInfo': {
+      'resortName': _resortNameController.text,
+      'ownerName': _ownerNameController.text,
+      'contactPerson': _contactPersonController.text,
+      'mobile': _mobileController.text,
+      'altMobile': _altMobileController.text,
+      'email': _emailController.text,
+      'website': _websiteController.text,
+      'companyName': _companyNameController.text,
+      'ownerPhoto': _ownerPhotoInfo,
+      'id': resortId,
+    },
+    'location': {
+      'address': _addressController.text,
+      'area': _areaController.text,
+      'city': _cityController.text,
+      'state': _stateController.text,
+      'pincode': _pincodeController.text,
+      'googleMapLink': _googleMapLinkController.text,
+      'nearestAirport': _nearestAirportController.text,
+      'nearestRailway': _nearestRailwayController.text,
+      'officeAddress': {
+        'address': _officeAddressController.text,
+        'area': _officeAreaController.text,
+        'city': _officeCityController.text,
+        'state': _officeStateController.text,
+        'pincode': _officePincodeController.text,
+        'googleMapLink': _officeGoogleMapLinkController.text,
+      },
+    },
+    'propertyDetails': {
+      'resortCategory': resortCategoryValue,
+      'hasStarRatingOptions': _selectedStarRatings.isNotEmpty,
+      'selectedStarRatings': _selectedStarRatings,
+      'starRatingDetails': starRatingDetails,
+      // Include main property details only if no star ratings selected
+      'totalRooms': _selectedStarRatings.isEmpty ? _totalRoomsController.text : '',
+      'roomTypes': _selectedStarRatings.isEmpty ? _roomTypes : {},
+      'totalCapacity': _selectedStarRatings.isEmpty ? _totalCapacityController.text : '',
+      'propertyArea': _selectedStarRatings.isEmpty ? _propertyAreaController.text : '',
+      'yearEstablished': _yearEstablishedController.text,
+      'description': _selectedStarRatings.isEmpty ? _descriptionController.text : '',
+    },
+    'amenities': {
+      'selected': _resortAmenities,
+      'custom': _customAmenities,
+    },
+    'pricing': {
+      'basePrice': _basePriceController.text,
+      'weekendPrice': _weekendPriceController.text,
+      'peakPrice': _peakPriceController.text,
+      'extraBedCharges': _extraBedChargesController.text,
+      'childPolicy': _childPolicyController.text,
+      'minimumStay': _minimumStayController.text,
+      'advancePayment': _advancePaymentController.text,
+      'checkInTime': _selectedCheckInTime,
+      'checkOutTime': _selectedCheckOutTime,
+      'cancellationPolicy': _cancelledChequeInfo,
+    },
+    'availability': {
+      'instantBooking': _instantBooking,
+      'manualApproval': _manualApproval,
+      'availableFromDate': _availableFromDate,
+      'blackoutDates': _blackoutDatesController.text,
+      'seasonalPricing': _seasonalPricingController.text,
+    },
+    'legal': {
+      'businessReg': _businessRegInfo,
+      'gstNumber': _gstNumberController.text,
+      'tradeLicense': _tradeLicenseController.text,
+      'fssaiLicense': _fssaiLicenseController.text,
+      'idProof': _idProofInfo,
+      'ownershipProof': _ownershipProofInfo,
+      'fireSafety': _fireSafetyInfo,
+      'tourismApproval': _tourismApprovalController.text,
+    },
+    'bank': {
+      'accountHolder': _accountHolderController.text,
+      'bankName': _bankNameController.text,
+      'accountNumber': _accountNumberController.text,
+      'ifscCode': _ifscCodeController.text,
+      'upiId': _upiIdController.text,
+      'gstBilling': _gstBillingController.text,
+      'cancelledCheque': _cancelledChequeInfo,
+    },
+    'media': _mediaFiles,
+    'houseRules': {
+      'checkInRequirements': _checkInRequirementsController.text,
+      'idProofRequired': _idProofRequired,
+      'petPolicy': _petPolicyController.text,
+      'smokingPolicy': _smokingPolicyController.text,
+      'eventPolicy': _eventPolicyController.text,
+      'damagePolicy': _damagePolicyController.text,
+      'refundPolicy': _refundPolicyController.text,
+    },
+    'signature': {
+      'hasDigital': _hasDigitalSignature,
+      'digitalSignature': _digitalSignatureImage,
+      'date': _selectedDate,
+    },
+    'declarationAccepted': _declarationAccepted,
+    'propertyType': 'resort',
+    'virtualTourLink': _getVirtualTourLink(),
+  };
+
+  _saveToSharedPreferences(formData);
+
+  final userEmail = _emailController.text;
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ResortRegistrationSummaryScreen(
+        registrationData: formData,
+        declarationAccepted: _declarationAccepted,
+        userEmail: userEmail,
       ),
-    );
+    ),
+  );
+}
+
+// Helper method to get virtual tour link
+String _getVirtualTourLink() {
+  final virtualTour = _mediaFiles['virtual_tour'];
+  if (virtualTour != null && virtualTour.isNotEmpty && virtualTour[0]['path'] != null) {
+    return virtualTour[0]['path'].toString();
+  }
+  return '';
+}
+
+
+
+
+  Future<void> _saveToSharedPreferences(Map<String, dynamic> formData) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final String userEmail = _emailController.text;
+
+      final String usersJson = prefs.getString('registered_users') ?? '[]';
+      List<dynamic> usersList = jsonDecode(usersJson);
+
+      int userIndex = -1;
+      for (int i = 0; i < usersList.length; i++) {
+        if (usersList[i]['email'] == userEmail) {
+          userIndex = i;
+          break;
+        }
+      }
+
+      Map<String, dynamic> userData;
+
+      if (userIndex >= 0) {
+        userData = Map<String, dynamic>.from(usersList[userIndex]);
+
+        if (!userData.containsKey('resorts')) {
+          userData['resorts'] = [];
+        }
+
+        List<dynamic> resortsList = userData['resorts'];
+        resortsList.add(formData);
+        userData['resorts'] = resortsList;
+        userData['propertyType'] = 'resort';
+
+        usersList[userIndex] = userData;
+        print('Added to existing user. Total resorts: ${resortsList.length}');
+      } else {
+        userData = {
+          'email': userEmail,
+          'fullName': _ownerNameController.text,
+          'phone': _mobileController.text,
+          'propertyType': 'resort',
+          'resorts': [formData],
+          'registeredAt': DateTime.now().toIso8601String(),
+        };
+        usersList.add(userData);
+        print('Created new user with 1 resort');
+      }
+
+      await prefs.setString('registered_users', jsonEncode(usersList));
+      print('Resort saved successfully!');
+    } catch (e) {
+      print('Error saving to SharedPreferences: $e');
+    }
   }
 
   @override
@@ -53408,13 +55772,21 @@ class _ResortRegistrationVendorFormState
     _websiteController.dispose();
     _companyNameController.dispose();
     _addressController.dispose();
+      _otherResortCategoryController.dispose();
     _areaController.dispose();
     _cityController.dispose();
     _stateController.dispose();
     _pincodeController.dispose();
+    _customStarRatingController.dispose();
     _googleMapLinkController.dispose();
     _nearestAirportController.dispose();
     _nearestRailwayController.dispose();
+    _officeAddressController.dispose();
+    _officeAreaController.dispose();
+    _officeCityController.dispose();
+    _officeStateController.dispose();
+    _officePincodeController.dispose();
+    _officeGoogleMapLinkController.dispose();
     _totalRoomsController.dispose();
     _totalCapacityController.dispose();
     _propertyAreaController.dispose();
@@ -53451,646 +55823,6 @@ class _ResortRegistrationVendorFormState
   }
 }
 
-class ResortRegistrationSummaryScreen extends StatelessWidget {
-  final Map<String, dynamic> registrationData;
-  final bool declarationAccepted;
-
-  const ResortRegistrationSummaryScreen({
-    Key? key,
-    required this.registrationData,
-    required this.declarationAccepted,
-  }) : super(key: key);
-
-  dynamic _get(String key, [dynamic defaultValue]) {
-    try {
-      final keys = key.split('.');
-      dynamic value = registrationData;
-
-      for (final k in keys) {
-        if (value is Map) {
-          value = value[k];
-        } else {
-          return defaultValue;
-        }
-      }
-      return value ?? defaultValue;
-    } catch (e) {
-      return defaultValue;
-    }
-  }
-
-  Color get _primaryColor => Color(0xFF2E7D32); // Forest Green
-  Color get _primaryLight => _primaryColor.withOpacity(0.1);
-  Color get _bgColor => Color(0xFFF9FAFB);
-  Color get _textDark => Color(0xFF111827);
-  Color get _textLight => Color(0xFF6B7280);
-  Color get _borderColor => Color(0xFFE5E7EB);
-  Color get _successColor => Color(0xFF10B981);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: _bgColor,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 1,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: _textDark),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Resort Registration Summary',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: _textDark,
-          ),
-        ),
-        centerTitle: true,
-        actions: [_buildCategoryChip()],
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            _buildSuccessHeader(),
-            _buildBasicInfo(),
-            _buildLocationInfo(),
-            _buildPropertyDetails(),
-            _buildAmenitiesSection(),
-            _buildPricingSection(),
-            _buildLegalBankSection(),
-            _buildMediaSection(),
-            _buildHouseRulesSection(),
-            _buildDeclarationSection(),
-            SizedBox(height: 20),
-          ],
-        ),
-      ),
-      bottomNavigationBar: _buildFinishButton(context),
-    );
-  }
-
-  Widget _buildCategoryChip() {
-    return Container(
-      margin: EdgeInsets.only(right: 16),
-      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: _primaryColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.nature_people, size: 14, color: Colors.white),
-          SizedBox(width: 4),
-          Text(
-            _get('propertyDetails.resortCategory', 'Resort'),
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSuccessHeader() {
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(bottom: 20),
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [_primaryColor, _primaryColor.withOpacity(0.8)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: _primaryColor.withOpacity(0.3),
-            blurRadius: 12,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check_circle, color: _primaryColor, size: 28),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Resort Registration Submitted Successfully!',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  _get('basicInfo.resortName', 'Resort Name'),
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
-                    fontSize: 14,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 2),
-                Text(
-                  'Reference ID: RST${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.7),
-                    fontSize: 11,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.nature_people, color: Colors.white, size: 30),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBasicInfo() {
-    return _buildSectionCard(
-      title: 'Basic Information',
-      icon: Icons.info,
-      children: [
-        _infoRow('Resort Name', _get('basicInfo.resortName', 'Not Provided')),
-        _infoRow('Owner/GM', _get('basicInfo.ownerName', 'Not Provided')),
-        _infoRow(
-          'Contact Person',
-          _get('basicInfo.contactPerson', 'Not Provided'),
-        ),
-        _infoRow('Mobile', _get('basicInfo.mobile', 'Not Provided')),
-        if (_get('basicInfo.altMobile') != null &&
-            _get('basicInfo.altMobile').toString().isNotEmpty)
-          _infoRow('Alternate', _get('basicInfo.altMobile')),
-        _infoRow('Email', _get('basicInfo.email', 'Not Provided')),
-        if (_get('basicInfo.website') != null &&
-            _get('basicInfo.website').toString().isNotEmpty)
-          _infoRow('Website', _get('basicInfo.website')),
-        if (_get('basicInfo.companyName') != null &&
-            _get('basicInfo.companyName').toString().isNotEmpty)
-          _infoRow('Company', _get('basicInfo.companyName')),
-      ],
-    );
-  }
-
-  Widget _buildLocationInfo() {
-    return _buildSectionCard(
-      title: 'Location Details',
-      icon: Icons.location_on,
-      children: [
-        _infoRow('Address', _get('location.address', 'Not Provided')),
-        _infoRow('Area/Landmark', _get('location.area', 'Not Provided')),
-        _infoRow('City', _get('location.city', 'Not Provided')),
-        _infoRow('State', _get('location.state', 'Not Provided')),
-        _infoRow('Pincode', _get('location.pincode', 'Not Provided')),
-        if (_get('location.nearestAirport') != null &&
-            _get('location.nearestAirport').toString().isNotEmpty)
-          _infoRow('Nearest Airport', _get('location.nearestAirport')),
-        if (_get('location.nearestRailway') != null &&
-            _get('location.nearestRailway').toString().isNotEmpty)
-          _infoRow('Nearest Railway', _get('location.nearestRailway')),
-      ],
-    );
-  }
-
-  Widget _buildPropertyDetails() {
-    return _buildSectionCard(
-      title: 'Property Details',
-      icon: Icons.home,
-      children: [
-        _infoRow(
-          'Category',
-          _get('propertyDetails.resortCategory', 'Not Provided'),
-        ),
-        _infoRow('Total Rooms', _get('propertyDetails.totalRooms', '0')),
-        _infoRow('Room Capacity', _get('propertyDetails.totalCapacity', '0')),
-        if (_get('propertyDetails.propertyArea') != null &&
-            _get('propertyDetails.propertyArea').toString().isNotEmpty)
-          _infoRow('Property Area', _get('propertyDetails.propertyArea')),
-        _infoRow(
-          'Year Established',
-          _get('propertyDetails.yearEstablished', 'Not Provided'),
-        ),
-        _infoRow(
-          'Description',
-          _get('propertyDetails.description', ''),
-          maxLines: 3,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAmenitiesSection() {
-    final selectedAmenities = _get('amenities.selected', {});
-    final customAmenities = _get('amenities.custom', []);
-
-    if (selectedAmenities is! Map ||
-        selectedAmenities.entries.where((e) => e.value == true).isEmpty) {
-      return SizedBox.shrink();
-    }
-
-    final amenitiesList = selectedAmenities.entries
-        .where((e) => e.value == true)
-        .map((e) => e.key.toString())
-        .toList();
-
-    return _buildSectionCard(
-      title: 'Amenities',
-      icon: Icons.workspaces_filled,
-      children: [
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: amenitiesList
-              .map(
-                (amenity) => Container(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: _primaryLight,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: _primaryColor.withOpacity(0.3)),
-                  ),
-                  child: Text(
-                    amenity,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: _primaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-        if (customAmenities is List && customAmenities.isNotEmpty)
-          Padding(
-            padding: EdgeInsets.only(top: 8),
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: customAmenities
-                  .map(
-                    (amenity) => Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            _primaryColor,
-                            _primaryColor.withOpacity(0.8),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Text(
-                        amenity.toString(),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-      ],
-    );
-  }
-
-  Widget _buildPricingSection() {
-    return _buildSectionCard(
-      title: 'Pricing & Policies',
-      icon: Icons.attach_money,
-      children: [
-        _infoRow('Base Price', '₹ ${_get('pricing.basePrice', '0')}/night'),
-        _infoRow(
-          'Weekend Price',
-          '₹ ${_get('pricing.weekendPrice', '0')}/night',
-        ),
-        if (_get('pricing.peakPrice') != null &&
-            _get('pricing.peakPrice').toString().isNotEmpty)
-          _infoRow('Peak Price', '₹ ${_get('pricing.peakPrice')}/night'),
-        if (_get('pricing.extraBedCharges') != null &&
-            _get('pricing.extraBedCharges').toString().isNotEmpty)
-          _infoRow('Extra Bed', '₹ ${_get('pricing.extraBedCharges')}'),
-        if (_get('pricing.childPolicy') != null &&
-            _get('pricing.childPolicy').toString().isNotEmpty)
-          _infoRow('Child Policy', _get('pricing.childPolicy')),
-        _infoRow('Min Stay', '${_get('pricing.minimumStay', '1')} nights'),
-        if (_get('pricing.advancePayment') != null &&
-            _get('pricing.advancePayment').toString().isNotEmpty)
-          _infoRow('Advance Payment', '${_get('pricing.advancePayment')}%'),
-        _infoRow('Check-in', _get('pricing.checkInTime', 'Not set')),
-        _infoRow('Check-out', _get('pricing.checkOutTime', 'Not set')),
-      ],
-    );
-  }
-
-  Widget _buildLegalBankSection() {
-    return _buildSectionCard(
-      title: 'Legal & Bank',
-      icon: Icons.account_balance,
-      children: [
-        if (_get('legal.gstNumber') != null &&
-            _get('legal.gstNumber').toString().isNotEmpty)
-          _infoRow('GST', _get('legal.gstNumber')),
-        if (_get('legal.tradeLicense') != null &&
-            _get('legal.tradeLicense').toString().isNotEmpty)
-          _infoRow('Trade License', _get('legal.tradeLicense')),
-        if (_get('legal.fssaiLicense') != null &&
-            _get('legal.fssaiLicense').toString().isNotEmpty)
-          _infoRow('FSSAI', _get('legal.fssaiLicense')),
-        if (_get('bank.accountHolder') != null &&
-            _get('bank.accountHolder').toString().isNotEmpty)
-          _infoRow('Account Holder', _get('bank.accountHolder')),
-        if (_get('bank.bankName') != null &&
-            _get('bank.bankName').toString().isNotEmpty)
-          _infoRow('Bank', _get('bank.bankName')),
-        if (_get('bank.ifscCode') != null &&
-            _get('bank.ifscCode').toString().isNotEmpty)
-          _infoRow('IFSC', _get('bank.ifscCode')),
-      ],
-    );
-  }
-
-  Widget _buildMediaSection() {
-    final mediaFiles = _get('media', {});
-    if (mediaFiles is! Map) return SizedBox.shrink();
-
-    final uploadedCount = mediaFiles.entries
-        .where((e) => e.value is List && (e.value as List).isNotEmpty)
-        .length;
-
-    return _buildSectionCard(
-      title: 'Media',
-      icon: Icons.photo_library,
-      children: [_infoRow('Photos Uploaded', '$uploadedCount categories')],
-    );
-  }
-
-  Widget _buildHouseRulesSection() {
-    return _buildSectionCard(
-      title: 'House Rules',
-      icon: Icons.rule,
-      children: [
-        if (_get('houseRules.idProofRequired') != null)
-          _infoRow('ID Proof', _get('houseRules.idProofRequired')),
-        if (_get('houseRules.petPolicy') != null &&
-            _get('houseRules.petPolicy').toString().isNotEmpty)
-          _infoRow('Pet Policy', _get('houseRules.petPolicy')),
-        if (_get('houseRules.smokingPolicy') != null &&
-            _get('houseRules.smokingPolicy').toString().isNotEmpty)
-          _infoRow('Smoking', _get('houseRules.smokingPolicy')),
-        if (_get('houseRules.eventPolicy') != null &&
-            _get('houseRules.eventPolicy').toString().isNotEmpty)
-          _infoRow('Events', _get('houseRules.eventPolicy')),
-      ],
-    );
-  }
-
-  Widget _buildDeclarationSection() {
-    return _buildSectionCard(
-      title: 'Declaration',
-      icon: Icons.verified_user,
-      children: [
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: declarationAccepted
-                ? _successColor.withOpacity(0.1)
-                : Colors.red.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: declarationAccepted ? _successColor : Colors.red,
-            ),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                declarationAccepted ? Icons.check_circle : Icons.error,
-                color: declarationAccepted ? _successColor : Colors.red,
-              ),
-              SizedBox(width: 8),
-              Text(
-                declarationAccepted
-                    ? 'Declaration Accepted'
-                    : 'Declaration Pending',
-                style: TextStyle(
-                  color: declarationAccepted ? _successColor : Colors.red,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildSectionCard({
-    required String title,
-    required IconData icon,
-    required List<Widget> children,
-  }) {
-    if (children.isEmpty) return SizedBox.shrink();
-
-    return Container(
-      width: double.infinity,
-      margin: EdgeInsets.only(bottom: 16),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: _borderColor),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: _primaryLight,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Icon(icon, color: _primaryColor, size: 20),
-              ),
-              SizedBox(width: 12),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: _textDark,
-                ),
-              ),
-            ],
-          ),
-          Divider(height: 24, color: _borderColor),
-          ...children,
-        ],
-      ),
-    );
-  }
-
-  Widget _infoRow(String label, dynamic value, {int maxLines = 1}) {
-    if (value == null || value.toString().isEmpty) return SizedBox.shrink();
-
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 3,
-            child: Text(
-              label,
-              style: TextStyle(fontSize: 13, color: _textLight),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Text(
-              value.toString(),
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: _textDark,
-              ),
-              textAlign: TextAlign.right,
-              maxLines: maxLines,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFinishButton(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(top: BorderSide(color: _borderColor)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.05),
-              blurRadius: 8,
-              offset: const Offset(0, -4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 0,
-                ),
-                onPressed: () {
-                  _showSuccessDialogAndNavigate(context);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Finish',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    const Icon(Icons.check_circle, size: 18, color: Colors.white),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showSuccessDialogAndNavigate(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registration Complete'),
-          content: const Text('Your resort has been registered successfully! Please login to access your dashboard.'),
-          actions: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                onPressed: () {
-                  // Navigate to PropertyAuthScreen with explicit property type
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                      builder: (context) => PropertyAuthScreen(
-                        selectedPropertyType: 'resort', // Explicitly pass 'resort'
-                        registrationData: registrationData, // Pass the data
-                      ),
-                    ),
-                        (Route<dynamic> route) => false,
-                  );
-                },
-                child: const Text(
-                  'Continue to Login',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
 
 class VillaOwnerProfilePage extends StatefulWidget {
   // Common fields from villa registration
