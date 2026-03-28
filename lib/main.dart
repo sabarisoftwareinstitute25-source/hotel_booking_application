@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_booking_mobile_application/home_screen/hotel_search_screen.dart';
 import 'package:hotel_booking_mobile_application/onboarding_screen/choose_role_screen.dart';
 import 'package:hotel_booking_mobile_application/screens/all_users_screen.dart';
 
@@ -21,7 +22,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SplashScreen(),
+      // home: SplashScreen(),
+      home: PropertySearchScreen(),
     );
   }
 }

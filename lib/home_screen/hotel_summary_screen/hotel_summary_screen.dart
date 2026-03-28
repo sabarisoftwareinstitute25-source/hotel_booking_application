@@ -143,38 +143,7 @@ class NormalHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        // actions: [
-        //   Container(
-        //     margin: const EdgeInsets.only(right: 8), // Reduced margin
-        //     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // Reduced padding
-        //     decoration: BoxDecoration(
-        //       color: _primaryColor,
-        //       borderRadius: BorderRadius.circular(12),
-        //     ),
-        //     child: Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: [
-        //         Container(
-        //           width: 5,
-        //           height: 5,
-        //           decoration: const BoxDecoration(
-        //             color: Colors.white,
-        //             shape: BoxShape.circle,
-        //           ),
-        //         ),
-        //         const SizedBox(width: 2),
-        //         // const Text(
-        //         //   'Std', // Shortened from 'Standard'
-        //         //   style: TextStyle(
-        //         //     fontSize: 10,
-        //         //     color: Colors.white,
-        //         //     fontWeight: FontWeight.w600,
-        //         //   ),
-        //         // ),
-        //       ],
-        //     ),
-        //   ),
-        // ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -4925,38 +4894,7 @@ class FourStarHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        // actions: [
-        //   Container(
-        //     margin: const EdgeInsets.only(right: 8), // Reduced margin
-        //     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // Reduced padding
-        //     decoration: BoxDecoration(
-        //       color: _primaryColor,
-        //       borderRadius: BorderRadius.circular(12),
-        //     ),
-        //     child: Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: [
-        //         Container(
-        //           width: 5,
-        //           height: 5,
-        //           decoration: const BoxDecoration(
-        //             color: Colors.white,
-        //             shape: BoxShape.circle,
-        //           ),
-        //         ),
-        //         const SizedBox(width: 2),
-        //         // const Text(
-        //         //   'Std', // Shortened from 'Standard'
-        //         //   style: TextStyle(
-        //         //     fontSize: 10,
-        //         //     color: Colors.white,
-        //         //     fontWeight: FontWeight.w600,
-        //         //   ),
-        //         // ),
-        //       ],
-        //     ),
-        //   ),
-        // ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -5581,19 +5519,7 @@ class FourStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Early Check-in / Late Check-out (4-Star specific)
-    // if (_get('earlyCheckinAllowed') != null) {
-    //   children.add(
-    //     _infoRow(
-    //       'Early Check-in / Late Check-out',
-    //       _get('earlyCheckinAllowed') == true
-    //           ? (_get('earlyCheckinChargeable') == true
-    //           ? 'Chargeable'
-    //           : 'Complimentary')
-    //           : 'Not Available',
-    //     ),
-    //   );
-    // }
+
     if (_get('earlyCheckinAllowed') != null) {
       String earlyCheckinStatus = 'Not Allowed';
 
@@ -6627,12 +6553,12 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
     this.declarationAccepted = false,
   });
 
-  // Helper method to safely get values
+
   dynamic _get(String key, [dynamic defaultValue]) {
     return registrationData[key] ?? defaultValue;
   }
 
-  // Color scheme for 5-Star hotels (Pink/Rose Gold)
+
   final Color _primaryColor = const Color(0xFFFB717D);
   final Color _primaryLight =  Color(0xFFFB717D).withOpacity(0.1);
   final Color _bgColor = const Color(0xFFFAFAFA);
@@ -6697,11 +6623,11 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
         elevation: 1,
         leading: TextButton(
           onPressed: () {
-            // Navigate back to the previous screen (registration form)
+
             Navigator.pop(context);
           },
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.only(left: 2, right: 0), // Reduced left padding
+            padding: const EdgeInsets.only(left: 2, right: 0),
             // minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
@@ -6709,7 +6635,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.arrow_back_ios, size: 15, color: _textDark),
-              const SizedBox(width: 0), // Remove spacing
+              const SizedBox(width: 0),
               Text(
                 'Back',
                 style: TextStyle(
@@ -6722,7 +6648,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          '5-Star Hotel Registration Summary', // Shortened title
+          '5-Star Hotel Registration Summary',
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w600,
@@ -6730,38 +6656,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        // actions: [
-        //   Container(
-        //     margin: const EdgeInsets.only(right: 8), // Reduced margin
-        //     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // Reduced padding
-        //     decoration: BoxDecoration(
-        //       color: _primaryColor,
-        //       borderRadius: BorderRadius.circular(12),
-        //     ),
-        //     child: Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: [
-        //         Container(
-        //           width: 5,
-        //           height: 5,
-        //           decoration: const BoxDecoration(
-        //             color: Colors.white,
-        //             shape: BoxShape.circle,
-        //           ),
-        //         ),
-        //         const SizedBox(width: 2),
-        //         // const Text(
-        //         //   'Std', // Shortened from 'Standard'
-        //         //   style: TextStyle(
-        //         //     fontSize: 10,
-        //         //     color: Colors.white,
-        //         //     fontWeight: FontWeight.w600,
-        //         //   ),
-        //         // ),
-        //       ],
-        //     ),
-        //   ),
-        // ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -6872,22 +6767,21 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
         if (_get('brandName') != null && _get('brandName').toString().isNotEmpty)
           _infoRow('Brand Name', _get('brandName')),
 
-        // Year of Establishment as integer
         if (_get('yearOfEstablishment') != null &&
             _get('yearOfEstablishment').toString().isNotEmpty)
           _infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))),
 
-        // Total Rooms as integer
+
         if (_get('totalRooms') != null &&
             _get('totalRooms').toString().isNotEmpty)
           _infoRow('Total Rooms', _formatInteger(_get('totalRooms'))),
 
-        // Star Certificate Number (5-Star specific)
+
         if (_get('starCertNumber') != null &&
             _get('starCertNumber').toString().isNotEmpty)
           _infoRow('Star Certificate No.', _get('starCertNumber')),
 
-        // Designation
+
         if (_get('designation') != null &&
             _get('designation').toString().isNotEmpty)
           _infoRow('Designation', _get('designation')),
@@ -6901,23 +6795,22 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
     ];
 
-    // Alternate Contact
+
     if (_get('alternateContact') != null &&
         _get('alternateContact').toString().isNotEmpty) {
       children.add(_infoRow('Alternate Contact', _get('alternateContact')));
     }
 
-    // Email
+
     if (_get('email') != null && _get('email').toString().isNotEmpty) {
       children.add(_infoRow('Email', _get('email')));
     }
 
-    // Website
     if (_get('website') != null && _get('website').toString().isNotEmpty) {
       children.add(_infoRow('Website', _get('website')));
     }
 
-    // Profile Photo
+
     final profilePhoto = _get('profilePhoto');
     if (profilePhoto != null && profilePhoto['uploaded'] == true) {
       children.add(_buildProfilePhotoInfo(profilePhoto));
@@ -6947,12 +6840,12 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
     ]);
 
-    // Country
+
     if (_get('country') != null && _get('country').toString().isNotEmpty) {
       children.add(_infoRow('Country', _get('country')));
     }
 
-    // Additional Addresses
+
     final additionalAddresses = _get('additionalAddresses', []);
     if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
       children.add(
@@ -7029,7 +6922,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
     final selectedRoomTypes = _get('selectedRoomTypes', {});
     final roomDetails = _get('roomDetails', {});
 
-    // Check if any rooms are selected
+
     bool hasRooms = false;
     if (selectedRoomTypes is Map) {
       hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
@@ -7044,7 +6937,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
 
     final List<Widget> children = [];
 
-    // Room Type Chips
+
     children.add(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -7093,7 +6986,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
 
     children.add(const SizedBox(height: 16));
 
-    // Room Details for each type
+
     for (var roomType in selectedTypes) {
       final details = roomDetails[roomType] ?? {};
 
@@ -7132,27 +7025,26 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Number of Rooms (integer)
+
               if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
                 _detailRow('Number of Units', _formatInteger(details['rooms'])),
 
-              // Max Occupancy (integer)
+
               if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
                 _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
 
-              // Climate Control
+
               if (details['ac'] != null)
                 _detailRow(
                   'Climate Control',
                   details['ac'] == true ? 'Yes' : 'No',
                 ),
 
-              // Bed Type (5-Star specific)
               if (details['bedType'] != null &&
                   details['bedType'].toString().isNotEmpty)
                 _detailRow('Bed Type', details['bedType']),
 
-              // Price Range (double)
+
               if (details['minPrice'] != null && details['minPrice'].toString().isNotEmpty &&
                   details['maxPrice'] != null && details['maxPrice'].toString().isNotEmpty)
                 _detailRow('Price Range', '₹${_formatPrice(details['minPrice'])} - ₹${_formatPrice(details['maxPrice'])}'),
@@ -7162,7 +7054,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Extra Bed and Seasonal Pricing
+
     if (_get('extraBedAvailable') != null || _get('seasonalPricing') != null) {
       children.add(
         Container(
@@ -7247,7 +7139,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildAmenitiesSection() {
     final List<Widget> amenitySections = [];
 
-    // Room Amenities
+
     final roomAmenities = _getAmenities('roomAmenities');
     if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -7255,26 +7147,26 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Hotel Facilities
+
     final hotelFacilities = _getAmenities('hotelFacilities');
     if (hotelFacilities != null &&
         hotelFacilities.entries.any((e) => e.value)) {
       amenitySections.add(_buildAmenityCategory('Hotel Infrastructure', hotelFacilities));
     }
 
-    // Dining Services
+
     final diningServices = _getAmenities('diningServices');
     if (diningServices != null && diningServices.entries.any((e) => e.value)) {
       amenitySections.add(_buildAmenityCategory('Dining & Events', diningServices));
     }
 
-    // Wellness & Recreation
+
     final wellnessRecreation = _getAmenities('wellnessRecreation');
     if (wellnessRecreation != null && wellnessRecreation.entries.any((e) => e.value)) {
       amenitySections.add(_buildAmenityCategory('Wellness & Recreation', wellnessRecreation));
     }
 
-    // Guest Services
+
     final guestServices = _getAmenities('guestServices');
     if (guestServices != null && guestServices.entries.any((e) => e.value)) {
       amenitySections.add(_buildAmenityCategory('Premium Guest Services', guestServices));
@@ -7292,7 +7184,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildPoliciesSection() {
     final List<Widget> children = [];
 
-    // Check-in/Check-out times
+
     final checkIn = _get('checkInTime', '');
     final checkOut = _get('checkOutTime', '');
 
@@ -7366,26 +7258,14 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Early Check-in / Late Check-out (5-Star specific)
-    // if (_get('earlyCheckinAllowed') != null) {
-    //   children.add(
-    //     _infoRow(
-    //       'Early Check-in / Late Check-out',
-    //       _get('earlyCheckinAllowed') == true
-    //           ? (_get('earlyCheckinChargeable') == true
-    //           ? 'Chargeable'
-    //           : 'Complimentary')
-    //           : 'Not Available',
-    //     ),
-    //   );
-    // }
+
     if (_get('earlyCheckinAllowed') != null) {
       String earlyCheckinStatus = 'Not Allowed';
 
       if (_get('earlyCheckinAllowed') == true) {
         earlyCheckinStatus = _get('earlyCheckinChargeable') == true
             ? 'Chargeable'
-            : 'Free'; // Changed from 'Complimentary' to 'Free'
+            : 'Free';
       }
 
       children.add(
@@ -7453,7 +7333,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
     }
 
-    // Compliance Certificates (5-Star specific)
+
     final List<String> certificates = [];
     if (_get('fireSafetyCertificate') == true) certificates.add('Fire Safety NOC');
     if (_get('pollutionCertificate') == true) certificates.add('Pollution Control');
@@ -7530,7 +7410,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
         // ),
         _infoRow(
           'Account Number',
-          _get('accountNumber').toString(), // Show full account number
+          _get('accountNumber').toString(),
         ),
       );
     }
@@ -7543,7 +7423,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Branch', _get('branch')));
     }
 
-    // Account Type
+
     if (_get('accountType') != null &&
         _get('accountType').toString().isNotEmpty) {
       String accountType = _get('accountType').toString();
@@ -7631,12 +7511,12 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
     final List<Widget> children = [];
 
     for (var entry in uploadedDocs) {
-      // Skip Digital Signature as it's handled separately
+
       if (entry.key == 'Digital Signature') continue;
       children.add(_buildDocumentItem(entry.key, entry.value));
     }
 
-    // Digital Signature
+
     if (_get('hasDigitalSignature') == true) {
       children.add(
         Container(
@@ -7683,7 +7563,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Uploaded Signature File
+
     final signatureFile = _get('signatureFile');
     if (signatureFile != null && signatureFile['uploaded'] == true) {
       children.add(
@@ -7845,19 +7725,19 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildDeclarationSection() {
     final List<Widget> children = [];
 
-    // Signatory Name
+
     if (_get('signatoryName') != null &&
         _get('signatoryName').toString().isNotEmpty) {
       children.add(_infoRow('Signatory Name', _get('signatoryName')));
     }
 
-    // Signatory Designation
+
     if (_get('signatoryDesignation') != null &&
         _get('signatoryDesignation').toString().isNotEmpty) {
       children.add(_infoRow('Designation', _get('signatoryDesignation')));
     }
 
-    // Declaration Date
+
     final declarationDate = _get('declarationDate');
     if (declarationDate != null) {
       String dateStr = '';
@@ -7876,7 +7756,7 @@ class FiveStarHotelSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Declaration Status
+
     children.add(
       Container(
         padding: const EdgeInsets.all(16),
@@ -8473,12 +8353,12 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
     this.declarationAccepted = false,
   });
 
-  // Helper method to safely get values
+
   dynamic _get(String key, [dynamic defaultValue]) {
     return registrationData[key] ?? defaultValue;
   }
 
-  // Color scheme for 6-Star hotels
+
   final Color _primaryColor = const Color(0xFFD4AF37); // Royal Gold
   final Color _primaryLight =  Color(0xFFD4AF37).withOpacity(0.1);
   final Color _bgColor = const Color(0xFFFAFAFA);
@@ -8548,11 +8428,11 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
         elevation: 1,
         leading: TextButton(
           onPressed: () {
-            // Navigate back to the previous screen (registration form)
+
             Navigator.pop(context);
           },
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.only(left: 2, right: 0), // Reduced left padding
+            padding: const EdgeInsets.only(left: 2, right: 0),
             // minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
@@ -8560,7 +8440,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.arrow_back_ios, size: 15, color: _textDark),
-              const SizedBox(width: 0), // Remove spacing
+              const SizedBox(width: 0),
               Text(
                 'Back',
                 style: TextStyle(
@@ -8573,7 +8453,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          '6-Star Hotel Registration Summary', // Shortened title
+          '6-Star Hotel Registration Summary',
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w600,
@@ -8581,38 +8461,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        // actions: [
-        //   Container(
-        //     margin: const EdgeInsets.only(right: 8), // Reduced margin
-        //     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // Reduced padding
-        //     decoration: BoxDecoration(
-        //       color: _primaryColor,
-        //       borderRadius: BorderRadius.circular(12),
-        //     ),
-        //     child: Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: [
-        //         Container(
-        //           width: 5,
-        //           height: 5,
-        //           decoration: const BoxDecoration(
-        //             color: Colors.white,
-        //             shape: BoxShape.circle,
-        //           ),
-        //         ),
-        //         const SizedBox(width: 2),
-        //         // const Text(
-        //         //   'Std', // Shortened from 'Standard'
-        //         //   style: TextStyle(
-        //         //     fontSize: 10,
-        //         //     color: Colors.white,
-        //         //     fontWeight: FontWeight.w600,
-        //         //   ),
-        //         // ),
-        //       ],
-        //     ),
-        //   ),
-        // ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -8722,19 +8571,19 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Hotel Type', _get('hotelType')));
     }
 
-    // Year of Establishment as integer
+
     if (_get('yearOfEstablishment') != null &&
         _get('yearOfEstablishment').toString().isNotEmpty) {
       children.add(_infoRow('Year Established', _formatInteger(_get('yearOfEstablishment'))));
     }
 
-    // Total Rooms as integer
+
     if (_get('totalRooms') != null &&
         _get('totalRooms').toString().isNotEmpty) {
       children.add(_infoRow('Total Rooms', _formatInteger(_get('totalRooms'))));
     }
 
-    // Global Recognition
+
     if (_get('globalRecognition') != null &&
         _get('globalRecognition').toString().isNotEmpty) {
       children.add(_buildRecognitionInfo());
@@ -8921,14 +8770,14 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
 
     final List<Widget> children = [];
 
-    // Room Details for each type
+
     for (var entry in roomDetails.entries) {
       String roomType = entry.key;
       Map<String, dynamic> details = entry.value is Map
           ? Map<String, dynamic>.from(entry.value)
           : {};
 
-      // Check if this room type has any data
+
       bool hasData = details['rooms']?.toString().isNotEmpty == true ||
           details['occupancy']?.toString().isNotEmpty == true ||
           details['minPrice']?.toString().isNotEmpty == true ||
@@ -8997,15 +8846,15 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Number of Rooms (integer)
+
               if (details['rooms'] != null && details['rooms'].toString().isNotEmpty)
                 _detailRow('Number of Units', _formatInteger(details['rooms'])),
 
-              // Max Occupancy (integer)
+
               if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty)
                 _detailRow('Max Occupancy', '${_formatInteger(details['occupancy'])} Persons'),
 
-              // Price Range (double)
+
               if (details['minPrice'] != null && details['maxPrice'] != null &&
                   details['minPrice'].toString().isNotEmpty &&
                   details['maxPrice'].toString().isNotEmpty)
@@ -9047,7 +8896,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Personal Butler & AI Pricing
+
     final hasButler = _get('personalButler') != null;
     final hasAIPricing = _get('aiPricing') != null;
 
@@ -9128,7 +8977,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildLuxuryAmenities() {
     final List<Widget> amenitySections = [];
 
-    // Room Amenities
+
     final roomAmenities = _getAmenities('roomAmenities');
     if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -9136,7 +8985,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Hotel Infrastructure
+
     final hotelInfrastructure = _getAmenities('hotelInfrastructure');
     if (hotelInfrastructure != null &&
         hotelInfrastructure.entries.any((e) => e.value)) {
@@ -9145,7 +8994,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Dining Experiences
+
     final diningExperiences = _getAmenities('diningExperiences');
     if (diningExperiences != null &&
         diningExperiences.entries.any((e) => e.value)) {
@@ -9154,7 +9003,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Wellness & Leisure
+
     final wellnessLeisure = _getAmenities('wellnessLeisure');
     if (wellnessLeisure != null &&
         wellnessLeisure.entries.any((e) => e.value)) {
@@ -9163,7 +9012,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Guest Privileges
+
     final guestPrivileges = _getAmenities('guestPrivileges');
     if (guestPrivileges != null &&
         guestPrivileges.entries.any((e) => e.value)) {
@@ -9181,137 +9030,11 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildGuestPolicies() {
-  //   final List<Widget> children = [];
-  //
-  //   // Check-in/Check-out times
-  //   final checkIn = _get('checkInTime', '');
-  //   final checkOut = _get('checkOutTime', '');
-  //
-  //   if (checkIn.toString().isNotEmpty || checkOut.toString().isNotEmpty) {
-  //     children.add(
-  //       Row(
-  //         children: [
-  //           Expanded(
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Text('Check-In Time', style: _labelStyle),
-  //                 const SizedBox(height: 4),
-  //                 Container(
-  //                   padding: const EdgeInsets.symmetric(
-  //                     horizontal: 12,
-  //                     vertical: 8,
-  //                   ),
-  //                   decoration: BoxDecoration(
-  //                     color: Colors.grey[50],
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     border: Border.all(color: _borderColor),
-  //                   ),
-  //                   child: Row(
-  //                     children: [
-  //                       Icon(Icons.access_time, size: 14, color: _primaryColor),
-  //                       const SizedBox(width: 8),
-  //                       Text(
-  //                         _formatTime(checkIn.toString()),
-  //                         style: _valueStyle,
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //           const SizedBox(width: 12),
-  //           Expanded(
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Text('Check-Out Time', style: _labelStyle),
-  //                 const SizedBox(height: 4),
-  //                 Container(
-  //                   padding: const EdgeInsets.symmetric(
-  //                     horizontal: 12,
-  //                     vertical: 8,
-  //                   ),
-  //                   decoration: BoxDecoration(
-  //                     color: Colors.grey[50],
-  //                     borderRadius: BorderRadius.circular(8),
-  //                     border: Border.all(color: _borderColor),
-  //                   ),
-  //                   child: Row(
-  //                     children: [
-  //                       Icon(Icons.access_time, size: 14, color: _primaryColor),
-  //                       const SizedBox(width: 8),
-  //                       Text(
-  //                         _formatTime(checkOut.toString()),
-  //                         style: _valueStyle,
-  //                       ),
-  //                     ],
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   }
-  //
-  //   // VIP Protocols
-  //   if (_get('vipProtocols') != null) {
-  //     children.add(
-  //       _infoRow(
-  //         'VIP / Diplomatic Protocols',
-  //         _get('vipProtocols') == true ? 'Yes' : 'No',
-  //       ),
-  //     );
-  //   }
-  //
-  //   // Pet Luxury Services
-  //   if (_get('petLuxuryServices') != null) {
-  //     children.add(
-  //       _infoRow(
-  //         'Pet Luxury Services',
-  //         _get('petLuxuryServices') == true ? 'Yes' : 'No',
-  //       ),
-  //     );
-  //   }
-  //
-  //   // Smoking Policy
-  //   if (_get('smokingPrivateAreas') != null || _get('nonSmoking') != null) {
-  //     String smokingPolicy = '';
-  //     if (_get('smokingPrivateAreas') == true) {
-  //       smokingPolicy = 'Private Areas Only';
-  //     } else if (_get('nonSmoking') == true) {
-  //       smokingPolicy = 'Non-Smoking';
-  //     }
-  //
-  //     if (smokingPolicy.isNotEmpty) {
-  //       children.add(_infoRow('Smoking Policy', smokingPolicy));
-  //     }
-  //   }
-  //
-  //   // Early/Late Check-out
-  //   children.add(
-  //     _infoRow(
-  //       'Early / Late Check-Out',
-  //       'By Approval', // Default value
-  //     ),
-  //   );
-  //
-  //   if (children.isEmpty) return const SizedBox.shrink();
-  //
-  //   return _buildSectionCard(
-  //     title: 'Guest Policies & Timings',
-  //     icon: Icons.policy,
-  //     children: children,
-  //   );
-  // }
+
   Widget _buildGuestPolicies() {
     final List<Widget> children = [];
 
-    // Check-in/Check-out times
+
     final checkIn = _get('checkInTime', '');
     final checkOut = _get('checkOutTime', '');
 
@@ -9385,7 +9108,6 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Early / Late Check-Out
     if (_get('complimentaryCheckout') != null || _get('byApprovalCheckout') != null) {
       String checkoutPolicy = '';
       if (_get('complimentaryCheckout') == true) {
@@ -9399,7 +9121,6 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       }
     }
 
-    // VIP Protocols
     if (_get('vipProtocols') != null) {
       children.add(
         _infoRow(
@@ -9409,7 +9130,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Pet Luxury Services
+
     if (_get('petLuxuryServices') != null) {
       children.add(
         _infoRow(
@@ -9419,7 +9140,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Smoking Policy
+
     if (_get('smokingPrivateAreas') != null || _get('nonSmoking') != null) {
       String smokingPolicy = '';
       if (_get('smokingPrivateAreas') == true) {
@@ -9462,7 +9183,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
     }
 
-    // Compliance Certificates
+
     final List<String> certificates = [];
 
     if (_get('fireSafetyNoc') == true) {
@@ -9547,7 +9268,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
         // ),
         _infoRow(
           'Account Number',
-          _get('accountNumber').toString(), // Show full account number
+          _get('accountNumber').toString(),
         ),
       );
     }
@@ -9560,7 +9281,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Branch / Country', _get('branch')));
     }
 
-    // Account Type
+
     if (_get('accountType') != null &&
         _get('accountType').toString().isNotEmpty) {
       String accountType = _get('accountType').toString();
@@ -9651,7 +9372,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
       children.add(_buildDocumentItem(entry.key, entry.value));
     }
 
-    // Digital Signature
+
     final hasDigitalSignature = _get('hasDigitalSignature') == true ||
         (_get('digitalSignature') != null &&
             _get('digitalSignature') > 0);
@@ -10021,7 +9742,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
                 ),
                 onPressed: () async {
                   try {
-                    // Save to SharedPreferences
+
                     final prefs = await SharedPreferences.getInstance();
                     final String usersJson = prefs.getString('registered_users') ?? '[]';
                     final List<dynamic> usersList = jsonDecode(usersJson);
@@ -10040,10 +9761,10 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
                     String userEmail = registrationData['email']?.toString() ?? '';
 
                     // Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
-// In the _buildFinishButton method where you save to SharedPreferences:
+
                     Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
 
-// Check what's being saved
+
                     print('Saving registration data with keys: ${safeRegistrationData.keys.toList()}');
                     int userIndex = -1;
                     for (int i = 0; i < users.length; i++) {
@@ -10189,7 +9910,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
         }
       }
     } catch (e) {
-      // Return as is if parsing fails
+
     }
     return time;
   }
@@ -10199,36 +9920,7 @@ class SixStarHotelSummaryScreen extends StatelessWidget {
     return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
   }
 
-  // dynamic _convertToJsonSafe(dynamic obj) {
-  //   if (obj == null) return null;
-  //   if (obj is DateTime) {
-  //     return obj.toIso8601String();
-  //   }
-  //   if (obj is Uint8List) {
-  //     return base64Encode(obj);
-  //   }
-  //   if (obj is Map) {
-  //     Map<String, dynamic> result = {};
-  //     obj.forEach((key, value) {
-  //       result[key.toString()] = _convertToJsonSafe(value);
-  //     });
-  //     return result;
-  //   }
-  //   if (obj is List) {
-  //     return obj.map((item) => _convertToJsonSafe(item)).toList();
-  //   }
-  //   if (obj is Set) {
-  //     return obj.map((item) => _convertToJsonSafe(item)).toList();
-  //   }
-  //   if (obj is String || obj is num || obj is bool) {
-  //     return obj;
-  //   }
-  //   try {
-  //     return obj.toString();
-  //   } catch (e) {
-  //     return null;
-  //   }
-  // }
+
   dynamic _convertToJsonSafe(dynamic obj) {
     if (obj == null) return null;
     if (obj is DateTime) {
@@ -10509,12 +10201,12 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
     this.declarationAccepted = false,
   });
 
-  // Helper method to safely get values
+
   dynamic _get(String key, [dynamic defaultValue]) {
     return registrationData[key] ?? defaultValue;
   }
 
-  // Color scheme for 7-Star Sovereign hotels
+
   final Color _primaryColor = const Color(0xFF1A94F6); // Royal Blue
   final Color _primaryLight =  Color(0xFF1A94F6).withOpacity(0.1);
   final Color _bgColor = const Color(0xFFFAFAFA);
@@ -10585,11 +10277,11 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
         elevation: 1,
         leading: TextButton(
           onPressed: () {
-            // Navigate back to the previous screen (registration form)
+
             Navigator.pop(context);
           },
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.only(left: 2, right: 0), // Reduced left padding
+            padding: const EdgeInsets.only(left: 2, right: 0),
             // minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
@@ -10597,7 +10289,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.arrow_back_ios, size: 15, color: _textDark),
-              const SizedBox(width: 0), // Remove spacing
+              const SizedBox(width: 0),
               Text(
                 'Back',
                 style: TextStyle(
@@ -10610,7 +10302,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          '7-Star Hotel Registration Summary', // Shortened title
+          '7-Star Hotel Registration Summary',
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w600,
@@ -10618,38 +10310,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        // actions: [
-        //   Container(
-        //     margin: const EdgeInsets.only(right: 8), // Reduced margin
-        //     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // Reduced padding
-        //     decoration: BoxDecoration(
-        //       color: _primaryColor,
-        //       borderRadius: BorderRadius.circular(12),
-        //     ),
-        //     child: Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: [
-        //         Container(
-        //           width: 5,
-        //           height: 5,
-        //           decoration: const BoxDecoration(
-        //             color: Colors.white,
-        //             shape: BoxShape.circle,
-        //           ),
-        //         ),
-        //         const SizedBox(width: 2),
-        //         // const Text(
-        //         //   'Std', // Shortened from 'Standard'
-        //         //   style: TextStyle(
-        //         //     fontSize: 10,
-        //         //     color: Colors.white,
-        //         //     fontWeight: FontWeight.w600,
-        //         //   ),
-        //         // ),
-        //       ],
-        //     ),
-        //   ),
-        // ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -10767,14 +10428,14 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Ownership Category', _get('ownershipCategory')));
     }
 
-    // Year of Origin as integer
+
     if (_get('yearOfOrigin') != null &&
         _get('yearOfOrigin').toString().isNotEmpty &&
         _get('yearOfOrigin') != 0) {
       children.add(_infoRow('Year of Origin', _formatInteger(_get('yearOfOrigin'))));
     }
 
-    // Total Guest Capacity as integer
+
     if (_get('totalGuestCapacity') != null &&
         _get('totalGuestCapacity').toString().isNotEmpty &&
         _get('totalGuestCapacity') != 0) {
@@ -10848,7 +10509,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildSupremeAuthority() {
     final List<Widget> children = [];
 
-    // Profile Photo
+
     final profilePhoto = _get('profilePhoto');
     if (profilePhoto != null && profilePhoto['uploaded'] == true) {
       children.add(_buildProfilePhotoInfo(profilePhoto));
@@ -10929,7 +10590,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('State', _get('state')));
     }
 
-    // Country field
+
     if (_get('country') != null && _get('country').toString().isNotEmpty) {
       children.add(_infoRow('Country', _get('country')));
     }
@@ -10944,7 +10605,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Distance from Hub', '${_get('distanceFromHub')} km'));
     }
 
-    // Arrival Infrastructure
+
     final arrivalInfrastructure = _getAmenities('arrivalInfrastructure');
     if (arrivalInfrastructure != null &&
         arrivalInfrastructure.entries.any((e) => e.value)) {
@@ -10968,7 +10629,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    // Get selected room types
+
     final selectedTypes = (selectedRoyalAccommodations as Map).entries
         .where((entry) => entry.value == true)
         .map((entry) => entry.key.toString())
@@ -10978,7 +10639,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
 
     final List<Widget> children = [];
 
-    // Room Type Chips
+
     children.add(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -11018,7 +10679,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
 
     children.add(const SizedBox(height: 16));
 
-    // Room Details for each type
+
     for (var residenceType in selectedTypes) {
       final details = royalAccommodations[residenceType] ?? {};
 
@@ -11064,19 +10725,19 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Units (integer)
+
               if (details['units'] != null && details['units'].toString().isNotEmpty && details['units'] != 0)
                 _detailRow('Number of Units', _formatInteger(details['units'])),
 
-              // Area
+
               if (details['area'] != null && details['area'].toString().isNotEmpty)
                 _detailRow('Area', '${details['area']} sq m'),
 
-              // Max Guests (integer)
+
               if (details['maxGuests'] != null && details['maxGuests'].toString().isNotEmpty && details['maxGuests'] != 0)
                 _detailRow('Max Guests', _formatInteger(details['maxGuests'])),
 
-              // Signature Features
+
               if (details['signatureFeatures'] != null && details['signatureFeatures'].toString().isNotEmpty)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -11100,11 +10761,11 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
                   ),
                 ),
 
-              // Avg Nightly Rate (double)
+
               if (details['avgNightlyRate'] != null && details['avgNightlyRate'].toString().isNotEmpty && details['avgNightlyRate'] != 0)
                 _detailRow('Avg Nightly Rate', '\$${_formatPrice(details['avgNightlyRate'])}'),
 
-              // Peak Rate (double)
+
               if (details['peakRate'] != null && details['peakRate'].toString().isNotEmpty && details['peakRate'] != 0)
                 _detailRow('Peak Rate', '\$${_formatPrice(details['peakRate'])}'),
             ],
@@ -11113,7 +10774,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Pricing Engine
+
     if (_get('pricingEngine') != null) {
       children.add(
         Container(
@@ -11169,7 +10830,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildSupremeExperience() {
     final List<Widget> amenitySections = [];
 
-    // In-Residence Systems
+
     final inResidenceSystems = _getAmenities('inResidenceSystems');
     if (inResidenceSystems != null && inResidenceSystems.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -11177,7 +10838,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Signature Royal Amenities
+
     final signatureRoyalAmenities = _getAmenities('signatureRoyalAmenities');
     if (signatureRoyalAmenities != null && signatureRoyalAmenities.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -11185,7 +10846,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Arrival Ceremonial Protocols
+
     final arrivalCeremonialProtocols = _getAmenities('arrivalCeremonialProtocols');
     if (arrivalCeremonialProtocols != null && arrivalCeremonialProtocols.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -11193,7 +10854,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Check-in/Check-out times
+
     final checkIn = _get('checkInTime', '');
     final checkOut = _get('checkOutTime', '');
 
@@ -11282,7 +10943,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
   Widget _buildGastronomicWellness() {
     final List<Widget> children = [];
 
-    // Gastronomic Supremacy
+
     final gastronomicSupremacy = _getAmenities('gastronomicSupremacy');
     if (gastronomicSupremacy != null && gastronomicSupremacy.entries.any((e) => e.value)) {
       children.add(
@@ -11290,7 +10951,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Wellness Dominion
+
     final wellnessDominion = _getAmenities('wellnessDominion');
     if (wellnessDominion != null && wellnessDominion.entries.any((e) => e.value)) {
       children.add(
@@ -11298,7 +10959,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Ultra-Elite Privileges
+
     final ultraElitePrivileges = _getAmenities('ultraElitePrivileges');
     if (ultraElitePrivileges != null && ultraElitePrivileges.entries.any((e) => e.value)) {
       children.add(
@@ -11328,7 +10989,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Security Certification Level', _get('securityCertificationLevel')));
     }
 
-    // Fire & Disaster Clearance
+
     if (_get('fireDisasterClearance') != null) {
       children.add(
         _infoRow(
@@ -11338,7 +10999,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Environmental Sovereign Certification
+
     if (_get('environmentalSovereignCertification') != null) {
       children.add(
         _infoRow(
@@ -11353,7 +11014,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Cyber Intelligence Protection', _get('cyberIntelligenceProtection')));
     }
 
-    // Crisis Command System
+
     if (_get('crisisCommandSystem') != null) {
       children.add(
         _infoRow(
@@ -11468,7 +11129,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Alternative Settlement Options
+
     final alternativeSettlementOptions = _getAmenities('alternativeSettlementOptions');
     if (alternativeSettlementOptions != null &&
         alternativeSettlementOptions.entries.any((e) => e.value)) {
@@ -11654,7 +11315,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Digital Signature
+
     final hasDigitalSignature = _get('hasDigitalSignature') == true ||
         (_get('digitalSignatureImage') != null);
 
@@ -11829,153 +11490,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
     );
   }
 
-  // void _showSuccessDialogAndNavigate(BuildContext context) {
-  //   showDialog(
-  //     context: context,
-  //     barrierDismissible: false,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Registration Complete'),
-  //         content: Column(
-  //           mainAxisSize: MainAxisSize.min,
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             const Text(
-  //               'Your 7-Star Sovereign Estate has been registered successfully!',
-  //             ),
-  //             const SizedBox(height: 16),
-  //             Container(
-  //               padding: const EdgeInsets.all(12),
-  //               decoration: BoxDecoration(
-  //                 color: _primaryLight,
-  //                 borderRadius: BorderRadius.circular(8),
-  //                 border: Border.all(color: _primaryColor.withOpacity(0.3)),
-  //               ),
-  //               child: Row(
-  //                 children: [
-  //                   Icon(Icons.star, color: _primaryColor, size: 20),
-  //                   const SizedBox(width: 8),
-  //                   Expanded(
-  //                     child: Text(
-  //                       _get('estateName', 'Estate'),
-  //                       style: TextStyle(
-  //                         fontSize: 14,
-  //                         fontWeight: FontWeight.w600,
-  //                         color: _primaryColor,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         actions: [
-  //           SizedBox(
-  //             width: double.infinity,
-  //             child: ElevatedButton(
-  //               style: ElevatedButton.styleFrom(
-  //                 backgroundColor: Colors.blue,
-  //                 padding: const EdgeInsets.symmetric(vertical: 14),
-  //                 shape: RoundedRectangleBorder(
-  //                   borderRadius: BorderRadius.circular(12),
-  //                 ),
-  //               ),
-  //               onPressed: () async {
-  //                 try {
-  //                   // Save to SharedPreferences
-  //                   final prefs = await SharedPreferences.getInstance();
-  //                   final String usersJson = prefs.getString('registered_users') ?? '[]';
-  //                   final List<dynamic> usersList = jsonDecode(usersJson);
-  //
-  //                   List<Map<String, dynamic>> users = [];
-  //                   for (var user in usersList) {
-  //                     if (user is Map) {
-  //                       Map<String, dynamic> safeUserMap = {};
-  //                       user.forEach((key, value) {
-  //                         safeUserMap[key.toString()] = _convertToJsonSafe(value);
-  //                       });
-  //                       users.add(safeUserMap);
-  //                     }
-  //                   }
-  //
-  //                   String userEmail = registrationData['executiveEmail']?.toString() ?? '';
-  //
-  //                   Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
-  //
-  //                   int userIndex = -1;
-  //                   for (int i = 0; i < users.length; i++) {
-  //                     if (users[i]['email'] == userEmail) {
-  //                       userIndex = i;
-  //                       break;
-  //                     }
-  //                   }
-  //
-  //                   Map<String, dynamic> userData;
-  //
-  //                   if (userIndex >= 0) {
-  //                     userData = Map<String, dynamic>.from(users[userIndex]);
-  //
-  //                     if (!userData.containsKey('hotels')) {
-  //                       userData['hotels'] = [];
-  //                     }
-  //
-  //                     List<dynamic> hotels = List.from(userData['hotels'] ?? []);
-  //                     hotels.add(safeRegistrationData);
-  //                     userData['hotels'] = hotels;
-  //                     userData['propertyType'] = 'hotel';
-  //
-  //                     users[userIndex] = userData;
-  //                   } else {
-  //                     userData = {
-  //                       'email': userEmail,
-  //                       'fullName': registrationData['sovereignOwner']?.toString() ?? '',
-  //                       'phone': registrationData['directCommandContact']?.toString() ?? '',
-  //                       'propertyType': 'hotel',
-  //                       'hotels': [safeRegistrationData],
-  //                       'registeredAt': DateTime.now().toIso8601String(),
-  //                     };
-  //
-  //                     users.add(userData);
-  //                   }
-  //
-  //                   await prefs.setString('registered_users', jsonEncode(users));
-  //
-  //                   // Navigate to dashboard
-  //                   Navigator.of(context).pushAndRemoveUntil(
-  //                     MaterialPageRoute(
-  //                       builder: (context) => OwnerDashboardScreen(
-  //                         userData: userData,
-  //                         userEmail: userEmail,
-  //                       ),
-  //                     ),
-  //                         (Route<dynamic> route) => false,
-  //                   );
-  //                 } catch (e) {
-  //                   Navigator.of(context).pop();
-  //                   ScaffoldMessenger.of(context).showSnackBar(
-  //                     SnackBar(
-  //                       content: Text('Error: ${e.toString()}'),
-  //                       backgroundColor: Colors.red,
-  //                     ),
-  //                   );
-  //                 }
-  //               },
-  //               child: const Text(
-  //                 'Go to Dashboard',
-  //                 style: TextStyle(
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w600,
-  //                   color: Colors.white,
-  //                 ),
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+
 
 
   void _showSuccessDialogAndNavigate(BuildContext context) {
@@ -12032,7 +11547,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
                 ),
                 onPressed: () async {
                   try {
-                    // Save to SharedPreferences
+
                     final prefs = await SharedPreferences.getInstance();
                     final String usersJson = prefs.getString('registered_users') ?? '[]';
                     final List<dynamic> usersList = jsonDecode(usersJson);
@@ -12048,7 +11563,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
                       }
                     }
 
-                    // Get the email correctly - check both possible fields
+
                     String userEmail = registrationData['executiveEmail']?.toString() ??
                         registrationData['email']?.toString() ?? '';
 
@@ -12205,7 +11720,7 @@ class SevenStarHotelSummaryScreen extends StatelessWidget {
         }
       }
     } catch (e) {
-      // Return as is if parsing fails
+
     }
     return time;
   }
@@ -12500,12 +12015,12 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
     this.declarationAccepted = false,
   });
 
-  // Helper method to safely get values
+
   dynamic _get(String key, [dynamic defaultValue]) {
     return registrationData[key] ?? defaultValue;
   }
 
-  // Color scheme for Global Elite Luxury hotels
+
   final Color _primaryColor = const Color(0xFF10B981); // Emerald Green
   final Color _primaryLight =  Color(0xFF10B981).withOpacity(0.1);
   final Color _bgColor = const Color(0xFFFAFAFA);
@@ -12575,11 +12090,11 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
         elevation: 1,
         leading: TextButton(
           onPressed: () {
-            // Navigate back to the previous screen (registration form)
+
             Navigator.pop(context);
           },
           style: TextButton.styleFrom(
-            padding: const EdgeInsets.only(left: 2, right: 0), // Reduced left padding
+            padding: const EdgeInsets.only(left: 2, right: 0),
             // minimumSize: Size.zero,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
@@ -12587,7 +12102,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Icon(Icons.arrow_back_ios, size: 15, color: _textDark),
-              const SizedBox(width: 0), // Remove spacing
+              const SizedBox(width: 0),
               Text(
                 'Back',
                 style: TextStyle(
@@ -12600,7 +12115,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Global Luxury Registration Summary', // Shortened title
+          'Global Luxury Registration Summary',
           style: TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w600,
@@ -12608,38 +12123,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        // actions: [
-        //   Container(
-        //     margin: const EdgeInsets.only(right: 8), // Reduced margin
-        //     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // Reduced padding
-        //     decoration: BoxDecoration(
-        //       color: _primaryColor,
-        //       borderRadius: BorderRadius.circular(12),
-        //     ),
-        //     child: Row(
-        //       mainAxisSize: MainAxisSize.min,
-        //       children: [
-        //         Container(
-        //           width: 5,
-        //           height: 5,
-        //           decoration: const BoxDecoration(
-        //             color: Colors.white,
-        //             shape: BoxShape.circle,
-        //           ),
-        //         ),
-        //         const SizedBox(width: 2),
-        //         // const Text(
-        //         //   'Std', // Shortened from 'Standard'
-        //         //   style: TextStyle(
-        //         //     fontSize: 10,
-        //         //     color: Colors.white,
-        //         //     fontWeight: FontWeight.w600,
-        //         //   ),
-        //         // ),
-        //       ],
-        //     ),
-        //   ),
-        // ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -12758,14 +12242,13 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Property Positioning', _get('propertyPositioning')));
     }
 
-    // Year Established as integer
     if (_get('yearEstablished') != null &&
         _get('yearEstablished').toString().isNotEmpty &&
         _get('yearEstablished') != 0) {
       children.add(_infoRow('Year Established', _formatInteger(_get('yearEstablished'))));
     }
 
-    // Year Renovated as integer
+
     if (_get('yearRenovated') != null &&
         _get('yearRenovated').toString().isNotEmpty &&
         _get('yearRenovated') != 0) {
@@ -12781,7 +12264,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Recognition Level', _get('recognitionLevel')));
     }
 
-    // Total Inventory as integer
+
     if (_get('totalInventory') != null &&
         _get('totalInventory').toString().isNotEmpty &&
         _get('totalInventory') != 0) {
@@ -12840,7 +12323,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
   Widget _buildExecutiveCommand() {
     final List<Widget> children = [];
 
-    // Profile Photo
+
     final profilePhoto = _get('profilePhoto');
     if (profilePhoto != null && profilePhoto['uploaded'] == true) {
       children.add(_buildProfilePhotoInfo(profilePhoto));
@@ -12926,7 +12409,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('State / Province', _get('state')));
     }
 
-    // Country field
+
     if (_get('country') != null && _get('country').toString().isNotEmpty) {
       children.add(_infoRow('Country', _get('country')));
     }
@@ -12946,7 +12429,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Distance from Airport', '${_get('distanceFromAirport')} km'));
     }
 
-    // Private Access Options
+
     final privateAccessOptions = _getAmenities('privateAccessOptions');
     if (privateAccessOptions != null &&
         privateAccessOptions.entries.any((e) => e.value)) {
@@ -12970,7 +12453,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    // Get selected accommodation types
+
     final selectedTypes = (selectedAccommodationTypes as Map).entries
         .where((entry) => entry.value == true)
         .map((entry) => entry.key.toString())
@@ -12980,7 +12463,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
 
     final List<Widget> children = [];
 
-    // Accommodation Type Chips
+
     children.add(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -13020,7 +12503,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
 
     children.add(const SizedBox(height: 16));
 
-    // Accommodation Details for each type
+
     for (var accommodationType in selectedTypes) {
       final details = accommodationMatrix[accommodationType] ?? {};
 
@@ -13066,27 +12549,27 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // Units (integer)
+
               if (details['units'] != null && details['units'].toString().isNotEmpty && details['units'] != 0)
                 _detailRow('Number of Units', _formatInteger(details['units'])),
 
-              // Size
+
               if (details['size'] != null && details['size'].toString().isNotEmpty)
                 _detailRow('Size', '${details['size']} sq ft'),
 
-              // Max Occupancy (integer)
+
               if (details['occupancy'] != null && details['occupancy'].toString().isNotEmpty && details['occupancy'] != 0)
                 _detailRow('Max Occupancy', _formatInteger(details['occupancy'])),
 
-              // Bed Type
+
               if (details['bedType'] != null && details['bedType'].toString().isNotEmpty)
                 _detailRow('Bed Type', details['bedType'].toString()),
 
-              // Avg Nightly Rate (double)
+
               if (details['avgNightlyRate'] != null && details['avgNightlyRate'].toString().isNotEmpty && details['avgNightlyRate'] != 0)
                 _detailRow('Avg Nightly Rate', '\$${_formatPrice(details['avgNightlyRate'])}'),
 
-              // Peak Rate (double)
+
               if (details['peakRate'] != null && details['peakRate'].toString().isNotEmpty && details['peakRate'] != 0)
                 _detailRow('Peak Rate', '\$${_formatPrice(details['peakRate'])}'),
             ],
@@ -13095,7 +12578,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Rate Engine Type
+
     if (_get('rateEngineType') != null) {
       children.add(
         Container(
@@ -13139,7 +12622,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Check-in/Check-out times
+
     final checkIn = _get('checkInTime', '');
     final checkOut = _get('checkOutTime', '');
 
@@ -13228,7 +12711,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
   Widget _buildUltraEliteFacilities() {
     final List<Widget> amenitySections = [];
 
-    // In-Suite Technology
+
     final inSuiteTechnology = _getAmenities('inSuiteTechnology');
     if (inSuiteTechnology != null && inSuiteTechnology.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -13236,7 +12719,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Signature Luxury Features
+
     final signatureLuxuryFeatures = _getAmenities('signatureLuxuryFeatures');
     if (signatureLuxuryFeatures != null && signatureLuxuryFeatures.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -13244,7 +12727,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Luxury Linen Brand (if specified)
+
     if (_get('luxuryLinenBrand') != null &&
         _get('luxuryLinenBrand').toString().isNotEmpty) {
       amenitySections.add(
@@ -13255,7 +12738,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Arrival Experience
+
     final arrivalExperience = _getAmenities('arrivalExperience');
     if (arrivalExperience != null && arrivalExperience.entries.any((e) => e.value)) {
       amenitySections.add(
@@ -13275,7 +12758,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
   Widget _buildGastronomyWellness() {
     final List<Widget> children = [];
 
-    // Gastronomy Features
+
     final gastronomyFeatures = _getAmenities('gastronomyFeatures');
     if (gastronomyFeatures != null && gastronomyFeatures.entries.any((e) => e.value)) {
       children.add(
@@ -13283,7 +12766,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Michelin Count (integer)
+
     if (_get('michelinCount') != null &&
         _get('michelinCount').toString().isNotEmpty &&
         _get('michelinCount') != 0) {
@@ -13295,7 +12778,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Banquet Hall Capacity (integer)
+
     if (_get('banquetHallCapacity') != null &&
         _get('banquetHallCapacity').toString().isNotEmpty &&
         _get('banquetHallCapacity') != 0) {
@@ -13307,7 +12790,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Global Event Hosting
+
     if (_get('globalEventHosting') != null) {
       children.add(
         _infoRow(
@@ -13317,7 +12800,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Wellness Features
+
     final wellnessFeatures = _getAmenities('wellnessFeatures');
     if (wellnessFeatures != null && wellnessFeatures.entries.any((e) => e.value)) {
       children.add(
@@ -13325,7 +12808,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Guest Privileges
+
     final guestPrivileges = _getAmenities('guestPrivileges');
     if (guestPrivileges != null && guestPrivileges.entries.any((e) => e.value)) {
       children.add(
@@ -13355,7 +12838,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Compliance Standard', _get('complianceStandard')));
     }
 
-    // Fire & Safety Certification
+
     if (_get('fireSafetyCertification') != null) {
       children.add(
         _infoRow(
@@ -13375,7 +12858,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Cybersecurity Certification
+
     if (_get('cybersecurityCertification') != null) {
       children.add(
         _infoRow(
@@ -13385,7 +12868,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Crisis Management Protocol
+
     if (_get('crisisManagementProtocol') != null) {
       children.add(
         _infoRow(
@@ -13442,7 +12925,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Settlement Currency', _get('settlementCurrency')));
     }
 
-    // Account Type
+
     if (_get('accountType') != null &&
         _get('accountType').toString().isNotEmpty) {
       String accountType = _get('accountType').toString();
@@ -13685,7 +13168,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Digital Signature
+
     final hasDigitalSignature = _get('hasDigitalSignature') == true ||
         (_get('digitalSignatureImage') != null);
 
@@ -13920,7 +13403,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
                     print('signatureLuxuryFeatures: ${registrationData.containsKey('signatureLuxuryFeatures')}');
                     print('fireSafetyCertification: ${registrationData['fireSafetyCertification']}');
                     print('declarationAccepted: ${registrationData['declarationAccepted']}');
-                    // Save to SharedPreferences
+
                     final prefs = await SharedPreferences.getInstance();
                     final String usersJson = prefs.getString('registered_users') ?? '[]';
                     final List<dynamic> usersList = jsonDecode(usersJson);
@@ -14013,7 +13496,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
       },
     );
   }
-///
+
   // ==================== HELPER METHODS ====================
 
   Map<String, bool>? _getAmenities(String key) {
@@ -14084,7 +13567,7 @@ class GlobalEliteLuxuryHotelSummaryScreen extends StatelessWidget {
         }
       }
     } catch (e) {
-      // Return as is if parsing fails
+
     }
     return time;
   }
@@ -14382,7 +13865,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
     this.villaId,
   }) : super(key: key);
 
-  // Helper method to get nested values
+
   dynamic _get(String key, [dynamic defaultValue]) {
     try {
       final keys = key.split('.');
@@ -14400,7 +13883,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
     }
   }
 
-  // Helper method to deep copy the registration data
+
   Map<String, dynamic> _deepCopyMap(Map<String, dynamic> original) {
     Map<String, dynamic> copy = {};
     original.forEach((key, value) {
@@ -14415,7 +13898,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
     return copy;
   }
 
-  // Colors
+
   Color get _primaryColor => const Color(0xFF00897B);
   Color get _primaryLight => _primaryColor.withOpacity(0.1);
   Color get _bgColor => const Color(0xFFF9FAFB);
@@ -14528,16 +14011,16 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // Add this method to your summary screen to ensure data consistency
+
   Map<String, dynamic> _normalizeVillaData(Map<String, dynamic> data) {
     Map<String, dynamic> normalized = Map<String, dynamic>.from(data);
 
-    // Ensure id exists at top level
+
     if (!normalized.containsKey('id') && normalized.containsKey('basicInfo')) {
       normalized['id'] = normalized['basicInfo']['id'];
     }
 
-    // Ensure basicInfo exists
+
     if (!normalized.containsKey('basicInfo')) {
       normalized['basicInfo'] = {
         'villaName': normalized['villaName'] ?? '',
@@ -15219,7 +14702,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
-                ...files.map((file) => _buildMediaFileItem(file)), // Now this will work
+                ...files.map((file) => _buildMediaFileItem(file)),
               ],
             ),
           ),
@@ -15227,7 +14710,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       }
     });
 
-    // Virtual Tour Link
+
     final virtualTourLink = _get('virtualTourLink', '');
     if (virtualTourLink.toString().isNotEmpty) {
       mediaWidgets.add(
@@ -15947,7 +15430,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
                           (Route<dynamic> route) => false,
                     );
                   } catch (e) {
-                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Error: ${e.toString()}'),
@@ -15973,7 +15456,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
   }
 
   Map<String, dynamic> _prepareVillaData() {
-    // Get the registration data with proper nested structure
+
     Map<String, dynamic> villaData = {};
 
     String villaId = registrationData['id']?.toString() ??
@@ -15982,7 +15465,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
     villaData['id'] = villaId;
     villaData['registeredAt'] = DateTime.now().toIso8601String();
 
-    // Basic Info
+
     villaData['basicInfo'] = {
       'villaName': registrationData['basicInfo']?['villaName']?.toString() ?? '',
       'ownerName': registrationData['basicInfo']?['ownerName']?.toString() ?? '',
@@ -15995,7 +15478,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       'id': villaId,
     };
 
-    // Location
+
     villaData['location'] = {
       // 'address': registrationData['location']?['address']?.toString() ?? '',
       // 'area': registrationData['location']?['area']?.toString() ?? '',
@@ -16003,7 +15486,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       // 'state': registrationData['location']?['state']?.toString() ?? '',
       // 'pincode': registrationData['location']?['pincode']?.toString() ?? '',
       // 'googleMapLink': registrationData['location']?['googleMapLink']?.toString() ?? '',
-      // Villa Address
+
       'address': registrationData['location']?['address']?.toString() ?? '',
       'area': registrationData['location']?['area']?.toString() ?? '',
       'city': registrationData['location']?['city']?.toString() ?? '',
@@ -16011,7 +15494,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       'pincode': registrationData['location']?['pincode']?.toString() ?? '',
       'googleMapLink': registrationData['location']?['googleMapLink']?.toString() ?? '',
 
-      // Office Address - ADD THIS
+
       'officeAddress': {
         'address': registrationData['location']?['officeAddress']?['address']?.toString() ?? '',
         'area': registrationData['location']?['officeAddress']?['area']?.toString() ?? '',
@@ -16022,7 +15505,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       },
     };
 
-    // Property Details
+
     villaData['propertyDetails'] = {
       'propertyType': registrationData['propertyDetails']?['propertyType']?.toString() ?? 'Villa',
       'bedrooms': registrationData['propertyDetails']?['bedrooms']?.toString() ?? '0',
@@ -16033,17 +15516,17 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       'description': registrationData['propertyDetails']?['description']?.toString() ?? '',
     };
 
-    // Amenities
+
     villaData['amenities'] = {
       'selected': registrationData['amenities']?['selected'] ?? {},
       'custom': registrationData['amenities']?['custom'] ?? [],
     };
 
-    // Also add direct keys for backward compatibility
+
     villaData['selectedAmenities'] = registrationData['amenities']?['selected'] ?? {};
     villaData['customAmenities'] = registrationData['amenities']?['custom'] ?? [];
 
-    // Pricing
+
     villaData['pricing'] = {
       'basePrice': registrationData['pricing']?['basePrice']?.toString() ?? '0',
       'weekendPrice': registrationData['pricing']?['weekendPrice']?.toString() ?? '0',
@@ -16056,7 +15539,6 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       'availabilityCalendar': registrationData['pricing']?['availabilityCalendar'] ?? {},
     };
 
-    // Also add direct keys for backward compatibility
     villaData['basePrice'] = registrationData['pricing']?['basePrice']?.toString() ?? '0';
     villaData['weekendPrice'] = registrationData['pricing']?['weekendPrice']?.toString() ?? '0';
     villaData['peakPrice'] = registrationData['pricing']?['peakPrice']?.toString() ?? '';
@@ -16067,7 +15549,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
     villaData['cancellationPolicy'] = registrationData['pricing']?['cancellationPolicy'] ?? {};
     villaData['availabilityCalendar'] = registrationData['pricing']?['availabilityCalendar'] ?? {};
 
-    // Legal
+
     villaData['legal'] = {
       'gstNumber': registrationData['legal']?['gstNumber']?.toString() ?? '',
       'tradeLicense': registrationData['legal']?['tradeLicense']?.toString() ?? '',
@@ -16075,13 +15557,13 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       'idProof': registrationData['legal']?['idProof'] ?? {},
     };
 
-    // Also add direct keys for backward compatibility
+
     villaData['gstNumber'] = registrationData['legal']?['gstNumber']?.toString() ?? '';
     villaData['tradeLicense'] = registrationData['legal']?['tradeLicense']?.toString() ?? '';
     villaData['ownershipProof'] = registrationData['legal']?['ownershipProof'] ?? {};
     villaData['idProof'] = registrationData['legal']?['idProof'] ?? {};
 
-    // Bank
+
     villaData['bank'] = {
       'accountHolder': registrationData['bank']?['accountHolder']?.toString() ?? '',
       'bankName': registrationData['bank']?['bankName']?.toString() ?? '',
@@ -16091,7 +15573,7 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
       'cancelledCheque': registrationData['bank']?['cancelledCheque'] ?? {},
     };
 
-    // Also add direct keys for backward compatibility
+
     villaData['accountHolder'] = registrationData['bank']?['accountHolder']?.toString() ?? '';
     villaData['bankName'] = registrationData['bank']?['bankName']?.toString() ?? '';
     villaData['accountNumber'] = registrationData['bank']?['accountNumber']?.toString() ?? '';
@@ -16099,25 +15581,25 @@ class VillaRegistrationSummaryScreen extends StatelessWidget {
     villaData['upiId'] = registrationData['bank']?['upiId']?.toString() ?? '';
     villaData['cancelledCheque'] = registrationData['bank']?['cancelledCheque'] ?? {};
 
-    // Media
+
     villaData['media'] = registrationData['media'] ?? {};
 
-    // Also add direct media keys for backward compatibility
+
     registrationData['media']?.forEach((key, value) {
       villaData[key] = value;
     });
 
-    // Virtual Tour Link - check if it exists
+
     if (registrationData.containsKey('virtualTourLink')) {
       villaData['virtualTourLink'] = registrationData['virtualTourLink'];
     }
 
-    // Also check if there's a virtual_tour in media
+
     if (registrationData['media']?['virtual_tour'] != null) {
       villaData['virtualTourLink'] = registrationData['media']['virtual_tour'];
     }
 
-    // Add direct property fields
+
     villaData['propertyTypeValue'] = registrationData['propertyDetails']?['propertyType']?.toString() ?? 'Villa';
     villaData['villaName'] = registrationData['basicInfo']?['villaName']?.toString() ?? '';
     villaData['ownerName'] = registrationData['basicInfo']?['ownerName']?.toString() ?? '';
@@ -16597,7 +16079,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
   Widget _buildLocationInfo() {
     final officeAddressChildren = <Widget>[];
 
-    // Build office address section only if there's data
+
     if (_getOfficeAddress() != 'Not provided' ||
         _getOfficeArea().isNotEmpty ||
         _getOfficeCity() != 'Not provided') {
@@ -16655,7 +16137,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
 
     return Column(
       children: [
-        // Office Address Card - Only show if there's data
+
         if (officeAddressChildren.isNotEmpty)
           _buildSectionCard(
             title: 'Permanent Office Address',
@@ -16664,7 +16146,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
           ),
         if (officeAddressChildren.isNotEmpty)
           const SizedBox(height: 16),
-        // Apartment Address Card
+
         _buildSectionCard(
           title: 'Apartment Location Details',
           icon: Icons.location_on,
@@ -17750,7 +17232,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
                       }
                     }
 
-                    // Use userEmail from the widget's parameter
+
                     String userEmail = this.userEmail ??
                         registrationData['basicInfo']?['email']?.toString() ??
                         registrationData['email']?.toString() ?? '';
@@ -17795,7 +17277,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
 
                     await prefs.setString('registered_users', jsonEncode(users));
 
-                    // Close the dialog and navigate
+
                     if (dialogContext.mounted) {
                       Navigator.of(dialogContext).pop();
                     }
@@ -17968,15 +17450,15 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
       },
     };
 
-    // Get BHK details from registration data
+
     List<Map<String, dynamic>> bhkDetailsList = [];
 
-    // Try to get bhkDetails from propertyDetails
+
     if (registrationData.containsKey('propertyDetails') &&
         registrationData['propertyDetails'] != null) {
       final propertyDetails = registrationData['propertyDetails'] as Map;
 
-      // Check for bhkDetails
+
       if (propertyDetails.containsKey('bhkDetails') &&
           propertyDetails['bhkDetails'] is List) {
         final bhkDetails = propertyDetails['bhkDetails'] as List;
@@ -17990,7 +17472,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
         print('Found ${bhkDetailsList.length} BHK details in propertyDetails');
       }
 
-      // Also check for selectedSubOptions
+
       if (propertyDetails.containsKey('selectedSubOptions') &&
           propertyDetails['selectedSubOptions'] is List) {
         final selectedSubOptions = propertyDetails['selectedSubOptions'] as List;
@@ -17998,7 +17480,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Also check direct bhkDetails in registrationData
+
     if (registrationData.containsKey('bhkDetails') &&
         registrationData['bhkDetails'] is List &&
         bhkDetailsList.isEmpty) {
@@ -18013,7 +17495,7 @@ class ApartmentRegistrationSummaryScreen extends StatelessWidget {
       print('Found ${bhkDetailsList.length} BHK details in direct bhkDetails');
     }
 
-    // Also check selectedSubOptionsDetails
+
     if (registrationData.containsKey('selectedSubOptionsDetails') &&
         registrationData['selectedSubOptionsDetails'] is Map &&
         bhkDetailsList.isEmpty) {
@@ -18617,7 +18099,7 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
   Widget _buildLocationInfo() {
     final officeAddressChildren = <Widget>[];
 
-    // Build office address section only if there's data
+
     if (_getOfficeAddress() != 'Not provided' ||
         _getOfficeArea().isNotEmpty ||
         _getOfficeCity() != 'Not provided') {
@@ -18685,7 +18167,7 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
 
     return Column(
       children: [
-        // Office Address Card - Only show if there's data
+
         if (officeAddressChildren.isNotEmpty)
           _buildSectionCard(
             title: 'Permanent Office Address',
@@ -18694,7 +18176,7 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
           ),
         if (officeAddressChildren.isNotEmpty)
           const SizedBox(height: 16),
-        // Resort Address Card
+
         _buildSectionCard(
           title: 'Resort Location Details',
           icon: Icons.location_on,
@@ -20086,15 +19568,15 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
       },
     };
 
-    // Get star rating details from registration data
+
     List<Map<String, dynamic>> starRatingDetailsList = [];
 
-    // Try to get starRatingDetails from propertyDetails
+
     if (registrationData.containsKey('propertyDetails') &&
         registrationData['propertyDetails'] != null) {
       final propertyDetails = registrationData['propertyDetails'] as Map;
 
-      // Check for starRatingDetails
+
       if (propertyDetails.containsKey('starRatingDetails') &&
           propertyDetails['starRatingDetails'] is List) {
         final starDetails = propertyDetails['starRatingDetails'] as List;
@@ -20108,7 +19590,7 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
         print('Found ${starRatingDetailsList.length} star rating details in propertyDetails');
       }
 
-      // Also check for selectedStarRatings
+
       if (propertyDetails.containsKey('selectedStarRatings') &&
           propertyDetails['selectedStarRatings'] is List) {
         final selectedStarRatings = propertyDetails['selectedStarRatings'] as List;
@@ -20116,7 +19598,7 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Also check direct starRatingDetails in registrationData
+
     if (registrationData.containsKey('starRatingDetails') &&
         registrationData['starRatingDetails'] is List &&
         starRatingDetailsList.isEmpty) {
@@ -20131,7 +19613,7 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
       print('Found ${starRatingDetailsList.length} star rating details in direct starRatingDetails');
     }
 
-    // Also check selectedStarRatingDetails
+
     if (registrationData.containsKey('selectedStarRatingDetails') &&
         registrationData['selectedStarRatingDetails'] is Map &&
         starRatingDetailsList.isEmpty) {
@@ -20399,7 +19881,7 @@ class ResortRegistrationSummaryScreen extends StatelessWidget {
       if (starRating is Map) {
         String ratingType = starRating['type']?.toString() ?? '';
 
-        // Get selected room types
+
         final roomTypes = starRating['roomTypes'] as Map? ?? {};
         final selectedRoomTypes = roomTypes.entries
             .where((e) => e.value == true)

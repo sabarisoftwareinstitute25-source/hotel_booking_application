@@ -71,7 +71,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
 
 
   String _getOfficeAddress() {
-    // Check in location.officeAddress first
+
     if (_data.containsKey('location') && _data['location'] != null) {
       final location = _data['location'] as Map;
       if (location.containsKey('officeAddress') && location['officeAddress'] != null) {
@@ -83,7 +83,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Check direct officeAddress
+
     if (_data.containsKey('officeAddress') && _data['officeAddress'] != null) {
       final office = _data['officeAddress'] as Map;
       if (office.containsKey('address') && office['address'].toString().isNotEmpty) {
@@ -92,7 +92,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Check in basicInfo.officeAddress
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('officeAddress') && basicInfo['officeAddress'] != null) {
@@ -235,7 +235,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
     print('_data["id"]: ${_data['id']}');
     print('_data["basicInfo"] keys: ${_data.containsKey('basicInfo') ? (_data['basicInfo'] as Map).keys.toList() : 'No basicInfo'}');
 
-    // If widget.villaId is null, try to extract from _data
+
     if (widget.villaId == null && _data.containsKey('id')) {
       print('Setting villaId from _data["id"]: ${_data['id']}');
     }
@@ -281,19 +281,19 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   void _initializeTimes() {
-    // Get pricing data from nested structure
+
     Map<String, dynamic> pricingData = {};
     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
       pricingData = Map<String, dynamic>.from(_data['pricing']);
     }
 
-    // Initialize Check-in Time
+
     _checkInTime = _data['checkInTime']?.toString() ??
         pricingData['checkInTime']?.toString() ??
         '12:00';
     _checkInController = TextEditingController(text: _checkInTime);
 
-    // Initialize Check-out Time
+
     _checkOutTime = _data['checkOutTime']?.toString() ??
         pricingData['checkOutTime']?.toString() ??
         '11:00';
@@ -304,7 +304,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
     _data['checkInTime'] = _checkInTime;
     _data['checkOutTime'] = _checkOutTime;
 
-    // Also save in pricing nested structure if exists
+
     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
       final pricing = _data['pricing'] as Map;
       pricing['checkInTime'] = _checkInTime;
@@ -423,7 +423,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
 
   Future<void> _uploadMediaFile(String mediaKey, String mediaName, int maxLimit) async {
     try {
-      // Check if already at max limit
+
       final currentFiles = _getMediaFiles(mediaKey);
       if (currentFiles.length >= maxLimit) {
         _showErrorDialog(
@@ -441,7 +441,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       if (result != null && result.files.isNotEmpty) {
         final file = result.files.first;
 
-        // Validate file size (max 10MB for videos, 5MB for images)
+
         int maxSize = mediaKey == 'short_video' ? 10 * 1024 * 1024 : 5 * 1024 * 1024;
         if (file.size > maxSize) {
           _showErrorDialog(
@@ -451,7 +451,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           return;
         }
 
-        // Validate file type for videos
+
         if (mediaKey == 'short_video') {
           final ext = file.name.split('.').last.toLowerCase();
           if (!['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
@@ -468,7 +468,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
         };
 
         setState(() {
-          // Add to media files
+
           if (_data.containsKey('media') && _data['media'] is Map) {
             final media = _data['media'] as Map;
             if (media.containsKey(mediaKey) && media[mediaKey] is List) {
@@ -543,7 +543,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           ),
         );
       } else if (['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
-        // For videos, show video player
+
         showDialog(
           context: context,
           builder: (context) => Dialog(
@@ -581,7 +581,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           ),
         );
       } else {
-        // For other files, show file info dialog
+
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -652,7 +652,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       'custom': false,
     };
 
-    // Initialize price edit modes for all price fields
+
     _priceEditModes = {
       'basePrice': false,
       'weekendPrice': false,
@@ -686,7 +686,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       'amenities': 5,
       'short_video': 1,
     };
-    // Initialize Villa Amenities
+
     if (_data['selectedAmenities'] != null && _data['selectedAmenities'] is Map) {
       _villaAmenities = Map<String, bool>.from(_data['selectedAmenities']);
     } else if (_data['amenities'] != null && _data['amenities']['selected'] is Map) {
@@ -710,7 +710,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       };
     }
 
-    // Initialize Custom Amenities
+
     if (_data['customAmenities'] != null && _data['customAmenities'] is List) {
       _customAmenities = List<String>.from(_data['customAmenities']);
     } else if (_data['amenities'] != null && _data['amenities']['custom'] is List) {
@@ -913,7 +913,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getUserFullName() {
-    // Check in basicInfo nested structure
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('ownerName') && basicInfo['ownerName'].toString().isNotEmpty) {
@@ -924,7 +924,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct keys
+
     if (_data.containsKey('fullName') && _data['fullName'].toString().isNotEmpty) {
       return _data['fullName'].toString();
     }
@@ -936,7 +936,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getUserEmail() {
-    // Check in basicInfo nested structure
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('email') && basicInfo['email'].toString().isNotEmpty) {
@@ -944,7 +944,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct key
+
     if (_data.containsKey('email') && _data['email'].toString().isNotEmpty) {
       return _data['email'].toString();
     }
@@ -953,7 +953,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getUserPhone() {
-    // Check in basicInfo nested structure
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('mobile') && basicInfo['mobile'].toString().isNotEmpty) {
@@ -964,7 +964,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct keys
+
     if (_data.containsKey('phone') && _data['phone'].toString().isNotEmpty) {
       return _data['phone'].toString();
     }
@@ -976,7 +976,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getVillaName() {
-    // Check in basicInfo nested structure
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('villaName') && basicInfo['villaName'].toString().isNotEmpty) {
@@ -984,7 +984,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct key
+
     if (_data.containsKey('villaName') && _data['villaName'].toString().isNotEmpty) {
       return _data['villaName'].toString();
     }
@@ -993,7 +993,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getAlternateMobile() {
-    // Check in basicInfo nested structure
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('altMobile') && basicInfo['altMobile'].toString().isNotEmpty) {
@@ -1001,7 +1001,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct key
+
     if (_data.containsKey('altMobile') && _data['altMobile'].toString().isNotEmpty) {
       return _data['altMobile'].toString();
     }
@@ -1010,7 +1010,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getWebsite() {
-    // Check in basicInfo nested structure
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('website') && basicInfo['website'].toString().isNotEmpty) {
@@ -1018,7 +1018,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct key
+
     if (_data.containsKey('website') && _data['website'].toString().isNotEmpty) {
       return _data['website'].toString();
     }
@@ -1027,7 +1027,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getGoogleMapLink() {
-    // Check in location nested structure
+
     if (_data.containsKey('location') && _data['location'] != null) {
       final location = _data['location'] as Map;
       if (location.containsKey('googleMapLink') && location['googleMapLink'].toString().isNotEmpty) {
@@ -1035,7 +1035,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct key
+
     if (_data.containsKey('googleMapLink') && _data['googleMapLink'].toString().isNotEmpty) {
       return _data['googleMapLink'].toString();
     }
@@ -1044,7 +1044,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getPropertySize() {
-    // Check in propertyDetails nested structure
+
     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
       final details = _data['propertyDetails'] as Map;
       if (details.containsKey('propertySize') && details['propertySize'].toString().isNotEmpty) {
@@ -1052,7 +1052,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct key
+
     if (_data.containsKey('propertySize') && _data['propertySize'].toString().isNotEmpty) {
       return _data['propertySize'].toString();
     }
@@ -1061,7 +1061,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getYearConstruction() {
-    // Check in propertyDetails nested structure
+
     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
       final details = _data['propertyDetails'] as Map;
       if (details.containsKey('yearConstruction') && details['yearConstruction'].toString().isNotEmpty) {
@@ -1069,7 +1069,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Direct key
+
     if (_data.containsKey('yearConstruction') && _data['yearConstruction'].toString().isNotEmpty) {
       return _data['yearConstruction'].toString();
     }
@@ -1139,12 +1139,12 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   String _getVirtualTourLink() {
     print('=== GETTING VIRTUAL TOUR LINK ===');
 
-    // Check in media.virtual_tour (string or list)
+
     if (_data.containsKey('media') && _data['media'] != null) {
       final media = _data['media'] as Map;
       print('Media keys: ${media.keys.toList()}');
 
-      // Check for virtual_tour as a direct string
+
       if (media.containsKey('virtual_tour')) {
         final tour = media['virtual_tour'];
         print('virtual_tour found: $tour (type: ${tour.runtimeType})');
@@ -1153,7 +1153,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           return tour;
         }
 
-        // If it's a list, check the first element
+
         if (tour is List && tour.isNotEmpty) {
           if (tour[0] is Map && tour[0]['path'] != null && tour[0]['path'].toString().isNotEmpty) {
             return tour[0]['path'].toString();
@@ -1163,7 +1163,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
         }
       }
 
-      // Check for virtualTourLink in media
+
       if (media.containsKey('virtualTourLink')) {
         final value = media['virtualTourLink'];
         print('virtualTourLink in media: $value');
@@ -1172,7 +1172,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
         }
       }
 
-      // Check for virtual_tour_url
+
       if (media.containsKey('virtual_tour_url')) {
         final value = media['virtual_tour_url'];
         print('virtual_tour_url in media: $value');
@@ -1182,7 +1182,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Check direct key
+
     if (_data.containsKey('virtualTourLink')) {
       final value = _data['virtualTourLink'];
       print('Direct virtualTourLink found: $value');
@@ -1191,7 +1191,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Check in basicInfo
+
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
       final basicInfo = _data['basicInfo'] as Map;
       if (basicInfo.containsKey('virtualTourLink')) {
@@ -1210,7 +1210,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Check in propertyDetails
+
     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
       final details = _data['propertyDetails'] as Map;
       if (details.containsKey('virtualTourLink')) {
@@ -1227,7 +1227,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   String _getPropertyType() {
-    // Check in propertyDetails nested structure
+
     if (_data.containsKey('propertyDetails') && _data['propertyDetails'] != null) {
       final details = _data['propertyDetails'] as Map;
       if (details.containsKey('propertyType') && details['propertyType'].toString().isNotEmpty) {
@@ -1235,12 +1235,12 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Check direct propertyTypeValue
+
     if (_data.containsKey('propertyTypeValue') && _data['propertyTypeValue'].toString().isNotEmpty) {
       return _data['propertyTypeValue'].toString();
     }
 
-    // Check direct propertyType
+
     if (_data.containsKey('propertyType') && _data['propertyType'].toString().isNotEmpty) {
       return _data['propertyType'].toString();
     }
@@ -1257,7 +1257,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       }
     }
 
-    // Check direct key
+
     if (_data.containsKey(mediaKey) && _data[mediaKey] is List) {
       return List<Map<String, dynamic>>.from(_data[mediaKey]);
     }
@@ -1436,7 +1436,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
             ),
 
             actions: [
-              // Logout Button
+
               GestureDetector(
                 onTap: () => _showLogoutConfirmationDialog(context),
                 child: Container(
@@ -1457,13 +1457,13 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
             ],
           ),
 
-          // Main Content
+
           SliverFillRemaining(
             child: Container(
               color: bgColor,
               child: Column(
                 children: [
-                  // Personal Info Card
+
                   Container(
                     margin: const EdgeInsets.all(16),
                     padding: const EdgeInsets.all(16),
@@ -2219,16 +2219,16 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
               onPressed: () async {
                 await _saveLogoutFeedback(reason, feedback);
 
-                // Remove only this specific villa
+
                 await _removeCurrentVillaFromList();
 
-                // Navigate back to villa list with updated data
+
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (context) => VillaListScreen(
                       userData: widget.registrationData,
                       removedVillaId: widget.villaId ?? _data['id'],
-                      userEmail: _getUserEmail(), // Add this line - pass the user email
+                      userEmail: _getUserEmail(),
                     ),
                   ),
                       (route) => false,
@@ -2253,7 +2253,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       final prefs = await SharedPreferences.getInstance();
       final String userEmail = _getUserEmail();
 
-      // Get villa ID properly
+
       String villaIdToRemove = '';
 
       if (widget.villaId != null && widget.villaId!.isNotEmpty) {
@@ -2276,11 +2276,11 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
         return;
       }
 
-      // Get users list
+
       final String usersJson = prefs.getString('registered_users') ?? '[]';
       List<dynamic> usersList = jsonDecode(usersJson);
 
-      // Find user
+
       int userIndex = -1;
       for (int i = 0; i < usersList.length; i++) {
         if (usersList[i]['email'] == userEmail) {
@@ -2296,7 +2296,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       if (userData.containsKey('villlas') && userData['villlas'] is List) {
         List<dynamic> villasList = userData['villlas'];
 
-        // Remove matching villa
+
         villasList.removeWhere((villa) {
           Map<String, dynamic> villaMap = Map<String, dynamic>.from(villa);
           String currentId = villaMap['id']?.toString() ??
@@ -2403,7 +2403,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   Widget _getOwnerPhotoWidget() {
-    // Check in basicInfo nested structure
+
     Map<String, dynamic>? ownerPhoto;
 
     if (_data.containsKey('basicInfo') && _data['basicInfo'] != null) {
@@ -2539,7 +2539,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           ),
           const SizedBox(height: 16),
 
-          // Contact Information Card
+
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(20),
@@ -2631,7 +2631,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
                 else
                   _buildInfoRow('Mobile Number', _getUserPhone()),
 
-                // Alternate Mobile - ADD THIS
+
                 if (_getAlternateMobile().isNotEmpty && !_isEditingPhone)
                   _buildInfoRow('Alternate Mobile', _getAlternateMobile()),
 
@@ -2673,7 +2673,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
 
                 _buildInfoRow('Email', _getUserEmail()),
 
-                // Website - ADD THIS
+
                 if (_getWebsite().isNotEmpty)
                   _buildInfoRow('Website', _getWebsite()),
               ],
@@ -2768,7 +2768,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   Widget _buildLocation() {
     final officeAddressChildren = <Widget>[];
 
-    // Debug prints
+
     print('=== BUILDING LOCATION SECTION ===');
     print('Office Address: ${_getOfficeAddress()}');
     print('Office Area: ${_getOfficeArea()}');
@@ -2777,7 +2777,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
     print('Office Pincode: ${_getOfficePincode()}');
     print('Office GoogleMap: ${_getOfficeGoogleMapLink()}');
 
-    // Build office address section only if there's data
+
     if (_getOfficeAddress() != 'Not provided' ||
         _getOfficeArea().isNotEmpty ||
         _getOfficeCity() != 'Not provided' ||
@@ -2798,7 +2798,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          // Office Address Card - Only show if there's data
+
           if (officeAddressChildren.isNotEmpty)
             _buildGlassCard(
               title: 'Permanent Office Address',
@@ -2809,7 +2809,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           if (officeAddressChildren.isNotEmpty)
             const SizedBox(height: 16),
 
-          // Villa Address Card
+
           _buildGlassCard(
             title: 'Villa Location Details',
             icon: Icons.location_on,
@@ -2997,7 +2997,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          // Villa Amenities - With edit mode
+
           if (_villaAmenities.isNotEmpty)
             _buildEditableSection(
               title: 'Villa Amenities',
@@ -3006,7 +3006,6 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
               sectionId: 'amenities',
             ),
 
-          // Custom Amenities
           Padding(
             padding: const EdgeInsets.only(top: 16),
             child: _buildCustomAmenitiesCard(),
@@ -3096,7 +3095,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       final filePath = fileInfo['path'];
       final ext = fileName.split('.').last.toLowerCase();
 
-      // For images, show image preview
+
       if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].contains(ext)) {
         showDialog(
           context: context,
@@ -3138,7 +3137,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           ),
         );
       } else {
-        // For other files, show file info dialog
+
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -3640,20 +3639,20 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
   }
 
   Widget _buildPricingPolicies() {
-    // Get pricing data from nested structure
+
     Map<String, dynamic> pricingData = {};
     if (_data.containsKey('pricing') && _data['pricing'] is Map) {
       pricingData = Map<String, dynamic>.from(_data['pricing']);
     }
 
-    // Get values from either top-level or nested
+
     final basePrice = _data['basePrice'] ?? pricingData['basePrice'];
     final weekendPrice = _data['weekendPrice'] ?? pricingData['weekendPrice'];
     final peakPrice = _data['peakPrice'] ?? pricingData['peakPrice'];
     final securityDeposit = _data['securityDeposit'] ?? pricingData['securityDeposit'];
     final minimumStay = _data['minimumStay'] ?? pricingData['minimumStay'];
 
-    // Get cancellation policy and availability calendar
+
     final cancellationPolicy = _data['cancellationPolicy'] ?? pricingData['cancellationPolicy'] ?? {'uploaded': false};
     final availabilityCalendar = _data['availabilityCalendar'] ?? pricingData['availabilityCalendar'] ?? {'uploaded': false};
 
@@ -3665,33 +3664,33 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
             title: 'Pricing Information',
             icon: Icons.attach_money,
             children: [
-              // Base Price - Editable
+
               _buildEditablePriceField(
                 label: 'Base Price',
                 value: basePrice,
                 key: 'basePrice',
               ),
-              // Weekend Price - Editable
+
               _buildEditablePriceField(
                 label: 'Weekend Price',
                 value: weekendPrice,
                 key: 'weekendPrice',
               ),
-              // Peak Season Price - Editable
+
               if (_hasValue(peakPrice))
                 _buildEditablePriceField(
                   label: 'Peak Season Price',
                   value: peakPrice,
                   key: 'peakPrice',
                 ),
-              // Security Deposit - Editable
+
               if (_hasValue(securityDeposit))
                 _buildEditablePriceField(
                   label: 'Security Deposit',
                   value: securityDeposit,
                   key: 'securityDeposit',
                 ),
-              // Minimum Stay - Editable
+
               if (_hasValue(minimumStay))
                 _buildEditableIntegerField(
                   label: 'Minimum Stay',
@@ -3733,7 +3732,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
 
           const SizedBox(height: 16),
 
-          // Policy Documents
+
           _buildGlassCard(
             title: 'Policy Documents',
             icon: Icons.description,
@@ -3766,7 +3765,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
     final TextEditingController controller = TextEditingController(text: value?.toString() ?? '');
 
     if (!isEditing) {
-      // Display mode - show value with edit button
+
       return Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -3800,7 +3799,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        // Set all other price fields to false, then set this one to true
+
                         _priceEditModes.updateAll((k, v) => false);
                         _priceEditModes[key] = true;
                       });
@@ -3882,10 +3881,10 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
                   double? newValue = double.tryParse(controller.text);
                   if (newValue != null && newValue > 0) {
                     setState(() {
-                      // Update in top-level
+
                       _data[key] = newValue;
 
-                      // Update in pricing nested structure
+
                       if (_data.containsKey('pricing') && _data['pricing'] is Map) {
                         final pricing = _data['pricing'] as Map;
                         pricing[key] = newValue;
@@ -3939,7 +3938,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
     final TextEditingController controller = TextEditingController(text: value?.toString() ?? '');
 
     if (!isEditing) {
-      // Display mode
+
       return Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -4324,7 +4323,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
     print('=== LEGAL BANK DATA DEBUG ===');
     print('_data keys: ${_data.keys.toList()}');
 
-    // Get legal data from the correct location
+
     Map<String, dynamic> legalData = {};
     Map<String, dynamic> bankData = {};
     Map<String, dynamic> pricingData = {};
@@ -4341,7 +4340,6 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       pricingData = Map<String, dynamic>.from(_data['pricing']);
     }
 
-    // Get file info from various locations
     final ownershipProof = _data['ownershipProof'] ?? legalData['ownershipProof'] ?? {'uploaded': false};
     final idProof = _data['idProof'] ?? legalData['idProof'] ?? {'uploaded': false};
     final cancellationPolicy = _data['cancellationPolicy'] ?? pricingData['cancellationPolicy'] ?? {'uploaded': false};
@@ -4361,7 +4359,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          // Legal & Verification Section
+
           _buildGlassCard(
             title: 'Legal & Verification',
             icon: Icons.gavel,
@@ -4384,7 +4382,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           ),
           const SizedBox(height: 16),
 
-          // Bank Details Section
+
           _buildGlassCard(
             title: 'Bank Details',
             icon: Icons.account_balance,
@@ -4477,7 +4475,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       );
     });
 
-    // Virtual Tour Link
+
     final String virtualTourLink = _getVirtualTourLink();
     if (virtualTourLink.isNotEmpty) {
       mediaWidgets.add(
@@ -4879,7 +4877,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header with label and edit button
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -4922,7 +4920,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
         const SizedBox(height: 8),
 
         if (isEditing) ...[
-          // Edit mode - show upload button and file list with remove/ replace options
+
           if (files.length < maxLimit)
             SizedBox(
               width: double.infinity,
@@ -4954,7 +4952,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
               ),
               child: Column(
                 children: [
-                  // File info row
+
                   Row(
                     children: [
                       Container(
@@ -4995,7 +4993,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
                     ],
                   ),
                   const SizedBox(height: 8),
-                  // Action buttons row
+
                   Row(
                     children: [
                       Expanded(
@@ -5052,7 +5050,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
             ],
           ),
         ] else ...[
-          // View mode - show file list
+
           if (files.isNotEmpty)
             ...files.map((file) => GestureDetector(
               onTap: () => onView(file),
@@ -5146,7 +5144,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       if (result != null && result.files.isNotEmpty) {
         final file = result.files.first;
 
-        // Validate file size (max 10MB for videos, 5MB for images)
+
         int maxSize = mediaKey == 'short_video' ? 10 * 1024 * 1024 : 5 * 1024 * 1024;
         if (file.size > maxSize) {
           _showErrorDialog(
@@ -5156,7 +5154,6 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
           return;
         }
 
-        // Validate file type for videos
         if (mediaKey == 'short_video') {
           final ext = file.name.split('.').last.toLowerCase();
           if (!['mp4', 'mov', 'avi', 'mkv'].contains(ext)) {
@@ -5400,7 +5397,7 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header with document name (No edit button)
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -5412,13 +5409,13 @@ class _VillaRegistrationDetailsScreenState extends State<VillaRegistrationDetail
                   color: darkText,
                 ),
               ),
-              // No edit button for documents
+
               Container(),
             ],
           ),
           const SizedBox(height: 8),
 
-          // View mode - show document info (View Only)
+
           if (isUploaded)
             GestureDetector(
               onTap: () => _viewDocument(fileInfo, docName),
@@ -5632,7 +5629,6 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late Map<String, dynamic> _data;
-
   late Map<String, bool> _apartmentAmenities;
   late List<String> _customAmenities;
   Map<String, bool> _editModes = {};
@@ -5647,7 +5643,7 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
   late String _checkOutTime;
   late Map<String, bool> _mediaEditModes;
   late Map<String, int> _mediaMaxLimits;
-////
+
   late Map<String, bool> _documentEditModes;
 
   final Color primaryColor = const Color(0xFF5C6BC0);
@@ -9039,7 +9035,7 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
       }
     }
 
-    // If not found, try direct bhkDetails
+
     if (bhkDetails == null || bhkDetails.isEmpty) {
       if (_data.containsKey('bhkDetails')) {
         bhkDetails = _data['bhkDetails'];
@@ -9047,7 +9043,7 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
       }
     }
 
-    // If still not found, try selectedSubOptionsDetails
+
     if (bhkDetails == null || bhkDetails.isEmpty) {
       if (_data.containsKey('selectedSubOptionsDetails')) {
         final subOptions = _data['selectedSubOptionsDetails'];
@@ -9058,7 +9054,7 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
       }
     }
 
-    // If still not found, try selectedSubOptions
+
     if (bhkDetails == null || bhkDetails.isEmpty) {
       if (_data.containsKey('selectedSubOptions')) {
         bhkDetails = _data['selectedSubOptions'];
@@ -9082,7 +9078,7 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
       if (bhk is BHKDetails) {
         bhkMap = bhk.toJson();
       } else if (bhk is Map) {
-        // Convert Map<dynamic, dynamic> to Map<String, dynamic>
+
         bhkMap = Map<String, dynamic>.from(bhk);
       } else if (bhk is String) {
         print('Found string bhk: $bhk - looking for details');
@@ -9095,7 +9091,7 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
           bhkMap['bhkType']?.toString() ??
           'BHK Unit';
 
-      // Format elevator text
+
       String elevatorText = '';
       if (bhkMap['elevatorAvailable']?.toString().isNotEmpty ?? false) {
         String elevatorValue = bhkMap['elevatorAvailable'].toString();
@@ -9184,7 +9180,7 @@ class _ApartmentRegistrationDetailsScreenState extends State<ApartmentRegistrati
                     _buildDetailChip(
                       Icons.elevator,
                       elevatorText,
-                      // Optional: different color based on availability
+
                       iconColor: elevatorText == 'Elevator Available' ? _successColor : Colors.red,
                     ),
                 ],
@@ -9892,7 +9888,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
       'short_video': 1,
     };
 
-    // Initialize Resort Amenities
+
     if (_data['selectedAmenities'] != null && _data['selectedAmenities'] is Map) {
       _resortAmenities = Map<String, bool>.from(_data['selectedAmenities']);
     } else if (_data['amenities'] != null && _data['amenities']['selected'] is Map) {
@@ -9922,7 +9918,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
       };
     }
 
-    // Initialize Room Types
+
     if (_data['roomTypes'] != null && _data['roomTypes'] is Map) {
       _roomTypes = Map<String, bool>.from(_data['roomTypes']);
     } else if (_data['propertyDetails'] != null && _data['propertyDetails']['roomTypes'] is Map) {
@@ -9938,7 +9934,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
       };
     }
 
-    // Initialize Custom Amenities
+
     if (_data['customAmenities'] != null && _data['customAmenities'] is List) {
       _customAmenities = List<String>.from(_data['customAmenities']);
     } else if (_data['amenities'] != null && _data['amenities']['custom'] is List) {
@@ -10349,21 +10345,21 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
     );
   }
 
-  String _getWeeklyPrice() {
-    Map<String, dynamic> pricingData = {};
-    if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-      pricingData = Map<String, dynamic>.from(_data['pricing']);
-    }
-    return _data['weeklyPrice']?.toString() ?? pricingData['weeklyPrice']?.toString() ?? '';
-  }
-
-  String _getMonthlyPrice() {
-    Map<String, dynamic> pricingData = {};
-    if (_data.containsKey('pricing') && _data['pricing'] is Map) {
-      pricingData = Map<String, dynamic>.from(_data['pricing']);
-    }
-    return _data['monthlyPrice']?.toString() ?? pricingData['monthlyPrice']?.toString() ?? '';
-  }
+  // String _getWeeklyPrice() {
+  //   Map<String, dynamic> pricingData = {};
+  //   if (_data.containsKey('pricing') && _data['pricing'] is Map) {
+  //     pricingData = Map<String, dynamic>.from(_data['pricing']);
+  //   }
+  //   return _data['weeklyPrice']?.toString() ?? pricingData['weeklyPrice']?.toString() ?? '';
+  // }
+  //
+  // String _getMonthlyPrice() {
+  //   Map<String, dynamic> pricingData = {};
+  //   if (_data.containsKey('pricing') && _data['pricing'] is Map) {
+  //     pricingData = Map<String, dynamic>.from(_data['pricing']);
+  //   }
+  //   return _data['monthlyPrice']?.toString() ?? pricingData['monthlyPrice']?.toString() ?? '';
+  // }
 
   String _getExtraBedCharges() {
     Map<String, dynamic> pricingData = {};
@@ -11620,7 +11616,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
   Widget _buildLocation() {
     final officeAddressChildren = <Widget>[];
 
-    // Debug prints
+
     print('=== BUILDING LOCATION SECTION ===');
     print('Office Address: ${_getOfficeAddress()}');
     print('Office Area: ${_getOfficeArea()}');
@@ -11629,7 +11625,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
     print('Office Pincode: ${_getOfficePincode()}');
     print('Office GoogleMap: ${_getOfficeGoogleMapLink()}');
 
-    // Build office address section only if there's data
+
     if (_getOfficeAddress() != 'Not provided' ||
         _getOfficeArea().isNotEmpty ||
         _getOfficeCity() != 'Not provided' ||
@@ -11646,7 +11642,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
       ]);
     }
 
-    // Resort Address children
+
     final resortAddressChildren = <Widget>[
       _buildInfoRow('Resort Address', _getAddress()),
       if (_getArea().isNotEmpty)
@@ -11666,7 +11662,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          // Office Address Card - Only show if there's data
+
           if (officeAddressChildren.isNotEmpty)
             _buildGlassCard(
               title: 'Permanent Office Address',
@@ -11677,7 +11673,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
           if (officeAddressChildren.isNotEmpty)
             const SizedBox(height: 16),
 
-          // Resort Location Card
+
           _buildGlassCard(
             title: 'Resort Location Details',
             icon: Icons.location_on,
@@ -11757,7 +11753,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
             icon: Icons.architecture,
             children: [
               _buildInfoRow('Resort Category', _getResortCategory()),
-              // Only show these if no star rating details
+
               if (!hasStarRatingDetails) ...[
                 _buildInfoRow('Total Rooms', _getTotalRooms()),
                 _buildInfoRow('Room Capacity', _getTotalCapacity()),
@@ -12061,7 +12057,7 @@ class _ResortRegistrationDetailsScreenState extends State<ResortRegistrationDeta
       if (starRating is Map) {
         String ratingType = starRating['type']?.toString() ?? '';
 
-        // Get selected room types
+
         final roomTypes = starRating['roomTypes'] as Map? ?? {};
         final selectedRoomTypes = roomTypes.entries
             .where((e) => e.value == true)

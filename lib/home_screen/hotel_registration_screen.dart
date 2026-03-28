@@ -93,12 +93,12 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
 
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Single Room': {
-      'rooms': 0,           // Changed from '' to 0
-      'occupancy': 0,       // Changed from '' to 0
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
-      'price': 0.0,         // Changed from '' to 0.0
+      'price': 0.0,
       'extraBed': false,
-      'extraBedPrice': 0.0, // Changed from '' to 0.0
+      'extraBedPrice': 0.0,
     },
     'Double Room': {
       'rooms': 0,
@@ -384,7 +384,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
               ),
             ),
 
-            // NAVIGATION BUTTONS - FIXED AT BOTTOM
+
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
               decoration: BoxDecoration(
@@ -745,7 +745,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
                 SizedBox(width: 16),
                 Expanded(
                   child: _buildInputField(
-                    label: 'Country',  // New country field
+                    label: 'Country',
                     controller: _countryController,
                     hint: 'Enter country',
                   ),
@@ -1823,7 +1823,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     required TextEditingController controller,
     required String hint,
     TextInputType? keyboardType,
-    List<TextInputFormatter>? inputFormatters, // Add this parameter
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1840,7 +1840,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
-          inputFormatters: inputFormatters, // Add this
+          inputFormatters: inputFormatters,
           decoration: InputDecoration(
             hintText: hint,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -1869,7 +1869,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
     required ValueChanged<String> onChanged,
     required String hint,
     TextInputType? keyboardType,
-    List<TextInputFormatter>? inputFormatters, // Add this parameter
+    List<TextInputFormatter>? inputFormatters,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1889,7 +1889,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
             controller: controller,
             onChanged: onChanged,
             keyboardType: keyboardType,
-            inputFormatters: inputFormatters, // Add this
+            inputFormatters: inputFormatters,
             textAlign: TextAlign.center,
             decoration: InputDecoration(
               hintText: hint,
@@ -2454,12 +2454,12 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
         print('Selected image: ${image.name}');
         print('Image path: ${image.path}');
 
-        // Get file size
+
         final File file = File(image.path);
         final int fileSize = await file.length();
         print('File size: $fileSize bytes');
 
-        // Check file size (5MB limit)
+
         if (fileSize > 5 * 1024 * 1024) {
           _showErrorDialog(
             'File too large',
@@ -2468,7 +2468,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
           return;
         }
 
-        // Update the state with the selected file info
+
         setState(() {
           _personPhotoInfo = {
             'name': image.name,
@@ -2479,7 +2479,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
           print('Updated _personPhotoInfo: $_personPhotoInfo');
         });
 
-        // Show success message
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Photo uploaded successfully'),
@@ -3054,7 +3054,7 @@ class _HotelRegistrationScreenState extends State<HotelRegistrationScreen> {
       return;
     }
 
-    // Create hotel data with a unique ID
+
     String hotelId = 'HOTEL_${DateTime.now().millisecondsSinceEpoch}';
 
     Map<String, dynamic> hotelData = {
@@ -3193,12 +3193,12 @@ class RegistrationSummaryScreen extends StatelessWidget {
     this.declarationAccepted = false,
   });
 
-  // Helper method to safely get values
+
   dynamic _get(String key, [dynamic defaultValue]) {
     return registrationData[key] ?? defaultValue;
   }
 
-  // Helper method to get boolean maps safely
+
   Map<String, bool>? _getAmenities(String key) {
     final value = _get(key);
     if (value is Map) {
@@ -3209,7 +3209,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     return null;
   }
 
-  // Helper method to deep copy the registration data
+
   Map<String, dynamic> _deepCopyMap(Map<String, dynamic> original) {
     Map<String, dynamic> copy = {};
     original.forEach((key, value) {
@@ -3224,7 +3224,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     return copy;
   }
 
-  // Color schemes for different hotel categories
+
   Color get _primaryColor {
     switch (hotelCategory) {
       case '2-Star':
@@ -3436,7 +3436,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // ==================== HOTEL BASIC INFO ====================
+
   Widget _buildHotelBasicInfo() {
     return _buildSectionCard(
       title: 'Hotel Information',
@@ -3448,14 +3448,14 @@ class RegistrationSummaryScreen extends StatelessWidget {
           _infoRow('Hotel Type', _get('hotelType')),
 
 
-        // UPDATED: Year of Establishment as integer
+
         if (_get('yearOfEstablishment') != null)
           _infoRow(
               'Year Established',
               _get('yearOfEstablishment').toString()
           ),
 
-        // UPDATED: Total Rooms as integer
+
         if (_get('totalRooms') != null &&
             (_get('totalRooms') is int || _get('totalRooms').toString().isNotEmpty))
           _infoRow(
@@ -3463,52 +3463,52 @@ class RegistrationSummaryScreen extends StatelessWidget {
               _get('totalRooms').toString()
           ),
 
-        // 2-Star, 3-Star, 4-Star, 5-Star specific
+
         if (_get('designation') != null &&
             _get('designation').toString().isNotEmpty)
           _infoRow('Designation', _get('designation')),
 
-        // 3-Star, 4-Star, 5-Star specific
+
         if (_get('registrationNumber') != null &&
             _get('registrationNumber').toString().isNotEmpty)
           _infoRow('Registration Number', _get('registrationNumber')),
 
-        // 5-Star, 6-Star specific
+
         if (_get('brandName') != null &&
             _get('brandName').toString().isNotEmpty)
           _infoRow('Brand Name', _get('brandName')),
 
-        // 5-Star specific
+
         if (_get('starCertNumber') != null &&
             _get('starCertNumber').toString().isNotEmpty)
           _infoRow('Star Certificate No.', _get('starCertNumber')),
 
-        // 6-Star specific
+
         if (_get('globalRecognition') != null &&
             _get('globalRecognition').toString().isNotEmpty)
           _infoRow('Global Recognition', _get('globalRecognition')),
 
-        // 6-Star specific
+
         if (_get('gmName') != null && _get('gmName').toString().isNotEmpty)
           _infoRow('General Manager', _get('gmName')),
       ],
     );
   }
 
-  // ==================== CONTACT INFO ====================
+
   Widget _buildContactInfo() {
     final List<Widget> children = [
       _infoRow('Owner/Manager', _get('ownerName', 'Not Provided')),
       _infoRow('Mobile Number', _get('mobileNumber', 'Not Provided')),
     ];
 
-    // Alternate Contact
+
     if (_get('alternateContact') != null &&
         _get('alternateContact').toString().isNotEmpty) {
       children.add(_infoRow('Alternate Contact', _get('alternateContact')));
     }
 
-    // Landline Numbers
+
     final landlineNumbers = _get('landlineNumbers', []);
     if (landlineNumbers is List && landlineNumbers.isNotEmpty) {
       children.add(
@@ -3545,17 +3545,17 @@ class RegistrationSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Email
+
     if (_get('email') != null && _get('email').toString().isNotEmpty) {
       children.add(_infoRow('Email', _get('email')));
     }
 
-    // Website
+
     if (_get('website') != null && _get('website').toString().isNotEmpty) {
       children.add(_infoRow('Website', _get('website')));
     }
 
-    // Profile Photo
+
     final personPhoto = _get('personPhotoInfo');
     if (personPhoto != null && personPhoto['uploaded'] == true) {
       children.add(_buildPhotoInfo('Profile Photo', personPhoto));
@@ -3569,7 +3569,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // ==================== ADDRESS INFO ====================
+
   Widget _buildAddressInfo() {
     final List<Widget> children = [
       _infoRow('Address Line 1', _get('addressLine1', 'Not Provided')),
@@ -3587,17 +3587,17 @@ class RegistrationSummaryScreen extends StatelessWidget {
       _infoRow('PIN Code', _get('pinCode', 'Not Provided')),
     ]);
 
-    // Landmark
+
     if (_get('landmark') != null && _get('landmark').toString().isNotEmpty) {
       children.add(_infoRow('Landmark', _get('landmark')));
     }
 
-    // 6-Star specific - Country
+
     if (_get('country') != null && _get('country').toString().isNotEmpty) {
       children.add(_infoRow('Country', _get('country')));
     }
 
-    // Additional Addresses
+
     final additionalAddresses = _get('additionalAddresses', []);
     if (additionalAddresses is List && additionalAddresses.isNotEmpty) {
       children.add(
@@ -3670,12 +3670,12 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // ==================== ROOM CONFIGURATION ====================
+
   Widget _buildRoomConfiguration() {
     final selectedRoomTypes = _get('selectedRoomTypes', {});
     final roomDetails = _get('roomDetails', {});
 
-    // Check if any rooms are selected
+
     bool hasRooms = false;
     if (selectedRoomTypes is Map) {
       hasRooms = selectedRoomTypes.entries.any((entry) => entry.value == true);
@@ -3690,7 +3690,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
 
     final List<Widget> children = [];
 
-    // Room Type Chips
+
     children.add(
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -3776,17 +3776,17 @@ class RegistrationSummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
 
-              // Number of Rooms
+
               if (details['rooms'] != null &&
                   (details['rooms'] is int || details['rooms'].toString().isNotEmpty))
                 _detailRow('Number of Rooms', details['rooms'].toString()),
 
-              // Max Occupancy
+
               if (details['occupancy'] != null &&
                   (details['occupancy'] is int || details['occupancy'].toString().isNotEmpty))
                 _detailRow('Max Occupancy', '${details['occupancy']} Persons'),
 
-              // AC/Non-AC
+
               if (details['ac'] != null)
                 _detailRow(
                   _isSixStar() ? 'Climate Control' : 'AC/Non-AC',
@@ -3795,12 +3795,12 @@ class RegistrationSummaryScreen extends StatelessWidget {
                       : (_isSixStar() ? 'Not Available' : 'Non-AC'),
                 ),
 
-              // Bed Type
+
               if (details['bedType'] != null &&
                   details['bedType'].toString().isNotEmpty)
                 _detailRow('Bed Type', details['bedType']),
 
-              // Price fields - CORRECTED: Use collection if without braces
+
               if (_isFiveStar() || _isSixStar()) ...[
                 if (details['minPrice'] != null &&
                     (details['minPrice'] is double || details['minPrice'].toString().isNotEmpty))
@@ -3813,7 +3813,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
                   (details['price'] is double || details['price'].toString().isNotEmpty))
                 _detailRow('Price per Night', '₹${_formatPrice(details['price'])}'),
 
-              // Extra Bed fields - CORRECTED: Use collection if without braces
+
               if (!_isFiveStar() && !_isSixStar()) ...[
                 if (details['extraBed'] != null)
                   _detailRow(
@@ -3832,18 +3832,18 @@ class RegistrationSummaryScreen extends StatelessWidget {
       );
     }
 
-    // Overall pricing
+
     final minTariff = _get('minTariff', '');
     final maxTariff = _get('maxTariff', '');
 
 
 
     if (minTariff.toString().isNotEmpty || maxTariff.toString().isNotEmpty) {
-      // Parse to double if needed
+
       String minDisplay = minTariff.toString();
       String maxDisplay = maxTariff.toString();
 
-      // Try to format as double if it's numeric
+
       if (minTariff is double || (minTariff is String && double.tryParse(minTariff) != null)) {
         double minVal = double.tryParse(minTariff.toString()) ?? 0;
         minDisplay = minVal.toStringAsFixed(minVal.truncateToDouble() == minVal ? 0 : 2);
@@ -3921,21 +3921,20 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children: children,
     );
   }
-// Add this helper method to properly format price values
+
   String _formatPrice(dynamic price) {
     if (price == null) return '0';
 
-    // If it's already a double
+
     if (price is double) {
       return price.toStringAsFixed(price.truncateToDouble() == price ? 0 : 2);
     }
 
-    // If it's an int
+
     if (price is int) {
       return price.toString();
     }
 
-    // If it's a string, try to parse
     if (price is String) {
       double? parsed = double.tryParse(price);
       if (parsed != null) {
@@ -3946,7 +3945,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     return price.toString();
   }
 
-// Add this helper method to properly format integer values
+
   String _formatInteger(dynamic value) {
     if (value == null) return '0';
 
@@ -3967,11 +3966,11 @@ class RegistrationSummaryScreen extends StatelessWidget {
 
     return value.toString();
   }
-  // ==================== AMENITIES SECTION ====================
+
   Widget _buildAmenitiesSection() {
     final List<Widget> amenitySections = [];
 
-    // 1. ROOM AMENITIES - Available for 2-Star and above
+
     if (_isTwoStarOrAbove()) {
       final roomAmenities = _getAmenities('roomAmenities');
       if (roomAmenities != null && roomAmenities.entries.any((e) => e.value)) {
@@ -3984,7 +3983,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 2. HOTEL FACILITIES - Available for all categories
+
     final hotelFacilities = _getAmenities('hotelFacilities');
     if (hotelFacilities != null &&
         hotelFacilities.entries.any((e) => e.value)) {
@@ -3994,7 +3993,6 @@ class RegistrationSummaryScreen extends StatelessWidget {
       amenitySections.add(_buildAmenityCategory(title, hotelFacilities));
     }
 
-    // 3. FOOD SERVICES - Available for all categories
     final foodServices = _getAmenities('foodServices');
     if (foodServices != null && foodServices.entries.any((e) => e.value)) {
       String title = _isFiveStarOrAbove()
@@ -4004,7 +4002,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       amenitySections.add(_buildAmenityCategory(title, foodServices));
     }
 
-    // 4. BASIC AMENITIES - Only for Normal hotels
+
     if (_isNormal()) {
       final basicAmenities = _getAmenities('basicAmenities');
       if (basicAmenities != null &&
@@ -4015,7 +4013,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 5. ADDITIONAL AMENITIES - Only for Normal hotels
+
     if (_isNormal()) {
       final additionalAmenities = _getAmenities('additionalAmenities');
       if (additionalAmenities != null &&
@@ -4026,7 +4024,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 6. GUEST SERVICES - 2-Star and above
+
     if (_isTwoStarOrAbove()) {
       final guestServices = _getAmenities('guestServices');
       if (guestServices != null && guestServices.entries.any((e) => e.value)) {
@@ -4038,7 +4036,6 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 7. BUSINESS SERVICES - 3-Star and above
     if (_isThreeStarOrAbove()) {
       final businessServices = _getAmenities('businessServices');
       if (businessServices != null &&
@@ -4049,7 +4046,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 8. WELLNESS & RECREATION - 4-Star and above
+
     if (_isFourStarOrAbove()) {
       final wellnessRecreation = _getAmenities('wellnessRecreation');
       if (wellnessRecreation != null &&
@@ -4062,7 +4059,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 9. DINING SERVICES - 5-Star only
+
     if (_isFiveStar()) {
       final diningServices = _getAmenities('diningServices');
       if (diningServices != null &&
@@ -4076,7 +4073,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 10. 6-STAR SPECIFIC
+
     if (_isSixStar()) {
       final hotelInfrastructure = _getAmenities('hotelInfrastructure');
       if (hotelInfrastructure != null &&
@@ -4120,7 +4117,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 11. CUSTOM AMENITIES - All categories
+
     final customAmenities = _get('customAmenities', []);
     if (customAmenities is List && customAmenities.isNotEmpty) {
       amenitySections.add(
@@ -4242,11 +4239,11 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // ==================== POLICIES SECTION ====================
+
   Widget _buildPoliciesSection() {
     final List<Widget> children = [];
 
-    // Check-in/Check-out times - 2-Star and above
+
     if (_isTwoStarOrAbove()) {
       final checkIn = _get('checkInTime', '');
       final checkOut = _get('checkOutTime', '');
@@ -4310,7 +4307,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Early Check-in / Late Check-out - 3-Star and above
+
     if (_isThreeStarOrAbove()) {
       if (_get('earlyCheckinAllowed') != null) {
         children.add(
@@ -4326,7 +4323,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Couple Friendly - 2-Star only
+
     if (_isTwoStar()) {
       if (_get('coupleFriendly') != null) {
         children.add(
@@ -4338,7 +4335,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Pets Allowed - 2-Star, 3-Star, 4-Star, 5-Star
+
     if (_isTwoStarOrAbove() && !_isSixStar()) {
       if (_get('petsAllowed') != null) {
         children.add(
@@ -4347,7 +4344,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 6-Star specific policies
+
     if (_isSixStar()) {
       if (_get('vipProtocols') != null) {
         children.add(
@@ -4367,7 +4364,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // ID Proof Required - 2-Star only
+
     if (_isTwoStar()) {
       final idProof = _get('idProofRequired', '');
       if (idProof.toString().isNotEmpty) {
@@ -4384,11 +4381,10 @@ class RegistrationSummaryScreen extends StatelessWidget {
     );
   }
 
-  // ==================== LEGAL & COMPLIANCE ====================
+
   Widget _buildLegalCompliance() {
     final List<Widget> children = [];
 
-    // Common legal documents for all categories
     if (_get('gstNumber') != null && _get('gstNumber').toString().isNotEmpty) {
       children.add(_infoRow('GST Number', _get('gstNumber')));
     }
@@ -4403,7 +4399,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children.add(_infoRow('FSSAI License', _get('fssaiLicense')));
     }
 
-    // PAN Number - 3-Star and above
+
     if (_isThreeStarOrAbove()) {
       if (_get('panNumber') != null &&
           _get('panNumber').toString().isNotEmpty) {
@@ -4411,7 +4407,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Aadhar Number - Normal hotels
+
     if (_isNormal()) {
       if (_get('aadhaarNumber') != null &&
           _get('aadhaarNumber').toString().isNotEmpty) {
@@ -4419,7 +4415,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Fire Safety Certificate - 3-Star, 4-Star, 5-Star
+
     if (_isThreeStarOrAbove() && !_isSixStar()) {
       if (_get('fireSafetyCertificate') != null) {
         children.add(
@@ -4433,7 +4429,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Star Classification Certificate - 4-Star, 5-Star
+
     if (_isFourStar() || _isFiveStar()) {
       if (_get('starCertificate') != null) {
         children.add(
@@ -4445,7 +4441,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 5-Star specific
+
     if (_isFiveStar()) {
       if (_get('pollutionCertificate') != null) {
         children.add(
@@ -4467,7 +4463,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // 6-Star specific compliance
+
     if (_isSixStar()) {
       if (_get('fireSafetyNoc') != null) {
         children.add(
@@ -4505,7 +4501,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
   }
 
 
-// ==================== BANK DETAILS ====================
+
   Widget _buildBankDetails() {
     final List<Widget> children = [];
 
@@ -4536,7 +4532,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children.add(_infoRow('Branch', _get('branch')));
     }
 
-    // UPDATED: Account Type display with badge styling
+
     if (_get('accountType') != null &&
         _get('accountType').toString().isNotEmpty) {
       String accountType = _get('accountType').toString();
@@ -4609,7 +4605,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children: children,
     );
   }
-  // ==================== DOCUMENTS SECTION ====================
+
   Widget _buildDocumentsSection() {
     final uploadedFiles = _get('uploadedFiles', {});
 
@@ -4629,7 +4625,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children.add(_buildDocumentItem(entry.key, entry.value));
     }
 
-    // Digital Signature
+
     final hasDigitalSignature = _get('hasDigitalSignature', false);
     if (hasDigitalSignature == true) {
       children.add(
@@ -4794,13 +4790,13 @@ class RegistrationSummaryScreen extends StatelessWidget {
   Widget _buildDeclarationSection() {
     final List<Widget> children = [];
 
-    // Signatory Name
+
     if (_get('signatoryName') != null &&
         _get('signatoryName').toString().isNotEmpty) {
       children.add(_infoRow('Signatory Name', _get('signatoryName')));
     }
 
-    // Declaration Name (Normal hotels)
+
     if (_isNormal()) {
       if (_get('declarationName') != null &&
           _get('declarationName').toString().isNotEmpty) {
@@ -4808,7 +4804,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Declaration Date - FIXED: Handle DateTime properly
+
     final declarationDate = _get('declarationDate');
     if (declarationDate != null) {
       String dateStr = '';
@@ -4816,11 +4812,11 @@ class RegistrationSummaryScreen extends StatelessWidget {
         dateStr = '${declarationDate.day}/${declarationDate.month}/${declarationDate.year}';
       } else if (declarationDate is String) {
         try {
-          // Try to parse the string to DateTime
+
           DateTime parsedDate = DateTime.parse(declarationDate);
           dateStr = '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
         } catch (e) {
-          // If parsing fails, use the string as is
+
           dateStr = declarationDate;
         }
       }
@@ -4829,7 +4825,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       }
     }
 
-    // Declaration Status
+
     children.add(
       Container(
         padding: const EdgeInsets.all(16),
@@ -4893,7 +4889,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       children: children,
     );
   }
-  // ==================== UPDATED FINISH BUTTON ====================
+
   Widget _buildFinishButton(BuildContext context) {
     return SafeArea(
       child: Container(
@@ -4974,18 +4970,18 @@ class RegistrationSummaryScreen extends StatelessWidget {
                 ),
                 onPressed: () async {
                   try {
-                    // Get existing users from SharedPreferences
+
                     final prefs = await SharedPreferences.getInstance();
                     final String usersJson = prefs.getString('registered_users') ?? '[]';
 
-                    // Parse JSON safely without type casting
+
                     final List<dynamic> usersList = jsonDecode(usersJson);
 
-                    // Convert to List<Map<String, dynamic>> safely
+
                     List<Map<String, dynamic>> users = [];
                     for (var user in usersList) {
                       if (user is Map) {
-                        // Convert each user map safely
+
                         Map<String, dynamic> safeUserMap = {};
                         user.forEach((key, value) {
                           safeUserMap[key.toString()] = _convertToJsonSafe(value);
@@ -4999,10 +4995,10 @@ class RegistrationSummaryScreen extends StatelessWidget {
                       userEmail = registrationData['email'].toString();
                     }
 
-                    // Create a JSON-safe copy of registrationData
+
                     Map<String, dynamic> safeRegistrationData = _convertToJsonSafe(registrationData);
 
-                    // Find the current user
+
                     int userIndex = -1;
                     for (int i = 0; i < users.length; i++) {
                       if (users[i]['email'] == userEmail) {
@@ -5014,26 +5010,26 @@ class RegistrationSummaryScreen extends StatelessWidget {
                     Map<String, dynamic> userData;
 
                     if (userIndex >= 0) {
-                      // User exists - update their hotels list
+
                       userData = Map<String, dynamic>.from(users[userIndex]);
 
-                      // Initialize hotels list if it doesn't exist
+
                       if (!userData.containsKey('hotels')) {
                         userData['hotels'] = [];
                       }
 
-                      // Add the new hotel (make sure to add as Map, not List)
+
                       List<dynamic> hotels = List.from(userData['hotels'] ?? []);
                       hotels.add(safeRegistrationData);
                       userData['hotels'] = hotels;
 
-                      // Update propertyType if needed
+
                       userData['propertyType'] = 'hotel';
 
-                      // Update the user in the list
+
                       users[userIndex] = userData;
                     } else {
-                      // New user - create their profile
+
                       userData = {
                         'email': userEmail,
                         'fullName': registrationData['fullName']?.toString() ??
@@ -5045,7 +5041,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
                         'registeredAt': DateTime.now().toIso8601String(),
                       };
 
-                      // Add all other fields safely
+
                       registrationData.forEach((key, value) {
                         if (!userData.containsKey(key)) {
                           userData[key] = _convertToJsonSafe(value);
@@ -5055,14 +5051,14 @@ class RegistrationSummaryScreen extends StatelessWidget {
                       users.add(userData);
                     }
 
-                    // Save back to SharedPreferences
+
                     await prefs.setString('registered_users', jsonEncode(users));
 
                     print('Navigating to OwnerDashboardScreen with:');
                     print('- User email: $userEmail');
                     print('- Hotels count: ${(userData['hotels'] as List).length}');
 
-                    // Navigate to OwnerDashboardScreen
+
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                         builder: (context) => OwnerDashboardScreen(
@@ -5074,8 +5070,8 @@ class RegistrationSummaryScreen extends StatelessWidget {
                     );
                   } catch (e) {
                     print('Error in navigation: $e');
-                    // Show error dialog
-                    Navigator.of(context).pop(); // Close the success dialog
+
+                    Navigator.of(context).pop();
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -5106,7 +5102,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
       },
     );
   }
-// Improved helper method to convert any object to JSON-safe format
+
   dynamic _convertToJsonSafe(dynamic obj) {
     if (obj == null) {
       return null;
@@ -5179,7 +5175,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
         return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
       }
     } catch (e) {
-      // Return as is if parsing fails
+
     }
     return time;
   }
@@ -5189,7 +5185,7 @@ class RegistrationSummaryScreen extends StatelessWidget {
     return 'XXXX XXXX ${accountNumber.substring(accountNumber.length - 4)}';
   }
 
-  // ==================== CATEGORY CHECK METHODS ====================
+
   bool _isNormal() => hotelCategory == 'Normal';
   bool _isTwoStar() => hotelCategory == '2-Star';
   bool _isThreeStar() => hotelCategory == '3-Star';
@@ -5307,11 +5303,11 @@ class RegistrationSummaryScreen extends StatelessWidget {
 
     String displayValue;
 
-    // Handle different numeric types
+
     if (value is int) {
       displayValue = value.toString();
     } else if (value is double) {
-      // Format double to show .00 only if needed
+
       displayValue = value.toStringAsFixed(value.truncateToDouble() == value ? 0 : 2);
     } else {
       displayValue = value.toString();
@@ -5408,13 +5404,13 @@ class RegistrationSummaryScreen extends StatelessWidget {
 class HotelOwnerDashboard extends StatefulWidget {
   final Map<String, dynamic> registrationData;
 
-  // Basic Information
+
   final String hotelName;
   final String hotelType;
   final String yearOfEstablishment;
   final int totalRooms;
 
-  // Contact Information
+
   final String ownerName;
   final String mobileNumber;
   final String alternateContact;
@@ -5422,7 +5418,7 @@ class HotelOwnerDashboard extends StatefulWidget {
   final String email;
   final String website;
 
-  // Address Information
+
   final String addressLine1;
   final String addressLine2;
   final String city;
@@ -5431,28 +5427,28 @@ class HotelOwnerDashboard extends StatefulWidget {
   final String pinCode;
   final String landmark;
 
-  // Room Configuration
+
   final Map<String, bool> selectedRoomTypes;
   final Map<String, Map<String, dynamic>> roomDetails;
   final String minTariff;
   final String maxTariff;
   final bool extraBedAvailable;
 
-  // Amenities
+
   final Map<String, bool> basicAmenities;
   final Map<String, bool> hotelFacilities;
   final Map<String, bool> foodServices;
   final Map<String, bool> additionalAmenities;
   final List<String> customAmenities;
 
-  // Legal Details
+
   final String gstNumber;
   final String fssaiLicense;
   final String tradeLicense;
   final String aadharNumber;
   final String? panNumber;
 
-  // Bank Details
+
   final String accountHolderName;
   final String bankName;
   final String accountNumber;
@@ -5460,24 +5456,24 @@ class HotelOwnerDashboard extends StatefulWidget {
   final String branch;
   final String accountType;
 
-  // Uploaded Files
+
   final Map<String, Map<String, dynamic>> uploadedFiles;
   final Map<String, dynamic> personPhotoInfo;
 
-  // Signature & Declaration
+
   final String signatureName;
   final String declarationName;
   final DateTime? declarationDate;
   final bool declarationAccepted;
 
-  // Hotel Category
+
   final String hotelCategory;
 
-  // Digital Signature
+
   final bool hasDigitalSignature;
   final Uint8List? digitalSignatureImage;
 
-  // 2-Star+ fields
+
   final String? designation;
   final String? checkInTime;
   final String? checkOutTime;
@@ -5488,7 +5484,7 @@ class HotelOwnerDashboard extends StatefulWidget {
   final String? selectedIdProof;
   final Map<String, Map<String, dynamic>>? idProofFiles;
 
-  // 3-Star+ fields
+
   final String? registrationNumber;
   final String? signatoryName;
   final bool? seasonalPricing;
@@ -5497,11 +5493,11 @@ class HotelOwnerDashboard extends StatefulWidget {
   final bool? fireSafetyCertificate;
   final Map<String, bool>? businessServices;
 
-  // 4-Star+ fields
+
   final bool? starCertificate;
   final Map<String, bool>? wellnessRecreation;
 
-  // 5-Star+ fields
+
   final String? brandName;
   final String? starCertNumber;
   final bool? pollutionCertificate;
@@ -5509,7 +5505,7 @@ class HotelOwnerDashboard extends StatefulWidget {
   final Map<String, bool>? diningServices;
   final Map<String, bool>? wellnessRecreation5Star;
 
-  // 6-Star fields
+
   final String? globalRecognition;
   final String? gmName;
   final String? country;
@@ -5530,13 +5526,13 @@ class HotelOwnerDashboard extends StatefulWidget {
     Key? key,
     required this.registrationData,
 
-    // Basic Information
+
     required this.hotelName,
     this.hotelType = '',
     this.yearOfEstablishment = '',
     required this.totalRooms,
 
-    // Contact Information
+
     required this.ownerName,
     required this.mobileNumber,
     this.alternateContact = '',
@@ -5544,7 +5540,7 @@ class HotelOwnerDashboard extends StatefulWidget {
     required this.email,
     this.website = '',
 
-    // Address Information
+
     required this.addressLine1,
     this.addressLine2 = '',
     required this.city,
@@ -5553,28 +5549,28 @@ class HotelOwnerDashboard extends StatefulWidget {
     required this.pinCode,
     this.landmark = '',
 
-    // Room Configuration
+
     this.selectedRoomTypes = const {},
     this.roomDetails = const {},
     this.minTariff = '',
     this.maxTariff = '',
     this.extraBedAvailable = false,
 
-    // Amenities
+
     this.basicAmenities = const {},
     this.hotelFacilities = const {},
     this.foodServices = const {},
     this.additionalAmenities = const {},
     this.customAmenities = const [],
 
-    // Legal Details
+
     required this.gstNumber,
     this.fssaiLicense = '',
     this.tradeLicense = '',
     this.aadharNumber = '',
     this.panNumber,
 
-    // Bank Details
+
     required this.accountHolderName,
     required this.bankName,
     required this.accountNumber,
@@ -5582,24 +5578,24 @@ class HotelOwnerDashboard extends StatefulWidget {
     this.branch = '',
     required this.accountType,
 
-    // Uploaded Files
+
     this.uploadedFiles = const {},
     required this.personPhotoInfo,
 
-    // Signature & Declaration
+
     this.signatureName = '',
     this.declarationName = '',
     this.declarationDate,
     this.declarationAccepted = false,
 
-    // Hotel Category
+
     this.hotelCategory = 'Normal',
 
-    // Digital Signature
+
     this.hasDigitalSignature = false,
     this.digitalSignatureImage,
 
-    // 2-Star+ fields
+
     this.designation,
     this.checkInTime,
     this.checkOutTime,
@@ -5610,7 +5606,7 @@ class HotelOwnerDashboard extends StatefulWidget {
     this.selectedIdProof,
     this.idProofFiles,
 
-    // 3-Star+ fields
+
     this.registrationNumber,
     this.signatoryName,
     this.seasonalPricing,
@@ -5619,11 +5615,11 @@ class HotelOwnerDashboard extends StatefulWidget {
     this.fireSafetyCertificate,
     this.businessServices,
 
-    // 4-Star+ fields
+
     this.starCertificate,
     this.wellnessRecreation,
 
-    // 5-Star+ fields
+
     this.brandName,
     this.starCertNumber,
     this.pollutionCertificate,
@@ -5631,7 +5627,7 @@ class HotelOwnerDashboard extends StatefulWidget {
     this.diningServices,
     this.wellnessRecreation5Star,
 
-    // 6-Star fields
+
     this.globalRecognition,
     this.gmName,
     this.country,
@@ -5843,11 +5839,7 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
                   Navigator.pop(context);
                 },
               ),
-              // Menu Button
-              // IconButton(
-              //   icon: Icon(Icons.menu_rounded, color: primaryColor, size: 28),
-              //   onPressed: () => Scaffold.of(context).openDrawer(),
-              // ),
+
             ],
           ),
         ),
@@ -5919,6 +5911,57 @@ class _HotelOwnerDashboardState extends State<HotelOwnerDashboard> {
             _buildPaymentOverview(),
 
             SizedBox(height: 24),
+
+            _buildGoToDashboardButton(),
+
+            SizedBox(height: 24),
+
+          ],
+        ),
+      ),
+    );
+  }
+  void _navigateToOwnerDashboard() {
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false,
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: _primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ),
@@ -8579,7 +8622,7 @@ class _BookingTrendGraphPainter extends CustomPainter {
 }
 
 class HotelOwnerProfilePage extends StatefulWidget {
-  // Common fields for all categories
+
   final String hotelName;
   final String ownerName;
   final String mobileNumber;
@@ -8603,7 +8646,7 @@ class HotelOwnerProfilePage extends StatefulWidget {
   final int totalRooms;
   final Map<String, dynamic> personPhotoInfo;
 
-  // Optional fields
+
   final String hotelType;
   final String yearOfEstablishment;
   final String website;
@@ -8626,10 +8669,10 @@ class HotelOwnerProfilePage extends StatefulWidget {
   final DateTime? declarationDate;
   final bool declarationAccepted;
 
-  // Hotel category field - CRITICAL for dynamic display
+
   final String hotelCategory;
 
-  // 2-Star+ specific fields
+
   final String? designation;
   final String? panNumber;
   final String? checkInTime;
@@ -8641,7 +8684,7 @@ class HotelOwnerProfilePage extends StatefulWidget {
   final String? selectedIdProof;
   final Map<String, Map<String, dynamic>>? idProofFiles;
 
-  // 3-Star+ specific fields
+
   final String? registrationNumber;
   final String? signatoryName;
   final bool? seasonalPricing;
@@ -8650,19 +8693,19 @@ class HotelOwnerProfilePage extends StatefulWidget {
   final bool? fireSafetyCertificate;
   final Map<String, bool>? businessServices;
 
-  // 4-Star+ specific fields
+
   final bool? starCertificate;
   final Map<String, bool>? wellnessRecreation;
 
-  // 5-Star+ specific fields
+
   final String? brandName;
   final String? starCertNumber;
   final bool? pollutionCertificate;
   final bool? liftCertificate;
   final Map<String, bool>? diningServices;
-  final Map<String, bool>? wellnessRecreation5Star; // 5-Star version
+  final Map<String, bool>? wellnessRecreation5Star;
 
-  // 6-Star specific fields
+  //
   final String? globalRecognition;
   final String? gmName;
   final String? country;
@@ -8679,13 +8722,13 @@ class HotelOwnerProfilePage extends StatefulWidget {
   final Map<String, bool>? guestPrivileges;
   final List<dynamic>? additionalAddresses;
 
-  // Digital Signature
+
   final bool? hasDigitalSignature;
   final Uint8List? digitalSignatureImage;
 
   const HotelOwnerProfilePage({
     super.key,
-    // Common required fields
+
     required this.hotelName,
     required this.ownerName,
     required this.mobileNumber,
@@ -8717,7 +8760,7 @@ class HotelOwnerProfilePage extends StatefulWidget {
     required this.customAmenities,
     required this.uploadedFiles,
 
-    // Optional common fields
+
     this.hotelType = '',
     this.yearOfEstablishment = '',
     this.website = '',
@@ -8732,10 +8775,10 @@ class HotelOwnerProfilePage extends StatefulWidget {
     this.declarationDate,
     this.declarationAccepted = false,
 
-    // Hotel category
+
     this.hotelCategory = 'Normal',
 
-    // 2-Star+ fields
+
     this.designation,
     this.panNumber,
     this.checkInTime,
@@ -8747,7 +8790,7 @@ class HotelOwnerProfilePage extends StatefulWidget {
     this.selectedIdProof,
     this.idProofFiles,
 
-    // 3-Star+ fields
+
     this.registrationNumber,
     this.signatoryName,
     this.seasonalPricing,
@@ -8756,11 +8799,11 @@ class HotelOwnerProfilePage extends StatefulWidget {
     this.fireSafetyCertificate,
     this.businessServices,
 
-    // 4-Star+ fields
+
     this.starCertificate,
     this.wellnessRecreation,
 
-    // 5-Star+ fields
+
     this.brandName,
     this.starCertNumber,
     this.pollutionCertificate,
@@ -8768,7 +8811,7 @@ class HotelOwnerProfilePage extends StatefulWidget {
     this.diningServices,
     this.wellnessRecreation5Star,
 
-    // 6-Star fields
+
     this.globalRecognition,
     this.gmName,
     this.country,
@@ -8785,7 +8828,7 @@ class HotelOwnerProfilePage extends StatefulWidget {
     this.guestPrivileges,
     this.additionalAddresses,
 
-    // Digital Signature
+
     this.hasDigitalSignature,
     this.digitalSignatureImage,
   });
@@ -8822,7 +8865,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
     });
     _refreshStats();
 
-    // DEBUG: Print all received data
+
     print('=== HOTEL OWNER PROFILE PAGE INIT ===');
     print('Hotel Name: ${widget.hotelName}');
     print('Owner Name: ${widget.ownerName}');
@@ -8835,7 +8878,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
     print('Custom Amenities count: ${widget.customAmenities.length}');
   }
 
-// Add this helper method
+
   int _getSelectedCount(Map<String, bool> amenities) {
     if (amenities.isEmpty) return 0;
     return amenities.entries.where((e) => e.value == true).length;
@@ -9049,13 +9092,13 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                           ),
                           child: Column(
                             children: [
-                              // Top row with category chip and edit button
+
                               Row(
                                 children: [
-                                  // Hotel Category Chip
+
                                   _buildCategoryChip(),
                                   const Spacer(),
-                                  // Edit Profile Button
+
                                   Container(
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 12,
@@ -9092,11 +9135,11 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                               ),
                               const SizedBox(height: 10),
 
-                              // Profile header with image and basic info
+
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Profile Image
+
                                   Container(
                                     width: 80,
                                     height: 80,
@@ -9123,7 +9166,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                                   ),
                                   const SizedBox(width: 16),
 
-                                  // Owner Name and Hotel Name
+
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
@@ -9161,7 +9204,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                                           ],
                                         ),
                                         const SizedBox(height: 12),
-                                        // Contact info
+
                                         Row(
                                           children: [
                                             const Icon(
@@ -9204,7 +9247,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
                               ),
                               const SizedBox(height: 20),
 
-                              // Stats Overview
+
                               Container(
                                 padding: const EdgeInsets.all(16),
                                 decoration: BoxDecoration(
@@ -9426,7 +9469,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
 
           const SizedBox(height: 32),
 
-          // Identity Cards - Show based on category
+
           if (_isNormal || _isTwoStar) ...[
             _buildSectionHeader('Identity Cards'),
             const SizedBox(height: 16),
@@ -9434,7 +9477,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             const SizedBox(height: 32),
           ],
 
-          // Designation (2-Star and above)
+
           if (_isTwoStarOrAbove &&
               widget.designation != null &&
               widget.designation!.isNotEmpty) ...[
@@ -9444,7 +9487,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             const SizedBox(height: 32),
           ],
 
-          // PAN Number (3-Star and above)
+
           if (_isThreeStarOrAbove &&
               widget.panNumber != null &&
               widget.panNumber!.isNotEmpty) ...[
@@ -9454,7 +9497,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             const SizedBox(height: 32),
           ],
 
-          // General Manager (6-Star)
+
           if (_isSixStar &&
               widget.gmName != null &&
               widget.gmName!.isNotEmpty) ...[
@@ -9464,7 +9507,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             const SizedBox(height: 32),
           ],
 
-          // Profile Photo
           _buildSectionHeader('Profile Photo'),
           const SizedBox(height: 16),
           _buildProfilePhotoCard(),
@@ -9953,7 +9995,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
           const SizedBox(height: 16),
           _buildHotelAddressCard(),
 
-          // Registration Number (3-Star+)
           if (_isThreeStarOrAbove &&
               widget.registrationNumber != null &&
               widget.registrationNumber!.isNotEmpty) ...[
@@ -9963,7 +10004,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             _buildRegistrationNumberCard(),
           ],
 
-          // Brand Name (5-Star+)
+
           if (_isFiveStarOrAbove &&
               widget.brandName != null &&
               widget.brandName!.isNotEmpty) ...[
@@ -9973,7 +10014,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             _buildBrandNameCard(),
           ],
 
-          // Star Certificate Number (5-Star)
+
           if (_isFiveStar &&
               widget.starCertNumber != null &&
               widget.starCertNumber!.isNotEmpty) ...[
@@ -9983,7 +10024,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             _buildStarCertificateCard(),
           ],
 
-          // Global Recognition (6-Star)
+
           if (_isSixStar &&
               widget.globalRecognition != null &&
               widget.globalRecognition!.isNotEmpty) ...[
@@ -9993,7 +10034,6 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             _buildGlobalRecognitionCard(),
           ],
 
-          // Country (6-Star)
           if (_isSixStar &&
               widget.country != null &&
               widget.country!.isNotEmpty) ...[
@@ -10003,7 +10043,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
             _buildCountryCard(),
           ],
 
-          // Additional Addresses (2-Star+)
+
           if (_isTwoStarOrAbove &&
               widget.additionalAddresses != null &&
               widget.additionalAddresses!.isNotEmpty) ...[
@@ -10824,7 +10864,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
     return _BankAndDocumentsTab(
       hotelCategory: widget.hotelCategory,
 
-      // Bank details
+
       accountHolderName: widget.accountHolderName,
       bankName: widget.bankName,
       accountNumber: widget.accountNumber,
@@ -10832,30 +10872,28 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
       branch: widget.branch,
       accountType: widget.accountType,
 
-      // Legal documents
+
       gstNumber: widget.gstNumber,
       fssaiLicense: widget.fssaiLicense,
       tradeLicense: widget.tradeLicense,
       panNumber: widget.panNumber,
 
-      // Uploaded files
+
       uploadedFiles: widget.uploadedFiles,
 
-      // ID Proof files (2-Star)
+
       idProofFiles: widget.idProofFiles,
       selectedIdProof: widget.selectedIdProof,
 
-      // Signature
       signatureName: widget.signatureName,
       declarationName: widget.declarationName,
       declarationDate: widget.declarationDate,
       declarationAccepted: widget.declarationAccepted,
 
-      // Digital Signature
       hasDigitalSignature: widget.hasDigitalSignature,
       digitalSignatureImage: widget.digitalSignatureImage,
 
-      // Signatory Name (3-Star+)
+
       signatoryName: widget.signatoryName,
     );
   }
@@ -10901,7 +10939,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
   }
 
   Widget _buildProfileImage() {
-    // Handle different image sources (network, file, asset)
+
     final photoInfo = widget.personPhotoInfo;
     final path = photoInfo['path'] as String?;
     final url = photoInfo['url'] as String?;
@@ -11184,12 +11222,12 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
   }
 
   void _copyToClipboard(String text) {
-    // Implement copy functionality
+
     print('Copied to clipboard: $text');
   }
 
   void _navigateToEditProfile(BuildContext context) async {
-    // Build registration data from current profile
+
     Map<String, dynamic> registrationData = {
       'hotelName': widget.hotelName,
       'hotelType': widget.hotelType,
@@ -11236,7 +11274,7 @@ class _HotelOwnerProfilePageState extends State<HotelOwnerProfilePage>
       'personPhotoInfo': widget.personPhotoInfo,
       'declarationAccepted': widget.declarationAccepted,
 
-      // Category specific fields
+
       'designation': widget.designation,
       'panNumber': widget.panNumber,
       'checkInTime': widget.checkInTime,
@@ -11306,11 +11344,11 @@ class _RoomAvailabilityTab extends StatelessWidget {
   final bool extraBedAvailable;
   final int totalRooms;
 
-  // 2-Star+ fields
+
   final String? checkInTime;
   final String? checkOutTime;
 
-  // 3-Star+ fields
+
   final bool? seasonalPricing;
   final bool? earlyCheckinAllowed;
   final bool? earlyCheckinChargeable;
@@ -17229,7 +17267,7 @@ class _TwoStarHotelRegistrationScreenState
     'Double Room': false,
     'Deluxe Room': false,
   };
-  String? _selectedAccountType; // 'Savings' or 'Current'
+  String? _selectedAccountType;
   String? _selectedHotelType;
 
   bool _extraBedAvailable = false;
@@ -17403,7 +17441,7 @@ class _TwoStarHotelRegistrationScreenState
   @override
   void initState() {
     super.initState();
-    // Initialize with current local time
+
     _checkInController.text = _getCurrentLocalTime();
     _checkOutController.text = _getCurrentLocalTime();
   }
@@ -17818,29 +17856,7 @@ class _TwoStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: _buildInputField(
-            //         label: 'Year of Establishment',
-            //         controller: _yearController,
-            //         hint: 'YYYY',
-            //         keyboardType: TextInputType.number,
-            //       ),
-            //     ),
-            //     SizedBox(width: 16),
-            //     Expanded(
-            //       child: _buildInputField(
-            //         label: 'Total Number of Rooms',
-            //         controller: _roomsController,
-            //         hint: '0',
-            //         keyboardType: TextInputType.number,
-            //       ),
-            //     ),
-            //   ],
-            // ),
 
-            // In _buildStep1() - modify the year and rooms input fields
             Row(
               children: [
                 Expanded(
@@ -18001,7 +18017,7 @@ class _TwoStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // Add Country field here
+
             Row(
               children: [
 
@@ -18024,7 +18040,7 @@ class _TwoStarHotelRegistrationScreenState
               ],
             ),
             SizedBox(height: 16),
-           // In _buildStep2() - this part looks correct already
+
 Row(
   children: [
     Expanded(
@@ -18038,7 +18054,7 @@ Row(
     Expanded(
       child: _buildInputField(
         label: 'Country',
-        controller: _countryController,  // Make sure this is connected
+        controller: _countryController,
         hint: 'Enter country',
       ),
     ),
@@ -18802,7 +18818,7 @@ Row(
             ),
             SizedBox(height: 20),
 
-                  // ADD COUPLE FRIENDLY SECTION HERE
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -18917,7 +18933,7 @@ Row(
     );
   }
   Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
-    // Parse current time or use current local time as default
+
     TimeOfDay initialTime = TimeOfDay.now();
 
     if (controller.text.isNotEmpty) {
@@ -18929,39 +18945,19 @@ Row(
           initialTime = TimeOfDay(hour: hour, minute: minute);
         }
       } catch (e) {
-        // Use current time if parsing fails
+
         initialTime = TimeOfDay.now();
       }
     }
 
-    // final TimeOfDay? pickedTime = await showTimePicker(
-    //   context: context,
-    //   initialTime: initialTime,
-    //   builder: (BuildContext context, Widget? child) {
-    //     return MediaQuery(
-    //       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-    //       child: child!,
-    //     );
-    //   },
-    // );
-    //
-    // if (pickedTime != null) {
-    //   setState(() {
-    //     // Store in 24-hour format
-    //     String hour = pickedTime.hour.toString().padLeft(2, '0');
-    //     String minute = pickedTime.minute.toString().padLeft(2, '0');
-    //     controller.text = '$hour:$minute';
-    //   });
-    // }
 
-    // When selecting time in the registration form
 TimeOfDay? pickedTime = await showTimePicker(
   context: context,
   initialTime: TimeOfDay.now(),
 );
 
 if (pickedTime != null) {
-  // Store in 24-hour format for consistency
+
   String formattedTime = '${pickedTime.hour.toString().padLeft(2, '0')}:${pickedTime.minute.toString().padLeft(2, '0')}';
   setState(() {
     _checkInController.text = formattedTime;
@@ -19044,7 +19040,7 @@ if (pickedTime != null) {
             ),
             SizedBox(height: 16),
 
-            // Add Account Type Radio Buttons here
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -21094,8 +21090,7 @@ if (pickedTime != null) {
       }).toList(),
     };
 
-// Just before Navigator.push
-// Add debug print to verify country is being sent
+
 print('=== DEBUG: Submitting form data ===');
 print('Country value being sent: "${_countryController.text}"');
 print('All keys in formData: ${formData.keys.toList()}');
@@ -21125,174 +21120,7 @@ print('All keys in formData: ${formData.keys.toList()}');
     }
   }
 
-  String _convertTo12HourFormat(String time24) {
-    if (time24.isEmpty) return '';
-    try {
-      List<String> parts = time24.split(':');
-      if (parts.length < 2) return time24;
 
-      int hour = int.tryParse(parts[0]) ?? 0;
-      int minute = int.tryParse(parts[1]) ?? 0;
-
-      String period = hour >= 12 ? 'PM' : 'AM';
-      int hour12 = hour % 12;
-      if (hour12 == 0) hour12 = 12;
-
-      return '${hour12.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
-    } catch (e) {
-      return time24;
-    }
-  }
-
-  String _convertTo24HourFormat(String time12) {
-    if (time12.isEmpty) return '';
-    try {
-      time12 = time12.trim().toUpperCase();
-
-      if (!time12.contains('AM') && !time12.contains('PM')) {
-        return time12;
-      }
-
-      String period = time12.contains('PM') ? 'PM' : 'AM';
-      String timeOnly = time12.replaceAll(RegExp(r'[AP]M'), '').trim();
-
-      List<String> parts = timeOnly.split(':');
-      if (parts.length < 2) return time12;
-
-      int hour = int.tryParse(parts[0]) ?? 0;
-      int minute = int.tryParse(parts[1]) ?? 0;
-
-      if (period == 'PM' && hour != 12) {
-        hour += 12;
-      } else if (period == 'AM' && hour == 12) {
-        hour = 0;
-      }
-
-      return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
-    } catch (e) {
-      return time12;
-    }
-  }
-
-
-
-  Widget _buildTimeDropdown({
-    required String label,
-    required TextEditingController controller,
-    required ValueChanged<String> onChanged,
-  }) {
-    String currentValue = controller.text;
-    String displayValue = '';
-    String displayText = '';
-
-    if (currentValue.isNotEmpty) {
-
-      for (var option in _timeOptions24Hour) {
-        if (option['value'] == currentValue) {
-          displayValue = option['value']!;
-          displayText = option['display']!;
-          break;
-        }
-      }
-
-
-      if (displayValue.isEmpty) {
-
-        try {
-          List<String> parts = currentValue.split(':');
-          if (parts.length >= 2) {
-            int hour = int.parse(parts[0]);
-            int minute = int.parse(parts[1].substring(0, 2));
-
-            // Format as 24-hour with leading zeros
-            String hour24 = hour.toString().padLeft(2, '0');
-            String minuteStr = minute.toString().padLeft(2, '0');
-            displayValue = '$hour24:$minuteStr';
-
-            // Convert to 12-hour format for display
-            String period = hour >= 12 ? 'PM' : 'AM';
-            int hour12 = hour % 12;
-            if (hour12 == 0) hour12 = 12;
-            displayText = '${hour12.toString().padLeft(2, '0')}:$minuteStr $period';
-          }
-        } catch (e) {
-          displayValue = currentValue;
-          displayText = currentValue;
-        }
-      }
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: _textPrimary,
-          ),
-        ),
-        SizedBox(height: 8),
-        Container(
-          height: 48,
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: _borderColor),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: displayValue.isNotEmpty ? displayValue : null,
-              isExpanded: true,
-              icon: Icon(Icons.access_time, color: _textSecondary, size: 20),
-              hint: Text(
-                displayText.isNotEmpty ? displayText : 'Select time',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: displayText.isNotEmpty ? _textPrimary : _textSecondary,
-                ),
-              ),
-              items: _timeOptions24Hour.map((option) {
-                return DropdownMenuItem<String>(
-                  value: option['value'],
-                  child: Row(
-                    children: [
-                      Icon(Icons.access_time, size: 16, color: _primaryColor),
-                      SizedBox(width: 8),
-                      Text(
-                        option['display']!,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: _textPrimary,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        '(${option['value']})',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: _textSecondary,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() {
-                    controller.text = value;
-                  });
-                  onChanged(value);
-                }
-              },
-            ),
-          ),
-        ),
-      ],
-    );
-  }
   String _formatTimeForDisplay(String time24) {
     if (time24.isEmpty) return '';
     try {
@@ -21395,7 +21223,7 @@ class _ThreeStarHotelRegistrationScreenState
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController(); // NEW: Country field
+  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _checkInController = TextEditingController();
   final TextEditingController _checkOutController = TextEditingController();
   final TextEditingController _gstController = TextEditingController();
@@ -21411,10 +21239,10 @@ class _ThreeStarHotelRegistrationScreenState
   final TextEditingController _signatoryNameController =
   TextEditingController();
 
-  // NEW: Account Type
-  String? _selectedAccountType; // 'Savings' or 'Current'
 
-  // NEW: Profile Photo
+  String? _selectedAccountType;
+
+
   final Map<String, dynamic> _profilePhoto = {
     'name': '',
     'size': 0,
@@ -21424,11 +21252,11 @@ class _ThreeStarHotelRegistrationScreenState
 
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Standard': {
-      'rooms': 0, // Changed from '' to 0
-      'occupancy': 0, // Changed from '' to 0
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'Queen',
-      'price': 0.0, // Changed from '' to 0.0
+      'price': 0.0,
     },
     'Deluxe': {
       'rooms': 0,
@@ -21588,7 +21416,7 @@ class _ThreeStarHotelRegistrationScreenState
   bool _hasDigitalSignature = false;
   Uint8List? _digitalSignatureImage;
 
-  // NEW: Helper method to get current local time
+
   String _getCurrentLocalTime() {
     final now = DateTime.now();
     final hour = now.hour.toString().padLeft(2, '0');
@@ -21596,7 +21424,7 @@ class _ThreeStarHotelRegistrationScreenState
     return '$hour:$minute';
   }
 
-  // NEW: Helper method to get initial text for numeric fields
+
   String _getInitialText(dynamic value) {
     if (value == null) return '';
     if (value is num && value == 0) return '';
@@ -21606,7 +21434,7 @@ class _ThreeStarHotelRegistrationScreenState
   @override
   void initState() {
     super.initState();
-    // Initialize with current local time
+
     _checkInController.text = _getCurrentLocalTime();
     _checkOutController.text = _getCurrentLocalTime();
   }
@@ -22032,7 +21860,6 @@ class _ThreeStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // UPDATED: Year and Rooms with integer input formatting
             Row(
               children: [
                 Expanded(
@@ -22063,7 +21890,7 @@ class _ThreeStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Registration Number field (3-Star specific)
+
             _buildInputField(
               label: 'Registration Number',
               controller: _registrationNumberController,
@@ -22081,7 +21908,7 @@ class _ThreeStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Contact Details',
           children: [
-            // NEW: Profile Photo Upload
+
             _buildProfilePhotoUploadItem(),
             SizedBox(height: 16),
 
@@ -22246,7 +22073,7 @@ class _ThreeStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Country field
+
             Row(
               children: [
                 Expanded(
@@ -22257,7 +22084,7 @@ class _ThreeStarHotelRegistrationScreenState
                   ),
                 ),
                 SizedBox(width: 16),
-                Expanded(child: Container()), // Empty space for balance
+                Expanded(child: Container()),
               ],
             ),
           ],
@@ -22460,7 +22287,7 @@ class _ThreeStarHotelRegistrationScreenState
         _buildCard(
           title: '6. Check-in Policies',
           children: [
-            // UPDATED: Time picker fields with clock icon
+
             Row(
               children: [
                 Expanded(
@@ -22681,7 +22508,7 @@ class _ThreeStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Account Type Radio Buttons
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -23087,7 +22914,7 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
-  // NEW: Profile Photo Upload Widget
+
   Widget _buildProfilePhotoUploadItem() {
     final fileName = _profilePhoto['name'] as String? ?? '';
     final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
@@ -23376,7 +23203,7 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Time Picker Field with clock icon
+
   Widget _buildTimePickerField({
     required String label,
     required TextEditingController controller,
@@ -23429,7 +23256,7 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
-  // NEW: Time selection method
+
   Future<void> _selectTime(BuildContext context,
       TextEditingController controller) async {
     TimeOfDay initialTime = TimeOfDay.now();
@@ -23467,7 +23294,7 @@ class _ThreeStarHotelRegistrationScreenState
     }
   }
 
-  // NEW: Format time for display
+
   String _formatTimeForDisplay(String time24) {
     if (time24.isEmpty) return '';
     try {
@@ -23679,7 +23506,7 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Input field with inputFormatters
+
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
@@ -23760,7 +23587,6 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Room Configuration Card with integer and double handling
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -23915,7 +23741,6 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Small input with inputFormatters
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
@@ -24042,69 +23867,7 @@ class _ThreeStarHotelRegistrationScreenState
     );
   }
 
-  // Keep the original time dropdown for backward compatibility
-  Widget _buildTimeDropdown({
-    required String label,
-    required TextEditingController controller,
-    required ValueChanged<String> onChanged,
-  }) {
-    String currentValue = controller.text;
-    String displayValue = '';
 
-    if (currentValue.isNotEmpty) {
-      for (var option in _timeOptions24Hour) {
-        if (option['value'] == currentValue) {
-          displayValue = option['value']!;
-          break;
-        }
-      }
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: _textPrimary,
-          ),
-        ),
-        SizedBox(height: 8),
-        Container(
-          height: 48,
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: _borderColor),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: displayValue.isNotEmpty ? displayValue : null,
-              isExpanded: true,
-              icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
-              hint: Text('Select time'),
-              items: _timeOptions24Hour.map((option) {
-                return DropdownMenuItem<String>(
-                  value: option['value'],
-                  child: Text(option['display']!),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() {
-                    controller.text = value;
-                  });
-                  onChanged(value);
-                }
-              },
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildDocumentUploadItem({
     required String documentName,
@@ -24962,7 +24725,7 @@ class _ThreeStarHotelRegistrationScreenState
       }).toList(),
     };
 
-    // Navigate to ThreeStarHotelSummaryScreen
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -25077,7 +24840,7 @@ class _FourStarHotelRegistrationScreenState
   final TextEditingController _signatoryNameController =
       TextEditingController();
 
-  // NEW: Profile Photo
+
   final Map<String, dynamic> _profilePhoto = {
     'name': '',
     'size': 0,
@@ -25085,16 +24848,16 @@ class _FourStarHotelRegistrationScreenState
     'uploaded': false,
   };
 
-  // NEW: Account Type
-  String? _selectedAccountType; // 'Savings' or 'Current'
+
+  String? _selectedAccountType;
 
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Superior Room': {
-      'rooms': 0, // Changed from '' to 0
-      'occupancy': 0, // Changed from '' to 0
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'Queen',
-      'price': 0.0, // Changed from '' to 0.0
+      'price': 0.0,
     },
     'Deluxe Room': {
       'rooms': 0,
@@ -25281,7 +25044,7 @@ class _FourStarHotelRegistrationScreenState
   bool _hasDigitalSignature = false;
   Uint8List? _digitalSignatureImage;
 
-  // NEW: Helper method to get current local time
+
   String _getCurrentLocalTime() {
     final now = DateTime.now();
     final hour = now.hour.toString().padLeft(2, '0');
@@ -25289,7 +25052,7 @@ class _FourStarHotelRegistrationScreenState
     return '$hour:$minute';
   }
 
-  // NEW: Helper method to get initial text for numeric fields
+
   String _getInitialText(dynamic value) {
     if (value == null) return '';
     if (value is num && value == 0) return '';
@@ -25316,7 +25079,7 @@ class _FourStarHotelRegistrationScreenState
   @override
   void initState() {
     super.initState();
-    // Initialize with current local time
+
     _checkInController.text = _getCurrentLocalTime();
     _checkOutController.text = _getCurrentLocalTime();
   }
@@ -25768,7 +25531,7 @@ class _FourStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // UPDATED: Year and Rooms with integer input formatting
+
             Row(
               children: [
                 Expanded(
@@ -25810,7 +25573,7 @@ class _FourStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Contact Details',
           children: [
-            // NEW: Profile Photo Upload
+
             _buildProfilePhotoUploadItem(),
             SizedBox(height: 16),
 
@@ -25841,7 +25604,7 @@ class _FourStarHotelRegistrationScreenState
               keyboardType: TextInputType.phone,
               inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
-// In _buildStep2(), after the alternate contact field and before email field
+
 
             SizedBox(height: 16),
 
@@ -26063,7 +25826,7 @@ class _FourStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Country field
+
             Row(
               children: [
                 Expanded(
@@ -26074,7 +25837,7 @@ class _FourStarHotelRegistrationScreenState
                   ),
                 ),
                 SizedBox(width: 16),
-                Expanded(child: Container()), // Empty space for balance
+                Expanded(child: Container()),
               ],
             ),
           ],
@@ -26283,7 +26046,7 @@ class _FourStarHotelRegistrationScreenState
         _buildCard(
           title: '6. Check-in Policies',
           children: [
-            // UPDATED: Time picker fields with clock icon
+
             Row(
               children: [
                 Expanded(
@@ -26526,7 +26289,7 @@ class _FourStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Account Type Radio Buttons
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -26954,7 +26717,7 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  // NEW: Profile Photo Upload Widget
+
   Widget _buildProfilePhotoUploadItem() {
     final fileName = _profilePhoto['name'] as String? ?? '';
     final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
@@ -27239,7 +27002,7 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Time Picker Field with clock icon
+
   Widget _buildTimePickerField({
     required String label,
     required TextEditingController controller,
@@ -27292,7 +27055,6 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  // NEW: Time selection method
   Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
     TimeOfDay initialTime = TimeOfDay.now();
 
@@ -27329,7 +27091,6 @@ class _FourStarHotelRegistrationScreenState
     }
   }
 
-  // NEW: Format time for display
   String _formatTimeForDisplay(String time24) {
     if (time24.isEmpty) return '';
     try {
@@ -27537,7 +27298,6 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Input field with inputFormatters
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
@@ -27618,7 +27378,7 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Room Configuration Card with integer and double handling
+
   Widget _buildRoomConfigurationCard(String roomType) {
     final details = _roomDetails[roomType]!;
 
@@ -27773,7 +27533,7 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Small input with inputFormatters
+
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
@@ -27900,69 +27660,8 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  // Keep the original time dropdown for backward compatibility
-  Widget _buildTimeDropdown({
-    required String label,
-    required TextEditingController controller,
-    required ValueChanged<String> onChanged,
-  }) {
-    String currentValue = controller.text;
-    String displayValue = '';
 
-    if (currentValue.isNotEmpty) {
-      for (var option in _timeOptions24Hour) {
-        if (option['value'] == currentValue) {
-          displayValue = option['value']!;
-          break;
-        }
-      }
-    }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: _textPrimary,
-          ),
-        ),
-        SizedBox(height: 8),
-        Container(
-          height: 48,
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: _borderColor),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: displayValue.isNotEmpty ? displayValue : null,
-              isExpanded: true,
-              icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
-              hint: Text('Select time'),
-              items: _timeOptions24Hour.map((option) {
-                return DropdownMenuItem<String>(
-                  value: option['value'],
-                  child: Text(option['display']!),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() {
-                    controller.text = value;
-                  });
-                  onChanged(value);
-                }
-              },
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildDocumentUploadItem({
     required String documentName,
@@ -28134,292 +27833,7 @@ class _FourStarHotelRegistrationScreenState
     );
   }
 
-  Widget _buildSignatureUploadItem() {
-    final fileName = _signatureFile['name'] as String? ?? '';
-    final isUploaded = (_signatureFile['uploaded'] as bool?) ?? false;
-    final fileSize = (_signatureFile['size'] as int?) ?? 0;
 
-    Future<void> _pickSignature() async {
-      try {
-        FilePickerResult? result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
-          allowMultiple: false,
-        );
-
-        if (result != null && result.files.isNotEmpty) {
-          final file = result.files.first;
-
-          if (file.size > 2 * 1024 * 1024) {
-            _showErrorDialog(
-              'File too large',
-              'Please select a signature file smaller than 2MB',
-            );
-            return;
-          }
-
-          setState(() {
-            _signatureFile['name'] = file.name;
-            _signatureFile['size'] = file.size;
-            _signatureFile['path'] = file.path ?? '';
-            _signatureFile['uploaded'] = true;
-          });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Signature uploaded successfully'),
-              backgroundColor: _successColor,
-              duration: Duration(seconds: 2),
-            ),
-          );
-        }
-      } catch (e) {
-        _showErrorDialog(
-          'Upload Error',
-          'Failed to upload signature: ${e.toString()}',
-        );
-      }
-    }
-
-    void _viewSignature() {
-      if (fileName.isNotEmpty) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Signature'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 200,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey[300]!),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Signature Preview',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text('File: $fileName'),
-                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('Close'),
-              ),
-            ],
-          ),
-        );
-      }
-    }
-
-    void _removeSignature() {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Remove Signature'),
-          content: Text('Are you sure you want to remove this signature?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _signatureFile['name'] = '';
-                  _signatureFile['size'] = 0;
-                  _signatureFile['path'] = '';
-                  _signatureFile['uploaded'] = false;
-                });
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Signature removed'),
-                    backgroundColor: Colors.orange,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              },
-              child: Text('Remove', style: TextStyle(color: Colors.red)),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: isUploaded ? _successColor : _borderColor,
-          width: isUploaded ? 1.5 : 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.note_alt_outlined,
-                    size: 20,
-                    color: isUploaded ? _successColor : _primaryColor,
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Digital Signature',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: isUploaded ? _successColor : _textPrimary,
-                        ),
-                      ),
-                      Text(
-                        'PNG or JPG format',
-                        style: TextStyle(fontSize: 11, color: _textSecondary),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              if (isUploaded)
-                Row(
-                  children: [
-                    Icon(Icons.check_circle, color: _successColor, size: 16),
-                    SizedBox(width: 4),
-                    Text(
-                      'Uploaded',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: _successColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          ),
-          SizedBox(height: 12),
-
-          if (!isUploaded)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: _pickSignature,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: Icon(Icons.upload, size: 18, color: Colors.white),
-                label: Text(
-                  'Upload Signature',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-
-          if (isUploaded && fileName.isNotEmpty)
-            Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: _primaryLight,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: _successColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _successColor.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.note_alt_outlined,
-                        size: 24,
-                        color: _successColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          fileName,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                            color: _textPrimary,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                          style: TextStyle(fontSize: 11, color: _textSecondary),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: _viewSignature,
-                        icon: Icon(
-                          Icons.remove_red_eye,
-                          size: 20,
-                          color: _primaryColor,
-                        ),
-                        tooltip: 'Preview Signature',
-                      ),
-                      IconButton(
-                        onPressed: _removeSignature,
-                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
-                        tooltip: 'Remove Signature',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
 
   Widget _getFileIcon(String fileName) {
     final ext = _getFileExtension(fileName).toLowerCase();
@@ -28620,7 +28034,7 @@ class _FourStarHotelRegistrationScreenState
         _currentStep++;
       });
 
-      // Scroll to top when moving to next step
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollToTop();
       });
@@ -28840,7 +28254,7 @@ class _FourStarHotelRegistrationScreenState
       }).toList(),
     };
 
-    // Navigate to FourStarHotelSummaryScreen (you'll need to create this)
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -28948,7 +28362,7 @@ class _FiveStarHotelRegistrationScreenState
   final TextEditingController _districtController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
-  final TextEditingController _countryController = TextEditingController(); // NEW: Country field
+  final TextEditingController _countryController = TextEditingController();
   final TextEditingController _checkInController = TextEditingController();
   final TextEditingController _checkOutController = TextEditingController();
   final TextEditingController _gstController = TextEditingController();
@@ -28968,7 +28382,7 @@ class _FiveStarHotelRegistrationScreenState
   final TextEditingController _signatoryDesignationController =
       TextEditingController();
 
-  // NEW: Profile Photo
+
   final Map<String, dynamic> _profilePhoto = {
     'name': '',
     'size': 0,
@@ -28976,19 +28390,19 @@ class _FiveStarHotelRegistrationScreenState
     'uploaded': false,
   };
 
-  // NEW: Account Type
-  String? _selectedAccountType; // 'Savings' or 'Current'
+
+  String? _selectedAccountType;
 
   List<Map<String, TextEditingController>> _additionalAddresses = [];
 
   final Map<String, Map<String, dynamic>> _roomDetails = {
     'Deluxe Room': {
-      'rooms': 0, // Changed from '' to 0
-      'occupancy': 0, // Changed from '' to 0
+      'rooms': 0,
+      'occupancy': 0,
       'ac': true,
       'bedType': 'King',
-      'minPrice': 0.0, // Changed from '' to 0.0
-      'maxPrice': 0.0, // Changed from '' to 0.0
+      'minPrice': 0.0,
+      'maxPrice': 0.0,
     },
     'Club Room': {
       'rooms': 0,
@@ -29440,7 +28854,7 @@ class _FiveStarHotelRegistrationScreenState
                       ),
                     ),
 
-                    // Step Content
+
                     _buildStepContent(),
                     SizedBox(height: 32),
                   ],
@@ -29634,7 +29048,7 @@ class _FiveStarHotelRegistrationScreenState
 
             SizedBox(height: 16),
 
-            // UPDATED: Year and Rooms with integer input formatting
+
             Row(
               children: [
                 Expanded(
@@ -29682,7 +29096,7 @@ class _FiveStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Hotel Address',
           children: [
-            // NEW: Profile Photo Upload
+
             _buildProfilePhotoUploadItem(),
             SizedBox(height: 16),
 
@@ -29798,7 +29212,7 @@ class _FiveStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Country field
+
             Row(
               children: [
                 Expanded(
@@ -29809,7 +29223,7 @@ class _FiveStarHotelRegistrationScreenState
                   ),
                 ),
                 SizedBox(width: 16),
-                Expanded(child: Container()), // Empty space for balance
+                Expanded(child: Container()),
               ],
             ),
           ],
@@ -30089,7 +29503,7 @@ class _FiveStarHotelRegistrationScreenState
         _buildCard(
           title: '6. Guest Policies',
           children: [
-            // UPDATED: Time picker fields with clock icon
+
             Row(
               children: [
                 Expanded(
@@ -30144,7 +29558,6 @@ class _FiveStarHotelRegistrationScreenState
                 ),
               ],
             ),
-// In _buildStep4(), after the Pets Allowed section and before the closing of the _buildCard
 
 SizedBox(height: 20),
 
@@ -30195,7 +29608,7 @@ Column(
 
             SizedBox(height: 20),
 
-          // SMOKING POLICY - ADD THIS SECTION
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -30366,7 +29779,7 @@ Column(
             ),
             SizedBox(height: 16),
 
-            // NEW: Account Type Radio Buttons
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -30735,7 +30148,7 @@ Column(
     );
   }
 
-  // NEW: Profile Photo Upload Widget
+
   Widget _buildProfilePhotoUploadItem() {
     final fileName = _profilePhoto['name'] as String? ?? '';
     final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
@@ -31020,7 +30433,7 @@ Column(
     );
   }
 
-  // UPDATED: Time Picker Field with clock icon
+
   Widget _buildTimePickerField({
     required String label,
     required TextEditingController controller,
@@ -31073,7 +30486,6 @@ Column(
     );
   }
 
-  // NEW: Time selection method
   Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
     TimeOfDay initialTime = TimeOfDay.now();
 
@@ -31110,7 +30522,7 @@ Column(
     }
   }
 
-  // NEW: Format time for display
+
   String _formatTimeForDisplay(String time24) {
     if (time24.isEmpty) return '';
     try {
@@ -31318,7 +30730,7 @@ Column(
     );
   }
 
-  // UPDATED: Input field with inputFormatters
+
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
@@ -31624,7 +31036,7 @@ Column(
     );
   }
 
-  // UPDATED: Small input with inputFormatters
+
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
@@ -31751,69 +31163,8 @@ Column(
     );
   }
 
-  // Keep the original time dropdown for backward compatibility
-  Widget _buildTimeDropdown({
-    required String label,
-    required TextEditingController controller,
-    required ValueChanged<String> onChanged,
-  }) {
-    String currentValue = controller.text;
-    String displayValue = '';
 
-    if (currentValue.isNotEmpty) {
-      for (var option in _timeOptions24Hour) {
-        if (option['value'] == currentValue) {
-          displayValue = option['value']!;
-          break;
-        }
-      }
-    }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: _textPrimary,
-          ),
-        ),
-        SizedBox(height: 8),
-        Container(
-          height: 48,
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            border: Border.all(color: _borderColor),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              value: displayValue.isNotEmpty ? displayValue : null,
-              isExpanded: true,
-              icon: Icon(Icons.arrow_drop_down, color: _textSecondary),
-              hint: Text('Select time'),
-              items: _timeOptions24Hour.map((option) {
-                return DropdownMenuItem<String>(
-                  value: option['value'],
-                  child: Text(option['display']!),
-                );
-              }).toList(),
-              onChanged: (value) {
-                if (value != null) {
-                  setState(() {
-                    controller.text = value;
-                  });
-                  onChanged(value);
-                }
-              },
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 
   Widget _buildDocumentUploadItem({
     required String documentName,
@@ -31984,292 +31335,7 @@ Column(
     );
   }
 
-  Widget _buildSignatureUploadItem() {
-    final fileName = _signatureFile['name'] as String? ?? '';
-    final isUploaded = (_signatureFile['uploaded'] as bool?) ?? false;
-    final fileSize = (_signatureFile['size'] as int?) ?? 0;
 
-    Future<void> _pickSignature() async {
-      try {
-        FilePickerResult? result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
-          allowMultiple: false,
-        );
-
-        if (result != null && result.files.isNotEmpty) {
-          final file = result.files.first;
-
-          if (file.size > 2 * 1024 * 1024) {
-            _showErrorDialog(
-              'File too large',
-              'Please select a signature file smaller than 2MB',
-            );
-            return;
-          }
-
-          setState(() {
-            _signatureFile['name'] = file.name;
-            _signatureFile['size'] = file.size;
-            _signatureFile['path'] = file.path ?? '';
-            _signatureFile['uploaded'] = true;
-          });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Signature uploaded successfully'),
-              backgroundColor: _successColor,
-              duration: Duration(seconds: 2),
-            ),
-          );
-        }
-      } catch (e) {
-        _showErrorDialog(
-          'Upload Error',
-          'Failed to upload signature: ${e.toString()}',
-        );
-      }
-    }
-
-    void _viewSignature() {
-      if (fileName.isNotEmpty) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Signature'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 200,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.grey[300]!),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Signature & Hotel Seal Preview',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text('File: $fileName'),
-                Text('Size: ${(fileSize / 1024).toStringAsFixed(1)} KB'),
-              ],
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('Close'),
-              ),
-            ],
-          ),
-        );
-      }
-    }
-
-    void _removeSignature() {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Remove Signature'),
-          content: Text('Are you sure you want to remove this signature?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _signatureFile['name'] = '';
-                  _signatureFile['size'] = 0;
-                  _signatureFile['path'] = '';
-                  _signatureFile['uploaded'] = false;
-                });
-                Navigator.pop(context);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('Signature removed'),
-                    backgroundColor: Colors.orange,
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-              },
-              child: Text('Remove', style: TextStyle(color: Colors.red)),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: isUploaded ? _successColor.withOpacity(0.05) : Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: isUploaded ? _successColor : _borderColor,
-          width: isUploaded ? 1.5 : 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.note_alt_outlined,
-                    size: 20,
-                    color: isUploaded ? _successColor : _primaryColor,
-                  ),
-                  SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Digital Signature & Hotel Seal',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: isUploaded ? _successColor : _textPrimary,
-                        ),
-                      ),
-                      Text(
-                        'PNG or JPG format',
-                        style: TextStyle(fontSize: 11, color: _textSecondary),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              if (isUploaded)
-                Row(
-                  children: [
-                    Icon(Icons.check_circle, color: _successColor, size: 16),
-                    SizedBox(width: 4),
-                    Text(
-                      'Uploaded',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: _successColor,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          ),
-          SizedBox(height: 12),
-
-          if (!isUploaded)
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: _pickSignature,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: _primaryColor,
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 7),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                icon: Icon(Icons.upload, size: 18, color: Colors.white),
-                label: Text(
-                  'Upload Signature & Seal',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-
-          if (isUploaded && fileName.isNotEmpty)
-            Container(
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: _primaryLight,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: _successColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(6),
-                      border: Border.all(color: _successColor.withOpacity(0.3)),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.note_alt_outlined,
-                        size: 24,
-                        color: _successColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          fileName,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 13,
-                            color: _textPrimary,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          '${(fileSize / 1024).toStringAsFixed(1)} KB',
-                          style: TextStyle(fontSize: 11, color: _textSecondary),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 8),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: _viewSignature,
-                        icon: Icon(
-                          Icons.remove_red_eye,
-                          size: 20,
-                          color: _primaryColor,
-                        ),
-                        tooltip: 'Preview Signature',
-                      ),
-                      IconButton(
-                        onPressed: _removeSignature,
-                        icon: Icon(Icons.delete, size: 20, color: Colors.red),
-                        tooltip: 'Remove Signature',
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
 
   Widget _getFileIcon(String fileName) {
     final ext = _getFileExtension(fileName).toLowerCase();
@@ -32538,7 +31604,7 @@ Column(
       return;
     }
 
-    // Process room details to ensure proper types
+
     Map<String, Map<String, dynamic>> processedRoomDetails = {};
     _roomDetails.forEach((key, value) {
       processedRoomDetails[key] = {
@@ -32578,9 +31644,9 @@ Column(
       'district': _districtController.text,
       'state': _stateController.text,
       'pinCode': _pinController.text,
-      'country': _countryController.text, // Add this
-      'profilePhoto': _profilePhoto, // Add this
-      'accountType': _selectedAccountType, // Add this
+      'country': _countryController.text,
+      'profilePhoto': _profilePhoto,
+      'accountType': _selectedAccountType,
       'selectedRoomTypes': Map<String, bool>.from(_selectedRoomTypes),
       'roomDetails': processedRoomDetails,
       'extraBedAvailable': _extraBedAvailable,
@@ -32787,7 +31853,7 @@ class _SixStarHotelRegistrationScreenState
 
   String? _selectedHotelType;
 
- // Default to non-smoking
+
 Map<String, bool> _selectedRoomTypes = {
   'Luxury Room': false,
   'Club Level Room': false,
@@ -32919,11 +31985,11 @@ Map<String, bool> _selectedRoomTypes = {
     'path': '',
     'uploaded': false,
   };
-bool _complimentaryCheckout = true;  // Default to true
+bool _complimentaryCheckout = true;
 bool _byApprovalCheckout = false;
   bool _declarationAccepted = false;
   DateTime? _selectedDate;
- // Default to non-smoking
+
   String _getCurrentLocalTime() {
     final now = DateTime.now();
     final hour = now.hour.toString().padLeft(2, '0');
@@ -33616,7 +32682,7 @@ Row(
     SizedBox(width: 16),
     Expanded(
       child: _buildInputField(
-        label: 'District',  // NEW: District field
+        label: 'District',
         controller: _districtController,
         hint: 'Enter district',
       ),
@@ -34128,7 +33194,7 @@ Widget _buildStep4() {
       _buildCard(
         title: '6. Guest Policies',
         children: [
-          // Check-in/Check-out times
+
           Row(
             children: [
               Expanded(
@@ -34148,7 +33214,6 @@ Widget _buildStep4() {
           ),
           SizedBox(height: 20),
 
-          // Early / Late Check-Out (Fixed - Only Complimentary works)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34167,7 +33232,7 @@ Widget _buildStep4() {
                   }),
                   SizedBox(width: 8),
                   _buildToggleChip('By Approval', _byApprovalCheckout, () {
-                    setState(() {  // Fixed: Removed the extra comma after this closing brace
+                    setState(() {
                       _byApprovalCheckout = true;
                       _complimentaryCheckout = false;
                     });
@@ -34178,7 +33243,7 @@ Widget _buildStep4() {
           ),
           SizedBox(height: 20),
 
-          // Pet Luxury Services
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34202,7 +33267,7 @@ Widget _buildStep4() {
           ),
           SizedBox(height: 20),
 
-          // VIP / Diplomatic Protocols
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34226,7 +33291,7 @@ Widget _buildStep4() {
           ),
           SizedBox(height: 20),
 
-          // Smoking Policy
+
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34465,7 +33530,7 @@ Widget _buildStep4() {
         _buildCard(
           title: '10. Declaration',
           children: [
-            // Declaration checkbox
+
             Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -34512,7 +33577,7 @@ Widget _buildStep4() {
             Divider(color: _borderColor),
             SizedBox(height: 20),
 
-            // Digital Signature Section
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -34531,7 +33596,7 @@ Widget _buildStep4() {
                 ),
                 SizedBox(height: 12),
 
-                // Signature Canvas
+
                 Container(
                   height: 200,
                   decoration: BoxDecoration(
@@ -34546,7 +33611,7 @@ Widget _buildStep4() {
                 ),
                 SizedBox(height: 12),
 
-                // Signature Controls
+
                 Row(
                   children: [
                     Expanded(
@@ -34596,7 +33661,7 @@ Widget _buildStep4() {
                   ],
                 ),
 
-                // Display saved digital signature
+
                 if (_hasDigitalSignature && _digitalSignatureImage != null)
                   Padding(
                     padding: EdgeInsets.only(top: 16),
@@ -35229,16 +34294,15 @@ Widget _buildStep4() {
               ),
             ],
           ),
-          SizedBox(height: 16), // Increased spacing
+          SizedBox(height: 16),
 
-          // ENLARGED PRICE SECTION
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Select Price Per Day:',
                 style: TextStyle(
-                  fontSize: 13, // Slightly larger font
+                  fontSize: 13,
                   fontWeight: FontWeight.w600,
                   color: _textPrimary,
                 ),
@@ -35248,7 +34312,7 @@ Widget _buildStep4() {
                 children: [
                   Expanded(
                     child: Container(
-                      height: 50, // Increased height for price fields
+                      height: 50,
                       child: TextFormField(
                         controller: TextEditingController(
                           text: details['minPrice'] ?? '',
@@ -35284,7 +34348,7 @@ Widget _buildStep4() {
                       ),
                     ),
                   ),
-                  SizedBox(width: 12), // Increased spacing
+                  SizedBox(width: 12),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
@@ -35296,10 +34360,10 @@ Widget _buildStep4() {
                       ),
                     ),
                   ),
-                  SizedBox(width: 12), // Increased spacing
+                  SizedBox(width: 12),
                   Expanded(
                     child: Container(
-                      height: 50, // Increased height for price fields
+                      height: 50,
                       child: TextFormField(
                         controller: TextEditingController(
                           text: details['maxPrice'] ?? '',
@@ -35309,7 +34373,7 @@ Widget _buildStep4() {
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
                         ],
-                        style: TextStyle(fontSize: 14), // Larger text
+                        style: TextStyle(fontSize: 14),
                         decoration: InputDecoration(
                           hintText: 'Maximum price',
                           labelText: 'Max Price',
@@ -36490,8 +35554,8 @@ class _SevenStarHotelRegistrationScreenState
   TextEditingController();
   final TextEditingController _titleRankController = TextEditingController();
 
-  final TextEditingController _checkInController = TextEditingController(); // NEW: Check-in time
-  final TextEditingController _checkOutController = TextEditingController(); // NEW: Check-out time
+  final TextEditingController _checkInController = TextEditingController();
+  final TextEditingController _checkOutController = TextEditingController();
 
   String? _selectedSovereignClassification;
   final List<String> _sovereignClassifications = [
@@ -36517,9 +35581,9 @@ class _SevenStarHotelRegistrationScreenState
     'Diplomatic Authority',
   ];
 
-  String? _selectedAccountType; // NEW: Account type
+  String? _selectedAccountType;
 
-  final Map<String, dynamic> _profilePhoto = { // NEW: Profile photo
+  final Map<String, dynamic> _profilePhoto = {
     'name': '',
     'size': 0,
     'path': '',
@@ -36676,7 +35740,7 @@ class _SevenStarHotelRegistrationScreenState
     },
   ];
 
-  final List<Map<String, String>> _timeOptions24Hour = [ // NEW: Time options
+  final List<Map<String, String>> _timeOptions24Hour = [
     {'value': '00:00', 'display': '12:00 AM'},
     {'value': '01:00', 'display': '01:00 AM'},
     {'value': '02:00', 'display': '02:00 AM'},
@@ -36703,7 +35767,7 @@ class _SevenStarHotelRegistrationScreenState
     {'value': '23:00', 'display': '11:00 PM'},
   ];
 
-  // NEW: Helper method to get current local time
+
   String _getCurrentLocalTime() {
     final now = DateTime.now();
     final hour = now.hour.toString().padLeft(2, '0');
@@ -36711,7 +35775,7 @@ class _SevenStarHotelRegistrationScreenState
     return '$hour:$minute';
   }
 
-  // NEW: Helper method to get initial text for numeric fields
+
   String _getInitialText(dynamic value) {
     if (value == null) return '';
     if (value is num && value == 0) return '';
@@ -36722,8 +35786,8 @@ class _SevenStarHotelRegistrationScreenState
   void initState() {
     super.initState();
     _initializeAmenities();
-    _checkInController.text = _getCurrentLocalTime(); // NEW: Initialize check-in time
-    _checkOutController.text = _getCurrentLocalTime(); // NEW: Initialize check-out time
+    _checkInController.text = _getCurrentLocalTime();
+    _checkOutController.text = _getCurrentLocalTime();
   }
 
   void _initializeAmenities() {
@@ -36825,7 +35889,7 @@ class _SevenStarHotelRegistrationScreenState
         key: _formKey,
         child: Column(
           children: [
-            // STEP INDICATOR
+
             Container(
               padding: EdgeInsets.all(8),
               color: Colors.white,
@@ -37038,7 +36102,7 @@ class _SevenStarHotelRegistrationScreenState
               ),
             ),
 
-            // NAVIGATION BUTTONS
+
             Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
               decoration: BoxDecoration(
@@ -37200,7 +36264,7 @@ class _SevenStarHotelRegistrationScreenState
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       LengthLimitingTextInputFormatter(4),
-                    ], // UPDATED: Integer only
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -37212,7 +36276,7 @@ class _SevenStarHotelRegistrationScreenState
                     keyboardType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                    ], // UPDATED: Integer only
+                    ],
                   ),
                 ),
               ],
@@ -37265,7 +36329,7 @@ class _SevenStarHotelRegistrationScreenState
         _buildCard(
           title: '2. Supreme Authority & Governance',
           children: [
-            _buildProfilePhotoUploadItem(), // NEW: Profile photo
+            _buildProfilePhotoUploadItem(),
             SizedBox(height: 16),
 
             _buildInputField(
@@ -37381,7 +36445,7 @@ class _SevenStarHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Country', // NEW: Country field
+                    label: 'Country',
                     controller: _countryController,
                     hint: 'Enter country',
                     // isRequired: true,
@@ -37562,7 +36626,7 @@ class _SevenStarHotelRegistrationScreenState
                   onChanged: (value) {
                     final intValue = int.tryParse(value) ?? 0;
                     details['units'] = intValue;
-                  }, // UPDATED: Integer
+                  },
                   hint: '0',
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -37595,7 +36659,7 @@ class _SevenStarHotelRegistrationScreenState
                   onChanged: (value) {
                     final intValue = int.tryParse(value) ?? 0;
                     details['maxGuests'] = intValue;
-                  }, // UPDATED: Integer
+                  },
                   hint: '0',
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -37627,7 +36691,7 @@ class _SevenStarHotelRegistrationScreenState
                   onChanged: (value) {
                     final doubleValue = double.tryParse(value) ?? 0.0;
                     details['avgNightlyRate'] = doubleValue;
-                  }, // UPDATED: Double
+                  },
                   hint: '0.00',
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
@@ -37645,7 +36709,7 @@ class _SevenStarHotelRegistrationScreenState
                   onChanged: (value) {
                     final doubleValue = double.tryParse(value) ?? 0.0;
                     details['peakRate'] = doubleValue;
-                  }, // UPDATED: Double
+                  },
                   hint: '0.00',
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
@@ -37721,7 +36785,7 @@ class _SevenStarHotelRegistrationScreenState
         ),
         SizedBox(height: 16),
 
-        // NEW: Check-in/Check-out section
+
         _buildCard(
           title: '9. Royal Arrival & Departure Protocols',
           children: [
@@ -37932,7 +36996,7 @@ class _SevenStarHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Account Type Radio Buttons
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38276,7 +37340,7 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
-  // NEW: Profile Photo Upload Widget
+
   Widget _buildProfilePhotoUploadItem() {
     final fileName = _profilePhoto['name'] as String? ?? '';
     final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
@@ -38561,7 +37625,7 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
-  // NEW: Time Picker Field
+
   Widget _buildTimePickerField({
     required String label,
     required TextEditingController controller,
@@ -38614,7 +37678,7 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
-  // NEW: Time selection method
+
   Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
     TimeOfDay initialTime = TimeOfDay.now();
 
@@ -38651,7 +37715,7 @@ class _SevenStarHotelRegistrationScreenState
     }
   }
 
-  // NEW: Format time for display
+
   String _formatTimeForDisplay(String time24) {
     if (time24.isEmpty) return '';
     try {
@@ -38707,7 +37771,7 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Input field with inputFormatters
+
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
@@ -38730,17 +37794,7 @@ class _SevenStarHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            // if (isRequired)
-            //   Padding(
-            //     padding: EdgeInsets.only(left: 4),
-            //     child: Text(
-            //       '*',
-            //       style: TextStyle(
-            //         color: Colors.red,
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            //     ),
-            //   ),
+
           ],
         ),
         SizedBox(height: 8),
@@ -38771,7 +37825,7 @@ class _SevenStarHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Small input with inputFormatters
+
   Widget _buildSmallInput({
     required String label,
     required TextEditingController controller,
@@ -39291,7 +38345,7 @@ class _SevenStarHotelRegistrationScreenState
         _currentStep++;
       });
 
-      // Scroll to top when moving to next step
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollToTop();
       });
@@ -39306,7 +38360,7 @@ class _SevenStarHotelRegistrationScreenState
         _currentStep--;
       });
 
-      // Scroll to top when going back
+
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scrollToTop();
       });
@@ -39422,7 +38476,7 @@ class _SevenStarHotelRegistrationScreenState
     //   }
     // }
 
-    // Process room details to ensure proper types
+
     Map<String, Map<String, dynamic>> processedRoyalAccommodations = {};
     _royalAccommodations.forEach((key, value) {
       processedRoyalAccommodations[key] = {
@@ -39443,23 +38497,23 @@ class _SevenStarHotelRegistrationScreenState
       };
     });
 
-    // Build complete form data
+
     Map<String, dynamic> formData = {
       'estateName': _estateNameController.text,
       'sovereignClassification': _selectedSovereignClassification,
       'heritageStatus': _selectedHeritageStatus,
       'ownershipCategory': _selectedOwnershipCategory,
-      'yearOfOrigin': int.tryParse(_yearOriginController.text) ?? 0, // UPDATED: Integer
+      'yearOfOrigin': int.tryParse(_yearOriginController.text) ?? 0,
       'historicSignificance': _historicSignificanceController.text,
       'globalPrestigeRank': _globalPrestigeRankController.text,
-      'totalGuestCapacity': int.tryParse(_totalGuestCapacityController.text) ?? 0, // UPDATED: Integer
+      'totalGuestCapacity': int.tryParse(_totalGuestCapacityController.text) ?? 0,
       'estateSize': _estateSizeController.text,
       'staffToGuestRatio': _staffToGuestRatioController.text,
 
-      // Profile Photo
-      'profilePhoto': _profilePhoto, // NEW
 
-      // 2. Supreme Authority & Governance
+      'profilePhoto': _profilePhoto,
+
+
       'legalHoldingEntity': _legalHoldingEntityController.text,
       'sovereignOwner': _sovereignOwnerController.text,
       'chiefExecutiveCustodian': _chiefExecutiveCustodianController.text,
@@ -39471,39 +38525,39 @@ class _SevenStarHotelRegistrationScreenState
       'executiveEmail': _executiveEmailController.text,
       'officialPortfolio': _officialPortfolioController.text,
 
-      // 3. Global Access & Entry Privileges
+
       'estateAddress': _estateAddressController.text,
       'city': _cityController.text,
       'state': _stateController.text,
-      'country': _countryController.text, // NEW
+      'country': _countryController.text,
       'postalCode': _postalCodeController.text,
       'arrivalInfrastructure': _arrivalInfrastructure,
       'distanceFromHub': _distanceFromHubController.text,
 
-      // Check-in/Check-out times
-      'checkInTime': _checkInController.text, // NEW
-      'checkOutTime': _checkOutController.text, // NEW
 
-      // 4. Royal Accommodation Intelligence Matrix
+      'checkInTime': _checkInController.text,
+      'checkOutTime': _checkOutController.text,
+
+
       'selectedRoyalAccommodations': _selectedRoyalAccommodations,
-      'royalAccommodations': processedRoyalAccommodations, // UPDATED: With processed types
+      'royalAccommodations': processedRoyalAccommodations,
       'pricingEngine': _selectedPricingEngine,
 
-      // 5. Supreme Experience Architecture
+
       'inResidenceSystems': _inResidenceSystems,
       'signatureRoyalAmenities': _signatureRoyalAmenities,
       'arrivalCeremonialProtocols': _arrivalCeremonialProtocols,
 
-      // 6. Gastronomic Supremacy Index
+
       'gastronomicSupremacy': _gastronomicSupremacy,
 
-      // 7. Holistic Wellness Dominion
+
       'wellnessDominion': _wellnessDominion,
 
-      // 8. Ultra-Elite Guest Privileges
+
       'ultraElitePrivileges': _ultraElitePrivileges,
 
-      // 9. Sovereign Security & Compliance
+
       'internationalTaxId': _internationalTaxIdController.text,
       'securityCertificationLevel': _securityCertificationLevelController.text,
       'fireDisasterClearance': _fireDisasterClearance,
@@ -39513,22 +38567,22 @@ class _SevenStarHotelRegistrationScreenState
       _cyberIntelligenceProtectionController.text,
       'crisisCommandSystem': _crisisCommandSystem,
 
-      // 10. Treasury & Financial Protocol
+
       'treasuryAccountName': _treasuryAccountNameController.text,
       'globalBankInstitution': _globalBankInstitutionController.text,
       'accountNumber': _accountNumberController.text,
       'swiftIban': _swiftIbanController.text,
       'settlementCurrency': _settlementCurrencyController.text,
-      'accountType': _selectedAccountType, // NEW
+      'accountType': _selectedAccountType,
       'alternativeSettlementOptions': _alternativeSettlementOptions,
 
-      // 11. Hyper-Digital Integration
+
       'hyperDigitalIntegration': _hyperDigitalIntegration,
 
-      // 12. Mandatory Credentials
+
       'sovereignCredentials': _sovereignCredentials,
 
-      // 13. Sovereign Prestige Declaration
+
       'authorizedAuthority': _authorizedAuthorityController.text,
       'titleRank': _titleRankController.text,
       'declarationDate': _selectedDate?.toIso8601String(),
@@ -39536,7 +38590,7 @@ class _SevenStarHotelRegistrationScreenState
       'hasDigitalSignature': _hasDigitalSignature,
       'digitalSignatureImage': _digitalSignatureImage,
 
-      // Hotel Category
+
       'hotelCategory': '7-Star',
     };
 
@@ -39591,8 +38645,8 @@ class _SevenStarHotelRegistrationScreenState
     _authorizedAuthorityController.dispose();
     _titleRankController.dispose();
 
-    _checkInController.dispose(); // NEW
-    _checkOutController.dispose(); // NEW
+    _checkInController.dispose();
+    _checkOutController.dispose();
 
     _signatureController.dispose();
 
@@ -39716,9 +38770,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
   final TextEditingController _luxuryLinenBrandController =
   TextEditingController();
   final TextEditingController _michelinCountController =
-  TextEditingController(); // UPDATED: Will store integer
+  TextEditingController();
   final TextEditingController _banquetHallCapacityController =
-  TextEditingController(); // UPDATED: Will store integer
+  TextEditingController();
   bool _globalEventHosting = false;
 
   final TextEditingController _taxIdController = TextEditingController();
@@ -39739,9 +38793,9 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
   final TextEditingController _settlementCurrencyController =
   TextEditingController();
 
-  String? _selectedAccountType; // NEW: Account type
+  String? _selectedAccountType;
 
-  final Map<String, dynamic> _profilePhoto = { // NEW: Profile photo
+  final Map<String, dynamic> _profilePhoto = {
     'name': '',
     'size': 0,
     'path': '',
@@ -39890,7 +38944,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     },
   ];
 
-  final List<Map<String, String>> _timeOptions24Hour = [ // NEW: Time options
+  final List<Map<String, String>> _timeOptions24Hour = [
     {'value': '00:00', 'display': '12:00 AM'},
     {'value': '01:00', 'display': '01:00 AM'},
     {'value': '02:00', 'display': '02:00 AM'},
@@ -39917,7 +38971,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     {'value': '23:00', 'display': '11:00 PM'},
   ];
 
-  // NEW: Helper method to get current local time
+
   String _getCurrentLocalTime() {
     final now = DateTime.now();
     final hour = now.hour.toString().padLeft(2, '0');
@@ -39925,7 +38979,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     return '$hour:$minute';
   }
 
-  // NEW: Helper method to get initial text for numeric fields
+
   String _getInitialText(dynamic value) {
     if (value == null) return '';
     if (value is num && value == 0) return '';
@@ -39936,8 +38990,8 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
   void initState() {
     super.initState();
     _initializeAmenities();
-    _checkInController.text = _getCurrentLocalTime(); // NEW: Initialize check-in time
-    _checkOutController.text = _getCurrentLocalTime(); // NEW: Initialize check-out time
+    _checkInController.text = _getCurrentLocalTime();
+    _checkOutController.text = _getCurrentLocalTime();
   }
 
   void _initializeAmenities() {
@@ -40144,7 +39198,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               ),
             ),
 
-            // BODY
+
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.all(10),
@@ -40443,7 +39497,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                     keyboardType: TextInputType.number,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
-                    ], // UPDATED: Integer only
+                    ],
                   ),
                 ),
                 SizedBox(width: 16),
@@ -40469,7 +39523,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
         _buildCard(
           title: '2. Ownership, Authority & Executive Command',
           children: [
-            _buildProfilePhotoUploadItem(), // NEW: Profile photo
+            _buildProfilePhotoUploadItem(),
             SizedBox(height: 16),
 
             _buildInputField(
@@ -40598,7 +39652,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
               children: [
                 Expanded(
                   child: _buildInputField(
-                    label: 'Country', // NEW: Country field
+                    label: 'Country',
                     controller: _countryController,
                     hint: 'Enter country',
                   ),
@@ -40748,7 +39802,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
             Divider(color: _borderColor),
             SizedBox(height: 16),
 
-            // NEW: Check-in/Check-out times
+
             Row(
               children: [
                 Expanded(
@@ -40874,7 +39928,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   onChanged: (value) {
                     final intValue = int.tryParse(value) ?? 0;
                     details['units'] = intValue;
-                  }, // UPDATED: Integer
+                  },
                   hint: '0',
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -40903,7 +39957,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   onChanged: (value) {
                     final intValue = int.tryParse(value) ?? 0;
                     details['occupancy'] = intValue;
-                  }, // UPDATED: Integer
+                  },
                   hint: '2',
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -40981,7 +40035,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   onChanged: (value) {
                     final doubleValue = double.tryParse(value) ?? 0.0;
                     details['avgNightlyRate'] = doubleValue;
-                  }, // UPDATED: Double
+                  },
                   hint: '0.00',
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
@@ -40997,7 +40051,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   onChanged: (value) {
                     final doubleValue = double.tryParse(value) ?? 0.0;
                     details['peakRate'] = doubleValue;
-                  }, // UPDATED: Double
+                  },
                   hint: '0.00',
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
@@ -41154,7 +40208,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                  ], // UPDATED: Integer only
+                  ],
                 ),
               ),
             ],
@@ -41170,7 +40224,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                   keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
-                  ], // UPDATED: Integer only
+                  ],
                 ),
               ),
             ],
@@ -41450,7 +40504,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
             ),
             SizedBox(height: 16),
 
-            // NEW: Account Type Radio Buttons
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -41788,7 +40842,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // NEW: Profile Photo Upload Widget
+
   Widget _buildProfilePhotoUploadItem() {
     final fileName = _profilePhoto['name'] as String? ?? '';
     final isUploaded = (_profilePhoto['uploaded'] as bool?) ?? false;
@@ -42073,7 +41127,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // NEW: Time Picker Field
+
   Widget _buildTimePickerField({
     required String label,
     required TextEditingController controller,
@@ -42126,7 +41180,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // NEW: Time selection method
+
   Future<void> _selectTime(BuildContext context, TextEditingController controller) async {
     TimeOfDay initialTime = TimeOfDay.now();
 
@@ -42163,7 +41217,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     }
   }
 
-  // NEW: Format time for display
+
   String _formatTimeForDisplay(String time24) {
     if (time24.isEmpty) return '';
     try {
@@ -42219,7 +41273,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     );
   }
 
-  // UPDATED: Input field with inputFormatters
+
   Widget _buildInputField({
     required String label,
     required TextEditingController controller,
@@ -42242,17 +41296,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
                 color: _textPrimary,
               ),
             ),
-            // if (isRequired)
-            //   Padding(
-            //     padding: EdgeInsets.only(left: 4),
-            //     child: Text(
-            //       '*',
-            //       style: TextStyle(
-            //         color: Colors.red,
-            //         fontWeight: FontWeight.bold,
-            //       ),
-            //     ),
-            //   ),
+
           ],
         ),
         SizedBox(height: 8),
@@ -42805,7 +41849,7 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       return;
     }
 
-    // Process accommodation details to ensure proper types
+
     Map<String, Map<String, dynamic>> processedAccommodationMatrix = {};
     _accommodationMatrix.forEach((key, value) {
       processedAccommodationMatrix[key] = {
@@ -42829,15 +41873,15 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       'brandAffiliation': _brandAffiliationController.text,
       'luxuryClassification': _selectedLuxuryClassification,
       'propertyPositioning': _selectedPropertyPositioning,
-      'yearEstablished': int.tryParse(_yearEstablishedController.text) ?? 0, // UPDATED: Integer
-      'yearRenovated': int.tryParse(_yearRenovatedController.text) ?? 0, // UPDATED: Integer
+      'yearEstablished': int.tryParse(_yearEstablishedController.text) ?? 0,
+      'yearRenovated': int.tryParse(_yearRenovatedController.text) ?? 0,
       'awardsRankings': _awardsRankingsController.text,
       'recognitionLevel': _selectedRecognitionLevel,
-      'totalInventory': int.tryParse(_totalInventoryController.text) ?? 0, // UPDATED: Integer
+      'totalInventory': int.tryParse(_totalInventoryController.text) ?? 0,
       'staffToGuestRatio': _staffToGuestRatioController.text,
 
-      // Profile Photo
-      'profilePhoto': _profilePhoto, // NEW
+
+      'profilePhoto': _profilePhoto,
 
       'legalEntity': _legalEntityController.text,
       'ubo': _uboController.text,
@@ -42854,17 +41898,17 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       'addressLine2': _addressLine2Controller.text,
       'city': _cityController.text,
       'state': _stateController.text,
-      'country': _countryController.text, // NEW
+      'country': _countryController.text,
       'postalCode': _postalCodeController.text,
       'nearestAirport': _nearestAirportController.text,
       'distanceFromAirport': _distanceFromAirportController.text,
       'privateAccessOptions': _privateAccessOptions,
 
-      // Check-in/Check-out times
-      'checkInTime': _checkInController.text, // NEW
-      'checkOutTime': _checkOutController.text, // NEW
 
-      'accommodationMatrix': processedAccommodationMatrix, // UPDATED: With processed types
+      'checkInTime': _checkInController.text, // NEW
+      'checkOutTime': _checkOutController.text,
+
+      'accommodationMatrix': processedAccommodationMatrix,
       'selectedAccommodationTypes': _selectedAccommodationTypes,
       'rateEngineType': _selectedRateEngineType,
 
@@ -42873,8 +41917,8 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
       'luxuryLinenBrand': _luxuryLinenBrandController.text,
       'arrivalExperience': _arrivalExperience,
       'gastronomyFeatures': _gastronomyFeatures,
-      'michelinCount': int.tryParse(_michelinCountController.text) ?? 0, // UPDATED: Integer
-      'banquetHallCapacity': int.tryParse(_banquetHallCapacityController.text) ?? 0, // UPDATED: Integer
+      'michelinCount': int.tryParse(_michelinCountController.text) ?? 0,
+      'banquetHallCapacity': int.tryParse(_banquetHallCapacityController.text) ?? 0,
       'globalEventHosting': _globalEventHosting,
       'wellnessFeatures': _wellnessFeatures,
       'guestPrivileges': _guestPrivileges,
@@ -42945,8 +41989,8 @@ class _GlobalEliteLuxuryHotelRegistrationScreenState
     _nearestAirportController.dispose();
     _distanceFromAirportController.dispose();
 
-    _checkInController.dispose(); // NEW
-    _checkOutController.dispose(); // NEW
+    _checkInController.dispose();
+    _checkOutController.dispose();
 
     _luxuryLinenBrandController.dispose();
     _michelinCountController.dispose();
@@ -43234,7 +42278,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
         setState(() {
           _isLoading = false;
         });
-        // Payment opened successfully
+
       } else {
         setState(() {
           _isLoading = false;
@@ -43906,7 +42950,7 @@ Widget _buildLocationPropertyStep() {
       ),
       SizedBox(height: 16),
 
-      // Villa Address Section
+
       _buildCard(
         title: 'Villa Address',
         children: [
@@ -43967,7 +43011,7 @@ Widget _buildLocationPropertyStep() {
       ),
       SizedBox(height: 16),
 
-      // Property Details Section
+
       _buildCard(
         title: 'Property Details',
         children: [
@@ -44128,109 +43172,7 @@ Widget _buildLocationPropertyStep() {
         ),
         SizedBox(height: 16),
 
-        // _buildCard(
-        //   title: 'Pricing & Availability',
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Base Price *',
-        //             controller: _basePriceController,
-        //             hint: '₹',
-        //             keyboardType: TextInputType.number,
-        //             prefixText: '₹ ',
-        //           ),
-        //         ),
-        //         SizedBox(width: 16),
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Weekend Price *',
-        //             controller: _weekendPriceController,
-        //             hint: '₹',
-        //             keyboardType: TextInputType.number,
-        //             prefixText: '₹ ',
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(height: 16),
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Peak Season Price',
-        //             controller: _peakPriceController,
-        //             hint: '₹',
-        //             keyboardType: TextInputType.number,
-        //             prefixText: '₹ ',
-        //           ),
-        //         ),
-        //         SizedBox(width: 16),
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Security Deposit',
-        //             controller: _securityDepositController,
-        //             hint: '₹',
-        //             keyboardType: TextInputType.number,
-        //             prefixText: '₹ ',
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(height: 16),
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Minimum Stay *',
-        //             controller: _minimumStayController,
-        //             hint: 'Nights',
-        //             keyboardType: TextInputType.number,
-        //           ),
-        //         ),
-        //         SizedBox(width: 16),
-        //         Expanded(child: Container()),
-        //       ],
-        //     ),
-        //     SizedBox(height: 16),
-        //     Row(
-        //       children: [
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Check-in Time *',
-        //             controller: _checkInTimeController,
-        //             hint: 'e.g., 14:00',
-        //           ),
-        //         ),
-        //         SizedBox(width: 16),
-        //         Expanded(
-        //           child: _buildInputField(
-        //             label: 'Check-out Time *',
-        //             controller: _checkOutTimeController,
-        //             hint: 'e.g., 11:00',
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     SizedBox(height: 16),
-        //     _buildInputField(
-        //       label: 'Cancellation Policy *',
-        //       controller: _cancellationPolicyController,
-        //       hint: 'Describe policy',
-        //       maxLines: 3,
-        //     ),
-        //     SizedBox(height: 16),
-        //     _buildFileUploadItem(
-        //       label: 'Availability Calendar',
-        //       fileInfo: _availabilityCalendarInfo,
-        //       onUpload: () => _pickFile('calendar'),
-        //       onView: () => _viewFile(_availabilityCalendarInfo),
-        //       onRemove: () => _removeFile('calendar'),
-        //       isOptional: true,
-        //     ),
-        //   ],
-        // ),
+
         _buildCard(
           title: 'Pricing & Availability',
           children: [
@@ -44706,7 +43648,7 @@ Widget _buildLocationPropertyStep() {
            ),
            SizedBox(height: 16),
 
-           // ADD VIRTUAL TOUR LINK FIELD HERE
+
            _buildVirtualTourLinkField(),
          ],
        ),
@@ -44796,48 +43738,7 @@ Widget _buildLocationPropertyStep() {
 
 
 
-  Widget _buildDatePickerSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Date',
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-        ),
-        const SizedBox(height: 8),
-        GestureDetector(
-          onTap: () => _selectDate(context),
-          child: Container(
-            height: 48,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            decoration: BoxDecoration(
-              border: Border.all(color: _borderColor),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  _selectedDate != null
-                      ? '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}'
-                      : 'Select date',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: _selectedDate != null ? _textPrimary : _textSecondary,
-                  ),
-                ),
-                Icon(
-                  Icons.calendar_today,
-                  size: 18,
-                  color: _textSecondary,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+
 
   Widget _buildVirtualTourLinkField() {
   return Column(
@@ -46336,50 +45237,50 @@ Widget _buildLocationPropertyStep() {
     // Validate media requirements
     bool hasMediaErrors = false;
 
-    // Check Villa Exterior Photos (min 2)
-    if (_mediaFiles['villa_exterior']!.length < 2) {
-      _showErrorDialog(
-        'Media Required',
-        'Please upload at least 2 Villa Exterior Photos',
-      );
-      return;
-    }
+    // // Check Villa Exterior Photos (min 2)
+    // if (_mediaFiles['villa_exterior']!.length < 2) {
+    //   _showErrorDialog(
+    //     'Media Required',
+    //     'Please upload at least 2 Villa Exterior Photos',
+    //   );
+    //   return;
+    // }
+    //
+    // // Check Interior Photos (min 2)
+    // if (_mediaFiles['villa_interior']!.length < 2) {
+    //   _showErrorDialog(
+    //     'Media Required',
+    //     'Please upload at least 2 Interior Photos',
+    //   );
+    //   return;
+    // }
 
-    // Check Interior Photos (min 2)
-    if (_mediaFiles['villa_interior']!.length < 2) {
-      _showErrorDialog(
-        'Media Required',
-        'Please upload at least 2 Interior Photos',
-      );
-      return;
-    }
+    // // Check Bedroom Photos (min 1)
+    // if (_mediaFiles['bedroom']!.isEmpty) {
+    //   _showErrorDialog(
+    //     'Media Required',
+    //     'Please upload at least 1 Bedroom Photo',
+    //   );
+    //   return;
+    // }
+    //
+    // // Check Bathroom Photos (min 1)
+    // if (_mediaFiles['bathroom']!.isEmpty) {
+    //   _showErrorDialog(
+    //     'Media Required',
+    //     'Please upload at least 1 Bathroom Photo',
+    //   );
+    //   return;
+    // }
 
-    // Check Bedroom Photos (min 1)
-    if (_mediaFiles['bedroom']!.isEmpty) {
-      _showErrorDialog(
-        'Media Required',
-        'Please upload at least 1 Bedroom Photo',
-      );
-      return;
-    }
-
-    // Check Bathroom Photos (min 1)
-    if (_mediaFiles['bathroom']!.isEmpty) {
-      _showErrorDialog(
-        'Media Required',
-        'Please upload at least 1 Bathroom Photo',
-      );
-      return;
-    }
-
-    // Check Amenities Photos (min 5)
-    if (_mediaFiles['amenities']!.length < 5) {
-      _showErrorDialog(
-        'Media Required',
-        'Please upload at least 5 Amenities Photos',
-      );
-      return;
-    }
+    // // Check Amenities Photos (min 5)
+    // if (_mediaFiles['amenities']!.length < 5) {
+    //   _showErrorDialog(
+    //     'Media Required',
+    //     'Please upload at least 5 Amenities Photos',
+    //   );
+    //   return;
+    // }
 
     // Check terms acceptance
     if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
@@ -46825,18 +45726,7 @@ class _ApartmentRegistrationVendorFormState
     'uploaded': false,
   };
 
-  // final List<Map<String, dynamic>> _propertyTypes = [
-  //   {'title': 'Service Apartment', 'icon': '🏢', 'color': Color(0xFF5C6BC0)},
-  //   {'title': 'Studio Apartment', 'icon': '🏠', 'color': Color(0xFF42A5F5)},
-  //   {'title': '1 BHK', 'icon': '🛏️', 'color': Color(0xFF66BB6A)},
-  //   {'title': '2 BHK', 'icon': '🛏️🛏️', 'color': Color(0xFFFFA726)},
-  //   {'title': '3 BHK', 'icon': '🛏️🛏️🛏️', 'color': Color(0xFFEF5350)},
-  //   {'title': 'Luxury Apartment', 'icon': '✨', 'color': Color(0xFFAB47BC)},
-  //   {'title': 'Budget Apartment', 'icon': '💰', 'color': Color(0xFF26A69A)},
-  //   {'title': 'Entire Apartment', 'icon': '🏘️', 'color': Color(0xFF7E57C2)},
-  //   {'title': 'Shared Apartment', 'icon': '🤝', 'color': Color(0xFFFF7043)},
-  //   {'title': 'Other', 'icon': '🏡', 'color': Color(0xFF9E9E9E)},
-  // ];
+
 
   final List<Map<String, dynamic>> _propertyTypes = [
     {
@@ -47135,144 +46025,7 @@ class _ApartmentRegistrationVendorFormState
     }
   }
 
-  // Widget _buildBasicInfoStep() {
-  //   return Column(
-  //     children: [
-  //       _buildCard(
-  //         title: 'Basic Contact Information',
-  //         children: [
-  //           _buildInputField(
-  //             label: 'Apartment Name / Property Name',
-  //             controller: _apartmentNameController,
-  //             hint: 'Enter apartment name',
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildInputField(
-  //             label: 'Owner / Property Manager Name',
-  //             controller: _ownerNameController,
-  //             hint: 'Enter owner name',
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Mobile Number',
-  //                   controller: _mobileController,
-  //                   hint: 'Enter mobile number',
-  //                   keyboardType: TextInputType.phone,
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Alternate Mobile',
-  //                   controller: _altMobileController,
-  //                   hint: 'Optional',
-  //                   keyboardType: TextInputType.phone,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Email Address *',
-  //                   controller: _emailController,
-  //                   hint: 'example@email.com',
-  //                   keyboardType: TextInputType.emailAddress,
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Website',
-  //                   controller: _websiteController,
-  //                   hint: 'https://example.com',
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildInputField(
-  //             label: 'Company Name',
-  //             controller: _companyNameController,
-  //             hint: 'Enter company name',
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildPhotoUploadItem(
-  //             label: 'Profile Photo',
-  //             fileInfo: _ownerPhotoInfo,
-  //             onUpload: _pickOwnerPhoto,
-  //             onView: _viewOwnerPhoto,
-  //             onRemove: _removeOwnerPhoto,
-  //           ),
-  //         ],
-  //       ),
-  //       SizedBox(height: 16),
-  //       _buildCard(
-  //         title: 'Property Location Details',
-  //         children: [
-  //           _buildInputField(
-  //             label: 'Apartment Address',
-  //             controller: _addressController,
-  //             hint: 'Enter complete address',
-  //             maxLines: 2,
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Area / Landmark',
-  //                   controller: _areaController,
-  //                   hint: 'Enter area or landmark',
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'City',
-  //                   controller: _cityController,
-  //                   hint: 'Enter city',
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           Row(
-  //             children: [
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'State',
-  //                   controller: _stateController,
-  //                   hint: 'Enter state',
-  //                 ),
-  //               ),
-  //               SizedBox(width: 16),
-  //               Expanded(
-  //                 child: _buildInputField(
-  //                   label: 'Pincode',
-  //                   controller: _pincodeController,
-  //                   hint: '6-digit pincode',
-  //                   keyboardType: TextInputType.number,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           SizedBox(height: 16),
-  //           _buildInputField(
-  //             label: 'Google Map Location',
-  //             controller: _googleMapLinkController,
-  //             hint: 'Paste Google Maps link or coordinates',
-  //           ),
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
+
 
   Widget _buildBasicInfoStep() {
     return Column(
@@ -50596,134 +49349,6 @@ class _ApartmentRegistrationVendorFormState
 
 
 
-  // void _submitForm() {
-  //   if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {
-  //     _showErrorDialog('Terms Required', 'Please accept all terms and conditions.');
-  //     return;
-  //   }
-  //
-  //   String apartmentId = 'APT_${DateTime.now().millisecondsSinceEpoch}_${_mobileController.text.substring(0, 4)}';
-  //
-  //   String propertyTypeValue = _selectedPropertyType == 'Other'
-  //       ? _customPropertyType.isNotEmpty ? _customPropertyType : 'Other Apartment'
-  //       : _selectedPropertyType ?? 'Service Apartment';
-  //
-  //   Map<String, dynamic> formData = {
-  //     'id': apartmentId,
-  //     'registeredAt': DateTime.now().toIso8601String(),
-  //     'basicInfo': {
-  //       'apartmentName': _apartmentNameController.text,
-  //       'ownerName': _ownerNameController.text,
-  //       'mobile': _mobileController.text,
-  //       'altMobile': _altMobileController.text,
-  //       'email': _emailController.text,
-  //       'companyName': _companyNameController.text,
-  //       'website': _websiteController.text,
-  //       'ownerPhoto': _ownerPhotoInfo,
-  //     },
-  //     'location': {
-  //       // Apartment Address
-  //       'address': _addressController.text,
-  //       'area': _areaController.text,
-  //       'city': _cityController.text,
-  //       'state': _stateController.text,
-  //       'pincode': _pincodeController.text,
-  //       'googleMapLink': _googleMapLinkController.text,
-  //       // Office Address - ADD THIS
-  //       'officeAddress': {
-  //         'address': _officeAddressController.text,
-  //         'area': _officeAreaController.text,
-  //         'city': _officeCityController.text,
-  //         'state': _officeStateController.text,
-  //         'pincode': _officePincodeController.text,
-  //         'googleMapLink': _officeGoogleMapLinkController.text,
-  //       },
-  //     },
-  //     'propertyDetails': {
-  //       'propertyType': propertyTypeValue,
-  //       'totalUnits': _totalUnitsController.text,
-  //       'totalBedrooms': _totalBedroomsController.text,
-  //       'totalBathrooms': _totalBathroomsController.text,
-  //       'guestCapacity': _guestCapacityController.text,
-  //       'floorNumber': _floorNumberController.text,
-  //       'totalFloors': _totalFloorsController.text,
-  //       'elevatorAvailable': _elevatorAvailable,
-  //       'propertySize': _propertySizeController.text,
-  //       'yearConstruction': _yearConstructionController.text,
-  //       'description': _propertyDescriptionController.text,
-  //     },
-  //     'amenities': {
-  //       'selected': _apartmentAmenities,
-  //       'custom': _customAmenities,
-  //     },
-  //     'pricing': {
-  //       'basePrice': _basePriceController.text,
-  //       'weeklyPrice': _weeklyPriceController.text,
-  //       'monthlyPrice': _monthlyPriceController.text,
-  //       'weekendPrice': _weekendPriceController.text,
-  //       'peakPrice': _peakPriceController.text,
-  //       'securityDeposit': _securityDepositController.text,
-  //       'minimumStay': _minimumStayController.text,
-  //       'advancePayment': _advancePaymentController.text,
-  //       'checkInTime': _selectedCheckInTime,
-  //       'checkOutTime': _selectedCheckOutTime,
-  //       'cancellationPolicy': _cancelledChequeInfo,
-  //     },
-  //     'availability': {
-  //       'availableFromDate': _availableFromDate,
-  //       'blackoutDates': _blackoutDatesController.text,
-  //       'calendarSync': _calendarSyncInfo,
-  //       'instantBooking': _instantBooking,
-  //     },
-  //     'legal': {
-  //       'ownershipProof': _ownershipProofInfo,
-  //       'idProof': _idProofInfo,
-  //       'gstNumber': _gstNumberController.text,
-  //       'tradeLicense': _tradeLicenseController.text,
-  //       'policeVerification': _policeVerificationController.text,
-  //     },
-  //     'bank': {
-  //       'accountHolder': _accountHolderController.text,
-  //       'bankName': _bankNameController.text,
-  //       'accountNumber': _accountNumberController.text,
-  //       'ifscCode': _ifscCodeController.text,
-  //       'upiId': _upiIdController.text,
-  //       'cancelledCheque': _cancelledChequeInfo,
-  //     },
-  //     'media': _mediaFiles,
-  //     'houseRules': {
-  //       'smokingPolicy': _smokingPolicyController.text,
-  //       'petPolicy': _petPolicyController.text,
-  //       'eventPolicy': _eventPolicyController.text,
-  //       'visitorPolicy': _visitorPolicyController.text,
-  //       'quietHours': _quietHoursController.text,
-  //       'additionalRules': _additionalRulesController.text,
-  //     },
-  //     'signature': {
-  //       'hasDigital': _hasDigitalSignature,
-  //       'digitalSignature': _digitalSignatureImage,
-  //       'date': _selectedDate,
-  //     },
-  //     'declarationAccepted': _declarationAccepted,
-  //     'propertyType': 'apartment',
-  //   };
-  //
-  //   _saveToSharedPreferences(formData);
-  //
-  //   // Store email for use in summary screen
-  //   final userEmail = _emailController.text;
-  //
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => ApartmentRegistrationSummaryScreen(
-  //         registrationData: formData,
-  //         declarationAccepted: _declarationAccepted,
-  //         userEmail: userEmail, // Pass the email
-  //       ),
-  //     ),
-  //   );
-  // }
 
   void _submitForm() {
     if (!_declarationAccepted || !_termsAccepted || !_commissionAccepted) {

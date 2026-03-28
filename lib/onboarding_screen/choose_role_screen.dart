@@ -242,6 +242,7 @@ class ChooseRoleScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => FindStaysScreen(),
+
                             ),
                           );
                         },
@@ -2459,131 +2460,7 @@ class _PropertyAuthScreenState extends State<PropertyAuthScreen>
     }
   }
 
-  // Future<void> _handleLogin() async {
-  //   setState(() {
-  //     _loginErrors.clear();
-  //   });
-  //
-  //   final email = _loginEmailController.text.trim();
-  //   final password = _loginPasswordController.text;
-  //
-  //   bool hasErrors = false;
-  //
-  //   if (email.isEmpty) {
-  //     _loginErrors['email'] = 'Email is required';
-  //     hasErrors = true;
-  //   } else if (!_isValidEmail(email)) {
-  //     _loginErrors['email'] = 'Enter a valid email address';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (password.isEmpty) {
-  //     _loginErrors['password'] = 'Password is required';
-  //     hasErrors = true;
-  //   }
-  //
-  //   if (hasErrors) {
-  //     setState(() {});
-  //     return;
-  //   }
-  //
-  //   setState(() => _isLoggingIn = true);
-  //
-  //   try {
-  //     final isValid = await _validateCredentials(email, password);
-  //
-  //     if (!isValid) {
-  //       setState(() {
-  //         _isLoggingIn = false;
-  //         _loginErrors['email'] = 'Invalid email or password';
-  //       });
-  //
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Invalid email or password'),
-  //           backgroundColor: Colors.red,
-  //         ),
-  //       );
-  //       return;
-  //     }
-  //
-  //     final userData = await _getUser(email);
-  //
-  //     if (userData == null) {
-  //       setState(() => _isLoggingIn = false);
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('User data not found'),
-  //           backgroundColor: Colors.red,
-  //         ),
-  //       );
-  //       return;
-  //     }
-  //
-  //     // SIMPLE: Get property type from userData or fallback to widget
-  //     String propertyType = '';
-  //
-  //     if (userData.containsKey('propertyType') &&
-  //         userData['propertyType'] != null) {
-  //       propertyType = userData['propertyType'].toString().toLowerCase().trim();
-  //     }
-  //
-  //     // If not found in userData, use the widget's property type
-  //     if (propertyType.isEmpty) {
-  //       propertyType = _propertyType;
-  //     }
-  //
-  //     print('=== LOGIN ===');
-  //     print('Property Type from userData: "${userData['propertyType']}"');
-  //     print('Stored _propertyType: "$_propertyType"');
-  //     print('Final propertyType: "$propertyType"');
-  //
-  //     if (propertyType.isEmpty) {
-  //       // Last resort - check data structure
-  //       if (userData.containsKey('basicInfo')) {
-  //         propertyType = 'villa';
-  //       } else if (userData.containsKey('hotelName')) {
-  //         propertyType = 'hotel';
-  //       } else if (userData.containsKey('apartmentName')) {
-  //         propertyType = 'apartment';
-  //       } else if (userData.containsKey('resortName')) {
-  //         propertyType = 'resort';
-  //       }
-  //     }
-  //
-  //     // Update userData with the detected property type
-  //     userData['propertyType'] = propertyType;
-  //     userData['lastLogin'] = DateTime.now().toIso8601String();
-  //     await _saveUser(userData);
-  //
-  //     final prefs = await SharedPreferences.getInstance();
-  //     await prefs.setBool('is_logged_in', true);
-  //     await prefs.setString('current_user_email', email.toLowerCase().trim());
-  //
-  //     if (!mounted) return;
-  //
-  //     setState(() => _isLoggingIn = false);
-  //     _clearAllForms();
-  //
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Login successful!'),
-  //         backgroundColor: Colors.green,
-  //       ),
-  //     );
-  //
-  //     await Future.delayed(const Duration(milliseconds: 500));
-  //     _navigateToDashboard(userData, propertyType);
-  //   } catch (e) {
-  //     setState(() => _isLoggingIn = false);
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         content: Text('Login error: ${e.toString()}'),
-  //         backgroundColor: Colors.red,
-  //       ),
-  //     );
-  //   }
-  // }
+
   Future<void> _handleLogin() async {
     setState(() {
       _loginErrors.clear();
@@ -8411,8 +8288,6 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     }
   }
 
-
-
   void _navigateToVillaDetails(Map<String, dynamic> villaData) {
     print('Navigating to villa details');
     print('Villa data keys: ${villaData.keys.toList()}');
@@ -8684,30 +8559,550 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     );
   }
 
+  // void _navigateToApartmentDetails(Map<String, dynamic> apartmentData) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => ApartmentRegistrationDetailsScreen(
+  //         registrationData: apartmentData,
+  //         apartmentId: apartmentData['id']?.toString() ?? '',
+  //         apartmentIndex: 0,
+  //       ),
+  //     ),
+  //   );
+  // }
+
   void _navigateToApartmentDetails(Map<String, dynamic> apartmentData) {
+    print('=== NAVIGATING TO APARTMENT BUSINESS DASHBOARD ===');
+    print('Apartment data keys: ${apartmentData.keys.toList()}');
+
+    // Extract apartment name from the data structure
+    String apartmentName = '';
+    if (apartmentData.containsKey('basicInfo') && apartmentData['basicInfo'] != null) {
+      final basicInfo = apartmentData['basicInfo'] as Map;
+      if (basicInfo.containsKey('apartmentName') && basicInfo['apartmentName'] != null) {
+        apartmentName = basicInfo['apartmentName'].toString();
+      }
+    }
+    if (apartmentName.isEmpty && apartmentData.containsKey('apartmentName') && apartmentData['apartmentName'] != null) {
+      apartmentName = apartmentData['apartmentName'].toString();
+    }
+    if (apartmentName.isEmpty && apartmentData.containsKey('propertyName') && apartmentData['propertyName'] != null) {
+      apartmentName = apartmentData['propertyName'].toString();
+    }
+    if (apartmentName.isEmpty) {
+      apartmentName = 'Apartment';
+    }
+
+    // Extract owner name
+    String ownerName = '';
+    if (apartmentData.containsKey('basicInfo') && apartmentData['basicInfo'] != null) {
+      final basicInfo = apartmentData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerName') && basicInfo['ownerName'] != null) {
+        ownerName = basicInfo['ownerName'].toString();
+      }
+      if (ownerName.isEmpty && basicInfo.containsKey('fullName') && basicInfo['fullName'] != null) {
+        ownerName = basicInfo['fullName'].toString();
+      }
+    }
+    if (ownerName.isEmpty && apartmentData.containsKey('ownerName') && apartmentData['ownerName'] != null) {
+      ownerName = apartmentData['ownerName'].toString();
+    }
+    if (ownerName.isEmpty && apartmentData.containsKey('fullName') && apartmentData['fullName'] != null) {
+      ownerName = apartmentData['fullName'].toString();
+    }
+
+    // Extract mobile number
+    String mobileNumber = '';
+    if (apartmentData.containsKey('basicInfo') && apartmentData['basicInfo'] != null) {
+      final basicInfo = apartmentData['basicInfo'] as Map;
+      if (basicInfo.containsKey('mobile') && basicInfo['mobile'] != null) {
+        mobileNumber = basicInfo['mobile'].toString();
+      }
+      if (mobileNumber.isEmpty && basicInfo.containsKey('phone') && basicInfo['phone'] != null) {
+        mobileNumber = basicInfo['phone'].toString();
+      }
+    }
+    if (mobileNumber.isEmpty && apartmentData.containsKey('mobile') && apartmentData['mobile'] != null) {
+      mobileNumber = apartmentData['mobile'].toString();
+    }
+    if (mobileNumber.isEmpty && apartmentData.containsKey('phone') && apartmentData['phone'] != null) {
+      mobileNumber = apartmentData['phone'].toString();
+    }
+
+    // Extract email
+    String email = '';
+    if (apartmentData.containsKey('basicInfo') && apartmentData['basicInfo'] != null) {
+      final basicInfo = apartmentData['basicInfo'] as Map;
+      if (basicInfo.containsKey('email') && basicInfo['email'] != null) {
+        email = basicInfo['email'].toString();
+      }
+    }
+    if (email.isEmpty && apartmentData.containsKey('email') && apartmentData['email'] != null) {
+      email = apartmentData['email'].toString();
+    }
+
+
+    String address = '';
+    String area = '';
+    String city = '';
+    String state = '';
+    String pincode = '';
+
+    if (apartmentData.containsKey('location') && apartmentData['location'] != null) {
+      final location = apartmentData['location'] as Map;
+      if (location.containsKey('address') && location['address'] != null) {
+        address = location['address'].toString();
+      }
+      if (location.containsKey('area') && location['area'] != null) {
+        area = location['area'].toString();
+      }
+      if (location.containsKey('city') && location['city'] != null) {
+        city = location['city'].toString();
+      }
+      if (location.containsKey('state') && location['state'] != null) {
+        state = location['state'].toString();
+      }
+      if (location.containsKey('pincode') && location['pincode'] != null) {
+        pincode = location['pincode'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (address.isEmpty && apartmentData.containsKey('address') && apartmentData['address'] != null) {
+      address = apartmentData['address'].toString();
+    }
+    if (area.isEmpty && apartmentData.containsKey('area') && apartmentData['area'] != null) {
+      area = apartmentData['area'].toString();
+    }
+    if (city.isEmpty && apartmentData.containsKey('city') && apartmentData['city'] != null) {
+      city = apartmentData['city'].toString();
+    }
+    if (state.isEmpty && apartmentData.containsKey('state') && apartmentData['state'] != null) {
+      state = apartmentData['state'].toString();
+    }
+    if (pincode.isEmpty && apartmentData.containsKey('pincode') && apartmentData['pincode'] != null) {
+      pincode = apartmentData['pincode'].toString();
+    }
+
+    // Extract legal details
+    String gstNumber = '';
+    String tradeLicense = '';
+    String policeVerification = '';
+
+    if (apartmentData.containsKey('legal') && apartmentData['legal'] != null) {
+      final legal = apartmentData['legal'] as Map;
+      if (legal.containsKey('gstNumber') && legal['gstNumber'] != null) {
+        gstNumber = legal['gstNumber'].toString();
+      }
+      if (legal.containsKey('tradeLicense') && legal['tradeLicense'] != null) {
+        tradeLicense = legal['tradeLicense'].toString();
+      }
+      if (legal.containsKey('policeVerification') && legal['policeVerification'] != null) {
+        policeVerification = legal['policeVerification'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (gstNumber.isEmpty && apartmentData.containsKey('gstNumber') && apartmentData['gstNumber'] != null) {
+      gstNumber = apartmentData['gstNumber'].toString();
+    }
+    if (tradeLicense.isEmpty && apartmentData.containsKey('tradeLicense') && apartmentData['tradeLicense'] != null) {
+      tradeLicense = apartmentData['tradeLicense'].toString();
+    }
+
+    // Extract bank details
+    String accountHolderName = '';
+    String bankName = '';
+    String accountNumber = '';
+    String ifscCode = '';
+    String upiId = '';
+
+    if (apartmentData.containsKey('bank') && apartmentData['bank'] != null) {
+      final bank = apartmentData['bank'] as Map;
+      if (bank.containsKey('accountHolder') && bank['accountHolder'] != null) {
+        accountHolderName = bank['accountHolder'].toString();
+      }
+      if (bank.containsKey('bankName') && bank['bankName'] != null) {
+        bankName = bank['bankName'].toString();
+      }
+      if (bank.containsKey('accountNumber') && bank['accountNumber'] != null) {
+        accountNumber = bank['accountNumber'].toString();
+      }
+      if (bank.containsKey('ifscCode') && bank['ifscCode'] != null) {
+        ifscCode = bank['ifscCode'].toString();
+      }
+      if (bank.containsKey('upiId') && bank['upiId'] != null) {
+        upiId = bank['upiId'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (accountHolderName.isEmpty && apartmentData.containsKey('accountHolder') && apartmentData['accountHolder'] != null) {
+      accountHolderName = apartmentData['accountHolder'].toString();
+    }
+    if (bankName.isEmpty && apartmentData.containsKey('bankName') && apartmentData['bankName'] != null) {
+      bankName = apartmentData['bankName'].toString();
+    }
+    if (accountNumber.isEmpty && apartmentData.containsKey('accountNumber') && apartmentData['accountNumber'] != null) {
+      accountNumber = apartmentData['accountNumber'].toString();
+    }
+    if (ifscCode.isEmpty && apartmentData.containsKey('ifscCode') && apartmentData['ifscCode'] != null) {
+      ifscCode = apartmentData['ifscCode'].toString();
+    }
+    if (upiId.isEmpty && apartmentData.containsKey('upiId') && apartmentData['upiId'] != null) {
+      upiId = apartmentData['upiId'].toString();
+    }
+
+    // Extract owner photo info
+    Map<String, dynamic> ownerPhotoInfo = {};
+    if (apartmentData.containsKey('basicInfo') && apartmentData['basicInfo'] != null) {
+      final basicInfo = apartmentData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerPhoto') && basicInfo['ownerPhoto'] != null) {
+        ownerPhotoInfo = Map<String, dynamic>.from(basicInfo['ownerPhoto'] as Map);
+      }
+    }
+    if (ownerPhotoInfo.isEmpty && apartmentData.containsKey('ownerPhoto') && apartmentData['ownerPhoto'] != null) {
+      ownerPhotoInfo = Map<String, dynamic>.from(apartmentData['ownerPhoto'] as Map);
+    }
+
+    print('=== APARTMENT DATA EXTRACTED ===');
+    print('Apartment Name: $apartmentName');
+    print('Owner Name: $ownerName');
+    print('Mobile: $mobileNumber');
+    print('Email: $email');
+    print('Address: $address');
+    print('Area: $area');
+    print('City: $city');
+    print('State: $state');
+    print('Pincode: $pincode');
+    print('GST Number: $gstNumber');
+    print('Trade License: $tradeLicense');
+    print('Account Holder: $accountHolderName');
+    print('Bank Name: $bankName');
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ApartmentRegistrationDetailsScreen(
+        builder: (context) => ApartmentBusinessDashboard(
+          apartmentName: apartmentName,
+          ownerName: ownerName,
+          mobileNumber: mobileNumber,
+          email: email,
+          address: address,
+          area: area,
+          city: city,
+          state: state,
+          pincode: pincode,
+          gstNumber: gstNumber,
+          tradeLicense: tradeLicense,
+          policeVerification: policeVerification,
+          accountHolderName: accountHolderName,
+          bankName: bankName,
+          accountNumber: accountNumber,
+          ifscCode: ifscCode,
+          upiId: upiId,
+          ownerPhotoInfo: ownerPhotoInfo,
           registrationData: apartmentData,
-          apartmentId: apartmentData['id']?.toString() ?? '',
-          apartmentIndex: 0,
         ),
       ),
     );
   }
 
+  // void _navigateToResortDetails(Map<String, dynamic> resortData) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => ResortBusinessDashboard(
+  //         registrationData: resortData, resortName: '', ownerName: '', contactPerson: '', mobileNumber: '', email: '', address: '', area: '', city: '', state: '', pincode: '', nearestAirport: '', nearestRailway: '', gstNumber: '', tradeLicense: '', fssaiLicense: '', tourismApproval: '', accountHolderName: '', bankName: '', accountNumber: '', ifscCode: '', upiId: '', ownerPhotoInfo: {}, completeUserData: {}, userEmail: '',
+  //       ),
+  //     ),
+  //   );
+  // }
   void _navigateToResortDetails(Map<String, dynamic> resortData) {
+    print('=== NAVIGATING TO RESORT BUSINESS DASHBOARD ===');
+    print('Resort data keys: ${resortData.keys.toList()}');
+
+    // Extract resort name
+    String resortName = '';
+    if (resortData.containsKey('basicInfo') && resortData['basicInfo'] != null) {
+      final basicInfo = resortData['basicInfo'] as Map;
+      if (basicInfo.containsKey('resortName') && basicInfo['resortName'] != null) {
+        resortName = basicInfo['resortName'].toString();
+      }
+    }
+    if (resortName.isEmpty && resortData.containsKey('resortName') && resortData['resortName'] != null) {
+      resortName = resortData['resortName'].toString();
+    }
+    if (resortName.isEmpty && resortData.containsKey('propertyName') && resortData['propertyName'] != null) {
+      resortName = resortData['propertyName'].toString();
+    }
+    if (resortName.isEmpty) {
+      resortName = 'Resort';
+    }
+
+    // Extract owner name
+    String ownerName = '';
+    if (resortData.containsKey('basicInfo') && resortData['basicInfo'] != null) {
+      final basicInfo = resortData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerName') && basicInfo['ownerName'] != null) {
+        ownerName = basicInfo['ownerName'].toString();
+      }
+      if (ownerName.isEmpty && basicInfo.containsKey('fullName') && basicInfo['fullName'] != null) {
+        ownerName = basicInfo['fullName'].toString();
+      }
+    }
+    if (ownerName.isEmpty && resortData.containsKey('ownerName') && resortData['ownerName'] != null) {
+      ownerName = resortData['ownerName'].toString();
+    }
+    if (ownerName.isEmpty && resortData.containsKey('fullName') && resortData['fullName'] != null) {
+      ownerName = resortData['fullName'].toString();
+    }
+
+    // Extract contact person name
+    String contactPerson = '';
+    if (resortData.containsKey('basicInfo') && resortData['basicInfo'] != null) {
+      final basicInfo = resortData['basicInfo'] as Map;
+      if (basicInfo.containsKey('contactPerson') && basicInfo['contactPerson'] != null) {
+        contactPerson = basicInfo['contactPerson'].toString();
+      }
+    }
+    if (contactPerson.isEmpty && resortData.containsKey('contactPerson') && resortData['contactPerson'] != null) {
+      contactPerson = resortData['contactPerson'].toString();
+    }
+
+    // Extract mobile number
+    String mobileNumber = '';
+    if (resortData.containsKey('basicInfo') && resortData['basicInfo'] != null) {
+      final basicInfo = resortData['basicInfo'] as Map;
+      if (basicInfo.containsKey('mobile') && basicInfo['mobile'] != null) {
+        mobileNumber = basicInfo['mobile'].toString();
+      }
+      if (mobileNumber.isEmpty && basicInfo.containsKey('phone') && basicInfo['phone'] != null) {
+        mobileNumber = basicInfo['phone'].toString();
+      }
+    }
+    if (mobileNumber.isEmpty && resortData.containsKey('mobile') && resortData['mobile'] != null) {
+      mobileNumber = resortData['mobile'].toString();
+    }
+    if (mobileNumber.isEmpty && resortData.containsKey('phone') && resortData['phone'] != null) {
+      mobileNumber = resortData['phone'].toString();
+    }
+
+    // Extract email
+    String email = '';
+    if (resortData.containsKey('basicInfo') && resortData['basicInfo'] != null) {
+      final basicInfo = resortData['basicInfo'] as Map;
+      if (basicInfo.containsKey('email') && basicInfo['email'] != null) {
+        email = basicInfo['email'].toString();
+      }
+    }
+    if (email.isEmpty && resortData.containsKey('email') && resortData['email'] != null) {
+      email = resortData['email'].toString();
+    }
+
+    // Extract address details
+    String address = '';
+    String area = '';
+    String city = '';
+    String state = '';
+    String pincode = '';
+    String nearestAirport = '';
+    String nearestRailway = '';
+
+    if (resortData.containsKey('location') && resortData['location'] != null) {
+      final location = resortData['location'] as Map;
+      if (location.containsKey('address') && location['address'] != null) {
+        address = location['address'].toString();
+      }
+      if (location.containsKey('area') && location['area'] != null) {
+        area = location['area'].toString();
+      }
+      if (location.containsKey('city') && location['city'] != null) {
+        city = location['city'].toString();
+      }
+      if (location.containsKey('state') && location['state'] != null) {
+        state = location['state'].toString();
+      }
+      if (location.containsKey('pincode') && location['pincode'] != null) {
+        pincode = location['pincode'].toString();
+      }
+      if (location.containsKey('nearestAirport') && location['nearestAirport'] != null) {
+        nearestAirport = location['nearestAirport'].toString();
+      }
+      if (location.containsKey('nearestRailway') && location['nearestRailway'] != null) {
+        nearestRailway = location['nearestRailway'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (address.isEmpty && resortData.containsKey('address') && resortData['address'] != null) {
+      address = resortData['address'].toString();
+    }
+    if (area.isEmpty && resortData.containsKey('area') && resortData['area'] != null) {
+      area = resortData['area'].toString();
+    }
+    if (city.isEmpty && resortData.containsKey('city') && resortData['city'] != null) {
+      city = resortData['city'].toString();
+    }
+    if (state.isEmpty && resortData.containsKey('state') && resortData['state'] != null) {
+      state = resortData['state'].toString();
+    }
+    if (pincode.isEmpty && resortData.containsKey('pincode') && resortData['pincode'] != null) {
+      pincode = resortData['pincode'].toString();
+    }
+    if (nearestAirport.isEmpty && resortData.containsKey('nearestAirport') && resortData['nearestAirport'] != null) {
+      nearestAirport = resortData['nearestAirport'].toString();
+    }
+    if (nearestRailway.isEmpty && resortData.containsKey('nearestRailway') && resortData['nearestRailway'] != null) {
+      nearestRailway = resortData['nearestRailway'].toString();
+    }
+
+    // Extract legal details
+    String gstNumber = '';
+    String tradeLicense = '';
+    String fssaiLicense = '';
+    String tourismApproval = '';
+
+    if (resortData.containsKey('legal') && resortData['legal'] != null) {
+      final legal = resortData['legal'] as Map;
+      if (legal.containsKey('gstNumber') && legal['gstNumber'] != null) {
+        gstNumber = legal['gstNumber'].toString();
+      }
+      if (legal.containsKey('tradeLicense') && legal['tradeLicense'] != null) {
+        tradeLicense = legal['tradeLicense'].toString();
+      }
+      if (legal.containsKey('fssaiLicense') && legal['fssaiLicense'] != null) {
+        fssaiLicense = legal['fssaiLicense'].toString();
+      }
+      if (legal.containsKey('tourismApproval') && legal['tourismApproval'] != null) {
+        tourismApproval = legal['tourismApproval'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (gstNumber.isEmpty && resortData.containsKey('gstNumber') && resortData['gstNumber'] != null) {
+      gstNumber = resortData['gstNumber'].toString();
+    }
+    if (tradeLicense.isEmpty && resortData.containsKey('tradeLicense') && resortData['tradeLicense'] != null) {
+      tradeLicense = resortData['tradeLicense'].toString();
+    }
+    if (fssaiLicense.isEmpty && resortData.containsKey('fssaiLicense') && resortData['fssaiLicense'] != null) {
+      fssaiLicense = resortData['fssaiLicense'].toString();
+    }
+    if (tourismApproval.isEmpty && resortData.containsKey('tourismApproval') && resortData['tourismApproval'] != null) {
+      tourismApproval = resortData['tourismApproval'].toString();
+    }
+
+    // Extract bank details
+    String accountHolderName = '';
+    String bankName = '';
+    String accountNumber = '';
+    String ifscCode = '';
+    String upiId = '';
+
+    if (resortData.containsKey('bank') && resortData['bank'] != null) {
+      final bank = resortData['bank'] as Map;
+      if (bank.containsKey('accountHolder') && bank['accountHolder'] != null) {
+        accountHolderName = bank['accountHolder'].toString();
+      }
+      if (bank.containsKey('bankName') && bank['bankName'] != null) {
+        bankName = bank['bankName'].toString();
+      }
+      if (bank.containsKey('accountNumber') && bank['accountNumber'] != null) {
+        accountNumber = bank['accountNumber'].toString();
+      }
+      if (bank.containsKey('ifscCode') && bank['ifscCode'] != null) {
+        ifscCode = bank['ifscCode'].toString();
+      }
+      if (bank.containsKey('upiId') && bank['upiId'] != null) {
+        upiId = bank['upiId'].toString();
+      }
+    }
+
+    // Fallback to direct keys
+    if (accountHolderName.isEmpty && resortData.containsKey('accountHolder') && resortData['accountHolder'] != null) {
+      accountHolderName = resortData['accountHolder'].toString();
+    }
+    if (bankName.isEmpty && resortData.containsKey('bankName') && resortData['bankName'] != null) {
+      bankName = resortData['bankName'].toString();
+    }
+    if (accountNumber.isEmpty && resortData.containsKey('accountNumber') && resortData['accountNumber'] != null) {
+      accountNumber = resortData['accountNumber'].toString();
+    }
+    if (ifscCode.isEmpty && resortData.containsKey('ifscCode') && resortData['ifscCode'] != null) {
+      ifscCode = resortData['ifscCode'].toString();
+    }
+    if (upiId.isEmpty && resortData.containsKey('upiId') && resortData['upiId'] != null) {
+      upiId = resortData['upiId'].toString();
+    }
+
+    // Extract owner photo info
+    Map<String, dynamic> ownerPhotoInfo = {};
+    if (resortData.containsKey('basicInfo') && resortData['basicInfo'] != null) {
+      final basicInfo = resortData['basicInfo'] as Map;
+      if (basicInfo.containsKey('ownerPhoto') && basicInfo['ownerPhoto'] != null) {
+        ownerPhotoInfo = Map<String, dynamic>.from(basicInfo['ownerPhoto'] as Map);
+      }
+    }
+    if (ownerPhotoInfo.isEmpty && resortData.containsKey('ownerPhoto') && resortData['ownerPhoto'] != null) {
+      ownerPhotoInfo = Map<String, dynamic>.from(resortData['ownerPhoto'] as Map);
+    }
+
+    print('=== RESORT DATA EXTRACTED ===');
+    print('Resort Name: $resortName');
+    print('Owner Name: $ownerName');
+    print('Contact Person: $contactPerson');
+    print('Mobile: $mobileNumber');
+    print('Email: $email');
+    print('Address: $address');
+    print('Area: $area');
+    print('City: $city');
+    print('State: $state');
+    print('Pincode: $pincode');
+    print('Nearest Airport: $nearestAirport');
+    print('Nearest Railway: $nearestRailway');
+    print('GST Number: $gstNumber');
+    print('Trade License: $tradeLicense');
+    print('FSSAI License: $fssaiLicense');
+    print('Tourism Approval: $tourismApproval');
+    print('Account Holder: $accountHolderName');
+    print('Bank Name: $bankName');
+
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ResortRegistrationDetailsScreen(
+        builder: (context) => ResortBusinessDashboard(
+          resortName: resortName,
+          ownerName: ownerName,
+          contactPerson: contactPerson,
+          mobileNumber: mobileNumber,
+          email: email,
+          address: address,
+          area: area,
+          city: city,
+          state: state,
+          pincode: pincode,
+          nearestAirport: nearestAirport,
+          nearestRailway: nearestRailway,
+          gstNumber: gstNumber,
+          tradeLicense: tradeLicense,
+          fssaiLicense: fssaiLicense,
+          tourismApproval: tourismApproval,
+          accountHolderName: accountHolderName,
+          bankName: bankName,
+          accountNumber: accountNumber,
+          ifscCode: ifscCode,
+          upiId: upiId,
+          ownerPhotoInfo: ownerPhotoInfo,
           registrationData: resortData,
+          // Pass the complete user data for proper navigation back
+          // completeUserData: _userData,
+          // userEmail: widget.userEmail,
         ),
       ),
     );
   }
-
   void _navigateToHotelDetails(Map<String, dynamic> hotelData, String category) {
     print('Navigating to hotel details - Category: "$category"');
 
@@ -9744,7 +10139,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             declarationDate: declarationDate,
             declarationAccepted: declarationAccepted,
             hasDigitalSignature: hasDigitalSignature,
-            registrationData: hotelData,
+            registrationData: hotelData, email: '',
           ),
         ),
       );
@@ -9992,7 +10387,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
             banquetHallCapacity: banquetHallCapacity,
             globalEventHosting: globalEventHosting,
             luxuryLinenBrand: luxuryLinenBrand,
-            registrationData: hotelData,
+            registrationData: hotelData, email: '',
           ),
         ),
       );
@@ -10919,6 +11314,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
     return 'Business Name Not Set';
   }
 }
+
 
 
 class VideoPlayerWidget extends StatefulWidget {
@@ -36018,7 +36414,7 @@ class _VillaListScreenState extends State<VillaListScreen> {
 
 
 
-  // This method now accepts a parameter
+
   // void _extractVillas(Map<String, dynamic> userData) {
   //   try {
   //     print('=== EXTRACTING VILLAS ===');
@@ -36036,17 +36432,29 @@ class _VillaListScreenState extends State<VillaListScreen> {
   //         if (villa is Map) {
   //           Map<String, dynamic> villaMap = Map<String, dynamic>.from(villa);
   //
+  //           // TRY TO GET ID FROM MULTIPLE LOCATIONS
+  //           String villaId = '';
   //
+  //           // Check top-level id
+  //           if (villaMap.containsKey('id') && villaMap['id'] != null) {
+  //             villaId = villaMap['id'].toString();
+  //           }
+  //           // Check in basicInfo
+  //           else if (villaMap.containsKey('basicInfo') && villaMap['basicInfo'] is Map) {
+  //             final basicInfo = villaMap['basicInfo'] as Map;
+  //             if (basicInfo.containsKey('id') && basicInfo['id'] != null) {
+  //               villaId = basicInfo['id'].toString();
+  //             }
+  //           }
   //
-  //
-  //
-  //
-  //
+  //           print('Found villa ID: "$villaId"');
   //
   //           // Skip if this is the villa that was removed
-  //           String villaId = villaMap['id']?.toString() ?? '';
-  //           if (widget.removedVillaId != null && villaId == widget.removedVillaId) {
-  //             print('Skipping removed villa: ${villaMap['basicInfo']?['villaName'] ?? villaMap['villaName']}');
+  //           if (widget.removedVillaId != null &&
+  //               widget.removedVillaId!.isNotEmpty &&
+  //               villaId.isNotEmpty &&
+  //               villaId == widget.removedVillaId) {
+  //             print('SKIPPING removed villa with ID: $villaId');
   //             continue;
   //           }
   //
@@ -36094,44 +36502,6 @@ class _VillaListScreenState extends State<VillaListScreen> {
   //       }
   //     }
   //
-  //     // If no villas list, check for single villa data (but only if not the removed one)
-  //     if (_registeredVillas.isEmpty && widget.removedVillaId == null) {
-  //       String villaName = '';
-  //       if (userData.containsKey('basicInfo') && userData['basicInfo'] is Map) {
-  //         Map<String, dynamic> basicInfo = userData['basicInfo'];
-  //         if (basicInfo.containsKey('villaName') && basicInfo['villaName'].toString().isNotEmpty) {
-  //           villaName = basicInfo['villaName'].toString();
-  //         }
-  //       } else if (userData.containsKey('villaName') && userData['villaName'].toString().isNotEmpty) {
-  //         villaName = userData['villaName'].toString();
-  //       }
-  //
-  //       if (villaName.isNotEmpty) {
-  //         print('Found single villa with name: $villaName');
-  //
-  //         String propertyType = '';
-  //         if (userData.containsKey('propertyDetails') && userData['propertyDetails'] is Map) {
-  //           Map<String, dynamic> propertyDetails = userData['propertyDetails'];
-  //           if (propertyDetails.containsKey('propertyType') && propertyDetails['propertyType'].toString().isNotEmpty) {
-  //             propertyType = propertyDetails['propertyType'].toString();
-  //           }
-  //         } else if (userData.containsKey('propertyTypeValue') && userData['propertyTypeValue'].toString().isNotEmpty) {
-  //           propertyType = userData['propertyTypeValue'].toString();
-  //         } else {
-  //           propertyType = 'Villa';
-  //         }
-  //
-  //         _registeredVillas.add({
-  //           'id': userData['id']?.toString() ?? 'VILLA_${DateTime.now().millisecondsSinceEpoch}',
-  //           'name': villaName,
-  //           'propertyType': propertyType,
-  //           'data': Map<String, dynamic>.from(userData),
-  //           'registrationDate': userData['registeredAt']?.toString() ??
-  //               DateTime.now().toIso8601String(),
-  //         });
-  //       }
-  //     }
-  //
   //     print('Total villas extracted: ${_registeredVillas.length}');
   //     for (var villa in _registeredVillas) {
   //       print('Villa: ${villa['name']}, ID: ${villa['id']}');
@@ -36140,6 +36510,7 @@ class _VillaListScreenState extends State<VillaListScreen> {
   //     print('Error extracting villas: $e');
   //   }
   // }
+
   void _extractVillas(Map<String, dynamic> userData) {
     try {
       print('=== EXTRACTING VILLAS ===');
@@ -36152,6 +36523,8 @@ class _VillaListScreenState extends State<VillaListScreen> {
       if (userData.containsKey('villlas') && userData['villlas'] is List) {
         List<dynamic> villasList = userData['villlas'] as List;
         print('Found villas list with ${villasList.length} villas');
+
+        List<Map<String, dynamic>> tempVillas = [];
 
         for (var villa in villasList) {
           if (villa is Map) {
@@ -36213,28 +36586,85 @@ class _VillaListScreenState extends State<VillaListScreen> {
               propertyType = 'Villa';
             }
 
-            print('Adding villa: $villaName ($propertyType) with ID: $villaId');
+            // Get registration date for sorting
+            String registrationDate = villaMap['registeredAt']?.toString() ??
+                villaMap['registrationDate']?.toString() ??
+                DateTime.now().toIso8601String();
 
-            _registeredVillas.add({
+            print('Adding villa: $villaName ($propertyType) with ID: $villaId, Date: $registrationDate');
+
+            tempVillas.add({
               'id': villaId,
               'name': villaName,
               'propertyType': propertyType,
               'data': villaMap,
-              'registrationDate': villaMap['registeredAt']?.toString() ??
-                  DateTime.now().toIso8601String(),
+              'registrationDate': registrationDate,
             });
           }
+        }
+
+        // Sort villas by registration date in descending order (newest first)
+        tempVillas.sort((a, b) {
+          try {
+            DateTime dateA = DateTime.parse(a['registrationDate']);
+            DateTime dateB = DateTime.parse(b['registrationDate']);
+            return dateB.compareTo(dateA); // Descending order (newest first)
+          } catch (e) {
+            return 0;
+          }
+        });
+
+        _registeredVillas = tempVillas;
+      }
+
+      // If no villas list, check for single villa data (but only if not the removed one)
+      if (_registeredVillas.isEmpty && widget.removedVillaId == null) {
+        String villaName = '';
+        if (userData.containsKey('basicInfo') && userData['basicInfo'] is Map) {
+          Map<String, dynamic> basicInfo = userData['basicInfo'];
+          if (basicInfo.containsKey('villaName') && basicInfo['villaName'].toString().isNotEmpty) {
+            villaName = basicInfo['villaName'].toString();
+          }
+        } else if (userData.containsKey('villaName') && userData['villaName'].toString().isNotEmpty) {
+          villaName = userData['villaName'].toString();
+        }
+
+        if (villaName.isNotEmpty) {
+          print('Found single villa with name: $villaName');
+
+          String propertyType = '';
+          if (userData.containsKey('propertyDetails') && userData['propertyDetails'] is Map) {
+            Map<String, dynamic> propertyDetails = userData['propertyDetails'];
+            if (propertyDetails.containsKey('propertyType') && propertyDetails['propertyType'].toString().isNotEmpty) {
+              propertyType = propertyDetails['propertyType'].toString();
+            }
+          } else if (userData.containsKey('propertyTypeValue') && userData['propertyTypeValue'].toString().isNotEmpty) {
+            propertyType = userData['propertyTypeValue'].toString();
+          } else {
+            propertyType = 'Villa';
+          }
+
+          _registeredVillas.add({
+            'id': userData['id']?.toString() ?? 'VILLA_${DateTime.now().millisecondsSinceEpoch}',
+            'name': villaName,
+            'propertyType': propertyType,
+            'data': Map<String, dynamic>.from(userData),
+            'registrationDate': userData['registeredAt']?.toString() ??
+                DateTime.now().toIso8601String(),
+          });
         }
       }
 
       print('Total villas extracted: ${_registeredVillas.length}');
       for (var villa in _registeredVillas) {
-        print('Villa: ${villa['name']}, ID: ${villa['id']}');
+        print('Villa: ${villa['name']}, ID: ${villa['id']}, Date: ${villa['registrationDate']}');
       }
     } catch (e) {
       print('Error extracting villas: $e');
     }
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36602,6 +37032,89 @@ class _ResortListScreenState extends State<ResortListScreen> {
 
 
 
+  // void _extractResorts(Map<String, dynamic> userData) {
+  //   try {
+  //     print('=== EXTRACTING RESORTS ===');
+  //     print('User data keys: ${userData.keys.toList()}');
+  //     print('Removed Resort ID: ${widget.removedResortId}');
+  //
+  //     _registeredResorts.clear();
+  //
+  //     if (userData.containsKey('resorts') && userData['resorts'] is List) {
+  //       List<dynamic> resortsList = userData['resorts'] as List;
+  //       print('Found resorts list with ${resortsList.length} resorts');
+  //
+  //       for (var resort in resortsList) {
+  //         if (resort is Map) {
+  //           Map<String, dynamic> resortMap = Map<String, dynamic>.from(resort);
+  //
+  //           String resortId = '';
+  //           if (resortMap.containsKey('id') && resortMap['id'] != null) {
+  //             resortId = resortMap['id'].toString();
+  //           } else if (resortMap.containsKey('basicInfo') && resortMap['basicInfo'] is Map) {
+  //             final basicInfo = resortMap['basicInfo'] as Map;
+  //             if (basicInfo.containsKey('id') && basicInfo['id'] != null) {
+  //               resortId = basicInfo['id'].toString();
+  //             }
+  //           }
+  //
+  //           print('Found resort ID: "$resortId"');
+  //
+  //           if (widget.removedResortId != null &&
+  //               widget.removedResortId!.isNotEmpty &&
+  //               resortId.isNotEmpty &&
+  //               resortId == widget.removedResortId) {
+  //             print('SKIPPING removed resort with ID: $resortId');
+  //             continue;
+  //           }
+  //
+  //           String resortName = '';
+  //           if (resortMap.containsKey('basicInfo') && resortMap['basicInfo'] is Map) {
+  //             Map<String, dynamic> basicInfo = resortMap['basicInfo'];
+  //             if (basicInfo.containsKey('resortName') && basicInfo['resortName'].toString().isNotEmpty) {
+  //               resortName = basicInfo['resortName'].toString();
+  //             }
+  //           } else if (resortMap.containsKey('resortName') && resortMap['resortName'].toString().isNotEmpty) {
+  //             resortName = resortMap['resortName'].toString();
+  //           } else {
+  //             resortName = 'Unknown Resort';
+  //           }
+  //
+  //           String resortCategory = '';
+  //           if (resortMap.containsKey('propertyDetails') && resortMap['propertyDetails'] is Map) {
+  //             Map<String, dynamic> propertyDetails = resortMap['propertyDetails'];
+  //             if (propertyDetails.containsKey('resortCategory') && propertyDetails['resortCategory'].toString().isNotEmpty) {
+  //               resortCategory = propertyDetails['resortCategory'].toString();
+  //             }
+  //           } else if (resortMap.containsKey('resortCategory') && resortMap['resortCategory'].toString().isNotEmpty) {
+  //             resortCategory = resortMap['resortCategory'].toString();
+  //           } else {
+  //             resortCategory = 'Resort';
+  //           }
+  //
+  //           print('Adding resort: $resortName ($resortCategory) with ID: $resortId');
+  //
+  //           _registeredResorts.add({
+  //             'id': resortId,
+  //             'name': resortName,
+  //             'category': resortCategory,
+  //             'data': resortMap,
+  //             'registrationDate': resortMap['registeredAt']?.toString() ??
+  //                 DateTime.now().toIso8601String(),
+  //           });
+  //         }
+  //       }
+  //     }
+  //
+  //     print('Total resorts extracted: ${_registeredResorts.length}');
+  //     for (var resort in _registeredResorts) {
+  //       print('Resort: ${resort['name']}, ID: ${resort['id']}');
+  //     }
+  //   } catch (e) {
+  //     print('Error extracting resorts: $e');
+  //   }
+  // }
+
   void _extractResorts(Map<String, dynamic> userData) {
     try {
       print('=== EXTRACTING RESORTS ===');
@@ -36613,6 +37126,8 @@ class _ResortListScreenState extends State<ResortListScreen> {
       if (userData.containsKey('resorts') && userData['resorts'] is List) {
         List<dynamic> resortsList = userData['resorts'] as List;
         print('Found resorts list with ${resortsList.length} resorts');
+
+        List<Map<String, dynamic>> tempResorts = [];
 
         for (var resort in resortsList) {
           if (resort is Map) {
@@ -36662,23 +37177,40 @@ class _ResortListScreenState extends State<ResortListScreen> {
               resortCategory = 'Resort';
             }
 
-            print('Adding resort: $resortName ($resortCategory) with ID: $resortId');
+            // Get registration date for sorting
+            String registrationDate = resortMap['registeredAt']?.toString() ??
+                resortMap['registrationDate']?.toString() ??
+                DateTime.now().toIso8601String();
 
-            _registeredResorts.add({
+            print('Adding resort: $resortName ($resortCategory) with ID: $resortId, Date: $registrationDate');
+
+            tempResorts.add({
               'id': resortId,
               'name': resortName,
               'category': resortCategory,
               'data': resortMap,
-              'registrationDate': resortMap['registeredAt']?.toString() ??
-                  DateTime.now().toIso8601String(),
+              'registrationDate': registrationDate,
             });
           }
         }
+
+        // Sort resorts by registration date in descending order (newest first)
+        tempResorts.sort((a, b) {
+          try {
+            DateTime dateA = DateTime.parse(a['registrationDate']);
+            DateTime dateB = DateTime.parse(b['registrationDate']);
+            return dateB.compareTo(dateA); // Descending order (newest first)
+          } catch (e) {
+            return 0;
+          }
+        });
+
+        _registeredResorts = tempResorts;
       }
 
       print('Total resorts extracted: ${_registeredResorts.length}');
       for (var resort in _registeredResorts) {
-        print('Resort: ${resort['name']}, ID: ${resort['id']}');
+        print('Resort: ${resort['name']}, ID: ${resort['id']}, Date: ${resort['registrationDate']}');
       }
     } catch (e) {
       print('Error extracting resorts: $e');
@@ -37010,7 +37542,119 @@ class _ApartmentListScreenState extends State<ApartmentListScreen> {
     }
   }
 
-  void _extractApartments(Map<String, dynamic> userData) {
+  // void _extractApartments(Map<String, dynamic> userData) {
+  //   try {
+  //     print('=== EXTRACTING APARTMENTS ===');
+  //     print('User data keys: ${userData.keys.toList()}');
+  //     print('Removed Apartment ID: ${widget.removedApartmentId}');
+  //
+  //     _registeredApartments.clear();
+  //
+  //     // Check for apartments list (multiple apartments)
+  //     if (userData.containsKey('apartments') && userData['apartments'] is List) {
+  //       List<dynamic> apartmentsList = userData['apartments'] as List;
+  //       print('Found apartments list with ${apartmentsList.length} apartments');
+  //
+  //       for (var apartment in apartmentsList) {
+  //         if (apartment is Map) {
+  //           Map<String, dynamic> apartmentMap = Map<String, dynamic>.from(apartment);
+  //
+  //           // Skip if this is the apartment that was removed
+  //           String apartmentId = apartmentMap['id']?.toString() ?? '';
+  //           if (widget.removedApartmentId != null && apartmentId == widget.removedApartmentId) {
+  //             print('Skipping removed apartment');
+  //             continue;
+  //           }
+  //
+  //           // Get apartment name
+  //           String apartmentName = '';
+  //           if (apartmentMap.containsKey('basicInfo') && apartmentMap['basicInfo'] is Map) {
+  //             Map<String, dynamic> basicInfo = apartmentMap['basicInfo'];
+  //             if (basicInfo.containsKey('apartmentName') && basicInfo['apartmentName'].toString().isNotEmpty) {
+  //               apartmentName = basicInfo['apartmentName'].toString();
+  //             }
+  //           } else if (apartmentMap.containsKey('apartmentName') && apartmentMap['apartmentName'].toString().isNotEmpty) {
+  //             apartmentName = apartmentMap['apartmentName'].toString();
+  //           } else if (apartmentMap.containsKey('propertyName') && apartmentMap['propertyName'].toString().isNotEmpty) {
+  //             apartmentName = apartmentMap['propertyName'].toString();
+  //           } else {
+  //             apartmentName = 'Unknown Apartment';
+  //           }
+  //
+  //           // Get property type
+  //           String propertyType = '';
+  //           if (apartmentMap.containsKey('propertyDetails') && apartmentMap['propertyDetails'] is Map) {
+  //             Map<String, dynamic> propertyDetails = apartmentMap['propertyDetails'];
+  //             if (propertyDetails.containsKey('propertyType') && propertyDetails['propertyType'].toString().isNotEmpty) {
+  //               propertyType = propertyDetails['propertyType'].toString();
+  //             }
+  //           } else if (apartmentMap.containsKey('propertyTypeValue') && apartmentMap['propertyTypeValue'].toString().isNotEmpty) {
+  //             propertyType = apartmentMap['propertyTypeValue'].toString();
+  //           } else if (apartmentMap.containsKey('propertyType') && apartmentMap['propertyType'].toString().isNotEmpty) {
+  //             propertyType = apartmentMap['propertyType'].toString();
+  //           } else {
+  //             propertyType = 'Apartment';
+  //           }
+  //
+  //           print('Adding apartment: $apartmentName ($propertyType) with ID: $apartmentId');
+  //
+  //           _registeredApartments.add({
+  //             'id': apartmentId,
+  //             'name': apartmentName,
+  //             'propertyType': propertyType,
+  //             'data': apartmentMap,
+  //             'registrationDate': apartmentMap['registeredAt']?.toString() ??
+  //                 DateTime.now().toIso8601String(),
+  //           });
+  //         }
+  //       }
+  //     }
+  //
+  //     // If no apartments list, check for single apartment data
+  //     if (_registeredApartments.isEmpty && widget.removedApartmentId == null) {
+  //       String apartmentName = '';
+  //       if (userData.containsKey('basicInfo') && userData['basicInfo'] is Map) {
+  //         Map<String, dynamic> basicInfo = userData['basicInfo'];
+  //         if (basicInfo.containsKey('apartmentName') && basicInfo['apartmentName'].toString().isNotEmpty) {
+  //           apartmentName = basicInfo['apartmentName'].toString();
+  //         }
+  //       } else if (userData.containsKey('apartmentName') && userData['apartmentName'].toString().isNotEmpty) {
+  //         apartmentName = userData['apartmentName'].toString();
+  //       }
+  //
+  //       if (apartmentName.isNotEmpty) {
+  //         print('Found single apartment with name: $apartmentName');
+  //
+  //         String propertyType = '';
+  //         if (userData.containsKey('propertyDetails') && userData['propertyDetails'] is Map) {
+  //           Map<String, dynamic> propertyDetails = userData['propertyDetails'];
+  //           if (propertyDetails.containsKey('propertyType') && propertyDetails['propertyType'].toString().isNotEmpty) {
+  //             propertyType = propertyDetails['propertyType'].toString();
+  //           }
+  //         } else if (userData.containsKey('propertyTypeValue') && userData['propertyTypeValue'].toString().isNotEmpty) {
+  //           propertyType = userData['propertyTypeValue'].toString();
+  //         } else {
+  //           propertyType = 'Apartment';
+  //         }
+  //
+  //         _registeredApartments.add({
+  //           'id': userData['id']?.toString() ?? 'APT_${DateTime.now().millisecondsSinceEpoch}',
+  //           'name': apartmentName,
+  //           'propertyType': propertyType,
+  //           'data': Map<String, dynamic>.from(userData),
+  //           'registrationDate': userData['registeredAt']?.toString() ??
+  //               DateTime.now().toIso8601String(),
+  //         });
+  //       }
+  //     }
+  //
+  //     print('Total apartments extracted: ${_registeredApartments.length}');
+  //   } catch (e) {
+  //     print('Error extracting apartments: $e');
+  //   }
+  // }
+
+    void _extractApartments(Map<String, dynamic> userData) {
     try {
       print('=== EXTRACTING APARTMENTS ===');
       print('User data keys: ${userData.keys.toList()}');
@@ -37023,14 +37667,33 @@ class _ApartmentListScreenState extends State<ApartmentListScreen> {
         List<dynamic> apartmentsList = userData['apartments'] as List;
         print('Found apartments list with ${apartmentsList.length} apartments');
 
+        List<Map<String, dynamic>> tempApartments = [];
+
         for (var apartment in apartmentsList) {
           if (apartment is Map) {
             Map<String, dynamic> apartmentMap = Map<String, dynamic>.from(apartment);
 
+            // Get apartment ID from multiple locations
+            String apartmentId = '';
+
+            // Check top-level id
+            if (apartmentMap.containsKey('id') && apartmentMap['id'] != null) {
+              apartmentId = apartmentMap['id'].toString();
+            }
+            // Check in basicInfo
+            else if (apartmentMap.containsKey('basicInfo') && apartmentMap['basicInfo'] is Map) {
+              final basicInfo = apartmentMap['basicInfo'] as Map;
+              if (basicInfo.containsKey('id') && basicInfo['id'] != null) {
+                apartmentId = basicInfo['id'].toString();
+              }
+            }
+
             // Skip if this is the apartment that was removed
-            String apartmentId = apartmentMap['id']?.toString() ?? '';
-            if (widget.removedApartmentId != null && apartmentId == widget.removedApartmentId) {
-              print('Skipping removed apartment');
+            if (widget.removedApartmentId != null &&
+                widget.removedApartmentId!.isNotEmpty &&
+                apartmentId.isNotEmpty &&
+                apartmentId == widget.removedApartmentId) {
+              print('Skipping removed apartment with ID: $apartmentId');
               continue;
             }
 
@@ -37064,18 +37727,35 @@ class _ApartmentListScreenState extends State<ApartmentListScreen> {
               propertyType = 'Apartment';
             }
 
-            print('Adding apartment: $apartmentName ($propertyType) with ID: $apartmentId');
+            // Get registration date for sorting
+            String registrationDate = apartmentMap['registeredAt']?.toString() ??
+                apartmentMap['registrationDate']?.toString() ??
+                DateTime.now().toIso8601String();
 
-            _registeredApartments.add({
+            print('Adding apartment: $apartmentName ($propertyType) with ID: $apartmentId, Date: $registrationDate');
+
+            tempApartments.add({
               'id': apartmentId,
               'name': apartmentName,
               'propertyType': propertyType,
               'data': apartmentMap,
-              'registrationDate': apartmentMap['registeredAt']?.toString() ??
-                  DateTime.now().toIso8601String(),
+              'registrationDate': registrationDate,
             });
           }
         }
+
+        // Sort apartments by registration date in descending order (newest first)
+        tempApartments.sort((a, b) {
+          try {
+            DateTime dateA = DateTime.parse(a['registrationDate']);
+            DateTime dateB = DateTime.parse(b['registrationDate']);
+            return dateB.compareTo(dateA); // Descending order (newest first)
+          } catch (e) {
+            return 0;
+          }
+        });
+
+        _registeredApartments = tempApartments;
       }
 
       // If no apartments list, check for single apartment data
@@ -37117,6 +37797,9 @@ class _ApartmentListScreenState extends State<ApartmentListScreen> {
       }
 
       print('Total apartments extracted: ${_registeredApartments.length}');
+      for (var apartment in _registeredApartments) {
+        print('Apartment: ${apartment['name']}, ID: ${apartment['id']}, Date: ${apartment['registrationDate']}');
+      }
     } catch (e) {
       print('Error extracting apartments: $e');
     }
@@ -39608,12 +40291,60 @@ class _TwoStarHotelDashboardState extends State<TwoStarHotelDashboard> {
             SizedBox(height: 24),
             _buildPaymentOverview(),
             SizedBox(height: 24),
+            _buildGoToDashboardButton(),
+            SizedBox(height: 24),
+
           ],
         ),
       ),
     );
   }
+  void _navigateToOwnerDashboard() {
 
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false, // This removes all previous routes
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
 
   String? _extractHotelPhotoPath(Map<String, dynamic> registrationData) {
@@ -42211,12 +42942,59 @@ class _ThreeStarHotelDashboardState extends State<ThreeStarHotelDashboard> {
             SizedBox(height: 24),
             _buildPaymentOverview(),
             SizedBox(height: 24),
+            _buildGoToDashboardButton(),
+            SizedBox(height: 24),
           ],
         ),
       ),
     );
   }
+  void _navigateToOwnerDashboard() {
 
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false, // This removes all previous routes
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   Widget _buildHotelPhotoHeader() {
     String? hotelPhotoPath = _extractHotelPhotoPath(widget.registrationData);
 
@@ -44902,12 +45680,59 @@ class _FourStarHotelDashboardState extends State<FourStarHotelDashboard> {
             SizedBox(height: 24),
             _buildPaymentOverview(),
             SizedBox(height: 24),
+            _buildGoToDashboardButton(),
+            SizedBox(height: 24),
           ],
         ),
       ),
     );
   }
+  void _navigateToOwnerDashboard() {
 
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false, // This removes all previous routes
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
 
   String? _extractHotelPhotoPath(Map<String, dynamic> registrationData) {
@@ -47478,13 +48303,60 @@ class _FiveStarHotelDashboardState extends State<FiveStarHotelDashboard> {
             SizedBox(height: 24),
             _buildPaymentOverview(),
             SizedBox(height: 24),
+            _buildGoToDashboardButton(),
+            SizedBox(height: 24),
           ],
         ),
       ),
     );
   }
 
+  void _navigateToOwnerDashboard() {
 
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false, // This removes all previous routes
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
 
 
@@ -49957,6 +50829,8 @@ class _SixStarHotelDashboardState extends State<SixStarHotelDashboard> {
       ],
     );
   }
+
+
   Widget _buildBody(double w, double h, bool isTablet) {
     return RefreshIndicator(
       onRefresh: () async {
@@ -49982,6 +50856,55 @@ class _SixStarHotelDashboardState extends State<SixStarHotelDashboard> {
             SizedBox(height: 24),
             _buildPaymentOverview(),
             SizedBox(height: 24),
+            _buildGoToDashboardButton(),
+            SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _navigateToOwnerDashboard() {
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false, // This removes all previous routes
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ),
@@ -52184,7 +53107,7 @@ class _SixStarHotelDashboardState extends State<SixStarHotelDashboard> {
 
 class SevenStarHotelDashboard extends StatefulWidget {
   final Map<String, dynamic> registrationData;
-
+  final String email;
   // Basic Information
   final String estateName;
   final String hotelType;
@@ -52252,7 +53175,7 @@ class SevenStarHotelDashboard extends StatefulWidget {
   const SevenStarHotelDashboard({
     Key? key,
     required this.registrationData,
-
+    required this.email,
     // Basic Information
     required this.estateName,
     this.hotelType = '',
@@ -52667,11 +53590,61 @@ class _SevenStarHotelDashboardState extends State<SevenStarHotelDashboard> {
             SizedBox(height: 24),
             _buildPaymentOverview(),
             SizedBox(height: 24),
+            _buildGoToDashboardButton(),
+            SizedBox(height: 24),
           ],
         ),
       ),
     );
   }
+
+  void _navigateToOwnerDashboard() {
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false, // This removes all previous routes
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildHotelPhotoHeader() {
     String? hotelPhotoPath = _extractHotelPhotoPath(widget.registrationData);
@@ -54854,6 +55827,7 @@ class _SevenStarHotelDashboardState extends State<SevenStarHotelDashboard> {
 
 class GlobalEliteLuxuryHotelDashboard extends StatefulWidget {
   final Map<String, dynamic> registrationData;
+  final String email;
 
   // Basic Information
   final String propertyName;
@@ -54932,7 +55906,7 @@ class GlobalEliteLuxuryHotelDashboard extends StatefulWidget {
   const GlobalEliteLuxuryHotelDashboard({
     Key? key,
     required this.registrationData,
-
+    required this.email,
     // Basic Information
     required this.propertyName,
     this.hotelType = '',
@@ -55362,6 +56336,55 @@ class _GlobalEliteLuxuryHotelDashboardState extends State<GlobalEliteLuxuryHotel
             SizedBox(height: 24),
             _buildPaymentOverview(),
             SizedBox(height: 24),
+            _buildGoToDashboardButton(),
+            SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _navigateToOwnerDashboard() {
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OwnerDashboardScreen(
+          userData: widget.registrationData,
+          userEmail: widget.email,
+        ),
+      ),
+          (route) => false, // This removes all previous routes
+    );
+  }
+
+  Widget _buildGoToDashboardButton() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        onPressed: _navigateToOwnerDashboard,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.arrow_back_ios_new, size: 20),
+            SizedBox(width: 10),
+            Text(
+              'Go to Dashboard',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
       ),
